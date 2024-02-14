@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+import sys, subprocess
+
+# disable cache usage must be before any local imports
+sys.dont_write_bytecode = True
+
+from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.uic import loadUi
+from PyQt6.QtCore import Qt, QTimer, QEvent
+
+import linuxcnc
+
+class flexgui(QMainWindow):
+	def __init__(self):
+		super().__init__()
+
+		# check to see if linuxcnc is running
+		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
+		if 'linuxcnc' not in cp.stdout:
+			print('emc not running')
+			sys.exit()
+
+		# connect to linuxcnc
+		self.status = linuxcnc.stat()
+		self.status.poll()
+		self.command = linuxcnc.command()
+		self.error = linuxcnc.error_channel()
+
+		# get connection to the ini file
+		self.inifile = False
+		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
+			if sys.argv[i].endswith('.ini'):
+				self.inifile = linuxcnc.ini(sys.argv[i])
+				break
+		if not self.inifile:
+			self.inifile = linuxcnc.ini(self.status.ini_filename)
+
+	# get ini values if any
+		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
+		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
+		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
+		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
+		print(f'gui_file {gui_file}')
+		print(f'input_type {input_type}')
+		print(f'qss_file {qss_file}')
+		print(f'screen_size {screen_size}')
+
+		self.show()
+
+
+app = QApplication(sys.argv)
+gui = flexgui()
+sys.exit(app.exec())
