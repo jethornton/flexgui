@@ -1,0 +1,4 @@
+docs/build
+debian/.debhelper
+debian/flexgui
+debian/debhelper-build-stamp
