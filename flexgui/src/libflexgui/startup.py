@@ -38,3 +38,15 @@ def status_labels(parent):
 		else:
 			setattr(parent, f'{item}_lb_exists', False)
 
+	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
+
+	for i in range(9):
+		for item in axis_items:
+			if parent.findChild(QLabel, f'axis_{i}_{item}_lb'):
+				setattr(parent, f'axis_{i}_{item}_lb_exists', True)
+			else:
+				setattr(parent, f'axis_{i}_{item}_lb_exists', False)
+
+
+
+
