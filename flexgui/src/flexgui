@@ -5,11 +5,18 @@ import os, sys, subprocess
 # disable cache usage must be before any local imports
 sys.dont_write_bytecode = True
 
+from functools import partial
+
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import Qt, QTimer, QEvent
 
 import linuxcnc
+
+from libflexgui import startup
+from libflexgui import status
+from libflexgui import connections
+from libflexgui import commands
 
 class flexgui(QMainWindow):
 	def __init__(self):
@@ -83,8 +90,26 @@ class flexgui(QMainWindow):
 			with open(stylesheet,'r') as fh:
 				self.setStyleSheet(fh.read())
 
+		# set the inital screen size
+		if screen_size:
+			if screen_size.lower() == 'minimized':
+				self.showMinimized()
+			if screen_size.lower() == 'normal':
+				self.showNormal()
+			if screen_size.lower() == 'maximized':
+				self.showMaximized()
+			elif screen_size.lower() == 'full':
+				self.showFullScreen()
+		else:
+			self.show()
 
-		self.show()
+		startup.postgui_hal(self)
+
+		# setup and start the status update timer every 0.1 second
+		self.timer = QTimer()
+		self.timer.timeout.connect(partial(status.update, self))
+		self.timer.start(10) # milliseconds
+
 
 
 app = QApplication(sys.argv)
