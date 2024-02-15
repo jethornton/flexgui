@@ -8,3 +8,9 @@ Flex GUI
    description
    install
    ini
+   designer
+   labels
+   controls
+   menu
+   hal
+   style
