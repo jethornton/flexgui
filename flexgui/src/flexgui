@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, subprocess
+import os, sys, subprocess
 
 # disable cache usage must be before any local imports
 sys.dont_write_bytecode = True
@@ -21,6 +21,17 @@ class flexgui(QMainWindow):
 			print('emc not running')
 			sys.exit()
 
+		# get the path to the executable
+		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+		# set the library path
+		if self.path == '/usr/bin':
+			self.lib_path = '/usr/lib/libflexgui'
+			self.gui_path = '/usr/lib/libflexgui'
+		else:
+			self.lib_path = os.path.join(self.path, 'libflexgui')
+			self.gui_path = self.path
+
 		# connect to linuxcnc
 		self.status = linuxcnc.stat()
 		self.status.poll()
@@ -33,10 +44,10 @@ class flexgui(QMainWindow):
 			if sys.argv[i].endswith('.ini'):
 				self.inifile = linuxcnc.ini(sys.argv[i])
 				break
-		if not self.inifile:
+		if not self.inifile: # otherwise it's running with axis for testing
 			self.inifile = linuxcnc.ini(self.status.ini_filename)
 
-	# get ini values if any
+		# get ini values if any
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
@@ -45,6 +56,33 @@ class flexgui(QMainWindow):
 		print(f'input_type {input_type}')
 		print(f'qss_file {qss_file}')
 		print(f'screen_size {screen_size}')
+
+		# find and load the gui
+		if gui_file: # gui is in the ini file
+			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
+			if not os.path.isfile(gui_path): # gui not found
+				gui_path = os.path.join(self.gui_path, 'flex.ui')
+		else: # no gui specified
+			gui_path = os.path.join(self.gui_path, 'flex.ui')
+
+		loadUi(gui_path, self)
+
+		# find and load the stylesheet
+		stylesheet = False
+		if input_type:
+			if input_type.lower() == 'touch':
+				stylesheet = os.path.join(self.lib_path, 'touch.qss')
+			elif input_type.lower() == 'keyboard':
+				stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
+
+		if qss_file: # load local qss file make sure it exists !!!!!
+			if os.path.isfile(os.path.join(self.ini_path, qss_file)):
+				stylesheet = os.path.join(self.ini_path, qss_file)
+
+		if stylesheet:
+			with open(stylesheet,'r') as fh:
+				self.setStyleSheet(fh.read())
+
 
 		self.show()
 
