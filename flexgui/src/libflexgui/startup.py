@@ -2,7 +2,7 @@ import os
 
 from PyQt6.QtWidgets import QLabel
 
-def postgui_hal(parent):
+def load_postgui(parent):
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
 		for f in postgui_halfiles:
@@ -12,8 +12,7 @@ def postgui_hal(parent):
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
 
-
-def status_labels(parent):
+def setup_status_labels(parent):
 	status_items = ['acceleration', 'active_queue', 'actual_position',
 	'adaptive_feed_enabled', 'ain', 'angular_units', 'aout', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
@@ -69,5 +68,23 @@ def status_labels(parent):
 				setattr(parent, f'spindle_{i}_{item}_lb_exists', True)
 			else:
 				setattr(parent, f'spindle_{i}_{item}_lb_exists', False)
+
+def setup_hal_buttons(parent):
+	for button in parent.findChildren(QPushButton):
+		if button.property('function') == 'hal_pin':
+			props = button.dynamicPropertyNames()
+			for prop in props:
+				prop = str(prop, 'utf-8')
+				if prop.startswith('pin_'):
+					pin_settings = button.property(prop).split(',')
+					name = button.objectName()
+					pin_name = pin_settings[0]
+					pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
+					pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
+					parent.halcomp = hal.component('jet')
+					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
+					getattr(parent, f'{name}').toggled.connect(lambda:
+						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
+
 
 
