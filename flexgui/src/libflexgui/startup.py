@@ -1,7 +1,7 @@
 import os
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
-from PyQt6.QtWidgets import QComboBox
+from PyQt6.QtWidgets import QComboBox, QSlider
 
 def load_postgui(parent):
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -90,6 +90,14 @@ def setup_combo_boxes(parent):
 	combo_boxes = ['jog_modes_cb']
 	for item in combo_boxes:
 		if parent.findChild(QComboBox, item) is not None:
+			setattr(parent, f'{item}_exists', True)
+		else:
+			setattr(parent, f'{item}_exists', False)
+
+def setup_sliders(parent):
+	sliders = ['jog_vel_s']
+	for item in sliders:
+		if parent.findChild(QSlider, item) is not None:
 			setattr(parent, f'{item}_exists', True)
 		else:
 			setattr(parent, f'{item}_exists', False)
