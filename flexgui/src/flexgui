@@ -59,10 +59,6 @@ class flexgui(QMainWindow):
 		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
-		print(f'gui_file {gui_file}')
-		print(f'input_type {input_type}')
-		print(f'qss_file {qss_file}')
-		print(f'screen_size {screen_size}')
 
 		# find and load the gui
 		if gui_file: # gui is in the ini file
@@ -73,6 +69,12 @@ class flexgui(QMainWindow):
 			gui_path = os.path.join(self.gui_path, 'flex.ui')
 
 		loadUi(gui_path, self)
+
+		self.gui_lb.setText(f'{gui_file}')
+		self.input_lb.setText(f'{input_type}')
+		self.qss_lb.setText(f'{qss_file}')
+		self.screen_lb.setText(f'{screen_size}')
+
 
 		# find and load the stylesheet
 		stylesheet = False
