@@ -1,6 +1,7 @@
 import os
 
-from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget
+from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
+from PyQt6.QtWidgets import QComboBox
 
 def load_postgui(parent):
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -73,6 +74,22 @@ def setup_list_widgets(parent):
 	list_widgets = ['mdi_history_lw']
 	for item in list_widgets:
 		if parent.findChild(QListWidget, item) is not None:
+			setattr(parent, f'{item}_exists', True)
+		else:
+			setattr(parent, f'{item}_exists', False)
+
+def setup_plain_text_edits(parent):
+	plain_text_edits = ['gcode_pte']
+	for item in plain_text_edits:
+		if parent.findChild(QPlainTextEdit, item) is not None:
+			setattr(parent, f'{item}_exists', True)
+		else:
+			setattr(parent, f'{item}_exists', False)
+
+def setup_combo_boxes(parent):
+	combo_boxes = ['jog_modes_cb']
+	for item in combo_boxes:
+		if parent.findChild(QComboBox, item) is not None:
 			setattr(parent, f'{item}_exists', True)
 		else:
 			setattr(parent, f'{item}_exists', False)
