@@ -1,6 +1,6 @@
 import os
 
-from PyQt6.QtWidgets import QLabel, QPushButton
+from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget
 
 def load_postgui(parent):
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -68,6 +68,14 @@ def setup_status_labels(parent):
 				setattr(parent, f'spindle_{i}_{item}_lb_exists', True)
 			else:
 				setattr(parent, f'spindle_{i}_{item}_lb_exists', False)
+
+def setup_list_widgets(parent):
+	list_widgets = ['mdi_history_lw']
+	for item in list_widgets:
+		if parent.findChild(QListWidget, item) is not None:
+			setattr(parent, f'{item}_exists', True)
+		else:
+			setattr(parent, f'{item}_exists', False)
 
 def setup_hal_buttons(parent):
 	for button in parent.findChildren(QPushButton):
