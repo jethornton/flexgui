@@ -75,7 +75,6 @@ class flexgui(QMainWindow):
 		self.qss_lb.setText(f'{qss_file}')
 		self.screen_lb.setText(f'{screen_size}')
 
-
 		# find and load the stylesheet
 		stylesheet = False
 		if input_type:
@@ -107,6 +106,8 @@ class flexgui(QMainWindow):
 
 		startup.setup_status_labels(self)
 		startup.setup_list_widgets(self)
+		startup.setup_plain_text_edits(self)
+		startup.setup_combo_boxes(self)
 		startup.setup_hal_buttons(self)
 		startup.load_postgui(self)
 
