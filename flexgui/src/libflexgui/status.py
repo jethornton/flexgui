@@ -7,11 +7,8 @@ def update(parent):
 
 	for key, value in parent.axis_labels.items():
 		if key == 'velocity':
-			vel = round(getattr(parent.status, "axis")[int(value[5])][key] * 60)
+			vel = abs(round(getattr(parent, 'status').axis[int(value[5])][key] * 60, 1))
 			getattr(parent, f'{value}').setText(f'{vel}')
 		else:
-			getattr(parent, f'{value}').setText(f'{getattr(parent.status, "axis")[int(value[5])][key]}')
-		# velocity is units/sec
+			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[5])][key]}')
 
-	# axis_{i}_{item}_lb
-	# axis_0_velocity_lb
