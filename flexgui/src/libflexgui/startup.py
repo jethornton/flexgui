@@ -60,7 +60,6 @@ def setup_status_labels(parent):
 	for i in range(9):
 		for item in axis_items:
 			if parent.findChild(QLabel, f'axis_{i}_{item}_lb'):
-				# value is a list of axis and label maybe
 				parent.axis_labels[item] = f'axis_{i}_{item}_lb'
 
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
@@ -68,13 +67,11 @@ def setup_status_labels(parent):
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
 	'output', 'override_limits', 'units', 'velocity']
-
+	parent.joint_labels = {}
 	for i in range(9):
 		for item in joint_items:
 			if parent.findChild(QLabel, f'joint_{i}_{item}_lb'):
-				setattr(parent, f'joint_{i}_{item}_lb_exists', True)
-			else:
-				setattr(parent, f'joint_{i}_{item}_lb_exists', False)
+				parent.joint_labels[item] = f'joint_{i}_{item}_lb'
 
 	spindle_items = ['brake', 'direction', 'enabled', 'homed', 'increasing',
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
