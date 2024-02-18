@@ -60,7 +60,8 @@ def setup_status_labels(parent):
 	for i in range(9):
 		for item in axis_items:
 			if parent.findChild(QLabel, f'axis_{i}_{item}_lb'):
-				parent.axis_labels[item] = f'axis_{i}_{item}_lb' # add the status and label
+				# value is a list of axis and label maybe
+				parent.axis_labels[item] = f'axis_{i}_{item}_lb'
 
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
