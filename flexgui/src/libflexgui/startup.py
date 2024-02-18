@@ -2,6 +2,7 @@ import os
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider
+from PyQt6.QtGui import QAction
 
 def load_postgui(parent):
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -12,6 +13,17 @@ def load_postgui(parent):
 			else:
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
+
+def setup_actions(parent):
+	actions = ['actionOpen', 'actionRecent', 'actionEdit', 'actionReload',
+	'actionEdit_Tools', 'actionReload_Tools', 'actionQuit', 'actionClear_MDI',
+	'actionShow_HAL', 'actionHal_Meter', 'actionHal_Scope',]
+
+	for item in actions:
+		if parent.findChild(QAction, f'{item}_lb'):
+			setattr(parent, f'{item}_lb_exists', True)
+		else:
+			setattr(parent, f'{item}_lb_exists', False)
 
 def setup_status_labels(parent):
 	status_items = ['acceleration', 'active_queue', 'actual_position',
@@ -32,11 +44,10 @@ def setup_status_labels(parent):
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table', 'velocity']
 
+	parent.status_labels = {}
 	for item in status_items:
 		if parent.findChild(QLabel, f'{item}_lb'):
-			setattr(parent, f'{item}_lb_exists', True)
-		else:
-			setattr(parent, f'{item}_lb_exists', False)
+			parent.status_labels[item] = f'{item}_lb'
 
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
 
@@ -79,7 +90,7 @@ def setup_list_widgets(parent):
 			setattr(parent, f'{item}_exists', False)
 
 def setup_plain_text_edits(parent):
-	plain_text_edits = ['gcode_pte']
+	plain_text_edits = ['gcode_pte', 'errors_pte']
 	for item in plain_text_edits:
 		if parent.findChild(QPlainTextEdit, item) is not None:
 			setattr(parent, f'{item}_exists', True)
