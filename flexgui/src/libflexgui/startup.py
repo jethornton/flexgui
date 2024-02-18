@@ -7,7 +7,7 @@ from PyQt6.QtGui import QAction
 
 from libflexgui import actions
 
-def load_postgui(parent):
+def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
 		for f in postgui_halfiles:
@@ -17,7 +17,7 @@ def load_postgui(parent):
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
 
-def setup_actions(parent):
+def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionRecent': 'action_recent',
 	'actionEdit': 'action_edit', 'actionReload': 'action_reload',
 	'actionEdit_Tools': 'action_edit_tools', 'actionReload_Tools': 'action_reload_tools',
@@ -49,13 +49,14 @@ def setup_status_labels(parent):
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table', 'velocity']
 
-	parent.status_labels = {}
-	for item in status_items:
-		if parent.findChild(QLabel, f'{item}_lb'):
-			parent.status_labels[item] = f'{item}_lb'
+	parent.status_labels = {} # create and empty dictionary
+	for item in status_items: # iterate the status items list
+		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found 
+			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
+	# parent.status.axis[0]['velocity']
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
-
+	parent.axis_labels = {}
 	for i in range(9):
 		for item in axis_items:
 			if parent.findChild(QLabel, f'axis_{i}_{item}_lb'):
