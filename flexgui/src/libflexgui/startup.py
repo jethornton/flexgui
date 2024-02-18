@@ -54,7 +54,6 @@ def setup_status_labels(parent):
 		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found 
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
-	# parent.status.axis[0]['velocity']
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
 	parent.axis_labels = {}
 	for i in range(9):
