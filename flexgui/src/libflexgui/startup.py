@@ -1,8 +1,11 @@
 import os
+from functools import partial
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider
 from PyQt6.QtGui import QAction
+
+from libflexgui import actions
 
 def load_postgui(parent):
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -15,15 +18,17 @@ def load_postgui(parent):
 			if res: raise SystemExit(res)
 
 def setup_actions(parent):
-	actions = ['actionOpen', 'actionRecent', 'actionEdit', 'actionReload',
-	'actionEdit_Tools', 'actionReload_Tools', 'actionQuit', 'actionClear_MDI',
-	'actionShow_HAL', 'actionHal_Meter', 'actionHal_Scope',]
+	actions_dict = {'actionOpen': 'action_open', 'actionRecent': 'action_recent',
+	'actionEdit': 'action_edit', 'actionReload': 'action_reload',
+	'actionEdit_Tools': 'action_edit_tools', 'actionReload_Tools': 'action_reload_tools',
+	'actionQuit': 'action_quit', 'actionClear_MDI': 'action_clear_mdi',
+	'actionShow_HAL': 'action_show_hal', 'actionHal_Meter': 'action_hal_meter',
+	'actionHal_Scope': 'action_hal_scope'}
 
-	for item in actions:
-		if parent.findChild(QAction, f'{item}_lb'):
-			setattr(parent, f'{item}_lb_exists', True)
-		else:
-			setattr(parent, f'{item}_lb_exists', False)
+	# if an action is found connect it to the function
+	for key, value in actions_dict.items():
+		if parent.findChild(QAction, f'{key}'):
+			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 def setup_status_labels(parent):
 	status_items = ['acceleration', 'active_queue', 'actual_position',
