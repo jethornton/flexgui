@@ -62,14 +62,6 @@ def setup_status_labels(parent):
 			if parent.findChild(QLabel, f'axis_{i}_{item}_lb'):
 				parent.axis_labels[item] = f'axis_{i}_{item}_lb' # add the status and label
 
-	value = 'axis_0_velocity_lb'
-	axis = int(value[5])
-	key = 'velocity'
-	# getattr(parent, f'{value}').setText(f'{getattr(parent, status.axis)[0]["velocity"]}')
-	print(getattr(parent.status, 'axis')[int(value[5])][key])
-
-
-
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
