@@ -26,6 +26,8 @@ def action_clear_mdi(parent): # actionClear_MDI
 
 def action_show_hal(parent): # actionShow_HAL
 	print(parent.sender().objectName())
+	# subprocess.Popen(r'c:\mytool\tool.exe', cwd=r'd:\test\local')
+	# os.path.dirname(os.path.realpath(__file__)) 
 
 def action_hal_meter(parent): # actionHal_Meter
 	print(parent.sender().objectName())
