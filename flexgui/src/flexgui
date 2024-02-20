@@ -70,10 +70,10 @@ class flexgui(QMainWindow):
 
 		loadUi(gui_path, self)
 
-		self.gui_lb.setText(f'{gui_file}')
-		self.input_lb.setText(f'{input_type}')
-		self.qss_lb.setText(f'{qss_file}')
-		self.screen_lb.setText(f'{screen_size}')
+		#self.gui_lb.setText(f'{gui_file}')
+		#self.input_lb.setText(f'{input_type}')
+		#self.qss_lb.setText(f'{qss_file}')
+		#self.screen_lb.setText(f'{screen_size}')
 
 		# find and load the stylesheet
 		stylesheet = False
