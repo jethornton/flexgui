@@ -31,19 +31,19 @@ def setup_actions(parent): # setup menu actions
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 def setup_status_labels(parent):
-	status_items = ['acceleration', 'active_queue', 'actual_position',
-	'adaptive_feed_enabled', 'ain', 'angular_units', 'aout', 'axes', 'axis',
+	status_items = ['acceleration', 'active_queue', 
+	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
-	'current_vel', 'cycle_time', 'debug', 'delay_left', 'din', 'distance_to_go',
-	'dout', 'dtg', 'echo_serial_number', 'enabled', 'estop', 'exec_state',
+	'current_vel', 'cycle_time', 'debug', 'delay_left', 'distance_to_go',
+	'echo_serial_number', 'enabled', 'estop', 'exec_state',
 	'feed_hold_enabled', 'feed_override_enabled', 'feedrate', 'file', 'flood',
-	'g5x_index', 'g5x_offset', 'g92_offset', 'gcodes', 'homed', 'id',
+	'g5x_index', 'gcodes', 'id',
 	'ini_filename', 'inpos', 'input_timeout', 'interp_state',
-	'interpreter_errcode', 'joint', 'joint_actual_position', 'joint_position',
-	'joints', 'kinematics_type', 'limit', 'linear_units', 'lube', 'lube_level',
+	'interpreter_errcode', 'joint',
+	'joints', 'kinematics_type', 'linear_units', 'lube', 'lube_level',
 	'max_acceleration', 'max_velocity', 'mcodes', 'mist', 'motion_line',
 	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
-	'position', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
+	'probe_tripped', 'probe_val', 'probed_position', 'probing',
 	'program_units', 'queue', 'queue_full', 'rapidrate', 'read_line',
 	'rotation_xy', 'settings', 'spindle', 'spindles', 'state', 'task_mode',
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
@@ -53,6 +53,17 @@ def setup_status_labels(parent):
 	for item in status_items: # iterate the status items list
 		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found 
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
+
+	# these return tuples of xyzabcuvw axes
+	status_axis_tuples = ['actual_position', 'dtg', 'g5x_offset', 'g92_offset',
+	'position', ]
+
+	# these return 16 joints
+	status_joint_tuples = ['homed', 'joint_actual_position', 'joint_position',
+	'limit']
+
+	# these return a tuple of 64 items each
+	status_i_o = ['ain', 'aout', 'din', 'dout']
 
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
 	parent.axis_labels = {}
