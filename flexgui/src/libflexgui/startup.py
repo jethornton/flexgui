@@ -55,8 +55,15 @@ def setup_status_labels(parent):
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
 	# these return tuples of xyzabcuvw axes
-	status_axis_tuples = ['actual_position', 'dtg', 'g5x_offset', 'g92_offset',
-	'position', ]
+	axis_status_items = ['max_position_limit', 'min_position_limit', 'velocity']
+	parent.status_axis = {}
+	parent.status.poll()
+	for i in range(parent.status.axis_mask.bit_count()):
+		for item in axis_status_items:
+			if parent.findChild(QLabel, f'{item}_{i}_lb'): # if the label is found
+				parent.status_axis[f'{item}_{i}'] = f'{item}_{i}_lb' # add the status and label
+
+	print(parent.status_axis)
 
 	# these return 16 joints
 	status_joint_tuples = ['homed', 'joint_actual_position', 'joint_position',
