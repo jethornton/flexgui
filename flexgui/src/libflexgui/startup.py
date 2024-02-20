@@ -37,7 +37,7 @@ def setup_status_labels(parent):
 	'current_vel', 'cycle_time', 'debug', 'delay_left', 'distance_to_go',
 	'echo_serial_number', 'enabled', 'estop', 'exec_state',
 	'feed_hold_enabled', 'feed_override_enabled', 'feedrate', 'file', 'flood',
-	'g5x_index', 'gcodes', 'id',
+	'g5x_index',
 	'ini_filename', 'inpos', 'input_timeout', 'interp_state',
 	'interpreter_errcode', 'joint',
 	'joints', 'kinematics_type', 'linear_units', 'lube', 'lube_level',
