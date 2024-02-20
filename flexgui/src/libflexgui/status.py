@@ -1,5 +1,7 @@
 
 
+from PyQt6.QtWidgets import QLabel
+
 #  (returns integer) - This is the mode of the Motion controller.
 # One of TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 
@@ -146,6 +148,25 @@ def update(parent):
 
 	for key, value in parent.joint_labels.items():
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[6])][key]}')
+
+	if parent.findChild(QLabel, 'gcodes_lb'):
+		g_codes = []
+		for i in parent.status.gcodes[1:]:
+			if i == -1: continue
+			if i % 10 == 0:
+				g_codes.append(f'G{(i/10):.0f}')
+			else:
+				g_codes.append(f'G{(i/10):.0f}.{i%10}')
+		parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
+
+
+	if parent.findChild(QLabel, 'mcodes_lb'):
+		m_codes = []
+		for i in parent.status.mcodes[1:]:
+			if i == -1: continue
+			m_codes.append(f'M{i}')
+		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
+
 
 
 
