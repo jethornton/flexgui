@@ -100,14 +100,11 @@ gcodes_lb
 all active m codes
 mcodes_lb
 
-tuple of 64 items
-ain_lb
-aout_lb
-din_lb
-dout_lb
-
 tuple of axes
 axis_lb
+max_position_limit_0_lb
+min_position_limit_0_lb
+velocity_0_lb
 
 tuple of joints
 joint_lb
@@ -118,3 +115,12 @@ spindle_lb
 tuple of tool table
  id, xoffset, yoffset, zoffset, aoffset, boffset, coffset, uoffset, voffset, woffset, diameter, frontangle, backangle, orientation
 tool_table_lb
+
+tuple of 64 items
+ain_lb
+aout_lb
+din_lb
+dout_lb
+
+
+

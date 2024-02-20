@@ -144,10 +144,10 @@ def update(parent):
 			vel = abs(round(getattr(parent, 'status').axis[int(value[5])][key] * 60, 1))
 			getattr(parent, f'{value}').setText(f'{vel}')
 		else:
-			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[5])][key]}')
+			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
 
 	for key, value in parent.joint_labels.items():
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[6])][key]}')
+		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
 
 	if parent.findChild(QLabel, 'gcodes_lb'):
 		g_codes = []
@@ -167,6 +167,8 @@ def update(parent):
 			m_codes.append(f'M{i}')
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
-
+	# axis dict {'max_position_limit': 'max_position_limit_2_lb'}
+	for key, value in parent.status_axis.items():
+		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key[0:-2]]}')
 
 
