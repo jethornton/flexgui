@@ -72,8 +72,8 @@ number of the joint. Joint numbers start at 0 and go through to 15.
 	joint_ferror_current_n_lb, joint_max_hard_limit_n_lb, joint_override_limits_n_lb
 	joint_ferror_highmark_n_lb, joint_max_position_limit_n_lb, joint_units_n_lb
 	joint_homed_n_lb, joint_max_soft_limit_n_lb, joint_velocity_n_lb
-	joint_homing_n_lb, joint_min_ferror_n_lb, 
-	joint_inpos_n_lb, joint_min_hard_limit_n_lb, 
+	joint_homing_n_lb, joint_min_ferror_n_lb, joint_inpos_n_lb,
+	joint_min_hard_limit_n_lb,
 
 Spindle Status
 --------------
@@ -118,10 +118,6 @@ Replace the `_n_` with the position in the tool table.
 	tool_table_coffset_n_lb, tool_table_uoffset_n_lb, tool_table_voffset_n_lb
 	tool_table_woffset_n_lb, tool_table_diameter_n_lb, tool_table_frontangle_n_lb
 	tool_table_backangle_n_lb, tool_table_orientation_n_lb
-
-
-s.tool_table[3].zoffset
-
 
 
 
