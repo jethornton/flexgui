@@ -7,8 +7,8 @@ Flex GUI
 
    description
    install
-   ini
    designer
+   ini
    labels
    controls
    menu
