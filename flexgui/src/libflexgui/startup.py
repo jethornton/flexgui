@@ -49,11 +49,14 @@ def setup_status_labels(parent):
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table', 'velocity']
 
-	parent.status_labels = {} # create and empty dictionary
+	# check for status labels in ui
+	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
-		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found 
+		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found
+			# parent.status_labels['acceleration'] = 'acceleration_lb'
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
+	# check for axis labels in ui
 	# these return tuples of xyzabcuvw axes
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
 	parent.status_axes = {}
@@ -63,6 +66,7 @@ def setup_status_labels(parent):
 			if parent.findChild(QLabel, f'axis_{item}_{i}_lb'): # if the label is found
 				parent.status_axes[f'{item}_{i}'] = f'axis_{item}_{i}_lb' # add the status and label
 
+	# check for joint labels in ui
 	# these return 16 joints
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
@@ -75,23 +79,25 @@ def setup_status_labels(parent):
 			if parent.findChild(QLabel, f'joint_{item}_{i}_lb'):
 				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
 
+	# check for analog and digital labels in ui
 	# these return 64 items each
 	io_items = ['ain', 'aout', 'din', 'dout']
-	parent.io_labels = {}
+	parent.status_io = {}
 	for i in range(64):
 		for item in io_items:
 			if parent.findChild(QLabel, f'{item}_{i}_lb'):
-				parent.io_labels[f'{item}_{i}'] = f'{item}_{i}_lb'
+				parent.status_io[f'{item}_{i}'] = f'{item}_{i}_lb'
 
+	# check for spindle labels in ui
 	spindle_items = ['brake', 'direction', 'enabled', 'homed', 'increasing',
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
-
-	for i in range(9):
+	parent.status_spindles = {}
+	parent.status.poll()
+	 # only look for the num of spindles configured
+	for i in range(parent.status.spindles):
 		for item in spindle_items:
-			if parent.findChild(QLabel, f'spindle_{i}_{item}_lb'):
-				setattr(parent, f'spindle_{i}_{item}_lb_exists', True)
-			else:
-				setattr(parent, f'spindle_{i}_{item}_lb_exists', False)
+			if parent.findChild(QLabel, f'spindle_{item}_{i}_lb'):
+				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
 
 def setup_list_widgets(parent):
 	list_widgets = ['mdi_history_lw']
