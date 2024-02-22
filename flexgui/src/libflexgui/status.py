@@ -164,32 +164,31 @@ def update(parent):
 			m_codes.append(f'M{i}')
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
-	# axis dict {'max_position_limit': 'max_position_limit_2_lb'}
-	for key, value in parent.status_axes.items():
-		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
-			key = key[0:-3]
-		else:
-			key = key[0:-2]
+	# axis dict
+	for key, value in parent.status_axes.items(): # hmm max is 9 I think...
+		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
 
 	# joints dict
-	for key, value in parent.status_joints.items():
+	for key, value in parent.status_joints.items(): # up to 16 items
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
 			key = key[0:-3]
 		else:
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
 
-	#parent.io_labels
 	# i/o dict
-	for key, value in parent.io_labels.items():
+	for key, value in parent.status_io.items(): # up to 64 items
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
 			key = key[0:-3]
 		else:
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")[int(value[-4])]}')
 
-
+	# spindle dict
+	for key, value in parent.status_spindles.items():
+		key = key[0:-2]
+		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key]}')
 
 
 
