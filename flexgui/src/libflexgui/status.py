@@ -139,15 +139,12 @@ def update(parent):
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")}')
 
-	for key, value in parent.axis_labels.items():
+	for key, value in parent.status_axes.items():
 		if key == 'velocity':
 			vel = abs(round(getattr(parent, 'status').axis[int(value[5])][key] * 60, 1))
 			getattr(parent, f'{value}').setText(f'{vel}')
 		else:
-			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
-
-	for key, value in parent.joint_labels.items():
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
+			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key[0:-2]]}')
 
 	if parent.findChild(QLabel, 'gcodes_lb'):
 		g_codes = []
@@ -168,7 +165,31 @@ def update(parent):
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
 	# axis dict {'max_position_limit': 'max_position_limit_2_lb'}
-	for key, value in parent.status_axis.items():
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key[0:-2]]}')
+	for key, value in parent.status_axes.items():
+		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
+			key = key[0:-3]
+		else:
+			key = key[0:-2]
+		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
+
+	# joints dict
+	for key, value in parent.status_joints.items():
+		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
+			key = key[0:-3]
+		else:
+			key = key[0:-2]
+		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
+
+	#parent.io_labels
+	# i/o dict
+	for key, value in parent.io_labels.items():
+		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
+			key = key[0:-3]
+		else:
+			key = key[0:-2]
+		getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")[int(value[-4])]}')
+
+
+
 
 
