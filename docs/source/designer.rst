@@ -20,14 +20,12 @@ Main Window.
 .. image:: /images/designer-01.png
    :align: center
 
-To add a Tool Bar right click and select Tool Bar
+To add a Tool Bar right click on the main window and select Add Tool Bar
 
 .. image:: /images/designer-02.png
    :align: center
 
 To add a Menu type in the menu area and press enter.
-
-To add a Menu item type in the menu and press enter.
 
 .. image:: /images/designer-03.png
    :align: center
@@ -37,7 +35,6 @@ the Tool Bar to create a tool bar button.
 
 .. image:: /images/designer-04.png
    :align: center
-
 
 Adding items from the Widget Box is drag and drop. To create a basic layout from
 Containers add two Frames and a Tab Widget.
@@ -65,5 +62,7 @@ the Object Inspector and set the lay out to grid.
 
 After dragging a widget into the window make sure you use the correct
 objectName for that widget. For example the E Stop button is called estop_pb.
+
+.. note:: Each object name must be unique, designer will not allow duplicate names
 
 Save the GUI in the configuration directory where you launch LinuxCNC.
