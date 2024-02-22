@@ -55,40 +55,33 @@ def setup_status_labels(parent):
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
 	# these return tuples of xyzabcuvw axes
-	axis_status_items = ['max_position_limit', 'min_position_limit', 'velocity']
-	parent.status_axis = {}
+	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
+	parent.status_axes = {}
 	parent.status.poll()
-	for i in range(parent.status.axis_mask.bit_count()):
-		for item in axis_status_items:
-			if parent.findChild(QLabel, f'{item}_{i}_lb'): # if the label is found
-				parent.status_axis[f'{item}_{i}'] = f'{item}_{i}_lb' # add the status and label
-
-	print(parent.status_axis)
+	for i in range(parent.status.axis_mask.bit_count()): # only check for axes that exist
+		for item in axis_items:
+			if parent.findChild(QLabel, f'axis_{item}_{i}_lb'): # if the label is found
+				parent.status_axes[f'{item}_{i}'] = f'axis_{item}_{i}_lb' # add the status and label
 
 	# these return 16 joints
-	status_joint_tuples = ['homed', 'joint_actual_position', 'joint_position',
-	'limit']
-
-	# these return a tuple of 64 items each
-	status_i_o = ['ain', 'aout', 'din', 'dout']
-
-	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
-	parent.axis_labels = {}
-	for i in range(9):
-		for item in axis_items:
-			if parent.findChild(QLabel, f'axis_{i}_{item}_lb'):
-				parent.axis_labels[item] = f'axis_{i}_{item}_lb'
-
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
 	'output', 'override_limits', 'units', 'velocity']
-	parent.joint_labels = {}
+	parent.status_joints = {}
 	for i in range(9):
 		for item in joint_items:
-			if parent.findChild(QLabel, f'joint_{i}_{item}_lb'):
-				parent.joint_labels[item] = f'joint_{i}_{item}_lb'
+			if parent.findChild(QLabel, f'joint_{item}_{i}_lb'):
+				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
+
+	# these return 64 items each
+	io_items = ['ain', 'aout', 'din', 'dout']
+	parent.io_labels = {}
+	for i in range(64):
+		for item in io_items:
+			if parent.findChild(QLabel, f'{item}_{i}_lb'):
+				parent.io_labels[f'{item}_{i}'] = f'{item}_{i}_lb'
 
 	spindle_items = ['brake', 'direction', 'enabled', 'homed', 'increasing',
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
