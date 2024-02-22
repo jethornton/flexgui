@@ -89,7 +89,7 @@ def setup_status_labels(parent):
 				parent.status_io[f'{item}_{i}'] = f'{item}_{i}_lb'
 
 	# check for spindle labels in ui
-	spindle_items = ['brake', 'direction', 'enabled', 'homed', 'increasing',
+	spindle_items = ['brake', 'direction', 'enabled', 'homed',
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
 	parent.status_spindles = {}
 	parent.status.poll()
@@ -98,6 +98,16 @@ def setup_status_labels(parent):
 		for item in spindle_items:
 			if parent.findChild(QLabel, f'spindle_{item}_{i}_lb'):
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
+
+	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
+		'boffset', 'coffset', 'uoffset', 'voffset', 'woffset', 'diameter',
+		'frontangle', 'backangle', 'orientation']
+	parent.tool_table = {}
+	parent.status.poll()
+	for i in range(len(parent.status.tool_table)):
+		for item in tool_table_items:
+			if parent.findChild(QLabel, f'tool_table_{item}_{i}_lb'):
+				parent.tool_table[f'{item}_{i}'] = f'tool_table_{item}_{i}_lb'
 
 def setup_list_widgets(parent):
 	list_widgets = ['mdi_history_lw']

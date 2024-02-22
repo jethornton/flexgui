@@ -164,12 +164,12 @@ def update(parent):
 			m_codes.append(f'M{i}')
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
-	# axis dict
+	# axis s.axis[0]['velocity']
 	for key, value in parent.status_axes.items(): # hmm max is 9 I think...
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
 
-	# joints dict
+	# joints s.joint[0]['units']
 	for key, value in parent.status_joints.items(): # up to 16 items
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
 			key = key[0:-3]
@@ -177,7 +177,7 @@ def update(parent):
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
 
-	# i/o dict
+	# i/o s.ain[0]
 	for key, value in parent.status_io.items(): # up to 64 items
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
 			key = key[0:-3]
@@ -185,10 +185,17 @@ def update(parent):
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")[int(value[-4])]}')
 
-	# spindle dict
+	# spindle s.spindle[0]['brake']
 	for key, value in parent.status_spindles.items():
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key]}')
+
+	# tool table s.tool_table[0].id
+	for key, value in parent.tool_table.items():
+		tool = int(key.split('_')[-1])
+		key = key.split('_')[0] # get the status name from key xoffset_0
+		tr = getattr(parent.status, 'tool_table')[tool]
+		getattr(parent, f'{value}').setText(f'{getattr(tr, key)}')
 
 
 
