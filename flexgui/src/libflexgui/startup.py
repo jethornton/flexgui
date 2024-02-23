@@ -30,6 +30,24 @@ def setup_actions(parent): # setup menu actions
 		if parent.findChild(QAction, f'{key}'):
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
+def setup_enables(parent):
+	estop = ['power_pb']
+	parent.estop_enables = []
+	for control in estop:
+		if parent.findChild(QPushButton, control):
+			parent.estop_enables.append(control)
+	for item in parent.estop_enables:
+		getattr(parent, item).setEnabled(False)
+
+	power = ['run_pb', 'step_pb', 'pause_pb', 'resume_pb']
+	parent.power_enables = []
+	for control in power:
+		if parent.findChild(QPushButton, control):
+			parent.power_enables.append(control)
+	for item in parent.power_enables:
+		getattr(parent, item).setEnabled(False)
+
+
 def setup_status_labels(parent):
 	status_items = ['acceleration', 'active_queue', 
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',

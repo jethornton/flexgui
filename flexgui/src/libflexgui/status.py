@@ -2,6 +2,8 @@
 
 from PyQt6.QtWidgets import QLabel
 
+import linuxcnc as emc
+
 #  (returns integer) - This is the mode of the Motion controller.
 # One of TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 
@@ -200,5 +202,7 @@ def update(parent):
 		tr = getattr(parent.status, 'tool_table')[tool]
 		getattr(parent, f'{value}').setText(f'{getattr(tr, key)}')
 
-
+	# STATE_ESTOP STATE_ESTOP_RESET STATE_ON
+	if parent.status.state == emc.STATE_ESTOP:
+		pass
 
