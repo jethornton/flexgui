@@ -10,17 +10,28 @@ def estop_toggle(parent):
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		parent.command.wait_complete()
+		state = True
 	else:
 		parent.command.state(emc.STATE_ESTOP)
 		parent.command.wait_complete()
+		state = False
+	for item in parent.estop_enables:
+		getattr(parent, item).setEnabled(state)
 
 def power_toggle(parent):
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
 		parent.command.state(emc.STATE_ON)
 		parent.command.wait_complete()
+		if parent.status.file:
+			state = True
+		else:
+			state = False
 	else:
 		parent.command.state(emc.STATE_OFF)
 		parent.command.wait_complete()
+		state = False
+	for item in parent.power_enables:
+		getattr(parent, item).setEnabled(state)
 
 def run(parent):
 	if parent.status.task_state == emc.STATE_ON:
