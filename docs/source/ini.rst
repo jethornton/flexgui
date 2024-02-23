@@ -6,7 +6,7 @@ INI Settings
 To use the Flex GUI change the DISPLAY value to:
 ::
 
-	DISPLAY = flex
+	DISPLAY = flexgui
 
 If no GUI is specificed then the default GUI will be used.
 

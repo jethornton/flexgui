@@ -3,9 +3,9 @@ Status Labels
 
 Status labels come in two forms, single status items like `Machine Status` and
 multiple status labels like the `joint` dictionary which has multiple items and
-displays for all joints. Multiple status labels use a number indentifier to select
-the axis, joint or spindle information wanted. When creating a status label set
-the `objectName` to the status you want.
+displays for all joints. Multiple status labels use a number identifier to
+select the axis, joint or spindle information wanted. When creating a status
+label set the `objectName` to the status you want.
 
 .. image:: /images/status-01.png
    :align: center
