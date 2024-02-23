@@ -3,10 +3,24 @@ from PyQt6.QtWidgets import QLabel
 
 import linuxcnc as emc
 
-def abort(parent):
-	parent.command.abort()
+def all_homed(parent):
+	parent.status.poll()
+	''' Tom
+	parent.status.homed returns a tuple of ints
+	(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+	map(function, iterable) what map does is iterate over the tuple and convert
+	the ints to a string
+	so map(str, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) returns a map
+	object and join iterates over the map object and returns a string
+	'0000000000000000'
+	'''
+	homed = ''.join(map(str, parent.status.homed))
+	joints = f'{parent.status.axis_mask:b}{"0"*(16 - parent.status.joints)}'
+	isHomed = homed == joints
+	return isHomed
 
 def estop_toggle(parent):
+	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		parent.command.wait_complete()
@@ -19,9 +33,11 @@ def estop_toggle(parent):
 		getattr(parent, item).setEnabled(state)
 
 def power_toggle(parent):
+	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
 		parent.command.state(emc.STATE_ON)
 		parent.command.wait_complete()
+		print(all_homed(parent))
 		if parent.status.file:
 			state = True
 		else:
@@ -34,6 +50,7 @@ def power_toggle(parent):
 		getattr(parent, item).setEnabled(state)
 
 def run(parent):
+	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_AUTO:
 			parent.command.mode(emc.MODE_AUTO)
@@ -41,11 +58,12 @@ def run(parent):
 		if parent.findChild(QLabel, 'start_line_lb'):
 			if parent.start_line_lb.text():
 				n = int(parent.start_line_lb.text())
-			else:
-				n = 0
+		else:
+			n = 0
 		parent.command.auto(emc.AUTO_RUN, n)
 
 def step(parent):
+	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_AUTO:
 			parent.command.mode(emc.MODE_AUTO)
@@ -53,10 +71,12 @@ def step(parent):
 		parent.command.auto(emc.AUTO_STEP)
 
 def pause(parent):
+	parent.status.poll()
 	if parent.status.state == emc.RCS_EXEC: # program is running
 		parent.command.auto(emc.AUTO_PAUSE)
 
 def resume(parent):
+	parent.status.poll()
 	if parent.status.paused:
 		parent.command.auto(emc.AUTO_RESUME)
 
@@ -72,6 +92,7 @@ def set_mode(parent, mode=None):
 		parent.command.wait_complete()
 
 def home(parent):
+	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 0:
 		if parent.status.task_mode != emc.MODE_MANUAL:
@@ -101,6 +122,7 @@ def home_all(parent): # only works if the home sequence is set for all axes
 		#parent.unhome_all_pb.setEnabled(True)
 
 def unhome(parent):
+	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 1:
 		set_mode(parent, emc.MODE_MANUAL)
@@ -136,6 +158,7 @@ def spindle(parent):
 	pass
 
 def flood_toggle(parent):
+	parent.status.poll()
 	if parent.sender().isChecked():
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MANUAL:
@@ -152,6 +175,7 @@ def flood_toggle(parent):
 			parent.command.wait_complete()
 
 def mist_toggle(parent):
+	parent.status.poll()
 	if parent.sender().isChecked():
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MANUAL:
