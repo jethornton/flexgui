@@ -17,6 +17,7 @@ from libflexgui import startup
 from libflexgui import status
 from libflexgui import connections
 from libflexgui import commands
+from libflexgui import dialogs
 
 class flexgui(QMainWindow):
 	def __init__(self):
@@ -64,6 +65,7 @@ class flexgui(QMainWindow):
 		if gui_file: # gui is in the ini file
 			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
 			if not os.path.isfile(gui_path): # gui not found
+				print(f'The {gui_path} was not found')
 				gui_path = os.path.join(self.gui_path, 'flex.ui')
 		else: # no gui specified
 			gui_path = os.path.join(self.gui_path, 'flex.ui')
@@ -112,11 +114,13 @@ class flexgui(QMainWindow):
 		startup.setup_sliders(self)
 		startup.setup_hal_buttons(self)
 		startup.load_postgui(self)
+		connections.connect_controls(self)
 
 		# setup and start the status update timer every 0.1 second
 		self.timer = QTimer()
 		self.timer.timeout.connect(partial(status.update, self))
 		self.timer.start(10) # milliseconds
+
 
 
 
