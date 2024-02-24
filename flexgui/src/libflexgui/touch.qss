@@ -8,6 +8,9 @@ QPushButton
 	border-width: 3px;
 	border-radius: 10px;
 	margin-bottom: 1px;
+	/*padding: 2px;*/
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 QPushButton:pressed

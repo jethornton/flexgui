@@ -31,6 +31,7 @@ def setup_actions(parent): # setup menu actions
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 def setup_enables(parent):
+	parent.status.poll()
 	estop = ['power_pb']
 	parent.estop_enables = []
 	for control in estop:
@@ -39,7 +40,16 @@ def setup_enables(parent):
 	for item in parent.estop_enables:
 		getattr(parent, item).setEnabled(False)
 
-	power = ['run_pb', 'step_pb', 'pause_pb', 'resume_pb']
+	#file_name = parent.status.file
+	run_buttons = ['run_pb', 'step_pb', 'pause_pb', 'resume_pb',]
+	parent.run_enables = []
+	for button in run_buttons:
+		if parent.findChild(QPushButton, button):
+			parent.run_enables.append(button)
+	for item in parent.run_enables:
+		getattr(parent, item).setEnabled(False)
+
+	power = ['run_mdi_pb', 'start_spindle_pb', 'flood_pb', 'mist_pb',]
 	parent.power_enables = []
 	for control in power:
 		if parent.findChild(QPushButton, control):
@@ -47,6 +57,37 @@ def setup_enables(parent):
 	for item in parent.power_enables:
 		getattr(parent, item).setEnabled(False)
 
+	home = []
+	for i in range(9):
+		home.append(f'home_pb_{i}')
+	parent.home_enables = []
+	for button in home:
+		if parent.findChild(QPushButton, button):
+			parent.home_enables.append(button)
+	for item in parent.home_enables:
+		getattr(parent, item).setEnabled(False)
+
+	unhome = ['unhome_all_pb']
+	for i in range(9):
+		unhome.append(f'unhome_pb_{i}')
+	parent.unhome_enables = []
+	for control in unhome:
+		if parent.findChild(QPushButton, control):
+			parent.unhome_enables.append(control)
+	for item in parent.unhome_enables:
+		getattr(parent, item).setEnabled(False)
+
+	parent.home_all_ok = False
+	home_all = False
+	for i in range(parent.status.joints): # enable/disable home all
+		if parent.inifile.find(f'JOINT_{i}', "HOME_SEQUENCE"):
+			home_all = True
+		else:
+			home_all = False
+			break
+	if parent.findChild(QPushButton, 'home_all_pb'):
+		parent.home_all_pb.setEnabled(False)
+		parent.home_all_ok = home_all
 
 def setup_status_labels(parent):
 	status_items = ['acceleration', 'active_queue', 
