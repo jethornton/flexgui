@@ -5,19 +5,15 @@ import linuxcnc as emc
 
 def all_homed(parent):
 	parent.status.poll()
-	''' Tom
-	parent.status.homed returns a tuple of ints
-	(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-	map(function, iterable) what map does is iterate over the tuple and convert
-	the ints to a string
-	so map(str, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) returns a map
-	object and join iterates over the map object and returns a string
-	'0000000000000000'
-	'''
-	homed = ''.join(map(str, parent.status.homed))
-	joints = f'{parent.status.axis_mask:b}{"0"*(16 - parent.status.joints)}'
-	isHomed = homed == joints
-	return isHomed
+	# parent.status.homed returns a tuple of all joints home status 1 is homed
+	homed = parent.status.homed
+	# parent.status.axis_mask.bit_count() returns the number of axes configured
+	for i in range(parent.status.axis_mask.bit_count()):
+		if homed[i] == 1:
+			all_homed = True
+		else:
+			all_homed = False
+	return all_homed
 
 def estop_toggle(parent):
 	parent.status.poll()
