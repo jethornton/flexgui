@@ -17,7 +17,7 @@ from libflexgui import startup
 from libflexgui import status
 from libflexgui import connections
 from libflexgui import commands
-from libflexgui import dialogs
+
 
 class flexgui(QMainWindow):
 	def __init__(self):
