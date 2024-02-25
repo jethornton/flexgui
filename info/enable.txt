@@ -1,0 +1,13 @@
+command buttons enable/disable
+
+estop off disable power home unhome run step pause resume flood mist mdi
+
+estop on enable power
+
+power on enable home flood mist
+
+power off disable home flood mist run step pause resume mdi
+
+power on and file loaded and homed enable run step pause resume mdi
+
+power on and homed enable unhome
