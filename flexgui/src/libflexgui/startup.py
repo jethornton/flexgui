@@ -31,14 +31,25 @@ def setup_actions(parent): # setup menu actions
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 def setup_enables(parent):
+	# just disable all controls except estop at startup
+	control_list = ['power_pb', 'run_pb', 'step_pb', 'pause_pb', 'resume_pb',
+		'stop_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'start_spindle_pb',
+		'stop_spindle_pb', 'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb',
+		'mist_pb']
+	home_items = ['home_pb_', 'unhome_pb_']
+	for item in home_items:
+		for i in range(9):
+			control_list.append(f'{item}{i}')
+	for item in control_list:
+		if parent.findChild(QPushButton, item):
+			getattr(parent, item).setEnabled(False)
+
 	parent.status.poll()
 	estop = ['power_pb']
 	parent.estop_enables = []
 	for control in estop:
 		if parent.findChild(QPushButton, control):
 			parent.estop_enables.append(control)
-	for item in parent.estop_enables:
-		getattr(parent, item).setEnabled(False)
 
 	#file_name = parent.status.file
 	run_buttons = ['run_pb', 'step_pb', 'pause_pb', 'resume_pb',]
@@ -46,16 +57,12 @@ def setup_enables(parent):
 	for button in run_buttons:
 		if parent.findChild(QPushButton, button):
 			parent.run_enables.append(button)
-	for item in parent.run_enables:
-		getattr(parent, item).setEnabled(False)
 
-	power = ['run_mdi_pb', 'start_spindle_pb', 'flood_pb', 'mist_pb',]
+	power = ['start_spindle_pb', 'flood_pb', 'mist_pb',]
 	parent.power_enables = []
 	for control in power:
 		if parent.findChild(QPushButton, control):
 			parent.power_enables.append(control)
-	for item in parent.power_enables:
-		getattr(parent, item).setEnabled(False)
 
 	home = []
 	for i in range(9):
@@ -64,8 +71,6 @@ def setup_enables(parent):
 	for button in home:
 		if parent.findChild(QPushButton, button):
 			parent.home_enables.append(button)
-	for item in parent.home_enables:
-		getattr(parent, item).setEnabled(False)
 
 	unhome = ['unhome_all_pb']
 	for i in range(9):
@@ -74,8 +79,6 @@ def setup_enables(parent):
 	for control in unhome:
 		if parent.findChild(QPushButton, control):
 			parent.unhome_enables.append(control)
-	for item in parent.unhome_enables:
-		getattr(parent, item).setEnabled(False)
 
 	parent.home_all_ok = False
 	home_all = False
@@ -88,6 +91,9 @@ def setup_enables(parent):
 	if parent.findChild(QPushButton, 'home_all_pb'):
 		parent.home_all_pb.setEnabled(False)
 		parent.home_all_ok = home_all
+
+	if parent.findChild(QPushButton, 'run_mdi_pb'):
+		parent.run_mdi_pb.setEnabled(False)
 
 def setup_status_labels(parent):
 	status_items = ['acceleration', 'active_queue', 

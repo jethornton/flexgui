@@ -114,14 +114,25 @@ def home(parent):
 		parent.command.wait_complete()
 		if parent.findChild(QPushButton, f'unhome_pb_{joint}'):
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
+		if all_homed(parent):
+			if parent.findChild(QPushButton, 'run_mdi_pb'):
+				parent.run_mdi_pb.setEnabled(True)
+			if parent.findChild(QPushButton, 'unhome_all_pb'):
+				parent.unhome_all_pb.setEnabled(True)
 
 def home_all(parent): # only works if the home sequence is set for all axes
 		set_mode(parent,emc.MODE_MANUAL)
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
 		parent.command.home(-1)
-		if parent.findChild(QPushButton, 'unhome_all_pb'):
-			parent.unhome_all_pb.setEnabled(True)
+		if all_homed(parent):
+			if parent.findChild(QPushButton, 'run_mdi_pb'):
+				parent.run_mdi_pb.setEnabled(True)
+			if parent.findChild(QPushButton, 'unhome_all_pb'):
+				parent.unhome_all_pb.setEnabled(True)
+			for item in parent.unhome_enables:
+				getattr(parent, item).setEnabled(True)
+
 
 def unhome(parent):
 	parent.status.poll()
@@ -131,12 +142,18 @@ def unhome(parent):
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
 		parent.command.unhome(joint)
+		if parent.findChild(QPushButton, 'run_mdi_pb'):
+			parent.run_mdi_pb.setEnabled(False)
 
 def unhome_all(parent):
-		set_mode(parent, emc.MODE_MANUAL)
-		parent.command.teleop_enable(False)
-		parent.command.wait_complete()
-		parent.command.unhome(-1)
+	set_mode(parent, emc.MODE_MANUAL)
+	parent.command.teleop_enable(False)
+	parent.command.wait_complete()
+	parent.command.unhome(-1)
+	if parent.findChild(QPushButton, 'run_mdi_pb'):
+		parent.run_mdi_pb.setEnabled(False)
+	for item in parent.unhome_enables:
+		getattr(parent, item).setEnabled(False)
 
 def run_mdi(parent, cmd=''):
 	if cmd:
