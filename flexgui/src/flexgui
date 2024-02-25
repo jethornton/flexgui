@@ -15,9 +15,6 @@ import linuxcnc
 
 from libflexgui import startup
 from libflexgui import status
-from libflexgui import connections
-from libflexgui import commands
-
 
 class flexgui(QMainWindow):
 	def __init__(self):
@@ -106,6 +103,7 @@ class flexgui(QMainWindow):
 		else:
 			self.show()
 
+		startup.setup_buttons(self)
 		startup.setup_actions(self)
 		startup.setup_enables(self)
 		startup.setup_status_labels(self)
@@ -115,7 +113,7 @@ class flexgui(QMainWindow):
 		startup.setup_sliders(self)
 		startup.setup_hal_buttons(self)
 		startup.load_postgui(self)
-		connections.connect_controls(self)
+		#connections.connect_controls(self)
 
 		# setup and start the status update timer every 0.1 second
 		self.timer = QTimer()
