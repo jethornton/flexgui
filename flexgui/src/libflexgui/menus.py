@@ -26,6 +26,9 @@ def file_open(parent):
 		if parent.file_lb_exists:
 			parent.file_lb.setText(f'G code: {base}')
 
+def recent_files(parent):
+	pass
+
 def file_reload(parent):
 	parent.status.poll()
 	if len(parent.status.file) > 0:
@@ -42,6 +45,17 @@ def file_reload(parent):
 		editor.clear_highlight(parent)
 		text = open(gcode_file).read()
 		parent.gcode_pte.setPlainText(text)
+
+def save_as(parent):
+	pass
+
+def edit_tool_table(parent):
+	pass
+def reload_tool_table(parent):
+	pass
+
+def ladder_editor(parent):
+	pass
 
 def app_close(parent):
 	parent.close()
