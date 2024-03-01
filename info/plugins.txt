@@ -1,0 +1,15 @@
+flex_plugin.py is copied to usr/lib/x86_64-linux-gnu/qt5/plugins/designer/python
+it is the connection to designer for the custom widgets
+
+#!/usr/bin/env python3
+
+# Print Out to see designer loaded it
+print(Loading Designer Custom Widgets Plugins')
+
+print('Loading Fload Number Display Plugin')
+from libdcw.floatplugin import PyFloatDisplayPlugin
+
+print("Finished loading")
+
+
+
