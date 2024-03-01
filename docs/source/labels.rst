@@ -75,6 +75,40 @@ number of the joint. Joint numbers start at 0 and go through to 15.
 	joint_homing_n_lb, joint_min_ferror_n_lb, joint_inpos_n_lb,
 	joint_min_hard_limit_n_lb,
 
+Special Labels
+--------------
+
+Axis position labels including all offsets
+
+.. csv-table:: DRO Status Labels
+   :width: 100%
+   :align: left
+
+	dro_lb_x, dro_lb_y, dro_lb_z
+	dro_lb_a, dro_lb_b, dro_lb_c
+	dro_lb_u, dro_lb_v, dro_lb_w
+
+Offsets for the currently active G5x coordinate system
+
+.. csv-table:: G5x Status Labels
+   :width: 100%
+   :align: left
+
+	g5x_lb_x, g5x_lb_y, g5x_lb_z
+	g5x_lb_a, g5x_lb_b, g5x_lb_c
+	g5x_lb_u, g5x_lb_v, g5x_lb_w
+
+Offsets for G92
+
+.. csv-table:: G92 Status Labels
+   :width: 100%
+   :align: left
+
+	g92_lb_x, g92_lb_y, g92_lb_z
+	g92_lb_a, g92_lb_b, g92_lb_c
+	g92_lb_u, g92_lb_v, g92_lb_w
+
+
 Spindle Status
 --------------
 
