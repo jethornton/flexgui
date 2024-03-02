@@ -3,4 +3,3 @@ flexgui/src/*.ui usr/lib/libflexgui
 flexgui/src/libflexgui/*.qss usr/lib/libflexgui
 
 flexgui/src/libflexgui/*.py usr/lib/python3/dist-packages/libflexgui
-
