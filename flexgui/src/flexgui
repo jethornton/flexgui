@@ -48,9 +48,11 @@ class flexgui(QMainWindow):
 		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
 			if sys.argv[i].endswith('.ini'):
 				self.inifile = linuxcnc.ini(sys.argv[i])
+				self.ini_path = os.path.split(sys.argv[i])[0]
 				break
 		if not self.inifile: # otherwise it's running with axis for testing
 			self.inifile = linuxcnc.ini(self.status.ini_filename)
+			self.ini_path = os.path.split(self.status.ini_filename)[0]
 
 		# get ini values if any
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
