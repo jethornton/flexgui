@@ -1,4 +1,4 @@
-
+import sys
 
 from PyQt6.QtWidgets import QLabel
 
@@ -108,6 +108,7 @@ linuxcnc.
 
 : '', 
 '''
+
 def update(parent):
 	parent.status.poll()
 	stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
@@ -125,8 +126,8 @@ def update(parent):
 	'interpreter_errcode': {0: 'INTERP_OK', 1: 'INTERP_EXIT',
 		2: 'INTERP_EXECUTE_FINISH', 3: 'INTERP_ENDFILE', 4: 'INTERP_FILE_NOT_OPEN',
 		5: 'INTERP_ERROR'},
-	'kinematics_type': {0: 'KINEMATICS_IDENTITY', 1: 'KINEMATICS_FORWARD_ONLY',
-		2: 'KINEMATICS_INVERSE_ONLY', 3: 'KINEMATICS_BOTH'},
+	'kinematics_type': {1: 'KINEMATICS_IDENTITY', 2: 'KINEMATICS_FORWARD_ONLY',
+		3: 'KINEMATICS_INVERSE_ONLY', 4: 'KINEMATICS_BOTH'},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'motion_type': {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
 		2: 'MOTION_TYPE_FEED', 3: 'MOTION_TYPE_ARC', 4: 'MOTION_TYPE_TOOLCHANGE',
@@ -140,7 +141,9 @@ def update(parent):
 	for key, value in parent.status_labels.items(): # update all status labels
 		# get the label and set the text to the status value of the key
 		if key in stat_dict:
-			getattr(parent, f'{value}').setText(f'{stat_dict[key][getattr(parent.status, f"{key}")]}')
+			stat_value = getattr(parent.status, f'{key}')
+			if stat_value in stat_dict[key]:
+				getattr(parent, f'{value}').setText(f'{stat_dict[key][stat_value]}')
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")}')
 
