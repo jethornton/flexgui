@@ -172,6 +172,11 @@ def update(parent):
 			m_codes.append(f'M{i}')
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
+	# axis position
+	for key, value in parent.status_dro.items(): # key is label value is status item
+		pos = 0
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").position[value[0]]:.{value[1]}f}')
+
 	# axis s.axis[0]['velocity']
 	for key, value in parent.status_axes.items(): # hmm max is 9 I think...
 		key = key[0:-2]

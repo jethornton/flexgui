@@ -126,6 +126,16 @@ def setup_status_labels(parent):
 			# parent.status_labels['acceleration'] = 'acceleration_lb'
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
+	# check for dro labels in ui
+	dro_items = ['dro_lb_x', 'dro_lb_y', 'dro_lb_z', 'dro_lb_a', 'dro_lb_b',
+		'dro_lb_c', 'dro_lb_u', 'dro_lb_v', 'dro_lb_w']
+	parent.status_dro = {}
+	for i, item in enumerate(dro_items):
+		if parent.findChild(QLabel, f'{item}'): # if the label is found
+			p = getattr(parent, item).property('precision')
+			p = p if p is not None else 3
+			parent.status_dro[f'{item}'] = [i, p] # add the label, tuple position & precision
+
 	# check for axis labels in ui
 	# these return tuples of xyzabcuvw axes
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
