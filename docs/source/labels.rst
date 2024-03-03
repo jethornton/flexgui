@@ -78,6 +78,17 @@ number of the joint. Joint numbers start at 0 and go through to 15.
 Special Labels
 --------------
 
+Axis machine position labels no offsets
+
+.. csv-table:: Machine Position Status Labels
+   :width: 100%
+   :align: left
+
+	actual_lb_x, actual_lb_y, actual_lb_z
+	actual_lb_a, actual_lb_b, actual_lb_c
+	actual_lb_u, actual_lb_v, actual_lb_w
+
+
 Axis position labels including all offsets
 
 .. csv-table:: DRO Status Labels

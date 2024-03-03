@@ -172,11 +172,25 @@ def update(parent):
 			m_codes.append(f'M{i}')
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
-	# axis position
-	for key, value in parent.status_dro.items(): # key is label value tuple position & precision
-		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").position[value[0]]:.{value[1]}f}')
+	# axis position no offsets
 
-	# axis s.axis[0]['velocity']
+	# axis position including offsets
+	for key, value in parent.status_dro.items(): # key is label value tuple position & precision
+		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]
+		g92_offset = getattr(parent, "status").g92_offset[value[0]]
+		machine_position = getattr(parent, "status").position[value[0]]
+		relative_position = machine_position - (g5x_offset + g92_offset)
+		getattr(parent, f'{key}').setText(f'{relative_position:.{value[1]}f}')
+
+	# axis g5x offset
+	for key, value in parent.status_g5x.items(): # key is label value tuple position & precision
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").g5x_offset[value[0]]:.{value[1]}f}')
+
+	# axis g92 offset
+	for key, value in parent.status_g92.items(): # key is label value tuple position & precision
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").g92_offset[value[0]]:.{value[1]}f}')
+
+	# axis s.axis[0]['velocity'] FIXME precision
 	for key, value in parent.status_axes.items(): # hmm max is 9 I think...
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
@@ -189,13 +203,17 @@ def update(parent):
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
 
-	# i/o s.ain[0]
+	# i/o s.ain[0] FIXME precision
 	for key, value in parent.status_io.items(): # up to 64 items
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
 			key = key[0:-3]
 		else:
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")[int(value[-4])]}')
+
+	# i/o s.aout[0] FIXME precision
+	# i/o s.din[0]
+	# i/o s.dout[0]
 
 	# spindle s.spindle[0]['brake']
 	for key, value in parent.status_spindles.items():

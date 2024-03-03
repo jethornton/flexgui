@@ -119,27 +119,47 @@ def setup_status_labels(parent):
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table', 'velocity']
 
-	# check for status labels in ui
+	# check for status labels in the ui
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
 		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found
 			# parent.status_labels['acceleration'] = 'acceleration_lb'
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
-	# check for dro labels in ui
 	dro_items = ['dro_lb_x', 'dro_lb_y', 'dro_lb_z', 'dro_lb_a', 'dro_lb_b',
 		'dro_lb_c', 'dro_lb_u', 'dro_lb_v', 'dro_lb_w']
-	parent.status_dro = {}
+	parent.status_dro = {} # create an empty dictionary
+	# check for dro labels in the ui
 	for i, item in enumerate(dro_items):
 		if parent.findChild(QLabel, f'{item}'): # if the label is found
 			p = getattr(parent, item).property('precision')
 			p = p if p is not None else 3
 			parent.status_dro[f'{item}'] = [i, p] # add the label, tuple position & precision
 
-	# check for axis labels in ui
+	g5x_items = ['g5x_lb_x', 'g5x_lb_y', 'g5x_lb_z', 'g5x_lb_a', 'g5x_lb_b',
+		'g5x_lb_c', 'g5x_lb_u', 'g5x_lb_v', 'g5x_lb_w']
+	parent.status_g5x = {} # create an empty dictionary
+	# check for g5x offset labels in the ui
+	for i, item in enumerate(g5x_items):
+		if parent.findChild(QLabel, f'{item}'): # if the label is found
+			p = getattr(parent, item).property('precision')
+			p = p if p is not None else 3
+			parent.status_g5x[f'{item}'] = [i, p] # add the label, tuple position & precision
+
+	g92_items = ['g92_lb_x', 'g92_lb_y', 'g92_lb_z', 'g92_lb_a', 'g92_lb_b',
+		'g92_lb_c', 'g92_lb_u', 'g92_lb_v', 'g92_lb_w']
+	parent.status_g92 = {} # create an empty dictionary
+	# check for g5x offset labels in the ui
+	for i, item in enumerate(g92_items):
+		if parent.findChild(QLabel, f'{item}'): # if the label is found
+			p = getattr(parent, item).property('precision')
+			p = p if p is not None else 3
+			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
+
+	# check for axis labels in the ui
 	# these return tuples of xyzabcuvw axes
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
-	parent.status_axes = {}
+	parent.status_axes = {} # create an empty dictionary
 	parent.status.poll()
 	for i in range(parent.status.axis_mask.bit_count()): # only check for axes that exist
 		for item in axis_items:
@@ -153,7 +173,7 @@ def setup_status_labels(parent):
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
 	'output', 'override_limits', 'units', 'velocity']
-	parent.status_joints = {}
+	parent.status_joints = {} # create an empty dictionary
 	for i in range(9):
 		for item in joint_items:
 			if parent.findChild(QLabel, f'joint_{item}_{i}_lb'):
