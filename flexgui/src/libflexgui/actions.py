@@ -1,37 +1,29 @@
 import os
 
-from PyQt5.QtWidgets import QApplication, QFileDialog, QPlainTextEdit
+from PyQt5.QtWidgets import QApplication, QFileDialog
 def action_open(parent): # actionOpen
 	app = QApplication([])
-
-	file_name, _ = QFileDialog.getOpenFileName(None, caption='Open file')
-	return
-	parent.file_dialog()
-	
-
-	'''
 
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
 		gcode_dir = os.path.expanduser('~/')
-	file_name, _ = QFileDialog.getOpenFileName(parent, caption='Open file')
-	print(file_name)
 
-	fileName = QFileDialog.getOpenFileName(parent,
+	fileName = QFileDialog.getOpenFileName(None,
 	caption="Select G code File", directory=gcode_dir,
 	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.DontUseNativeDialog,)
 	gcode_file = fileName[0]
 	if gcode_file:
 		parent.command.program_open(gcode_file)
 		text = open(gcode_file).read()
-		if parent.findChild(QPlainTextEdit, 'gcode_pte'):
+		if parent.gcode_pte_exists:
 			parent.gcode_pte.setPlainText(text)
-		parent.actionReload.setEnabled(True)
+		#parent.actionReload.setEnabled(True)
 		base = os.path.basename(gcode_file)
-		if parent.file_lb_exists:
-			parent.file_lb.setText(f'G code: {base}')
-	'''
+		#if parent.file_lb_exists:
+		#	print('there')
+		#	parent.file_lb.setText(f'G code: {base}')
+
 def action_recent(parent): # actionRecent
 	print(parent.sender().objectName())
 
