@@ -173,8 +173,7 @@ def update(parent):
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
 	# axis position
-	for key, value in parent.status_dro.items(): # key is label value is status item
-		pos = 0
+	for key, value in parent.status_dro.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").position[value[0]]:.{value[1]}f}')
 
 	# axis s.axis[0]['velocity']
