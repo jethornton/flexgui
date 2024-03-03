@@ -1,5 +1,6 @@
-flexgui (0.0.1) UNRELEASED; urgency=medium
+flexgui (0.0.2) unstable; urgency=medium
 
   * Initial release
+  * Finish status labels
 
- -- John Thornton <dev@gnipsel.com>  Wed, 14 Feb 2024 07:18:14 -0600
+ -- John Thornton <dev@gnipsel.com>  Sun, 03 Mar 2024 10:06:28 -0600
