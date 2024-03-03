@@ -156,7 +156,7 @@ def setup_status_labels(parent):
 			p = p if p is not None else 3
 			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
 
-	# check for axis labels in the ui
+	# check for axis labels in the ui FIXME precision velocity
 	# these return tuples of xyzabcuvw axes
 	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
 	parent.status_axes = {} # create an empty dictionary
@@ -222,6 +222,7 @@ def setup_plain_text_edits(parent):
 	for item in plain_text_edits:
 		if parent.findChild(QPlainTextEdit, item) is not None:
 			setattr(parent, f'{item}_exists', True)
+			print(item)
 		else:
 			setattr(parent, f'{item}_exists', False)
 
@@ -343,14 +344,6 @@ def setup_misc(parent):
 
 	# combo boxes
 	combo_dict = {'jog_mode_cb': 'load_jog_modes'}
-
-
-	# plain text edits
-	# ptes = {'gcode_pte': 'gcode_viewer'}
-	#if isinstance(parent.findChild(QPlainTextEdit, 'gcode_pte'), QPlainTextEdit):
-	#if parent.findChild(QPlainTextEdit, 'gcode_pte'):
-	#./	parent.gcode_pte.cursorPositionChanged.connect(partial(editor.highlight_line, parent))
-
 
 
 def setup_hal_buttons(parent):
