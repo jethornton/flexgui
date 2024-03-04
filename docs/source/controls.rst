@@ -17,7 +17,7 @@ from the list below for each control widget objectName.
 	Home Joint n      home_pb_n
 	Unhome All        unhome_all_pb
 	Unhome Joint n    unhome_pb_n
-	Manual mode	  manual_mode_pb
+	Manual Mode	      manual_mode_pb
 	Run MDI           run_mdi_pb
 	Touch Off X       touchoff_pb_x
 	Tool Touch Off X  tool_touchoff_x
