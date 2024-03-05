@@ -2,8 +2,9 @@ import os
 from functools import partial
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
-from PyQt6.QtWidgets import QComboBox, QSlider
+from PyQt6.QtWidgets import QComboBox, QSlider, QMenu
 from PyQt6.QtGui import QAction
+from PyQt6.QtCore import QSettings
 
 from libflexgui import actions
 from libflexgui import commands
@@ -34,6 +35,23 @@ def setup_actions(parent): # setup menu actions
 	for key, value in actions_dict.items():
 		if parent.findChild(QAction, f'{key}'):
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
+
+def setup_recent_files(parent):
+	# add the Recent menu
+	actions_found = parent.findChildren(QAction)
+	for action in actions_found:
+		if action.objectName() == 'actionEdit':
+			parent.menuRecent = QMenu('Recent', parent)
+			parent.menuFile.insertMenu(action, parent.menuRecent)
+			#print(type(parent.menuRecent))
+
+	# if any files have been opened add them
+	keys = parent.settings.allKeys()
+	for key in keys:
+		if key.startswith('recent_files'):
+			a = parent.menuRecent.addAction(parent.settings.value(key))
+			a.triggered.connect(partial(getattr(actions, 'load_file'), parent, parent.settings.value(key)))
+			#a.triggered.connect(actions.action_test)
 
 def setup_enables(parent):
 	# just disable all controls except estop at startup
@@ -222,7 +240,6 @@ def setup_plain_text_edits(parent):
 	for item in plain_text_edits:
 		if parent.findChild(QPlainTextEdit, item) is not None:
 			setattr(parent, f'{item}_exists', True)
-			print(item)
 		else:
 			setattr(parent, f'{item}_exists', False)
 
@@ -362,6 +379,5 @@ def setup_hal_buttons(parent):
 					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
 					getattr(parent, f'{name}').toggled.connect(lambda:
 						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
-
 
 

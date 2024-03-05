@@ -1,30 +1,49 @@
 import os
 
 from PyQt5.QtWidgets import QApplication, QFileDialog
-def action_open(parent): # actionOpen
-	app = QApplication([])
 
+app = QApplication([])
+
+def load_file(parent, gcode_file):
+	parent.command.program_open(gcode_file)
+	text = open(gcode_file).read()
+	if parent.gcode_pte_exists:
+		parent.gcode_pte.setPlainText(text)
+	#parent.actionReload.setEnabled(True)
+	base = os.path.basename(gcode_file)
+
+def action_open(parent): # actionOpen
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
 		gcode_dir = os.path.expanduser('~/')
-
-	fileName = QFileDialog.getOpenFileName(None,
+	gcode_file, file_type = QFileDialog.getOpenFileName(None,
 	caption="Select G code File", directory=gcode_dir,
 	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.DontUseNativeDialog,)
-	gcode_file = fileName[0]
-	if gcode_file:
-		parent.command.program_open(gcode_file)
-		text = open(gcode_file).read()
-		if parent.gcode_pte_exists:
-			parent.gcode_pte.setPlainText(text)
-		#parent.actionReload.setEnabled(True)
-		base = os.path.basename(gcode_file)
-		#if parent.file_lb_exists:
-		#	print('there')
-		#	parent.file_lb.setText(f'G code: {base}')
+	if gcode_file: load_file(parent, gcode_file)
 
-def action_recent(parent): # actionRecent
+	'''
+		keys = parent.settings.allKeys()
+		files = []
+		for key in keys:
+			if key.startswith('recent_files'):
+				files.append(parent.settings.value(key))
+				#print(parent.settings.value(key))
+		files.insert(0, gcode_file)
+		#print(files)
+		files = files[:5]
+		#print(files)
+		parent.settings.beginGroup('recent_files')
+		parent.settings.remove('')
+		for i, item in enumerate(files):
+			parent.settings.setValue(str(i), item)
+		parent.settings.endGroup()
+	'''
+def action_test(parent, text):
+	print(text)
+	print(parent.sender().objectName())
+
+def action_recent(parent, text): # actionRecent
 	print(parent.sender().objectName())
 
 def action_edit(parent): # actionEdit
