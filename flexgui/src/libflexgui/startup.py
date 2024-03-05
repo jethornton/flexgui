@@ -49,8 +49,10 @@ def setup_recent_files(parent):
 	keys = parent.settings.allKeys()
 	for key in keys:
 		if key.startswith('recent_files'):
-			a = parent.menuRecent.addAction(parent.settings.value(key))
-			a.triggered.connect(partial(getattr(actions, 'load_file'), parent, parent.settings.value(key)))
+			path = parent.settings.value(key)
+			name = os.path.basename(path)
+			a = parent.menuRecent.addAction(name)
+			a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 			#a.triggered.connect(actions.action_test)
 
 def setup_enables(parent):
