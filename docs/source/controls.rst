@@ -17,10 +17,12 @@ from the list below for each control widget objectName.
 	Home Joint n      home_pb_n
 	Unhome All        unhome_all_pb
 	Unhome Joint n    unhome_pb_n
-	Manual Mode	      manual_mode_pb
+	Manual Mode       manual_mode_pb
 	Run MDI           run_mdi_pb
-	Touch Off X       touchoff_pb_x
-	Tool Touch Off X  tool_touchoff_x
+	Touch Off Axis    touchoff_pb_(axis letter)
+	Tool Touch Off    tool_touchoff_(axis letter)
+	Jog Plus Axis     jog_plus_pb_(axis letter)
+	Jog Minus Axis    jog_minus_pb_(axis letter)
 	Tool Change       tool_change_pb
 	Spindle Start     start_spindle_pb
 	Spindle Stop      stop_spindle_pb
@@ -28,6 +30,7 @@ from the list below for each control widget objectName.
 	Spindle Slower    spindle_minus_pb
 	Flood Toggle      flood_pb
 	Mist Toggle       mist_pb
+	Clear MDI History clear_mdi_history_pb
 
 .. image:: /images/controls-01.png
    :align: center
@@ -35,3 +38,4 @@ from the list below for each control widget objectName.
 
 .. note:: You don't have to use all the controls, the ones found will be
    connected to the correct code. Some controls will be mandatory.
+
