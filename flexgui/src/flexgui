@@ -9,7 +9,7 @@ from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.uic import loadUi
-from PyQt6.QtCore import Qt, QTimer, QEvent
+from PyQt6.QtCore import Qt, QTimer, QEvent, QSettings
 
 import linuxcnc
 
@@ -105,6 +105,8 @@ class flexgui(QMainWindow):
 		else:
 			self.show()
 
+		self.settings = QSettings('JET', 'Flex GUI')
+
 		startup.setup_buttons(self)
 		startup.setup_actions(self)
 		startup.setup_enables(self)
@@ -115,6 +117,7 @@ class flexgui(QMainWindow):
 		startup.setup_sliders(self)
 		startup.setup_hal_buttons(self)
 		startup.load_postgui(self)
+		startup.setup_recent_files(self)
 		#connections.connect_controls(self)
 
 		# setup and start the status update timer every 0.1 second
