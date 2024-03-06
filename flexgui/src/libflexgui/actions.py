@@ -4,6 +4,8 @@ from functools import partial
 
 from PyQt5.QtWidgets import QApplication, QFileDialog
 
+from libflexgui import dialogs
+
 app = QApplication([])
 
 def load_file(parent, gcode_file):
@@ -14,24 +16,24 @@ def load_file(parent, gcode_file):
 	#parent.actionReload.setEnabled(True)
 	base = os.path.basename(gcode_file)
 
+	# get recent files from settings
 	keys = parent.settings.allKeys()
-	files = []
+	file_list = []
 	for key in keys:
 		if key.startswith('recent_files'):
-			files.append(parent.settings.value(key))
-			#print(parent.settings.value(key))
-	if gcode_file in files:
-		files.remove(gcode_file)
+			file_list.append(parent.settings.value(key))
+	# if the g code file is in the list remove it
+	if gcode_file in file_list:
+		file_list.remove(gcode_file)
+	# insert the g code file at the top of the list
+	file_list.insert(0, gcode_file)
+	# trim the list to 5
+	file_list = file_list[:5]
 
-	files.insert(0, gcode_file)
-	#print(files)
-
-	files = files[:5]
-	#print(files)
-
+	# add files back into settings
 	parent.settings.beginGroup('recent_files')
 	parent.settings.remove('')
-	for i, item in enumerate(files):
+	for i, item in enumerate(file_list):
 		parent.settings.setValue(str(i), item)
 	parent.settings.endGroup()
 
@@ -57,15 +59,33 @@ def action_open(parent): # actionOpen
 	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.DontUseNativeDialog,)
 	if gcode_file: load_file(parent, gcode_file)
 
-def action_test(parent, text):
-	print(text)
-	print(parent.sender().objectName())
-
-def action_recent(parent, text): # actionRecent
-	print(parent.sender().objectName())
-
 def action_edit(parent): # actionEdit
-	print(parent.sender().objectName())
+	parent.status.poll
+	gcode_file = parent.status.file or False
+	if gcode_file:
+		print(gcode_file)
+	else:
+		msg = ('No File is open.\nDo you want to open a file?')
+		response = dialogs.msg_yes_no(msg, 'No File Loaded')
+		if response:
+			action_open(parent)
+
+	editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
+	if editor:
+		cmd = ['which', editor]
+		output = subprocess.run(cmd, capture_output=True, text=True)
+		if output.returncode == 0:
+			subprocess.Popen([editor, gcode_file])
+		else:
+			msg = ('The Editor configured in the ini file\n'
+				'is not installed.')
+			dialogs.
+
+
+
+	else:
+		msg = ('No Editor was found\nin the ini Display section')
+		dialogs.msg_ok(msg, 'Editor')
 
 def action_reload(parent): # actionReload
 	print(parent.sender().objectName())
