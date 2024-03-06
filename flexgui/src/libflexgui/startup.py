@@ -6,6 +6,8 @@ from PyQt6.QtWidgets import QComboBox, QSlider, QMenu
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 
+import hal
+
 from libflexgui import actions
 from libflexgui import commands
 
@@ -35,6 +37,12 @@ def setup_actions(parent): # setup menu actions
 	for key, value in actions_dict.items():
 		if parent.findChild(QAction, f'{key}'):
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
+
+	# special check for the classicladder editor
+	if parent.findChild(QAction, 'actionLadder_Editor'):
+		if not hal.component_exists("classicladder_rt"):
+			parent.actionLadder_Editor.setEnabled(False)
+
 
 def setup_recent_files(parent):
 	# add the Recent menu FIXME look for file open then add before next action

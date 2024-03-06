@@ -5,6 +5,7 @@ from functools import partial
 from PyQt5.QtWidgets import QApplication, QFileDialog
 
 import linuxcnc
+import hal
 
 from libflexgui import dialogs
 
@@ -140,10 +141,15 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	subprocess.Popen([tool_editor, tool_file])
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
-	print(parent.sender().objectName())
+	parent.command.load_tool_table()
 
 def action_ladder_editor(parent): # actionLadder_Editor
-	print(parent.sender().objectName())
+	if hal.component_exists("classicladder_rt"):
+		p = os.popen("classicladder  &", "w")
+	else:
+		msg = ('The Classic Ladder component\n is not loaded.')
+		dialogs.warn_msg_ok(msg, 'Error')
+
 
 def action_quit(parent): # actionQuit
 	print(parent.sender().objectName())

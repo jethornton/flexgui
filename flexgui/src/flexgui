@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import Qt, QTimer, QEvent, QSettings
 
-import linuxcnc
+import linuxcnc, hal
 
 from libflexgui import startup
 from libflexgui import status
@@ -42,6 +42,7 @@ class flexgui(QMainWindow):
 		self.status.poll()
 		self.command = linuxcnc.command()
 		self.error = linuxcnc.error_channel()
+		self.halcomp = hal.component('flex')
 
 		# get connection to the ini file
 		self.inifile = False
