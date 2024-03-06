@@ -164,10 +164,10 @@ def run_mdi(parent, cmd=''):
 				mdi_command = parent.mdi_command_le.text()
 			else:
 				msg = 'No MDI command was found!'
-				dialogs.errorMsgOk(msg, 'Error')
+				dialogs.msg_ok(msg, 'Error')
 		else:
 			msg = 'QLineEdit mdi_command_le not found!'
-			dialogs.errorMsgOk(msg, 'Error')
+			dialogs.msg_ok(msg, 'Error')
 			return
 
 	parent.mdi_command = mdi_command
