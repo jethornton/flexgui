@@ -5,75 +5,73 @@ from PyQt5.QtWidgets import QMessageBox, QCheckBox
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 
-def msg_cancel_ok(text, title):
-	msgBox = QMessageBox()
-	msgBox.setIcon(QMessageBox.Warning)
-	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
-	msgBox.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
-	returnValue = msgBox.exec()
+def warn_msg_cancel_ok(text, title):
+	msg_box = QMessageBox()
+	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(text)
+	msg_box.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.Ok:
 		return True
 	else:
 		return False
 
-def msg_ok(text, title=None):
-	msgBox = QMessageBox()
-	msgBox.setIcon(QMessageBox.Warning)
-	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
-	msgBox.setStandardButtons(QMessageBox.Ok)
-	returnValue = msgBox.exec()
+def warn_msg_ok(text, title=None):
+	msg_box = QMessageBox()
+	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(text)
+	msg_box.setStandardButtons(QMessageBox.Ok)
+	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.Ok:
 		return True
 	else:
 		return False
 
-def msg_yes_no(text, title=None):
-	msgBox = QMessageBox()
-	msgBox.setIcon(QMessageBox.Warning)
-	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
-	msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-	returnValue = msgBox.exec()
+def warn_msg_yes_no(text, title=None):
+	msg_box = QMessageBox()
+	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(text)
+	msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.Yes:
 		return True
 	else:
 		return False
 
-def msg_yes_no_check(title, body_text, chkbx_text):
+def warn_msg_yes_no_check(title, body_text, chkbx_text):
 	chkBox = QCheckBox()
 	chkBox.setText(chkbx_text)
-	msgBox = QMessageBox()
-	msgBox.setCheckBox(chkBox)
-	msgBox.setIcon(QMessageBox.Warning)
-	msgBox.setWindowTitle(title)
-	msgBox.setText(body_text)
-	msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-	returnValue = msgBox.exec()
+	msg_box = QMessageBox()
+	msg_box.setCheckBox(chkBox)
+	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(body_text)
+	msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+	returnValue = msg_box.exec()
 	answer = True if returnValue == QMessageBox.Yes else False
 	return answer, chkBox.isChecked()
 
-def msg_ok(text, title=None):
-	msgBox = QMessageBox()
-	msgBox.setIcon(QMessageBox.Information)
-	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
-	msgBox.setStandardButtons(QMessageBox.Ok)
-	returnValue = msgBox.exec()
+def info_msg_ok(text, title=None):
+	msg_box = QMessageBox()
+	msg_box.setIcon(QMessageBox.Information)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(text)
+	msg_box.setStandardButtons(QMessageBox.Ok)
+	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.Ok:
 		return True
 	else:
 		return False
 
+def about_dialog(parent):
+	dialog_box = QDialog()
+	dialog_box.setMinimumSize(300, 300)
+	dialog_box.setWindowTitle('About')
 
-def aboutDialog(parent):
-	dialogBox = QDialog()
-	dialogBox.setMinimumSize(300, 300)
-	dialogBox.setWindowTitle('About')
-
-	layout = QVBoxLayout(dialogBox)
-
+	layout = QVBoxLayout(dialog_box)
 
 	titleLabel =  QLabel()
 	titleLabel.setText('Mesa Configuration Tool')
@@ -104,7 +102,6 @@ def aboutDialog(parent):
 	aboutLabel.setAlignment(Qt.AlignCenter)
 	layout.addWidget(aboutLabel)
 
-
 	websiteLabel =  QLabel()
 	websiteLabel.setText("<a href='https://gnipsel.com/'>Authors Website</a>")
 	websiteLabel.setAlignment(Qt.AlignCenter)
@@ -117,12 +114,10 @@ def aboutDialog(parent):
 	repoLabel.setOpenExternalLinks(True)
 	layout.addWidget(repoLabel)
 
-
 	copyrightLabel =  QLabel()
 	copyrightLabel.setText('Copyright © 1953-2023 John Thornton')
 	copyrightLabel.setAlignment(Qt.AlignCenter)
 	layout.addWidget(copyrightLabel)
-
 
 	layout.addStretch()
 
