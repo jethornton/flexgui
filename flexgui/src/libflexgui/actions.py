@@ -131,7 +131,13 @@ def action_save_as(parent): # actionSave_As
 		load_file(parent, new_gcode_file)
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
-	print(parent.sender().objectName())
+	ini_path = parent.ini_path
+	tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
+	if not tool_editor:
+		tool_editor = 'tooledit'
+	tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
+	tool_file = os.path.join(ini_path, tool_table)
+	subprocess.Popen([tool_editor, tool_file])
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	print(parent.sender().objectName())
