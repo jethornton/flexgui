@@ -1,4 +1,4 @@
-import os
+import os, subprocess
 
 from functools import partial
 
@@ -66,9 +66,12 @@ def action_edit(parent): # actionEdit
 		print(gcode_file)
 	else:
 		msg = ('No File is open.\nDo you want to open a file?')
-		response = dialogs.msg_yes_no(msg, 'No File Loaded')
+		response = dialogs.warn_msg_yes_no(msg, 'No File Loaded')
 		if response:
 			action_open(parent)
+			return
+		else:
+			return
 
 	editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	if editor:
@@ -76,16 +79,13 @@ def action_edit(parent): # actionEdit
 		output = subprocess.run(cmd, capture_output=True, text=True)
 		if output.returncode == 0:
 			subprocess.Popen([editor, gcode_file])
-		else:
+		else: # FIXME get fancy and offer up and editor that's installed
 			msg = ('The Editor configured in the ini file\n'
 				'is not installed.')
-			dialogs.
-
-
-
+			dialogs.warn_msg_ok(msg, 'Error')
 	else:
 		msg = ('No Editor was found\nin the ini Display section')
-		dialogs.msg_ok(msg, 'Editor')
+		dialogs.warn_msg_ok(msg, 'Editor')
 
 def action_reload(parent): # actionReload
 	print(parent.sender().objectName())
