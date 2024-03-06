@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QMessageBox, QCheckBox
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 
-def errorMsgCancelOk(text, title):
+def msg_cancel_ok(text, title):
 	msgBox = QMessageBox()
 	msgBox.setIcon(QMessageBox.Warning)
 	msgBox.setWindowTitle(title)
@@ -17,7 +17,7 @@ def errorMsgCancelOk(text, title):
 	else:
 		return False
 
-def errorMsgOk(text, title=None):
+def msg_ok(text, title=None):
 	msgBox = QMessageBox()
 	msgBox.setIcon(QMessageBox.Warning)
 	msgBox.setWindowTitle(title)
@@ -29,19 +29,7 @@ def errorMsgOk(text, title=None):
 	else:
 		return False
 
-def questionMsg(text, title=None): # unused function
-	msgBox = QMessageBox()
-	msgBox.setIcon(QMessageBox.Question)
-	msgBox.setWindowTitle(title)
-	msgBox.setText(text)
-	msgBox.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
-	returnValue = msgBox.exec()
-	if returnValue == QMessageBox.Ok:
-		return True
-	else:
-		return False
-
-def errorMsgYesNo(text, title=None):
+def msg_yes_no(text, title=None):
 	msgBox = QMessageBox()
 	msgBox.setIcon(QMessageBox.Warning)
 	msgBox.setWindowTitle(title)
@@ -53,7 +41,7 @@ def errorMsgYesNo(text, title=None):
 	else:
 		return False
 
-def msgYesNoCheck(title, body_text, chkbx_text):
+def msg_yes_no_check(title, body_text, chkbx_text):
 	chkBox = QCheckBox()
 	chkBox.setText(chkbx_text)
 	msgBox = QMessageBox()
@@ -66,7 +54,7 @@ def msgYesNoCheck(title, body_text, chkbx_text):
 	answer = True if returnValue == QMessageBox.Yes else False
 	return answer, chkBox.isChecked()
 
-def infoMsgOk(text, title=None):
+def msg_ok(text, title=None):
 	msgBox = QMessageBox()
 	msgBox.setIcon(QMessageBox.Information)
 	msgBox.setWindowTitle(title)
