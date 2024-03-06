@@ -4,6 +4,8 @@ from functools import partial
 
 from PyQt5.QtWidgets import QApplication, QFileDialog
 
+import linuxcnc
+
 from libflexgui import dialogs
 
 app = QApplication([])
@@ -62,9 +64,7 @@ def action_open(parent): # actionOpen
 def action_edit(parent): # actionEdit
 	parent.status.poll
 	gcode_file = parent.status.file or False
-	if gcode_file:
-		print(gcode_file)
-	else:
+	if not gcode_file:
 		msg = ('No File is open.\nDo you want to open a file?')
 		response = dialogs.warn_msg_yes_no(msg, 'No File Loaded')
 		if response:
@@ -88,7 +88,27 @@ def action_edit(parent): # actionEdit
 		dialogs.warn_msg_ok(msg, 'Editor')
 
 def action_reload(parent): # actionReload
-	print(parent.sender().objectName())
+	parent.status.poll
+	gcode_file = parent.status.file or False
+	if gcode_file:
+		parent.status.poll()
+		if len(parent.status.file) > 0:
+			if parent.status.task_mode != linuxcnc.MODE_MANUAL:
+				parent.command.mode(linuxcnc.MODE_MANUAL)
+				parent.command.wait_complete()
+			gcode_file = parent.status.file 
+			# Force a sync of the interpreter, which writes out the var file.
+			parent.command.task_plan_synch()
+			parent.command.wait_complete()
+			parent.command.program_open(gcode_file)
+		parent.command.program_open(gcode_file)
+		text = open(gcode_file).read()
+		if parent.gcode_pte_exists:
+			parent.gcode_pte.setPlainText(text)
+
+	else:
+		msg = ('No File is open to reload')
+		response = dialogs.warn_msg_ok(msg, 'Error')
 
 def action_save_as(parent): # actionSave_As
 	print(parent.sender().objectName())
