@@ -37,7 +37,7 @@ def setup_actions(parent): # setup menu actions
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 def setup_recent_files(parent):
-	# add the Recent menu
+	# add the Recent menu FIXME look for file open then add before next action
 	actions_found = parent.findChildren(QAction)
 	for action in actions_found:
 		if action.objectName() == 'actionEdit':
