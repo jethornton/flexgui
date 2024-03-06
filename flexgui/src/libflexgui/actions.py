@@ -111,7 +111,24 @@ def action_reload(parent): # actionReload
 		response = dialogs.warn_msg_ok(msg, 'Error')
 
 def action_save_as(parent): # actionSave_As
-	print(parent.sender().objectName())
+	current_gcode_file = parent.status.file or False
+	if not current_gcode_file:
+		msg = ('No File is Open')
+		dialogs.warn_msg_ok(msg, 'Error')
+		return
+	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
+		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
+	else:
+		gcode_dir = os.path.expanduser('~/')
+	new_gcode_file, file_type = QFileDialog.getSaveFileName(None,
+	caption="Save As", directory=gcode_dir,
+	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.DontUseNativeDialog,)
+	if new_gcode_file:
+		with open(current_gcode_file, 'r') as cf:
+			gcode = cf.read()
+		with open(new_gcode_file, 'w') as f:
+			f.write(gcode)
+		load_file(parent, new_gcode_file)
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	print(parent.sender().objectName())
