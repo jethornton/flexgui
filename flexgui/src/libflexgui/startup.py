@@ -28,7 +28,13 @@ def setup_actions(parent): # setup menu actions
 		'actionEdit_Tool_Table': 'action_edit_tool_table',
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor', 'actionQuit': 'action_quit',
-		'actionClear_MDI': 'action_clear_mdi', 'actionCopy_MDI': 'action_copy_mdi',
+		'actionToggle_Estop': 'action_toggle_estop',
+		'actionToggle_Power': 'action_toggle_power',
+		'actionRun_Program': 'action_run_program', 
+		'actionRun_from_Line': 'action_run_from_line', 'actionStep': 'action_step',
+		'actionPause': 'action_pause', 'actionResume': 'action_resume',
+		'actionStop': 'action_stop', 'actionClear_MDI_History': 'action_clear_mdi',
+		'actionCopy_MDI_History': 'action_copy_mdi',
 		'actionShow_HAL': 'action_show_hal', 'actionHAL_Meter': 'action_hal_meter',
 		'actionHAL_Scope': 'action_hal_scope', 'actionAbout': 'action_about',
 		'actionQuick_Reference': 'action_quick_reference'}
@@ -43,6 +49,12 @@ def setup_actions(parent): # setup menu actions
 		if not hal.component_exists("classicladder_rt"):
 			parent.actionLadder_Editor.setEnabled(False)
 
+	# special check for MDI
+	if parent.findChild(QListWidget, 'mdi_history_lw') is None:
+		if parent.findChild(QAction, 'actionClear_MDI_History'):
+			parent.actionClear_MDI_History.setEnabled(False)
+		if parent.findChild(QAction, 'actionCopy_MDI_History'):
+			parent.actionCopy_MDI_History.setEnabled(False)
 
 def setup_recent_files(parent):
 	# add the Recent menu FIXME look for file open then add before next action
@@ -237,6 +249,8 @@ def setup_status_labels(parent):
 			if parent.findChild(QLabel, f'tool_table_{item}_{i}_lb'):
 				parent.tool_table[f'{item}_{i}'] = f'tool_table_{item}_{i}_lb'
 
+# Everything from here down needs to be looked at
+
 def setup_list_widgets(parent):
 	list_widgets = ['mdi_history_lw']
 	for item in list_widgets:
@@ -244,6 +258,11 @@ def setup_list_widgets(parent):
 			setattr(parent, f'{item}_exists', True)
 		else:
 			setattr(parent, f'{item}_exists', False)
+
+	parent.mdi_history_lw.addItem('test 1')
+	parent.mdi_history_lw.addItem('test 2')
+	parent.mdi_history_lw.addItem('test 3')
+
 
 def setup_plain_text_edits(parent):
 	plain_text_edits = ['gcode_pte', 'errors_pte']
@@ -330,6 +349,7 @@ def setup_buttons(parent):
 
 
 def setup_misc(parent):
+	# list widgets are setup above
 	list_widgets = {'mdi_history_lw': 'add_mdi'}
 	list_widgets_list = []
 	for list_widget in parent.findChildren(QListWidget):
@@ -339,6 +359,10 @@ def setup_misc(parent):
 	for item in list_widgets_list:
 		if item in list_widgets:
 			getattr(parent, item).itemSelectionChanged.connect(partial(getattr(utilities, list_widgets[item]), parent))
+
+	parent.mdi_history_lw.addItem('test 1')
+	parent.mdi_history_lw.addItem('test 2')
+	parent.mdi_history_lw.addItem('test 3')
 
 	sliders = {
 	'jog_vel_s': 'jog_slider'}
