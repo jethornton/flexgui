@@ -154,13 +154,13 @@ def action_quit(parent): # actionQuit
 	#sys.exit()
 	parent.close()
 
-def action_toggle_estop(parent): # actionToggle_Estop
+def action_estop(parent): # actionToggle_Estop
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		parent.command.state(linuxcnc.STATE_ESTOP_RESET)
 	else:
 		parent.command.state(linuxcnc.STATE_ESTOP)
 
-def action_toggle_power(parent): # actionToggle_Power
+def action_power(parent): # actionToggle_Power
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
 		parent.command.state(linuxcnc.STATE_ON)
 	else:

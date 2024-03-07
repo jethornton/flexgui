@@ -28,8 +28,7 @@ def setup_actions(parent): # setup menu actions
 		'actionEdit_Tool_Table': 'action_edit_tool_table',
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor', 'actionQuit': 'action_quit',
-		'actionToggle_Estop': 'action_toggle_estop',
-		'actionToggle_Power': 'action_toggle_power',
+		'actionE_Stop': 'action_estop', 'action_Power': 'action_power',
 		'actionRun_Program': 'action_run_program', 
 		'actionRun_from_Line': 'action_run_from_line', 'actionStep': 'action_step',
 		'actionPause': 'action_pause', 'actionResume': 'action_resume',
@@ -75,7 +74,7 @@ def setup_recent_files(parent):
 			a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 			#a.triggered.connect(actions.action_test)
 
-def setup_enables(parent):
+def setup_enables(parent): # FIXME
 	# just disable all controls except estop at startup
 	control_list = ['power_pb', 'run_pb', 'step_pb', 'pause_pb', 'resume_pb',
 		'stop_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'start_spindle_pb',
