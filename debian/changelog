@@ -1,3 +1,9 @@
+flexgui (0.0.3) unstable; urgency=medium
+
+  * Add Actions
+
+ -- John Thornton <dev@gnipsel.com>  Thu, 07 Mar 2024 07:19:34 -0600
+
 flexgui (0.0.2) unstable; urgency=medium
 
   * Initial release
