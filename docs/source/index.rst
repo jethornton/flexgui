@@ -12,5 +12,6 @@ Flex GUI
    labels
    controls
    menu
+   misc
    hal
    style
