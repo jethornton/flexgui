@@ -1,6 +1,7 @@
 import sys
 
 from PyQt6.QtWidgets import QLabel
+from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor
 
 import linuxcnc as emc
 
@@ -171,6 +172,25 @@ def update(parent):
 			if i == -1: continue
 			m_codes.append(f'M{i}')
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
+
+	# update gcode_pte
+	if parent.gcode_pte_exists:
+		n = parent.status.motion_line
+		if n != parent.last_line:
+			format_normal = QTextBlockFormat()
+			format_normal.setBackground(QColor('white'))
+			highlight_format = QTextBlockFormat()
+			highlight_format.setBackground(QColor('yellow'))
+			motion_line = parent.status.motion_line
+
+			cursor = parent.gcode_pte.textCursor()
+			cursor.select(QTextCursor.SelectionType.Document)
+			cursor.setBlockFormat(format_normal)
+			cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(motion_line))
+			cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
+			cursor.setBlockFormat(highlight_format)
+			parent.gcode_pte.setTextCursor(cursor)
+			parent.last_line = n
 
 	# axis position no offsets
 
