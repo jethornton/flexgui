@@ -54,6 +54,19 @@ def warn_msg_yes_no_check(title, body_text, chkbx_text):
 	answer = True if returnValue == QMessageBox.Yes else False
 	return answer, chkBox.isChecked()
 
+def question_msg_yes_no_check(title, body_text, chkbx_text):
+	chkBox = QCheckBox()
+	chkBox.setText(chkbx_text)
+	msg_box = QMessageBox()
+	msg_box.setCheckBox(chkBox)
+	msg_box.setIcon(QMessageBox.Question)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(body_text)
+	msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+	returnValue = msg_box.exec()
+	answer = True if returnValue == QMessageBox.Yes else False
+	return answer, chkBox.isChecked()
+
 def info_msg_ok(text, title=None):
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Information)
