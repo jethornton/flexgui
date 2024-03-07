@@ -155,28 +155,45 @@ def action_quit(parent): # actionQuit
 	parent.close()
 
 def action_toggle_estop(parent): # actionToggle_Estop
-	print(parent.sender().objectName())
+	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		parent.command.state(linuxcnc.STATE_ESTOP_RESET)
+	else:
+		parent.command.state(linuxcnc.STATE_ESTOP)
 
 def action_toggle_power(parent): # actionToggle_Power
-	print(parent.sender().objectName())
+	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		parent.command.state(linuxcnc.STATE_ON)
+	else:
+		parent.command.state(linuxcnc.STATE_OFF)
 
 def action_run_program(parent): # actionRun_Program
-	print(parent.sender().objectName())
+	if parent.status.task_state == linuxcnc.STATE_ON:
+		if parent.status.task_mode != linuxcnc.MODE_AUTO:
+			parent.command.mode(linuxcnc.MODE_AUTO)
+			parent.command.wait_complete()
+		n = 0
+		parent.command.auto(linuxcnc.AUTO_RUN, n)
 
 def action_run_from_line(parent): # actionRun_from_Line
 	print(parent.sender().objectName())
 
 def action_step(parent): # actionStep
-	print(parent.sender().objectName())
+	if parent.status.task_state == linuxcnc.STATE_ON:
+		if parent.status.task_mode != linuxcnc.MODE_AUTO:
+			parent.command.mode(linuxcnc.MODE_AUTO)
+			parent.command.wait_complete()
+		parent.command.auto(linuxcnc.AUTO_STEP)
 
 def action_pause(parent): # actionPause
-	print(parent.sender().objectName())
+	if parent.status.state == linuxcnc.RCS_EXEC: # program is running
+		parent.command.auto(linuxcnc.AUTO_PAUSE)
 
 def action_resume(parent): # actionResume
-	print(parent.sender().objectName())
+	if parent.status.paused:
+		parent.command.auto(linuxcnc.AUTO_RESUME)
 
 def action_stop(parent): # actionStop
-	print(parent.sender().objectName())
+	parent.command.abort()
 
 
 def action_clear_mdi(parent): # actionClear_MDI
