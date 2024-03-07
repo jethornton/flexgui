@@ -1,4 +1,4 @@
-import os, subprocess
+import os, sys, subprocess
 
 from functools import partial
 
@@ -150,26 +150,58 @@ def action_ladder_editor(parent): # actionLadder_Editor
 		msg = ('The Classic Ladder component\n is not loaded.')
 		dialogs.warn_msg_ok(msg, 'Error')
 
-
 def action_quit(parent): # actionQuit
+	#sys.exit()
+	parent.close()
+
+def action_toggle_estop(parent): # actionToggle_Estop
 	print(parent.sender().objectName())
+
+def action_toggle_power(parent): # actionToggle_Power
+	print(parent.sender().objectName())
+
+def action_run_program(parent): # actionRun_Program
+	print(parent.sender().objectName())
+
+def action_run_from_line(parent): # actionRun_from_Line
+	print(parent.sender().objectName())
+
+def action_step(parent): # actionStep
+	print(parent.sender().objectName())
+
+def action_pause(parent): # actionPause
+	print(parent.sender().objectName())
+
+def action_resume(parent): # actionResume
+	print(parent.sender().objectName())
+
+def action_stop(parent): # actionStop
+	print(parent.sender().objectName())
+
 
 def action_clear_mdi(parent): # actionClear_MDI
-	print(parent.sender().objectName())
+	parent.mdi_history_lw.clear()
+	path = os.path.dirname(parent.status.ini_filename)
+	mdi_file = os.path.join(path, 'mdi_history.txt')
+	with open(mdi_file, 'w') as f:
+		f.write('')
 
 def action_copy_mdi(parent): # actionCopy_MDI
-	print(parent.sender().objectName())
+	items = [parent.mdi_history_lw.item(x) for x in range(parent.mdi_history_lw.count())]
+	mdi_list = []
+	for item in items:
+		mdi_list.append(item.text())
+	qclip = QApplication.clipboard()
+	qclip.setText('\n'.join(mdi_list))
 
 def action_show_hal(parent): # actionShow_HAL
-	print(parent.sender().objectName())
-	# subprocess.Popen(r'c:\mytool\tool.exe', cwd=r'd:\test\local')
-	# os.path.dirname(os.path.realpath(__file__)) 
+	subprocess.Popen('halshow', cwd=parent.ini_path)
 
 def action_hal_meter(parent): # actionHal_Meter
-	print(parent.sender().objectName())
+	subprocess.Popen('halmeter', cwd=parent.ini_path)
 
 def action_hal_scope(parent): # actionHal_Scope
-	print(parent.sender().objectName())
+	subprocess.Popen('halscope', cwd=parent.ini_path)
 
 def action_about(parent): # actionAbout
 	print(parent.sender().objectName())
