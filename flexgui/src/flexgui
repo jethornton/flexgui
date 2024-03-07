@@ -22,11 +22,16 @@ class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
+		self.settings = QSettings('JET', 'Flex GUI')
+
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
 			print('emc not running')
-			sys.exit()
+			response = startup.copy_examples(self)
+			#print(response)
+			if response:
+				sys.exit()
 
 		# get the path to the executable
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -108,8 +113,6 @@ class flexgui(QMainWindow):
 		else:
 			self.show()
 
-		self.settings = QSettings('JET', 'Flex GUI')
-
 		startup.setup_buttons(self)
 		startup.setup_actions(self)
 		startup.setup_enables(self)
@@ -121,6 +124,7 @@ class flexgui(QMainWindow):
 		startup.setup_hal_buttons(self)
 		startup.load_postgui(self)
 		startup.setup_recent_files(self)
+		startup.copy_examples(self)
 		#connections.connect_controls(self)
 
 		# setup and start the status update timer every 0.1 second

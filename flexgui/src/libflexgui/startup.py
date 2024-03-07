@@ -1,4 +1,4 @@
-import os
+import os, shutil
 from functools import partial
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
@@ -10,6 +10,7 @@ import hal
 
 from libflexgui import actions
 from libflexgui import commands
+from libflexgui import dialogs
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -393,7 +394,6 @@ def setup_misc(parent):
 	# combo boxes
 	combo_dict = {'jog_mode_cb': 'load_jog_modes'}
 
-
 def setup_hal_buttons(parent):
 	for button in parent.findChildren(QPushButton):
 		if button.property('function') == 'hal_pin':
@@ -410,5 +410,28 @@ def setup_hal_buttons(parent):
 					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
 					getattr(parent, f'{name}').toggled.connect(lambda:
 						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
+
+def copy_examples(parent):
+	if parent.settings.contains('nags/copy_examples'):
+		if parent.settings.value('nags/copy_examples') == 'no':
+			return True
+
+	configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
+	if not os.path.isdir(configs_dir):
+		msg = ('The example configuration directory\n'
+			'was not found. Do you want to copy them to\n'
+			f'{configs_dir}')
+		response, check = dialogs.question_msg_yes_no_check('Example Files', msg, 'Never Ask Again')
+		if check:
+			parent.settings.beginGroup("nags");
+			parent.settings.setValue("copy_examples", 'no')
+			parent.settings.endGroup()
+
+		if response:
+			source_dir = '/usr/lib/libflexgui/examples'
+			dest_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
+			if os.path.isdir(source_dir):
+				shutil.copytree(source_dir, dest_dir)
+	return True
 
 
