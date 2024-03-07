@@ -56,10 +56,10 @@ name. The action names must match exactly the above items to be found.
 Shortcut Keys
 -------------
 
-Shortcut keys can be added in the Property Editor by pressing the key
-or key combination you want to use. You can change text, icon Text or tool Tip
-but the objectName must match the above Action Names in order to be `discovered`
-by Flex GUI.
+Shortcut keys can be added in the Property Editor by clicking in the shortcut
+Value box and pressing the key or key combination you want to use. You can
+change text, icon Text or tool Tip but the objectName must match the above
+Action Names in order to be `discovered` by Flex GUI.
 
 .. image:: /images/actions-02.png
    :align: center
