@@ -259,11 +259,6 @@ def setup_list_widgets(parent):
 		else:
 			setattr(parent, f'{item}_exists', False)
 
-	parent.mdi_history_lw.addItem('test 1')
-	parent.mdi_history_lw.addItem('test 2')
-	parent.mdi_history_lw.addItem('test 3')
-
-
 def setup_plain_text_edits(parent):
 	plain_text_edits = ['gcode_pte', 'errors_pte']
 	for item in plain_text_edits:
@@ -271,6 +266,9 @@ def setup_plain_text_edits(parent):
 			setattr(parent, f'{item}_exists', True)
 		else:
 			setattr(parent, f'{item}_exists', False)
+	# for gcode_pte update
+	parent.status.poll()
+	parent.last_line = parent.status.motion_line
 
 def setup_combo_boxes(parent):
 	combo_boxes = ['jog_modes_cb']
