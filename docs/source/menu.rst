@@ -13,7 +13,6 @@ if you don't have the actionExit action.
 
 File
 	Open
-	Recent
 	Edit
 	Reload
 	Save As
@@ -23,8 +22,14 @@ File
 	Quit
 
 Machine
-	Clear MDI
-	Copy MDI
+	Run Program
+	Run from Line
+	Step
+	Pause
+	Resume
+	Stop
+	Clear MDI History
+	Copy MDI History
 
 Programs
 	Show HAL
@@ -37,20 +42,5 @@ Help
 	About
 	Quick Reference
 
-
-actionOpen action_open
-actionRecent action_recent
-actionEdit action_edit
-actionReload action_reload
-actionSave_As action_save_as
-actionEdit_Tool_Table action_edit_tool_table
-actionReload_Tool_Table action_reload_tool_table
-actionLadder_Editor action_ladder_editor
-actionQuit action_quit
-actionClear_MDI action_clear_mdi
-actionCopy_MDI action_copy_mdi
-actionShow_HAL action_show_hal
-actionHal_Meter action_hal_meter
-actionHal_Scope action_hal_scope
-actionAbout action_about
-actionQuick_Reference action_quick_reference
+When you add a menu item it creates and action and names it based on the menu
+name. The menu names must match exactly the above items to be found.
