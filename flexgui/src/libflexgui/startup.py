@@ -411,17 +411,19 @@ def setup_hal_buttons(parent):
 					getattr(parent, f'{name}').toggled.connect(lambda:
 						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
 
-def copy_examples(parent):
+def copy_examples(parent, title=None):
+	print(title)
 	if parent.settings.contains('nags/copy_examples'):
 		if parent.settings.value('nags/copy_examples') == 'no':
 			return True
-
+	if title is None:
+		title = 'Example Files'
 	configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
 	if not os.path.isdir(configs_dir):
 		msg = ('The example configuration directory\n'
 			'was not found. Do you want to copy them to\n'
 			f'{configs_dir}')
-		response, check = dialogs.question_msg_yes_no_check('Example Files', msg, 'Never Ask Again')
+		response, check = dialogs.question_msg_yes_no_check(title, msg, 'Never Ask Again')
 		if check:
 			parent.settings.beginGroup("nags");
 			parent.settings.setValue("copy_examples", 'no')
