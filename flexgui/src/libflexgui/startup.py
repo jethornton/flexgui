@@ -58,22 +58,19 @@ def setup_actions(parent): # setup menu actions
 
 def setup_recent_files(parent):
 	# add the Recent menu FIXME look for file open then add before next action
-	actions_found = parent.findChildren(QAction)
-	for action in actions_found:
-		if action.objectName() == 'actionEdit':
-			parent.menuRecent = QMenu('Recent', parent)
-			parent.menuFile.insertMenu(action, parent.menuRecent)
-			#print(type(parent.menuRecent))
+	action = parent.findChild(QAction, 'actionEdit') or False
+	if action:
+		parent.menuRecent = QMenu('Recent', parent)
+		parent.menuFile.insertMenu(action, parent.menuRecent)
 
-	# if any files have been opened add them
-	keys = parent.settings.allKeys()
-	for key in keys:
-		if key.startswith('recent_files'):
-			path = parent.settings.value(key)
-			name = os.path.basename(path)
-			a = parent.menuRecent.addAction(name)
-			a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
-			#a.triggered.connect(actions.action_test)
+		# if any files have been opened add them
+		keys = parent.settings.allKeys()
+		for key in keys:
+			if key.startswith('recent_files'):
+				path = parent.settings.value(key)
+				name = os.path.basename(path)
+				a = parent.menuRecent.addAction(name)
+				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 
 def setup_enables(parent): # FIXME
 	# just disable all controls except estop at startup
