@@ -139,9 +139,6 @@ class flexgui(QMainWindow):
 		self.timer.timeout.connect(partial(status.update, self))
 		self.timer.start(10) # milliseconds
 
-
-
-
 app = QApplication(sys.argv)
 gui = flexgui()
 sys.exit(app.exec())
