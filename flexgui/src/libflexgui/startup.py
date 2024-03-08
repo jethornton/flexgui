@@ -23,9 +23,8 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 			if res: raise SystemExit(res)
 
 def setup_actions(parent): # setup menu actions
-	actions_dict = {'actionOpen': 'action_open', 'actionRecent': 'action_recent',
-		'actionEdit': 'action_edit', 'actionReload': 'action_reload',
-		'actionSave_As': 'action_save_as',
+	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
+		'actionReload': 'action_reload', 'actionSave_As': 'action_save_as',
 		'actionEdit_Tool_Table': 'action_edit_tool_table',
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor', 'actionQuit': 'action_quit',
