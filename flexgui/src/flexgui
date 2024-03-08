@@ -36,7 +36,6 @@ class flexgui(QMainWindow):
 				sys.exit()
 
 			response = startup.copy_examples(self, 'LinuxCNC not running')
-			print(response)
 			if response:
 				sys.exit()
 
