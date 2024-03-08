@@ -17,6 +17,7 @@ import linuxcnc, hal
 
 from libflexgui import startup
 from libflexgui import status
+from libflexgui import dialogs
 
 class flexgui(QMainWindow):
 	def __init__(self):
@@ -27,9 +28,15 @@ class flexgui(QMainWindow):
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
-			print('emc not running')
-			response = startup.copy_examples(self)
-			#print(response)
+			configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
+			if os.path.isdir(configs_dir):
+				msg = ('LinuxCNC must be running\n'
+				'if you start Flex GUI from a terminal.')
+				dialogs.warn_msg_ok(msg, 'Error')
+				sys.exit()
+
+			response = startup.copy_examples(self, 'LinuxCNC not running')
+			print(response)
 			if response:
 				sys.exit()
 
