@@ -142,14 +142,12 @@ def setup_status_labels(parent):
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
 	'current_vel', 'cycle_time', 'debug', 'delay_left', 'distance_to_go',
 	'echo_serial_number', 'enabled', 'estop', 'exec_state',
-	'feed_hold_enabled', 'feed_override_enabled', 'feedrate', 'file', 'flood',
-	'g5x_index',
-	'ini_filename', 'inpos', 'input_timeout', 'interp_state',
-	'interpreter_errcode', 'joint',
-	'joints', 'kinematics_type', 'linear_units', 'lube', 'lube_level',
-	'max_acceleration', 'max_velocity', 'mcodes', 'mist', 'motion_line',
-	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
-	'probe_tripped', 'probe_val', 'probed_position', 'probing',
+	'feed_hold_enabled', 'feed_override_enabled', 'feedrate', 'flood',
+	'g5x_index', 'ini_filename', 'inpos', 'input_timeout', 'interp_state',
+	'interpreter_errcode', 'joint', 'joints', 'kinematics_type', 'linear_units',
+	'lube', 'lube_level', 'max_acceleration', 'max_velocity', 'mcodes', 'mist',
+	'motion_line', 'motion_mode', 'motion_type', 'optional_stop', 'paused',
+	'pocket_prepped', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
 	'program_units', 'queue', 'queue_full', 'rapidrate', 'read_line',
 	'rotation_xy', 'settings', 'spindle', 'spindles', 'state', 'task_mode',
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
@@ -159,7 +157,6 @@ def setup_status_labels(parent):
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
 		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found
-			# parent.status_labels['acceleration'] = 'acceleration_lb'
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
 	dro_items = ['dro_lb_x', 'dro_lb_y', 'dro_lb_z', 'dro_lb_a', 'dro_lb_b',
@@ -244,6 +241,14 @@ def setup_status_labels(parent):
 		for item in tool_table_items:
 			if parent.findChild(QLabel, f'tool_table_{item}_{i}_lb'):
 				parent.tool_table[f'{item}_{i}'] = f'tool_table_{item}_{i}_lb'
+
+	if parent.findChild(QLabel, 'file_lb'):
+		parent.status.poll()
+		gcode_file = parent.status.file or False
+		if gcode_file:
+			parent.file_lb.setText(os.path.basename(gcode_file))
+		else:
+			parent.file_lb.setText('No G code file loaded')
 
 # Everything from here down needs to be looked at
 
@@ -408,7 +413,6 @@ def setup_hal_buttons(parent):
 						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
 
 def copy_examples(parent, title=None):
-	print(title)
 	if parent.settings.contains('nags/copy_examples'):
 		if parent.settings.value('nags/copy_examples') == 'no':
 			return True
