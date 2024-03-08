@@ -2,7 +2,7 @@ import os, sys, subprocess
 
 from functools import partial
 
-from PyQt5.QtWidgets import QApplication, QFileDialog
+from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel
 
 import linuxcnc
 import hal
@@ -13,11 +13,14 @@ app = QApplication([])
 
 def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
+	parent.command.wait_complete()
 	text = open(gcode_file).read()
 	if parent.gcode_pte_exists:
 		parent.gcode_pte.setPlainText(text)
 	#parent.actionReload.setEnabled(True)
 	base = os.path.basename(gcode_file)
+	if parent.findChild(QLabel, 'file_lb'):
+		parent.file_lb.setText(base)
 
 	# get recent files from settings
 	keys = parent.settings.allKeys()
