@@ -12,11 +12,6 @@ from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
 
-def test(parent):
-	if parent.findChild(QAction, 'actionE_Stop'):
-		parent.actionE_Stop.setCheckable(True)
-
-
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
