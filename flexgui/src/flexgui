@@ -137,8 +137,6 @@ class flexgui(QMainWindow):
 		startup.load_postgui(self)
 		startup.setup_recent_files(self)
 		startup.copy_examples(self)
-		#connections.connect_controls(self)
-		startup.test(self)
 
 		# setup and start the status update timer every 0.1 second
 		self.timer = QTimer()
