@@ -1,0 +1,38 @@
+QPushButton
+{
+
+	background-color: rgba(192, 192, 192, 50%);
+	min-height: 25px;
+	min-width: 25px;
+	border:0px solid rgb(128, 128, 128);
+	border-style: outset;
+	border-width: 3px;
+	border-radius: 6px;
+	margin-bottom: 1px;
+}
+QPushButton:hover
+{
+	background-color: rgba(192, 192, 192, 75%);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(192, 192, 192, 100%);
+    border-style: inset;
+    border-width: 2px;
+
+}
+
+QSlider::groove:horizontal {
+    border: 1px solid;
+    height: 10px;
+    margin: 0px;
+    }
+QSlider::handle:horizontal {
+    background-color: black;
+    border: 1px solid;
+    height: 25px;
+    width: 25px;
+    margin: -15px 0px;
+    }
+

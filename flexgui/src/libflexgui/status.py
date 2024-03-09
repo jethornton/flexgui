@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6.QtWidgets import QLabel
-from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor
+from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
 import linuxcnc as emc
 
@@ -112,6 +112,17 @@ linuxcnc.
 
 def update(parent):
 	parent.status.poll()
+
+	'''
+	if parent.estop_state != parent.status.estop:
+		if parent.findChild(QAction, 'actionE_Stop'):
+			if parent.status.estop == 1:
+				parent.actionE_Stop.setStyleSheet("background-color: red")
+			else:
+				parent.actionE_Stop.setStyleSheet("background-color: green")
+
+		parent.estop_state = parent.status.estop
+	'''
 	stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
