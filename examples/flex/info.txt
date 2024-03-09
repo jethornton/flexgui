@@ -1,0 +1,8 @@
+To run from a terminal you can do
+
+linuxcnc path to the configuration ini file
+
+linuxcnc /home/john/linuxcnc/configs/flex_examples/status.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/action.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/xyz.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/xz.ini
