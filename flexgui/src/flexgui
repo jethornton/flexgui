@@ -74,11 +74,16 @@ class flexgui(QMainWindow):
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
 
+		#print(f'gui_file {gui_file}')
+		#print(f'input_type {input_type}')
+		#print(f'qss_file {qss_file}')
+		#print(f'screen_size {screen_size}')
+
 		# find and load the gui
 		if gui_file: # gui is in the ini file
 			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
 			if not os.path.isfile(gui_path): # gui not found
-				print(f'The {gui_path} was not found')
+				#print(f'The {gui_path} was not found')
 				gui_path = os.path.join(self.gui_path, 'flex.ui')
 		else: # no gui specified
 			gui_path = os.path.join(self.gui_path, 'flex.ui')
@@ -103,8 +108,9 @@ class flexgui(QMainWindow):
 				stylesheet = os.path.join(self.ini_path, qss_file)
 
 		if stylesheet:
-			with open(stylesheet,'r') as fh:
-				self.setStyleSheet(fh.read())
+			#print(stylesheet)
+			with open(stylesheet, 'r') as f:
+				self.setStyleSheet(f.read())
 
 		# set the inital screen size
 		if screen_size:
@@ -132,6 +138,7 @@ class flexgui(QMainWindow):
 		startup.setup_recent_files(self)
 		startup.copy_examples(self)
 		#connections.connect_controls(self)
+		startup.test(self)
 
 		# setup and start the status update timer every 0.1 second
 		self.timer = QTimer()

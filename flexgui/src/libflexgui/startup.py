@@ -2,7 +2,7 @@ import os, shutil
 from functools import partial
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
-from PyQt6.QtWidgets import QComboBox, QSlider, QMenu
+from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 
@@ -11,6 +11,11 @@ import hal
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
+
+def test(parent):
+	if parent.findChild(QAction, 'actionE_Stop'):
+		parent.actionE_Stop.setCheckable(True)
+
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -328,6 +333,10 @@ def setup_buttons(parent):
 	for key, value in control_buttons.items():
 		if parent.findChild(QPushButton, key):
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
+
+	# estop state
+	parent.status.poll()
+	parent.estop_state = parent.status.estop
 
 	return
 
