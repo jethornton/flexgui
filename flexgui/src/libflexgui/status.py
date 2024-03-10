@@ -114,20 +114,31 @@ def update(parent):
 	parent.status.poll()
 
 
-	if parent.estop_state != parent.status.estop:
+	if parent.task_state != parent.status.task_state:
 		if parent.findChild(QPushButton, 'estop_pb'):
-			if parent.status.estop == 1:
-				parent.estop_pb.setText('E Stop\nOff')
+			if parent.status.task_state == 1:
+				parent.estop_pb.setText('E Stop\nOpen')
 			else:
-				parent.estop_pb.setText('E Stop\nOn')
+				parent.estop_pb.setText('E Stop\nClosed')
 
 		if parent.findChild(QAction, 'actionE_Stop'):
-			if parent.status.estop == 1:
-				parent.actionE_Stop.setText('E Stop\nOff')
+			if parent.status.task_state == 1:
+				parent.actionE_Stop.setText('E Stop\nOpen')
 			else:
-				parent.actionE_Stop.setText('E Stop\nOn')
+				parent.actionE_Stop.setText('E Stop\nClosed')
 
-		parent.estop_state = parent.status.estop
+	if parent.findChild(QPushButton, 'power_pb'):
+		if parent.status.task_state == 4:
+			parent.power_pb.setText('Power\nOn')
+		else:
+			parent.power_pb.setText('Power\nOff')
+	if parent.findChild(QAction, 'actionPower'):
+		if parent.status.task_state == 4:
+			parent.actionPower.setText('Power\nOn')
+		else:
+			parent.actionPower.setText('Power\nOff')
+
+		parent.task_state = parent.status.task_state
 
 	stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
