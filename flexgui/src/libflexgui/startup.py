@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 
-import hal
+import linuxcnc, hal
 
 from libflexgui import actions
 from libflexgui import commands
@@ -74,19 +74,65 @@ def setup_recent_files(parent):
 				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 
 def setup_enables(parent): # FIXME
-	# just disable all controls except estop at startup
-	control_list = ['power_pb', 'run_pb', 'step_pb', 'pause_pb', 'resume_pb',
+	'''
+	// types for EMC_TASK state
+	STATE_ESTOP = 1,
+	STATE_ESTOP_RESET = 2,
+	STATE_OFF = 3, <-- never used goes straight to 2!!!
+	STATE_ON = 4
+	'''
+
+	# STATE_ESTOP everything disabled except the estop_pb & actionE_Stop
+	state_estop_buttons = ['power_pb', 'run_pb', 'step_pb', 'pause_pb', 'resume_pb',
 		'stop_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'start_spindle_pb',
 		'stop_spindle_pb', 'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb',
 		'mist_pb']
+
 	home_items = ['home_pb_', 'unhome_pb_']
 	for item in home_items:
 		for i in range(9):
-			control_list.append(f'{item}{i}')
-	for item in control_list:
-		if parent.findChild(QPushButton, item):
-			getattr(parent, item).setEnabled(False)
+			state_estop_buttons.append(f'{item}{i}')
 
+	# add push buttons found
+	parent.state_estop_list = []
+	for item in state_estop_buttons:
+		if parent.findChild(QPushButton, item):
+			parent.state_estop_list.append(item)
+
+	# add actions found
+	state_estop_actions = ['actionPower', 'actionRun_Program', 'actionRun_from_Line',
+		'actionStep', 'actionPause', 'actionResume']
+	for item in state_estop_actions:
+		if parent.findChild(QAction, item):
+			parent.state_estop_list.append(item)
+
+	# STATE_ESTOP_RESET enable power
+	parent.state_estop_reset_list = []
+	if parent.findChild(QPushButton, 'power_pb'):
+		parent.state_estop_reset_list.append('power_pb')
+	if parent.findChild(QAction, 'actionPower'):
+		parent.state_estop_reset_list.append('actionPower')
+
+	# STATE_ON home, jog, spindle
+	state_on_buttons = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
+		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
+
+	parent.state_on_list = []
+	for item in state_on_buttons:
+		if parent.findChild(QPushButton, item):
+			parent.state_on_list.append(item)
+
+	parent.status.poll()
+	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		for item in parent.state_estop_list:
+			getattr(parent, item).setEnabled(False)
+	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		for item in parent.state_estop_reset_list:
+			getattr(parent, item).setEnabled(True)
+
+
+
+	return
 	parent.status.poll()
 	estop = ['power_pb']
 	parent.estop_enables = []
