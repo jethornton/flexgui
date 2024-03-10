@@ -28,7 +28,7 @@ def setup_actions(parent): # setup menu actions
 		'actionEdit_Tool_Table': 'action_edit_tool_table',
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor', 'actionQuit': 'action_quit',
-		'actionE_Stop': 'action_estop', 'action_Power': 'action_power',
+		'actionE_Stop': 'action_estop', 'actionPower': 'action_power',
 		'actionRun_Program': 'action_run_program', 
 		'actionRun_from_Line': 'action_run_from_line', 'actionStep': 'action_step',
 		'actionPause': 'action_pause', 'actionResume': 'action_resume',
@@ -41,6 +41,8 @@ def setup_actions(parent): # setup menu actions
 	# if an action is found connect it to the function
 	for key, value in actions_dict.items():
 		if parent.findChild(QAction, f'{key}'):
+			if key == 'action_Power':
+				print('etc')
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 	# special check for the classicladder editor

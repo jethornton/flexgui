@@ -127,16 +127,16 @@ def update(parent):
 			else:
 				parent.actionE_Stop.setText('E Stop\nClosed')
 
-	if parent.findChild(QPushButton, 'power_pb'):
-		if parent.status.task_state == 4:
-			parent.power_pb.setText('Power\nOn')
-		else:
-			parent.power_pb.setText('Power\nOff')
-	if parent.findChild(QAction, 'actionPower'):
-		if parent.status.task_state == 4:
-			parent.actionPower.setText('Power\nOn')
-		else:
-			parent.actionPower.setText('Power\nOff')
+		if parent.findChild(QPushButton, 'power_pb'):
+			if parent.status.task_state == 4:
+				parent.power_pb.setText('Power\nOn')
+			else:
+				parent.power_pb.setText('Power\nOff')
+		if parent.findChild(QAction, 'actionPower'):
+			if parent.status.task_state == 4:
+				parent.actionPower.setText('Power\nOn')
+			else:
+				parent.actionPower.setText('Power\nOff')
 
 		parent.task_state = parent.status.task_state
 
