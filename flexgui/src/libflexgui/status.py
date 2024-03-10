@@ -5,6 +5,8 @@ from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
 import linuxcnc
 
+from libflexgui import utilities
+
 #  (returns integer) - This is the mode of the Motion controller.
 # One of TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 
@@ -142,12 +144,21 @@ def update(parent):
 		if parent.status.task_state == linuxcnc.STATE_ESTOP:
 			for item in parent.state_estop_list:
 				getattr(parent, item).setEnabled(False)
+
 		if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
 			for item in parent.state_estop_reset_list:
 				getattr(parent, item).setEnabled(True)
+			for item in parent.state_on_list:
+				getattr(parent, item).setEnabled(False)
+
 		if parent.status.task_state == linuxcnc.STATE_ON:
 			for item in parent.state_on_list:
 				getattr(parent, item).setEnabled(True)
+			for item in parent.state_on_homed_list:
+				if utilities.all_homed(parent):
+					getattr(parent, item).setEnabled(True)
+				else:
+					getattr(parent, item).setEnabled(False)
 
 		parent.task_state = parent.status.task_state
 

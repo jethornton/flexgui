@@ -1,10 +1,10 @@
-command buttons enable/disable
+enable/disable
 
-estop off disable power home unhome run step pause resume flood mist mdi
+estop open disable power home unhome run step pause resume flood mist mdi
 
-estop on enable power
+estop closed enable power
 
-power on enable home flood mist
+power on enable home flood mist jog
 
 power off disable home flood mist run step pause resume mdi
 
