@@ -3,7 +3,7 @@ import sys
 from PyQt6.QtWidgets import QLabel, QPushButton
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
-import linuxcnc as emc
+import linuxcnc
 
 #  (returns integer) - This is the mode of the Motion controller.
 # One of TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
@@ -113,7 +113,7 @@ linuxcnc.
 def update(parent):
 	parent.status.poll()
 
-
+	# STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
 		if parent.findChild(QPushButton, 'estop_pb'):
 			if parent.status.task_state == 1:
@@ -137,6 +137,17 @@ def update(parent):
 				parent.actionPower.setText('Power\nOn')
 			else:
 				parent.actionPower.setText('Power\nOff')
+
+		# enable/disable controls and actions
+		if parent.status.task_state == linuxcnc.STATE_ESTOP:
+			for item in parent.state_estop_list:
+				getattr(parent, item).setEnabled(False)
+		if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+			for item in parent.state_estop_reset_list:
+				getattr(parent, item).setEnabled(True)
+		if parent.status.task_state == linuxcnc.STATE_ON:
+			for item in parent.state_on_list:
+				getattr(parent, item).setEnabled(True)
 
 		parent.task_state = parent.status.task_state
 
@@ -276,6 +287,6 @@ def update(parent):
 		getattr(parent, f'{value}').setText(f'{getattr(tr, key)}')
 
 	# STATE_ESTOP STATE_ESTOP_RESET STATE_ON
-	if parent.status.state == emc.STATE_ESTOP:
+	if parent.status.state == linuxcnc.STATE_ESTOP:
 		pass
 
