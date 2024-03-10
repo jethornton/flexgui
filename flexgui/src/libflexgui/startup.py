@@ -329,9 +329,31 @@ def setup_buttons(parent):
 		if parent.findChild(QPushButton, key):
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
-	# estop state
 	parent.status.poll()
-	parent.estop_state = parent.status.estop
+	# task state
+	parent.task_state = parent.status.task_state
+	if parent.findChild(QPushButton, 'estop_pb'):
+		if parent.status.task_state == 1:
+			parent.estop_pb.setText('E Stop\nOpen')
+		else:
+			parent.estop_pb.setText('E Stop\nClosed')
+
+	if parent.findChild(QAction, 'actionE_Stop'):
+		if parent.status.task_state == 1:
+			parent.actionE_Stop.setText('E Stop\nOpen')
+		else:
+			parent.actionE_Stop.setText('E Stop\nClosed')
+
+	if parent.findChild(QPushButton, 'power_pb'):
+		if parent.status.task_state == 4:
+			parent.power_pb.setText('Power\nOn')
+		else:
+			parent.power_pb.setText('Power\nOff')
+	if parent.findChild(QAction, 'actionPower'):
+		if parent.status.task_state == 4:
+			parent.actionPower.setText('Power\nOn')
+		else:
+			parent.actionPower.setText('Power\nOff')
 
 	return
 
