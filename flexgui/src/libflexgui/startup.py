@@ -11,6 +11,8 @@ import linuxcnc, hal
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
+from libflexgui import utilities
+
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -122,14 +124,33 @@ def setup_enables(parent): # FIXME
 		if parent.findChild(QPushButton, item):
 			parent.state_on_list.append(item)
 
+	state_on_homed_buttons = ['run_mdi_pb'] 
+	parent.state_on_homed_list = []
+	for item in state_on_homed_buttons:
+		if parent.findChild(QPushButton, item):
+			parent.state_on_homed_list.append(item)
+
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for item in parent.state_estop_list:
 			getattr(parent, item).setEnabled(False)
+
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
 		for item in parent.state_estop_reset_list:
 			getattr(parent, item).setEnabled(True)
+		for item in parent.state_on_homed_list:
+			getattr(parent, item).setEnabled(False)
 
+	if parent.status.task_state == linuxcnc.STATE_ON:
+		for item in parent.state_on_list:
+			getattr(parent, item).setEnabled(True)
+
+	if parent.status.task_state == linuxcnc.STATE_ON:
+		for item in parent.state_on_homed_list:
+			if utilities.all_homed(parent):
+				getattr(parent, item).setEnabled(True)
+			else:
+				getattr(parent, item).setEnabled(False)
 
 
 	return
