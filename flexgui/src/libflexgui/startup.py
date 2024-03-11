@@ -416,6 +416,7 @@ def setup_buttons(parent):
 	'estop_pb': 'estop_toggle',
 	'power_pb': 'power_toggle',
 	'run_pb': 'run',
+	'run_from_line_pb': 'run',
 	'manual_mode_pb':'set_mode_manual',
 	'step_pb': 'step',
 	'pause_pb': 'pause',
@@ -478,11 +479,19 @@ def setup_buttons(parent):
 		else:
 			parent.actionPower.setText('Power\nOff')
 
-	parent.program_running = []
+	parent.program_running_enable = []
 	if parent.findChild(QPushButton, 'pause_pb'):
-		parent.program_running.append('pause_pb')
+		parent.program_running_enable.append('pause_pb')
 	if parent.findChild(QAction, 'actionPause'):
-		parent.program_running.append('actionPause')
+		parent.program_running_enable.append('actionPause')
+
+	parent.program_running_disable = []
+	for item in ['run_from_line_pb', 'step_pb']:
+		if parent.findChild(QPushButton, item):
+			parent.program_running_disable.append(item)
+	for item in ['actionRun_from_Line', 'actionStep']:
+		if parent.findChild(QAction, item):
+			parent.program_running_disable.append(item)
 
 	parent.program_paused = []
 	if parent.findChild(QPushButton, 'resume_pb'):

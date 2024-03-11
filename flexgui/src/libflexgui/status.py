@@ -170,30 +170,32 @@ def update(parent):
 
 		parent.task_state = parent.status.task_state
 
-	# program running
+	# program running FIXME pause button also turn step off when running
 	if parent.exec_state != parent.status.exec_state:
 		if parent.status.exec_state == linuxcnc.EXEC_WAITING_FOR_MOTION:
-			for item in parent.program_running:
+			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(False)
-		else:
-			for item in parent.program_running:
+			for item in parent.program_running_disable:
+				getattr(parent, item).setEnabled(False)
+		elif parent.status.exec_state == linuxcnc.EXEC_DONE:
+			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(False)
 		#print(f'{parent.stat_dict["exec_state"][parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
-	# program paused
+	# program paused FIXME pause button
 	if parent.interp_state != parent.status.interp_state:
 		if parent.status.interp_state == linuxcnc.INTERP_PAUSED:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(True)
-			for item in parent.program_running:
+			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(False)
-		else:
+		elif parent.status.interp_state == linuxcnc.INTERP_WAITING:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(False)
-			for item in parent.program_running:
+			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(True)
 		#print(f'{parent.stat_dict["interp_state"][parent.status.interp_state]}')
 		parent.interp_state = parent.status.interp_state
