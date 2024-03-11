@@ -182,6 +182,8 @@ def update(parent):
 		elif parent.status.exec_state == linuxcnc.EXEC_DONE:
 			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.file_enable:
+				getattr(parent, item).setEnabled(True)
 		#print(f'{parent.stat_dict["exec_state"][parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
