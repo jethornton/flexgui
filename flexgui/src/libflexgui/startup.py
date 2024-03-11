@@ -31,7 +31,7 @@ def setup_actions(parent): # setup menu actions
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor', 'actionQuit': 'action_quit',
 		'actionE_Stop': 'action_estop', 'actionPower': 'action_power',
-		'actionRun_Program': 'action_run_program', 
+		'actionRun': 'action_run_program', 
 		'actionRun_from_Line': 'action_run_from_line', 'actionStep': 'action_step',
 		'actionPause': 'action_pause', 'actionResume': 'action_resume',
 		'actionStop': 'action_stop', 'actionClear_MDI_History': 'action_clear_mdi',
@@ -104,7 +104,7 @@ def setup_enables(parent): # FIXME
 				parent.state_off_disable.append(item)
 
 	# add actions found
-	state_estop_actions = ['actionPower', 'actionRun_Program', 'actionRun_from_Line',
+	state_estop_actions = ['actionPower', 'actionRun', 'actionRun_from_Line',
 		'actionStep', 'actionPause', 'actionResume']
 	for item in state_estop_actions:
 		if parent.findChild(QAction, item):
@@ -141,7 +141,7 @@ def setup_enables(parent): # FIXME
 		if parent.findChild(QPushButton, item):
 			parent.file_enable.append(item)
 
-	for item in ['actionRun_Program', 'actionRun_from_Line', 'actionStep']:
+	for item in ['actionRun', 'actionRun_from_Line', 'actionStep']:
 		if parent.findChild(QAction, item):
 			parent.file_enable.append(item)
 
@@ -486,10 +486,10 @@ def setup_buttons(parent):
 		parent.program_running_enable.append('actionPause')
 
 	parent.program_running_disable = []
-	for item in ['run_from_line_pb', 'step_pb']:
+	for item in ['run_pb', 'run_from_line_pb', 'step_pb']:
 		if parent.findChild(QPushButton, item):
 			parent.program_running_disable.append(item)
-	for item in ['actionRun_from_Line', 'actionStep']:
+	for item in ['actionRun', 'actionRun_from_Line', 'actionStep']:
 		if parent.findChild(QAction, item):
 			parent.program_running_disable.append(item)
 
