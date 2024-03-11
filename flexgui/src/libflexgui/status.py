@@ -141,16 +141,21 @@ def update(parent):
 				parent.actionPower.setText('Power\nOff')
 
 		# enable/disable controls and actions
+		# estop is open
 		if parent.status.task_state == linuxcnc.STATE_ESTOP:
 			for item in parent.state_estop_list:
 				getattr(parent, item).setEnabled(False)
 
+		# estop is closed and power is off
 		if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
 			for item in parent.state_estop_reset_list:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.state_on_list:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.state_on_homed_list:
+				getattr(parent, item).setEnabled(False)
 
+		# power is on
 		if parent.status.task_state == linuxcnc.STATE_ON:
 			for item in parent.state_on_list:
 				getattr(parent, item).setEnabled(True)
