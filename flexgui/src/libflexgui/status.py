@@ -114,9 +114,9 @@ linuxcnc.
 
 def update(parent):
 	parent.status.poll()
-
 	# STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
+		# update button and action text
 		if parent.findChild(QPushButton, 'estop_pb'):
 			if parent.status.task_state == 1:
 				parent.estop_pb.setText('E Stop\nOpen')
@@ -143,27 +143,31 @@ def update(parent):
 		# enable/disable controls and actions
 		# estop is open
 		if parent.status.task_state == linuxcnc.STATE_ESTOP:
-			for item in parent.state_estop_list:
+			for item in parent.state_estop_disable:
 				getattr(parent, item).setEnabled(False)
 
 		# estop is closed and power is off
 		if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-			for item in parent.state_estop_reset_list:
+			for item in parent.state_off_enable:
 				getattr(parent, item).setEnabled(True)
-			for item in parent.state_on_list:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.state_on_homed_list:
+			for item in parent.state_off_disable:
 				getattr(parent, item).setEnabled(False)
 
 		# power is on
 		if parent.status.task_state == linuxcnc.STATE_ON:
-			for item in parent.state_on_list:
+			for item in parent.state_on_enable:
 				getattr(parent, item).setEnabled(True)
-			for item in parent.state_on_homed_list:
+			for item in parent.state_on_homed_enable:
 				if utilities.all_homed(parent):
 					getattr(parent, item).setEnabled(True)
 				else:
 					getattr(parent, item).setEnabled(False)
+			# if a file is loaded and machine is homed enable run and step
+			if parent.status.file and utilities.all_homed(parent):
+				for item in parent.file_enable:
+					getattr(parent, item).setEnabled(True)
+
+
 
 		parent.task_state = parent.status.task_state
 
