@@ -114,7 +114,8 @@ linuxcnc.
 
 def update(parent):
 	parent.status.poll()
-	# STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
+
+	# button text based on task state
 	if parent.task_state != parent.status.task_state:
 		# update button and action text
 		if parent.findChild(QPushButton, 'estop_pb'):
@@ -140,7 +141,7 @@ def update(parent):
 			else:
 				parent.actionPower.setText('Power\nOff')
 
-		# enable/disable controls and actions
+		# enable/disable controls and actions based on task state
 		# estop is open
 		if parent.status.task_state == linuxcnc.STATE_ESTOP:
 			for item in parent.state_estop_disable:
@@ -167,43 +168,42 @@ def update(parent):
 				for item in parent.file_enable:
 					getattr(parent, item).setEnabled(True)
 
-
-
 		parent.task_state = parent.status.task_state
 
-	stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
-	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
-	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
-		4: 'EXEC_WAITING_FOR_MOTION_QUEUE', 5: 'EXEC_WAITING_FOR_IO',
-		7: 'EXEC_WAITING_FOR_MOTION_AND_IO', 8: 'EXEC_WAITING_FOR_DELAY',
-		9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED',},
-	'estop': {0: False, 1: True},
-	'flood': {0: 'FLOOD_OFF', 1: 'FLOOD_ON'},
-	'g5x_index': {1: 'G54', 2: 'G55', 3: 'G56', 4: 'G57', 5: 'G58', 6: 'G59',
-		7: 'G59.1', 8: 'G59.2', 9: 'G59.3'},
-	'interp_state': {1: 'EMC_TASK_INTERP_IDLE', 2: 'EMC_TASK_INTERP_READING',
-		3: 'EMC_TASK_INTERP_PAUSED', 4: 'EMC_TASK_INTERP_WAITING'},
-	'interpreter_errcode': {0: 'INTERP_OK', 1: 'INTERP_EXIT',
-		2: 'INTERP_EXECUTE_FINISH', 3: 'INTERP_ENDFILE', 4: 'INTERP_FILE_NOT_OPEN',
-		5: 'INTERP_ERROR'},
-	'kinematics_type': {1: 'KINEMATICS_IDENTITY', 2: 'KINEMATICS_FORWARD_ONLY',
-		3: 'KINEMATICS_INVERSE_ONLY', 4: 'KINEMATICS_BOTH'},
-	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
-	'motion_type': {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
-		2: 'MOTION_TYPE_FEED', 3: 'MOTION_TYPE_ARC', 4: 'MOTION_TYPE_TOOLCHANGE',
-		5: 'MOTION_TYPE_PROBING', 6: 'MOTION_TYPE_INDEXROTARY'},
-	'program_units': {1: 'CANON_UNITS_INCHES', 2: 'CANON_UNITS_MM', 3: 'CANON_UNITS_CM'},
-	'state': {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'},
-	'task_mode': {1: 'MODE_MANUAL', 2: 'MODE_AUTO', 3: 'MODE_MDI', },
-	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
-	}
+	# program running
+	if parent.exec_state != parent.status.exec_state:
+		if parent.status.exec_state == linuxcnc.EXEC_WAITING_FOR_MOTION:
+			for item in parent.program_running:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.program_paused:
+				getattr(parent, item).setEnabled(False)
+		else:
+			for item in parent.program_running:
+				getattr(parent, item).setEnabled(False)
+		#print(f'{parent.stat_dict["exec_state"][parent.status.exec_state]}')
+		parent.exec_state = parent.status.exec_state
+
+	# program paused
+	if parent.interp_state != parent.status.interp_state:
+		if parent.status.interp_state == linuxcnc.INTERP_PAUSED:
+			for item in parent.program_paused:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.program_running:
+				getattr(parent, item).setEnabled(False)
+		else:
+			for item in parent.program_paused:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.program_running:
+				getattr(parent, item).setEnabled(True)
+		#print(f'{parent.stat_dict["interp_state"][parent.status.interp_state]}')
+		parent.interp_state = parent.status.interp_state
 
 	for key, value in parent.status_labels.items(): # update all status labels
 		# get the label and set the text to the status value of the key
-		if key in stat_dict:
+		if key in parent.stat_dict:
 			stat_value = getattr(parent.status, f'{key}')
-			if stat_value in stat_dict[key]:
-				getattr(parent, f'{value}').setText(f'{stat_dict[key][stat_value]}')
+			if stat_value in parent.stat_dict[key]:
+				getattr(parent, f'{value}').setText(f'{parent.stat_dict[key][stat_value]}')
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")}')
 

@@ -174,7 +174,6 @@ def setup_enables(parent): # FIXME
 					getattr(parent, item).setEnabled(True)
 
 	if parent.status.file:
-		print(parent.status.file)
 		text = open(parent.status.file).read()
 		if parent.findChild(QPlainTextEdit, 'gcode_pte'):
 			parent.gcode_pte.setPlainText(text)
@@ -233,6 +232,35 @@ def setup_enables(parent): # FIXME
 		parent.run_mdi_pb.setEnabled(False)
 
 def setup_status_labels(parent):
+
+	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
+	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
+	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
+		4: 'EXEC_WAITING_FOR_MOTION_QUEUE', 5: 'EXEC_WAITING_FOR_IO',
+		7: 'EXEC_WAITING_FOR_MOTION_AND_IO', 8: 'EXEC_WAITING_FOR_DELAY',
+		9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED',},
+	'estop': {0: False, 1: True},
+	'flood': {0: 'FLOOD_OFF', 1: 'FLOOD_ON'},
+	'g5x_index': {1: 'G54', 2: 'G55', 3: 'G56', 4: 'G57', 5: 'G58', 6: 'G59',
+		7: 'G59.1', 8: 'G59.2', 9: 'G59.3'},
+	'interp_state': {1: 'INTERP_IDLE', 2: 'INTERP_READING',
+		3: 'INTERP_PAUSED', 4: 'INTERP_WAITING'},
+	'interpreter_errcode': {0: 'INTERP_OK', 1: 'INTERP_EXIT',
+		2: 'INTERP_EXECUTE_FINISH', 3: 'INTERP_ENDFILE', 4: 'INTERP_FILE_NOT_OPEN',
+		5: 'INTERP_ERROR'},
+	'kinematics_type': {1: 'KINEMATICS_IDENTITY', 2: 'KINEMATICS_FORWARD_ONLY',
+		3: 'KINEMATICS_INVERSE_ONLY', 4: 'KINEMATICS_BOTH'},
+	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
+	'motion_type': {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
+		2: 'MOTION_TYPE_FEED', 3: 'MOTION_TYPE_ARC', 4: 'MOTION_TYPE_TOOLCHANGE',
+		5: 'MOTION_TYPE_PROBING', 6: 'MOTION_TYPE_INDEXROTARY'},
+	'program_units': {1: 'CANON_UNITS_INCHES', 2: 'CANON_UNITS_MM', 3: 'CANON_UNITS_CM'},
+	'state': {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'},
+	'task_mode': {1: 'MODE_MANUAL', 2: 'MODE_AUTO', 3: 'MODE_MDI', },
+	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
+	}
+
+
 	status_items = ['acceleration', 'active_queue', 
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
@@ -426,8 +454,7 @@ def setup_buttons(parent):
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	parent.status.poll()
-	# task state
-	parent.task_state = parent.status.task_state
+
 	if parent.findChild(QPushButton, 'estop_pb'):
 		if parent.status.task_state == 1:
 			parent.estop_pb.setText('E Stop\nOpen')
@@ -450,6 +477,18 @@ def setup_buttons(parent):
 			parent.actionPower.setText('Power\nOn')
 		else:
 			parent.actionPower.setText('Power\nOff')
+
+	parent.program_running = []
+	if parent.findChild(QPushButton, 'pause_pb'):
+		parent.program_running.append('pause_pb')
+	if parent.findChild(QAction, 'actionPause'):
+		parent.program_running.append('actionPause')
+
+	parent.program_paused = []
+	if parent.findChild(QPushButton, 'resume_pb'):
+		parent.program_paused.append('resume_pb')
+	if parent.findChild(QAction, 'actionResume'):
+		parent.program_paused.append('actionResume')
 
 	return
 
