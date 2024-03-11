@@ -85,72 +85,99 @@ def setup_enables(parent): # FIXME
 	'''
 
 	# STATE_ESTOP everything disabled except the estop_pb & actionE_Stop
-	state_estop_buttons = ['power_pb', 'run_pb', 'step_pb', 'pause_pb', 'resume_pb',
-		'stop_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'start_spindle_pb',
-		'stop_spindle_pb', 'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb',
-		'mist_pb']
+	state_estop_buttons = ['power_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
+		'pause_pb', 'resume_pb', 'stop_pb', 'home_all_pb', 'unhome_all_pb',
+		'run_mdi_pb', 'start_spindle_pb', 'stop_spindle_pb', 'spindle_plus_pb',
+		'spindle_minus_pb', 'flood_pb', 'mist_pb']
 
-	home_items = ['home_pb_', 'unhome_pb_']
-	for item in home_items:
+	for item in ['home_pb_', 'unhome_pb_']:
 		for i in range(9):
 			state_estop_buttons.append(f'{item}{i}')
 
 	# add push buttons found
-	parent.state_estop_list = []
+	parent.state_estop_disable = [] # items when the estop is open
+	parent.state_off_disable = [] # items when the estop is closed and power is off
 	for item in state_estop_buttons:
 		if parent.findChild(QPushButton, item):
-			parent.state_estop_list.append(item)
+			parent.state_estop_disable.append(item)
+			if item != 'power_pb':
+				parent.state_off_disable.append(item)
 
 	# add actions found
 	state_estop_actions = ['actionPower', 'actionRun_Program', 'actionRun_from_Line',
 		'actionStep', 'actionPause', 'actionResume']
 	for item in state_estop_actions:
 		if parent.findChild(QAction, item):
-			parent.state_estop_list.append(item)
+			parent.state_estop_disable.append(item)
+			if item != 'actionPower':
+				parent.state_off_disable.append(item)
 
 	# STATE_ESTOP_RESET enable power
-	parent.state_estop_reset_list = []
+	parent.state_off_enable = []
 	if parent.findChild(QPushButton, 'power_pb'):
-		parent.state_estop_reset_list.append('power_pb')
+		parent.state_off_enable.append('power_pb')
 	if parent.findChild(QAction, 'actionPower'):
-		parent.state_estop_reset_list.append('actionPower')
+		parent.state_off_enable.append('actionPower')
 
 	# STATE_ON home, jog, spindle
 	state_on_buttons = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
+	for i in range(9):
+		state_on_buttons.append(f'home_pb_{i}')
 
-	parent.state_on_list = []
+	parent.state_on_enable = []
 	for item in state_on_buttons:
 		if parent.findChild(QPushButton, item):
-			parent.state_on_list.append(item)
+			parent.state_on_enable.append(item)
 
 	state_on_homed_buttons = ['run_mdi_pb'] 
-	parent.state_on_homed_list = []
+	parent.state_on_homed_enable = []
 	for item in state_on_homed_buttons:
 		if parent.findChild(QPushButton, item):
-			parent.state_on_homed_list.append(item)
+			parent.state_on_homed_enable.append(item)
+
+	parent.file_enable = []
+	for item in ['run_pb', 'run_from_line_pb', 'step_pb']:
+		if parent.findChild(QPushButton, item):
+			parent.file_enable.append(item)
+
+	for item in ['actionRun_Program', 'actionRun_from_Line', 'actionStep']:
+		if parent.findChild(QAction, item):
+			parent.file_enable.append(item)
 
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		for item in parent.state_estop_list:
+		for item in parent.state_estop_disable:
 			getattr(parent, item).setEnabled(False)
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		for item in parent.state_estop_reset_list:
+		for item in parent.state_off_enable:
 			getattr(parent, item).setEnabled(True)
-		for item in parent.state_on_homed_list:
+		for item in parent.state_off_disable:
 			getattr(parent, item).setEnabled(False)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		for item in parent.state_on_list:
+		for item in parent.state_on_enable:
 			getattr(parent, item).setEnabled(True)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		for item in parent.state_on_homed_list:
+		for item in parent.state_on_homed_enable:
 			if utilities.all_homed(parent):
 				getattr(parent, item).setEnabled(True)
 			else:
 				getattr(parent, item).setEnabled(False)
+
+		# if a file is loaded and machine is homed enable run and step
+
+			if parent.status.file and utilities.all_homed(parent):
+				for item in parent.file_enable:
+					getattr(parent, item).setEnabled(True)
+
+	if parent.status.file:
+		print(parent.status.file)
+		text = open(parent.status.file).read()
+		if parent.findChild(QPlainTextEdit, 'gcode_pte'):
+			parent.gcode_pte.setPlainText(text)
 
 
 	return
