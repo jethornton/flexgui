@@ -86,8 +86,8 @@ def setup_enables(parent): # FIXME
 
 	# STATE_ESTOP everything disabled except the estop_pb & actionE_Stop
 	state_estop_buttons = ['power_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
-		'pause_pb', 'resume_pb', 'stop_pb', 'home_all_pb', 'unhome_all_pb',
-		'run_mdi_pb', 'start_spindle_pb', 'stop_spindle_pb', 'spindle_plus_pb',
+		'pause_pb', 'resume_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb',
+		'start_spindle_pb', 'stop_spindle_pb', 'spindle_plus_pb',
 		'spindle_minus_pb', 'flood_pb', 'mist_pb']
 
 	for item in ['home_pb_', 'unhome_pb_']:
