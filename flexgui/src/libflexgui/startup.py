@@ -19,6 +19,10 @@ def find_children(parent):
 	for child in children:
 		if child.objectName():
 			parent.children.append(child.objectName())
+	actions = parent.findChildren(QAction)
+	for action in actions:
+		if action.objectName():
+			parent.children.append(action.objectName())
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -37,8 +41,8 @@ def setup_actions(parent): # setup menu actions
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor', 'actionQuit': 'action_quit',
 		'actionE_Stop': 'action_estop', 'actionPower': 'action_power',
-		'actionRun': 'action_run_program', 
-		'actionRun_from_Line': 'action_run_from_line', 'actionStep': 'action_step',
+		'actionRun': 'action_run', 
+		'actionRun_From_Line': 'action_run_from_line', 'actionStep': 'action_step',
 		'actionPause': 'action_pause', 'actionResume': 'action_resume',
 		'actionStop': 'action_stop', 'actionClear_MDI_History': 'action_clear_mdi',
 		'actionCopy_MDI_History': 'action_copy_mdi',
@@ -90,15 +94,10 @@ def setup_enables(parent): # FIXME
 	STATE_ON = 4
 	'''
 
+	'''
 	# STATE_ESTOP everything disabled except the estop_pb & actionE_Stop
-	state_estop_buttons = ['power_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
-		'pause_pb', 'resume_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb',
-		'start_spindle_pb', 'stop_spindle_pb', 'spindle_plus_pb',
-		'spindle_minus_pb', 'flood_pb', 'mist_pb']
+	state_estop_buttons = 
 
-	for item in ['home_pb_', 'unhome_pb_']:
-		for i in range(9):
-			state_estop_buttons.append(f'{item}{i}')
 
 	# add push buttons found
 	parent.state_estop_disable = [] # items when the estop is open
@@ -110,61 +109,103 @@ def setup_enables(parent): # FIXME
 				parent.state_off_disable.append(item)
 
 	# add actions found
-	state_estop_actions = ['actionPower', 'actionRun', 'actionRun_from_Line',
-		'actionStep', 'actionPause', 'actionResume']
+	state_estop_actions = []
 	for item in state_estop_actions:
 		if parent.findChild(QAction, item):
 			parent.state_estop_disable.append(item)
 			if item != 'actionPower':
 				parent.state_off_disable.append(item)
+	'''
+
+	# STATE_ESTOP items that should be disabled
+	estop_open = ['power_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
+		'pause_pb', 'resume_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb',
+		'start_spindle_pb', 'stop_spindle_pb', 'spindle_plus_pb',
+		'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
+		'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume']
+	for item in ['home_pb_', 'unhome_pb_']:
+		for i in range(9):
+			estop_open.append(f'{item}{i}')
+
+	parent.state_estop_disable = []
+	for item in estop_open:
+		if item in parent.children:
+			parent.state_estop_disable.append(item)
 
 	# STATE_ESTOP_RESET enable power
-	parent.state_off_enable = []
-	if parent.findChild(QPushButton, 'power_pb'):
-		parent.state_off_enable.append('power_pb')
-	if parent.findChild(QAction, 'actionPower'):
-		parent.state_off_enable.append('actionPower')
+	parent.state_estop_reset_enable = []
+	for item in ['power_pb', 'actionPower']:
+		if item in parent.children:
+			parent.state_estop_reset_enable.append(item)
 
 	# STATE_ON home, jog, spindle
-	state_on_buttons = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
+	state_on_enables = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
 	for i in range(9):
-		state_on_buttons.append(f'home_pb_{i}')
+		state_on_enables.append(f'home_pb_{i}')
 
 	parent.state_on_enable = []
-	for item in state_on_buttons:
-		if parent.findChild(QPushButton, item):
+	for item in state_on_enables:
+		if item in parent.children:
 			parent.state_on_enable.append(item)
 
-	state_on_homed_buttons = ['run_mdi_pb'] 
 	parent.state_on_homed_enable = []
-	for item in state_on_homed_buttons:
-		if parent.findChild(QPushButton, item):
+	for item in ['run_mdi_pb'] :
+		if item in parent.children:
 			parent.state_on_homed_enable.append(item)
 
-	parent.file_enable = []
-	for item in ['run_pb', 'run_from_line_pb', 'step_pb']:
-		if parent.findChild(QPushButton, item):
-			parent.file_enable.append(item)
+	file_loaded_enables = ['reload_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
+	'actionReload', 'actionRun', 'actionRun_from_Line', 'actionStep']
+	parent.file_loaded_enable = []
+	for item in file_loaded_enables:
+		if item in parent.children:
+			parent.file_loaded_enable.append(item)
 
-	for item in ['actionRun', 'actionRun_from_Line', 'actionStep']:
-		if parent.findChild(QAction, item):
-			parent.file_enable.append(item)
+	unhome = ['unhome_all_pb']
+	for i in range(9):
+		unhome.append(f'unhome_pb_{i}')
+	parent.unhome_enables = []
+	for item in unhome:
+		if item in parent.children:
+			parent.unhome_enables.append(item)
 
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for item in parent.state_estop_disable:
 			getattr(parent, item).setEnabled(False)
+		# update button and action text
+		for item in ['estop_pb', 'actionE_Stop']:
+			if item in parent.children:
+				getattr(parent, item).setText('E Stop\nOpen')
+		for item in ['power_pb', 'actionPower']:
+			if item in parent.children:
+				getattr(parent, item).setText('Power\nOff')
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		for item in parent.state_off_enable:
-			getattr(parent, item).setEnabled(True)
-		for item in parent.state_off_disable:
+		for item in parent.state_estop_disable:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.state_estop_reset_enable:
+			getattr(parent, item).setEnabled(True)
+		# update button and action text
+		for item in ['estop_pb', 'actionE_Stop']:
+			if item in parent.children:
+				getattr(parent, item).setText('E Stop\nClosed')
+		for item in ['power_pb', 'actionPower']:
+			if item in parent.children:
+				getattr(parent, item).setText('Power\nOff')
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		for item in parent.state_on_enable:
 			getattr(parent, item).setEnabled(True)
+
+		# update button and action text
+		for item in ['estop_pb', 'actionE_Stop']:
+			if item in parent.children:
+				getattr(parent, item).setText('E Stop\nClosed')
+		for item in ['power_pb', 'actionPower']:
+			if item in parent.children:
+				getattr(parent, item).setText('Power\nOn')
+
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		for item in parent.state_on_homed_enable:
@@ -173,16 +214,21 @@ def setup_enables(parent): # FIXME
 			else:
 				getattr(parent, item).setEnabled(False)
 
-		# if a file is loaded and machine is homed enable run and step
 
+
+		# if a file is loaded and machine is homed enable run and step
 			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.file_enable:
+				for item in parent.file_loaded_enable:
 					getattr(parent, item).setEnabled(True)
 
 	if parent.status.file:
 		text = open(parent.status.file).read()
 		if parent.findChild(QPlainTextEdit, 'gcode_pte'):
 			parent.gcode_pte.setPlainText(text)
+	else:
+		if 'actionReload' in parent.children:
+			parent.actionReload.setEnabled(False)
+
 
 
 	return
@@ -214,13 +260,6 @@ def setup_enables(parent): # FIXME
 		if parent.findChild(QPushButton, button):
 			parent.home_enables.append(button)
 
-	unhome = ['unhome_all_pb']
-	for i in range(9):
-		unhome.append(f'unhome_pb_{i}')
-	parent.unhome_enables = []
-	for control in unhome:
-		if parent.findChild(QPushButton, control):
-			parent.unhome_enables.append(control)
 
 	parent.home_all_ok = False
 	home_all = False
@@ -418,16 +457,9 @@ def setup_sliders(parent):
 			setattr(parent, f'{item}_exists', False)
 
 def setup_buttons(parent):
-	control_buttons = {'abort_pb': 'abort',
-	'estop_pb': 'estop_toggle',
-	'power_pb': 'power_toggle',
-	'run_pb': 'run',
-	'run_from_line_pb': 'run',
+	command_buttons = {
+	'abort_pb': 'abort',
 	'manual_mode_pb':'set_mode_manual',
-	'step_pb': 'step',
-	'pause_pb': 'pause',
-	'resume_pb': 'resume',
-	'stop_pb': 'stop',
 	'home_all_pb': 'home_all',
 	'home_pb_0': 'home',
 	'home_pb_1': 'home',
@@ -453,12 +485,31 @@ def setup_buttons(parent):
 	}
 
 	for i in range(16):
-		control_buttons[f'jog_plus_pb_{i}'] = 'jog'
-		control_buttons[f'jog_minus_pb_{i}'] = 'jog'
+		command_buttons[f'jog_plus_pb_{i}'] = 'jog'
+		command_buttons[f'jog_minus_pb_{i}'] = 'jog'
 
-	for key, value in control_buttons.items():
+	for key, value in command_buttons.items():
 		if parent.findChild(QPushButton, key):
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
+
+	action_buttons = {
+	'estop_pb': 'action_estop',
+	'power_pb': 'action_power',
+	'run_pb': 'action_run',
+	'run_from_line_pb': 'action_run_from_line',
+	'step_pb': 'action_step',
+	'pause_pb': 'action_pause',
+	'resume_pb': 'action_resume',
+	'stop_pb': 'action_stop',
+	'open_pb': 'action_open',
+	'edit_pb': 'action_edit',
+	'reload_pb': 'action_reload',
+	'quit_pb': 'action_quit',
+	}
+	for key, value in action_buttons.items():
+		if key in parent.children:
+			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+
 
 	parent.status.poll()
 
@@ -504,6 +555,12 @@ def setup_buttons(parent):
 		parent.program_paused.append('resume_pb')
 	if parent.findChild(QAction, 'actionResume'):
 		parent.program_paused.append('actionResume')
+
+	# no file at start up
+	if not parent.status.file:
+		for item in ['edit_pb', 'reload_pb', 'save_as_pb']:
+			if item in parent.children:
+				getattr(parent, item).setEnabled(False)
 
 	return
 

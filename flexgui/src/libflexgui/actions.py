@@ -16,7 +16,7 @@ def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
 	parent.command.wait_complete()
 	if utilities.all_homed(parent):
-		for item in parent.file_enable:
+		for item in parent.file_loaded_enable:
 			getattr(parent, item).setEnabled(True)
 
 	text = open(gcode_file).read()
@@ -48,16 +48,17 @@ def load_file(parent, gcode_file):
 	parent.settings.endGroup()
 
 	# clear the recent menu
-	parent.menuRecent.clear()
+	if 'menuRecent' in parent.children:
+		parent.menuRecent.clear()
 
-	# add the recent files from settings
-	keys = parent.settings.allKeys()
-	for key in keys:
-		if key.startswith('recent_files'):
-			path = parent.settings.value(key)
-			name = os.path.basename(path)
-			a = parent.menuRecent.addAction(name)
-			a.triggered.connect(partial(load_file, parent, path))
+		# add the recent files from settings
+		keys = parent.settings.allKeys()
+		for key in keys:
+			if key.startswith('recent_files'):
+				path = parent.settings.value(key)
+				name = os.path.basename(path)
+				a = parent.menuRecent.addAction(name)
+				a.triggered.connect(partial(load_file, parent, path))
 
 def action_open(parent): # actionOpen
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
@@ -173,7 +174,7 @@ def action_power(parent): # actionPower
 	else:
 		parent.command.state(linuxcnc.STATE_OFF)
 
-def action_run_program(parent): # actionRun_Program
+def action_run(parent): # actionRun
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		if parent.status.task_mode != linuxcnc.MODE_AUTO:
 			parent.command.mode(linuxcnc.MODE_AUTO)
@@ -201,7 +202,6 @@ def action_resume(parent): # actionResume
 
 def action_stop(parent): # actionStop
 	parent.command.abort()
-
 
 def action_clear_mdi(parent): # actionClear_MDI
 	parent.mdi_history_lw.clear()

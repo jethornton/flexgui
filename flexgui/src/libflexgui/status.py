@@ -118,24 +118,25 @@ def update(parent):
 	# button text based on task state
 	if parent.task_state != parent.status.task_state:
 		# update button and action text
-		if parent.findChild(QPushButton, 'estop_pb'):
+		if 'estop_pb' in parent.children:
 			if parent.status.task_state == 1:
 				parent.estop_pb.setText('E Stop\nOpen')
 			else:
 				parent.estop_pb.setText('E Stop\nClosed')
 
-		if parent.findChild(QAction, 'actionE_Stop'):
+		if 'actionE_Stop' in parent.children:
 			if parent.status.task_state == 1:
 				parent.actionE_Stop.setText('E Stop\nOpen')
 			else:
 				parent.actionE_Stop.setText('E Stop\nClosed')
 
-		if parent.findChild(QPushButton, 'power_pb'):
+		if 'power_pb' in parent.children:
 			if parent.status.task_state == 4:
 				parent.power_pb.setText('Power\nOn')
 			else:
 				parent.power_pb.setText('Power\nOff')
-		if parent.findChild(QAction, 'actionPower'):
+
+		if 'actionPower' in parent.children:
 			if parent.status.task_state == 4:
 				parent.actionPower.setText('Power\nOn')
 			else:
@@ -149,10 +150,13 @@ def update(parent):
 
 		# estop is closed and power is off
 		if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-			for item in parent.state_off_enable:
+			for item in parent.state_estop_reset_enable:
 				getattr(parent, item).setEnabled(True)
-			for item in parent.state_off_disable:
+			for item in parent.state_on_enable:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.state_on_homed_enable:
+				if utilities.all_homed(parent):
+					getattr(parent, item).setEnabled(False)
 
 		# power is on
 		if parent.status.task_state == linuxcnc.STATE_ON:
@@ -169,8 +173,9 @@ def update(parent):
 					getattr(parent, item).setEnabled(True)
 
 		parent.task_state = parent.status.task_state
-
+	return
 	# program running FIXME pause button also turn step off when running
+	'''
 	if parent.exec_state != parent.status.exec_state:
 		if parent.status.exec_state == linuxcnc.EXEC_WAITING_FOR_MOTION:
 			for item in parent.program_running_enable:
@@ -186,8 +191,10 @@ def update(parent):
 				getattr(parent, item).setEnabled(True)
 		#print(f'{parent.stat_dict["exec_state"][parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
+	'''
 
 	# program paused FIXME pause button
+	'''
 	if parent.interp_state != parent.status.interp_state:
 		if parent.status.interp_state == linuxcnc.INTERP_PAUSED:
 			for item in parent.program_paused:
@@ -201,6 +208,7 @@ def update(parent):
 				getattr(parent, item).setEnabled(True)
 		#print(f'{parent.stat_dict["interp_state"][parent.status.interp_state]}')
 		parent.interp_state = parent.status.interp_state
+	'''
 
 	for key, value in parent.status_labels.items(): # update all status labels
 		# get the label and set the text to the status value of the key

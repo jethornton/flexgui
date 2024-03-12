@@ -5,7 +5,12 @@ Controls are QPushButtons that can be placed anywhere you like. Use the Name
 from the list below for each control widget objectName.
 ::
 
-	Control  Name
+	Control           Name
+	Open              open_pb
+	Edit              edit_pb
+	Reload            reload_pb
+	Save As           save_as_pb
+	Quit              quit_pb
 	E-Stop            estop_pb
 	Power             power_pb
 	Run               run_pb
