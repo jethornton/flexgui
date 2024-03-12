@@ -22,12 +22,9 @@ def load_file(parent, gcode_file):
 	text = open(gcode_file).read()
 	if parent.gcode_pte_exists:
 		parent.gcode_pte.setPlainText(text)
-	#parent.actionReload.setEnabled(True)
 	base = os.path.basename(gcode_file)
-	print(parent.findChild(QLabel, 'file_lb'))
-	if parent.findChild(QLabel, 'file_lb'):
+	if 'file_lb' in parent.children:
 		parent.file_lb.setText(base)
-		print(base)
 
 	# get recent files from settings
 	keys = parent.settings.allKeys()
