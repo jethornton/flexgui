@@ -169,7 +169,7 @@ def update(parent):
 					getattr(parent, item).setEnabled(False)
 			# if a file is loaded and machine is homed enable run and step
 			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.file_enable:
+				for item in parent.file_loaded_enable:
 					getattr(parent, item).setEnabled(True)
 
 		parent.task_state = parent.status.task_state
@@ -187,7 +187,7 @@ def update(parent):
 		elif parent.status.exec_state == linuxcnc.EXEC_DONE:
 			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(False)
-			for item in parent.file_enable:
+			for item in parent.file_loaded_enable:
 				getattr(parent, item).setEnabled(True)
 		#print(f'{parent.stat_dict["exec_state"][parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
