@@ -16,7 +16,7 @@ def all_homed(parent):
 		else:
 			all_homed = False
 	return all_homed
-
+'''
 def estop_toggle(parent):
 	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ESTOP:
@@ -83,6 +83,7 @@ def resume(parent):
 
 def stop(parent):
 	parent.command.abort()
+'''
 
 def set_mode_manual(parent):
 	if parent.status.task_mode != emc.MODE_MANUAL:
@@ -119,16 +120,19 @@ def home_all(parent): # only works if the home sequence is set for all axes
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
 		parent.command.home(-1)
+		parent.command.wait_complete()
+		parent.status.poll()
 		if all_homed(parent):
-			if parent.findChild(QPushButton, 'run_mdi_pb'):
+			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
-			if parent.findChild(QPushButton, 'unhome_all_pb'):
-				parent.unhome_all_pb.setEnabled(True)
 			for item in parent.unhome_enables:
 				getattr(parent, item).setEnabled(True)
+			if parent.status.file:
+				if parent.status.task_state == emc.STATE_ON:
+					for item in parent.file_loaded_enable:
+						getattr(parent, item).setEnabled(True)
 
-
-def unhome(parent):
+def unhome(parent): # FIXME turn off home required items
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 1:
@@ -139,7 +143,7 @@ def unhome(parent):
 		if parent.findChild(QPushButton, 'run_mdi_pb'):
 			parent.run_mdi_pb.setEnabled(False)
 
-def unhome_all(parent):
+def unhome_all(parent): # FIXME turn off home required items
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
@@ -147,6 +151,8 @@ def unhome_all(parent):
 	if parent.findChild(QPushButton, 'run_mdi_pb'):
 		parent.run_mdi_pb.setEnabled(False)
 	for item in parent.unhome_enables:
+		getattr(parent, item).setEnabled(False)
+	for item in parent.file_loaded_enable:
 		getattr(parent, item).setEnabled(False)
 
 def run_mdi(parent, cmd=''):

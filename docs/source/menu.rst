@@ -27,7 +27,7 @@ if you don't have the actionExit action.
   E Stop                 actionE_Stop
   Power                  action_Power
   Run                    actionRun
-  Run Line               actionRun_Line
+  Run From Line          actionRun_From_Line
   Step                   actionStep
   Pause                  actionPause
   Resume                 actionResume
