@@ -25,7 +25,6 @@ def find_children(parent):
 			parent.children.append(action.objectName())
 
 def setup_enables(parent):
-
 	# these are always disabled at start up
 	for item in ['actionPause', 'pause_pb', 'actionResume', 'resume_pb']:
 		if item in parent.children:
@@ -148,6 +147,60 @@ def setup_enables(parent):
 		for item in file_items:
 			if item in parent.children:
 				getattr(parent, item).setEnabled(False)
+
+def setup_buttons(parent): # connect buttons to functions
+	command_buttons = {
+	'abort_pb': 'abort',
+	'manual_mode_pb':'set_mode_manual',
+	'home_all_pb': 'home_all',
+	'home_pb_0': 'home',
+	'home_pb_1': 'home',
+	'home_pb_2': 'home',
+	'unhome_all_pb': 'unhome_all',
+	'unhome_pb_0': 'unhome',
+	'unhome_pb_1': 'unhome',
+	'unhome_pb_2': 'unhome',
+	'run_mdi_pb': 'run_mdi',
+	'touchoff_pb_x': 'touchoff',
+	'touchoff_pb_y': 'touchoff',
+	'touchoff_pb_z': 'touchoff',
+	'x_tool_touchoff_pb': 'tool_touchoff',
+	'y_tool_touchoff_pb': 'tool_touchoff',
+	'z_tool_touchoff_pb': 'tool_touchoff',
+	'tool_change_pb':  'tool_change',
+	'start_spindle_pb': 'spindle',
+	'stop_spindle_pb': 'spindle',
+	'spindle_plus_pb': 'spindle',
+	'spindle_minus_pb': 'spindle',
+	'flood_pb': 'flood_toggle',
+	'mist_pb': 'mist_toggle',
+	}
+
+	for i in range(16):
+		command_buttons[f'jog_plus_pb_{i}'] = 'jog'
+		command_buttons[f'jog_minus_pb_{i}'] = 'jog'
+
+	for key, value in command_buttons.items():
+		if key in parent.children:
+			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
+
+	action_buttons = {
+	'estop_pb': 'action_estop',
+	'power_pb': 'action_power',
+	'run_pb': 'action_run',
+	'run_from_line_pb': 'action_run_from_line',
+	'step_pb': 'action_step',
+	'pause_pb': 'action_pause',
+	'resume_pb': 'action_resume',
+	'stop_pb': 'action_stop',
+	'open_pb': 'action_open',
+	'edit_pb': 'action_edit',
+	'reload_pb': 'action_reload',
+	'quit_pb': 'action_quit',
+	}
+	for key, value in action_buttons.items():
+		if key in parent.children:
+			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -390,129 +443,6 @@ def setup_sliders(parent):
 			setattr(parent, f'{item}_exists', True)
 		else:
 			setattr(parent, f'{item}_exists', False)
-
-def setup_buttons(parent):
-	command_buttons = {
-	'abort_pb': 'abort',
-	'manual_mode_pb':'set_mode_manual',
-	'home_all_pb': 'home_all',
-	'home_pb_0': 'home',
-	'home_pb_1': 'home',
-	'home_pb_2': 'home',
-	'unhome_all_pb': 'unhome_all',
-	'unhome_pb_0': 'unhome',
-	'unhome_pb_1': 'unhome',
-	'unhome_pb_2': 'unhome',
-	'run_mdi_pb': 'run_mdi',
-	'touchoff_pb_x': 'touchoff',
-	'touchoff_pb_y': 'touchoff',
-	'touchoff_pb_z': 'touchoff',
-	'x_tool_touchoff_pb': 'tool_touchoff',
-	'y_tool_touchoff_pb': 'tool_touchoff',
-	'z_tool_touchoff_pb': 'tool_touchoff',
-	'tool_change_pb':  'tool_change',
-	'start_spindle_pb': 'spindle',
-	'stop_spindle_pb': 'spindle',
-	'spindle_plus_pb': 'spindle',
-	'spindle_minus_pb': 'spindle',
-	'flood_pb': 'flood_toggle',
-	'mist_pb': 'mist_toggle',
-	}
-
-	for i in range(16):
-		command_buttons[f'jog_plus_pb_{i}'] = 'jog'
-		command_buttons[f'jog_minus_pb_{i}'] = 'jog'
-
-	for key, value in command_buttons.items():
-		if parent.findChild(QPushButton, key):
-			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
-
-	action_buttons = {
-	'estop_pb': 'action_estop',
-	'power_pb': 'action_power',
-	'run_pb': 'action_run',
-	'run_from_line_pb': 'action_run_from_line',
-	'step_pb': 'action_step',
-	'pause_pb': 'action_pause',
-	'resume_pb': 'action_resume',
-	'stop_pb': 'action_stop',
-	'open_pb': 'action_open',
-	'edit_pb': 'action_edit',
-	'reload_pb': 'action_reload',
-	'quit_pb': 'action_quit',
-	}
-	for key, value in action_buttons.items():
-		if key in parent.children:
-			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-
-
-	parent.status.poll()
-
-	if parent.findChild(QPushButton, 'estop_pb'):
-		if parent.status.task_state == 1:
-			parent.estop_pb.setText('E Stop\nOpen')
-		else:
-			parent.estop_pb.setText('E Stop\nClosed')
-
-	if parent.findChild(QAction, 'actionE_Stop'):
-		if parent.status.task_state == 1:
-			parent.actionE_Stop.setText('E Stop\nOpen')
-		else:
-			parent.actionE_Stop.setText('E Stop\nClosed')
-
-	if parent.findChild(QPushButton, 'power_pb'):
-		if parent.status.task_state == 4:
-			parent.power_pb.setText('Power\nOn')
-		else:
-			parent.power_pb.setText('Power\nOff')
-	if parent.findChild(QAction, 'actionPower'):
-		if parent.status.task_state == 4:
-			parent.actionPower.setText('Power\nOn')
-		else:
-			parent.actionPower.setText('Power\nOff')
-
-	parent.program_running_enable = []
-	if parent.findChild(QPushButton, 'pause_pb'):
-		parent.program_running_enable.append('pause_pb')
-	if parent.findChild(QAction, 'actionPause'):
-		parent.program_running_enable.append('actionPause')
-
-	parent.program_running_disable = []
-	for item in ['run_pb', 'run_from_line_pb', 'step_pb']:
-		if parent.findChild(QPushButton, item):
-			parent.program_running_disable.append(item)
-	for item in ['actionRun', 'actionRun_from_Line', 'actionStep']:
-		if parent.findChild(QAction, item):
-			parent.program_running_disable.append(item)
-
-	parent.program_paused = []
-	if parent.findChild(QPushButton, 'resume_pb'):
-		parent.program_paused.append('resume_pb')
-	if parent.findChild(QAction, 'actionResume'):
-		parent.program_paused.append('actionResume')
-
-	# no file at start up
-	if not parent.status.file:
-		for item in ['edit_pb', 'reload_pb', 'save_as_pb']:
-			if item in parent.children:
-				getattr(parent, item).setEnabled(False)
-
-	return
-
-	special_buttons = {
-	'numberpad_pb_0': 'number_pad',
-	'numberpad_pb_1': 'number_pad',
-	'numberpad_pb_2': 'number_pad',
-	'gcode_pad_pb': 'gcode_pad',
-	}
-	for pb in pushbuttons:
-		if pb in special_buttons:
-			getattr(parent, pb).clicked.connect(getattr(parent, special_buttons[pb]))
-
-	if 'exit_pb' in pushbuttons:
-		#parent.exit_pb.setVisible(False)
-		parent.exit_pb.setFlat(True)
-		parent.exit_pb.pressed.connect(parent.close)
 
 
 def setup_misc(parent):

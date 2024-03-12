@@ -125,7 +125,7 @@ def home_all(parent): # only works if the home sequence is set for all axes
 		if all_homed(parent):
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
-			for item in parent.unhome_enables:
+			for item in parent.unhome_enable:
 				getattr(parent, item).setEnabled(True)
 			if parent.status.file:
 				if parent.status.task_state == emc.STATE_ON:
@@ -150,7 +150,7 @@ def unhome_all(parent): # FIXME turn off home required items
 	parent.command.unhome(-1)
 	if parent.findChild(QPushButton, 'run_mdi_pb'):
 		parent.run_mdi_pb.setEnabled(False)
-	for item in parent.unhome_enables:
+	for item in parent.unhome_enable:
 		getattr(parent, item).setEnabled(False)
 	for item in parent.file_loaded_enable:
 		getattr(parent, item).setEnabled(False)
