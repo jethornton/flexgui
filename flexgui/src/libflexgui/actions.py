@@ -8,22 +8,26 @@ import linuxcnc
 import hal
 
 from libflexgui import dialogs
+from libflexgui import utilities
 
 app = QApplication([])
 
 def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
 	parent.command.wait_complete()
-	for item in parent.file_enable:
-		getattr(parent, item).setEnabled(True)
+	if utilities.all_homed(parent):
+		for item in parent.file_enable:
+			getattr(parent, item).setEnabled(True)
 
 	text = open(gcode_file).read()
 	if parent.gcode_pte_exists:
 		parent.gcode_pte.setPlainText(text)
 	#parent.actionReload.setEnabled(True)
 	base = os.path.basename(gcode_file)
+	print(parent.findChild(QLabel, 'file_lb'))
 	if parent.findChild(QLabel, 'file_lb'):
 		parent.file_lb.setText(base)
+		print(base)
 
 	# get recent files from settings
 	keys = parent.settings.allKeys()
