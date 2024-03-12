@@ -2,7 +2,7 @@ import os, shutil
 from functools import partial
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
-from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
+from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 
@@ -13,6 +13,12 @@ from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
 
+def find_children(parent):
+	parent.children = []
+	children = parent.findChildren(QWidget)
+	for child in children:
+		if child.objectName():
+			parent.children.append(child.objectName())
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
