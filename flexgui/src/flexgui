@@ -129,6 +129,7 @@ class flexgui(QMainWindow):
 		else:
 			self.show()
 
+		startup.find_children(self)
 		startup.setup_buttons(self)
 		startup.setup_actions(self)
 		startup.setup_enables(self)
