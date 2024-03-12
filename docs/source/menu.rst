@@ -26,8 +26,8 @@ if you don't have the actionExit action.
  Machine
   E Stop                 actionE_Stop
   Power                  action_Power
-  Run Program            actionRun_Program
-  Run from Line          actionRun_from_Line
+  Run                    actionRun
+  Run Line               actionRun_Line
   Step                   actionStep
   Pause                  actionPause
   Resume                 actionResume
