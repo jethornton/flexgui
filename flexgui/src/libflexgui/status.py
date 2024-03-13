@@ -258,6 +258,9 @@ def update(parent):
 			parent.last_line = n
 
 	# axis position no offsets
+	for key, value in parent.status_position.items(): # key is label value tuple position & precision
+		machine_position = getattr(parent, "status").position[value[0]]
+		getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
 	# axis position including offsets
 	for key, value in parent.status_dro.items(): # key is label value tuple position & precision

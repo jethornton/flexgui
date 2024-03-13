@@ -320,6 +320,16 @@ def setup_status_labels(parent):
 		if f'{item}_lb' in parent.children: # if the label is found
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
+	position_items = ['actual_lb_x', 'actual_lb_y', 'actual_lb_z', 'actual_lb_a',
+		'actual_lb_b', 'actual_lb_c', 'actual_lb_u', 'actual_lb_v', 'actual_lb_w']
+	parent.status_position = {} # create an empty dictionary
+	# check for position labels in the ui
+	for i, item in enumerate(position_items):
+		if item in parent.children: # if the label is found
+			p = getattr(parent, item).property('precision')
+			p = p if p is not None else 3
+			parent.status_position[f'{item}'] = [i, p] # add the label, tuple position & precision
+
 	dro_items = ['dro_lb_x', 'dro_lb_y', 'dro_lb_z', 'dro_lb_a', 'dro_lb_b',
 		'dro_lb_c', 'dro_lb_u', 'dro_lb_v', 'dro_lb_w']
 	parent.status_dro = {} # create an empty dictionary
