@@ -20,7 +20,7 @@ def load_file(parent, gcode_file):
 			getattr(parent, item).setEnabled(True)
 
 	text = open(gcode_file).read()
-	if parent.gcode_pte_exists:
+	if 'gcode_pte' in parent.children:
 		parent.gcode_pte.setPlainText(text)
 	base = os.path.basename(gcode_file)
 	if 'file_lb' in parent.children:
