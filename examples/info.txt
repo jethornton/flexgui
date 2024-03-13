@@ -4,5 +4,7 @@ linuxcnc path to the configuration ini file
 
 linuxcnc /home/john/linuxcnc/configs/flex_examples/status.ini
 linuxcnc /home/john/linuxcnc/configs/flex_examples/actions.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/controls.ini
+
 linuxcnc /home/john/linuxcnc/configs/flex_examples/xyz.ini
 linuxcnc /home/john/linuxcnc/configs/flex_examples/xz.ini
