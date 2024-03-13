@@ -82,10 +82,10 @@ def setup_enables(parent):
 	# run controls
 	run = [ 'run_pb', 'run_from_line_pb', 'step_pb',
 	'actionReload', 'actionRun', 'actionRun_from_Line', 'actionStep']
-	parent.program_run = []
+	parent.run_controls = []
 	for item in run:
 		if item in parent.children:
-			parent.program_run.append(item)
+			parent.run_controls.append(item)
 
 	# unhome buttons
 	unhome = ['unhome_all_pb']
@@ -137,26 +137,26 @@ def setup_enables(parent):
 				getattr(parent, item).setText('Power\nOn')
 
 			if utilities.all_homed(parent):
-				for item in parent.state_on_homed_enable:
+				for item in parent.state_all_homed:
 					getattr(parent, item).setEnabled(True)
 			else:
 				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(False)
-
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(False)
 
 		# if a file is loaded and machine is homed enable run and step
 			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.file_loaded:
+				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
-			else:
-				for item in parent.file_loaded:
-					getattr(parent, item).setEnabled(False)
 
 	# if a file is loaded
 	if parent.status.file:
 		text = open(parent.status.file).read()
 		if 'gcode_pte' in parent.children:
 			parent.gcode_pte.setPlainText(text)
+		for item in parent.file_loaded:
+			getattr(parent, item).setEnabled(True)
 	else: # no file is loaded
 		for item in parent.file_loaded:
 			getattr(parent, item).setEnabled(False)
