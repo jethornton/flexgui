@@ -30,7 +30,8 @@ LinuxCNC configuration and add
 If no stylesheet is selected or entered then the default keyboard qss file will
 be used.
 
-.. note:: The user ui and qss files must be in the LinuxCNC configuration directory.
+.. note:: The user ui and qss files must be in the same LinuxCNC configuration
+   directory as the ini file.
 
 To control the initial size of the screen add either
 ::
