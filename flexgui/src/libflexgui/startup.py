@@ -81,7 +81,7 @@ def setup_enables(parent):
 
 	# run controls
 	run = [ 'run_pb', 'run_from_line_pb', 'step_pb',
-	'actionReload', 'actionRun', 'actionRun_from_Line', 'actionStep']
+	'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep']
 	parent.run_controls = []
 	for item in run:
 		if item in parent.children:
