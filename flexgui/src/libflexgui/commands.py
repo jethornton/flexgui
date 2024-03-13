@@ -17,74 +17,6 @@ def all_homed(parent):
 		else:
 			all_homed = False
 	return all_homed
-'''
-def estop_toggle(parent):
-	parent.status.poll()
-	if parent.status.task_state == emc.STATE_ESTOP:
-		parent.command.state(emc.STATE_ESTOP_RESET)
-		parent.command.wait_complete()
-	else:
-		parent.command.state(emc.STATE_ESTOP)
-		parent.command.wait_complete()
-
-def power_toggle(parent):
-	parent.status.poll()
-	if parent.status.file:
-		file_loaded = True
-	else:
-		file_loaded = False
-
-	if parent.status.task_state == emc.STATE_ESTOP_RESET:
-		parent.command.state(emc.STATE_ON)
-		parent.command.wait_complete()
-		state = True
-	else:
-		parent.command.state(emc.STATE_OFF)
-		parent.command.wait_complete()
-		state = False
-	for item in parent.power_enables:
-		getattr(parent, item).setEnabled(state)
-	for item in parent.home_enables:
-		getattr(parent, item).setEnabled(state)
-	for item in parent.run_enables:
-		getattr(parent, item).setEnabled(file_loaded)
-	if parent.home_all_ok:
-		parent.home_all_pb.setEnabled(state)
-
-def run(parent):
-	parent.status.poll()
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_AUTO:
-			parent.command.mode(emc.MODE_AUTO)
-			parent.command.wait_complete()
-		if parent.findChild(QLabel, 'start_line_lb'):
-			if parent.start_line_lb.text():
-				n = int(parent.start_line_lb.text())
-		else:
-			n = 0
-		parent.command.auto(emc.AUTO_RUN, n)
-
-def step(parent):
-	parent.status.poll()
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_AUTO:
-			parent.command.mode(emc.MODE_AUTO)
-			parent.command.wait_complete()
-		parent.command.auto(emc.AUTO_STEP)
-
-def pause(parent):
-	parent.status.poll()
-	if parent.status.state == emc.RCS_EXEC: # program is running
-		parent.command.auto(emc.AUTO_PAUSE)
-
-def resume(parent):
-	parent.status.poll()
-	if parent.status.paused:
-		parent.command.auto(emc.AUTO_RESUME)
-
-def stop(parent):
-	parent.command.abort()
-'''
 
 def set_mode_manual(parent):
 	if parent.status.task_mode != emc.MODE_MANUAL:
@@ -99,7 +31,7 @@ def set_mode(parent, mode=None):
 		parent.command.mode(mode)
 		parent.command.wait_complete()
 
-def home(parent):
+def home(parent): # FIXME if joint is homed ask to home again
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 0:
@@ -108,15 +40,17 @@ def home(parent):
 			parent.command.wait_complete()
 		parent.command.home(joint)
 		parent.command.wait_complete()
-		if parent.findChild(QPushButton, f'unhome_pb_{joint}'):
+		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
 		if all_homed(parent):
-			if parent.findChild(QPushButton, 'run_mdi_pb'):
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
+			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
-			if parent.findChild(QPushButton, 'unhome_all_pb'):
+			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(True)
 
-def home_all(parent): # only works if the home sequence is set for all axes
+def home_all(parent): # FIXME if joint is homed ask to home again
 		set_mode(parent,emc.MODE_MANUAL)
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
@@ -135,7 +69,7 @@ def home_all(parent): # only works if the home sequence is set for all axes
 					for item in parent.file_loaded:
 						getattr(parent, item).setEnabled(True)
 
-def unhome(parent): # FIXME turn off home required items
+def unhome(parent):
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 1:
@@ -157,7 +91,7 @@ def unhome_all(parent):
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.unhome(-1)
-	if parent.findChild(QPushButton, 'run_mdi_pb'):
+	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(False)
@@ -168,7 +102,7 @@ def run_mdi(parent, cmd=''):
 	if cmd:
 		mdi_command = cmd
 	else:
-		if parent.findChild(QLineEdit, 'mdi_command_le'):
+		if 'mdi_command_le' in parent.children:
 			if parent.mdi_command_le.text():
 				mdi_command = parent.mdi_command_le.text()
 			else:

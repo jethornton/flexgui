@@ -23,3 +23,10 @@ def all_unhomed(parent):
 		elif h == 0: all_unhomed = True
 	return all_unhomed
 
+def home_all_check(parent):
+	parent.status.poll()
+	for i in range(parent.status.joints):
+		if parent.inifile.find(f'JOINT_{i}', 'HOME_SEQUENCE') is None:
+			return False
+	return True
+

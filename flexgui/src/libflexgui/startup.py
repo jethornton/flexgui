@@ -52,7 +52,7 @@ def setup_enables(parent):
 			parent.state_estop_closed.append(item)
 
 	# STATE_ON home, jog, spindle
-	power_on = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
+	power_on = ['start_spindle_pb', 'stop_spindle_pb',
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
 	for i in range(9):
 		power_on.append(f'home_pb_{i}')
@@ -150,6 +150,13 @@ def setup_enables(parent):
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
 
+		# home all push button
+		if 'home_all_pb' in parent.children:
+			if utilities.home_all_check(parent):
+				parent.home_all_pb.setEnabled(True)
+			else:
+				parent.home_all_pb.setEnabled(False)
+
 	# if a file is loaded
 	if parent.status.file:
 		text = open(parent.status.file).read()
@@ -160,6 +167,7 @@ def setup_enables(parent):
 	else: # no file is loaded
 		for item in parent.file_loaded:
 			getattr(parent, item).setEnabled(False)
+
 
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
