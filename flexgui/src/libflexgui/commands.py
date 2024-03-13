@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton
 import linuxcnc as emc
 
 from libflexgui import dialogs
+from libflexgui import utilities
 
 def all_homed(parent):
 	parent.status.poll()
@@ -142,10 +143,16 @@ def unhome(parent): # FIXME turn off home required items
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
 		parent.command.unhome(joint)
-		if parent.findChild(QPushButton, 'run_mdi_pb'):
+		getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
+		if 'run_mdi_pb' in parent.children:
 			parent.run_mdi_pb.setEnabled(False)
+		if utilities.all_unhomed(parent):
+			if 'unhome_all_pb' in parent.children:
+				parent.unhome_all_pb.setEnabled(False)
 
-def unhome_all(parent): # FIXME turn off home required items
+def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
