@@ -183,9 +183,10 @@ def update(parent):
 			for item in parent.program_running:
 				getattr(parent, item).setEnabled(True)
 		elif parent.status.exec_state == linuxcnc.EXEC_DONE:
-			# program is not running
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
+			# program is not running or estop was toggled
+			if parent.status.file:
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
 			for item in parent.program_running:
 				getattr(parent, item).setEnabled(False)
 		parent.exec_state = parent.status.exec_state
@@ -213,16 +214,15 @@ def update(parent):
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")}')
 
-	# FIXME <----
-	return
-
-
 	for key, value in parent.status_axes.items():
 		if key == 'velocity':
 			vel = abs(round(getattr(parent, 'status').axis[int(value[5])][key] * 60, 1))
 			getattr(parent, f'{value}').setText(f'{vel}')
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key[0:-2]]}')
+
+	# FIXME <----
+	return
 
 	if parent.findChild(QLabel, 'gcodes_lb'):
 		g_codes = []
