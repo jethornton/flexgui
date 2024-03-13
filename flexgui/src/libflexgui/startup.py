@@ -87,6 +87,18 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.run_controls.append(item)
 
+	# program running
+	parent.program_running = []
+	for item in ['pause_pb', 'actionPause']:
+		if item in parent.children:
+			parent.program_running.append(item)
+
+	# program paused
+	parent.program_paused = []
+	for item in ['resume_pb', 'actionResume']:
+		if item in parent.children:
+			parent.program_paused.append(item)
+
 	# unhome buttons
 	unhome = ['unhome_all_pb']
 	for i in range(9):
@@ -223,16 +235,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
-def load_postgui(parent): # load post gui hal and tcl files if found
-	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
-	if postgui_halfiles is not None:
-		for f in postgui_halfiles:
-			if f.lower().endswith('.tcl'):
-				res = os.spawnvp(os.P_WAIT, "haltcl", ["haltcl", "-i", parent.ini_path, f])
-			else:
-				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
-			if res: raise SystemExit(res)
-
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
 		'actionReload': 'action_reload', 'actionSave_As': 'action_save_as',
@@ -268,25 +270,7 @@ def setup_actions(parent): # setup menu actions
 		if parent.findChild(QAction, 'actionCopy_MDI_History'):
 			parent.actionCopy_MDI_History.setEnabled(False)
 
-def setup_recent_files(parent):
-	# add the Recent menu FIXME look for file open then add before next action
-	action = parent.findChild(QAction, 'actionEdit') or False
-	if action:
-		parent.menuRecent = QMenu('Recent', parent)
-		parent.menuFile.insertMenu(action, parent.menuRecent)
-
-		# if any files have been opened add them
-		keys = parent.settings.allKeys()
-		for key in keys:
-			if key.startswith('recent_files'):
-				path = parent.settings.value(key)
-				name = os.path.basename(path)
-				a = parent.menuRecent.addAction(name)
-				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
-
-
 def setup_status_labels(parent):
-
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
@@ -314,7 +298,6 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
-
 	status_items = ['acceleration', 'active_queue', 
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
@@ -334,7 +317,7 @@ def setup_status_labels(parent):
 	# check for status labels in the ui
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
-		if parent.findChild(QLabel, f'{item}_lb'): # if the label is found
+		if f'{item}_lb' in parent.children: # if the label is found
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
 	dro_items = ['dro_lb_x', 'dro_lb_y', 'dro_lb_z', 'dro_lb_a', 'dro_lb_b',
@@ -342,7 +325,7 @@ def setup_status_labels(parent):
 	parent.status_dro = {} # create an empty dictionary
 	# check for dro labels in the ui
 	for i, item in enumerate(dro_items):
-		if parent.findChild(QLabel, f'{item}'): # if the label is found
+		if item in parent.children: # if the label is found
 			p = getattr(parent, item).property('precision')
 			p = p if p is not None else 3
 			parent.status_dro[f'{item}'] = [i, p] # add the label, tuple position & precision
@@ -352,7 +335,7 @@ def setup_status_labels(parent):
 	parent.status_g5x = {} # create an empty dictionary
 	# check for g5x offset labels in the ui
 	for i, item in enumerate(g5x_items):
-		if parent.findChild(QLabel, f'{item}'): # if the label is found
+		if item in parent.children: # if the label is found
 			p = getattr(parent, item).property('precision')
 			p = p if p is not None else 3
 			parent.status_g5x[f'{item}'] = [i, p] # add the label, tuple position & precision
@@ -362,7 +345,7 @@ def setup_status_labels(parent):
 	parent.status_g92 = {} # create an empty dictionary
 	# check for g5x offset labels in the ui
 	for i, item in enumerate(g92_items):
-		if parent.findChild(QLabel, f'{item}'): # if the label is found
+		if item in parent.children: # if the label is found
 			p = getattr(parent, item).property('precision')
 			p = p if p is not None else 3
 			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
@@ -427,6 +410,38 @@ def setup_status_labels(parent):
 			parent.file_lb.setText(os.path.basename(gcode_file))
 		else:
 			parent.file_lb.setText('No G code file loaded')
+
+
+
+
+def load_postgui(parent): # load post gui hal and tcl files if found
+	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
+	if postgui_halfiles is not None:
+		for f in postgui_halfiles:
+			if f.lower().endswith('.tcl'):
+				res = os.spawnvp(os.P_WAIT, "haltcl", ["haltcl", "-i", parent.ini_path, f])
+			else:
+				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
+			if res: raise SystemExit(res)
+
+
+def setup_recent_files(parent):
+	# add the Recent menu FIXME look for file open then add before next action
+	action = parent.findChild(QAction, 'actionEdit') or False
+	if action:
+		parent.menuRecent = QMenu('Recent', parent)
+		parent.menuFile.insertMenu(action, parent.menuRecent)
+
+		# if any files have been opened add them
+		keys = parent.settings.allKeys()
+		for key in keys:
+			if key.startswith('recent_files'):
+				path = parent.settings.value(key)
+				name = os.path.basename(path)
+				a = parent.menuRecent.addAction(name)
+				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+
+
 
 # Everything from here down needs to be looked at
 
