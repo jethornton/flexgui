@@ -40,52 +40,66 @@ def setup_enables(parent):
 		for i in range(9):
 			estop_open.append(f'{item}{i}')
 
-	parent.state_estop_disable = []
+	parent.state_estop_open = []
 	for item in estop_open:
 		if item in parent.children:
-			parent.state_estop_disable.append(item)
+			parent.state_estop_open.append(item)
 
 	# STATE_ESTOP_RESET enable power
-	parent.state_estop_reset_enable = []
+	parent.state_estop_closed = []
 	for item in ['power_pb', 'actionPower']:
 		if item in parent.children:
-			parent.state_estop_reset_enable.append(item)
+			parent.state_estop_closed.append(item)
 
 	# STATE_ON home, jog, spindle
-	state_on_enables = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
+	power_on = ['home_all_pb', 'start_spindle_pb', 'stop_spindle_pb',
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
 	for i in range(9):
-		state_on_enables.append(f'home_pb_{i}')
+		power_on.append(f'home_pb_{i}')
 
-	parent.state_on_enable = []
-	for item in state_on_enables:
+	parent.state_power_on = []
+	for item in power_on:
 		if item in parent.children:
-			parent.state_on_enable.append(item)
+			parent.state_power_on.append(item)
 
-	parent.state_on_homed_enable = []
-	for item in ['run_mdi_pb'] :
+	# all homed
+	all_homed = ['run_mdi_pb', 'unhome_all_pb']
+	for i in range(9):
+		all_homed.append(f'unhome_pb_{i}')
+	parent.state_all_homed = []
+	for item in  all_homed:
 		if item in parent.children:
-			parent.state_on_homed_enable.append(item)
+			parent.state_all_homed.append(item)
 
-	file_loaded_enables = ['reload_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
+	# file loaded
+	file_items = ['actionEdit', 'edit_pb', 'actionSave_As', 'save_as_pb',
+		'actionReload', 'reload_pb']
+	parent.file_loaded = []
+	for item in file_items:
+		if item in parent.children:
+			parent.file_loaded.append(item)
+
+	# run controls
+	run = [ 'run_pb', 'run_from_line_pb', 'step_pb',
 	'actionReload', 'actionRun', 'actionRun_from_Line', 'actionStep']
-	parent.file_loaded_enable = []
-	for item in file_loaded_enables:
+	parent.program_run = []
+	for item in run:
 		if item in parent.children:
-			parent.file_loaded_enable.append(item)
+			parent.program_run.append(item)
 
+	# unhome buttons
 	unhome = ['unhome_all_pb']
 	for i in range(9):
 		unhome.append(f'unhome_pb_{i}')
-	parent.unhome_enable = []
+	parent.unhome_controls = []
 	for item in unhome:
 		if item in parent.children:
-			parent.unhome_enable.append(item)
+			parent.unhome_controls.append(item)
 
 	parent.status.poll()
 	# STATE_ESTOP
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		for item in parent.state_estop_disable:
+		for item in parent.state_estop_open:
 			getattr(parent, item).setEnabled(False)
 		# update button and action text
 		for item in ['estop_pb', 'actionE_Stop']:
@@ -97,9 +111,9 @@ def setup_enables(parent):
 
 	# STATE_ESTOP_RESET
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		for item in parent.state_estop_disable:
+		for item in parent.state_estop_open:
 			getattr(parent, item).setEnabled(False)
-		for item in parent.state_estop_reset_enable:
+		for item in parent.state_estop_closed:
 			getattr(parent, item).setEnabled(True)
 		# update button and action text
 		for item in ['estop_pb', 'actionE_Stop']:
@@ -111,7 +125,7 @@ def setup_enables(parent):
 
 	# STATE_ON
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		for item in parent.state_on_enable:
+		for item in parent.state_power_on:
 			getattr(parent, item).setEnabled(True)
 
 		# update button and action text
@@ -126,27 +140,26 @@ def setup_enables(parent):
 				for item in parent.state_on_homed_enable:
 					getattr(parent, item).setEnabled(True)
 			else:
-				for item in parent.unhome_enable:
+				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(False)
+
 
 		# if a file is loaded and machine is homed enable run and step
 			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.file_loaded_enable:
+				for item in parent.file_loaded:
 					getattr(parent, item).setEnabled(True)
 			else:
-				for item in parent.file_loaded_enable:
+				for item in parent.file_loaded:
 					getattr(parent, item).setEnabled(False)
 
+	# if a file is loaded
 	if parent.status.file:
 		text = open(parent.status.file).read()
 		if 'gcode_pte' in parent.children:
 			parent.gcode_pte.setPlainText(text)
 	else: # no file is loaded
-		file_items = ['actionEdit', 'edit_pb', 'actionSave_As', 'save_as_pb',
-		'actionReload', 'reload_pb']
-		for item in file_items:
-			if item in parent.children:
-				getattr(parent, item).setEnabled(False)
+		for item in parent.file_loaded:
+			getattr(parent, item).setEnabled(False)
 
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
