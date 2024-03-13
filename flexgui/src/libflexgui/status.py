@@ -184,11 +184,12 @@ def update(parent):
 				getattr(parent, item).setEnabled(True)
 		elif parent.status.exec_state == linuxcnc.EXEC_DONE:
 			# program is not running or estop was toggled
-			if parent.status.file:
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
-			for item in parent.program_running:
-				getattr(parent, item).setEnabled(False)
+			if parent.status.task_state == linuxcnc.STATE_ON:
+				if parent.status.file: # FIXME check for power on
+					for item in parent.run_controls:
+						getattr(parent, item).setEnabled(True)
+				for item in parent.program_running:
+					getattr(parent, item).setEnabled(False)
 		parent.exec_state = parent.status.exec_state
 
 	# program paused
@@ -221,10 +222,7 @@ def update(parent):
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key[0:-2]]}')
 
-	# FIXME <----
-	return
-
-	if parent.findChild(QLabel, 'gcodes_lb'):
+	if 'gcodes_lb' in parent.children:
 		g_codes = []
 		for i in parent.status.gcodes[1:]:
 			if i == -1: continue
@@ -234,8 +232,7 @@ def update(parent):
 				g_codes.append(f'G{(i/10):.0f}.{i%10}')
 		parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
 
-
-	if parent.findChild(QLabel, 'mcodes_lb'):
+	if 'mcodes_lb' in parent.children:
 		m_codes = []
 		for i in parent.status.mcodes[1:]:
 			if i == -1: continue
@@ -243,7 +240,7 @@ def update(parent):
 		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 
 	# update gcode_pte
-	if parent.gcode_pte_exists:
+	if 'gcode_pte' in parent.children:
 		n = parent.status.motion_line
 		if n != parent.last_line:
 			format_normal = QTextBlockFormat()
@@ -251,7 +248,6 @@ def update(parent):
 			highlight_format = QTextBlockFormat()
 			highlight_format.setBackground(QColor('yellow'))
 			motion_line = parent.status.motion_line
-
 			cursor = parent.gcode_pte.textCursor()
 			cursor.select(QTextCursor.SelectionType.Document)
 			cursor.setBlockFormat(format_normal)

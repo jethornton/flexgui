@@ -306,7 +306,7 @@ def setup_status_labels(parent):
 	'feed_hold_enabled', 'feed_override_enabled', 'feedrate', 'flood',
 	'g5x_index', 'ini_filename', 'inpos', 'input_timeout', 'interp_state',
 	'interpreter_errcode', 'joint', 'joints', 'kinematics_type', 'linear_units',
-	'lube', 'lube_level', 'max_acceleration', 'max_velocity', 'mcodes', 'mist',
+	'lube', 'lube_level', 'max_acceleration', 'max_velocity', 'mist',
 	'motion_line', 'motion_mode', 'motion_type', 'optional_stop', 'paused',
 	'pocket_prepped', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
 	'program_units', 'queue', 'queue_full', 'rapidrate', 'read_line',
@@ -357,7 +357,7 @@ def setup_status_labels(parent):
 	parent.status.poll()
 	for i in range(parent.status.axis_mask.bit_count()): # only check for axes that exist
 		for item in axis_items:
-			if parent.findChild(QLabel, f'axis_{item}_{i}_lb'): # if the label is found
+			if f'axis_{item}_{i}_lb' in parent.children: # if the label is found
 				parent.status_axes[f'{item}_{i}'] = f'axis_{item}_{i}_lb' # add the status and label
 
 	# check for joint labels in ui
@@ -370,7 +370,7 @@ def setup_status_labels(parent):
 	parent.status_joints = {} # create an empty dictionary
 	for i in range(9):
 		for item in joint_items:
-			if parent.findChild(QLabel, f'joint_{item}_{i}_lb'):
+			if f'joint_{item}_{i}_lb' in parent.children:
 				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
 
 	# check for analog and digital labels in ui
@@ -379,7 +379,7 @@ def setup_status_labels(parent):
 	parent.status_io = {}
 	for i in range(64):
 		for item in io_items:
-			if parent.findChild(QLabel, f'{item}_{i}_lb'):
+			if f'{item}_{i}_lb' in parent.children:
 				parent.status_io[f'{item}_{i}'] = f'{item}_{i}_lb'
 
 	# check for spindle labels in ui
@@ -390,7 +390,7 @@ def setup_status_labels(parent):
 	 # only look for the num of spindles configured
 	for i in range(parent.status.spindles):
 		for item in spindle_items:
-			if parent.findChild(QLabel, f'spindle_{item}_{i}_lb'):
+			if f'spindle_{item}_{i}_lb' in parent.children:
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
 
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
@@ -400,10 +400,10 @@ def setup_status_labels(parent):
 	parent.status.poll()
 	for i in range(len(parent.status.tool_table)):
 		for item in tool_table_items:
-			if parent.findChild(QLabel, f'tool_table_{item}_{i}_lb'):
+			if f'tool_table_{item}_{i}_lb' in parent.children:
 				parent.tool_table[f'{item}_{i}'] = f'tool_table_{item}_{i}_lb'
 
-	if parent.findChild(QLabel, 'file_lb'):
+	if 'file_lb' in parent.children:
 		parent.status.poll()
 		gcode_file = parent.status.file or False
 		if gcode_file:
@@ -411,8 +411,21 @@ def setup_status_labels(parent):
 		else:
 			parent.file_lb.setText('No G code file loaded')
 
+def setup_plain_text_edits(parent):
+	# for gcode_pte update
+	if 'gcode_pte' in parent.children:
+		parent.status.poll()
+		parent.last_line = parent.status.motion_line
 
+def setup_list_widgets(parent):
+	list_widgets = ['mdi_history_lw']
+	for item in list_widgets:
+		if parent.findChild(QListWidget, item) is not None:
+			setattr(parent, f'{item}_exists', True)
+		else:
+			setattr(parent, f'{item}_exists', False)
 
+# FIXME Everything from here down needs to be looked at
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
@@ -440,29 +453,6 @@ def setup_recent_files(parent):
 				name = os.path.basename(path)
 				a = parent.menuRecent.addAction(name)
 				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
-
-
-
-# Everything from here down needs to be looked at
-
-def setup_list_widgets(parent):
-	list_widgets = ['mdi_history_lw']
-	for item in list_widgets:
-		if parent.findChild(QListWidget, item) is not None:
-			setattr(parent, f'{item}_exists', True)
-		else:
-			setattr(parent, f'{item}_exists', False)
-
-def setup_plain_text_edits(parent):
-	plain_text_edits = ['gcode_pte', 'errors_pte']
-	for item in plain_text_edits:
-		if parent.findChild(QPlainTextEdit, item) is not None:
-			setattr(parent, f'{item}_exists', True)
-		else:
-			setattr(parent, f'{item}_exists', False)
-	# for gcode_pte update
-	parent.status.poll()
-	parent.last_line = parent.status.motion_line
 
 def setup_combo_boxes(parent):
 	combo_boxes = ['jog_modes_cb']
