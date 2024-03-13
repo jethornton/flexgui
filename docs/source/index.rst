@@ -9,9 +9,9 @@ Flex GUI
    install
    designer
    ini
-   labels
-   controls
    menu
+   controls
+   labels
    misc
    hal
    style
