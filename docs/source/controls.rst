@@ -14,6 +14,7 @@ from the list below for each control widget objectName.
 	E-Stop            estop_pb
 	Power             power_pb
 	Run               run_pb
+	Run From Line     run_from_line_pb
 	Step              step_pb
 	Pause             pause_pb
 	Resume            resume_pb
