@@ -112,8 +112,8 @@ def action_reload(parent): # actionReload
 			parent.command.program_open(gcode_file)
 		parent.command.program_open(gcode_file)
 		text = open(gcode_file).read()
-		if parent.gcode_pte_exists:
-			parent.gcode_pte.setPlainText(text)
+	if 'gcode_pte' in parent.children:
+		parent.gcode_pte.setPlainText(text)
 
 	else:
 		msg = ('No File is open to reload')
