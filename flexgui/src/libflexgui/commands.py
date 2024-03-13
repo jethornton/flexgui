@@ -125,6 +125,8 @@ def home_all(parent): # only works if the home sequence is set for all axes
 		if all_homed(parent):
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
 			if parent.status.file:
@@ -152,7 +154,7 @@ def unhome_all(parent): # FIXME turn off home required items
 		parent.run_mdi_pb.setEnabled(False)
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(False)
-	for item in parent.program_run:
+	for item in parent.run_controls:
 		getattr(parent, item).setEnabled(False)
 
 def run_mdi(parent, cmd=''):
