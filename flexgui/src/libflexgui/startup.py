@@ -229,6 +229,7 @@ def setup_buttons(parent): # connect buttons to functions
 	'open_pb': 'action_open',
 	'edit_pb': 'action_edit',
 	'reload_pb': 'action_reload',
+	'save_as_pb': 'action_save_as',
 	'quit_pb': 'action_quit',
 	}
 	for key, value in action_buttons.items():
