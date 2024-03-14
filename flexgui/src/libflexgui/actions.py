@@ -26,6 +26,10 @@ def load_file(parent, gcode_file):
 	if 'file_lb' in parent.children:
 		parent.file_lb.setText(base)
 
+	# update controls
+	for item in parent.file_loaded:
+		getattr(parent, item).setEnabled(True)
+
 	# get recent files from settings
 	keys = parent.settings.allKeys()
 	file_list = []
