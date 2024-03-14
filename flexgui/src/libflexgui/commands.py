@@ -6,6 +6,7 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import utilities
 
+'''
 def all_homed(parent):
 	parent.status.poll()
 	# parent.status.homed returns a tuple of all joints home status 1 is homed
@@ -17,6 +18,7 @@ def all_homed(parent):
 		else:
 			all_homed = False
 	return all_homed
+'''
 
 def set_mode_manual(parent):
 	if parent.status.task_mode != emc.MODE_MANUAL:
@@ -42,7 +44,7 @@ def home(parent): # FIXME if joint is homed ask to home again
 		parent.command.wait_complete()
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
-		if all_homed(parent):
+		if utilities.all_homed(parent):
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
 			if 'run_mdi_pb' in parent.children:
@@ -57,7 +59,7 @@ def home_all(parent): # FIXME if joint is homed ask to home again
 		parent.command.home(-1)
 		parent.command.wait_complete()
 		parent.status.poll()
-		if all_homed(parent):
+		if utilities.all_homed(parent):
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
 			for item in parent.run_controls:
@@ -123,6 +125,49 @@ def run_mdi(parent, cmd=''):
 			parent.pause_pb.setEnabled(True)
 			parent.command.mdi(mdi_command)
 			parent.command.mode(emc.MODE_MANUAL)
+
+def get_jog_mode(parent):
+	parent.status.poll()
+	if parent.status.kinematics_type == emc.KINEMATICS_IDENTITY and utilities.all_homed(parent):
+		teleop_mode = 1
+		jjogmode = False
+	else:
+		# check motion_mode since other guis (halui) could alter it
+		if parent.status.motion_mode == emc.TRAJ_MODE_FREE:
+			teleop_mode = 0
+			jjogmode = True
+		else:
+			teleop_mode = 1
+			jjogmode = False
+	if ((jjogmode and parent.status.motion_mode != emc.TRAJ_MODE_FREE)
+		or (not jjogmode and parent.status.motion_mode != emc.TRAJ_MODE_TELEOP) ):
+		set_motion_teleop(parent, teleop_mode)
+	return jjogmode
+
+def jog(parent):
+	if 'jog_vel_s' in parent.children:
+		vel = parent.jog_vel_s.value()
+	else:
+		msg = ('Can not jog without a\njog velocity slider.')
+		dialogs.warn_msg_ok(msg, 'Error')
+		return
+
+	jog_command = parent.sender().objectName().split('_')
+	joint = int(jog_command[-1])
+	increment = parent.jog_modes_cb.currentData()
+	if 'minus' in jog_command:
+		vel = -vel
+
+	jjogmode = get_jog_mode(parent)
+	if parent.sender().isDown():
+		if increment:
+			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
+		else:
+			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
+
+	else:
+		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
+
 
 def touchoff(parent):
 	pass
