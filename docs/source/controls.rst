@@ -1,8 +1,12 @@
 Controls
 ========
 
+Push Buttons
+------------
+
 Controls are QPushButtons that can be placed anywhere you like. Use the Name
-from the list below for each control widget objectName.
+from the list below for each control widget objectName. Replace `_n` with the
+joint number or axis index.
 ::
 
 	Control           Name
@@ -27,8 +31,8 @@ from the list below for each control widget objectName.
 	Run MDI           run_mdi_pb
 	Touch Off Axis    touchoff_pb_(axis letter)
 	Tool Touch Off    tool_touchoff_(axis letter)
-	Jog Plus Axis     jog_plus_pb_(axis letter)
-	Jog Minus Axis    jog_minus_pb_(axis letter)
+	Jog Plus Axis n   jog_plus_pb_n
+	Jog Minus Axis n  jog_minus_pb_n
 	Tool Change       tool_change_pb
 	Spindle Start     start_spindle_pb
 	Spindle Stop      stop_spindle_pb
@@ -41,7 +45,28 @@ from the list below for each control widget objectName.
 .. image:: /images/controls-01.png
    :align: center
 
+Axis Index
+----------
+X 0
+Y 1
+Z 2 
+A 3
+B 4
+C 5
+U 6
+V 7
+W 8
+
+Sliders
+-------
+
+Things like jog velocity use a QSlider
+::
+
+	Jog Velocity      jog_vel_s
+
+
 
 .. note:: You don't have to use all the controls, the ones found will be
-   connected to the correct code. Some controls will be mandatory.
+   connected to the correct code. Some controls might be mandatory.
 

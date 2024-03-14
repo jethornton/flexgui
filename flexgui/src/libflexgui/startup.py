@@ -25,6 +25,7 @@ def find_children(parent):
 			parent.children.append(action.objectName())
 
 def setup_enables(parent):
+	axes = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 	# these are always disabled at start up
 	for item in ['actionPause', 'pause_pb', 'actionResume', 'resume_pb']:
 		if item in parent.children:
@@ -39,6 +40,9 @@ def setup_enables(parent):
 	for item in ['home_pb_', 'unhome_pb_']:
 		for i in range(9):
 			estop_open.append(f'{item}{i}')
+	for item in axes:
+		estop_open.append(f'jog_plus_pb_{item}')
+		estop_open.append(f'jog_minus_pb_{item}')
 
 	parent.state_estop_open = []
 	for item in estop_open:
@@ -56,6 +60,9 @@ def setup_enables(parent):
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
 	for i in range(9):
 		power_on.append(f'home_pb_{i}')
+	for item in axes:
+		power_on.append(f'jog_plus_pb_{item}')
+		power_on.append(f'jog_minus_pb_{item}')
 
 	parent.state_power_on = []
 	for item in power_on:
@@ -208,10 +215,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'flood_pb': 'flood_toggle',
 	'mist_pb': 'mist_toggle',
 	}
-
-	for i in range(16):
-		command_buttons[f'jog_plus_pb_{i}'] = 'jog'
-		command_buttons[f'jog_minus_pb_{i}'] = 'jog'
 
 	for key, value in command_buttons.items():
 		if key in parent.children:
@@ -393,7 +396,7 @@ def setup_status_labels(parent):
 			if f'{item}_{i}_lb' in parent.children:
 				parent.status_io[f'{item}_{i}'] = f'{item}_{i}_lb'
 
-	# check for spindle labels in ui
+	# check for spindle labels in the ui
 	spindle_items = ['brake', 'direction', 'enabled', 'homed',
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
 	parent.status_spindles = {}
@@ -404,6 +407,7 @@ def setup_status_labels(parent):
 			if f'spindle_{item}_{i}_lb' in parent.children:
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
 
+	# check for tool table labels in the ui
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
 		'boffset', 'coffset', 'uoffset', 'voffset', 'woffset', 'diameter',
 		'frontangle', 'backangle', 'orientation']
@@ -473,14 +477,47 @@ def setup_combo_boxes(parent):
 		else:
 			setattr(parent, f'{item}_exists', False)
 
-def setup_sliders(parent):
-	sliders = ['jog_vel_s']
-	for item in sliders:
-		if parent.findChild(QSlider, item) is not None:
-			setattr(parent, f'{item}_exists', True)
-		else:
-			setattr(parent, f'{item}_exists', False)
+def setup_jog(parent): # FIXME
+	jog_buttons = {}
+	required_jog_items = ['jog_vel_s', 'jog_modes_cb']
+	jog_buttons = []
+	for i in range(16):
+		jog_buttons.append(f'jog_plus_pb_{i}')
+		jog_buttons.append(f'jog_minus_pb_{i}')
+	jog_items_found = []
+	for item in jog_buttons:
+		if item in parent.children: # check for jog required items before connecting
+			jog_items_found.append(item)
+	if len(jog_items_found) > 0:
+		for item in required_jog_items:
+			# don't make the connection if all required widgets are not present
+			if item not in parent.children:
+				msg = (f'{item} is required to jog\n but was not found.\n'
+					'Jog Buttons will be disabled.')
+				dialogs.warn_msg_ok(msg, 'Missing Item')
+				for item in jog_items_found:
+					getattr(parent, item).setEnabled(False)
+				return
+		# ok to connect if we get this far
+		for item in jog_items_found: # connect jog buttons
+			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
+			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
+		if 'jog_vel_lb' in parent.children:
+			parent.jog_vel_s.valueChanged.connect(partial(utilities.update_jog_lb, parent))
+			parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()}')
 
+		parent.jog_modes_cb.addItem('Continuous', False)
+		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
+		#print(increments)
+		# INCREMENTS = 1 in, 0.1 in, 10 mil, 1 mil, 1mm, .1mm, 1/8000 in
+		if increments:
+			for item in increments.split():
+				data = ''
+				for char in item:
+					if char.isdigit() or char == '.':
+						data += char
+				#print(data)
+				parent.jog_modes_cb.addItem(item, float(data))
 
 def setup_misc(parent):
 	# list widgets are setup above

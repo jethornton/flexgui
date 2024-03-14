@@ -30,3 +30,5 @@ def home_all_check(parent):
 			return False
 	return True
 
+def update_jog_lb(parent):
+	parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()}')
