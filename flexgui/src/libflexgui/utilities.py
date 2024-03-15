@@ -1,4 +1,17 @@
 
+def is_float(string):
+	try:
+		float(string)
+		return True
+	except ValueError:
+		return False
+
+def is_int(string):
+	try:
+		int(string)
+		return True
+	except ValueError:
+		return False
 
 
 def all_homed(parent):
@@ -31,4 +44,4 @@ def home_all_check(parent):
 	return True
 
 def update_jog_lb(parent):
-	parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()}')
+	parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()} {parent.units}/min')
