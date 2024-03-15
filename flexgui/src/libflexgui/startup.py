@@ -13,7 +13,7 @@ from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
 
-def find_children(parent):
+def find_children(parent): # get the object names of all widgets
 	parent.children = []
 	children = parent.findChildren(QWidget)
 	for child in children:
@@ -23,6 +23,13 @@ def find_children(parent):
 	for action in actions:
 		if action.objectName():
 			parent.children.append(action.objectName())
+
+def get_ini_values(parent):
+	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
+	if units == 'inch':
+		parent.units = 'in'
+	else:
+		parent.units = 'mm'
 
 def setup_enables(parent):
 	axes = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
@@ -380,12 +387,21 @@ def setup_status_labels(parent):
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
-	'output', 'override_limits', 'units', 'velocity']
+	'output', 'override_limits']
 	parent.status_joints = {} # create an empty dictionary
-	for i in range(9):
+	for i in range(16):
 		for item in joint_items:
 			if f'joint_{item}_{i}_lb' in parent.children:
 				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
+
+	joint_number_items = ['units', 'velocity']
+	parent.status_joint_prec = {}
+	for i in range(16):
+		for item in joint_number_items:
+			if f'joint_{item}_{i}_lb' in parent.children: # if the label is found
+				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
+				p = p if p is not None else 3
+				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
 	# check for analog and digital labels in ui
 	# these return 64 items each
@@ -502,13 +518,22 @@ def setup_jog(parent): # FIXME
 		for item in jog_items_found: # connect jog buttons
 			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
 			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
+
+		max_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
+		if max_vel:
+			parent.jog_vel_s.setMaximum(int(float(max_vel) * 60))
+
+		default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
+		if default_vel:
+			parent.jog_vel_s.setValue(int(float(default_vel) * 60))
+
 		if 'jog_vel_lb' in parent.children:
 			parent.jog_vel_s.valueChanged.connect(partial(utilities.update_jog_lb, parent))
 			parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()}')
+			utilities.update_jog_lb(parent)
 
 		parent.jog_modes_cb.addItem('Continuous', False)
 		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
-		#print(increments)
 		# INCREMENTS = 1 in, 0.1 in, 10 mil, 1 mil, 1mm, .1mm, 1/8000 in
 		if increments:
 			for item in increments.split():
@@ -516,7 +541,6 @@ def setup_jog(parent): # FIXME
 				for char in item:
 					if char.isdigit() or char == '.':
 						data += char
-				#print(data)
 				parent.jog_modes_cb.addItem(item, float(data))
 
 def setup_misc(parent):
