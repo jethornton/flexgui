@@ -11,7 +11,9 @@ MDI Viewer
 ----------
 
 To add a MDI viewer add a List Widget from Item Widgets and name it
-`mdi_history_lw`.
+`mdi_history_lw`
+
+To enter MDI commands add a Line Edit and name it `mdi_command_le`
 
 Error Viewer
 ------------
