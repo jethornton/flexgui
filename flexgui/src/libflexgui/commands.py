@@ -146,7 +146,7 @@ def get_jog_mode(parent):
 
 def jog(parent):
 	if 'jog_vel_s' in parent.children:
-		vel = parent.jog_vel_s.value()
+		vel = parent.jog_vel_s.value() / 60
 	else:
 		msg = ('Can not jog without a\njog velocity slider.')
 		dialogs.warn_msg_ok(msg, 'Error')
