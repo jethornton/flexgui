@@ -130,6 +130,7 @@ class flexgui(QMainWindow):
 			self.show()
 
 		startup.find_children(self)
+		startup.get_ini_values(self)
 		startup.setup_enables(self)
 		startup.setup_buttons(self)
 		startup.setup_actions(self)
@@ -144,7 +145,7 @@ class flexgui(QMainWindow):
 		#startup.setup_recent_files(self)
 		#startup.copy_examples(self)
 
-		# setup and start the status update timer every 0.1 second
+		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
 		self.timer.timeout.connect(partial(status.update, self))
 		self.timer.start(10) # milliseconds
