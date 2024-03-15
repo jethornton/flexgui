@@ -116,8 +116,6 @@ def run_mdi(parent, cmd=''): # G0 X1 G0 X0
 			dialogs.warn_msg_ok(msg, 'Error')
 			return
 
-	parent.mdi_command = mdi_command
-
 	if mdi_command:
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
