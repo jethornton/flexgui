@@ -207,6 +207,7 @@ def update(parent):
 		parent.interp_state = parent.status.interp_state
 
 	for key, value in parent.status_labels.items(): # update all status labels
+		# key is the status item and value is the label
 		# get the label and set the text to the status value of the key
 		if key in parent.stat_dict:
 			stat_value = getattr(parent.status, f'{key}')
@@ -291,8 +292,20 @@ def update(parent):
 			key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
 
+	# joints precision items
+	for key, value in parent.status_joint_prec.items(): # key is label value tuple position & precision
+		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
+			key = key[0:-3]
+		else:
+			key = key[0:-2]
+		getattr(parent, f'joint_{key}_{value[0]}_lb').setText(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
+
+		# print(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
+		# getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[value[0]]:.{value[1]}f}')
+
 	# i/o s.ain[0] FIXME precision
 	for key, value in parent.status_io.items(): # up to 64 items
+		# there might be more than one underscore
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
 			key = key[0:-3]
 		else:
