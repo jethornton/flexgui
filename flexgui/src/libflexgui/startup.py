@@ -241,6 +241,8 @@ def setup_buttons(parent): # connect buttons to functions
 	'reload_pb': 'action_reload',
 	'save_as_pb': 'action_save_as',
 	'quit_pb': 'action_quit',
+	'copy_mdi_history_pb': 'action_copy_mdi',
+	'clear_mdi_history_pb': 'action_clear_mdi'
 	}
 	for key, value in action_buttons.items():
 		if key in parent.children:
@@ -641,5 +643,4 @@ def copy_examples(parent, title=None):
 			if os.path.isdir(source_dir):
 				shutil.copytree(source_dir, dest_dir)
 	return True
-
 
