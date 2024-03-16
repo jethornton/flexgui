@@ -468,6 +468,16 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
 
+def load_mdi(parent):
+	if 'mdi_history_lw' in parent.children:
+		path = os.path.dirname(parent.status.ini_filename)
+		mdi_file = os.path.join(path, 'mdi_history.txt')
+		if os.path.exists(mdi_file): # load mdi history
+			with open(mdi_file, 'r') as f:
+				history_list = f.readlines()
+				for item in history_list:
+					parent.mdi_history_lw.addItem(item.strip())
+
 
 def setup_recent_files(parent):
 	# add the Recent menu FIXME look for file open then add before next action
