@@ -1,9 +1,9 @@
-import sys
+import sys, os
 
 from PyQt6.QtWidgets import QLabel, QPushButton
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
-import linuxcnc
+import linuxcnc as emc
 
 from libflexgui import utilities
 
@@ -144,12 +144,12 @@ def update(parent):
 
 		# enable/disable controls and actions based on task state
 		# state_estop_open estop is open
-		if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		if parent.status.task_state == emc.STATE_ESTOP:
 			for item in parent.state_estop_open:
 				getattr(parent, item).setEnabled(False)
 
 		# state_estop_closed estop is closed and power is off
-		if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		if parent.status.task_state == emc.STATE_ESTOP_RESET:
 			for item in parent.state_estop_closed:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.state_power_on:
@@ -159,7 +159,7 @@ def update(parent):
 					getattr(parent, item).setEnabled(False)
 
 		# state_power_on power is on
-		if parent.status.task_state == linuxcnc.STATE_ON:
+		if parent.status.task_state == emc.STATE_ON:
 			for item in parent.state_power_on:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.state_all_homed:
@@ -176,15 +176,15 @@ def update(parent):
 
 	# program running
 	if parent.exec_state != parent.status.exec_state:
-		if parent.status.exec_state == linuxcnc.EXEC_WAITING_FOR_MOTION:
+		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
 			# program is running
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.program_running:
 				getattr(parent, item).setEnabled(True)
-		elif parent.status.exec_state == linuxcnc.EXEC_DONE:
+		elif parent.status.exec_state == emc.EXEC_DONE:
 			# program is not running or estop was toggled
-			if parent.status.task_state == linuxcnc.STATE_ON:
+			if parent.status.task_state == emc.STATE_ON:
 				if parent.status.file: # FIXME check for power on
 					for item in parent.run_controls:
 						getattr(parent, item).setEnabled(True)
@@ -194,16 +194,29 @@ def update(parent):
 
 	# program paused
 	if parent.interp_state != parent.status.interp_state:
-		if parent.status.interp_state == linuxcnc.INTERP_PAUSED:
+		if parent.status.interp_state == emc.INTERP_PAUSED:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.program_running:
 				getattr(parent, item).setEnabled(False)
-		elif parent.status.interp_state == linuxcnc.INTERP_WAITING:
+		elif parent.status.interp_state == emc.INTERP_WAITING:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.program_running:
 				getattr(parent, item).setEnabled(True)
+		elif parent.status.interp_state == emc.INTERP_IDLE:
+			if parent.status.task_mode == emc.MODE_MDI:
+				if 'mdi_history_lw' in parent.children:
+					parent.mdi_history_lw.addItem(parent.mdi_command)
+					path = os.path.dirname(parent.status.ini_filename)
+					mdi_file = os.path.join(path, 'mdi_history.txt')
+					mdi_codes = []
+					for index in range(parent.mdi_history_lw.count()):
+						mdi_codes.append(parent.mdi_history_lw.item(index).text())
+					with open(mdi_file, 'w') as f:
+						f.write('\n'.join(mdi_codes))
+				parent.mdi_command_le.setText('')
+				parent.command.mode(emc.MODE_MANUAL)
 		parent.interp_state = parent.status.interp_state
 
 	for key, value in parent.status_labels.items(): # update all status labels
@@ -298,6 +311,7 @@ def update(parent):
 			key = key[0:-3]
 		else:
 			key = key[0:-2]
+		# if velocity * 60 FIXME
 		getattr(parent, f'joint_{key}_{value[0]}_lb').setText(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
 
 		# print(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
@@ -329,6 +343,29 @@ def update(parent):
 		getattr(parent, f'{value}').setText(f'{getattr(tr, key)}')
 
 	# STATE_ESTOP STATE_ESTOP_RESET STATE_ON
-	if parent.status.state == linuxcnc.STATE_ESTOP:
+	if parent.status.state == emc.STATE_ESTOP:
 		pass
+
+	# handle errors
+	#if parent.status.state == parent.emc.RCS_ERROR:
+	if 'errors_pte' in parent.children:
+		error = parent.error.poll()
+		if error:
+			kind, text = error
+			if kind in (emc.NML_ERROR, emc.OPERATOR_ERROR):
+				error_type = 'Error'
+			else:
+				error_type = 'Info'
+			parent.errors_pte.setPlainText(error_type)
+			parent.errors_pte.appendPlainText(text)
+			parent.errors_pte.setFocus()
+			parent.statusbar.showMessage('Error')
+			#tabname = 'status_tab'
+			#print(parent.tabWidget.findChild(QWidget, 'status_tab'))
+			#page = parent.tabWidget.findChild(QWidget, tabname)
+			#print(page)
+			#index = parent.tabWidget.indexOf(page)
+			#print(index)
+			#if isinstance(parent.tabWidget.findChild(QWidget, 'status_tab'), QWidget):
+			#	parent.tabWidget.setCurrentWidget(parent.tabWidget.findChild(QWidget, 'status_tab'))
 

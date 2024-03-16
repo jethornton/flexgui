@@ -101,7 +101,7 @@ def unhome_all(parent):
 	for item in parent.run_controls:
 		getattr(parent, item).setEnabled(False)
 
-def run_mdi(parent, cmd=''): # G0 X1 G0 X0
+def run_mdi(parent, cmd=''):
 	if cmd:
 		mdi_command = cmd
 	else:
@@ -117,27 +117,12 @@ def run_mdi(parent, cmd=''): # G0 X1 G0 X0
 			return
 
 	if mdi_command:
+		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
-			error = parent.error.poll()
-			if error:
-				kind, text = error
-				print(kind)
-				print(text)
-			else: # copy the mdi command to the list
-				if 'mdi_history_lw' in parent.children:
-					parent.mdi_history_lw.addItem(mdi_command)
-					path = os.path.dirname(parent.status.ini_filename)
-					mdi_file = os.path.join(path, 'mdi_history.txt')
-					mdi_codes = []
-					for index in range(parent.mdi_history_lw.count()):
-						mdi_codes.append(parent.mdi_history_lw.item(index).text())
-					with open(mdi_file, 'w') as f:
-						f.write('\n'.join(mdi_codes))
-				parent.mdi_command_le.setText('')
 
 def get_jog_mode(parent):
 	parent.status.poll()
