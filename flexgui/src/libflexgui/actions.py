@@ -16,7 +16,7 @@ def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
 	parent.command.wait_complete()
 	if utilities.all_homed(parent):
-		for item in parent.file_loaded_enable:
+		for item in parent.file_loaded:
 			getattr(parent, item).setEnabled(True)
 
 	text = open(gcode_file).read()
