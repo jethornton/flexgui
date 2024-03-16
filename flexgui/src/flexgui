@@ -139,7 +139,7 @@ class flexgui(QMainWindow):
 		startup.setup_jog(self)
 		startup.load_mdi(self)
 		startup.load_postgui(self)
-		#startup.setup_recent_files(self)
+		startup.setup_recent_files(self)
 		#startup.setup_list_widgets(self)
 		#startup.setup_combo_boxes(self)
 		#startup.setup_sliders(self)
