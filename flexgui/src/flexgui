@@ -116,19 +116,6 @@ class flexgui(QMainWindow):
 			with open(stylesheet, 'r') as f:
 				self.setStyleSheet(f.read())
 
-		# set the inital screen size
-		if screen_size:
-			if screen_size.lower() == 'minimized':
-				self.showMinimized()
-			if screen_size.lower() == 'normal':
-				self.showNormal()
-			if screen_size.lower() == 'maximized':
-				self.showMaximized()
-			elif screen_size.lower() == 'full':
-				self.showFullScreen()
-		else:
-			self.show()
-
 		startup.find_children(self)
 		startup.get_ini_values(self)
 		startup.setup_enables(self)
@@ -150,6 +137,20 @@ class flexgui(QMainWindow):
 		self.timer = QTimer()
 		self.timer.timeout.connect(partial(status.update, self))
 		self.timer.start(10) # milliseconds
+
+		# set the inital screen size
+		if screen_size:
+			if screen_size.lower() == 'minimized':
+				self.showMinimized()
+			if screen_size.lower() == 'normal':
+				self.showNormal()
+			if screen_size.lower() == 'maximized':
+				self.showMaximized()
+			elif screen_size.lower() == 'full':
+				self.showFullScreen()
+		else:
+			self.show()
+
 
 app = QApplication(sys.argv)
 gui = flexgui()
