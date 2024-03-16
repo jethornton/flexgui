@@ -139,25 +139,6 @@ def run_mdi(parent, cmd=''): # G0 X1 G0 X0
 						f.write('\n'.join(mdi_codes))
 				parent.mdi_command_le.setText('')
 
-
-			'''
-
-			#print(mdi_command)
-			#parent.command.wait_complete()
-			#parent.command.mode(emc.MODE_MANUAL)
-
-			# FIXME this stalls the gui
-			parent.status.poll()
-			while parent.status.state == emc.RCS_EXEC:
-				parent.status.poll()
-			if parent.status.state == emc.RCS_DONE:
-				print('done')
-
-				parent.command.mode(emc.MODE_MANUAL)
-				parent.command.wait_complete()
-			'''
-
-
 def get_jog_mode(parent):
 	parent.status.poll()
 	if parent.status.kinematics_type == emc.KINEMATICS_IDENTITY and utilities.all_homed(parent):
