@@ -41,6 +41,7 @@ joint number or axis index.
 	Flood Toggle      flood_pb
 	Mist Toggle       mist_pb
 	Clear MDI History clear_mdi_history_pb
+	Copy MDI History  copy_mdi_history_pb
 
 .. image:: /images/controls-01.png
    :align: center
