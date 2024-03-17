@@ -4,7 +4,7 @@ from functools import partial
 
 from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel
 
-import linuxcnc
+import linuxcnc as emc
 import hal
 
 from libflexgui import dialogs
@@ -62,6 +62,12 @@ def load_file(parent, gcode_file):
 			a = parent.menuRecent.addAction(name)
 			a.triggered.connect(partial(load_file, parent, path))
 
+	# enable run items
+	parent.status.poll()
+	if utilities.all_homed(parent) and parent.status.task_state == emc.STATE_ON:
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(True)
+
 def action_open(parent): # actionOpen
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
@@ -104,8 +110,8 @@ def action_reload(parent): # actionReload
 	if gcode_file:
 		parent.status.poll()
 		if len(parent.status.file) > 0:
-			if parent.status.task_mode != linuxcnc.MODE_MANUAL:
-				parent.command.mode(linuxcnc.MODE_MANUAL)
+			if parent.status.task_mode != emc.MODE_MANUAL:
+				parent.command.mode(emc.MODE_MANUAL)
 				parent.command.wait_complete()
 			gcode_file = parent.status.file 
 			# Force a sync of the interpreter, which writes out the var file.
@@ -165,42 +171,42 @@ def action_quit(parent): # actionQuit
 	parent.close()
 
 def action_estop(parent): # actionEstop
-	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		parent.command.state(linuxcnc.STATE_ESTOP_RESET)
+	if parent.status.task_state == emc.STATE_ESTOP:
+		parent.command.state(emc.STATE_ESTOP_RESET)
 	else:
-		parent.command.state(linuxcnc.STATE_ESTOP)
+		parent.command.state(emc.STATE_ESTOP)
 
 def action_power(parent): # actionPower
-	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		parent.command.state(linuxcnc.STATE_ON)
+	if parent.status.task_state == emc.STATE_ESTOP_RESET:
+		parent.command.state(emc.STATE_ON)
 	else:
-		parent.command.state(linuxcnc.STATE_OFF)
+		parent.command.state(emc.STATE_OFF)
 
 def action_run(parent): # actionRun
-	if parent.status.task_state == linuxcnc.STATE_ON:
-		if parent.status.task_mode != linuxcnc.MODE_AUTO:
-			parent.command.mode(linuxcnc.MODE_AUTO)
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_AUTO:
+			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
 		n = 0
-		parent.command.auto(linuxcnc.AUTO_RUN, n)
+		parent.command.auto(emc.AUTO_RUN, n)
 
 def action_run_from_line(parent): # actionRun_from_Line
 	print(parent.sender().objectName())
 
 def action_step(parent): # actionStep
-	if parent.status.task_state == linuxcnc.STATE_ON:
-		if parent.status.task_mode != linuxcnc.MODE_AUTO:
-			parent.command.mode(linuxcnc.MODE_AUTO)
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_AUTO:
+			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
-		parent.command.auto(linuxcnc.AUTO_STEP)
+		parent.command.auto(emc.AUTO_STEP)
 
 def action_pause(parent): # actionPause
-	if parent.status.state == linuxcnc.RCS_EXEC: # program is running
-		parent.command.auto(linuxcnc.AUTO_PAUSE)
+	if parent.status.state == emc.RCS_EXEC: # program is running
+		parent.command.auto(emc.AUTO_PAUSE)
 
 def action_resume(parent): # actionResume
 	if parent.status.paused:
-		parent.command.auto(linuxcnc.AUTO_RESUME)
+		parent.command.auto(emc.AUTO_RESUME)
 
 def action_stop(parent): # actionStop
 	parent.command.abort()
