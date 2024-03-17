@@ -7,20 +7,6 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import utilities
 
-'''
-def all_homed(parent):
-	parent.status.poll()
-	# parent.status.homed returns a tuple of all joints home status 1 is homed
-	homed = parent.status.homed
-	# parent.status.axis_mask.bit_count() returns the number of axes configured
-	for i in range(parent.status.axis_mask.bit_count()):
-		if homed[i] == 1:
-			all_homed = True
-		else:
-			all_homed = False
-	return all_homed
-'''
-
 def set_mode_manual(parent):
 	if parent.status.task_mode != emc.MODE_MANUAL:
 		parent.command.mode(emc.MODE_MANUAL)
@@ -171,7 +157,6 @@ def jog(parent):
 
 	else:
 		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
-
 
 def touchoff(parent):
 	pass
