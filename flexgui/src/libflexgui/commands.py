@@ -124,6 +124,12 @@ def run_mdi(parent, cmd=''):
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
 
+def set_motion_teleop(parent, value):
+	# 1:teleop, 0: joint
+	parent.command.teleop_enable(value)
+	parent.command.wait_complete()
+	parent.status.poll()
+
 def get_jog_mode(parent):
 	parent.status.poll()
 	if parent.status.kinematics_type == emc.KINEMATICS_IDENTITY and utilities.all_homed(parent):
