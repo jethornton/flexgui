@@ -23,6 +23,10 @@ def find_children(parent): # get the object names of all widgets
 	for action in actions:
 		if action.objectName():
 			parent.children.append(action.objectName())
+	menus = parent.findChildren(QMenu)
+	for menu in menus:
+		if menu.objectName():
+			parent.children.append(menu.objectName())
 
 def get_ini_values(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
@@ -480,12 +484,11 @@ def load_mdi(parent):
 				for item in history_list:
 					parent.mdi_history_lw.addItem(item.strip())
 
-
 def setup_recent_files(parent):
+	parent.menuRecent = QMenu('Recent', parent)
 	# add the Recent menu FIXME look for file open then add before next action
 	action = parent.findChild(QAction, 'actionEdit') or False
 	if action:
-		parent.menuRecent = QMenu('Recent', parent)
 		parent.menuFile.insertMenu(action, parent.menuRecent)
 
 		# if any files have been opened add them
