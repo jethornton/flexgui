@@ -474,7 +474,7 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
 
-def load_mdi(parent):
+def setup_mdi(parent):
 	if 'mdi_history_lw' in parent.children:
 		path = os.path.dirname(parent.status.ini_filename)
 		mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -483,6 +483,7 @@ def load_mdi(parent):
 				history_list = f.readlines()
 				for item in history_list:
 					parent.mdi_history_lw.addItem(item.strip())
+		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)

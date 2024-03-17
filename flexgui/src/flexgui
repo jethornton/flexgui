@@ -125,7 +125,7 @@ class flexgui(QMainWindow):
 		startup.setup_status_labels(self)
 		startup.setup_plain_text_edits(self)
 		startup.setup_jog(self)
-		startup.load_mdi(self)
+		startup.setup_mdi(self)
 		startup.load_postgui(self)
 		#startup.setup_list_widgets(self)
 		#startup.setup_combo_boxes(self)

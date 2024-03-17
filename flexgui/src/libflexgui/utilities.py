@@ -13,7 +13,6 @@ def is_int(string):
 	except ValueError:
 		return False
 
-
 def all_homed(parent):
 	parent.status.poll()
 	num_joints = parent.status.joints
@@ -45,3 +44,8 @@ def home_all_check(parent):
 
 def update_jog_lb(parent):
 	parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()} {parent.units}/min')
+
+def add_mdi(parent):
+	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
+
+
