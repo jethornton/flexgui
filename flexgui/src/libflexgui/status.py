@@ -167,10 +167,17 @@ def update(parent):
 					getattr(parent, item).setEnabled(True)
 				else:
 					getattr(parent, item).setEnabled(False)
+
 			# if a file is loaded and machine is homed enable run and step
 			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.file_loaded_enable:
+				for item in parent.file_loaded:
 					getattr(parent, item).setEnabled(True)
+
+			# home all push button
+			if 'home_all_pb' in parent.children:
+				if utilities.home_all_check(parent):
+					parent.home_all_pb.setEnabled(True)
+
 
 		parent.task_state = parent.status.task_state
 
@@ -316,6 +323,16 @@ def update(parent):
 
 		# print(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
 		# getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[value[0]]:.{value[1]}f}')
+
+	'''
+	# current tool offsets FIXME
+	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision
+		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
+			key = key[0:-3]
+		else:
+			key = key[0:-2]
+		getattr(parent, f'joint_{key}_{value[0]}_lb').setText(f'{getattr(parent, "status").tool_offset[value[0]][key]:.{value[1]}f}')
+	'''
 
 	# i/o s.ain[0] FIXME precision
 	for key, value in parent.status_io.items(): # up to 64 items
