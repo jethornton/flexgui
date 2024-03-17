@@ -13,6 +13,8 @@ from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
 
+AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
+
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
 	children = parent.findChildren(QWidget)
@@ -36,7 +38,6 @@ def get_ini_values(parent):
 		parent.units = 'mm'
 
 def setup_enables(parent):
-	axes = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 	# these are always disabled at start up
 	for item in ['actionPause', 'pause_pb', 'actionResume', 'resume_pb']:
 		if item in parent.children:
@@ -51,7 +52,7 @@ def setup_enables(parent):
 	for item in ['home_pb_', 'unhome_pb_']:
 		for i in range(9):
 			estop_open.append(f'{item}{i}')
-	for item in axes:
+	for item in AXES:
 		estop_open.append(f'jog_plus_pb_{item}')
 		estop_open.append(f'jog_minus_pb_{item}')
 
@@ -71,7 +72,7 @@ def setup_enables(parent):
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
 	for i in range(9):
 		power_on.append(f'home_pb_{i}')
-	for item in axes:
+	for item in AXES:
 		power_on.append(f'jog_plus_pb_{item}')
 		power_on.append(f'jog_minus_pb_{item}')
 
@@ -198,6 +199,31 @@ def setup_enables(parent):
 		for item in parent.file_loaded:
 			getattr(parent, item).setEnabled(False)
 
+	# check for required items tool_touchoff_ touchoff_pb_
+	to_missing = False
+	tto_missing = False
+	for item in AXES:
+		if f'touchoff_pb_{item}' in parent.children:
+			if 'touchoff_dsb' not in parent.children:
+				getattr(parent, f'touchoff_pb_{item}').setEnabled(False)
+				to_missing = True
+
+		if f'tool_touchoff_{item}' in parent.children:
+			if 'tool_touchoff_dsb' not in parent.children:
+				getattr(parent, f'tool_touchoff_{item}').setEnabled(False)
+				tto_missing = True
+
+	if to_missing:
+		msg = ('Touch Off Double Spin Box\n'
+			'touchoff_dsb not found.\n'
+			'Touch Off Buttons will be disabled')
+		dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
+	if tto_missing:
+		msg = ('Touch Off Double Spin Box\n'
+			'tool_touchoff_dsb not found.\n'
+			'Tool Touch Off Buttons will be disabled')
+		dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
@@ -212,9 +238,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'unhome_pb_1': 'unhome',
 	'unhome_pb_2': 'unhome',
 	'run_mdi_pb': 'run_mdi',
-	'touchoff_pb_x': 'touchoff',
-	'touchoff_pb_y': 'touchoff',
-	'touchoff_pb_z': 'touchoff',
 	'x_tool_touchoff_pb': 'tool_touchoff',
 	'y_tool_touchoff_pb': 'tool_touchoff',
 	'z_tool_touchoff_pb': 'tool_touchoff',
@@ -227,6 +250,9 @@ def setup_buttons(parent): # connect buttons to functions
 	'mist_pb': 'mist_toggle',
 	}
 
+	for item in AXES:
+		command_buttons[f'touchoff_pb_{item}'] = 'touchoff'
+		command_buttons[f'tool_touchoff_{item}'] = 'tool_touchoff'
 	for key, value in command_buttons.items():
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
@@ -462,8 +488,6 @@ def setup_list_widgets(parent):
 		else:
 			setattr(parent, f'{item}_exists', False)
 
-# FIXME Everything from here down needs to be looked at
-
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
@@ -474,7 +498,7 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
 
-def setup_mdi(parent):
+def setup_mdi(parent): # FIXME check for required items
 	if 'mdi_history_lw' in parent.children:
 		path = os.path.dirname(parent.status.ini_filename)
 		mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -484,6 +508,8 @@ def setup_mdi(parent):
 				for item in history_list:
 					parent.mdi_history_lw.addItem(item.strip())
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
+		if 'mdi_command_le' in parent.children:
+			parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)
@@ -500,6 +526,9 @@ def setup_recent_files(parent):
 				name = os.path.basename(path)
 				a = parent.menuRecent.addAction(name)
 				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+
+# FIXME Everything from here down needs to be looked at
+
 
 def setup_combo_boxes(parent):
 	combo_boxes = ['jog_modes_cb']
