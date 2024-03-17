@@ -368,7 +368,7 @@ def update(parent):
 				error_type = 'Error'
 			else:
 				error_type = 'Info'
-			parent.errors_pte.setPlainText(error_type)
+			parent.errors_pte.appendPlainText(error_type)
 			parent.errors_pte.appendPlainText(text)
 			parent.errors_pte.setFocus()
 			parent.statusbar.showMessage('Error')
