@@ -54,7 +54,7 @@ number of the axis. Axis numbers start at 0 and go through to 8.
    :width: 100%
    :align: left
 
-	axis_max_position_limit_n_lb, axis_min_position_limit_n_lb, axis_velocity_n_lb
+	axis_max_position_limit_n_lb, axis_min_position_limit_n_lb, velocity_n_lb
 
 Joint Status
 ------------
@@ -119,6 +119,17 @@ Offsets for G92
 	g92_lb_a, g92_lb_b, g92_lb_c
 	g92_lb_u, g92_lb_v, g92_lb_w
 
+Current Tool Offsets
+
+.. csv-table:: Current Tool Status Labels
+   :width: 100%
+   :align: left
+
+	tool_offset_lb_0, tool_offset_lb_1, tool_offset_lb_2
+	tool_offset_lb_3, tool_offset_lb_4, tool_offset_lb_5
+	tool_offset_lb_6, tool_offset_lb_7, tool_offset_lb_8
+
+.. note:: see the Controls page for axis numbering
 
 Spindle Status
 --------------
