@@ -46,17 +46,22 @@ joint number or axis index.
 .. image:: /images/controls-01.png
    :align: center
 
+.. note:: Touch Off buttons require a Double Spin Box named `touchoff_dsb`
+.. note:: Tool Touch Off buttons require a Double Spin Box named `tool_touchoff_dsb`
+
 Axis Index
 ----------
-X 0
-Y 1
-Z 2 
-A 3
-B 4
-C 5
-U 6
-V 7
-W 8
+::
+
+	X 0
+	Y 1
+	Z 2 
+	A 3
+	B 4
+	C 5
+	U 6
+	V 7
+	W 8
 
 Sliders
 -------
@@ -66,7 +71,12 @@ Things like jog velocity use a QSlider
 
 	Jog Velocity      jog_vel_s
 
+Double Spin Boxes
+-----------------
+::
 
+	Touch Off Value         touchoff_dsb
+	Tool Touch Off Value    tool_touchoff_dsb
 
 .. note:: You don't have to use all the controls, the ones found will be
    connected to the correct code. Some controls might be mandatory.
