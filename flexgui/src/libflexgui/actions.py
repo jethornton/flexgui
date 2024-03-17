@@ -52,17 +52,15 @@ def load_file(parent, gcode_file):
 	parent.settings.endGroup()
 
 	# clear the recent menu
-	if 'menuRecent' in parent.children:
-		parent.menuRecent.clear()
-
-		# add the recent files from settings
-		keys = parent.settings.allKeys()
-		for key in keys:
-			if key.startswith('recent_files'):
-				path = parent.settings.value(key)
-				name = os.path.basename(path)
-				a = parent.menuRecent.addAction(name)
-				a.triggered.connect(partial(load_file, parent, path))
+	parent.menuRecent.clear()
+	# add the recent files from settings
+	keys = parent.settings.allKeys()
+	for key in keys:
+		if key.startswith('recent_files'):
+			path = parent.settings.value(key)
+			name = os.path.basename(path)
+			a = parent.menuRecent.addAction(name)
+			a.triggered.connect(partial(load_file, parent, path))
 
 def action_open(parent): # actionOpen
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
