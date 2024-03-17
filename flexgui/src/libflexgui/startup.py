@@ -225,6 +225,14 @@ def setup_enables(parent):
 			'Tool Touch Off Buttons will be disabled')
 		dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
+	if 'run_mdi_pb' in parent.children:
+		if 'mdi_command_le' not in parent.children:
+			parent.run_mdi_pb.setEnabled(False)
+			msg = ('Run MDI can not work without\n'
+				'the Line Edit mdi_command_le.\n'
+				'The Run MDI Button will be disabled')
+			dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
 	'abort_pb': 'abort',
@@ -238,9 +246,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'unhome_pb_1': 'unhome',
 	'unhome_pb_2': 'unhome',
 	'run_mdi_pb': 'run_mdi',
-	'x_tool_touchoff_pb': 'tool_touchoff',
-	'y_tool_touchoff_pb': 'tool_touchoff',
-	'z_tool_touchoff_pb': 'tool_touchoff',
 	'tool_change_pb':  'tool_change',
 	'start_spindle_pb': 'spindle',
 	'stop_spindle_pb': 'spindle',
@@ -402,6 +407,18 @@ def setup_status_labels(parent):
 			p = getattr(parent, item).property('precision')
 			p = p if p is not None else 3
 			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
+
+	tool_offset_items = ['tool_offset_lb_0', 'tool_offset_lb_1',
+		'tool_offset_lb_2', 'tool_offset_lb_3', 'tool_offset_lb_4',
+		'tool_offset_lb_5', 'tool_offset_lb_6', 'tool_offset_lb_7',
+		'tool_offset_lb_8']
+	parent.status_tool_offset = {} # create an empty dictionary
+	# check for tool offset labels in the ui
+	for i, item in enumerate(tool_offset_items):
+		if item in parent.children: # if the label is found
+			p = getattr(parent, item).property('precision')
+			p = p if p is not None else 3
+			parent.status_tool_offset[f'{item}'] = [i, p] # add the label, tuple position & precision
 
 	# check for axis labels in the ui FIXME precision velocity
 	# these return tuples of xyzabcuvw axes

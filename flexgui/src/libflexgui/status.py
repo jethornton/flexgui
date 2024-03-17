@@ -324,15 +324,10 @@ def update(parent):
 		# print(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
 		# getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[value[0]]:.{value[1]}f}')
 
-	'''
 	# current tool offsets FIXME
 	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision
-		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
-			key = key[0:-3]
-		else:
-			key = key[0:-2]
-		getattr(parent, f'joint_{key}_{value[0]}_lb').setText(f'{getattr(parent, "status").tool_offset[value[0]][key]:.{value[1]}f}')
-	'''
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").tool_offset[value[0]]:.{value[1]}f}')
+		#getattr(parent, f'{key}').setText(f'{getattr(parent, "status").":.{value[1]}f}')
 
 	# i/o s.ain[0] FIXME precision
 	for key, value in parent.status_io.items(): # up to 64 items
