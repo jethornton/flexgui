@@ -34,6 +34,7 @@ def home(parent): # FIXME if joint is homed ask to home again
 		if utilities.all_homed(parent) and parent.status.file:
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
+		if utilities.all_homed(parent):
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
 			if 'unhome_all_pb' in parent.children:
