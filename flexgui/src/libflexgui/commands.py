@@ -50,14 +50,14 @@ def home_all(parent): # FIXME if joint is homed ask to home again
 		if utilities.all_homed(parent):
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
 			if parent.status.file:
 				if parent.status.task_state == emc.STATE_ON:
 					for item in parent.file_loaded:
 						getattr(parent, item).setEnabled(True)
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
 
 def unhome(parent):
 	parent.status.poll()
