@@ -515,7 +515,7 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 			if res: raise SystemExit(res)
 
-def setup_mdi(parent): # FIXME check for required items
+def setup_mdi(parent):
 	if 'mdi_history_lw' in parent.children:
 		path = os.path.dirname(parent.status.ini_filename)
 		mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -544,18 +544,7 @@ def setup_recent_files(parent):
 				a = parent.menuRecent.addAction(name)
 				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 
-# FIXME Everything from here down needs to be looked at
-
-
-def setup_combo_boxes(parent):
-	combo_boxes = ['jog_modes_cb']
-	for item in combo_boxes:
-		if parent.findChild(QComboBox, item) is not None:
-			setattr(parent, f'{item}_exists', True)
-		else:
-			setattr(parent, f'{item}_exists', False)
-
-def setup_jog(parent): # FIXME
+def setup_jog(parent):
 	jog_buttons = {}
 	required_jog_items = ['jog_vel_s', 'jog_modes_cb']
 	jog_buttons = []
@@ -605,53 +594,7 @@ def setup_jog(parent): # FIXME
 						data += char
 				parent.jog_modes_cb.addItem(item, float(data))
 
-def setup_misc(parent):
-	# list widgets are setup above
-	list_widgets = {'mdi_history_lw': 'add_mdi'}
-	list_widgets_list = []
-	for list_widget in parent.findChildren(QListWidget):
-		if list_widget.objectName():
-			list_widgets_list.append(list_widget.objectName())
-
-	for item in list_widgets_list:
-		if item in list_widgets:
-			getattr(parent, item).itemSelectionChanged.connect(partial(getattr(utilities, list_widgets[item]), parent))
-
-	parent.mdi_history_lw.addItem('test 1')
-	parent.mdi_history_lw.addItem('test 2')
-	parent.mdi_history_lw.addItem('test 3')
-
-	sliders = {
-	'jog_vel_s': 'jog_slider'}
-
-	slider_list = []
-	for slider in parent.findChildren(QSlider):
-		if slider.objectName():
-			slider_list.append(slider.objectName())
-
-	for item in slider_list:
-		if item in sliders:
-			getattr(parent, item).valueChanged.connect(partial(getattr(utilities, sliders[item]), parent))
-
-	line_edit_list = []
-	for line_edit in parent.findChildren(QLineEdit):
-		if line_edit.objectName():
-			line_edit_list.append(line_edit.objectName())
-
-	line_edits = {'touchoff_le': '', 'mdi_command_le': 'run_mdi'}
-
-	for item in line_edit_list:
-		if item in line_edits:
-			getattr(parent, item).returnPressed.connect(partial(getattr(commands, line_edits[item]), parent))
-
-	utility_list = {'clear_mdi_history_pb': 'clear_mdi_history'}
-
-	for item in utility_list:
-		if item in pushbuttons:
-			getattr(parent, item).clicked.connect(partial(getattr(utilities, utility_list[item]), parent))
-
-	# combo boxes
-	combo_dict = {'jog_mode_cb': 'load_jog_modes'}
+# FIXME Everything from here down needs to be looked at
 
 def setup_hal_buttons(parent):
 	for button in parent.findChildren(QPushButton):
