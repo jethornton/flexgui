@@ -192,7 +192,7 @@ def update(parent):
 		elif parent.status.exec_state == emc.EXEC_DONE:
 			# program is not running or estop was toggled
 			if parent.status.task_state == emc.STATE_ON:
-				if parent.status.file: # FIXME check for power on
+				if parent.status.file:
 					for item in parent.run_controls:
 						getattr(parent, item).setEnabled(True)
 				for item in parent.program_running:
@@ -327,7 +327,6 @@ def update(parent):
 	# current tool offsets FIXME
 	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").tool_offset[value[0]]:.{value[1]}f}')
-		#getattr(parent, f'{key}').setText(f'{getattr(parent, "status").":.{value[1]}f}')
 
 	# i/o s.ain[0] FIXME precision
 	for key, value in parent.status_io.items(): # up to 64 items
