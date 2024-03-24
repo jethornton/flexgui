@@ -198,24 +198,24 @@ def tool_change(parent):
 	pass
 
 def spindle(parent):
+
+	# spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
+	# Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE, SPINDLE_DECREASE, or SPINDLE_CONSTANT]
+
 	pb_name = parent.sender().objectName()
-	if pb_name == 'spindle_start_pb':
-		run_mdi(parent, f'M3 S{parent.spindle_speed}')
 	if pb_name == 'spindle_fwd_pb':
-		run_mdi(parent, f'M3 S{parent.spindle_speed}')
+		parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
 	if pb_name == 'spindle_rev_pb':
-		run_mdi(parent, f'M4 S{parent.spindle_speed}')
+		parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
 	elif pb_name == 'spindle_stop_pb':
-		run_mdi(parent, 'M5')
+		parent.command.spindle(emc.SPINDLE_OFF)
 	elif pb_name == 'spindle_plus_pb':
 		parent.spindle_speed += 100
-		run_mdi(parent, f'S{parent.spindle_speed}')
+		parent.command.spindle(emc.SPINDLE_INCREASE)
 	elif pb_name == 'spindle_minus_pb':
-		if parent.spindle_speed >= 100:
+		parent.command.spindle(emc.SPINDLE_DECREASE)
+		if parent.spindle_speed >= 200:
 			parent.spindle_speed -= 100
-		else:
-			parent.spindle_speed = 0
-		run_mdi(parent, f'S{parent.spindle_speed}')
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.setValue(parent.spindle_speed) 
 
