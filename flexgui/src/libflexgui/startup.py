@@ -495,6 +495,11 @@ def setup_status_labels(parent):
 		else:
 			parent.file_lb.setText('No G code file loaded')
 
+def setup_spin_boxes(parent):
+	if 'spindle_speed_sb' in parent.children:
+		parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
+		parent.spindle_speed_sb.setValue(parent.spindle_speed)
+
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	if 'gcode_pte' in parent.children:

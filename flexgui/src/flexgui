@@ -128,6 +128,7 @@ class flexgui(QMainWindow):
 		startup.setup_jog(self)
 		startup.setup_mdi(self)
 		startup.load_postgui(self)
+		startup.setup_spin_boxes(self)
 		#startup.setup_hal_buttons(self)
 		#startup.copy_examples(self)
 
