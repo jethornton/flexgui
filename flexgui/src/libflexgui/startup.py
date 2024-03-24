@@ -46,9 +46,10 @@ def setup_enables(parent):
 	# STATE_ESTOP items that should be disabled
 	estop_open = ['power_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
 		'pause_pb', 'resume_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb',
-		'start_spindle_pb', 'stop_spindle_pb', 'spindle_plus_pb',
-		'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
-		'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume']
+		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
+		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
+		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
+		'actionResume']
 	for item in ['home_pb_', 'unhome_pb_']:
 		for i in range(9):
 			estop_open.append(f'{item}{i}')
@@ -68,8 +69,9 @@ def setup_enables(parent):
 			parent.state_estop_closed.append(item)
 
 	# STATE_ON home, jog, spindle
-	power_on = ['start_spindle_pb', 'stop_spindle_pb',
-		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb']
+	power_on = ['spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb',
+	'spindle_stop_pb', 'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb',
+	'mist_pb']
 	for i in range(9):
 		power_on.append(f'home_pb_{i}')
 	for item in AXES:
@@ -247,8 +249,10 @@ def setup_buttons(parent): # connect buttons to functions
 	'unhome_pb_2': 'unhome',
 	'run_mdi_pb': 'run_mdi',
 	'tool_change_pb':  'tool_change',
-	'start_spindle_pb': 'spindle',
-	'stop_spindle_pb': 'spindle',
+	'spindle_start_pb': 'spindle',
+	'spindle_stop_pb': 'spindle',
+	'spindle_fwd_pb': 'spindle',
+	'spindle_rev_pb': 'spindle',
 	'spindle_plus_pb': 'spindle',
 	'spindle_minus_pb': 'spindle',
 	'flood_pb': 'flood_toggle',
@@ -593,6 +597,9 @@ def setup_jog(parent):
 					if char.isdigit() or char == '.':
 						data += char
 				parent.jog_modes_cb.addItem(item, float(data))
+
+def setup_spindle(parent):
+	parent.spindle_speed = 100
 
 # FIXME Everything from here down needs to be looked at
 
