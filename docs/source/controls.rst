@@ -34,8 +34,10 @@ joint number or axis index.
 	Jog Plus Axis n   jog_plus_pb_n
 	Jog Minus Axis n  jog_minus_pb_n
 	Tool Change       tool_change_pb
-	Spindle Start     start_spindle_pb
-	Spindle Stop      stop_spindle_pb
+	Spindle Start     spindle_start_pb
+	Spindle Stop      spindle_stop_pb
+	Spindle Forward   spindle_fwd_pb
+	Spindle Reverse   spindle_rev_pb
 	Spindle Faster    spindle_plus_pb
 	Spindle Slower    spindle_minus_pb
 	Flood Toggle      flood_pb
@@ -70,6 +72,12 @@ Things like jog velocity use a QSlider
 ::
 
 	Jog Velocity      jog_vel_s
+
+Spin Boxes
+----------
+::
+
+	Spindle Speed           spindle_speed_sb
 
 Double Spin Boxes
 -----------------

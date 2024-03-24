@@ -198,17 +198,26 @@ def tool_change(parent):
 	pass
 
 def spindle(parent):
-	pb = parent.sender().objectName()
-	print(pb)
-	parent.spindle_speed = 100
-	if pb == 'start_spindle_pb':
+	pb_name = parent.sender().objectName()
+	if pb_name == 'spindle_start_pb':
 		run_mdi(parent, f'M3 S{parent.spindle_speed}')
-	elif pb == 'stop_spindle_pb':
+	if pb_name == 'spindle_fwd_pb':
+		run_mdi(parent, f'M3 S{parent.spindle_speed}')
+	if pb_name == 'spindle_rev_pb':
+		run_mdi(parent, f'M4 S{parent.spindle_speed}')
+	elif pb_name == 'spindle_stop_pb':
 		run_mdi(parent, 'M5')
-	elif pb == 'spindle_plus_pb':
-		parent.spindle_speed_sb.setValue(parent.spindle_speed + 100) 
-	elif pb == 'spindle_minus_pb':
-		parent.spindle_speed_sb.setValue(parent.spindle_speed - 100) 
+	elif pb_name == 'spindle_plus_pb':
+		parent.spindle_speed += 100
+		run_mdi(parent, f'S{parent.spindle_speed}')
+	elif pb_name == 'spindle_minus_pb':
+		if parent.spindle_speed >= 100:
+			parent.spindle_speed -= 100
+		else:
+			parent.spindle_speed = 0
+		run_mdi(parent, f'S{parent.spindle_speed}')
+	if 'spindle_speed_sb' in parent.children:
+		parent.spindle_speed_sb.setValue(parent.spindle_speed) 
 
 def flood_toggle(parent):
 	parent.status.poll()
