@@ -1,3 +1,9 @@
+flexgui (0.0.6) unstable; urgency=medium
+
+  * Add Spindle Controls
+
+ -- John Thornton <dev@gnipsel.com>  Sun, 24 Mar 2024 08:33:14 -0500
+
 flexgui (0.0.5) unstable; urgency=medium
 
   * Add MDI
