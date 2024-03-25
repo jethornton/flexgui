@@ -1,5 +1,5 @@
 Source: flexgui
-Maintainer: John Thornton <jt@gnipsel.com>
+Maintainer: John Thornton <dev@gnipsel.com>
 Build-Depends: debhelper (>= 11.0.0)
 Standards-Version: 4.5.1
 Section: utils
@@ -8,7 +8,7 @@ Priority: optional
 Package: flexgui
 Priority: optional
 Architecture: any
-Depends: python3 (>=3.6), python3-pyqt6, pyqt6-dev-tools
+Depends: python3 (>=3.6), python3-pyqt6, pyqt6-dev-tools, ${misc:Depends}
 Description: LinuxCNC GUI
  PyQt6 Python3 GUI.
  Flexible GUI that can be built to suit you.
