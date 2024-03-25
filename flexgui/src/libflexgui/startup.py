@@ -286,6 +286,11 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
+	if 'clear_error_history_pb' in parent.children:
+		if 'errors_pte' in parent.children:
+			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
+	
+
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
 		'actionReload': 'action_reload', 'actionSave_As': 'action_save_as',
@@ -604,6 +609,16 @@ def setup_jog(parent):
 
 def setup_spindle(parent):
 	parent.spindle_speed = 100
+
+	if 'spindle_speed_sb' in parent.children:
+		min_rpm = int(parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY')) or 0
+		max_rpm = int(parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY')) or 1000
+		increment = int(parent.inifile.find('SPINDLE_0', 'INCREMENT')) or False
+		if not increment:
+			increment = int(parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT')) or 100
+		parent.spindle_speed_sb.setMinimum(min_rpm)
+		parent.spindle_speed_sb.setMaximum(max_rpm)
+		parent.spindle_speed_sb.setSingleStep(increment)
 
 # FIXME Everything from here down needs to be looked at
 
