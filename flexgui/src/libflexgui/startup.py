@@ -288,7 +288,7 @@ def setup_buttons(parent): # connect buttons to functions
 
 	if 'clear_error_history_pb' in parent.children:
 		if 'errors_pte' in parent.children:
-			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
+			parent.clear_error_history_pb.clicked.connect(parent.errors_pte.clear)
 	
 
 def setup_actions(parent): # setup menu actions
