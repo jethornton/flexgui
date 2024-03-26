@@ -183,6 +183,7 @@ def update(parent):
 
 	# program running
 	if parent.exec_state != parent.status.exec_state:
+		print('exec state changed')
 		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
 			# program is running
 			for item in parent.run_controls:
@@ -201,6 +202,7 @@ def update(parent):
 
 	# program paused
 	if parent.interp_state != parent.status.interp_state:
+		print('interpter state changed')
 		if parent.status.interp_state == emc.INTERP_PAUSED:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(True)
