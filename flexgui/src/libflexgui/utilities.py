@@ -51,4 +51,8 @@ def add_mdi(parent):
 def spindle_speed(parent):
 	parent.spindle_speed = parent.spindle_speed_sb.value()
 
+def clear_errors(parent):
+	parent.errors_pte.clear()
+	parent.statusbar.clearMessage()
+
 
