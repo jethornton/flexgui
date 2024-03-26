@@ -611,11 +611,14 @@ def setup_spindle(parent):
 	parent.spindle_speed = 100
 
 	if 'spindle_speed_sb' in parent.children:
-		min_rpm = int(parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY')) or 0
-		max_rpm = int(parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY')) or 1000
-		increment = int(parent.inifile.find('SPINDLE_0', 'INCREMENT')) or False
+		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+		min_rpm = int(min_rpm) if min_rpm else 0
+		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+		max_rpm = int(max_rpm) if max_rpm else 1000
+		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 		if not increment:
-			increment = int(parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT')) or 100
+			increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
+		increment = int(increment) if increment else 100
 		parent.spindle_speed_sb.setMinimum(min_rpm)
 		parent.spindle_speed_sb.setMaximum(max_rpm)
 		parent.spindle_speed_sb.setSingleStep(increment)
