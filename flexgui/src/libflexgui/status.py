@@ -34,16 +34,16 @@ EMC_TASK_EXEC_WAITING_FOR_DELAY = 8,
 EMC_TASK_EXEC_WAITING_FOR_SYSTEM_CMD = 9,
 EMC_TASK_EXEC_WAITING_FOR_SPINDLE_ORIENTED = 10
 
-// types for EMC_TASK interpState
-EMC_TASK_INTERP_IDLE = 1,
-EMC_TASK_INTERP_READING = 2,
-EMC_TASK_INTERP_PAUSED = 3,
-EMC_TASK_INTERP_WAITING = 4
-
 // types for motion control
 EMC_TRAJ_MODE_FREE = 1,	// independent-axis motion,
 EMC_TRAJ_MODE_COORD = 2,	// coordinated-axis motion,
 EMC_TRAJ_MODE_TELEOP = 3	// velocity based world coordinates motion,
+
+interp_state
+INTERP_IDLE = 1
+INTERP_READING = 2
+INTERP_PAUSED = 3
+INTERP_WAITING = 4
 
 interpreter_errcode
 INTERP_OK = 0,
@@ -106,17 +106,34 @@ linuxcnc.STATE_ESTOP 1
 linuxcnc.STATE_ESTOP_RESET 2
 linuxcnc.STATE_ON 4
 
+motion_mode
+TRAJ_MODE_FREE = 1
+TRAJ_MODE_COORD = 2
+TRAJ_MODE_TELEOP = 3
 
 linuxcnc.
 
 : '', 
 '''
 
+TASK_STATES = {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 3: 'STATE_OFF',
+	4: 'STATE_ON'}
+TASK_MODES = {1: 'MODE_MANUAL', 2: 'MODE_AUTO', 3: 'MODE_MDI'}
+INTERP_STATES = {1: 'INTERP_IDLE', 2: 'INTERP_READING', 3: 'INTERP_PAUSED',
+	4: 'INTERP_WAITING'}
+EXEC_STATES = {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
+	4: 'EXEC_WAITING_FOR_MOTION_QUEUE', 5: 'EXEC_WAITING_FOR_IO',
+	7: 'EXEC_WAITING_FOR_MOTION_AND_IO)', 8: 'EXEC_WAITING_FOR_DELAY',
+	9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED', }
+MOTION_MODES = {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'}
+STATES = {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'}
+
 def update(parent):
 	parent.status.poll()
 
-	# button text based on task state
+	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
+		print(f'task state changed to {TASK_STATES[parent.status.task_state]}')
 		# update button and action text
 		if 'estop_pb' in parent.children:
 			if parent.status.task_state == 1:
@@ -178,12 +195,14 @@ def update(parent):
 				if utilities.home_all_check(parent):
 					parent.home_all_pb.setEnabled(True)
 
-
 		parent.task_state = parent.status.task_state
 
-	# program running
+	# exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
+	# EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
+	# EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
+	# EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED
 	if parent.exec_state != parent.status.exec_state:
-		print('exec state changed')
+		print(f'exec state changed to {EXEC_STATES[parent.status.exec_state]}')
 		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
 			# program is running
 			for item in parent.run_controls:
@@ -200,9 +219,9 @@ def update(parent):
 					getattr(parent, item).setEnabled(False)
 		parent.exec_state = parent.status.exec_state
 
-	# program paused
+	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print('interpter state changed')
+		print(f'interpter state changed to {INTERP_STATES[parent.status.interp_state]}')
 		if parent.status.interp_state == emc.INTERP_PAUSED:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(True)
@@ -227,6 +246,21 @@ def update(parent):
 				parent.mdi_command_le.setText('')
 				parent.command.mode(emc.MODE_MANUAL)
 		parent.interp_state = parent.status.interp_state
+
+	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
+	if parent.motion_mode != parent.status.motion_mode:
+		print(f'motion mode changed to {MOTION_MODES[parent.status.motion_mode]}')
+		parent.motion_mode = parent.status.motion_mode
+
+	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
+	if parent.task_mode != parent.status.task_mode:
+		print(f'task mode changed to {TASK_MODES[parent.status.task_mode]}')
+		parent.task_mode = parent.status.task_mode
+
+	# state RCS_DONE, RCS_EXEC, RCS_ERROR
+	if parent.state != parent.status.state:
+		print(F'state changed to {STATES[parent.status.state]}')
+		parent.state = parent.status.state
 
 	for key, value in parent.status_labels.items(): # update all status labels
 		# key is the status item and value is the label
