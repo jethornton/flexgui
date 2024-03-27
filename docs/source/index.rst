@@ -13,6 +13,7 @@ Flex GUI
    controls
    labels
    spindle
+   tools
    misc
    hal
    style
