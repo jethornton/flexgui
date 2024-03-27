@@ -248,7 +248,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'unhome_pb_1': 'unhome',
 	'unhome_pb_2': 'unhome',
 	'run_mdi_pb': 'run_mdi',
-	'tool_change_pb':  'tool_change',
 	'spindle_fwd_pb': 'spindle',
 	'spindle_rev_pb': 'spindle',
 	'spindle_stop_pb': 'spindle',
@@ -621,6 +620,15 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.setMinimum(min_rpm)
 		parent.spindle_speed_sb.setMaximum(max_rpm)
 		parent.spindle_speed_sb.setSingleStep(increment)
+
+def setup_tool_change(parent):
+	if 'tool_change_pb' in parent.children:
+		if 'next_tool_sp' in parent.children:
+			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+		else:
+			msg = ('Tool change Push Button\n'
+				'requires the next_tool_sp spin box.')
+			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 # FIXME Everything from here down needs to be looked at
 
