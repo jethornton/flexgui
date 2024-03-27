@@ -220,17 +220,7 @@ def update(parent):
 				getattr(parent, item).setEnabled(True)
 		elif parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_MDI:
-				if 'mdi_history_lw' in parent.children:
-					parent.mdi_history_lw.addItem(parent.mdi_command)
-					path = os.path.dirname(parent.status.ini_filename)
-					mdi_file = os.path.join(path, 'mdi_history.txt')
-					mdi_codes = []
-					for index in range(parent.mdi_history_lw.count()):
-						mdi_codes.append(parent.mdi_history_lw.item(index).text())
-					with open(mdi_file, 'w') as f:
-						f.write('\n'.join(mdi_codes))
-				parent.mdi_command_le.setText('')
-				parent.command.mode(emc.MODE_MANUAL)
+				utilities.update_mdi(parent)
 		parent.interp_state = parent.status.interp_state
 
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP

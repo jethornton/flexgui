@@ -173,8 +173,23 @@ def touchoff(parent):
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
+def tool_change(parent):
+	parent.status.poll()
+	if parent.next_tool_sp.value() != parent.status.tool_in_spindle:
+		mdi_command = f'M6 T{parent.next_tool_sp.value()}'
+		if parent.status.task_state == emc.STATE_ON:
+			if parent.status.task_mode != emc.MODE_MDI:
+				parent.command.mode(emc.MODE_MDI)
+				parent.command.wait_complete()
+			parent.command.mdi(mdi_command)
+			parent.command.wait_complete()
+			parent.command.mode(emc.MODE_MANUAL)
+			parent.command.wait_complete()
+	else:
+		msg = (f'Tool {parent.status.tool_in_spindle} is already in the Spindle.')
+		dialogs.warn_msg_ok(msg, 'Touch Change Aborted')
+
 def tool_touchoff(parent):
-	print('f')
 	axis = parent.sender().objectName()[0].upper()
 	cur_pos = parent.status.actual_position
 	cur_tool = parent.status.tool_in_spindle
@@ -193,12 +208,7 @@ def tool_touchoff(parent):
 		msg = ('No Tool is Loaded.')
 		dialogs.warn_msg_ok(msg, 'Touch Off Aborted')
 
-
-def tool_change(parent):
-	pass
-
 def spindle(parent):
-
 	# spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
 	# Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE, SPINDLE_DECREASE, or SPINDLE_CONSTANT]
 
