@@ -7,21 +7,7 @@ import linuxcnc as emc
 
 from libflexgui import utilities
 
-#  (returns integer) - This is the mode of the Motion controller.
-# One of TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
-
-#print(stat_dict['motion_mode'][getattr(parent.status, 'motion_mode')])
 '''
-// types for EMC_TASK mode
-EMC_TASK_MODE_MANUAL = 1,
-EMC_TASK_MODE_AUTO = 2,
-EMC_TASK_MODE_MDI = 3
-
-// types for EMC_TASK state
-EMC_TASK_STATE_ESTOP = 1,
-EMC_TASK_STATE_ESTOP_RESET = 2,
-EMC_TASK_STATE_OFF = 3,
-EMC_TASK_STATE_ON = 4
 
 // types for EMC_TASK execState
 EMC_TASK_EXEC_ERROR = 1,
@@ -133,7 +119,7 @@ def update(parent):
 
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		print(f'task state changed to {TASK_STATES[parent.status.task_state]}')
+		#print(f'task state changed to {TASK_STATES[parent.status.task_state]}')
 		# update button and action text
 		if 'estop_pb' in parent.children:
 			if parent.status.task_state == 1:
@@ -202,7 +188,7 @@ def update(parent):
 	# EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	# EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED
 	if parent.exec_state != parent.status.exec_state:
-		print(f'exec state changed to {EXEC_STATES[parent.status.exec_state]}')
+		#print(f'exec state changed to {EXEC_STATES[parent.status.exec_state]}')
 		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
 			# program is running
 			for item in parent.run_controls:
@@ -221,7 +207,7 @@ def update(parent):
 
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'interpter state changed to {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'interpter state changed to {INTERP_STATES[parent.status.interp_state]}')
 		if parent.status.interp_state == emc.INTERP_PAUSED:
 			for item in parent.program_paused:
 				getattr(parent, item).setEnabled(True)
@@ -249,17 +235,21 @@ def update(parent):
 
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
-		print(f'motion mode changed to {MOTION_MODES[parent.status.motion_mode]}')
+		#print(f'motion mode changed to {MOTION_MODES[parent.status.motion_mode]}')
 		parent.motion_mode = parent.status.motion_mode
 
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'task mode changed to {TASK_MODES[parent.status.task_mode]}')
+		#print(f'task mode changed to {TASK_MODES[parent.status.task_mode]}')
+		#print(f'interp state is {INTERP_STATES[parent.status.interp_state]}')
+		if parent.status.task_mode == emc.MODE_MDI:
+			if parent.status.interp_state == emc.INTERP_IDLE:
+				utilities.update_mdi(parent)
 		parent.task_mode = parent.status.task_mode
 
 	# state RCS_DONE, RCS_EXEC, RCS_ERROR
 	if parent.state != parent.status.state:
-		print(F'state changed to {STATES[parent.status.state]}')
+		#print(f'state changed to {STATES[parent.status.state]}')
 		parent.state = parent.status.state
 
 	for key, value in parent.status_labels.items(): # update all status labels
