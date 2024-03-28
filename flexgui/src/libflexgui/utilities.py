@@ -75,10 +75,12 @@ def update_mdi(parent):
 
 def print_states(parent, state):
 	parent.print_states = parent.print_states_cb.isChecked()
-	'''
-	if Qt.CheckState(state) == Qt.CheckState.Checked:
-		parent.print_states = True
-	elif Qt.CheckState(state) == Qt.CheckState.Unchecked:
-		parent.print_states = False
-	'''
+
+def feed_override(parent, value):
+	# feedrate(float) set the feedrate override, 1.0 = 100%.
+	parent.command.feedrate(float(value / 100))
+
+
+
+
 

@@ -357,7 +357,7 @@ def setup_status_labels(parent):
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
 	'current_vel', 'cycle_time', 'debug', 'delay_left', 'distance_to_go',
 	'echo_serial_number', 'enabled', 'estop', 'exec_state',
-	'feed_hold_enabled', 'feed_override_enabled', 'feedrate', 'flood',
+	'feed_hold_enabled', 'feed_override_enabled', 'flood',
 	'g5x_index', 'ini_filename', 'inpos', 'input_timeout', 'interp_state',
 	'interpreter_errcode', 'joint', 'joints', 'kinematics_type', 'linear_units',
 	'lube', 'lube_level', 'max_acceleration', 'max_velocity', 'mist',
@@ -457,6 +457,14 @@ def setup_status_labels(parent):
 				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
 				p = p if p is not None else 3
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
+
+	override_items = ['feedrate']
+	# label : status item
+	parent.overrides = {}
+	for item in override_items:
+		label = f'{item}_lb'
+		if label in parent.children:
+			parent.overrides[label] = item
 
 	# check for analog and digital labels in ui
 	# these return 64 items each
@@ -647,8 +655,11 @@ def setup_tool_change(parent):
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 
 def setup_sliders(parent):
-	pass
-	# feed_override_sl
+	if 'feed_override_sl' in parent.children:
+		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
+		max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or False
+		parent.feed_override_sl.setMaximum(int(float(max_feed_override) * 100))
+		#print(max_feed_override)
 	# rapid_override_sl
 	# spindle_override_sl
 	# jog_speed_sl
