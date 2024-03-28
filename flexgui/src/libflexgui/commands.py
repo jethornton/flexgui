@@ -174,9 +174,27 @@ def touchoff(parent):
 		parent.command.wait_complete()
 
 def tool_change(parent):
+	if utilities.is_int(parent.sender().objectName().split('_')[-1]):
+		tool_number = int(parent.sender().objectName().split('_')[-1])
+	else:
+		tool_number = parent.next_tool_sb.value()
 	parent.status.poll()
-	if parent.next_tool_sp.value() != parent.status.tool_in_spindle:
-		mdi_command = f'M6 T{parent.next_tool_sp.value()}'
+
+	if tool_number > 0: # make sure tool is in the tool table
+		tool_table = parent.status.tool_table
+		tool_found = False
+		for i in range(len(tool_table)):
+			if tool_table[i].id == tool_number:
+				tool_found = True
+				break
+		if not tool_found:
+			msg = (f'The requested tool {tool_number} was\n'
+				'not found in the tool table')
+			dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+			return
+
+	if tool_number != parent.status.tool_in_spindle:
+		mdi_command = f'M6 T{tool_number}'
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
@@ -186,8 +204,8 @@ def tool_change(parent):
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 	else:
-		msg = (f'Tool {parent.status.tool_in_spindle} is already in the Spindle.')
-		dialogs.warn_msg_ok(msg, 'Touch Change Aborted')
+		msg = (f'Tool {tool_number} is already in the Spindle.')
+		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 
 def tool_touchoff(parent):
 	axis = parent.sender().objectName()[0].upper()
