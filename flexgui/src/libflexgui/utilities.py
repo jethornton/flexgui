@@ -74,8 +74,11 @@ def update_mdi(parent):
 	parent.command.mode(emc.MODE_MANUAL)
 
 def print_states(parent, state):
+	parent.print_states = parent.print_states_cb.isChecked()
+	'''
 	if Qt.CheckState(state) == Qt.CheckState.Checked:
 		parent.print_states = True
 	elif Qt.CheckState(state) == Qt.CheckState.Unchecked:
 		parent.print_states = False
+	'''
 
