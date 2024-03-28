@@ -21,6 +21,11 @@ QPushButton:pressed
     border-style: inset;
     border-width: 2px;
 
+QPushButton:checked
+{
+	border-style: inset;
+}
+
 }
 
 QSlider::groove:horizontal {
