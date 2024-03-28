@@ -516,6 +516,12 @@ def setup_list_widgets(parent):
 		else:
 			setattr(parent, f'{item}_exists', False)
 
+def setup_check_boxes(parent):
+	if 'print_states_cb' in parent.children:
+		parent.print_states_cb.stateChanged.connect(partial(utilities.print_states, parent))
+	else:
+		parent.print_states = False
+
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
@@ -622,6 +628,7 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.setSingleStep(increment)
 
 def setup_tool_change(parent):
+	# tool change using a spin box
 	if 'tool_change_pb' in parent.children:
 		if 'next_tool_sp' in parent.children:
 			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
@@ -629,6 +636,14 @@ def setup_tool_change(parent):
 			msg = ('Tool change Push Button\n'
 				'requires the next_tool_sp spin box.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
+	# tool change using buttons
+	tc_buttons = []
+	for i in range(50):
+		tc_buttons.append(f'tool_change_pb_{i}')
+	for item in tc_buttons:
+		if item in parent.children:
+			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 
 # FIXME Everything from here down needs to be looked at
 
