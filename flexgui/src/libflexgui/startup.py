@@ -519,6 +519,7 @@ def setup_list_widgets(parent):
 def setup_check_boxes(parent):
 	if 'print_states_cb' in parent.children:
 		parent.print_states_cb.stateChanged.connect(partial(utilities.print_states, parent))
+		parent.print_states = parent.print_states_cb.isChecked()
 	else:
 		parent.print_states = False
 
