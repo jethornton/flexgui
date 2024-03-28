@@ -19,6 +19,11 @@ QPushButton:pressed
 	border-style: inset;
 }
 
+QPushButton:checked
+{
+	border-style: inset;
+}
+
 QPushButton#exit_pb
 {
 border: none;
