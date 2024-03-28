@@ -639,11 +639,11 @@ def setup_spindle(parent):
 def setup_tool_change(parent):
 	# tool change using a spin box
 	if 'tool_change_pb' in parent.children:
-		if 'next_tool_sp' in parent.children:
+		if 'next_tool_sb' in parent.children:
 			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
 		else:
 			msg = ('Tool change Push Button\n'
-				'requires the next_tool_sp spin box.')
+				'requires the next_tool_sb spin box.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 	# tool change using buttons
