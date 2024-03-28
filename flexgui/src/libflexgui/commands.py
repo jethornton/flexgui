@@ -208,8 +208,8 @@ def tool_change(parent):
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 
 def tool_touchoff(parent):
+	parent.status.poll()
 	axis = parent.sender().objectName()[0].upper()
-	cur_pos = parent.status.actual_position
 	cur_tool = parent.status.tool_in_spindle
 	offset = parent.tool_touchoff_dsb.value()
 	if cur_tool > 0:
@@ -223,7 +223,7 @@ def tool_touchoff(parent):
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 	else:
-		msg = ('No Tool is Loaded.')
+		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(msg, 'Touch Off Aborted')
 
 def spindle(parent):
