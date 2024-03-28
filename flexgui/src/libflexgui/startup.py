@@ -564,7 +564,7 @@ def setup_recent_files(parent):
 
 def setup_jog(parent):
 	jog_buttons = {}
-	required_jog_items = ['jog_vel_s', 'jog_modes_cb']
+	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	jog_buttons = []
 	for i in range(16):
 		jog_buttons.append(f'jog_plus_pb_{i}')
@@ -590,15 +590,15 @@ def setup_jog(parent):
 
 		max_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 		if max_vel:
-			parent.jog_vel_s.setMaximum(int(float(max_vel) * 60))
+			parent.jog_vel_sl.setMaximum(int(float(max_vel) * 60))
 
 		default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
 		if default_vel:
-			parent.jog_vel_s.setValue(int(float(default_vel) * 60))
+			parent.jog_vel_sl.setValue(int(float(default_vel) * 60))
 
 		if 'jog_vel_lb' in parent.children:
-			parent.jog_vel_s.valueChanged.connect(partial(utilities.update_jog_lb, parent))
-			parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()}')
+			parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
+			parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()}')
 			utilities.update_jog_lb(parent)
 
 		parent.jog_modes_cb.addItem('Continuous', False)
@@ -645,6 +645,15 @@ def setup_tool_change(parent):
 	for item in tc_buttons:
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+
+def setup_sliders(parent):
+	pass
+	# feed_override_sl
+	# rapid_override_sl
+	# spindle_override_sl
+	# jog_speed_sl
+	# max_velocity_sl
+	# 
 
 # FIXME Everything from here down needs to be looked at
 

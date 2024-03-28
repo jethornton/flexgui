@@ -48,7 +48,7 @@ def home_all_check(parent):
 	return True
 
 def update_jog_lb(parent):
-	parent.jog_vel_lb.setText(f'{parent.jog_vel_s.value()} {parent.units}/min')
+	parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()} {parent.units}/min')
 
 def add_mdi(parent):
 	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
