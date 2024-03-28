@@ -648,7 +648,7 @@ def setup_tool_change(parent):
 
 	# tool change using buttons
 	tc_buttons = []
-	for i in range(50):
+	for i in range(100):
 		tc_buttons.append(f'tool_change_pb_{i}')
 	for item in tc_buttons:
 		if item in parent.children:
