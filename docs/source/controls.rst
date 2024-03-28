@@ -68,10 +68,14 @@ Axis Index
 Sliders
 -------
 
-Things like jog velocity use a QSlider
+A QSlider is used to control the following functions.
 ::
 
-	Jog Velocity      jog_vel_s
+	Jog Velocity          jog_vel_sl
+	Feed Override         feed_override_sl
+	Rapid Override        rapid_override_sl
+	Spindle Override      spindle_override_sl
+	Jog Speed             jog_speed_sl
 
 Spin Boxes
 ----------
