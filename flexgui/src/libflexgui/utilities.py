@@ -80,7 +80,8 @@ def feed_override(parent, value):
 	# feedrate(float) set the feedrate override, 1.0 = 100%.
 	parent.command.feedrate(float(value / 100))
 
-
+def rapid_override(parent, value):
+	parent.command.maxvel(float(value / 100))
 
 
 

@@ -458,7 +458,7 @@ def setup_status_labels(parent):
 				p = p if p is not None else 3
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	override_items = ['feedrate']
+	override_items = ['feedrate', 'rapidrate']
 	# label : status item
 	parent.overrides = {}
 	for item in override_items:
@@ -658,7 +658,17 @@ def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
 		max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or False
+		if not max_feed_override: max_feed_override = 1.0
 		parent.feed_override_sl.setMaximum(int(float(max_feed_override) * 100))
+		parent.feed_override_sl.setValue(100)
+	# message = "Even" if x % 2 == 0 else "Odd"
+	# if a < b: print (b, "Is Greater")
+	if 'rapid_override_sl' in parent.children:
+		parent.rapid_override_sl.valueChanged.connect(partial(utilities.rapid_override, parent))
+		max_rapid_override = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
+		parent.rapid_override_sl.setMaximum(int(float(max_rapid_override) * 100))
+		parent.rapid_override_sl.setValue(100)
+
 		#print(max_feed_override)
 	# rapid_override_sl
 	# spindle_override_sl
