@@ -83,5 +83,9 @@ def feed_override(parent, value):
 def rapid_override(parent, value):
 	parent.command.maxvel(float(value / 100))
 
+def spindle_override(parent, value):
+	parent.command.spindleoverride(float(value / 100), 0)
+
+
 
 

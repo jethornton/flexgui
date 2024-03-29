@@ -479,12 +479,18 @@ def setup_status_labels(parent):
 	spindle_items = ['brake', 'direction', 'enabled', 'homed',
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
 	parent.status_spindles = {}
+	parent.status_spindle_overrides = {}
 	parent.status.poll()
 	 # only look for the num of spindles configured
 	for i in range(parent.status.spindles):
 		for item in spindle_items:
 			if f'spindle_{item}_{i}_lb' in parent.children:
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
+		if f'spindle_override_{i}_lb' in parent.children:
+			parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
+
+	#print(parent.status_spindles)
+	print(parent.status_spindle_overrides)
 
 	# check for tool table labels in the ui
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
@@ -636,6 +642,14 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.setMaximum(max_rpm)
 		parent.spindle_speed_sb.setSingleStep(increment)
 
+	if 'spindle_override_sl' in parent.children:
+		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
+		max_spindle_override = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or False
+		if not max_spindle_override: max_spindle_override = 1.0
+		parent.spindle_override_sl.setMaximum(int(float(max_spindle_override) * 100))
+		parent.spindle_override_sl.setValue(100)
+	# MAX_SPINDLE_OVERRIDE MIN_SPINDLE_OVERRIDE spindle_override_n_lb spindle_override_sl
+
 def setup_tool_change(parent):
 	# tool change using a spin box
 	if 'tool_change_pb' in parent.children:
@@ -669,6 +683,7 @@ def setup_sliders(parent):
 		parent.rapid_override_sl.setMaximum(int(float(max_rapid_override) * 100))
 		parent.rapid_override_sl.setValue(100)
 
+	# MAX_SPINDLE_OVERRIDE
 		#print(max_feed_override)
 	# rapid_override_sl
 	# spindle_override_sl
