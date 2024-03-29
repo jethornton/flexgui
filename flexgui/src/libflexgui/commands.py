@@ -39,6 +39,8 @@ def home(parent): # FIXME if joint is homed ask to home again
 				parent.run_mdi_pb.setEnabled(True)
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(True)
+			for item in parent.state_all_homed:
+				getattr(parent, item).setEnabled(True)
 
 def home_all(parent): # FIXME if joint is homed ask to home again
 		set_mode(parent,emc.MODE_MANUAL)
@@ -51,6 +53,8 @@ def home_all(parent): # FIXME if joint is homed ask to home again
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
 			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.state_all_homed:
 				getattr(parent, item).setEnabled(True)
 			if parent.status.file:
 				if parent.status.task_state == emc.STATE_ON:
@@ -75,6 +79,9 @@ def unhome(parent):
 		if utilities.all_unhomed(parent):
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(False)
+		for item in parent.state_all_homed:
+			getattr(parent, item).setEnabled(False)
+
 
 def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
@@ -86,6 +93,8 @@ def unhome_all(parent):
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(False)
 	for item in parent.run_controls:
+		getattr(parent, item).setEnabled(False)
+	for item in parent.state_all_homed:
 		getattr(parent, item).setEnabled(False)
 
 def run_mdi(parent, cmd=''):

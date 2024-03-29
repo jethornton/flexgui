@@ -49,13 +49,17 @@ def setup_enables(parent):
 		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
 		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
-		'actionResume']
+		'tool_change_pb', 'actionResume']
 	for item in ['home_pb_', 'unhome_pb_']:
 		for i in range(9):
 			estop_open.append(f'{item}{i}')
 	for item in AXES:
 		estop_open.append(f'jog_plus_pb_{item}')
 		estop_open.append(f'jog_minus_pb_{item}')
+		estop_open.append(f'touchoff_pb_{item}')
+		estop_open.append(f'tool_touchoff_{item}')
+	for i in range(100):
+		estop_open.append(f'tool_change_pb_{i}')
 
 	parent.state_estop_open = []
 	for item in estop_open:
@@ -84,9 +88,14 @@ def setup_enables(parent):
 			parent.state_power_on.append(item)
 
 	# all homed
-	all_homed = ['run_mdi_pb', 'unhome_all_pb']
+	all_homed = ['run_mdi_pb', 'unhome_all_pb', 'tool_change_pb']
 	for i in range(9):
 		all_homed.append(f'unhome_pb_{i}')
+	for i in range(100):
+		all_homed.append(f'tool_change_pb_{i}')
+	for item in AXES:
+		all_homed.append(f'tool_touchoff_{item}')
+
 	parent.state_all_homed = []
 	for item in  all_homed:
 		if item in parent.children:
@@ -173,6 +182,8 @@ def setup_enables(parent):
 				for item in parent.state_all_homed:
 					getattr(parent, item).setEnabled(True)
 			else:
+				for item in parent.state_all_homed:
+					getattr(parent, item).setEnabled(False)
 				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.run_controls:
@@ -488,9 +499,6 @@ def setup_status_labels(parent):
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
-
-	#print(parent.status_spindles)
-	print(parent.status_spindle_overrides)
 
 	# check for tool table labels in the ui
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
