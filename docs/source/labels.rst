@@ -145,6 +145,9 @@ number of the spindle. Spindle numbers start at 0 and go through to 8.
 	spindle_override_enabled_n_lb, spindle_speed_n_lb, spindle_override_n_lb
 	spindle_homed_n_lb, spindle_orient_state_n_lb, spindle_orient_fault_n_lb
 
+.. note:: Spindle speed is the commanded speed not the actual speed if an
+   override is in effect.
+
 I/O Status
 ----------
 
