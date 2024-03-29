@@ -51,6 +51,20 @@ joint number or axis index.
 .. note:: Touch Off buttons require a Double Spin Box named `touchoff_dsb`
 .. note:: Tool Touch Off buttons require a Double Spin Box named `tool_touchoff_dsb`
 
+The following QPushButton controls need checkable set to true.
+::
+
+	Flood Toggle                           flood_pb
+	Mist Toggle                            mist_pb
+	Optional Stop at M1                    optional_stop_pb
+	Block Delete line that starts with /   block_delete_pb
+	Feed Hold                              feed_hold_pb
+	Feed Override Enable/Disable           feed_override_pb
+
+.. image:: /images/checkable-pb.png
+   :align: center
+
+
 Axis Index
 ----------
 ::
