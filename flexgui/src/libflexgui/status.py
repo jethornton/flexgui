@@ -372,6 +372,11 @@ def update(parent):
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key]}')
 
+	# spindle override
+	for key, value in parent.status_spindle_overrides.items():
+		key = key[0:-2]
+		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key] * 100:.0f}%')
+
 	# tool table s.tool_table[0].id
 	for key, value in parent.tool_table.items():
 		tool = int(key.split('_')[-1])
