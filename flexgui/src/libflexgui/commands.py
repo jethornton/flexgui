@@ -289,5 +289,16 @@ def mist_toggle(parent):
 		parent.command.mist(emc.MIST_OFF)
 		parent.command.wait_complete()
 
+def optional_stop_toggle(parent):
+	pass
+
+def block_delete_toggle(parent):
+	pass
+
+def feed_hold_toggle(parent):
+	pass
+
+def feed_override_toggle(parent):
+	pass
 
 

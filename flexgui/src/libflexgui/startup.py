@@ -95,6 +95,7 @@ def setup_enables(parent):
 		all_homed.append(f'tool_change_pb_{i}')
 	for item in AXES:
 		all_homed.append(f'tool_touchoff_{item}')
+		all_homed.append(f'touchoff_pb_{item}')
 
 	parent.state_all_homed = []
 	for item in  all_homed:
@@ -264,8 +265,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'spindle_stop_pb': 'spindle',
 	'spindle_plus_pb': 'spindle',
 	'spindle_minus_pb': 'spindle',
-	'flood_pb': 'flood_toggle',
-	'mist_pb': 'mist_toggle',
 	}
 
 	for item in AXES:
@@ -299,6 +298,12 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'clear_error_history_pb' in parent.children:
 		if 'errors_pte' in parent.children:
 			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
+
+	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
+		'optional_stop_pb': 'optional_stop_toggle',
+		'block_delete_pb': 'block_delete_toggle',
+		'feed_hold_pb': 'feed_hold_toggle',
+		'feed_override_pb': 'feed_override_toggle'}
 
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
