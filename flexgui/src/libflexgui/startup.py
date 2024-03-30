@@ -304,6 +304,11 @@ def setup_buttons(parent): # connect buttons to functions
 		'block_delete_pb': 'block_delete_toggle',
 		'feed_hold_pb': 'feed_hold_toggle',
 		'feed_override_pb': 'feed_override_toggle'}
+	for key, value in checkable_buttons.items():
+		if key in parent.children: # make sure checkable is set to true
+			if not getattr(parent, key).isCheckable():
+				getattr(parent, key).setCheckable(True)
+			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
