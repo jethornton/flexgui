@@ -9,41 +9,42 @@ from the list below for each control widget objectName. Replace `_n` with the
 joint number or axis index.
 ::
 
-	Control              Name
-	Open                 open_pb
-	Edit                 edit_pb
-	Reload               reload_pb
-	Save As              save_as_pb
-	Quit                 quit_pb
-	E-Stop               estop_pb
-	Power                power_pb
-	Run                  run_pb
-	Run From Line        run_from_line_pb
-	Step                 step_pb
-	Pause                pause_pb
-	Resume               resume_pb
-	Stop                 stop_pb
-	Home All             home_all_pb
-	Home Joint n         home_pb_n
-	Unhome All           unhome_all_pb
-	Unhome Joint n       unhome_pb_n
-	Manual Mode          manual_mode_pb
-	Run MDI              run_mdi_pb
-	Touch Off Axis       touchoff_pb_(axis letter)
-	Tool Touch Off       tool_touchoff_(axis letter)
-	Jog Plus Axis n      jog_plus_pb_n
-	Jog Minus Axis n     jog_minus_pb_n
-	Tool Change          tool_change_pb
-	Spindle Forward      spindle_fwd_pb
-	Spindle Reverse      spindle_rev_pb
-	Spindle Stop         spindle_stop_pb
-	Spindle Faster       spindle_plus_pb
-	Spindle Slower       spindle_minus_pb
-	Flood Toggle         flood_pb
-	Mist Toggle          mist_pb
-	Clear MDI History    clear_mdi_history_pb
-	Copy MDI History     copy_mdi_history_pb
-	Clear Error History  clear_error_history_pb
+	Control                      Name
+	Open                         open_pb
+	Edit                         edit_pb
+	Reload                       reload_pb
+	Save As                      save_as_pb
+	Quit                         quit_pb
+	E-Stop                       estop_pb
+	Power                        power_pb
+	Run                          run_pb
+	Run From Line                run_from_line_pb
+	Step                         step_pb
+	Pause                        pause_pb
+	Resume                       resume_pb
+	Stop                         stop_pb
+	Home All                     home_all_pb
+	Home Joint (1-9)             home_pb_(1-9)
+	Unhome All                   unhome_all_pb
+	Unhome Joint (1-9)           unhome_pb_(1-9)
+	Manual Mode                  manual_mode_pb
+	Run MDI                      run_mdi_pb
+	Touch Off Axis               touchoff_pb_(axis letter)
+	Tool Touch Off               tool_touchoff_(axis letter)
+	Jog Plus Axis (1-9)          jog_plus_pb_(1-9)
+	Jog Minus Axis (1-9)         jog_minus_pb_(1-9)
+	Tool Change                  tool_change_pb
+	Spindle Forward              spindle_fwd_pb
+	Spindle Reverse              spindle_rev_pb
+	Spindle Stop                 spindle_stop_pb
+	Spindle Faster               spindle_plus_pb
+	Spindle Slower               spindle_minus_pb
+	Flood Toggle                 flood_pb
+	Mist Toggle                  mist_pb
+	Clear MDI History            clear_mdi_history_pb
+	Copy MDI History             copy_mdi_history_pb
+	Clear Error History          clear_error_history_pb
+	Change Coordinate System     change_cs_(1-9) 
 
 .. image:: /images/controls-01.png
    :align: center
