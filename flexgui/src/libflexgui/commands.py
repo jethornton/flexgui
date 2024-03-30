@@ -290,15 +290,27 @@ def mist_toggle(parent):
 		parent.command.wait_complete()
 
 def optional_stop_toggle(parent):
-	pass
+	if parent.optional_stop_pb.isChecked():
+		parent.command.set_optional_stop(True)
+	else:
+		parent.command.set_optional_stop(False)
 
 def block_delete_toggle(parent):
-	pass
+	if parent.block_delete_pb.isChecked():
+		parent.command.set_block_delete(True)
+	else:
+		parent.command.set_block_delete(False)
 
 def feed_hold_toggle(parent):
-	pass
+	if parent.feed_hold_pb.isChecked():
+		parent.command.set_feed_hold(True)
+	else:
+		parent.command.set_feed_hold(False)
 
 def feed_override_toggle(parent):
-	pass
+	if parent.feed_override_pb.isChecked():
+		parent.command.set_feed_override(True)
+	else:
+		parent.command.set_feed_override(False)
 
 
