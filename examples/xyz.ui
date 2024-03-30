@@ -606,10 +606,10 @@
         <string>Homing</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="2" column="1">
-         <widget class="QPushButton" name="home_pb_0">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="home_all_pb">
           <property name="text">
-           <string>Home J0</string>
+           <string>Home All</string>
           </property>
          </widget>
         </item>
@@ -620,34 +620,10 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QDoubleSpinBox" name="touchoff_dsb">
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-          <property name="decimals">
-           <number>3</number>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="3">
          <widget class="QPushButton" name="home_pb_2">
           <property name="text">
            <string>Home J2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="unhome_all_pb">
-          <property name="text">
-           <string>UnHome All</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QPushButton" name="touchoff_pb_x">
-          <property name="text">
-           <string>Touch Off X</string>
           </property>
          </widget>
         </item>
@@ -658,10 +634,17 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="3">
-         <widget class="QPushButton" name="touchoff_pb_z">
+        <item row="3" column="1">
+         <widget class="QPushButton" name="unhome_pb_0">
           <property name="text">
-           <string>Touch Off Z</string>
+           <string>UnHome J0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="home_pb_0">
+          <property name="text">
+           <string>Home J0</string>
           </property>
          </widget>
         </item>
@@ -672,10 +655,17 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="home_all_pb">
+        <item row="1" column="0" colspan="4">
+         <widget class="QLabel" name="mcodes_lb">
           <property name="text">
-           <string>Home All</string>
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="unhome_all_pb">
+          <property name="text">
+           <string>UnHome All</string>
           </property>
          </widget>
         </item>
@@ -686,25 +676,140 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="unhome_pb_0">
-          <property name="text">
-           <string>UnHome J0</string>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>G5x</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_31">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_14">
+          <property name="title">
+           <string>Touch Off</string>
           </property>
+          <layout class="QGridLayout" name="gridLayout_29">
+           <item row="1" column="0">
+            <widget class="QComboBox" name="touchoff_system_cb"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="touchoff_dsb">
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="touchoff_pb_x">
+             <property name="text">
+              <string>Touch Off X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QPushButton" name="touchoff_pb_z">
+             <property name="text">
+              <string>Touch Off Z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QPushButton" name="touchoff_pb_y">
+             <property name="text">
+              <string>Touch Off Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_28">
+             <property name="text">
+              <string>Coordinate System</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_29">
+             <property name="text">
+              <string>Position</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QPushButton" name="touchoff_pb_y">
-          <property name="text">
-           <string>Touch Off Y</string>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_15">
+          <property name="title">
+           <string>Change Coordinate System</string>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="4">
-         <widget class="QLabel" name="mcodes_lb">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QGridLayout" name="gridLayout_30">
+           <item row="0" column="3">
+            <widget class="QPushButton" name="change_cs_4">
+             <property name="text">
+              <string>G57</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="change_cs_2">
+             <property name="text">
+              <string>G55</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="change_cs_3">
+             <property name="text">
+              <string>G56</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QPushButton" name="change_cs_8">
+             <property name="text">
+              <string>G59.2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QPushButton" name="change_cs_7">
+             <property name="text">
+              <string>G59.1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="change_cs_1">
+             <property name="text">
+              <string>G54</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QPushButton" name="change_cs_6">
+             <property name="text">
+              <string>G59</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="change_cs_5">
+             <property name="text">
+              <string>G58</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="8">
+            <widget class="QPushButton" name="change_cs_9">
+             <property name="text">
+              <string>G59.3</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
