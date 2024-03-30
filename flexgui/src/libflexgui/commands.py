@@ -168,11 +168,29 @@ def jog(parent):
 	else:
 		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
 
+def change_cs(parent):
+	cs = parent.sender().objectName()[-1]
+	cd_dict = {'1': 'G54', '2': 'G55', '3': 'G56', '4': 'G57', '5': 'G58',
+		'6': 'G59', '7': 'G59.1', '8': 'G59.2', '9': 'G59.3', }
+	mdi_command = cd_dict[cs]
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(mdi_command)
+		parent.command.wait_complete()
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
+
+
 def touchoff(parent):
-	g5x = parent.status.g5x_index
+	if 'touchoff_system_cb' in parent.children:
+		coordinate_system = parent.touchoff_system_cb.currentData()
+	else:
+		coordinate_system = 0
 	axis = parent.sender().objectName()[-1].upper()
 	value = parent.touchoff_dsb.value()
-	mdi_command = f'G10 L20 P{g5x} {axis}{value}'
+	mdi_command = f'G10 L20 P{coordinate_system} {axis}{value}'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
