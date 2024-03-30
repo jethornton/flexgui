@@ -299,6 +299,21 @@ def setup_buttons(parent): # connect buttons to functions
 		if 'errors_pte' in parent.children:
 			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
 
+	# touch off coordinate system combo box
+	if 'touchoff_system_cb' in parent.children:
+		coordinate_systems = {'Current': 0, 'G54': 1, 'G55': 2, 'G56': 3, 'G57': 4,
+			'G58': 5, 'G59': 6, 'G59.1': 7, 'G59.2': 8, 'G59.3': 9}
+		for key, value in coordinate_systems.items():
+			parent.touchoff_system_cb.addItem(key, value)
+
+	# change coordinate system buttons
+	change_sc_buttons = []
+	for i in range(10):
+		change_sc_buttons.append(f'change_cs_{i}')
+	for item in change_sc_buttons:
+		if item in parent.children:
+			getattr(parent, item).clicked.connect(partial(commands.change_cs, parent))
+
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
 		'block_delete_pb': 'block_delete_toggle',
