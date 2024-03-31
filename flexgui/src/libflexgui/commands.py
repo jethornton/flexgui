@@ -182,7 +182,6 @@ def change_cs(parent):
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
-
 def touchoff(parent):
 	if 'touchoff_system_cb' in parent.children:
 		coordinate_system = parent.touchoff_system_cb.currentData()
@@ -221,7 +220,7 @@ def tool_change(parent):
 			return
 
 	if tool_number != parent.status.tool_in_spindle:
-		mdi_command = f'M6 T{tool_number}'
+		mdi_command = f'M6 T{tool_number} G43'
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
