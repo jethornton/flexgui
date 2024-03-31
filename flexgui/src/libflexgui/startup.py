@@ -707,21 +707,12 @@ def setup_sliders(parent):
 		if not max_feed_override: max_feed_override = 1.0
 		parent.feed_override_sl.setMaximum(int(float(max_feed_override) * 100))
 		parent.feed_override_sl.setValue(100)
-	# message = "Even" if x % 2 == 0 else "Odd"
-	# if a < b: print (b, "Is Greater")
+
 	if 'rapid_override_sl' in parent.children:
 		parent.rapid_override_sl.valueChanged.connect(partial(utilities.rapid_override, parent))
 		max_rapid_override = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 		parent.rapid_override_sl.setMaximum(int(float(max_rapid_override) * 100))
 		parent.rapid_override_sl.setValue(100)
-
-	# MAX_SPINDLE_OVERRIDE
-		#print(max_feed_override)
-	# rapid_override_sl
-	# spindle_override_sl
-	# jog_speed_sl
-	# max_velocity_sl
-	# 
 
 # FIXME Everything from here down needs to be looked at
 
