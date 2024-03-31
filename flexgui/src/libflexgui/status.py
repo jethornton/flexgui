@@ -240,6 +240,12 @@ def update(parent):
 		if parent.status.task_mode == emc.MODE_MDI:
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				utilities.update_mdi(parent)
+		if parent.status.task_mode == emc.MODE_AUTO: # disable mdi and jog
+			if 'run_mdi_pb' in parent.children:
+				parent.run_mdi_pb.setEnabled(False)
+		if parent.status.task_mode == emc.MODE_MANUAL: # enable mdi and jog
+			if 'run_mdi_pb' in parent.children:
+				parent.run_mdi_pb.setEnabled(True)
 		parent.task_mode = parent.status.task_mode
 
 	# state RCS_DONE, RCS_EXEC, RCS_ERROR
