@@ -353,8 +353,8 @@ def update(parent):
 		# getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[value[0]]:.{value[1]}f}')
 
 	# override items label : status item
-	for key, value in parent.overrides.items():
-		getattr(parent, key).setText(f'{getattr(parent.status, f"{value}") * 100:.0f}%')
+	for label, stat in parent.overrides.items():
+		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
 
 	# current tool offsets FIXME
 	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision

@@ -399,7 +399,7 @@ def setup_status_labels(parent):
 	'lube', 'lube_level', 'max_acceleration', 'max_velocity', 'mist',
 	'motion_line', 'motion_mode', 'motion_type', 'optional_stop', 'paused',
 	'pocket_prepped', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
-	'program_units', 'queue', 'queue_full', 'rapidrate', 'read_line',
+	'program_units', 'queue', 'queue_full', 'read_line',
 	'rotation_xy', 'settings', 'spindle', 'spindles', 'state', 'task_mode',
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table', 'velocity']
@@ -493,13 +493,13 @@ def setup_status_labels(parent):
 				p = p if p is not None else 3
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	override_items = ['feedrate', 'rapidrate']
-	# label : status item
+	#override_items = ['feedrate', ]
+	override_items = {'feedrate_lb': 'feedrate' , 'max_velocity_lb': 'max_velocity'}
+	# label : status item max_velocity_lb
 	parent.overrides = {}
-	for item in override_items:
-		label = f'{item}_lb'
+	for label, stat in override_items.items():
 		if label in parent.children:
-			parent.overrides[label] = item
+			parent.overrides[label] = stat
 
 	# check for analog and digital labels in ui
 	# these return 64 items each
