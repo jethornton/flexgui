@@ -220,12 +220,14 @@ def tool_change(parent):
 			return
 
 	if tool_number != parent.status.tool_in_spindle:
-		mdi_command = f'M6 T{tool_number} G43'
+		mdi_command = f'M6 T{tool_number}'
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
+			parent.command.wait_complete(30)
+			parent.command.mdi('G43')
 			parent.command.wait_complete()
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
