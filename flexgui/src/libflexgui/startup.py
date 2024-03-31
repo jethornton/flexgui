@@ -450,10 +450,9 @@ def setup_status_labels(parent):
 			p = p if p is not None else 3
 			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
 
-	tool_offset_items = ['tool_offset_lb_0', 'tool_offset_lb_1',
-		'tool_offset_lb_2', 'tool_offset_lb_3', 'tool_offset_lb_4',
-		'tool_offset_lb_5', 'tool_offset_lb_6', 'tool_offset_lb_7',
-		'tool_offset_lb_8']
+	tool_offset_items = []
+	for i in range(9):
+		tool_offset_items.append(f'tool_offset_lb_{i}')
 	parent.status_tool_offset = {} # create an empty dictionary
 	# check for tool offset labels in the ui
 	for i, item in enumerate(tool_offset_items):
@@ -609,7 +608,7 @@ def setup_recent_files(parent):
 				a = parent.menuRecent.addAction(name)
 				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 
-def setup_jog(parent):
+def setup_jog(parent): # FIXME make parent.jog_controls list to enable/disable
 	jog_buttons = {}
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	jog_buttons = []
