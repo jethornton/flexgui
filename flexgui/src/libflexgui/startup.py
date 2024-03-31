@@ -543,11 +543,6 @@ def setup_status_labels(parent):
 		else:
 			parent.file_lb.setText('No G code file loaded')
 
-def setup_spin_boxes(parent):
-	if 'spindle_speed_sb' in parent.children:
-		parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
-		parent.spindle_speed_sb.setValue(parent.spindle_speed)
-
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	if 'gcode_pte' in parent.children:
@@ -660,8 +655,9 @@ def setup_jog(parent): # FIXME make parent.jog_controls list to enable/disable
 
 def setup_spindle(parent):
 	parent.spindle_speed = 100
-
 	if 'spindle_speed_sb' in parent.children:
+		parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
+		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
 		min_rpm = int(min_rpm) if min_rpm else 0
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
@@ -678,9 +674,10 @@ def setup_spindle(parent):
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
 		max_spindle_override = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or False
 		if not max_spindle_override: max_spindle_override = 1.0
-		parent.spindle_override_sl.setMaximum(int(float(max_spindle_override) * 100))
-		parent.spindle_override_sl.setValue(100)
-	# MAX_SPINDLE_OVERRIDE MIN_SPINDLE_OVERRIDE spindle_override_n_lb spindle_override_sl
+		max_spindle_override = int(float(max_spindle_override) * 100)
+		parent.spindle_override_sl.setMaximum(max_spindle_override)
+		if max_spindle_override >= 100:
+			parent.spindle_override_sl.setValue(100)
 
 def setup_tool_change(parent):
 	# tool change using a spin box
