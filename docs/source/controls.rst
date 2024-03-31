@@ -86,11 +86,11 @@ Sliders
 A QSlider is used to control the following functions.
 ::
 
-	Jog Velocity          jog_vel_sl
-	Feed Override         feed_override_sl
-	Rapid Override        rapid_override_sl
-	Spindle Override      spindle_override_sl
-	Jog Speed             jog_speed_sl
+	Function              Slider                      Status Label
+	Jog Velocity          jog_vel_sl                  jog_vel_lb
+	Feed Override         feed_override_sl            feedrate_lb
+	Rapid Override        rapid_override_sl           max_velocity_lb
+	Spindle Override      spindle_override_sl         spindle_override_0_lb
 
 Spin Boxes
 ----------
