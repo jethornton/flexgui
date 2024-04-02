@@ -163,6 +163,13 @@ def update(parent):
 			parent.gcode_pte.setTextCursor(cursor)
 			parent.last_line = n
 
+	# homed status
+	for item in parent.home_status:
+		if parent.status.homed[int(item[-1])]:
+			getattr(parent, item).setText('*')
+		else:
+			getattr(parent, item).setText('')
+
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value tuple position & precision
 		machine_position = getattr(parent, "status").position[value[0]]

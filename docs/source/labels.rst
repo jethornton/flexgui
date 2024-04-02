@@ -99,6 +99,17 @@ Axis position labels including all offsets
 	dro_lb_a, dro_lb_b, dro_lb_c
 	dro_lb_u, dro_lb_v, dro_lb_w
 
+Axis homed labels
+
+.. csv-table:: Axis Homed Labels
+   :width: 100%
+   :align: left
+
+	home_lb_0, home_lb_1, home_lb_2
+	home_lb_3, home_lb_4, home_lb_5
+	home_lb_6, home_lb_7, home_lb_8
+
+
 Offsets for the currently active G5x coordinate system
 
 .. csv-table:: G5x Status Labels

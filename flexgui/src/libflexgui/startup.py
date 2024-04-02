@@ -578,6 +578,17 @@ def setup_status_labels(parent):
 		else:
 			parent.file_lb.setText('No G code file loaded')
 
+	parent.home_status = []
+	for i in range(9):
+		if f'home_lb_{i}' in parent.children:
+			parent.home_status.append(f'home_lb_{i}')
+
+	for item in parent.home_status:
+		if parent.status.homed[int(item[-1])]:
+			getattr(parent, item).setText('*')
+		else:
+			getattr(parent, item).setText('')
+
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	if 'gcode_pte' in parent.children:
