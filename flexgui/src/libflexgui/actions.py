@@ -16,7 +16,7 @@ def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
 	parent.command.wait_complete()
 	if utilities.all_homed(parent):
-		for item in parent.file_loaded:
+		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(True)
 
 	text = open(gcode_file).read()
@@ -27,7 +27,7 @@ def load_file(parent, gcode_file):
 		parent.file_lb.setText(base)
 
 	# update controls
-	for item in parent.file_loaded:
+	for item in parent.file_edit_items:
 		getattr(parent, item).setEnabled(True)
 
 	# get recent files from settings
