@@ -87,37 +87,48 @@ def update(parent):
 
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
 
-		if parent.status.task_mode == emc.MODE_MANUAL:
-			# program is not running
-			if parent.status.interp_state == emc.INTERP_IDLE:
+		if parent.status.interp_state == emc.INTERP_IDLE:
+			#print('INTERP_IDLE')
+			#print(f'{TASK_MODES[parent.status.task_mode]}')
+			if parent.status.task_mode == emc.MODE_MANUAL:
+				# program is not running
+				print('INTERP_IDLE MODE_MANUAL')
+			if parent.status.task_mode == emc.MODE_MDI:
+				# mdi is done
 				print('INTERP_IDLE MODE_MANUAL')
 
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if parent.status.interp_state == emc.INTERP_WAITING:
-				print('INTERP_WAITING MODE_AUTO')
+				#print('INTERP_WAITING MODE_AUTO')
 				for key, value in parent.program_running.items():
 					getattr(parent, key).setEnabled(value)
 
 			# program is paused
 			if parent.status.interp_state == emc.INTERP_PAUSED:
-				print('INTERP_PAUSED MODE_AUTO')
+				#print('INTERP_PAUSED MODE_AUTO')
 				for key, value in parent.program_paused.items():
 					getattr(parent, key).setEnabled(value)
 
-		if parent.status.task_mode == emc.MODE_MDI:
-			# mdi is running
-			if parent.status.interp_state == emc.INTERP_READING:
-				print('INTERP_READING MODE_MDI')
-
-			# mdi is done
-			if parent.status.interp_state == emc.INTERP_IDLE:
-				print('INTERP_IDLE MODE_MDI')
-
+		if parent.status.interp_state == emc.INTERP_READING:
+			#print('INTERP_READING')
+			if parent.status.task_mode == emc.MODE_MDI:
+				# mdi is running
+				print('MODE_MDI')
 		parent.interp_state = parent.status.interp_state
+
+	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
+	if parent.task_mode != parent.status.task_mode:
+		if parent.status.task_mode == emc.MODE_MANUAL:
+			if parent.status.interp_state == emc.INTERP_IDLE:
+				for key, value in parent.state_on.items():
+					getattr(parent, key).setEnabled(value)
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
+		parent.task_mode = parent.status.task_mode
 
 	for key, value in parent.status_labels.items(): # update all status labels
 		# key is the status item and value is the label
