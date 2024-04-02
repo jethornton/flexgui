@@ -196,9 +196,9 @@ def setup_enables(parent):
 			del parent.program_running[item]
 
 	parent.program_paused = {'run_mdi_pb': False, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': True, 'home_all_pb': True, 'unhome_all_pb': False,
-		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
+		'run_from_line_pb': False, 'step_pb': True, 'pause_pb': False,
+		'resume_pb': True, 'home_all_pb': False, 'unhome_all_pb': False,
+		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': True,
 		'actionPause': False, 'actionResume': True, 'home_all_pb': False,
 		'unhome_all_pb': False, }
 	for i in range(9):
