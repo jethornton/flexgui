@@ -87,27 +87,35 @@ def update(parent):
 
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
+		print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
+
+		if parent.status.task_mode == emc.MODE_MANUAL:
+			# program is not running
+			if parent.status.interp_state == emc.INTERP_IDLE:
+				print('INTERP_IDLE MODE_MANUAL')
+
+
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if parent.status.interp_state == emc.INTERP_WAITING:
-				print('MODE_AUTO INTERP_WAITING')
+				print('INTERP_WAITING MODE_AUTO')
 				for key, value in parent.program_running.items():
 					getattr(parent, key).setEnabled(value)
 
 			# program is paused
 			if parent.status.interp_state == emc.INTERP_PAUSED:
-				print('MODE_AUTO INTERP_PAUSED')
+				print('INTERP_PAUSED MODE_AUTO')
 				for key, value in parent.program_paused.items():
 					getattr(parent, key).setEnabled(value)
 
 		if parent.status.task_mode == emc.MODE_MDI:
 			# mdi is running
 			if parent.status.interp_state == emc.INTERP_READING:
-				print('MODE_MDI INTERP_READING')
+				print('INTERP_READING MODE_MDI')
 
 			# mdi is done
 			if parent.status.interp_state == emc.INTERP_IDLE:
-				print('MODE_MDI INTERP_IDLE')
+				print('INTERP_IDLE MODE_MDI')
 
 		parent.interp_state = parent.status.interp_state
 
