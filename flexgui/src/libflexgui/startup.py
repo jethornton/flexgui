@@ -181,8 +181,14 @@ def setup_enables(parent):
 
 	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
-		'resume_pb': False, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': True, 'actionResume': False}
+		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
+		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
+		'actionPause': True, 'actionResume': False, 'home_all_pb': False,
+		'unhome_all_pb': False, }
+
+	for i in range(9):
+		parent.program_running[f'home_pb_{i}'] = False
+		parent.program_running[f'unhome_pb_{i}'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.program_running):
@@ -191,8 +197,13 @@ def setup_enables(parent):
 
 	parent.program_paused = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': True, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False, 'actionResume': True}
+		'resume_pb': True, 'home_all_pb': True, 'unhome_all_pb': False,
+		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
+		'actionPause': False, 'actionResume': True, 'home_all_pb': False,
+		'unhome_all_pb': False, }
+	for i in range(9):
+		parent.program_paused[f'home_pb_{i}'] = False
+		parent.program_paused[f'unhome_pb_{i}'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.program_paused):
