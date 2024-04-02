@@ -38,77 +38,116 @@ def get_ini_values(parent):
 		parent.units = 'mm'
 
 def setup_enables(parent):
-	# these are always disabled at start up
-	for item in ['actionPause', 'pause_pb', 'actionResume', 'resume_pb']:
-		if item in parent.children:
-			getattr(parent, item).setEnabled(False)
+	parent.status.poll()
 
-	# STATE_ESTOP items that should be disabled
-	estop_open = ['power_pb', 'run_pb', 'run_from_line_pb', 'step_pb',
-		'pause_pb', 'resume_pb', 'home_all_pb', 'unhome_all_pb', 'run_mdi_pb',
-		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
-		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
-		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
-		'tool_change_pb', 'actionResume']
-	for item in ['home_pb_', 'unhome_pb_']:
-		for i in range(9):
-			estop_open.append(f'{item}{i}')
+	# STATE_ESTOP
+	parent.state_estop = {'power_pb': False, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
+		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
+		'run_mdi_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
+		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
+		'spindle_minus_pb': False, 'flood_pb': False, 'mist_pb': False,
+		'actionPower': False, 'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': False, 'tool_change_pb': False,
+		'actionResume': False}
+
+	for i in range(9):
+		parent.state_estop[f'home_pb_{i}'] = False
+		parent.state_estop[f'unhome_pb_{i}'] = False
+		parent.state_estop[f'jog_plus_pb_{i}'] = False
+		parent.state_estop[f'jog_minus_pb_{i}'] = False
 	for item in AXES:
-		estop_open.append(f'jog_plus_pb_{item}')
-		estop_open.append(f'jog_minus_pb_{item}')
-		estop_open.append(f'touchoff_pb_{item}')
-		estop_open.append(f'tool_touchoff_{item}')
+		parent.state_estop[f'touchoff_pb_{item}'] = False
+		parent.state_estop[f'tool_touchoff_{item}'] = False
 	for i in range(100):
-		estop_open.append(f'tool_change_pb_{i}')
+		parent.state_estop[f'tool_change_pb_{i}'] = False
 
-	parent.state_estop_open = []
-	for item in estop_open:
-		if item in parent.children:
-			parent.state_estop_open.append(item)
+	# remove any items not found in the gui
+	for item in list(parent.state_estop):
+		if item not in parent.children:
+			del parent.state_estop[item]
+
+	parent.state_estop_names = {'estop_pb': 'E Stop\nOpen',
+		'actionE_Stop': 'E Stop\nOpen', 'power_pb': 'Power\nOff',
+		'actionPower': 'Power\nOff'}
+
+	# remove any items not found in the gui
+	for item in list(parent.state_estop_names):
+		if item not in parent.children:
+			del parent.state_estop_names[item]
+
+	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		for key, value in parent.state_estop.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_estop_names.items():
+			getattr(parent, key).setText(value)
 
 	# STATE_ESTOP_RESET enable power
-	parent.state_estop_closed = []
-	for item in ['power_pb', 'actionPower']:
-		if item in parent.children:
-			parent.state_estop_closed.append(item)
+	parent.state_estop_reset = {'power_pb': True, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
+		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
+		'run_mdi_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
+		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
+		'spindle_minus_pb': False, 'flood_pb': False, 'mist_pb': False,
+		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': False, 'tool_change_pb': False,
+		'actionResume': False}
+
+	for i in range(9):
+		parent.state_estop_reset[f'home_pb_{i}'] = False
+		parent.state_estop_reset[f'unhome_pb_{i}'] = False
+		parent.state_estop_reset[f'jog_plus_pb_{i}'] = False
+		parent.state_estop_reset[f'jog_minus_pb_{i}'] = False
+	for item in AXES:
+		parent.state_estop_reset[f'touchoff_pb_{item}'] = False
+		parent.state_estop_reset[f'tool_touchoff_{item}'] = False
+	for i in range(100):
+		parent.state_estop_reset[f'tool_change_pb_{i}'] = False
+
+	# remove any items not found in the gui
+	for item in list(parent.state_estop_reset):
+		if item not in parent.children:
+			del parent.state_estop_reset[item]
+
+	parent.state_estop_reset_names = {'estop_pb': 'E Stop\nClosed',
+		'actionE_Stop': 'E Stop\nClosed', 'power_pb': 'Power\nOff',
+		'actionPower': 'Power\nOff'}
+
+	# remove any items not found in the gui
+	for item in list(parent.state_estop_reset_names):
+		if item not in parent.children:
+			del parent.state_estop_reset_names[item]
+
+	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		for key, value in parent.state_estop_reset.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_estop_reset_names.items():
+			getattr(parent, key).setText(value)
 
 	# STATE_ON home, jog, spindle
-	power_on = ['spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb',
-	'spindle_stop_pb', 'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb',
-	'mist_pb']
-	for i in range(9):
-		power_on.append(f'home_pb_{i}')
-	for item in AXES:
-		power_on.append(f'jog_plus_pb_{item}')
-		power_on.append(f'jog_minus_pb_{item}')
+	parent.state_on = {'power_pb': True, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
+		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
+		'run_mdi_pb': False, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
+		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
+		'spindle_minus_pb': True, 'flood_pb': False, 'mist_pb': False,
+		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': False, 'tool_change_pb': False,
+		'actionResume': False}
 
-	parent.state_power_on = []
-	for item in power_on:
-		if item in parent.children:
-			parent.state_power_on.append(item)
+	# remove any items not found in the gui
+	for item in list(parent.state_on):
+		if item not in parent.children:
+			del parent.state_on[item]
 
-	# all homed
-	all_homed = ['run_mdi_pb', 'unhome_all_pb', 'tool_change_pb']
-	for i in range(9):
-		all_homed.append(f'unhome_pb_{i}')
-	for i in range(100):
-		all_homed.append(f'tool_change_pb_{i}')
-	for item in AXES:
-		all_homed.append(f'tool_touchoff_{item}')
-		all_homed.append(f'touchoff_pb_{item}')
+	parent.state_on_names = {'estop_pb': 'E Stop\nClosed',
+		'actionE_Stop': 'E Stop\nClosed', 'power_pb': 'Power\nOn',
+		'actionPower': 'Power\nOn'}
 
-	parent.state_all_homed = []
-	for item in  all_homed:
-		if item in parent.children:
-			parent.state_all_homed.append(item)
-
-	# file loaded
-	file_items = ['actionEdit', 'edit_pb', 'actionSave_As', 'save_as_pb',
-		'actionReload', 'reload_pb']
-	parent.file_loaded = []
-	for item in file_items:
-		if item in parent.children:
-			parent.file_loaded.append(item)
+	# remove any items not found in the gui
+	for item in list(parent.state_on_names):
+		if item not in parent.children:
+			del parent.state_on_names[item]
 
 	# run controls
 	run = [ 'run_pb', 'run_from_line_pb', 'step_pb',
@@ -118,99 +157,95 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.run_controls.append(item)
 
-	# program running
-	parent.program_running = []
-	for item in ['pause_pb', 'actionPause']:
-		if item in parent.children:
-			parent.program_running.append(item)
-
-	# program paused
-	parent.program_paused = []
-	for item in ['resume_pb', 'actionResume']:
-		if item in parent.children:
-			parent.program_paused.append(item)
-
-	# unhome buttons
-	unhome = ['unhome_all_pb']
-	for i in range(9):
-		unhome.append(f'unhome_pb_{i}')
-	parent.unhome_controls = []
-	for item in unhome:
-		if item in parent.children:
-			parent.unhome_controls.append(item)
-
-	parent.status.poll()
-	# STATE_ESTOP
-	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		for item in parent.state_estop_open:
-			getattr(parent, item).setEnabled(False)
-		# update button and action text
-		for item in ['estop_pb', 'actionE_Stop']:
-			if item in parent.children:
-				getattr(parent, item).setText('E Stop\nOpen')
-		for item in ['power_pb', 'actionPower']:
-			if item in parent.children:
-				getattr(parent, item).setText('Power\nOff')
-
-	# STATE_ESTOP_RESET
-	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		for item in parent.state_estop_open:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.state_estop_closed:
-			getattr(parent, item).setEnabled(True)
-		# update button and action text
-		for item in ['estop_pb', 'actionE_Stop']:
-			if item in parent.children:
-				getattr(parent, item).setText('E Stop\nClosed')
-		for item in ['power_pb', 'actionPower']:
-			if item in parent.children:
-				getattr(parent, item).setText('Power\nOff')
-
-	# STATE_ON
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		for item in parent.state_power_on:
+		for key, value in parent.state_on.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_on_names.items():
+			getattr(parent, key).setText(value)
+		if utilities.all_homed and parent.status.file:
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
+
+	'''
+	run_pb
+	run_from_line_pb
+	step_pb
+	pause_pb
+	resume_pb
+	actionRun
+	actionRun_From_Line
+	actionStep
+	actionPause
+	actionResume
+	'''
+
+	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
+		'resume_pb': False, 'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': True, 'actionResume': False}
+
+	# remove any items not found in the gui
+	for item in list(parent.program_running):
+		if item not in parent.children:
+			del parent.program_running[item]
+
+	parent.program_paused = {'run_mdi_pb': False, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
+		'resume_pb': True, 'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': False, 'actionResume': True}
+
+	# remove any items not found in the gui
+	for item in list(parent.program_paused):
+		if item not in parent.children:
+			del parent.program_paused[item]
+
+	# all homed
+	all_homed_items = ['run_mdi_pb', 'unhome_all_pb', 'tool_change_pb']
+	for i in range(9):
+		all_homed_items.append(f'unhome_pb_{i}')
+	for i in range(100):
+		all_homed_items.append(f'tool_change_pb_{i}')
+	for item in AXES:
+		all_homed_items.append(f'tool_touchoff_{item}')
+		all_homed_items.append(f'touchoff_pb_{item}')
+
+	parent.all_homed = []
+	for item in  all_homed_items:
+		if item in parent.children:
+			parent.all_homed.append(item)
+
+	# not homed
+	not_homed_items = ['home_all_pb']
+	for i in range(9):
+		not_homed_items.append(f'home_pb_{i}')
+	parent.not_homed = []
+	for item in not_homed_items:
+		if item in parent.children:
+			parent.not_homed.append(item)
+
+	if utilities.all_homed(parent):
+		for item in parent.all_homed:
 			getattr(parent, item).setEnabled(True)
+	else:
+		for item in parent.not_homed:
+			getattr(parent, item).setEnabled(True)
+		for item in parent.all_homed:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
 
-		# update button and action text
-		for item in ['estop_pb', 'actionE_Stop']:
-			if item in parent.children:
-				getattr(parent, item).setText('E Stop\nClosed')
-		for item in ['power_pb', 'actionPower']:
-			if item in parent.children:
-				getattr(parent, item).setText('Power\nOn')
-
-			if utilities.all_homed(parent):
-				for item in parent.state_all_homed:
-					getattr(parent, item).setEnabled(True)
-			else:
-				for item in parent.state_all_homed:
-					getattr(parent, item).setEnabled(False)
-				for item in parent.unhome_controls:
-					getattr(parent, item).setEnabled(False)
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(False)
-
-		# if a file is loaded and machine is homed enable run and step
-			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
-
-		# home all push button
-		if 'home_all_pb' in parent.children:
-			if utilities.home_all_check(parent):
-				parent.home_all_pb.setEnabled(True)
-			else:
-				parent.home_all_pb.setEnabled(False)
-
-	# if a file is loaded
+	# file items if not loaded disable
+	parent.file_edit_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'actionEdit',
+		'actionReload', 'actionSave_As']
+	for item in parent.file_edit_items:
+		if item not in parent.children:
+			parent.file_edit_items.remove(item)
 	if parent.status.file:
 		text = open(parent.status.file).read()
 		if 'gcode_pte' in parent.children:
 			parent.gcode_pte.setPlainText(text)
-		for item in parent.file_loaded:
-			getattr(parent, item).setEnabled(True)
-	else: # no file is loaded
-		for item in parent.file_loaded:
+	else:
+		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(False)
 
 	# check for required items tool_touchoff_ touchoff_pb_

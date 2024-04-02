@@ -1,105 +1,22 @@
-import sys, os
 
-from PyQt6.QtWidgets import QLabel, QPushButton
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
 import linuxcnc as emc
 
 from libflexgui import utilities
 
+
 '''
-
-// types for EMC_TASK execState
-EMC_TASK_EXEC_ERROR = 1,
-EMC_TASK_EXEC_DONE = 2,
-EMC_TASK_EXEC_WAITING_FOR_MOTION = 3,
-EMC_TASK_EXEC_WAITING_FOR_MOTION_QUEUE = 4,
-EMC_TASK_EXEC_WAITING_FOR_IO = 5,
-EMC_TASK_EXEC_WAITING_FOR_MOTION_AND_IO = 7,
-EMC_TASK_EXEC_WAITING_FOR_DELAY = 8,
-EMC_TASK_EXEC_WAITING_FOR_SYSTEM_CMD = 9,
-EMC_TASK_EXEC_WAITING_FOR_SPINDLE_ORIENTED = 10
-
-// types for motion control
-EMC_TRAJ_MODE_FREE = 1,	// independent-axis motion,
-EMC_TRAJ_MODE_COORD = 2,	// coordinated-axis motion,
-EMC_TRAJ_MODE_TELEOP = 3	// velocity based world coordinates motion,
-
-interp_state
-INTERP_IDLE = 1
-INTERP_READING = 2
-INTERP_PAUSED = 3
-INTERP_WAITING = 4
-
-interpreter_errcode
-INTERP_OK = 0,
-INTERP_EXIT = 1,
-INTERP_EXECUTE_FINISH = 2,
-INTERP_ENDFILE = 3,
-INTERP_FILE_NOT_OPEN = 4,
-INTERP_ERROR = 5,
-
-kinematics_type
-KINEMATICS_IDENTITY 0
-KINEMATICS_FORWARD_ONLY 1
-KINEMATICS_INVERSE_ONLY 2
-KINEMATICS_BOTH 3
-
-// types for emcIoAbort() reasons
-EMC_ABORT_TASK_EXEC_ERROR = 1,
-EMC_ABORT_AUX_ESTOP = 2,
-EMC_ABORT_MOTION_OR_IO_RCS_ERROR = 3,
-EMC_ABORT_TASK_STATE_OFF = 4,
-EMC_ABORT_TASK_STATE_ESTOP_RESET = 5,
-EMC_ABORT_TASK_STATE_ESTOP = 6,
-EMC_ABORT_TASK_STATE_NOT_ON = 7,
-EMC_ABORT_TASK_ABORT = 8,
-EMC_ABORT_INTERPRETER_ERROR = 9,	// interpreter failed during readahead
-EMC_ABORT_INTERPRETER_ERROR_MDI = 10,	// interpreter failed during MDI execution
-EMC_ABORT_USER = 100  // user-defined abort codes start here
-
-motion_mode
-TRAJ_MODE_FREE 1
-TRAJ_MODE_COORD 2
-TRAJ_MODE_TELEOP 3
-
-motion_type
-MOTION_TYPE_NONE 0
-MOTION_TYPE_TRAVERSE 1
-MOTION_TYPE_FEED 2
-MOTION_TYPE_ARC 3
-MOTION_TYPE_TOOLCHANGE 4
-MOTION_TYPE_PROBING 5
-MOTION_TYPE_INDEXROTARY 6
-
-program_units
-CANON_UNITS_INCHES=1
-CANON_UNITS_MM=2
-CANON_UNITS_CM=3
-
-state
-linuxcnc.RCS_DONE 1
-linuxcnc.RCS_EXEC 2
-linuxcnc.RCS_ERROR 3
-
-task_mode
-linuxcnc.MODE_MANUAL 1
-linuxcnc.MODE_AUTO 2
-linuxcnc.MODE_MDI 3
-
-task_state
-linuxcnc.STATE_ESTOP 1
-linuxcnc.STATE_ESTOP_RESET 2
-linuxcnc.STATE_ON 4
-
-motion_mode
-TRAJ_MODE_FREE = 1
-TRAJ_MODE_COORD = 2
-TRAJ_MODE_TELEOP = 3
-
-linuxcnc.
-
-: '', 
+STATE_ESTOP
+STATE_ESTOP_RESET
+STATE_ON Not Homed No Program
+STATE_ON All Homed No Program
+STATE_ON Not Homed Program Loaded
+STATE_ON All Homed Program Loaded
+MODE_AUTO INTERP_WAITING
+MODE_AUTO INTERP_PAUSED
+MODE_MDI INTERP_READING
+MODE_MDI INTERP_IDLE
 '''
 
 TASK_STATES = {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 3: 'STATE_OFF',
@@ -119,140 +36,80 @@ def update(parent):
 
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		if parent.print_states:
-			print(f'task state changed to {TASK_STATES[parent.status.task_state]}')
-		# update button and action text
-		if 'estop_pb' in parent.children:
-			if parent.status.task_state == 1:
-				parent.estop_pb.setText('E Stop\nOpen')
-			else:
-				parent.estop_pb.setText('E Stop\nClosed')
 
-		if 'actionE_Stop' in parent.children:
-			if parent.status.task_state == 1:
-				parent.actionE_Stop.setText('E Stop\nOpen')
-			else:
-				parent.actionE_Stop.setText('E Stop\nClosed')
-
-		if 'power_pb' in parent.children:
-			if parent.status.task_state == 4:
-				parent.power_pb.setText('Power\nOn')
-			else:
-				parent.power_pb.setText('Power\nOff')
-
-		if 'actionPower' in parent.children:
-			if parent.status.task_state == 4:
-				parent.actionPower.setText('Power\nOn')
-			else:
-				parent.actionPower.setText('Power\nOff')
-
-		# enable/disable controls and actions based on task state
-		# state_estop_open estop is open
+		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
-			for item in parent.state_estop_open:
-				getattr(parent, item).setEnabled(False)
+			print('STATE_ESTOP')
+			for key, value in parent.state_estop.items():
+				getattr(parent, key).setEnabled(value)
+			for key, value in parent.state_estop_names.items():
+				getattr(parent, key).setText(value)
 
-		# state_estop_closed estop is closed and power is off
+		# e stop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
-			for item in parent.state_estop_closed:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.state_power_on:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.state_all_homed:
-				if utilities.all_homed(parent):
-					getattr(parent, item).setEnabled(False)
+			print('STATE_ESTOP_RESET')
+			for key, value in parent.state_estop_reset.items():
+				getattr(parent, key).setEnabled(value)
+			for key, value in parent.state_estop_reset_names.items():
+				getattr(parent, key).setText(value)
 
-		# state_power_on power is on
+		# e stop closed power on
 		if parent.status.task_state == emc.STATE_ON:
-			for item in parent.state_power_on:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.state_all_homed:
-				if utilities.all_homed(parent):
+			print('STATE_ON')
+			for key, value in parent.state_on.items():
+				getattr(parent, key).setEnabled(value)
+			for key, value in parent.state_on_names.items():
+				getattr(parent, key).setText(value)
+
+			if utilities.all_homed(parent):
+				print('ALL HOMED')
+				for item in parent.all_homed:
 					getattr(parent, item).setEnabled(True)
-				else:
+				for item in parent.not_homed:
+					getattr(parent, item).setEnabled(False)
+			else:
+				print('NOT HOMED')
+				for item in parent.not_homed:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.all_homed:
 					getattr(parent, item).setEnabled(False)
 
-			# if a file is loaded and machine is homed enable run and step
-			if parent.status.file and utilities.all_homed(parent):
-				for item in parent.file_loaded:
+			if parent.status.file:
+				print('FILE LOADED')
+				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(True)
-
-			# home all push button
-			if 'home_all_pb' in parent.children:
-				if utilities.home_all_check(parent):
-					parent.home_all_pb.setEnabled(True)
+			else:
+				print('NO FILE LOADED')
+				for item in parent.file_edit_items:
+					getattr(parent, item).setEnabled(False)
 
 		parent.task_state = parent.status.task_state
 
-	# exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
-	# EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
-	# EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
-	# EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED
-	if parent.exec_state != parent.status.exec_state:
-		if parent.print_states:
-			print(f'exec state changed to {EXEC_STATES[parent.status.exec_state]}')
-		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
-			# program is running
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.program_running:
-				getattr(parent, item).setEnabled(True)
-		elif parent.status.exec_state == emc.EXEC_DONE:
-			# program is not running or estop was toggled
-			if parent.status.task_state == emc.STATE_ON:
-				if parent.status.file:
-					for item in parent.run_controls:
-						getattr(parent, item).setEnabled(True)
-				for item in parent.program_running:
-					getattr(parent, item).setEnabled(False)
-		parent.exec_state = parent.status.exec_state
-
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		if parent.print_states:
-			print(f'interpter state changed to {INTERP_STATES[parent.status.interp_state]}')
-		if parent.status.interp_state == emc.INTERP_PAUSED:
-			for item in parent.program_paused:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.program_running:
-				getattr(parent, item).setEnabled(False)
-		elif parent.status.interp_state == emc.INTERP_WAITING:
-			for item in parent.program_paused:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.program_running:
-				getattr(parent, item).setEnabled(True)
-		elif parent.status.interp_state == emc.INTERP_IDLE:
-			if parent.status.task_mode == emc.MODE_MDI:
-				utilities.update_mdi(parent)
-		parent.interp_state = parent.status.interp_state
+		if parent.status.task_mode == emc.MODE_AUTO:
+			# program is running
+			if parent.status.interp_state == emc.INTERP_WAITING:
+				print('MODE_AUTO INTERP_WAITING')
+				for key, value in parent.program_running.items():
+					getattr(parent, key).setEnabled(value)
 
-	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
-	if parent.motion_mode != parent.status.motion_mode:
-		if parent.print_states:
-			print(f'motion mode changed to {MOTION_MODES[parent.status.motion_mode]}')
-		parent.motion_mode = parent.status.motion_mode
+			# program is paused
+			if parent.status.interp_state == emc.INTERP_PAUSED:
+				print('MODE_AUTO INTERP_PAUSED')
+				for key, value in parent.program_paused.items():
+					getattr(parent, key).setEnabled(value)
 
-	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
-	if parent.task_mode != parent.status.task_mode:
-		if parent.print_states:
-			print(f'task mode changed to {TASK_MODES[parent.status.task_mode]}')
-		#print(f'interp state is {INTERP_STATES[parent.status.interp_state]}')
 		if parent.status.task_mode == emc.MODE_MDI:
-			if parent.status.interp_state == emc.INTERP_IDLE:
-				utilities.update_mdi(parent)
-		if parent.status.task_mode == emc.MODE_AUTO: # disable mdi and jog
-			if 'run_mdi_pb' in parent.children:
-				parent.run_mdi_pb.setEnabled(False)
-		if parent.status.task_mode == emc.MODE_MANUAL: # enable mdi and jog
-			if 'run_mdi_pb' in parent.children:
-				parent.run_mdi_pb.setEnabled(True)
-		parent.task_mode = parent.status.task_mode
+			# mdi is running
+			if parent.status.interp_state == emc.INTERP_READING:
+				print('MODE_MDI INTERP_READING')
 
-	# state RCS_DONE, RCS_EXEC, RCS_ERROR
-	if parent.state != parent.status.state:
-		if parent.print_states:
-			print(f'state changed to {STATES[parent.status.state]}')
-		parent.state = parent.status.state
+			# mdi is done
+			if parent.status.interp_state == emc.INTERP_IDLE:
+				print('MODE_MDI INTERP_IDLE')
+
+		parent.interp_state = parent.status.interp_state
 
 	for key, value in parent.status_labels.items(): # update all status labels
 		# key is the status item and value is the label
@@ -390,10 +247,6 @@ def update(parent):
 		tr = getattr(parent.status, 'tool_table')[tool]
 		getattr(parent, f'{value}').setText(f'{getattr(tr, key)}')
 
-	# STATE_ESTOP STATE_ESTOP_RESET STATE_ON
-	if parent.status.state == emc.STATE_ESTOP:
-		pass
-
 	# handle errors
 	#if parent.status.state == parent.emc.RCS_ERROR:
 	if 'errors_pte' in parent.children:
@@ -408,12 +261,4 @@ def update(parent):
 			parent.errors_pte.appendPlainText(text)
 			parent.errors_pte.setFocus()
 			parent.statusbar.showMessage('Error')
-			#tabname = 'status_tab'
-			#print(parent.tabWidget.findChild(QWidget, 'status_tab'))
-			#page = parent.tabWidget.findChild(QWidget, tabname)
-			#print(page)
-			#index = parent.tabWidget.indexOf(page)
-			#print(index)
-			#if isinstance(parent.tabWidget.findChild(QWidget, 'status_tab'), QWidget):
-			#	parent.tabWidget.setCurrentWidget(parent.tabWidget.findChild(QWidget, 'status_tab'))
 
