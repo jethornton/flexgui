@@ -1,3 +1,9 @@
+flexgui (0.0.7) unstable; urgency=medium
+
+  * Improve control enable/disable
+
+ -- John Thornton <dev@gnipsel.com>  Tue, 02 Apr 2024 13:35:42 -0500
+
 flexgui (0.0.6) unstable; urgency=medium
 
   * Add Spindle Controls
