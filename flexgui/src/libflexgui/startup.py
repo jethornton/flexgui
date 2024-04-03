@@ -133,7 +133,7 @@ def setup_enables(parent):
 	# STATE_ON home, jog, spindle
 	parent.state_on = {'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
+		'resume_pb': False, 'home_all_pb': True, 'unhome_all_pb': True,
 		'run_mdi_pb': True, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
 		'spindle_minus_pb': True, 'flood_pb': False, 'mist_pb': False,
