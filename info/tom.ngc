@@ -1,5 +1,6 @@
 %
 ( Torture_test.tx )
+( the offsets to run this are X3.5 Y3.5 Z-2.5 )
 N1 G90 G17 G20
 N2 G53 G00 Z0
 N3 T45 M06 (0.5 DOWEL PIN .500) 
