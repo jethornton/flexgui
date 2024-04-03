@@ -689,7 +689,7 @@ def setup_recent_files(parent):
 				a = parent.menuRecent.addAction(name)
 				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 
-def setup_jog(parent): # FIXME make parent.jog_controls list to enable/disable
+def setup_jog(parent):
 	jog_buttons = {}
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	jog_buttons = []
@@ -796,6 +796,12 @@ def setup_sliders(parent):
 		max_rapid_override = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 		parent.rapid_override_sl.setMaximum(int(float(max_rapid_override) * 100))
 		parent.rapid_override_sl.setValue(100)
+
+def setup_defaults(parent):
+	if parent.optional_stop_pb.isChecked():
+		parent.command.set_optional_stop(True)
+	else:
+		parent.command.set_optional_stop(False)
 
 # FIXME Everything from here down needs to be looked at
 
