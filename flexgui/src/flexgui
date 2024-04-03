@@ -28,12 +28,12 @@ class flexgui(QMainWindow):
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
-			configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
-			if os.path.isdir(configs_dir):
-				msg = ('LinuxCNC must be running\n'
-				'if you start Flex GUI from a terminal.')
-				dialogs.warn_msg_ok(msg, 'Error')
-				sys.exit()
+			#configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
+			#if os.path.isdir(configs_dir):
+			msg = ('LinuxCNC must be running\n'
+			'if you start Flex GUI from a terminal.')
+			dialogs.warn_msg_ok(msg, 'Error')
+			sys.exit()
 
 			response = startup.copy_examples(self, 'LinuxCNC not running')
 			if response:
