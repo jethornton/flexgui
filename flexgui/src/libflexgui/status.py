@@ -39,7 +39,7 @@ def update(parent):
 
 		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
-			print('STATE_ESTOP')
+			print('status update STATE_ESTOP')
 			for key, value in parent.state_estop.items():
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_names.items():
@@ -47,7 +47,7 @@ def update(parent):
 
 		# e stop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
-			print('STATE_ESTOP_RESET')
+			print('status update STATE_ESTOP_RESET')
 			for key, value in parent.state_estop_reset.items():
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_reset_names.items():
@@ -55,31 +55,31 @@ def update(parent):
 
 		# e stop closed power on
 		if parent.status.task_state == emc.STATE_ON:
-			print('STATE_ON')
+			print('status update STATE_ON')
 			for key, value in parent.state_on.items():
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
 
 			if utilities.all_homed(parent):
-				print('ALL HOMED')
+				print('status update ALL HOMED')
 				for item in parent.all_homed:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.not_homed:
 					getattr(parent, item).setEnabled(False)
 			else:
-				print('NOT HOMED')
+				print('status update NOT HOMED')
 				for item in parent.not_homed:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.all_homed:
 					getattr(parent, item).setEnabled(False)
 
 			if parent.status.file:
-				print('FILE LOADED')
+				print('status update FILE LOADED')
 				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(True)
 			else:
-				print('NO FILE LOADED')
+				print('status update NO FILE LOADED')
 				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(False)
 
@@ -94,10 +94,10 @@ def update(parent):
 			#print(f'{TASK_MODES[parent.status.task_mode]}')
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				# program is not running
-				print('INTERP_IDLE MODE_MANUAL')
+				print('status update INTERP_IDLE MODE_MANUAL')
 			if parent.status.task_mode == emc.MODE_MDI:
 				# mdi is done
-				print('INTERP_IDLE MODE_MANUAL')
+				print('status update INTERP_IDLE MODE_MANUAL')
 
 
 		if parent.status.task_mode == emc.MODE_AUTO:
@@ -117,11 +117,12 @@ def update(parent):
 			#print('INTERP_READING')
 			if parent.status.task_mode == emc.MODE_MDI:
 				# mdi is running
-				print('MODE_MDI')
+				print('status update MODE_MDI')
 		parent.interp_state = parent.status.interp_state
 
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
+		print(f'{TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				for key, value in parent.state_on.items():
