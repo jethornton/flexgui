@@ -40,6 +40,7 @@ joint number or axis index.
 	Spindle Faster               spindle_plus_pb
 	Spindle Slower               spindle_minus_pb
 	Flood Toggle                 flood_pb
+	Change Coordinate System     change_cs_(1-9)
 	Mist Toggle                  mist_pb
 	Clear MDI History            clear_mdi_history_pb
 	Copy MDI History             copy_mdi_history_pb
