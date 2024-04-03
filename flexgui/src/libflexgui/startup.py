@@ -61,6 +61,8 @@ def setup_enables(parent):
 		parent.state_estop[f'tool_touchoff_{item}'] = False
 	for i in range(100):
 		parent.state_estop[f'tool_change_pb_{i}'] = False
+	for i in range(1, 10):
+		parent.state_estop[f'change_cs_{i}'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop):
@@ -77,6 +79,7 @@ def setup_enables(parent):
 			del parent.state_estop_names[item]
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		print('STATE_ESTOP')
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
@@ -103,6 +106,8 @@ def setup_enables(parent):
 		parent.state_estop_reset[f'tool_touchoff_{item}'] = False
 	for i in range(100):
 		parent.state_estop_reset[f'tool_change_pb_{i}'] = False
+	for i in range(1, 10):
+		parent.state_estop_reset[f'change_cs_{i}'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_reset):
@@ -119,6 +124,7 @@ def setup_enables(parent):
 			del parent.state_estop_reset_names[item]
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		print('STATE_ESTOP_RESET')
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():
@@ -128,12 +134,25 @@ def setup_enables(parent):
 	parent.state_on = {'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
 		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
+		'run_mdi_pb': True, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
 		'spindle_minus_pb': True, 'flood_pb': False, 'mist_pb': False,
 		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False, 'tool_change_pb': False,
+		'actionStep': False, 'actionPause': False, 'tool_change_pb': True,
 		'actionResume': False}
+
+	for i in range(9):
+		parent.state_on[f'home_pb_{i}'] = True
+		parent.state_on[f'unhome_pb_{i}'] = True
+		parent.state_on[f'jog_plus_pb_{i}'] = True
+		parent.state_on[f'jog_minus_pb_{i}'] = True
+	for i in range(100):
+		parent.state_on[f'tool_change_pb_{i}'] = True
+	for item in AXES:
+		parent.state_on[f'touchoff_pb_{item}'] = True
+		parent.state_on[f'tool_touchoff_{item}'] = True
+	for i in range(1, 10):
+		parent.state_on[f'change_cs_{i}'] = True
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on):
@@ -157,7 +176,32 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.run_controls.append(item)
 
+	# all homed
+	all_homed_items = ['run_mdi_pb', 'unhome_all_pb', 'tool_change_pb']
+	for i in range(9):
+		all_homed_items.append(f'unhome_pb_{i}')
+	for i in range(100):
+		all_homed_items.append(f'tool_change_pb_{i}')
+	for item in AXES:
+		all_homed_items.append(f'tool_touchoff_{item}')
+		all_homed_items.append(f'touchoff_pb_{item}')
+
+	parent.all_homed = []
+	for item in  all_homed_items:
+		if item in parent.children:
+			parent.all_homed.append(item)
+
+	# not homed items to enable
+	not_homed_items = ['home_all_pb']
+	for i in range(9):
+		not_homed_items.append(f'home_pb_{i}')
+	parent.not_homed = []
+	for item in not_homed_items:
+		if item in parent.children:
+			parent.not_homed.append(item)
+
 	if parent.status.task_state == linuxcnc.STATE_ON:
+		print('STATE_ON')
 		for key, value in parent.state_on.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_on_names.items():
@@ -165,6 +209,12 @@ def setup_enables(parent):
 		if utilities.all_homed and parent.status.file:
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
+		if utilities.all_homed(parent):
+			for item in parent.all_homed:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.not_homed:
+				getattr(parent, item).setEnabled(False)
+
 
 	'''
 	run_pb
@@ -184,11 +234,22 @@ def setup_enables(parent):
 		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
 		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
 		'actionPause': True, 'actionResume': False, 'home_all_pb': False,
-		'unhome_all_pb': False, }
+		'unhome_all_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
+		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
+		'spindle_minus_pb': False, 'tool_change_pb': False}
 
 	for i in range(9):
+		parent.program_running[f'jog_plus_pb_{i}'] = False
+		parent.program_running[f'jog_minus_pb_{i}'] = False
 		parent.program_running[f'home_pb_{i}'] = False
 		parent.program_running[f'unhome_pb_{i}'] = False
+	for i in range(100):
+		parent.program_running[f'tool_change_pb_{i}'] = False
+	for i in range(1, 10):
+		parent.program_running[f'change_cs_{i}'] = False
+	for item in AXES:
+		parent.program_running[f'touchoff_pb_{item}'] = False
+		parent.program_running[f'tool_touchoff_{item}'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.program_running):
@@ -209,41 +270,6 @@ def setup_enables(parent):
 	for item in list(parent.program_paused):
 		if item not in parent.children:
 			del parent.program_paused[item]
-
-	# all homed
-	all_homed_items = ['run_mdi_pb', 'unhome_all_pb', 'tool_change_pb']
-	for i in range(9):
-		all_homed_items.append(f'unhome_pb_{i}')
-	for i in range(100):
-		all_homed_items.append(f'tool_change_pb_{i}')
-	for item in AXES:
-		all_homed_items.append(f'tool_touchoff_{item}')
-		all_homed_items.append(f'touchoff_pb_{item}')
-
-	parent.all_homed = []
-	for item in  all_homed_items:
-		if item in parent.children:
-			parent.all_homed.append(item)
-
-	# not homed
-	not_homed_items = ['home_all_pb']
-	for i in range(9):
-		not_homed_items.append(f'home_pb_{i}')
-	parent.not_homed = []
-	for item in not_homed_items:
-		if item in parent.children:
-			parent.not_homed.append(item)
-
-	if utilities.all_homed(parent):
-		for item in parent.all_homed:
-			getattr(parent, item).setEnabled(True)
-	else:
-		for item in parent.not_homed:
-			getattr(parent, item).setEnabled(True)
-		for item in parent.all_homed:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(False)
 
 	# file items if not loaded disable
 	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'actionEdit',
@@ -357,7 +383,7 @@ def setup_buttons(parent): # connect buttons to functions
 
 	# change coordinate system buttons
 	change_sc_buttons = []
-	for i in range(10):
+	for i in range(1, 10):
 		change_sc_buttons.append(f'change_cs_{i}')
 	for item in change_sc_buttons:
 		if item in parent.children:

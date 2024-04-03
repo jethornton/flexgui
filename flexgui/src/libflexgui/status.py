@@ -78,6 +78,11 @@ def update(parent):
 				print('status update FILE LOADED')
 				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(True)
+				if utilities.all_homed(parent):
+					print('status update FILE LOADED and ALL HOMED')
+					for item in parent.run_controls:
+						getattr(parent, item).setEnabled(True)
+
 			else:
 				print('status update NO FILE LOADED')
 				for item in parent.file_edit_items:
@@ -98,7 +103,6 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_MDI:
 				# mdi is done
 				print('status update INTERP_IDLE MODE_MANUAL')
-
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
