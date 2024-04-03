@@ -1,0 +1,14 @@
+ when i push 'unhome all', 'home all' is not enabled 
+<Tom_L> but not the individual buttons
+<Tom_L> but
+<Tom_L> after unhoming the individual axis, home all appears
+<Tom_L> this happens: estop on, power on, home all, mdi:X0 Y0 Z0, unhome all. Home all is still disabled
+<Tom_L> then
+<Tom_L> home x y z, unhome all is active: unhome all again and home all is active then
+<Tom_L> a particular sequence
+<Tom_L> i put the ui & ini up if you want to test it
+<Tom_L> the stop fail sequence is: estop on, power on, home all, file open, run program, stop. run program is disabled on the menu bar
+<Tom_L> also with that, all manual buttons & mdi are left disables
+<Tom_L> disabled
+
+part of the time the yellow line isn't displaying in the gcode window but i haven't tried to pinpoint that yet
