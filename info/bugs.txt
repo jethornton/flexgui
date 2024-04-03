@@ -12,3 +12,6 @@
 <Tom_L> disabled
 
 part of the time the yellow line isn't displaying in the gcode window but i haven't tried to pinpoint that yet
+
+it steps to the tool change then goes to pause
+step, step to get to the tool change, click ok and 'pause'
