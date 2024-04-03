@@ -798,8 +798,9 @@ def setup_sliders(parent):
 		parent.rapid_override_sl.setValue(100)
 
 def setup_defaults(parent):
-	if parent.optional_stop_pb.isChecked():
-		parent.command.set_optional_stop(True)
+	if 'optional_stop_pb' in parent.children:
+		if parent.optional_stop_pb.isChecked():
+			parent.command.set_optional_stop(True)
 	else:
 		parent.command.set_optional_stop(False)
 
