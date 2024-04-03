@@ -246,11 +246,14 @@ def setup_enables(parent):
 			getattr(parent, item).setEnabled(False)
 
 	# file items if not loaded disable
-	parent.file_edit_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'actionEdit',
+	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'actionEdit',
 		'actionReload', 'actionSave_As']
-	for item in parent.file_edit_items:
-		if item not in parent.children:
-			parent.file_edit_items.remove(item)
+
+	parent.file_edit_items = []
+	for item in file_items:
+		if item in parent.children:
+			parent.file_edit_items.append(item)
+
 	if parent.status.file:
 		text = open(parent.status.file).read()
 		if 'gcode_pte' in parent.children:
