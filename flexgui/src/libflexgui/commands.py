@@ -45,7 +45,7 @@ def home(parent):
 			for item in parent.all_homed:
 				getattr(parent, item).setEnabled(True)
 
-def home_all(parent): # FIXME if joint is homed ask to home again
+def home_all(parent):
 	set_mode(parent,emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
@@ -78,7 +78,7 @@ def unhome(parent):
 		if utilities.all_unhomed(parent):
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(False)
-			if utilities.home_all_check:
+			if utilities.home_all_check(parent):
 				if 'home_all_pb' in parent.children:
 					parent.home_all_pb.setEnabled(True)
 
