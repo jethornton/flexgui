@@ -1,3 +1,4 @@
 action displays all the action widgets
 status displays all the status widgets
-xyz is a 3 axis simulator
+xyz is a 3 axis simulator with no home sequece
+xyzh is a 3 axis simulator with home sequence
