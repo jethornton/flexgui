@@ -20,7 +20,7 @@ def set_mode(parent, mode=None):
 		parent.command.mode(mode)
 		parent.command.wait_complete()
 
-def home(parent): # FIXME if joint is homed ask to home again
+def home(parent):
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 0:
@@ -29,6 +29,7 @@ def home(parent): # FIXME if joint is homed ask to home again
 			parent.command.wait_complete()
 		parent.command.home(joint)
 		parent.command.wait_complete()
+		getattr(parent, f'home_pb_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
 		if utilities.all_homed(parent) and parent.status.file:
@@ -37,6 +38,8 @@ def home(parent): # FIXME if joint is homed ask to home again
 		if utilities.all_homed(parent):
 			if 'run_mdi_pb' in parent.children:
 				parent.run_mdi_pb.setEnabled(True)
+			if 'home_all_pb' in parent.children:
+				parent.home_all_pb.setEnabled(False)
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(True)
 			for item in parent.all_homed:
@@ -68,13 +71,16 @@ def unhome(parent):
 		parent.command.wait_complete()
 		parent.command.unhome(joint)
 		getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
+		if f'home_pb_{joint}' in parent.children:
+			getattr(parent, f'home_pb_{joint}').setEnabled(True)
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(False)
 		if utilities.all_unhomed(parent):
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(False)
-		for item in parent.all_homed:
-			getattr(parent, item).setEnabled(False)
+			if utilities.home_all_check:
+				if 'home_all_pb' in parent.children:
+					parent.home_all_pb.setEnabled(True)
 
 def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
