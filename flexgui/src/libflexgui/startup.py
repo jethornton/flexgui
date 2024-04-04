@@ -83,7 +83,7 @@ def setup_enables(parent):
 			del parent.state_estop_names[item]
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		print('STATE_ESTOP')
+		#print('STATE_ESTOP')
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
@@ -128,7 +128,7 @@ def setup_enables(parent):
 			del parent.state_estop_reset_names[item]
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		print('STATE_ESTOP_RESET')
+		#print('STATE_ESTOP_RESET')
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():
@@ -148,7 +148,6 @@ def setup_enables(parent):
 	# only add home_all_pb if able
 	if utilities.home_all_check(parent):
 		parent.state_on['home_all_pb'] = True
-		print('home all to state on')
 
 	for i in range(9):
 		parent.state_on[f'home_pb_{i}'] = True
@@ -177,7 +176,7 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_on_names[item]
 
-	# run controls
+	# run controls used to enable/disable when not running a program
 	run = [ 'run_pb', 'run_from_line_pb', 'step_pb',
 	'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep']
 	parent.run_controls = []
@@ -208,7 +207,6 @@ def setup_enables(parent):
 	# only add home_all_pb if able
 	if utilities.home_all_check(parent):
 		not_homed_items.append('home_all_pb')
-		print('home_all_pb added to not homed')
 
 	parent.not_homed = []
 	for item in not_homed_items:
@@ -216,7 +214,7 @@ def setup_enables(parent):
 			parent.not_homed.append(item)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		print('STATE_ON')
+		#print('STATE_ON')
 		for key, value in parent.state_on.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_on_names.items():
