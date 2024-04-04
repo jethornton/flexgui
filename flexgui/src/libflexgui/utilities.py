@@ -21,24 +21,22 @@ def is_int(string):
 def all_homed(parent):
 	parent.status.poll()
 	num_joints = parent.status.joints
-	for i, h in enumerate(parent.status.homed):
-		if i >= num_joints: break
-		if h == 0:
-			all_homed = False
-			break
-		elif h == 1: all_homed = True
-	return all_homed
+	home_status = parent.status.homed[:num_joints]
+	test_list = []
+	for i in range(num_joints):
+		test_list.append(1)
+	test_tuple = tuple(test_list)
+	return home_status == test_tuple
 
 def all_unhomed(parent):
 	parent.status.poll()
 	num_joints = parent.status.joints
-	for i,h in enumerate(parent.status.homed):
-		if i >= num_joints: break
-		if h == 1:
-			all_unhomed = False
-			break
-		elif h == 0: all_unhomed = True
-	return all_unhomed
+	home_status = parent.status.homed[:num_joints]
+	test_list = []
+	for i in range(num_joints):
+		test_list.append(0)
+	test_tuple = tuple(test_list)
+	return home_status == test_tuple
 
 def home_all_check(parent):
 	parent.status.poll()
