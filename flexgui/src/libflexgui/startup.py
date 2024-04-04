@@ -250,9 +250,6 @@ def setup_enables(parent):
 					getattr(parent, f'home_pb_{i}').setEnabled(True)
 				if f'unhome_pb_{i}' in parent.children:
 					getattr(parent, f'unhome_pb_{i}').setEnabled(False)
-			elif home_status[i] == 1:
-				print(f'joint {i} homed')
-
 
 
 	'''
