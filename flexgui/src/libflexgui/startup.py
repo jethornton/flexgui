@@ -137,7 +137,7 @@ def setup_enables(parent):
 	# STATE_ON home, jog, spindle
 	parent.state_on = {'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 'unhome_all_pb': True,
+		'resume_pb': False, 
 		'run_mdi_pb': True, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
 		'spindle_minus_pb': True, 'flood_pb': False, 'mist_pb': False,
@@ -150,8 +150,6 @@ def setup_enables(parent):
 		parent.state_on['home_all_pb'] = True
 
 	for i in range(9):
-		parent.state_on[f'home_pb_{i}'] = True
-		parent.state_on[f'unhome_pb_{i}'] = True
 		parent.state_on[f'jog_plus_pb_{i}'] = True
 		parent.state_on[f'jog_minus_pb_{i}'] = True
 	for i in range(100):
@@ -213,6 +211,13 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.not_homed.append(item)
 
+	home_controls = []
+	for i in range(9):
+		if f'home_pb_{i}' in parent.children:
+			home_controls.append(f'home_pb_{i}')
+
+	unhome_controls = []
+
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		#print('STATE_ON')
 		for key, value in parent.state_on.items():
@@ -227,6 +232,27 @@ def setup_enables(parent):
 				getattr(parent, item).setEnabled(True)
 			for item in parent.not_homed:
 				getattr(parent, item).setEnabled(False)
+
+		num_joints = parent.status.joints
+		home_status = parent.status.homed[:num_joints]
+		test_list = []
+		for i in range(num_joints):
+			test_list.append(0)
+		test_tuple = tuple(test_list)
+		if home_status == test_tuple: # no joints homed
+			if 'unhome_all_pb' in parent.children:
+				parent.unhome_all_pb.setEnabled(False)
+
+		for i in range(len(home_status)):
+			if home_status[i] == 0:
+				#print(f'joint {i} not homed')
+				if f'home_pb_{i}' in parent.children:
+					getattr(parent, f'home_pb_{i}').setEnabled(True)
+				if f'unhome_pb_{i}' in parent.children:
+					getattr(parent, f'unhome_pb_{i}').setEnabled(False)
+			elif home_status[i] == 1:
+				print(f'joint {i} homed')
+
 
 
 	'''
@@ -244,7 +270,7 @@ def setup_enables(parent):
 
 	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
-		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
+		'resume_pb': False, 'home_all_pb': False, 
 		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
 		'actionPause': True, 'actionResume': False,
 		'unhome_all_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
@@ -273,7 +299,7 @@ def setup_enables(parent):
 		'run_from_line_pb': False, 'step_pb': True, 'pause_pb': False,
 		'resume_pb': True, 'home_all_pb': False, 'unhome_all_pb': False,
 		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': True,
-		'actionPause': False, 'actionResume': True, 'unhome_all_pb': False}
+		'actionPause': False, 'actionResume': True}
 	for i in range(9):
 		parent.program_paused[f'home_pb_{i}'] = False
 		parent.program_paused[f'unhome_pb_{i}'] = False
