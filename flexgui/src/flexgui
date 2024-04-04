@@ -25,6 +25,22 @@ class flexgui(QMainWindow):
 
 		self.settings = QSettings('JET', 'Flex GUI')
 
+		# get the path to the executable
+		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+		# set the library path FIXME get examples path
+		if self.path == '/usr/bin':
+			self.lib_path = '/usr/lib/libflexgui'
+			self.gui_path = '/usr/lib/libflexgui'
+			self.examples_path = '/usr/lib/libflexgui/examples'
+		else:
+			self.lib_path = os.path.join(self.path, 'libflexgui')
+			self.gui_path = self.path
+			root_path = os.path.abspath(os.path.join(os.getcwd() ,"../.."))
+			self.examples_path = os.path.join(root_path, 'examples')
+
+		startup.copy_examples(self)
+
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
@@ -39,21 +55,6 @@ class flexgui(QMainWindow):
 			if response:
 				sys.exit()
 
-		# get the path to the executable
-		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
-		print(self.path)
-
-		# set the library path FIXME get examples path
-		if self.path == '/usr/bin':
-			self.lib_path = '/usr/lib/libflexgui'
-			self.gui_path = '/usr/lib/libflexgui'
-			self.examples_path = '/usr/lib/libflexgui/examples'
-		else:
-			self.lib_path = os.path.join(self.path, 'libflexgui')
-			self.gui_path = self.path
-			root_path = os.path.abspath(os.path.join(os.getcwd() ,"../.."))
-			self.examples_path = os.path.join(root_path, 'examples')
-		print(self.examples_path)
 
 		# connect to linuxcnc
 		self.status = linuxcnc.stat()
@@ -142,7 +143,6 @@ class flexgui(QMainWindow):
 		startup.setup_tool_change(self)
 		startup.setup_sliders(self)
 		startup.setup_defaults(self)
-		startup.copy_examples(self)
 		#startup.setup_hal_buttons(self)
 
 		# setup and start the status update timer every 0.01 second
