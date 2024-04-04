@@ -40,6 +40,10 @@ def get_ini_values(parent):
 def setup_enables(parent):
 	parent.status.poll()
 
+	# disable home all if home sequence is not found
+	if not utilities.home_all_check(parent):
+		parent.home_all_pb.setEnabled(False)
+
 	# STATE_ESTOP
 	parent.state_estop = {'power_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
@@ -133,13 +137,18 @@ def setup_enables(parent):
 	# STATE_ON home, jog, spindle
 	parent.state_on = {'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 'home_all_pb': True, 'unhome_all_pb': True,
+		'resume_pb': False, 'unhome_all_pb': True,
 		'run_mdi_pb': True, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
 		'spindle_minus_pb': True, 'flood_pb': False, 'mist_pb': False,
 		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
 		'actionStep': False, 'actionPause': False, 'tool_change_pb': True,
 		'actionResume': False}
+
+	# only add home_all_pb if able
+	if utilities.home_all_check(parent):
+		parent.state_on['home_all_pb'] = True
+		print('home all to state on')
 
 	for i in range(9):
 		parent.state_on[f'home_pb_{i}'] = True
@@ -192,9 +201,15 @@ def setup_enables(parent):
 			parent.all_homed.append(item)
 
 	# not homed items to enable
-	not_homed_items = ['home_all_pb']
+	not_homed_items = []
 	for i in range(9):
 		not_homed_items.append(f'home_pb_{i}')
+
+	# only add home_all_pb if able
+	if utilities.home_all_check(parent):
+		not_homed_items.append('home_all_pb')
+		print('home_all_pb added to not homed')
+
 	parent.not_homed = []
 	for item in not_homed_items:
 		if item in parent.children:
@@ -233,7 +248,7 @@ def setup_enables(parent):
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
 		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
 		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': True, 'actionResume': False, 'home_all_pb': False,
+		'actionPause': True, 'actionResume': False,
 		'unhome_all_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
 		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
 		'spindle_minus_pb': False, 'tool_change_pb': False}
@@ -260,8 +275,7 @@ def setup_enables(parent):
 		'run_from_line_pb': False, 'step_pb': True, 'pause_pb': False,
 		'resume_pb': True, 'home_all_pb': False, 'unhome_all_pb': False,
 		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': True,
-		'actionPause': False, 'actionResume': True, 'home_all_pb': False,
-		'unhome_all_pb': False, }
+		'actionPause': False, 'actionResume': True, 'unhome_all_pb': False}
 	for i in range(9):
 		parent.program_paused[f'home_pb_{i}'] = False
 		parent.program_paused[f'unhome_pb_{i}'] = False
