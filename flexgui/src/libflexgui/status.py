@@ -98,8 +98,10 @@ def update(parent):
 		#print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
-			#print('INTERP_IDLE')
-			#print(f'{TASK_MODES[parent.status.task_mode]}')
+			if parent.status.task_mode == emc.MODE_AUTO:
+				parent.command.mode(emc.MODE_MANUAL)
+				parent.command.wait_complete()
+				#print(f'{TASK_MODES[parent.status.task_mode]}')
 			'''
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				# program is not running
