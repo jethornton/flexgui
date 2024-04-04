@@ -2,3 +2,7 @@
 it steps to the tool change then goes to pause
 step, step to get to the tool change, click ok and 'pause'
 
+stop is still broke
+home unhome looks ok
+stop leaves run program, jog, home unhome, mdi disabled
+mdi still doesn't save history 
