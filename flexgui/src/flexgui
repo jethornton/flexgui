@@ -41,14 +41,19 @@ class flexgui(QMainWindow):
 
 		# get the path to the executable
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+		print(self.path)
 
-		# set the library path
+		# set the library path FIXME get examples path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
+			self.examples_path = '/usr/lib/libflexgui/examples'
 		else:
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 			self.gui_path = self.path
+			root_path = os.path.abspath(os.path.join(os.getcwd() ,"../.."))
+			self.examples_path = os.path.join(root_path, 'examples')
+		print(self.examples_path)
 
 		# connect to linuxcnc
 		self.status = linuxcnc.stat()

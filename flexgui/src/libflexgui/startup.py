@@ -822,11 +822,10 @@ def copy_examples(parent, title=None):
 			parent.settings.endGroup()
 
 		if response:
-			source_dir = parent.lib_path
+			source_dir = parent.examples_path
 			dest_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
 			if os.path.isdir(source_dir):
 				shutil.copytree(source_dir, dest_dir)
-
 
 # FIXME Everything from here down needs to be looked at
 
