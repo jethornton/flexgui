@@ -43,21 +43,22 @@ def home(parent): # FIXME if joint is homed ask to home again
 				getattr(parent, item).setEnabled(True)
 
 def home_all(parent): # FIXME if joint is homed ask to home again
-		set_mode(parent,emc.MODE_MANUAL)
-		parent.command.teleop_enable(False)
-		parent.command.wait_complete()
-		parent.command.home(-1)
-		parent.command.wait_complete()
-		parent.status.poll()
-		if utilities.all_homed(parent):
-			for item in parent.all_homed:
+	set_mode(parent,emc.MODE_MANUAL)
+	parent.command.teleop_enable(False)
+	parent.command.wait_complete()
+	parent.command.home(-1)
+	parent.command.wait_complete()
+	parent.status.poll()
+	if utilities.all_homed(parent):
+		print('here')
+		for item in parent.all_homed:
+			getattr(parent, item).setEnabled(True)
+		if parent.status.file:
+			#if parent.status.task_state == emc.STATE_ON:
+			#	for item in parent.file_loaded:
+			#		getattr(parent, item).setEnabled(True)
+			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
-			if parent.status.file:
-				#if parent.status.task_state == emc.STATE_ON:
-				#	for item in parent.file_loaded:
-				#		getattr(parent, item).setEnabled(True)
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
 
 def unhome(parent):
 	parent.status.poll()
