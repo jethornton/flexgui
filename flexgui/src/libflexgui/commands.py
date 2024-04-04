@@ -50,7 +50,6 @@ def home_all(parent): # FIXME if joint is homed ask to home again
 	parent.command.wait_complete()
 	parent.status.poll()
 	if utilities.all_homed(parent):
-		print('here')
 		for item in parent.all_homed:
 			getattr(parent, item).setEnabled(True)
 		if parent.status.file:
