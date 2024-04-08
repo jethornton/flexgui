@@ -1,0 +1,9 @@
+linuxcnc /home/john/linuxcnc/configs/flex_7i96s/flex_7i96s.ini
+
+linuxcnc /home/john/linuxcnc/configs/flex_examples/actions.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/flex_actions.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/controls.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/xyz.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/xyzh.ini
+
+linuxcnc /home/john/linuxcnc/configs/flex_examples/tom.ini

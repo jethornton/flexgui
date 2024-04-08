@@ -59,16 +59,16 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="stop_spindle_pb">
+        <widget class="QPushButton" name="spindle_stop_pb">
          <property name="text">
           <string>Spindle Off</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="start_spindle_pb">
+        <widget class="QPushButton" name="spindle_fwd_pb">
          <property name="text">
-          <string>Spindle On</string>
+          <string>Spindle Fwd</string>
          </property>
         </widget>
        </item>
@@ -114,14 +114,28 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="1">
+       <item row="0" column="4">
+        <widget class="QPushButton" name="home_pb_2">
+         <property name="text">
+          <string>Home Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="home_pb_1">
+         <property name="text">
+          <string>Home Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
         <widget class="QPushButton" name="home_pb_0">
          <property name="text">
           <string>Home X</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="4">
+       <item row="0" column="5">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -141,19 +155,8 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="home_pb_1">
-         <property name="text">
-          <string>Home Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="home_pb_2">
-         <property name="text">
-          <string>Home Z</string>
-         </property>
-        </widget>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="mdi_command_le"/>
        </item>
       </layout>
      </widget>
@@ -266,8 +269,8 @@
     </property>
     <addaction name="actionE_Stop"/>
     <addaction name="actionPower"/>
-    <addaction name="actionRun_Program"/>
-    <addaction name="actionRun_from_Line"/>
+    <addaction name="actionRun"/>
+    <addaction name="actionRun_From_Line"/>
     <addaction name="actionStep"/>
     <addaction name="actionPause"/>
     <addaction name="actionResume"/>
@@ -303,8 +306,8 @@
    </attribute>
    <addaction name="actionE_Stop"/>
    <addaction name="actionPower"/>
-   <addaction name="actionRun_Program"/>
-   <addaction name="actionRun_from_Line"/>
+   <addaction name="actionRun"/>
+   <addaction name="actionRun_From_Line"/>
    <addaction name="actionStep"/>
    <addaction name="actionPause"/>
    <addaction name="actionResume"/>
@@ -351,12 +354,12 @@
     <string>Quit</string>
    </property>
   </action>
-  <action name="actionRun_Program">
+  <action name="actionRun">
    <property name="text">
     <string>Run Program</string>
    </property>
   </action>
-  <action name="actionRun_from_Line">
+  <action name="actionRun_From_Line">
    <property name="text">
     <string>Run from Line</string>
    </property>
