@@ -1,3 +1,9 @@
+flexgui (0.1.0) unstable; urgency=medium
+
+  * Fix control and action enable/disable
+
+ -- John Thornton <dev@gnipsel.com>  Mon, 08 Apr 2024 07:45:20 -0500
+
 flexgui (0.0.7) unstable; urgency=medium
 
   * Improve control enable/disable
