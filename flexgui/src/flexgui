@@ -46,8 +46,9 @@ class flexgui(QMainWindow):
 		if 'linuxcnc' not in cp.stdout:
 			#configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
 			#if os.path.isdir(configs_dir):
-			msg = ('LinuxCNC must be running\n'
-			'if you start Flex GUI from a terminal.')
+			msg = ('Flex GUI can not run without LinuxCNC.\n'
+			'A LinuxCNC Simulator can be started first\n'
+			'to start Flex GUI for TESTING ONLY!')
 			dialogs.warn_msg_ok(msg, 'Error')
 			sys.exit()
 
