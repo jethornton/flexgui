@@ -1,6 +1,7 @@
 import os
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor
 
 import linuxcnc as emc
 
@@ -86,6 +87,19 @@ def rapid_override(parent, value):
 def spindle_override(parent, value):
 	parent.command.spindleoverride(float(value / 100), 0)
 	parent.command.wait_complete()
+
+def update_qcode_pte(parent):
+	cursor = parent.gcode_pte.textCursor()
+	selected_block = cursor.blockNumber() # get current block number
+	#print(f'Current line number: {selected_block}')
+	format_normal = QTextBlockFormat()
+	format_normal.setBackground(QColor('white'))
+	cursor.select(QTextCursor.SelectionType.Document)
+	cursor.setBlockFormat(format_normal)
+	cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(selected_block))
+	highlight_format = QTextBlockFormat()
+	highlight_format.setBackground(QColor('yellow'))
+	cursor.setBlockFormat(highlight_format)
 
 
 

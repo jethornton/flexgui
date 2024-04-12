@@ -667,6 +667,11 @@ def setup_status_labels(parent):
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	if 'gcode_pte' in parent.children:
+		parent.gcode_pte.setCenterOnScroll(True)
+		parent.gcode_pte.ensureCursorVisible()
+		parent.gcode_pte.viewport().installEventFilter(parent)
+		parent.gcode_pte.cursorPositionChanged.connect(partial(utilities.update_qcode_pte, parent))
+
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
