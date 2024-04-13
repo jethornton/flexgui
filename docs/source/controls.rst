@@ -42,8 +42,6 @@ joint number or axis index.
 	Flood Toggle                 flood_pb
 	Change Coordinate System     change_cs_(1-9)
 	Mist Toggle                  mist_pb
-	Clear MDI History            clear_mdi_history_pb
-	Copy MDI History             copy_mdi_history_pb
 	Clear Error History          clear_error_history_pb
 	Change Coordinate System     change_cs_(1-9) 
 
