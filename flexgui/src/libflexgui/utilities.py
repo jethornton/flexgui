@@ -60,7 +60,7 @@ def clear_errors(parent):
 	parent.statusbar.clearMessage()
 
 def update_mdi(parent):
-	if 'mdi_history_lw' in parent.children:
+	if parent.mdi_history:
 		parent.mdi_history_lw.addItem(parent.mdi_command)
 		path = os.path.dirname(parent.status.ini_filename)
 		mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -69,8 +69,9 @@ def update_mdi(parent):
 			mdi_codes.append(parent.mdi_history_lw.item(index).text())
 		with open(mdi_file, 'w') as f:
 			f.write('\n'.join(mdi_codes))
-	parent.mdi_command_le.setText('')
-	parent.command.mode(emc.MODE_MANUAL)
+		parent.mdi_command_le.setText('')
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
 
 def print_states(parent, state):
 	parent.print_states = parent.print_states_cb.isChecked()
