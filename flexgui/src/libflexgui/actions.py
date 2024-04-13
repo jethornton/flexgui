@@ -195,7 +195,7 @@ def action_run_from_line(parent): # actionRun_from_Line
 		cursor = parent.gcode_pte.textCursor()
 		selected_block = cursor.blockNumber() # get current block number
 		self.lbl.setText(f'Current line number: {selected_block}')
-		print(f'Current line number: {selected_block}')
+		#print(f'Current line number: {selected_block}')
 		action_run(parent, selected_block)
 
 
