@@ -675,6 +675,7 @@ def setup_plain_text_edits(parent):
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
+'''
 def setup_list_widgets(parent):
 	list_widgets = ['mdi_history_lw']
 	for item in list_widgets:
@@ -682,6 +683,7 @@ def setup_list_widgets(parent):
 			setattr(parent, f'{item}_exists', True)
 		else:
 			setattr(parent, f'{item}_exists', False)
+'''
 
 def setup_check_boxes(parent):
 	if 'print_states_cb' in parent.children:
@@ -701,17 +703,25 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 			if res: raise SystemExit(res)
 
 def setup_mdi(parent):
-	if 'mdi_history_lw' in parent.children:
-		path = os.path.dirname(parent.status.ini_filename)
-		mdi_file = os.path.join(path, 'mdi_history.txt')
-		if os.path.exists(mdi_file): # load mdi history
-			with open(mdi_file, 'r') as f:
-				history_list = f.readlines()
-				for item in history_list:
-					parent.mdi_history_lw.addItem(item.strip())
-		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
-		if 'mdi_command_le' in parent.children:
-			parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+	# mdi_command_le and run_mdi_pb are required to run mdi commands
+	# mdi_history_lw is optional
+	# determine if mdi is possible from the gui
+	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
+		parent.mdi = True
+		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+		if 'mdi_history_lw' in parent.children:
+			parent.mdi_history = True
+			path = os.path.dirname(parent.status.ini_filename)
+			mdi_file = os.path.join(path, 'mdi_history.txt')
+			if os.path.exists(mdi_file): # load mdi history
+				with open(mdi_file, 'r') as f:
+					history_list = f.readlines()
+					for item in history_list:
+						parent.mdi_history_lw.addItem(item.strip())
+			parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
+	else:
+		parent.mdi = False
+		parent.mdi_history = False
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)
