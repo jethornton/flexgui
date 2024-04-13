@@ -131,9 +131,9 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_AUTO:
 				for key, value in parent.program_running.items():
 					getattr(parent, key).setEnabled(value)
-			if parent.status.task_mode == emc.MODE_MDI:
+			#if parent.status.task_mode == emc.MODE_MDI:
 				# mdi is running
-				print('status update MODE_MDI')
+				#print('status update MODE_MDI')
 		parent.interp_state = parent.status.interp_state
 
 	# **************************
