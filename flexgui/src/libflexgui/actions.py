@@ -182,16 +182,22 @@ def action_power(parent): # actionPower
 	else:
 		parent.command.state(emc.STATE_OFF)
 
-def action_run(parent): # actionRun
+def action_run(parent, line = 0): # actionRun
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_AUTO:
 			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
-		n = 0
-		parent.command.auto(emc.AUTO_RUN, n)
+		parent.command.auto(emc.AUTO_RUN, line)
 
 def action_run_from_line(parent): # actionRun_from_Line
-	print(parent.sender().objectName())
+	if 'gcode_pte' in parent.children:
+		# get a copy of the QTextCursor that represents the currently visible cursor
+		cursor = parent.gcode_pte.textCursor()
+		selected_block = cursor.blockNumber() # get current block number
+		self.lbl.setText(f'Current line number: {selected_block}')
+		print(f'Current line number: {selected_block}')
+		action_run(parent, selected_block)
+
 
 def action_step(parent): # actionStep
 	if parent.status.task_state == emc.STATE_ON:
