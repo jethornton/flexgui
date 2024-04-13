@@ -1,3 +1,9 @@
+flexgui (0.1.1) unstable; urgency=medium
+
+  * Fix run from line and mdi histor
+
+ -- John Thornton <dev@gnipsel.com>  Sat, 13 Apr 2024 07:39:16 -0500
+
 flexgui (0.1.0) unstable; urgency=medium
 
   * Fix control and action enable/disable
