@@ -19,6 +19,8 @@ from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
 
+VERSION = '0.1.1'
+
 class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -104,6 +106,7 @@ class flexgui(QMainWindow):
 			gui_path = os.path.join(self.gui_path, 'flex.ui')
 
 		loadUi(gui_path, self)
+		self.setWindowTitle(f'Flex GUI   Version: {VERSION}')
 
 		#self.gui_lb.setText(f'{gui_file}')
 		#self.input_lb.setText(f'{input_type}')
