@@ -102,11 +102,13 @@ class flexgui(QMainWindow):
 			if not os.path.isfile(gui_path): # gui not found
 				#print(f'The {gui_path} was not found')
 				gui_path = os.path.join(self.gui_path, 'flex.ui')
+				gui_file = 'flex.ui'
 		else: # no gui specified
 			gui_path = os.path.join(self.gui_path, 'flex.ui')
+			gui_file = 'flex.ui'
 
 		loadUi(gui_path, self)
-		self.setWindowTitle(f'Flex GUI   Version: {VERSION}')
+		self.setWindowTitle(f'Flex GUI - Version: {VERSION} - Using {gui_file}')
 
 		#self.gui_lb.setText(f'{gui_file}')
 		#self.input_lb.setText(f'{input_type}')
