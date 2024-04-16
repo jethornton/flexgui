@@ -24,6 +24,27 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_10">
+       <item row="0" column="3">
+        <widget class="QPushButton" name="pause_pb">
+         <property name="text">
+          <string>Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="resume_pb">
+         <property name="text">
+          <string>Resume</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="step_pb">
+         <property name="text">
+          <string>Step</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="run_pb">
          <property name="text">
@@ -31,31 +52,17 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pause_pb">
+       <item row="0" column="5">
+        <widget class="QPushButton" name="stop_pb">
          <property name="text">
-          <string>Pause</string>
+          <string>Stop</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="step_pb">
+        <widget class="QPushButton" name="run_from_line_pb">
          <property name="text">
-          <string>Step</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="resume_pb">
-         <property name="text">
-          <string>Resume</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="stop_pb">
-         <property name="text">
-          <string>Stop</string>
+          <string>Run from Line</string>
          </property>
         </widget>
        </item>
@@ -221,6 +228,18 @@
     </item>
     <item row="0" column="0">
      <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="title">
        <string>Positions</string>
       </property>
@@ -316,7 +335,7 @@
        <item row="1" column="5" colspan="2">
         <widget class="QLabel" name="actual_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -326,7 +345,7 @@
        <item row="2" column="5" colspan="2">
         <widget class="QLabel" name="dro_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -336,7 +355,7 @@
        <item row="3" column="5" colspan="2">
         <widget class="QLabel" name="joint_velocity_2_lb">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -346,7 +365,7 @@
        <item row="1" column="3" colspan="2">
         <widget class="QLabel" name="actual_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -356,7 +375,7 @@
        <item row="2" column="3" colspan="2">
         <widget class="QLabel" name="dro_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -366,7 +385,7 @@
        <item row="3" column="3" colspan="2">
         <widget class="QLabel" name="joint_velocity_1_lb">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -376,7 +395,7 @@
        <item row="1" column="1" colspan="2">
         <widget class="QLabel" name="actual_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -386,7 +405,7 @@
        <item row="2" column="1" colspan="2">
         <widget class="QLabel" name="dro_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -396,7 +415,7 @@
        <item row="3" column="1" colspan="2">
         <widget class="QLabel" name="joint_velocity_0_lb">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1481,10 +1500,13 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="task_state_lb">
+       <item row="0" column="1">
+        <widget class="QLabel" name="current_line_lb">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -1495,28 +1517,45 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="motion_mode_lb">
+       <item row="2" column="0">
+        <widget class="QLabel" name="task_state_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="exec_state_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
+       <item row="0" column="0">
         <widget class="QLabel" name="file_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="0" column="2">
+        <widget class="QLabel" name="motion_line_lb">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QLabel" name="exec_state_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QLabel" name="motion_mode_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="2">
         <widget class="QLabel" name="motion_type_lb">
          <property name="text">
           <string>TextLabel</string>
@@ -1601,6 +1640,7 @@
    <addaction name="actionE_Stop"/>
    <addaction name="actionPower"/>
    <addaction name="actionRun"/>
+   <addaction name="actionRun_From_Line"/>
    <addaction name="actionStep"/>
    <addaction name="actionPause"/>
    <addaction name="actionResume"/>
