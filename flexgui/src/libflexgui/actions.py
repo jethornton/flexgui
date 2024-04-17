@@ -1,4 +1,4 @@
-import os, sys, subprocess
+import os, sys, subprocess, shutil
 
 from functools import partial
 
@@ -9,6 +9,7 @@ import hal
 
 from libflexgui import dialogs
 from libflexgui import utilities
+from libflexgui import select
 
 app = QApplication([])
 
@@ -92,17 +93,22 @@ def action_edit(parent): # actionEdit
 
 	editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	if editor:
-		cmd = ['which', editor]
-		output = subprocess.run(cmd, capture_output=True, text=True)
-		if output.returncode == 0:
+		if shutil.which(editor.lower()) is not None:
 			subprocess.Popen([editor, gcode_file])
-		else: # FIXME get fancy and offer up and editor that's installed
-			msg = ('The Editor configured in the ini file\n'
-				'is not installed.')
-			dialogs.warn_msg_ok(msg, 'Error')
+		else:
+			select_editor(parent, gcode_file)
 	else:
-		msg = ('No Editor was found\nin the ini Display section')
-		dialogs.warn_msg_ok(msg, 'Editor')
+		msg = ('No Editor was found\nin the ini Display section\n'
+			'Do you want to select an Editor?')
+		if dialogs.warn_msg_yes_no(msg, 'No Editor Configured'):
+			select_editor(parent, gcode_file)
+
+def select_editor(parent, gcode_file):
+	select_dialog = select.editor_dialog()
+	if select_dialog.exec():
+		editor = select_dialog.choice.currentData()
+		if editor:
+			subprocess.Popen([editor, gcode_file])
 
 def action_reload(parent): # actionReload
 	parent.status.poll
