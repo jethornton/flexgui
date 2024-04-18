@@ -32,18 +32,14 @@ def home(parent):
 		getattr(parent, f'home_pb_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
-		if utilities.all_homed(parent) and parent.status.file:
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
 		if utilities.all_homed(parent):
-			if 'run_mdi_pb' in parent.children:
-				parent.run_mdi_pb.setEnabled(True)
-			if 'home_all_pb' in parent.children:
-				parent.home_all_pb.setEnabled(False)
-			if 'unhome_all_pb' in parent.children:
-				parent.unhome_all_pb.setEnabled(True)
-			for item in parent.all_homed:
+			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
+			for item in parent.home_controls:
+				getattr(parent, item).setEnabled(False)
+			if parent.status.file:
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
 
 def home_all(parent):
 	set_mode(parent,emc.MODE_MANUAL)
@@ -53,12 +49,11 @@ def home_all(parent):
 	parent.command.wait_complete()
 	parent.status.poll()
 	if utilities.all_homed(parent):
-		for item in parent.all_homed:
+		for item in parent.home_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.unhome_controls:
 			getattr(parent, item).setEnabled(True)
 		if parent.status.file:
-			#if parent.status.task_state == emc.STATE_ON:
-			#	for item in parent.file_loaded:
-			#		getattr(parent, item).setEnabled(True)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
 
@@ -89,11 +84,11 @@ def unhome_all(parent):
 	parent.command.unhome(-1)
 	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
-	for item in parent.not_homed:
+	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(True)
-	for item in parent.run_controls:
+	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(False)
-	for item in parent.all_homed:
+	for item in parent.run_controls:
 		getattr(parent, item).setEnabled(False)
 
 def run_mdi(parent, cmd=''):

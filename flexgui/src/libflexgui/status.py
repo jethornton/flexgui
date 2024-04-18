@@ -65,15 +65,15 @@ def update(parent):
 
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
-				for item in parent.all_homed:
+				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(True)
-				for item in parent.not_homed:
+				for item in parent.home_controls:
 					getattr(parent, item).setEnabled(False)
 			else:
 				#print('status update NOT HOMED')
-				for item in parent.not_homed:
+				for item in parent.home_controls:
 					getattr(parent, item).setEnabled(True)
-				for item in parent.all_homed:
+				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(False)
 
 			if parent.status.file:

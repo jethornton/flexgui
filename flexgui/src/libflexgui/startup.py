@@ -175,48 +175,34 @@ def setup_enables(parent):
 			del parent.state_on_names[item]
 
 	# run controls used to enable/disable when not running a program
-	run = [ 'run_pb', 'run_from_line_pb', 'step_pb',
-	'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep']
+	run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
+	'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep',
+	'tool_change_pb']
+	for i in range(100):
+		run_items.append(f'tool_change_pb_{i}')
+	for item in AXES:
+		run_items.append(f'tool_touchoff_{item}')
+		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
-	for item in run:
+	for item in run_items:
 		if item in parent.children:
 			parent.run_controls.append(item)
 
-	# all homed
-	all_homed_items = ['run_mdi_pb', 'unhome_all_pb', 'tool_change_pb']
+	home_items = ['home_all_pb']
 	for i in range(9):
-		all_homed_items.append(f'unhome_pb_{i}')
-	for i in range(100):
-		all_homed_items.append(f'tool_change_pb_{i}')
-	for item in AXES:
-		all_homed_items.append(f'tool_touchoff_{item}')
-		all_homed_items.append(f'touchoff_pb_{item}')
-
-	parent.all_homed = []
-	for item in  all_homed_items:
+		home_items.append(f'home_pb_{i}')
+	parent.home_controls = []
+	for item in home_items:
 		if item in parent.children:
-			parent.all_homed.append(item)
+			parent.home_controls.append(item)
 
-	# not homed items to enable
-	not_homed_items = []
+	unhome_items = ['unhome_all_pb']
 	for i in range(9):
-		not_homed_items.append(f'home_pb_{i}')
-
-	# only add home_all_pb if able
-	if utilities.home_all_check(parent):
-		not_homed_items.append('home_all_pb')
-
-	parent.not_homed = []
-	for item in not_homed_items:
+		unhome_items.append(f'unhome_pb_{i}')
+	parent.unhome_controls = []
+	for item in unhome_items:
 		if item in parent.children:
-			parent.not_homed.append(item)
-
-	home_controls = []
-	for i in range(9):
-		if f'home_pb_{i}' in parent.children:
-			home_controls.append(f'home_pb_{i}')
-
-	unhome_controls = []
+			parent.unhome_controls.append(item)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		#print('STATE_ON')
@@ -228,42 +214,16 @@ def setup_enables(parent):
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
 		if utilities.all_homed(parent):
-			for item in parent.all_homed:
+			#print('all homed')
+			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
-			for item in parent.not_homed:
+			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
-
-		num_joints = parent.status.joints
-		home_status = parent.status.homed[:num_joints]
-		test_list = []
-		for i in range(num_joints):
-			test_list.append(0)
-		test_tuple = tuple(test_list)
-		if home_status == test_tuple: # no joints homed
-			if 'unhome_all_pb' in parent.children:
-				parent.unhome_all_pb.setEnabled(False)
-
-		for i in range(len(home_status)):
-			if home_status[i] == 0:
-				#print(f'joint {i} not homed')
-				if f'home_pb_{i}' in parent.children:
-					getattr(parent, f'home_pb_{i}').setEnabled(True)
-				if f'unhome_pb_{i}' in parent.children:
-					getattr(parent, f'unhome_pb_{i}').setEnabled(False)
-
-
-	'''
-	run_pb
-	run_from_line_pb
-	step_pb
-	pause_pb
-	resume_pb
-	actionRun
-	actionRun_From_Line
-	actionStep
-	actionPause
-	actionResume
-	'''
+		else:
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(False)
 
 	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
