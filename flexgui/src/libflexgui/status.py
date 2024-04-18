@@ -98,9 +98,10 @@ def update(parent):
 		#print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
-			if parent.status.task_mode == emc.MODE_AUTO:
+			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
 				parent.command.mode(emc.MODE_MANUAL)
 				parent.command.wait_complete()
+				#parent.status.poll()
 				#print(f'{TASK_MODES[parent.status.task_mode]}')
 			'''
 			if parent.status.task_mode == emc.MODE_MANUAL:
@@ -139,12 +140,14 @@ def update(parent):
 	# **************************
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		#print(f'{TASK_MODES[parent.status.task_mode]}')
+		print(f'{TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				for key, value in parent.state_on.items():
 					getattr(parent, key).setEnabled(value)
 				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(True)
 		parent.task_mode = parent.status.task_mode
 
