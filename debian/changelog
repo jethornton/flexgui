@@ -1,3 +1,9 @@
+flexgui (0.1.2) unstable; urgency=medium
+
+  * Fix home/unhome enable/disable
+
+ -- John Thornton <dev@gnipsel.com>  Thu, 18 Apr 2024 07:07:09 -0500
+
 flexgui (0.1.1) unstable; urgency=medium
 
   * Fix run from line and mdi histor
