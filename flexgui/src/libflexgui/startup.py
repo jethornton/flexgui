@@ -145,10 +145,6 @@ def setup_enables(parent):
 		'actionStep': False, 'actionPause': False, 'tool_change_pb': True,
 		'actionResume': False}
 
-	# only add home_all_pb if able
-	if utilities.home_all_check(parent):
-		parent.state_on['home_all_pb'] = True
-
 	for i in range(9):
 		parent.state_on[f'jog_plus_pb_{i}'] = True
 		parent.state_on[f'jog_minus_pb_{i}'] = True
