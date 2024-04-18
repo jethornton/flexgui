@@ -140,7 +140,7 @@ def setup_enables(parent):
 		'resume_pb': False, 
 		'run_mdi_pb': True, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
-		'spindle_minus_pb': True, 'flood_pb': False, 'mist_pb': False,
+		'spindle_minus_pb': True, 'flood_pb': True, 'mist_pb': True,
 		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
 		'actionStep': False, 'actionPause': False, 'tool_change_pb': True,
 		'actionResume': False}
@@ -173,7 +173,7 @@ def setup_enables(parent):
 	# run controls used to enable/disable when not running a program
 	run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
 	'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep',
-	'tool_change_pb']
+	'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
 	for item in AXES:
@@ -223,12 +223,12 @@ def setup_enables(parent):
 
 	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
-		'resume_pb': False, 'home_all_pb': False, 
-		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': True, 'actionResume': False,
-		'unhome_all_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
-		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
-		'spindle_minus_pb': False, 'tool_change_pb': False}
+		'resume_pb': False, 'home_all_pb': False, 'actionRun': False,
+		'actionRun_From_Line': False, 'actionStep': False, 'actionPause': True,
+		'actionResume': False, 'unhome_all_pb': False, 'spindle_start_pb': False,
+		'spindle_fwd_pb': False, 'spindle_rev_pb': False, 'spindle_stop_pb': False,
+		'spindle_plus_pb': False, 'spindle_minus_pb': False,
+		'tool_change_pb': False, 'flood_pb': False, 'mist_pb': False}
 
 	for i in range(9):
 		parent.program_running[f'jog_plus_pb_{i}'] = False
@@ -252,7 +252,8 @@ def setup_enables(parent):
 		'run_from_line_pb': False, 'step_pb': True, 'pause_pb': False,
 		'resume_pb': True, 'home_all_pb': False, 'unhome_all_pb': False,
 		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': True,
-		'actionPause': False, 'actionResume': True}
+		'actionPause': False, 'actionResume': True, 'flood_pb': True,
+		'mist_pb': True}
 	for i in range(9):
 		parent.program_paused[f'home_pb_{i}'] = False
 		parent.program_paused[f'unhome_pb_{i}'] = False
