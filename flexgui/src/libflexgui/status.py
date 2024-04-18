@@ -140,7 +140,7 @@ def update(parent):
 	# **************************
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'{TASK_MODES[parent.status.task_mode]}')
+		#print(f'{TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				for key, value in parent.state_on.items():
