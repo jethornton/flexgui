@@ -560,8 +560,9 @@ def setup_status_labels(parent):
 				p = p if p is not None else 3
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	#override_items = ['feedrate', ]
-	override_items = {'feedrate_lb': 'feedrate' , 'max_velocity_lb': 'max_velocity'}
+	#override_items = ['feedrate',  'rapidrate',]
+	override_items = {'feedrate_lb': 'feedrate' , 'rapidrate_lb': 'rapidrate',
+		'max_velocity_lb': 'max_velocity'}
 	# label : status item max_velocity_lb
 	parent.overrides = {}
 	for label, stat in override_items.items():
