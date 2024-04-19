@@ -801,8 +801,7 @@ def setup_sliders(parent):
 
 	if 'rapid_override_sl' in parent.children:
 		parent.rapid_override_sl.valueChanged.connect(partial(utilities.rapid_override, parent))
-		max_rapid_override = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
-		parent.rapid_override_sl.setMaximum(int(float(max_rapid_override) * 100))
+		parent.rapid_override_sl.setMaximum(100)
 		parent.rapid_override_sl.setValue(100)
 
 def setup_defaults(parent):
