@@ -40,8 +40,8 @@ joint number or axis index.
 	Spindle Faster               spindle_plus_pb
 	Spindle Slower               spindle_minus_pb
 	Flood Toggle                 flood_pb
-	Change Coordinate System     change_cs_(1-9)
 	Mist Toggle                  mist_pb
+	Change Coordinate System     change_cs_(1-9)
 	Clear Error History          clear_error_history_pb
 	Change Coordinate System     change_cs_(1-9) 
 
