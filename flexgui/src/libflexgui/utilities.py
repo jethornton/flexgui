@@ -55,9 +55,6 @@ def update_jog_lb(parent):
 def add_mdi(parent):
 	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
-def spindle_speed(parent):
-	parent.spindle_speed = parent.spindle_speed_sb.value()
-
 def clear_errors(parent):
 	parent.errors_pte.clear()
 	parent.statusbar.clearMessage()
