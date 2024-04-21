@@ -248,26 +248,33 @@ def tool_touchoff(parent):
 		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(msg, 'Touch Off Aborted')
 
-def spindle(parent):
+def spindle(parent, value=0):
 	# spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
 	# Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE, SPINDLE_DECREASE, or SPINDLE_CONSTANT]
 
-	pb_name = parent.sender().objectName()
-	if pb_name == 'spindle_fwd_pb':
+	sender_name = parent.sender().objectName()
+	if sender_name == 'spindle_speed_sb':
+		parent.spindle_speed = value
+		parent.status.poll()
+		if parent.status.spindle[0]['speed'] > 0:
+			parent.command.spindle(emc.SPINDLE_FORWARD, float(value))
+		if parent.status.spindle[0]['speed'] < 0:
+			parent.command.spindle(emc.SPINDLE_REVERSE, float(value))
+	elif sender_name == 'spindle_fwd_pb':
 		parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
-	if pb_name == 'spindle_rev_pb':
+	elif sender_name == 'spindle_rev_pb':
 		parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
-	elif pb_name == 'spindle_stop_pb':
+	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
-	elif pb_name == 'spindle_plus_pb':
+	elif sender_name == 'spindle_plus_pb':
 		parent.spindle_speed += 100
 		parent.command.spindle(emc.SPINDLE_INCREASE)
-	elif pb_name == 'spindle_minus_pb':
+	elif sender_name == 'spindle_minus_pb':
 		parent.command.spindle(emc.SPINDLE_DECREASE)
 		if parent.spindle_speed >= 200:
 			parent.spindle_speed -= 100
-	if 'spindle_speed_sb' in parent.children:
-		parent.spindle_speed_sb.setValue(parent.spindle_speed) 
+	#if 'spindle_speed_sb' in parent.children:
+	#	parent.spindle_speed_sb.setValue(parent.spindle_speed) 
 
 def flood_toggle(parent):
 	parent.status.poll()
