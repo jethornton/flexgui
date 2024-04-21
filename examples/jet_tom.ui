@@ -381,19 +381,6 @@
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
-          <widget class="QLabel" name="label_19">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>140</y>
-             <width>131</width>
-             <height>20</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Jog Speed fix</string>
-           </property>
-          </widget>
           <widget class="QLabel" name="label_12">
            <property name="geometry">
             <rect>
@@ -439,19 +426,6 @@
             <string>TextLabel</string>
            </property>
           </widget>
-          <widget class="QLabel" name="label_30">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>160</y>
-             <width>51</width>
-             <height>19</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
           <widget class="QSlider" name="rapid_override_sl">
            <property name="geometry">
             <rect>
@@ -476,19 +450,6 @@
            </property>
            <property name="text">
             <string>Spindle Override</string>
-           </property>
-          </widget>
-          <widget class="QSlider" name="jog_speed_sl">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>160</y>
-             <width>131</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
           <widget class="QGroupBox" name="groupBox_8">
