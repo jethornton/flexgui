@@ -560,10 +560,10 @@ def setup_status_labels(parent):
 				p = p if p is not None else 3
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	#override_items = ['feedrate',  'rapidrate',]
+	#override_items = ['feedrate',  'rapidrate',] FIXME
 	override_items = {'feedrate_lb': 'feedrate' , 'rapidrate_lb': 'rapidrate',
-		'max_velocity_lb': 'max_velocity'}
-	# label : status item max_velocity_lb
+		'rapid_override_lb': 'max_velocity'}
+	# label : status item rapid_override_lb
 	parent.overrides = {}
 	for label, stat in override_items.items():
 		if label in parent.children:
@@ -750,7 +750,8 @@ def setup_jog(parent):
 def setup_spindle(parent):
 	parent.spindle_speed = 100
 	if 'spindle_speed_sb' in parent.children:
-		parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
+		#parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
+		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
 		min_rpm = int(min_rpm) if min_rpm else 0
