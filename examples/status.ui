@@ -586,13 +586,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="max_velocity_lb">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
         <item row="11" column="3">
          <widget class="QLabel" name="tool_in_spindle_lb">
           <property name="text">
@@ -903,16 +896,6 @@
          <widget class="QLabel" name="spindles_lb">
           <property name="text">
            <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_32">
-          <property name="text">
-           <string>max_velocity_lb</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
