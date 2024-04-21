@@ -52,7 +52,7 @@
     <item row="4" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="gcode_tab">
        <attribute name="title">
@@ -329,19 +329,6 @@
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
-          <widget class="QLabel" name="label_28">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>180</y>
-             <width>131</width>
-             <height>19</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Max Velocity fix</string>
-           </property>
-          </widget>
           <widget class="QLabel" name="feedrate_lb">
            <property name="geometry">
             <rect>
@@ -502,32 +489,6 @@
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-          <widget class="QSlider" name="max_velocity_sl">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>200</y>
-             <width>131</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_31">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>200</y>
-             <width>51</width>
-             <height>19</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
            </property>
           </widget>
           <widget class="QGroupBox" name="groupBox_8">
