@@ -41,8 +41,9 @@ def setup_enables(parent):
 	parent.status.poll()
 
 	# disable home all if home sequence is not found
-	if not utilities.home_all_check(parent):
-		parent.home_all_pb.setEnabled(False)
+	if 'home_all_pb' in parent.children:
+		if not utilities.home_all_check(parent):
+			parent.home_all_pb.setEnabled(False)
 
 	# STATE_ESTOP
 	parent.state_estop = {'power_pb': False, 'run_pb': False,
