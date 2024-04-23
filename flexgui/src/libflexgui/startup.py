@@ -835,8 +835,6 @@ def copy_examples(parent, title=None):
 			if os.path.isdir(source_dir):
 				shutil.copytree(source_dir, dest_dir)
 
-# FIXME Everything from here down needs to be looked at
-
 def setup_hal_buttons(parent):
 	for button in parent.findChildren(QPushButton):
 		if button.property('function') == 'hal_pin':
@@ -849,9 +847,9 @@ def setup_hal_buttons(parent):
 					pin_name = pin_settings[0]
 					pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
 					pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
-					parent.halcomp = hal.component('jet')
 					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
 					getattr(parent, f'{name}').toggled.connect(lambda:
 						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
+
 
 
