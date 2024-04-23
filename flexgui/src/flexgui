@@ -69,6 +69,7 @@ class flexgui(QMainWindow):
 		self.state = self.status.state
 		self.command = linuxcnc.command()
 		self.error = linuxcnc.error_channel()
+		# setup a hal component using a random name for testing
 		self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
 
 		# get connection to the ini file
@@ -88,11 +89,6 @@ class flexgui(QMainWindow):
 		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
-
-		#print(f'gui_file {gui_file}')
-		#print(f'input_type {input_type}')
-		#print(f'qss_file {qss_file}')
-		#print(f'screen_size {screen_size}')
 
 		# find and load the gui
 		if gui_file: # gui is in the ini file
@@ -114,11 +110,6 @@ class flexgui(QMainWindow):
 		loadUi(gui_path, self)
 		self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
 
-		#self.gui_lb.setText(f'{gui_file}')
-		#self.input_lb.setText(f'{input_type}')
-		#self.qss_lb.setText(f'{qss_file}')
-		#self.screen_lb.setText(f'{screen_size}')
-
 		# find and load the stylesheet
 		stylesheet = False
 		if input_type:
@@ -132,7 +123,6 @@ class flexgui(QMainWindow):
 				stylesheet = os.path.join(self.ini_path, qss_file)
 
 		if stylesheet:
-			#print(stylesheet)
 			with open(stylesheet, 'r') as f:
 				self.setStyleSheet(f.read())
 
@@ -148,6 +138,7 @@ class flexgui(QMainWindow):
 		startup.setup_spindle(self)
 		startup.setup_jog(self)
 		startup.setup_mdi(self)
+		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
 		startup.setup_tool_change(self)
