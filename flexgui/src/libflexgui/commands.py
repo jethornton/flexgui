@@ -42,7 +42,10 @@ def home(parent):
 					getattr(parent, item).setEnabled(True)
 
 def home_all(parent):
-	set_mode(parent,emc.MODE_MANUAL)
+	parent.status.poll()
+	if parent.status.task_mode != emc.MODE_MANUAL:
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.home(-1)
