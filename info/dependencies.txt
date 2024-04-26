@@ -1,0 +1,21 @@
+import os, sys, subprocess, shutil
+import random, string
+from functools import partial
+
+import linuxcnc, hal
+
+from PyQt6.QtCore import Qt, QTimer, QEvent, QSettings
+
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit, QWidget
+from PyQt6.QtWidgets import QPushButton, QPlainTextEdit, QListWidget, QSlider
+from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel, QDialog
+from PyQt6.QtWidgets import QDialogButtonBox, QVBoxLayout, QComboBox
+from PyQt6.QtWidgets import QSlider, QMenu, QToolButton, QMessageBox
+
+from PyQt6.QtGui import QAction, QTextCursor, QTextBlockFormat, QColor, QPixmap
+
+from PyQt6.QtOpenGLWidgets import QOpenGLWidget
+
+from PyQt6.uic import loadUi
+
+
