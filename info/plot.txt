@@ -1,0 +1,6 @@
+
+<turboss> JT-Cave, to plot the gcode you don't need to parse the file,
+just subclass canon and implement the GL plot line there
+<lcnc-relay> <turboss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/plugins/gcode_properties.py#L408
+<lcnc-relay> <turboss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/widgets/display_widgets/vtk_backplot/base_canon.py
+<lcnc-relay> <TurBoss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/plugins/gcode_properties.py#L508
