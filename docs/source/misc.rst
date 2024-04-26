@@ -1,6 +1,11 @@
 Miscellaneous Items
 ===================
 
+Plotter
+-------
+
+To add a path plotter add a QWidget or QFrame and name it `plot_widget`
+
 G code Viewer
 -------------
 
@@ -20,6 +25,8 @@ Error Viewer
 
 To add an error viewer add a Plain Text Edit from Input Widgets and name it
 `errors_pte`.
+
+
 
 Print States
 ------------

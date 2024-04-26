@@ -3,8 +3,10 @@ from functools import partial
 
 from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
+from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
+from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 
 import linuxcnc, hal
 
@@ -852,5 +854,10 @@ def setup_hal_buttons(parent):
 					getattr(parent, f'{name}').toggled.connect(lambda:
 						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
 
+def setup_plot(parent):
+	if 'plot_widget' in parent.children:
+		parent.plot = QOpenGLWidget()
+		layout = QVBoxLayout(parent.plot_widget)
+		layout.addWidget(parent.plot)
 
 
