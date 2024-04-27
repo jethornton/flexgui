@@ -2,10 +2,9 @@ create a changelog file
 dch --create
 
 To change the version
-dch -v 0.1.3
+dch -v 0.1.4
 
 change to released Note: you must either change something or use Ctrl o to save.
 dch --release
 
-dpkg-buildpackage -us -uc
 debuild -us -uc
