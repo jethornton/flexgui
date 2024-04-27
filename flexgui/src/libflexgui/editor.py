@@ -5,7 +5,7 @@ def show_line(parent):
 	cursor = parent.gcode_pte.textCursor()
 	selected_block = cursor.blockNumber() # get current block number
 	#self.lbl.setText(f'Current line number: {selected_block}')
-	if parent.start_line_lb_exists:
+	if 'start_line_lb' in parent.children:
 		parent.start_line_lb.setText(f'{selected_block}')
 	format_normal = QTextBlockFormat()
 	format_normal.setBackground(QColor('white'))

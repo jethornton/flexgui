@@ -18,6 +18,7 @@ import linuxcnc, hal
 from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
+from libflexgui import editor
 
 class flexgui(QMainWindow):
 	def __init__(self):
@@ -166,6 +167,12 @@ class flexgui(QMainWindow):
 				self.showFullScreen()
 		else:
 			self.show()
+
+	def eventFilter(self, obj, event):
+		if obj is self.gcode_pte.viewport() and event.type() == QEvent.Type.MouseButtonRelease:
+			if event.button() == Qt.MouseButton.LeftButton:
+				editor.show_line(self)
+		return super(flexgui, self).eventFilter(obj, event)
 
 
 app = QApplication(sys.argv)
