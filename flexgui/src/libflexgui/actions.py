@@ -2,7 +2,7 @@ import os, sys, subprocess, shutil
 
 from functools import partial
 
-from PyQt6.QtWidgets import QApplication, QFileDialog, QLabel
+from PyQt6.QtWidgets import QFileDialog, QLabel
 
 import linuxcnc as emc
 import hal
@@ -11,7 +11,7 @@ from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import select
 
-app = QApplication([])
+#app = QApplication([])
 
 def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
@@ -76,7 +76,7 @@ def action_open(parent): # actionOpen
 		gcode_dir = os.path.expanduser('~/')
 	gcode_file, file_type = QFileDialog.getOpenFileName(None,
 	caption="Select G code File", directory=gcode_dir,
-	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.DontUseNativeDialog,)
+	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.Option.DontUseNativeDialog)
 	if gcode_file: load_file(parent, gcode_file)
 
 def action_edit(parent): # actionEdit
@@ -145,7 +145,7 @@ def action_save_as(parent): # actionSave_As
 		gcode_dir = os.path.expanduser('~/')
 	new_gcode_file, file_type = QFileDialog.getSaveFileName(None,
 	caption="Save As", directory=gcode_dir,
-	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.DontUseNativeDialog,)
+	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.Option.DontUseNativeDialog,)
 	if new_gcode_file:
 		with open(current_gcode_file, 'r') as cf:
 			gcode = cf.read()
