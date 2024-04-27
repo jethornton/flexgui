@@ -91,7 +91,7 @@ def update(parent):
 					getattr(parent, item).setEnabled(False)
 
 		parent.task_state = parent.status.task_state
-
+	'''
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
@@ -321,4 +321,4 @@ def update(parent):
 			parent.errors_pte.appendPlainText(text)
 			parent.errors_pte.setFocus()
 			parent.statusbar.showMessage('Error')
-
+	'''

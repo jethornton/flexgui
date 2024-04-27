@@ -86,11 +86,11 @@ def setup_enables(parent):
 
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		print('STATE_ESTOP')
+		#print('STATE_ESTOP')
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
-			if key == 'power_pb' or key == 'actionPower':
-				print(f'{key} {getattr(parent, key).isEnabled()}')
+			#if key == 'power_pb' or key == 'actionPower':
+			#	print(f'{key} {getattr(parent, key).isEnabled()}')
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
 
