@@ -817,8 +817,8 @@ def setup_defaults(parent):
 	if 'optional_stop_pb' in parent.children:
 		if parent.optional_stop_pb.isChecked():
 			parent.command.set_optional_stop(True)
-	else:
-		parent.command.set_optional_stop(False)
+		else:
+			parent.command.set_optional_stop(False)
 
 def copy_examples(parent, title=None):
 	if parent.settings.contains('nags/copy_examples'):
