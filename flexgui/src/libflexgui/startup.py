@@ -206,7 +206,7 @@ def setup_enables(parent):
 			parent.unhome_controls.append(item)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		print('STATE_ON')
+		#print('STATE_ON')
 		for key, value in parent.state_on.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_on_names.items():
