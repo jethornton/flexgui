@@ -1,7 +1,7 @@
 import os, shutil
 from functools import partial
 
-from PyQt6.QtWidgets import QLabel, QPushButton, QListWidget, QPlainTextEdit
+from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtGui import QAction
@@ -40,7 +40,6 @@ def get_ini_values(parent):
 		parent.units = 'mm'
 
 def setup_enables(parent):
-	parent.status.poll()
 
 	# disable home all if home sequence is not found
 	if 'home_all_pb' in parent.children:
@@ -85,10 +84,13 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_estop_names[item]
 
+	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		#print('STATE_ESTOP')
+		print('STATE_ESTOP')
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
+			if key == 'power_pb' or key == 'actionPower':
+				print(f'{key} {getattr(parent, key).isEnabled()}')
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
 
@@ -131,7 +133,7 @@ def setup_enables(parent):
 			del parent.state_estop_reset_names[item]
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		#print('STATE_ESTOP_RESET')
+		print('STATE_ESTOP_RESET')
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():
@@ -204,7 +206,7 @@ def setup_enables(parent):
 			parent.unhome_controls.append(item)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		#print('STATE_ON')
+		print('STATE_ON')
 		for key, value in parent.state_on.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_on_names.items():
@@ -424,10 +426,13 @@ def setup_actions(parent): # setup menu actions
 			parent.actionLadder_Editor.setEnabled(False)
 
 	# special check for MDI
-	if parent.findChild(QListWidget, 'mdi_history_lw') is None:
-		if parent.findChild(QAction, 'actionClear_MDI_History'):
+	#if parent.findChild(QListWidget, 'mdi_history_lw') is None:
+	if 'mdi_history_lw' in parent.children:
+		#if parent.findChild(QAction, 'actionClear_MDI_History'):
+		if 'actionClear_MDI_History' in parent.children:
 			parent.actionClear_MDI_History.setEnabled(False)
-		if parent.findChild(QAction, 'actionCopy_MDI_History'):
+		#if parent.findChild(QAction, 'actionCopy_MDI_History'):
+		if 'actionCopy_MDI_History' in parent.children:
 			parent.actionCopy_MDI_History.setEnabled(False)
 
 def setup_status_labels(parent):
@@ -826,7 +831,7 @@ def copy_examples(parent, title=None):
 		msg = ('The example configuration directory\n'
 			'was not found. Do you want to copy them to\n'
 			f'{configs_dir}')
-		response, check = dialogs.question_msg_yes_no_check(title, msg, 'Never Ask Again')
+		response, check = dialogs.question_msg_yes_no_check(msg, 'Never Ask Again', title)
 		if check:
 			parent.settings.beginGroup("nags");
 			parent.settings.setValue("copy_examples", 'no')
