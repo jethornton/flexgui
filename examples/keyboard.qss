@@ -20,7 +20,11 @@ QPushButton:pressed
 	background-color: rgba(192, 192, 192, 100%);
     border-style: inset;
     border-width: 2px;
+}
 
+QPushButton:checked
+{
+	border-style: inset;
 }
 
 QSlider::groove:horizontal {

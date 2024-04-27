@@ -27,7 +27,6 @@ QPushButton:checked
 	border-style: inset;
 }
 
-
 QSlider::groove:horizontal {
     border: 1px solid;
     height: 10px;
