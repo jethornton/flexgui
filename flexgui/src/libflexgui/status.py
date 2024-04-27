@@ -91,7 +91,7 @@ def update(parent):
 					getattr(parent, item).setEnabled(False)
 
 		parent.task_state = parent.status.task_state
-	'''
+
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
@@ -103,11 +103,11 @@ def update(parent):
 				parent.command.wait_complete()
 				#parent.status.poll()
 				#print(f'{TASK_MODES[parent.status.task_mode]}')
-			'''
-			if parent.status.task_mode == emc.MODE_MANUAL:
-				# program is not running
-				print('status update INTERP_IDLE MODE_MANUAL')
-			'''
+
+			#if parent.status.task_mode == emc.MODE_MANUAL:
+			#	# program is not running
+			#	print('status update INTERP_IDLE MODE_MANUAL')
+
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
 				if parent.mdi: # only update mdi if it's configured
 					utilities.update_mdi(parent)
@@ -141,14 +141,15 @@ def update(parent):
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'{TASK_MODES[parent.status.task_mode]}')
-		if parent.status.task_mode == emc.MODE_MANUAL:
-			if parent.status.interp_state == emc.INTERP_IDLE:
-				for key, value in parent.state_on.items():
-					getattr(parent, key).setEnabled(value)
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
-				for item in parent.unhome_controls:
-					getattr(parent, item).setEnabled(True)
+		if parent.status.task_state == emc.STATE_ON:
+			if parent.status.task_mode == emc.MODE_MANUAL:
+				if parent.status.interp_state == emc.INTERP_IDLE:
+					for key, value in parent.state_on.items():
+						getattr(parent, key).setEnabled(value)
+					for item in parent.run_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.unhome_controls:
+						getattr(parent, item).setEnabled(True)
 		parent.task_mode = parent.status.task_mode
 
 	# **************************
@@ -321,4 +322,4 @@ def update(parent):
 			parent.errors_pte.appendPlainText(text)
 			parent.errors_pte.setFocus()
 			parent.statusbar.showMessage('Error')
-	'''
+
