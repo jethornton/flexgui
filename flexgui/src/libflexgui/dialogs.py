@@ -5,76 +5,76 @@ from PyQt6.QtWidgets import QMessageBox, QCheckBox
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
-def warn_msg_cancel_ok(text, title):
+def warn_msg_ok(text, title=None):
 	msg_box = QMessageBox()
-	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(text)
-	msg_box.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.Ok:
+	if returnValue == QMessageBox.StandardButton.Ok:
 		return True
 	else:
 		return False
 
-def warn_msg_ok(text, title=None):
+def warn_msg_cancel_ok(text, title=None):
 	msg_box = QMessageBox()
-	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(text)
-	msg_box.setStandardButtons(QMessageBox.Ok)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Cancel | QMessageBox.StandardButton.Ok)
 	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.Ok:
+	if returnValue == QMessageBox.StandardButton.Ok:
 		return True
 	else:
 		return False
 
 def warn_msg_yes_no(text, title=None):
 	msg_box = QMessageBox()
-	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(text)
-	msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.Yes:
+	if returnValue == QMessageBox.StandardButton.Yes:
 		return True
 	else:
 		return False
 
-def warn_msg_yes_no_check(title, body_text, chkbx_text):
+def warn_msg_yes_no_check(body_text, chkbx_text, title=None):
 	chkBox = QCheckBox()
 	chkBox.setText(chkbx_text)
 	msg_box = QMessageBox()
 	msg_box.setCheckBox(chkBox)
-	msg_box.setIcon(QMessageBox.Warning)
+	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(body_text)
-	msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 	returnValue = msg_box.exec()
-	answer = True if returnValue == QMessageBox.Yes else False
+	answer = True if returnValue == QMessageBox.StandardButton.Yes else False
 	return answer, chkBox.isChecked()
 
-def question_msg_yes_no_check(title, body_text, chkbx_text):
+def question_msg_yes_no_check(body_text, chkbx_text, title=None):
 	chkBox = QCheckBox()
 	chkBox.setText(chkbx_text)
 	msg_box = QMessageBox()
 	msg_box.setCheckBox(chkBox)
-	msg_box.setIcon(QMessageBox.Question)
+	msg_box.setIcon(QMessageBox.Icon.Question)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(body_text)
-	msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 	returnValue = msg_box.exec()
-	answer = True if returnValue == QMessageBox.Yes else False
+	answer = True if returnValue == QMessageBox.StandardButton.Yes else False
 	return answer, chkBox.isChecked()
 
 def info_msg_ok(text, title=None):
 	msg_box = QMessageBox()
-	msg_box.setIcon(QMessageBox.Information)
+	msg_box.setIcon(QMessageBox.Icon.Information)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(text)
-	msg_box.setStandardButtons(QMessageBox.Ok)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.Ok:
+	if returnValue == QMessageBox.StandardButton.Ok:
 		return True
 	else:
 		return False
