@@ -165,6 +165,25 @@ def update(parent):
 		#		print(f'{EXEC_STATES[parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
+	# ************************** FLOOD_OFF or FLOOD_ON
+	if parent.flood_state != parent.status.flood:
+		if 'flood_pb' in parent.children: 
+			if parent.status.flood == emc.FLOOD_OFF:
+				parent.flood_pb.setChecked(False)
+			elif parent.status.flood == emc.FLOOD_ON:
+				parent.flood_pb.setChecked(True)
+		parent.flood_state = parent.status.flood
+
+	# ************************** MIST_OFF or MIST_ON
+	if parent.mist_state != parent.status.mist:
+		if 'mist_pb' in parent.children: 
+			if parent.status.mist == emc.MIST_OFF:
+				parent.mist_pb.setChecked(False)
+			elif parent.status.mist == emc.MIST_ON:
+				parent.mist_pb.setChecked(True)
+		parent.mist_state = parent.status.mist
+
+
 	for key, value in parent.status_labels.items(): # update all status labels
 		# key is the status item and value is the label
 		# get the label and set the text to the status value of the key
