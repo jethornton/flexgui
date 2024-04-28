@@ -1524,6 +1524,19 @@ Mode</string>
         <string>Status</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
+        <item row="2" column="1">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item row="0" column="0" rowspan="3">
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
@@ -1549,45 +1562,6 @@ Mode</string>
            </item>
           </layout>
          </widget>
-        </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="title">
-           <string>Current Active Codes</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QLabel" name="gcodes_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="mcodes_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="1" column="1" colspan="2">
          <widget class="QFrame" name="frame_6">
@@ -1652,7 +1626,7 @@ Mode</string>
           <widget class="QLabel" name="motion_mode_lb">
            <property name="geometry">
             <rect>
-             <x>180</x>
+             <x>240</x>
              <y>90</y>
              <width>151</width>
              <height>34</height>
@@ -1665,7 +1639,7 @@ Mode</string>
           <widget class="QLabel" name="interp_state_lb">
            <property name="geometry">
             <rect>
-             <x>180</x>
+             <x>240</x>
              <y>30</y>
              <width>151</width>
              <height>34</height>
@@ -1678,7 +1652,7 @@ Mode</string>
           <widget class="QLabel" name="label_22">
            <property name="geometry">
             <rect>
-             <x>180</x>
+             <x>240</x>
              <y>60</y>
              <width>131</width>
              <height>34</height>
@@ -1691,7 +1665,7 @@ Mode</string>
           <widget class="QLabel" name="label_18">
            <property name="geometry">
             <rect>
-             <x>180</x>
+             <x>240</x>
              <y>0</y>
              <width>151</width>
              <height>34</height>
@@ -1699,6 +1673,74 @@ Mode</string>
            </property>
            <property name="text">
             <string>Interp State</string>
+           </property>
+          </widget>
+          <widget class="Line" name="line_2">
+           <property name="geometry">
+            <rect>
+             <x>210</x>
+             <y>20</y>
+             <width>20</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Current Active Codes</string>
+          </property>
+          <widget class="QLabel" name="gcodes_lb">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>30</y>
+             <width>201</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QLabel" name="mcodes_lb">
+           <property name="geometry">
+            <rect>
+             <x>230</x>
+             <y>30</y>
+             <width>201</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+          <widget class="Line" name="line">
+           <property name="geometry">
+            <rect>
+             <x>210</x>
+             <y>30</y>
+             <width>20</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
           </widget>
          </widget>
