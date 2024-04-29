@@ -34,11 +34,13 @@ class flexgui(QMainWindow):
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
 			self.examples_path = '/usr/lib/libflexgui/examples'
+			self.installed = True
 		else:
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 			self.gui_path = self.path
 			root_path = os.path.abspath(os.path.join(os.getcwd() ,"../.."))
 			self.examples_path = os.path.join(root_path, 'examples')
+			self.installed = False
 
 		startup.copy_examples(self)
 
@@ -73,7 +75,10 @@ class flexgui(QMainWindow):
 		self.flood_state = self.status.flood
 		self.mist_state = self.status.mist
 		# setup a hal component using a random name for testing
-		self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
+		if self.installed:
+			self.halcomp = hal.component('flexgui')
+		else:
+			self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
 
 		# get connection to the ini file
 		self.inifile = False
