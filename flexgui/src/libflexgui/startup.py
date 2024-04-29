@@ -591,6 +591,7 @@ def setup_status_labels(parent):
 	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
 	parent.status_spindles = {}
 	parent.status_spindle_overrides = {}
+	parent.status_spindle_lcd = {}
 	parent.status.poll()
 	 # only look for the num of spindles configured
 	for i in range(parent.status.spindles):
@@ -599,6 +600,9 @@ def setup_status_labels(parent):
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
+	if 'spindle_speed_0_lcd' in parent.children:
+		parent.status_spindle_lcd['speed_0'] = 'spindle_speed_0_lcd'
+		#parent.spindle_speed_0_lcd.display(123.5)
 
 	# check for tool table labels in the ui
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',

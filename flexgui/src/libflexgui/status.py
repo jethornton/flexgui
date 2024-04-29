@@ -315,6 +315,11 @@ def update(parent):
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key]}')
 
+	for key, value in parent.status_spindle_lcd.items():
+		key = key[0:-2]
+		#print(f'{int(getattr(parent, "status").spindle[0][key])}')
+		getattr(parent, f'{value}').display(f'{int(getattr(parent, "status").spindle[0][key])}')
+
 	# spindle override
 	for key, value in parent.status_spindle_overrides.items():
 		key = key[0:-2]
