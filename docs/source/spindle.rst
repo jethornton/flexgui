@@ -36,3 +36,5 @@ not found the maximum setting will be 1000
 
 `INCREMENT` will set the QSpinBox single step.
 
+If a QLCDNumber named `spindle_speed_0_lcd` is found it will display the
+commanded spindle speed without any offsets.
