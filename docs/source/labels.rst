@@ -173,7 +173,7 @@ number of the joint. Joint numbers start at 0 and go through to 63.
 	dout_n_lb
 
 Tool Table Status
------------------
+-----------------function
 
 The Tool Table status contains status items for all the tools in the tool table.
 Replace the `_n_` with the position in the tool table.
