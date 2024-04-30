@@ -1571,7 +1571,7 @@
    </widget>
    <widget class="QMenu" name="menuProgams">
     <property name="title">
-     <string>Progams</string>
+     <string>Programs</string>
     </property>
     <addaction name="actionShow_HAL"/>
     <addaction name="actionHAL_Meter"/>
