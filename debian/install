@@ -1,4 +1,8 @@
 flexgui/src/flexgui usr/bin
+flexgui/src/flexcopy usr/bin
+
+flexgui/*.desktop usr/share/applications
+
 flexgui/src/*.ui usr/lib/libflexgui
 flexgui/src/libflexgui/*.qss usr/lib/libflexgui
 
