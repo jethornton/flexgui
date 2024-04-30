@@ -1,3 +1,9 @@
+flexgui (0.3.0) unstable; urgency=medium
+
+  * Move copy examples to the CNC menu
+
+ -- John Thornton <dev@gnipsel.com>  Tue, 30 Apr 2024 09:01:03 -0500
+
 flexgui (0.2.0) unstable; urgency=medium
 
   * Fix task mode on startup
