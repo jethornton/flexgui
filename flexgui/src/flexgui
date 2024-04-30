@@ -65,10 +65,10 @@ class flexgui(QMainWindow):
 		self.error = linuxcnc.error_channel()
 		self.flood_state = self.status.flood
 		self.mist_state = self.status.mist
-		# setup a hal component using a random name for testing if not installed
+
 		if self.installed:
 			self.halcomp = hal.component('flexgui')
-		else:
+		else: # use a random name for the hal component if not installed
 			self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
 
 		# get connection to the ini file
