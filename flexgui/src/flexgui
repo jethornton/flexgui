@@ -33,16 +33,12 @@ class flexgui(QMainWindow):
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
-			#self.examples_path = '/usr/lib/libflexgui/examples'
 			self.installed = True
 		else:
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 			self.gui_path = self.path
 			root_path = os.path.abspath(os.path.join(os.getcwd() ,"../.."))
-			#self.examples_path = os.path.join(root_path, 'examples')
 			self.installed = False
-
-		#startup.copy_examples(self)
 
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
@@ -54,11 +50,6 @@ class flexgui(QMainWindow):
 			'to start Flex GUI for TESTING ONLY!')
 			dialogs.warn_msg_ok(msg, 'Error')
 			sys.exit()
-
-			#response = startup.copy_examples(self, 'LinuxCNC not running')
-			#if response:
-			#	sys.exit()
-
 
 		# connect to linuxcnc
 		self.status = linuxcnc.stat()
@@ -74,7 +65,7 @@ class flexgui(QMainWindow):
 		self.error = linuxcnc.error_channel()
 		self.flood_state = self.status.flood
 		self.mist_state = self.status.mist
-		# setup a hal component using a random name for testing
+		# setup a hal component using a random name for testing if not installed
 		if self.installed:
 			self.halcomp = hal.component('flexgui')
 		else:

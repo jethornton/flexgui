@@ -824,29 +824,6 @@ def setup_defaults(parent):
 		else:
 			parent.command.set_optional_stop(False)
 
-def copy_examples(parent, title=None):
-	if parent.settings.contains('nags/copy_examples'):
-		if parent.settings.value('nags/copy_examples') == 'no':
-			return True
-	if title is None:
-		title = 'Example Files'
-	configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
-	if not os.path.isdir(configs_dir):
-		msg = ('The example configuration directory\n'
-			'was not found. Do you want to copy them to\n'
-			f'{configs_dir}')
-		response, check = dialogs.question_msg_yes_no_check(msg, 'Never Ask Again', title)
-		if check:
-			parent.settings.beginGroup("nags");
-			parent.settings.setValue("copy_examples", 'no')
-			parent.settings.endGroup()
-
-		if response:
-			source_dir = parent.examples_path
-			dest_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
-			if os.path.isdir(source_dir):
-				shutil.copytree(source_dir, dest_dir)
-
 def setup_hal_buttons(parent):
 	for button in parent.findChildren(QPushButton):
 		if button.property('function') == 'hal_pin':
