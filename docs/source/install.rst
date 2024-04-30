@@ -10,3 +10,5 @@ terminal and run this command.
 
 	sudo apt install gdebi
 
+After installing Flex GUI a menu item `Copy Flex Examples` is added to the `CNC`
+menu.
