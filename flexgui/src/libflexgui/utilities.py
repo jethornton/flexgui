@@ -102,6 +102,6 @@ def update_qcode_pte(parent):
 	highlight_format.setBackground(QColor('yellow'))
 	cursor.setBlockFormat(highlight_format)
 
-
-
+def hal_pins(parent, hal_pin):
+	hal_pin.set(parent.sender().isDown())
 
