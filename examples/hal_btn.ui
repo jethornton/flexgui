@@ -1337,27 +1337,87 @@
            <item row="1" column="0">
             <widget class="QPushButton" name="pushButton">
              <property name="text">
-              <string>HAL Button</string>
+              <string>Checkable HAL Button</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
              <property name="function" stdset="0">
               <string>hal_pin</string>
              </property>
              <property name="pin_0" stdset="0">
-              <string>test_pin, HAL_BIT, HAL_OUT</string>
+              <string>check, HAL_BIT, HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_3">
+             <property name="text">
+              <string>CheckBox HAL Button</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_3" stdset="0">
+              <string>checkbox, HAL_BIT, HAL_OUT</string>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="pushButton_2">
              <property name="text">
-              <string>HAL Button 2</string>
+              <string>Normal HAL Button</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
              </property>
              <property name="function" stdset="0">
               <string>hal_pin</string>
              </property>
              <property name="pin_1" stdset="0">
-              <string>test_2, HAL_BIT, HAL_OUT</string>
+              <string>norm, HAL_BIT, HAL_OUT</string>
              </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QFrame" name="frame_6">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QRadioButton" name="radioButton">
+                <property name="text">
+                 <string>On</string>
+                </property>
+                <property name="function" stdset="0">
+                 <string>hal_pin</string>
+                </property>
+                <property name="pin_4" stdset="0">
+                 <string>rb_on, HAL_BIT, HAL_OUT</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_2">
+                <property name="text">
+                 <string>Off</string>
+                </property>
+                <property name="function" stdset="0">
+                 <string>hal_pin</string>
+                </property>
+                <property name="pin_5" stdset="0">
+                 <string>rb_off, HAL_BIT, HAL_OUT</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
