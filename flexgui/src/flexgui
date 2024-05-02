@@ -170,6 +170,8 @@ class flexgui(QMainWindow):
 				editor.show_line(self)
 		return super(flexgui, self).eventFilter(obj, event)
 
+	def closeEvent(self, event):
+		self.halcomp.exit()
 
 app = QApplication(sys.argv)
 gui = flexgui()
