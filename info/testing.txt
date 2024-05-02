@@ -4,5 +4,6 @@ linuxcnc /home/john/linuxcnc/configs/flex_examples/actions.ini
 linuxcnc /home/john/linuxcnc/configs/flex_examples/status.ini
 linuxcnc /home/john/linuxcnc/configs/flex_examples/xyz.ini
 linuxcnc /home/john/linuxcnc/configs/flex_examples/xyzh.ini
+linuxcnc /home/john/linuxcnc/configs/flex_examples/hal_btn.ini
 
 linuxcnc /home/john/linuxcnc/configs/flex_examples/tom.ini
