@@ -160,7 +160,9 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 		tool_editor = 'tooledit'
 	tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 	tool_file = os.path.join(ini_path, tool_table)
-	subprocess.Popen([tool_editor, tool_file])
+	cmd = tool_editor.split()
+	cmd.append(tool_file)
+	subprocess.run(cmd)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
