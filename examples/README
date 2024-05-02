@@ -2,3 +2,5 @@ action displays all the action widgets in Touch Screen Mode
 status displays all the status widgets in Keyboard Mode
 xyz is a 3 axis simulator with no home sequece in Keyboard Mode
 xyzh is a 3 axis simulator with home sequence in Keyboard Mode
+hal_pin shows how to make a hal button and connect it to a mdi command
+hal_pin can not be run from the terminal with a sim running
