@@ -67,7 +67,7 @@ class flexgui(QMainWindow):
 		self.mist_state = self.status.mist
 
 		if self.installed:
-			self.halcomp = hal.component('flexgui')
+			self.halcomp = hal.component('flexhal')
 		else: # use a random name for the hal component if not installed
 			self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
 

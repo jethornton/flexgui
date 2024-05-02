@@ -1,0 +1,2 @@
+loadrt flexhal
+flexhal addf servo thread
