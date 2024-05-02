@@ -3,7 +3,7 @@ from functools import partial
 
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
-from PyQt6.QtWidgets import QVBoxLayout
+from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -826,7 +826,7 @@ def setup_defaults(parent):
 
 def setup_hal_buttons(parent):
 	hal_buttons = []
-	for button in parent.findChildren(QPushButton):
+	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'hal_pin':
 			hal_buttons.append(button)
 	for n, button in enumerate(hal_buttons):
@@ -839,16 +839,28 @@ def setup_hal_buttons(parent):
 				pin_name = pin_settings[0]
 				pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
 				pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
-				#print(name, pin_name, pin_type, pin_dir)
 				setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
+				pin = getattr(parent, f'{prop}')
+				if button.isCheckable():
+					button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+				else:
+					button.pressed.connect(lambda pin=pin: (pin.set(True)))
+					button.released.connect(lambda pin=pin: (pin.set(False)))
+
+
 				#print(getattr(parent, f'{prop}')) # <hal.Pin object at 0x7f4fcb53ded0>
 				#print(getattr(parent, f'{name}')) # <PyQt6.QtWidgets.QPushButton object at 0x7f79b39117e0>
 				#getattr(parent, f'{name}').clicked.connect(lambda n=n: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isDown()))
 				#getattr(parent, f'{name}').toggled.connect(lambda num=n: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
 				#getattr(parent, f'{name}').pressed.connect(lambda num=n: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isDown()))
 				#getattr(parent, f'{name}').released.connect(lambda num=n: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isDown()))
-				getattr(parent, f'{name}').pressed.connect(partial(utilities.hal_pins, parent, getattr(parent, f'{prop}')))
-				getattr(parent, f'{name}').released.connect(partial(utilities.hal_pins, parent, getattr(parent, f'{prop}')))
+				#getattr(parent, f'{name}').toggled.connect(partial(utilities.hal_pins, parent, getattr(parent, f'{prop}')))
+				#getattr(parent, f'{name}').pressed.connect(partial(utilities.hal_pins, parent, getattr(parent, f'{prop}')))
+				#getattr(parent, f'{name}').released.connect(partial(utilities.hal_pins, parent, getattr(parent, f'{prop}')))
+				#getattr(parent, f'{name}').pressed.connect(lambda parent=parent,prop=prop,name=name: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isDown()))
+				#getattr(parent, f'{name}').released.connect(lambda parent=parent,prop=prop,name=name: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isDown()))
+
+
 	parent.halcomp.ready()
 
 
