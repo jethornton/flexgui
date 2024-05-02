@@ -828,17 +828,22 @@ def setup_hal_buttons(parent):
 	for button in parent.findChildren(QPushButton):
 		if button.property('function') == 'hal_pin':
 			props = button.dynamicPropertyNames()
+			#print(button.objectName(), button.text())
 			for prop in props:
 				prop = str(prop, 'utf-8')
 				if prop.startswith('pin_'):
+					#print(prop)
 					pin_settings = button.property(prop).split(',')
 					name = button.objectName()
+					#print(name)
 					pin_name = pin_settings[0]
 					pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
 					pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
 					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
-					getattr(parent, f'{name}').toggled.connect(lambda:
-						getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
+					#print(getattr(parent, f'{name}'))
+					#print(getattr(parent, f'{prop}'))
+					getattr(parent, f'{name}').toggled.connect(lambda: getattr(parent, f'{prop}').set(getattr(parent, f'{name}').isChecked()))
+	parent.halcomp.ready()
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
