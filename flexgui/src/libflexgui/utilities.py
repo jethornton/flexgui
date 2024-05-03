@@ -77,22 +77,17 @@ def print_states(parent, state):
 	parent.print_states = parent.print_states_cb.isChecked()
 
 def feed_override(parent, value):
-	# feedrate(float) set the feedrate override, 1.0 = 100%.
 	parent.command.feedrate(float(value / 100))
-	parent.command.wait_complete()
 
 def rapid_override(parent, value):
 	parent.command.rapidrate(float(value / 100))
-	parent.command.wait_complete()
 
 def spindle_override(parent, value):
 	parent.command.spindleoverride(float(value / 100), 0)
-	parent.command.wait_complete()
 
 def update_qcode_pte(parent):
 	cursor = parent.gcode_pte.textCursor()
 	selected_block = cursor.blockNumber() # get current block number
-	#print(f'Current line number: {selected_block}')
 	format_normal = QTextBlockFormat()
 	format_normal.setBackground(QColor('white'))
 	cursor.select(QTextCursor.SelectionType.Document)
