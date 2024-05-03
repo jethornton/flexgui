@@ -265,6 +265,9 @@ Mode</string>
       <property name="text">
        <string>Feed Hold</string>
       </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item row="2" column="4" rowspan="2">
@@ -961,16 +964,16 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>30</y>
+             <y>60</y>
              <width>130</width>
              <height>21</height>
             </rect>
            </property>
            <property name="text">
-            <string>Hal Button2</string>
+            <string>Checkable Hal Btn</string>
            </property>
            <property name="checkable">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="function" stdset="0">
             <string>hal_pin</string>
@@ -982,20 +985,80 @@ Mode</string>
           <widget class="QPushButton" name="HAL_BIT">
            <property name="geometry">
             <rect>
-             <x>150</x>
+             <x>10</x>
              <y>30</y>
              <width>129</width>
              <height>21</height>
             </rect>
            </property>
            <property name="text">
-            <string>Hal Button1</string>
+            <string>Normal Hal Btn</string>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
            </property>
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
            <property name="pin_0" stdset="0">
             <string>test_pin1, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_on">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>60</y>
+             <width>41</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>On</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_3" stdset="0">
+            <string>rb_on, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_off">
+           <property name="geometry">
+            <rect>
+             <x>220</x>
+             <y>60</y>
+             <width>51</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Off</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_2" stdset="0">
+            <string>rb_off, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QCheckBox" name="checkBox">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>30</y>
+             <width>121</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Hal Check box</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_4" stdset="0">
+            <string>checkbox, HAL_BIT, HAL_OUT</string>
            </property>
           </widget>
          </widget>
