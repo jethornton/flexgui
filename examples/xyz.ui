@@ -1365,31 +1365,45 @@
            <string>Feed</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_27">
-           <item row="0" column="0">
+           <item row="0" column="1">
             <widget class="QLabel" name="feed_hold_enabled_lb">
              <property name="text">
               <string>TextLabel</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="feed_hold_pb">
+           <item row="2" column="1">
+            <widget class="QLabel" name="feed_override_enabled_lb">
              <property name="text">
-              <string>Feed Hold</string>
+              <string>TextLabel</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_26">
+             <property name="text">
+              <string>Feed Hold &gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="feed_hold_pb">
+             <property name="text">
+              <string>Feed Hold Toggle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
             <widget class="QPushButton" name="feed_override_pb">
              <property name="text">
-              <string>Feed Override Enabled</string>
+              <string>Feed Override Toggle</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="feed_override_enabled_lb">
+            <widget class="QLabel" name="label_30">
              <property name="text">
-              <string>TextLabel</string>
+              <string>Feed Override &gt;</string>
              </property>
             </widget>
            </item>
