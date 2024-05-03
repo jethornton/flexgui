@@ -397,6 +397,13 @@ def setup_buttons(parent): # connect buttons to functions
 				getattr(parent, key).setCheckable(True)
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
+	# set the button checked states
+	parent.status.poll()
+	if 'feed_hold_pb' in parent.children:
+		parent.feed_hold_pb.setChecked(parent.status.feed_hold_enabled)
+	if 'feed_override_pb' in parent.children:
+		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
+
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
 		'actionReload': 'action_reload', 'actionSave_As': 'action_save_as',
