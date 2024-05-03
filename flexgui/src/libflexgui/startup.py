@@ -742,6 +742,10 @@ def setup_jog(parent):
 			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
 			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
 
+		min_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
+		if min_vel:
+			parent.jog_vel_sl.setMinimum(int(float(min_vel) * 60))
+
 		max_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 		if max_vel:
 			parent.jog_vel_sl.setMaximum(int(float(max_vel) * 60))
