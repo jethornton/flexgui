@@ -1,0 +1,22 @@
+# Halshow settings
+# This file is generated automatically.
+wm geometry . 700x475+917+23
+placeFrames 0.3
+set ::ratio 0.3
+set ::old_w_leftf 160
+set ::watchlist {
+    pin+flexhal.test_pin1
+    pin+flexhal.test_pin2
+    pin+flexhal.checkbox
+    pin+flexhal.rb_on
+    pin+flexhal.rb_off
+    pin+flexhal.test_pin5
+    pin+flexhal.test_pin6
+}
+set ::workmode watchhal
+set ::watchInterval 100
+set ::col1_width 100
+set ::ffmts 
+set ::ifmts 
+set ::alwaysOnTop 0
+set ::autoSaveWatchlist 1
