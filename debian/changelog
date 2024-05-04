@@ -1,3 +1,9 @@
+flexgui (0.4.0) unstable; urgency=medium
+
+  * Finish up creating HAL outputs
+
+ -- John Thornton <dev@gnipsel.com>  Sat, 04 May 2024 06:13:14 -0500
+
 flexgui (0.3.0) unstable; urgency=medium
 
   * Move copy examples to the CNC menu
