@@ -1460,16 +1460,16 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QPushButton" name="feed_hold_pb">
+            <widget class="QPushButton" name="feed_hold_enable_pb">
              <property name="text">
-              <string>Feed Hold</string>
+              <string>Feed Hold Enable</string>
              </property>
             </widget>
            </item>
            <item row="3" column="0">
             <widget class="QPushButton" name="feed_override_pb">
              <property name="text">
-              <string>Feed Override Enabled</string>
+              <string>Feed Override Enable</string>
              </property>
             </widget>
            </item>

@@ -324,7 +324,7 @@ def block_delete_toggle(parent):
 	else:
 		parent.command.set_block_delete(False)
 
-def feed_hold_toggle(parent):
+def feed_hold_enable_toggle(parent):
 	if parent.feed_hold_pb.isChecked():
 		parent.command.set_feed_hold(True)
 	else:
