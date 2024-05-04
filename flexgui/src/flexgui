@@ -138,13 +138,13 @@ class flexgui(QMainWindow):
 		startup.setup_jog(self)
 		startup.setup_mdi(self)
 		# loading the post gui files can only happen once
-		if gui.lower() == 'flexgui':
-			startup.load_postgui(self)
+		startup.setup_hal_buttons(self)
 		startup.setup_tool_change(self)
 		startup.setup_sliders(self)
 		startup.setup_defaults(self)
 		startup.setup_plot(self)
-		startup.setup_hal_buttons(self)
+		if gui.lower() == 'flexgui':
+			startup.load_postgui(self)
 
 		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
