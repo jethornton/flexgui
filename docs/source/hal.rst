@@ -55,8 +55,9 @@ valid.
 .. image:: /images/hal-04.png
    :align: center
 
-The first item in the Value must be a unique HAL name, then seperated by commas
-the next item must be the HAL Pin Type then the HAL Pin Direction.
+The first item in the Value must be unique Flex HAL name, then seperated by
+commas the next item must be the HAL Pin Type then the HAL Pin Direction. The
+pin name created by Flex is flexhal.(the name you put first).
 
 .. image:: /images/hal-05.png
    :align: center
@@ -77,4 +78,5 @@ Now you can connect the Flex HAL pin in the postgui.hal file like normal.
 
 	net some-signal-name flexhal.hal-test-01 => some-other-pin-in
 
-
+After installing Flex GUI from the CNC menu you can copy the Flex GUI examples
+and look at the hal-btn example.
