@@ -42,7 +42,6 @@ Status Attributes <http://linuxcnc.org/docs/stable/html/config/python-interface.
 
 
 .. note:: You don't have to use all the labels, the ones found will be
-  updated to the correct status
 
 Axis Status
 -----------
@@ -77,6 +76,10 @@ number of the joint. Joint numbers start at 0 and go through to 15.
 
 Special Labels
 --------------
+
+Run from line label
+
+`start_line_lb`
 
 Axis machine position labels no offsets
 
@@ -173,7 +176,7 @@ number of the joint. Joint numbers start at 0 and go through to 63.
 	dout_n_lb
 
 Tool Table Status
------------------function
+-----------------
 
 The Tool Table status contains status items for all the tools in the tool table.
 Replace the `_n_` with the position in the tool table.
