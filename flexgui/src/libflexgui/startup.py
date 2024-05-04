@@ -684,10 +684,9 @@ def setup_mdi(parent):
 	# mdi_history_lw is optional
 	# determine if mdi is possible from the gui
 	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
-		parent.mdi = True
+		parent.mdi_command = ''
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
 		if 'mdi_history_lw' in parent.children:
-			parent.mdi_history = True
 			path = os.path.dirname(parent.status.ini_filename)
 			mdi_file = os.path.join(path, 'mdi_history.txt')
 			if os.path.exists(mdi_file): # load mdi history
@@ -696,9 +695,6 @@ def setup_mdi(parent):
 					for item in history_list:
 						parent.mdi_history_lw.addItem(item.strip())
 			parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
-	else:
-		parent.mdi = False
-		parent.mdi_history = False
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)
