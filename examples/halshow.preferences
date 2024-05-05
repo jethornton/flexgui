@@ -10,8 +10,9 @@ set ::watchlist {
     pin+flexhal.checkbox
     pin+flexhal.rb_on
     pin+flexhal.rb_off
-    pin+flexhal.test_pin5
-    pin+flexhal.test_pin6
+    pin+flexhal.test_mdi_pin0
+    pin+flexhal.test_mdi_pin1
+    pin+flexhal.test_mdi_pin2
 }
 set ::workmode watchhal
 set ::watchInterval 100
