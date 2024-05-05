@@ -561,43 +561,6 @@ def setup_status_labels(parent):
 	for key, value in parent.status_axes.items():
 		print(key, value)
 
-	'''
-	#for item in axis_stat_labels:
-	#	print(item)
-
-	for item in axis_stat_labels:
-		parent.status_axes[item] = [item[5:6], p]
-
-	for key, value in parent.status_axes.items():
-		print(key, value)
-
-	axis_stat_labels = []
-	for i in range(): # only check for axes that exist
-		for item in axis_stat_items:
-			if f'axis_{item}_{i}_lb' in parent.children: # if the label is found add it to the list
-				axis_stat_labels.append(f'axis_{item}_{i}_lb')
-	for i, item in enumerate(axis_stat_labels):
-		p = getattr(parent, item).property('precision')
-		p = p if p is not None else 3
-		# key label, value status item, precision
-		status_axes[item] = [i, p]
-
-
-	parent.status_axes = {} # create an empty dictionary
-	parent.status_axes_p = {} # create an empty dictionary
-	for i in range(parent.status.axis_mask.bit_count()): # only check for axes that exist
-		for item in axis_items:
-			if f'axis_{item}_{i}_lb' in parent.children: # if the label is found
-				p = getattr(parent, item).property('precision')
-				p = p if p is not None else 3
-				# key label, value status item, precision
-				parent.status_axes_p[f'axis_{item}_{i}_lb'] = [item, p]
-				parent.status_axes[f'{item}_{i}'] = f'axis_{item}_{i}_lb' # add the status and label
-
-	for key, value in parent.status_axes_p.items():
-		print(key, value)
-	'''
-
 	# check for joint labels in ui
 	# these return 16 joints
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
