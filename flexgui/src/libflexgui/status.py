@@ -200,13 +200,6 @@ def update(parent):
 		else:
 			getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")}')
 
-	for key, value in parent.status_axes.items():
-		if key == 'velocity':
-			vel = abs(round(getattr(parent, 'status').axis[int(value[5])][key] * 60, 1))
-			getattr(parent, f'{value}').setText(f'{vel}')
-		else:
-			getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key[0:-2]]}')
-
 	if 'gcodes_lb' in parent.children:
 		g_codes = []
 		for i in parent.status.gcodes[1:]:
@@ -270,10 +263,9 @@ def update(parent):
 	for key, value in parent.status_g92.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").g92_offset[value[0]]:.{value[1]}f}')
 
-	# axis s.axis[0]['velocity'] FIXME precision
-	for key, value in parent.status_axes.items(): # hmm max is 9 I think...
-		key = key[0:-2]
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").axis[int(value[-4])][key]}')
+	# axis s.axis[0]['velocity'] parent.status.axis[0]['velocity']
+	for key, value in parent.status_axes.items():
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").axis[value[0]][value[1]]:.{value[2]}f}')
 
 	# joints s.joint[0]['units']
 	for key, value in parent.status_joints.items(): # up to 16 items
