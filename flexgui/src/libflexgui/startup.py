@@ -845,7 +845,7 @@ def setup_hal_buttons(parent):
 		props = button.dynamicPropertyNames()
 		for prop in props:
 			prop = str(prop, 'utf-8')
-			if prop.startswith('pin_'):
+			if prop.startswith('pin_'): # we have a hal button
 				pin_settings = button.property(prop).split(',')
 				name = button.objectName()
 				pin_name = pin_settings[0]
@@ -858,6 +858,9 @@ def setup_hal_buttons(parent):
 				else:
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
+				parent.state_estop[button.objectName()] = False
+				parent.state_estop_reset[button.objectName()] = False
+				parent.state_on[button.objectName()] = True
 	parent.halcomp.ready()
 
 def setup_plot(parent):
