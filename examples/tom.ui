@@ -548,38 +548,6 @@ Mode</string>
           </widget>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Coolant</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="0" column="1">
-            <widget class="QPushButton" name="flood_pb">
-             <property name="text">
-              <string>Flood</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="mist_pb">
-             <property name="text">
-              <string>Mist</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="1" rowspan="3">
          <widget class="QGroupBox" name="groupBox_4">
           <property name="title">
@@ -848,6 +816,38 @@ Mode</string>
           </widget>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Coolant</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="1">
+            <widget class="QPushButton" name="flood_pb">
+             <property name="text">
+              <string>Flood</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="mist_pb">
+             <property name="text">
+              <string>Mist</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="3" rowspan="2">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="title">
@@ -1057,9 +1057,9 @@ Mode</string>
           <widget class="QPushButton" name="pushButton">
            <property name="geometry">
             <rect>
-             <x>10</x>
+             <x>30</x>
              <y>90</y>
-             <width>61</width>
+             <width>71</width>
              <height>27</height>
             </rect>
            </property>
@@ -1070,15 +1070,15 @@ Mode</string>
             <string>hal_pin</string>
            </property>
            <property name="pin_5" stdset="0">
-            <string>test_pin5, HAL_BIT, HAL_OUT</string>
+            <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton_2">
            <property name="geometry">
             <rect>
-             <x>80</x>
+             <x>120</x>
              <y>90</y>
-             <width>51</width>
+             <width>71</width>
              <height>27</height>
             </rect>
            </property>
@@ -1089,7 +1089,26 @@ Mode</string>
             <string>hal_pin</string>
            </property>
            <property name="pin_6" stdset="0">
-            <string>test_pin6, HAL_BIT, HAL_OUT</string>
+            <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="geometry">
+            <rect>
+             <x>210</x>
+             <y>90</y>
+             <width>61</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>MDI 2</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_7" stdset="0">
+            <string>test_mdi_pin2, HAL_BIT, HAL_OUT</string>
            </property>
           </widget>
          </widget>
