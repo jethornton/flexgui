@@ -37,7 +37,7 @@ def update(parent):
 	# **************************
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		print(f'task state {TASK_STATES[parent.status.task_state]}')
+		#print(f'task state {TASK_STATES[parent.status.task_state]}')
 
 		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
@@ -95,7 +95,7 @@ def update(parent):
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
@@ -140,11 +140,11 @@ def update(parent):
 	# **************************
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'{TASK_MODES[parent.status.task_mode]}')
+		#print(f'{TASK_MODES[parent.status.task_mode]}')
 		# catch MDI commands that don't change the interp state like M53
 		if parent.status.task_mode == emc.MODE_MDI:
 			if parent.status.interp_state == emc.INTERP_IDLE:
-				print(f'{parent.mdi_command}')
+				#print(f'{parent.mdi_command}')
 				if parent.mdi_command:
 					utilities.update_mdi(parent)
 		if parent.status.task_state == emc.STATE_ON:
