@@ -28,7 +28,7 @@
     <item row="3" column="2">
      <widget class="QPushButton" name="optional_stop_pb">
       <property name="text">
-       <string>Op Stop</string>
+       <string>Op Stop M1</string>
       </property>
       <property name="checkable">
        <bool>true</bool>
@@ -276,7 +276,7 @@ Mode</string>
     <item row="3" column="3">
      <widget class="QPushButton" name="block_delete_pb">
       <property name="text">
-       <string>Block Del</string>
+       <string>Block Del /</string>
       </property>
       <property name="checkable">
        <bool>true</bool>
@@ -848,7 +848,7 @@ Mode</string>
           </layout>
          </widget>
         </item>
-        <item row="0" column="3" rowspan="2">
+        <item row="0" column="3">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="title">
            <string>Spindle</string>
@@ -857,13 +857,24 @@ Mode</string>
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
           <layout class="QGridLayout" name="gridLayout_13">
-           <item row="2" column="0" colspan="2">
-            <widget class="QPushButton" name="spindle_rev_pb">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
+           <item row="6" column="0" colspan="2">
+            <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>Spindle Rev</string>
+              <string>Spindle RPM</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0" colspan="2">
+            <widget class="QSpinBox" name="spindle_speed_sb">
+             <property name="maximum">
+              <number>30000</number>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="spindle_minus_pb">
+             <property name="text">
+              <string>-</string>
              </property>
             </widget>
            </item>
@@ -871,6 +882,23 @@ Mode</string>
             <widget class="QLabel" name="spindle_speed_0_lb">
              <property name="text">
               <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="spindle_plus_pb">
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Speed:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -887,51 +915,6 @@ Mode</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="0" colspan="2">
-            <widget class="QLabel" name="label_20">
-             <property name="text">
-              <string>Spindle RPM</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_21">
-             <property name="text">
-              <string>Speed:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QPushButton" name="spindle_minus_pb">
-             <property name="text">
-              <string>-</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0" colspan="2">
-            <widget class="QSpinBox" name="spindle_speed_sb">
-             <property name="maximum">
-              <number>30000</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QPushButton" name="spindle_fwd_pb">
-             <property name="text">
-              <string>Spindle Fwd</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="spindle_plus_pb">
-             <property name="text">
-              <string>+</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="0" colspan="2">
             <widget class="QPushButton" name="spindle_stop_pb">
              <property name="text">
@@ -939,10 +922,27 @@ Mode</string>
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="spindle_fwd_pb">
+             <property name="text">
+              <string>Spindle Fwd</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="spindle_rev_pb">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Spindle Rev</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
-        <item row="2" column="3">
+        <item row="1" column="3" rowspan="2">
          <widget class="QGroupBox" name="groupBox_12">
           <property name="mouseTracking">
            <bool>false</bool>
@@ -957,7 +957,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>60</y>
+             <y>70</y>
              <width>130</width>
              <height>21</height>
             </rect>
@@ -1001,7 +1001,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>160</x>
-             <y>60</y>
+             <y>70</y>
              <width>41</width>
              <height>25</height>
             </rect>
@@ -1020,7 +1020,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>220</x>
-             <y>60</y>
+             <y>70</y>
              <width>51</width>
              <height>25</height>
             </rect>
@@ -1058,7 +1058,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>30</x>
-             <y>90</y>
+             <y>110</y>
              <width>71</width>
              <height>27</height>
             </rect>
@@ -1077,7 +1077,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>120</x>
-             <y>90</y>
+             <y>110</y>
              <width>71</width>
              <height>27</height>
             </rect>
@@ -1096,7 +1096,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>210</x>
-             <y>90</y>
+             <y>110</y>
              <width>61</width>
              <height>27</height>
             </rect>
