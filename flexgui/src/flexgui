@@ -145,6 +145,7 @@ class flexgui(QMainWindow):
 		startup.setup_plot(self)
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
+		startup.set_status(self)
 
 		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
