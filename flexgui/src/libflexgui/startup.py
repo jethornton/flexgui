@@ -84,16 +84,6 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_estop_names[item]
 
-	parent.status.poll()
-	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		#print('STATE_ESTOP')
-		for key, value in parent.state_estop.items():
-			getattr(parent, key).setEnabled(value)
-			#if key == 'power_pb' or key == 'actionPower':
-			#	print(f'{key} {getattr(parent, key).isEnabled()}')
-		for key, value in parent.state_estop_names.items():
-			getattr(parent, key).setText(value)
-
 	# STATE_ESTOP_RESET enable power
 	parent.state_estop_reset = {'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
@@ -131,13 +121,6 @@ def setup_enables(parent):
 	for item in list(parent.state_estop_reset_names):
 		if item not in parent.children:
 			del parent.state_estop_reset_names[item]
-
-	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		print('STATE_ESTOP_RESET')
-		for key, value in parent.state_estop_reset.items():
-			getattr(parent, key).setEnabled(value)
-		for key, value in parent.state_estop_reset_names.items():
-			getattr(parent, key).setText(value)
 
 	# STATE_ON home, jog, spindle
 	parent.state_on = {'power_pb': True, 'run_pb': False,
@@ -204,27 +187,6 @@ def setup_enables(parent):
 	for item in unhome_items:
 		if item in parent.children:
 			parent.unhome_controls.append(item)
-
-	if parent.status.task_state == linuxcnc.STATE_ON:
-		#print('STATE_ON')
-		for key, value in parent.state_on.items():
-			getattr(parent, key).setEnabled(value)
-		for key, value in parent.state_on_names.items():
-			getattr(parent, key).setText(value)
-		if utilities.all_homed and parent.status.file:
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
-		if utilities.all_homed(parent):
-			#print('all homed')
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.home_controls:
-				getattr(parent, item).setEnabled(False)
-		else:
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(False)
 
 	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
@@ -869,5 +831,44 @@ def setup_plot(parent):
 		parent.plot = QOpenGLWidget()
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plot)
+
+def set_status(parent):
+	parent.status.poll()
+	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		#print('STATE_ESTOP')
+		for key, value in parent.state_estop.items():
+			getattr(parent, key).setEnabled(value)
+			#if key == 'power_pb' or key == 'actionPower':
+			#	print(f'{key} {getattr(parent, key).isEnabled()}')
+		for key, value in parent.state_estop_names.items():
+			getattr(parent, key).setText(value)
+
+	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		print('STATE_ESTOP_RESET')
+		for key, value in parent.state_estop_reset.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_estop_reset_names.items():
+			getattr(parent, key).setText(value)
+
+	if parent.status.task_state == linuxcnc.STATE_ON:
+		#print('STATE_ON')
+		for key, value in parent.state_on.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_on_names.items():
+			getattr(parent, key).setText(value)
+		if utilities.all_homed and parent.status.file:
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
+		if utilities.all_homed(parent):
+			#print('all homed')
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.home_controls:
+				getattr(parent, item).setEnabled(False)
+		else:
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(False)
 
 
