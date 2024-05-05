@@ -558,9 +558,6 @@ def setup_status_labels(parent):
 				p = p if p is not None else 3
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
-	for key, value in parent.status_axes.items():
-		print(key, value)
-
 	# check for joint labels in ui
 	# these return 16 joints
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
