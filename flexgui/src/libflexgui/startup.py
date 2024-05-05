@@ -823,7 +823,6 @@ def setup_hal_buttons(parent):
 				parent.state_estop[button.objectName()] = False
 				parent.state_estop_reset[button.objectName()] = False
 				parent.state_on[button.objectName()] = True
-				print(button.objectName())
 	parent.halcomp.ready()
 
 def setup_plot(parent):
