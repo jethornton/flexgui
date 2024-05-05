@@ -53,7 +53,7 @@ number of the axis. Axis numbers start at 0 and go through to 8.
    :width: 100%
    :align: left
 
-	axis_max_position_limit_n_lb, axis_min_position_limit_n_lb, axis_velocity_n_lb
+	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb, axis_n_velocity_lb
 
 Joint Status
 ------------
