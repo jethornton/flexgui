@@ -525,7 +525,7 @@ def setup_status_labels(parent):
 	g92_items = ['g92_lb_x', 'g92_lb_y', 'g92_lb_z', 'g92_lb_a', 'g92_lb_b',
 		'g92_lb_c', 'g92_lb_u', 'g92_lb_v', 'g92_lb_w']
 	parent.status_g92 = {} # create an empty dictionary
-	# check for g5x offset labels in the ui
+	# check for g5x offset labels in the ui parent.status.g92_offset[0]
 	for i, item in enumerate(g92_items):
 		if item in parent.children: # if the label is found
 			p = getattr(parent, item).property('precision')
@@ -544,14 +544,59 @@ def setup_status_labels(parent):
 			parent.status_tool_offset[f'{item}'] = [i, p] # add the label, tuple position & precision
 
 	# check for axis labels in the ui FIXME precision velocity
-	# these return tuples of xyzabcuvw axes
-	axis_items = ['max_position_limit', 'min_position_limit', 'velocity']
-	parent.status_axes = {} # create an empty dictionary
+	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
+	# label axis_n_velocity_lb
 	parent.status.poll()
+	axes = parent.status.axis_mask.bit_count()
+
+	parent.status_axes = {} # create an empty dictionary
+	for i in range(axes):
+		for item in ['max_position_limit', 'min_position_limit', 'velocity']:
+			label = f'axis_{i}_{item}_lb'
+			if label in parent.children:
+				p = getattr(parent, label).property('precision')
+				p = p if p is not None else 3
+				parent.status_axes[label] = [i, item, p] # axis, status item, precision
+
+	for key, value in parent.status_axes.items():
+		print(key, value)
+
+	'''
+	#for item in axis_stat_labels:
+	#	print(item)
+
+	for item in axis_stat_labels:
+		parent.status_axes[item] = [item[5:6], p]
+
+	for key, value in parent.status_axes.items():
+		print(key, value)
+
+	axis_stat_labels = []
+	for i in range(): # only check for axes that exist
+		for item in axis_stat_items:
+			if f'axis_{item}_{i}_lb' in parent.children: # if the label is found add it to the list
+				axis_stat_labels.append(f'axis_{item}_{i}_lb')
+	for i, item in enumerate(axis_stat_labels):
+		p = getattr(parent, item).property('precision')
+		p = p if p is not None else 3
+		# key label, value status item, precision
+		status_axes[item] = [i, p]
+
+
+	parent.status_axes = {} # create an empty dictionary
+	parent.status_axes_p = {} # create an empty dictionary
 	for i in range(parent.status.axis_mask.bit_count()): # only check for axes that exist
 		for item in axis_items:
 			if f'axis_{item}_{i}_lb' in parent.children: # if the label is found
+				p = getattr(parent, item).property('precision')
+				p = p if p is not None else 3
+				# key label, value status item, precision
+				parent.status_axes_p[f'axis_{item}_{i}_lb'] = [item, p]
 				parent.status_axes[f'{item}_{i}'] = f'axis_{item}_{i}_lb' # add the status and label
+
+	for key, value in parent.status_axes_p.items():
+		print(key, value)
+	'''
 
 	# check for joint labels in ui
 	# these return 16 joints
