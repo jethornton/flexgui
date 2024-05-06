@@ -454,45 +454,37 @@ def setup_status_labels(parent):
 		if f'{item}_lb' in parent.children: # if the label is found
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
-	position_items = ['actual_lb_x', 'actual_lb_y', 'actual_lb_z', 'actual_lb_a',
-		'actual_lb_b', 'actual_lb_c', 'actual_lb_u', 'actual_lb_v', 'actual_lb_w']
 	parent.status_position = {} # create an empty dictionary
-	# check for position labels in the ui
-	for i, item in enumerate(position_items):
-		if item in parent.children: # if the label is found
-			p = getattr(parent, item).property('precision')
+	for axis in AXES:
+		label = f'actual_lb_{axis}'
+		if label in parent.children:
+			p = getattr(parent, label).property('precision')
 			p = p if p is not None else 3
-			parent.status_position[f'{item}'] = [i, p] # add the label, tuple position & precision
+			parent.status_position[f'{label}'] = p # add the label & precision
 
-	dro_items = ['dro_lb_x', 'dro_lb_y', 'dro_lb_z', 'dro_lb_a', 'dro_lb_b',
-		'dro_lb_c', 'dro_lb_u', 'dro_lb_v', 'dro_lb_w']
 	parent.status_dro = {} # create an empty dictionary
-	# check for dro labels in the ui
-	for i, item in enumerate(dro_items):
-		if item in parent.children: # if the label is found
-			p = getattr(parent, item).property('precision')
+	for i, axis in enumerate(AXES):
+		label = f'dro_lb_{axis}'
+		if label in parent.children:
+			p = getattr(parent, label).property('precision')
 			p = p if p is not None else 3
-			parent.status_dro[f'{item}'] = [i, p] # add the label, tuple position & precision
+			parent.status_dro[f'{label}'] = [i, p] # add the label, tuple position & precision
 
-	g5x_items = ['g5x_lb_x', 'g5x_lb_y', 'g5x_lb_z', 'g5x_lb_a', 'g5x_lb_b',
-		'g5x_lb_c', 'g5x_lb_u', 'g5x_lb_v', 'g5x_lb_w']
 	parent.status_g5x = {} # create an empty dictionary
-	# check for g5x offset labels in the ui
-	for i, item in enumerate(g5x_items):
-		if item in parent.children: # if the label is found
-			p = getattr(parent, item).property('precision')
+	for i, axis in enumerate(AXES):
+		label = f'g5x_lb_{axis}'
+		if label in parent.children:
+			p = getattr(parent, label).property('precision')
 			p = p if p is not None else 3
-			parent.status_g5x[f'{item}'] = [i, p] # add the label, tuple position & precision
+			parent.status_g5x[f'{label}'] = [i, p] # add the label, tuple position & precision
 
-	g92_items = ['g92_lb_x', 'g92_lb_y', 'g92_lb_z', 'g92_lb_a', 'g92_lb_b',
-		'g92_lb_c', 'g92_lb_u', 'g92_lb_v', 'g92_lb_w']
 	parent.status_g92 = {} # create an empty dictionary
-	# check for g5x offset labels in the ui parent.status.g92_offset[0]
-	for i, item in enumerate(g92_items):
-		if item in parent.children: # if the label is found
-			p = getattr(parent, item).property('precision')
+	for i, axis in enumerate(AXES):
+		label = f'g92_lb_{axis}'
+		if label in parent.children:
+			p = getattr(parent, label).property('precision')
 			p = p if p is not None else 3
-			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
+			parent.status_g92[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_tool_offset = {} # create an empty dictionary
 	for i in range(9):
@@ -615,16 +607,6 @@ def setup_plain_text_edits(parent):
 
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
-
-'''
-def setup_list_widgets(parent):
-	list_widgets = ['mdi_history_lw']
-	for item in list_widgets:
-		if parent.findChild(QListWidget, item) is not None:
-			setattr(parent, f'{item}_exists', True)
-		else:
-			setattr(parent, f'{item}_exists', False)
-'''
 
 def setup_check_boxes(parent):
 	if 'print_states_cb' in parent.children:
