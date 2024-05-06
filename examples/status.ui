@@ -1162,14 +1162,14 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLabel" name="axis_max_position_limit_0_lb">
+          <widget class="QLabel" name="axis_0_max_position_limit_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QLabel" name="axis_min_position_limit_0_lb">
+          <widget class="QLabel" name="axis_0_min_position_limit_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -1183,7 +1183,7 @@
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QLabel" name="axis_velocity_0_lb">
+          <widget class="QLabel" name="axis_0_velocity_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -1197,42 +1197,42 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLabel" name="axis_max_position_limit_1_lb">
+          <widget class="QLabel" name="axis_1_max_position_limit_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLabel" name="axis_max_position_limit_2_lb">
+          <widget class="QLabel" name="axis_2_max_position_limit_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QLabel" name="axis_min_position_limit_2_lb">
+          <widget class="QLabel" name="axis_2_min_position_limit_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QLabel" name="axis_min_position_limit_1_lb">
+          <widget class="QLabel" name="axis_1_min_position_limit_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item row="3" column="3">
-          <widget class="QLabel" name="axis_velocity_2_lb">
+          <widget class="QLabel" name="axis_2_velocity_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item row="2" column="3">
-          <widget class="QLabel" name="axis_velocity_1_lb">
+          <widget class="QLabel" name="axis_1_velocity_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
