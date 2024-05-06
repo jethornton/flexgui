@@ -11,7 +11,10 @@ label set the `objectName` to the status you want.
 .. image:: /images/status-01.png
    :align: center
 
-If the label returns a float the default precision is 3 for metric and 4 for
+Precision
+---------
+
+Labels that return float values default precision is 3 for metric and 4 for
 inch.
 
 To override the default, select the label then click on the Green Plus sign in
@@ -33,6 +36,9 @@ Set the Value to how many decimal places you want for that status label.
 
 For more information about status labels read the LinuxCNC `Python Interface
 Status Attributes <http://linuxcnc.org/docs/stable/html/config/python-interface.html#_linuxcnc_stat_attributes>`_.
+
+Status Labels
+-------------
 
 .. csv-table:: Single Status Labels
    :width: 100%
@@ -213,10 +219,4 @@ Replace the `_n_` with the position in the tool table.
 	tool_table_woffset_n_lb, tool_table_diameter_n_lb, tool_table_frontangle_n_lb
 	tool_table_backangle_n_lb, tool_table_orientation_n_lb
 
-Precision
----------
-
-Labels that show float values the precision can be set by adding a string
-Dynamic Property called `precision` and setting the precision you want as the
-value. If the precision is not set it will default to 3.
 
