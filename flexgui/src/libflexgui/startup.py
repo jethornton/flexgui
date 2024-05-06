@@ -405,6 +405,15 @@ def setup_actions(parent): # setup menu actions
 			parent.actionCopy_MDI_History.setEnabled(False)
 
 def setup_status_labels(parent):
+	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
+	print(units)
+	if units.lower() == 'inch':
+		default_precision = 4
+	elif units.lower() == 'mm':
+		default_precision = 3
+	else:
+		default_precision = 3
+
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
@@ -459,7 +468,7 @@ def setup_status_labels(parent):
 		label = f'actual_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else 3
+			p = p if p is not None else default_precision
 			parent.status_position[f'{label}'] = p # add the label & precision
 
 	parent.status_dro = {} # create an empty dictionary
@@ -467,7 +476,7 @@ def setup_status_labels(parent):
 		label = f'dro_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else 3
+			p = p if p is not None else default_precision
 			parent.status_dro[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_g5x = {} # create an empty dictionary
@@ -475,7 +484,7 @@ def setup_status_labels(parent):
 		label = f'g5x_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else 3
+			p = p if p is not None else default_precision
 			parent.status_g5x[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_g92 = {} # create an empty dictionary
@@ -483,7 +492,7 @@ def setup_status_labels(parent):
 		label = f'g92_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else 3
+			p = p if p is not None else default_precision
 			parent.status_g92[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_tool_offset = {} # create an empty dictionary
@@ -491,7 +500,7 @@ def setup_status_labels(parent):
 		label = f'tool_offset_lb_{i}'
 		if label in parent.children: # if the label is found
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else 3
+			p = p if p is not None else default_precision
 			parent.status_tool_offset[label] = [i, p] # add the label, tuple position & precision
 
 	# check for axis labels in the ui
@@ -506,7 +515,7 @@ def setup_status_labels(parent):
 			label = f'axis_{i}_{item}_lb'
 			if label in parent.children:
 				p = getattr(parent, label).property('precision')
-				p = p if p is not None else 3
+				p = p if p is not None else default_precision
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
 	# check for joint labels in ui
@@ -528,10 +537,10 @@ def setup_status_labels(parent):
 		for item in joint_number_items:
 			if f'joint_{item}_{i}_lb' in parent.children: # if the label is found
 				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
-				p = p if p is not None else 3
+				p = p if p is not None else default_precision
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	#override_items = ['feedrate',  'rapidrate',] FIXME
+	#override_items = ['feedrate',  'rapidrate',]
 	override_items = {'feedrate_lb': 'feedrate' , 'rapidrate_lb': 'rapidrate',
 		'rapid_override_lb': 'max_velocity'}
 	# label : status item rapid_override_lb
@@ -540,7 +549,7 @@ def setup_status_labels(parent):
 		if label in parent.children:
 			parent.overrides[label] = stat
 
-	# check for analog and digital labels in ui
+	# check for analog and digital labels in ui FIXME precision for analog
 	# these return 64 items each
 	io_items = ['ain', 'aout', 'din', 'dout']
 	parent.status_io = {}
