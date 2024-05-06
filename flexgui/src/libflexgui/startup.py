@@ -406,12 +406,9 @@ def setup_actions(parent): # setup menu actions
 
 def setup_status_labels(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
-	print(units)
 	if units.lower() == 'inch':
 		default_precision = 4
 	elif units.lower() == 'mm':
-		default_precision = 3
-	else:
 		default_precision = 3
 
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
