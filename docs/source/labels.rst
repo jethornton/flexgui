@@ -191,5 +191,10 @@ Replace the `_n_` with the position in the tool table.
 	tool_table_woffset_n_lb, tool_table_diameter_n_lb, tool_table_frontangle_n_lb
 	tool_table_backangle_n_lb, tool_table_orientation_n_lb
 
+Precision
+---------
 
+Labels that show float values the precision can be set by adding a string
+Dynamic Property called `precision` and setting the precision you want as the
+value. If the precision is not set it will default to 3.
 
