@@ -7,8 +7,29 @@ displays for all joints. Multiple status labels use a number identifier to
 select the axis, joint or spindle information wanted. When creating a status
 label set the `objectName` to the status you want.
 
+
 .. image:: /images/status-01.png
    :align: center
+
+If the label returns a float the default precision is 3 for metric and 4 for
+inch.
+
+To override the default, select the label then click on the Green Plus sign in
+the Property Editor and select String...
+
+.. image:: /images/status-02.png
+   :align: center
+
+Set the Property Name to `precision`.
+
+.. image:: /images/status-03.png
+   :align: center
+
+Set the Value to how many decimal places you want for that status label.
+
+.. image:: /images/status-04.png
+   :align: center
+
 
 For more information about status labels read the LinuxCNC `Python Interface
 Status Attributes <http://linuxcnc.org/docs/stable/html/config/python-interface.html#_linuxcnc_stat_attributes>`_.
@@ -81,7 +102,8 @@ Run from line label
 
 `start_line_lb`
 
-Axis machine position labels no offsets
+Axis machine position labels no offsets, displays a float and precision can be
+specified.
 
 .. csv-table:: Machine Position Status Labels
    :width: 100%
