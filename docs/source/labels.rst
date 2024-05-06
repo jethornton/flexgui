@@ -68,7 +68,7 @@ Axis Status
 -----------
 
 The Axis status contains status items for 9 axes. Replace the `_n_` with the
-number of the axis. Axis numbers start at 0 and go through to 8.
+number of the axis. Axis numbers start at 0 and go through to 8. Returns a float.
 
 .. csv-table:: Axis Status Labels
    :width: 100%
@@ -102,8 +102,7 @@ Run from line label
 
 `start_line_lb`
 
-Axis machine position labels no offsets, displays a float and precision can be
-specified.
+Axis machine position labels no offsets. Returns a float.
 
 .. csv-table:: Machine Position Status Labels
    :width: 100%
@@ -114,7 +113,7 @@ specified.
 	actual_lb_u, actual_lb_v, actual_lb_w
 
 
-Axis position labels including all offsets
+Axis position labels including all offsets. Returns a float.
 
 .. csv-table:: DRO Status Labels
    :width: 100%
@@ -135,7 +134,7 @@ Axis homed labels
 	home_lb_6, home_lb_7, home_lb_8
 
 
-Offsets for the currently active G5x coordinate system
+Offsets for the currently active G5x coordinate system. Returns a float.
 
 .. csv-table:: G5x Status Labels
    :width: 100%
@@ -145,7 +144,7 @@ Offsets for the currently active G5x coordinate system
 	g5x_lb_a, g5x_lb_b, g5x_lb_c
 	g5x_lb_u, g5x_lb_v, g5x_lb_w
 
-Offsets for G92
+Offsets for G92.  Returns a float.
 
 .. csv-table:: G92 Status Labels
    :width: 100%
@@ -155,7 +154,7 @@ Offsets for G92
 	g92_lb_a, g92_lb_b, g92_lb_c
 	g92_lb_u, g92_lb_v, g92_lb_w
 
-Current Tool Offsets
+Current Tool Offsets. Returns a float.
 
 .. csv-table:: Current Tool Status Labels
    :width: 100%
@@ -188,7 +187,8 @@ I/O Status
 ----------
 
 The I/O status contains status items for 64 I/O's. Replace the `_n_` with the
-number of the joint. Joint numbers start at 0 and go through to 63.
+number of the joint. Joint numbers start at 0 and go through to 63. Analog
+I/O returns a float.
 
 .. csv-table:: I/O Status Labels
    :width: 100%
