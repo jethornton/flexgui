@@ -494,18 +494,15 @@ def setup_status_labels(parent):
 			p = p if p is not None else 3
 			parent.status_g92[f'{item}'] = [i, p] # add the label, tuple position & precision
 
-	tool_offset_items = []
-	for i in range(9):
-		tool_offset_items.append(f'tool_offset_lb_{i}')
 	parent.status_tool_offset = {} # create an empty dictionary
-	# check for tool offset labels in the ui
-	for i, item in enumerate(tool_offset_items):
-		if item in parent.children: # if the label is found
-			p = getattr(parent, item).property('precision')
+	for i in range(9):
+		label = f'tool_offset_lb_{i}'
+		if label in parent.children: # if the label is found
+			p = getattr(parent, label).property('precision')
 			p = p if p is not None else 3
-			parent.status_tool_offset[f'{item}'] = [i, p] # add the label, tuple position & precision
+			parent.status_tool_offset[label] = [i, p] # add the label, tuple position & precision
 
-	# check for axis labels in the ui FIXME precision velocity
+	# check for axis labels in the ui
 	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
 	# label axis_n_velocity_lb
 	parent.status.poll()
