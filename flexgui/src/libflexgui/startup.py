@@ -554,18 +554,15 @@ def setup_status_labels(parent):
 			if label in parent.children:
 				parent.status_dio[label] = [item, i] # add label and stat
 
-
-
-	'''
-	# check for analog and digital labels in ui FIXME precision for analog
-	# these return 64 items each
-	io_items = ['ain', 'aout', 'din', 'dout']
-	parent.status_io = {}
+	# aio ain_0_lb aout_0_lb aio[0] aout[0]
+	parent.status_aio = {}
 	for i in range(64):
-		for item in io_items:
-			if f'{item}_{i}_lb' in parent.children:
-				parent.status_io[f'{item}_{i}'] = f'{item}_{i}_lb'
-	'''
+		for item in ['ain', 'aout']:
+			label = f'{item}_{i}_lb'
+			if label in parent.children:
+				p = getattr(parent, f'{item}_{i}_lb').property('precision')
+				p = p if p is not None else default_precision
+				parent.status_aio[label] = [item, i, p] # add label, stat and precision
 
 	# check for spindle labels in the ui
 	spindle_items = ['brake', 'direction', 'enabled', 'homed',
