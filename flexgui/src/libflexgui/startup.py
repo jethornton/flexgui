@@ -438,6 +438,7 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
+	# FIXME move linear_units and set precision
 	status_items = ['acceleration', 'active_queue', 
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
@@ -553,6 +554,7 @@ def setup_status_labels(parent):
 			label = f'{item}_{i}_lb'
 			if label in parent.children:
 				parent.status_dio[label] = [item, i] # add label and stat
+				parent.stat_dict[f'{item}[{i}]'] = {0: False, 1: True}
 
 	# aio ain_0_lb aout_0_lb aio[0] aout[0]
 	parent.status_aio = {}
