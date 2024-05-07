@@ -295,6 +295,12 @@ def update(parent):
 	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").tool_offset[value[0]]:.{value[1]}f}')
 
+	# dio din_0_lb din[0] dout_0_lb dout[0]
+	for key, value in parent.status_dio.items():
+		getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value[0]}")[value[1]]}')
+
+
+	'''
 	# i/o s.ain[0] FIXME precision
 	for key, value in parent.status_io.items(): # up to 64 items
 		# there might be more than one underscore
@@ -307,6 +313,7 @@ def update(parent):
 	# i/o s.aout[0] FIXME precision
 	# i/o s.din[0]
 	# i/o s.dout[0]
+	'''
 
 	# spindle s.spindle[0]['brake']
 	for key, value in parent.status_spindles.items():
