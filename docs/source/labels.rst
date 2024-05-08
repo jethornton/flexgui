@@ -81,6 +81,7 @@ number of the axis. Axis numbers start at 0 and go through to 8. Returns a float
    :align: left
 
 	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb, axis_n_velocity_lb
+	axis_n_vel_per_min_lb
 
 Joint Status
 ------------
@@ -182,9 +183,10 @@ number of the spindle. Spindle numbers start at 0 and go through to 8.
    :width: 100%
    :align: left
 
-	spindle_brake_n_lb, spindle_direction_n_lb, spindle_enabled_n_lb,
+	spindle_brake_n_lb, spindle_direction_n_lb, spindle_enabled_n_lb
 	spindle_override_enabled_n_lb, spindle_speed_n_lb, spindle_override_n_lb
 	spindle_homed_n_lb, spindle_orient_state_n_lb, spindle_orient_fault_n_lb
+	spindle_actual_speed_lb
 
 .. note:: Spindle speed is the commanded speed not the actual speed if an
    override is in effect.
