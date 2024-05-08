@@ -70,14 +70,30 @@ def load_file(parent, gcode_file):
 			getattr(parent, item).setEnabled(True)
 
 def action_open(parent): # actionOpen
+	extensions = parent.inifile.findall("FILTER", "PROGRAM_EXTENSION") or False
+	if extensions:
+		ext_groups = ['G code Files (*.ngc *.NGC)']
+		for extension in extensions:
+			filter_type = extension.split(' ', 1)
+			if len(filter_type) > 1:
+				ext_list = []
+				desc = filter_type[1]
+				exts = filter_type[0].split(',')
+				for ext in exts:
+					ext_list.append(f'*{ext}')
+				ext_groups.append(f'{desc} ({" ".join(ext_list)})')
+		ext_filter = ';;'.join(ext_groups)
+	else:
+		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
 		gcode_dir = os.path.expanduser('~/')
 	gcode_file, file_type = QFileDialog.getOpenFileName(None,
 	caption="Select G code File", directory=gcode_dir,
-	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.Option.DontUseNativeDialog)
+	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
 	if gcode_file: load_file(parent, gcode_file)
+	# filename = QFileDialog.getOpenFileName("", "JPG (*.jpg);;PGM (*.pgm)"), self, "Read file", "Read file")
 
 def action_edit(parent): # actionEdit
 	parent.status.poll
