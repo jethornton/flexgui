@@ -267,6 +267,10 @@ def update(parent):
 	for key, value in parent.status_axes.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").axis[value[0]][value[1]]:.{value[2]}f}')
 
+	# axis velocity per mintute parent.status.axis[0]['velocity']
+	for key, value in parent.status_axes_vel_min.items():
+		getattr(parent, f'{key}').setText(f'''{getattr(parent, "status").axis[value[0]][value[1]] * 60:.{value[2]}f}''')
+
 	# joints s.joint[0]['units']
 	for key, value in parent.status_joints.items(): # up to 16 items
 		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
@@ -319,6 +323,11 @@ def update(parent):
 	for key, value in parent.status_spindle_overrides.items():
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key] * 100:.0f}%')
+
+	# spindle actual speed
+	for item in parent.spindle_actual_speed:
+		override = parent.spindle_override_sl.value() / 100
+		getattr(parent, item).setText(f'{parent.status.spindle[0]["speed"] * override:.1f}')
 
 	# tool table s.tool_table[0].id
 	for key, value in parent.tool_table.items():

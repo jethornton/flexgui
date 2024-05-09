@@ -516,6 +516,14 @@ def setup_status_labels(parent):
 				p = p if p is not None else default_precision
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
+	parent.status_axes_vel_min = {}
+	for i in range(axes):
+		label = f'axis_{i}_vel_per_min_lb'
+		if label in parent.children:
+			p = getattr(parent, label).property('precision')
+			p = p if p is not None else default_precision
+			parent.status_axes_vel_min[label] = [i, 'velocity', p] # axis, item, precision
+
 	# check for joint labels in ui
 	# these return 16 joints
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
@@ -583,6 +591,12 @@ def setup_status_labels(parent):
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['speed_0'] = 'spindle_speed_0_lcd'
 		#parent.spindle_speed_0_lcd.display(123.5)
+
+	# special spindle labels
+	parent.spindle_actual_speed = []
+	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_0_lb']
+	if all(x in parent.children for x in spindle_actual_speed):
+		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
 	# check for tool table labels in the ui
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
