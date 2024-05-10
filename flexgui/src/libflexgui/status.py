@@ -300,10 +300,9 @@ def update(parent):
 		#print(f'{int(getattr(parent, "status").spindle[0][key])}')
 		getattr(parent, f'{value}').display(f'{int(getattr(parent, "status").spindle[0][key])}')
 
-	# spindle override
+	# spindle override parent.spindle[0]['override']
 	for key, value in parent.status_spindle_overrides.items():
-		key = key[0:-2]
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key] * 100:.0f}%')
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").spindle[value]["override"] * 100:.0f}%')
 
 	# spindle actual speed
 	for item in parent.spindle_actual_speed:

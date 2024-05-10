@@ -609,11 +609,18 @@ def setup_status_labels(parent):
 		for item in spindle_items:
 			if f'spindle_{item}_{i}_lb' in parent.children:
 				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
+
 		if f'spindle_override_{i}_lb' in parent.children:
-			parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
+			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
+			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
+
+	for key, value in parent.status_spindle_overrides.items():
+		print(key, value)
+
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['speed_0'] = 'spindle_speed_0_lcd'
 		#parent.spindle_speed_0_lcd.display(123.5)
+
 
 	# special spindle labels
 	parent.spindle_actual_speed = []
