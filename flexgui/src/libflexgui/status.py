@@ -189,7 +189,6 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 		parent.mist_state = parent.status.mist
 
-
 	for key, value in parent.status_labels.items(): # update all status labels
 		# key is the status item and value is the label
 		# get the label and set the text to the status value of the key
@@ -267,29 +266,11 @@ def update(parent):
 	for key, value in parent.status_axes.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").axis[value[0]][value[1]]:.{value[2]}f}')
 
-	# axis velocity per mintute parent.status.axis[0]['velocity']
-	for key, value in parent.status_axes_vel_min.items():
-		getattr(parent, f'{key}').setText(f'''{getattr(parent, "status").axis[value[0]][value[1]] * 60:.{value[2]}f}''')
-
-	# joints s.joint[0]['units']
-	for key, value in parent.status_joints.items(): # up to 16 items
-		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
-			key = key[0:-3]
-		else:
-			key = key[0:-2]
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").joint[int(value[-4])][key]}')
-
-	# joints precision items
-	for key, value in parent.status_joint_prec.items(): # key is label value tuple position & precision
-		if int(key.split('_')[-1]) > 9: # determine how many chars to strip
-			key = key[0:-3]
-		else:
-			key = key[0:-2]
-		# if velocity * 60 FIXME
-		getattr(parent, f'joint_{key}_{value[0]}_lb').setText(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
-
-		# print(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
-		# getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[value[0]]:.{value[1]}f}')
+	# joint velocity parent.status.joint[0]['velocity'] key label value joint precision
+	for key, value in parent.joint_vel_sec.items():
+		getattr(parent, key).setText(f'{abs(getattr(parent, "status").joint[value[0]]["velocity"]):.{value[1]}f}')
+	for key, value in parent.joint_vel_min.items():
+		getattr(parent, key).setText(f'{abs(getattr(parent, "status").joint[value[0]]["velocity"]) * 60:.{value[1]}f}')
 
 	# override items label : status item
 	for label, stat in parent.overrides.items():
