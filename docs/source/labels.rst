@@ -64,7 +64,7 @@ Status Labels
 	exec_state_lb, motion_line_lb, tool_in_spindle_lb
 	feed_hold_enabled_lb, motion_mode_lb, tool_from_pocket_lb
 	feed_override_enabled_lb, motion_type_lb, tool_offset_lb
-	feedrate_lb, optional_stop_lb, velocity_lb
+	feedrate_lb, optional_stop_lb
 	file_lb, paused_lb, 
 
 
@@ -98,9 +98,9 @@ number of the joint. Joint numbers start at 0 and go through to 15.
 	joint_fault_n_lb, joint_max_ferror_n_lb, joint_output_n_lb
 	joint_ferror_current_n_lb, joint_max_hard_limit_n_lb, joint_override_limits_n_lb
 	joint_ferror_highmark_n_lb, joint_max_position_limit_n_lb, joint_units_n_lb
-	joint_homed_n_lb, joint_max_soft_limit_n_lb, joint_velocity_n_lb
-	joint_homing_n_lb, joint_min_ferror_n_lb, joint_inpos_n_lb,
-	joint_min_hard_limit_n_lb,
+	joint_homed_n_lb, joint_max_soft_limit_n_lb, joint_vel_sec_n_lb
+	joint_vel_min_n_lb, joint_homing_n_lb, joint_min_ferror_n_lb
+	joint_inpos_n_lb, joint_min_hard_limit_n_lb,
 
 Special Labels
 --------------

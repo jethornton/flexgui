@@ -453,7 +453,7 @@ def setup_status_labels(parent):
 	'program_units', 'queue', 'queue_full', 'read_line',
 	'rotation_xy', 'settings', 'spindle', 'spindles', 'state', 'task_mode',
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
-	'tool_offset', 'tool_table', 'velocity']
+	'tool_offset', 'tool_table']
 
 	# check for status labels in the ui
 	parent.status_labels = {} # create an empty dictionary
@@ -536,6 +536,29 @@ def setup_status_labels(parent):
 		for item in joint_items:
 			if f'joint_{item}_{i}_lb' in parent.children:
 				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
+
+	# joint velocity joint_velocity_n_lb parent.status.joint[0]['velocity']
+	parent.status.poll()
+	parent.joint_vel_sec = {}
+	for i in range(parent.status.joints):
+		if f'joint_vel_sec_{i}_lb' in parent.children: # if the label is found
+			p = getattr(parent, f'joint_vel_sec_{i}_lb').property('precision')
+			p = p if p is not None else default_precision
+			parent.joint_vel_sec[f'joint_vel_sec_{i}_lb'] = [i, p] # add the label, tuple position & precision
+
+	#for key, value in parent.joint_vel_sec.items():
+	#	print(key, value)
+
+	parent.joint_vel_min = {}
+	for i in range(parent.status.joints):
+		if f'joint_vel_min_{i}_lb' in parent.children: # if the label is found
+			p = getattr(parent, f'joint_vel_min_{i}_lb').property('precision')
+			p = p if p is not None else default_precision
+			parent.joint_vel_min[f'joint_vel_min_{i}_lb'] = [i, p] # add the label, tuple position & precision
+
+	#for key, value in parent.joint_vel_min.items():
+	#	print(key, value)
+
 
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
