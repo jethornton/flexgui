@@ -748,14 +748,11 @@ def setup_spindle(parent):
 		#parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
-		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
-		print(min_rpm)
+		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False 
 		min_rpm = int(min_rpm) if min_rpm else 0
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
-		print(max_rpm)
 		max_rpm = int(max_rpm) if max_rpm else 1000
 		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-		print(increment)
 		if not increment:
 			increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 		increment = int(increment) if increment else 100
