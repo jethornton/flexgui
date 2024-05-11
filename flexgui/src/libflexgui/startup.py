@@ -556,7 +556,6 @@ def setup_status_labels(parent):
 	#for key, value in parent.joint_vel_min.items():
 	#	print(key, value)
 
-
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
 	for i in range(16):
@@ -748,14 +747,14 @@ def setup_spindle(parent):
 		parent.min_rpm = int(parent.min_rpm) if parent.min_rpm else 0
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 		max_rpm = int(max_rpm) if max_rpm else 1000
-		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-		if not increment:
-			increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-		increment = int(increment) if increment else 100
+		parent.increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
+		if not parent.increment:
+			parent.increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
+		parent.increment = int(parent.increment) if parent.increment else 100
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setValue(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(max_rpm)
-		parent.spindle_speed_sb.setSingleStep(increment)
+		parent.spindle_speed_sb.setSingleStep(parent.increment)
 
 	if 'spindle_override_sl' in parent.children:
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
