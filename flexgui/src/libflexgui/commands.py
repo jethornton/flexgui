@@ -270,14 +270,16 @@ def spindle(parent, value=0):
 	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
 	elif sender_name == 'spindle_plus_pb':
-		parent.spindle_speed += 100
 		parent.command.spindle(emc.SPINDLE_INCREASE)
+		parent.spindle_speed += 100
+		if 'spindle_speed_sb' in parent.children:
+			parent.spindle_speed_sb.setValue(parent.spindle_speed)
 	elif sender_name == 'spindle_minus_pb':
 		parent.command.spindle(emc.SPINDLE_DECREASE)
 		if parent.spindle_speed >= 200:
 			parent.spindle_speed -= 100
-	#if 'spindle_speed_sb' in parent.children:
-	#	parent.spindle_speed_sb.setValue(parent.spindle_speed) 
+		if 'spindle_speed_sb' in parent.children:
+			parent.spindle_speed_sb.setValue(parent.spindle_speed)
 
 def flood_toggle(parent):
 	parent.status.poll()
