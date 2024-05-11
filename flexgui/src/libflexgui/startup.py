@@ -787,7 +787,6 @@ def setup_spindle(parent):
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
 			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
 
-	# FIXME key is label and value is item
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
 		#parent.spindle_speed_0_lcd.display(123.5)
