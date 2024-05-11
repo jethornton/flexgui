@@ -781,7 +781,7 @@ def setup_spindle(parent):
 	for i in range(parent.status.spindles):
 		for item in spindle_items:
 			if f'spindle_{item}_{i}_lb' in parent.children:
-				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
+				parent.status_spindles[f'spindle_{item}_{i}_lb'] = item
 
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
