@@ -5,7 +5,6 @@ import linuxcnc as emc
 
 from libflexgui import utilities
 
-
 '''
 STATE_ESTOP
 STATE_ESTOP_RESET
@@ -164,11 +163,6 @@ def update(parent):
 	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
-		#if parent.status.exec_state == emc.EXEC_WAITING_FOR_IO:
-		#	if parent.status.interp_state == emc.INTERP_WAITING:
-		#		#for item in parent.run_controls:
-		#		#	getattr(parent, item).setEnabled(True)
-		#		print(f'{EXEC_STATES[parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
 	# ************************** FLOOD_OFF or FLOOD_ON
@@ -189,6 +183,7 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 		parent.mist_state = parent.status.mist
 
+	# FIXME key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
 		# key is the status item and value is the label
 		# get the label and set the text to the status value of the key

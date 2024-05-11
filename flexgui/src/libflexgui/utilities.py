@@ -21,15 +21,6 @@ def is_int(string):
 
 def all_homed(parent):
 	parent.status.poll()
-	'''
-	num_joints = parent.status.joints
-	home_status = parent.status.homed[:num_joints]
-	test_list = []
-	for i in range(num_joints):
-		test_list.append(1)
-	test_tuple = tuple(test_list)
-	return home_status == test_tuple
-	'''
 	return parent.status.homed.count(1) == parent.status.joints
 
 def all_unhomed(parent):

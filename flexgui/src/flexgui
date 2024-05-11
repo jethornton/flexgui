@@ -29,7 +29,7 @@ class flexgui(QMainWindow):
 		# get the path to the executable
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-		# set the library path FIXME get examples path
+		# set the library path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
@@ -43,8 +43,6 @@ class flexgui(QMainWindow):
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
-			#configs_dir = os.path.join(os.path.expanduser('~'), 'linuxcnc', 'configs', 'flex_examples')
-			#if os.path.isdir(configs_dir):
 			msg = ('Flex GUI can not run without LinuxCNC.\n'
 			'A LinuxCNC Simulator can be started first\n'
 			'to start Flex GUI for TESTING ONLY!')
@@ -137,12 +135,12 @@ class flexgui(QMainWindow):
 		startup.setup_spindle(self)
 		startup.setup_jog(self)
 		startup.setup_mdi(self)
-		# loading the post gui files can only happen once
 		startup.setup_hal_buttons(self)
 		startup.setup_tool_change(self)
 		startup.setup_sliders(self)
 		startup.setup_defaults(self)
 		startup.setup_plot(self)
+		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
 		startup.set_status(self)
