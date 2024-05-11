@@ -395,12 +395,9 @@ def setup_actions(parent): # setup menu actions
 			parent.actionLadder_Editor.setEnabled(False)
 
 	# special check for MDI
-	#if parent.findChild(QListWidget, 'mdi_history_lw') is None:
 	if 'mdi_history_lw' in parent.children:
-		#if parent.findChild(QAction, 'actionClear_MDI_History'):
 		if 'actionClear_MDI_History' in parent.children:
 			parent.actionClear_MDI_History.setEnabled(False)
-		#if parent.findChild(QAction, 'actionCopy_MDI_History'):
 		if 'actionCopy_MDI_History' in parent.children:
 			parent.actionCopy_MDI_History.setEnabled(False)
 
@@ -455,7 +452,7 @@ def setup_status_labels(parent):
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table']
 
-	# check for status labels in the ui
+	# check for status labels in the ui FIXME key is label and value is status item
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
 		if f'{item}_lb' in parent.children: # if the label is found
@@ -578,7 +575,7 @@ def setup_status_labels(parent):
 		if label in parent.children:
 			parent.overrides[label] = stat
 
-	# dio din_0_lb dout_0_lb FIXME add any dio found to parent.stat_dict
+	# dio din_0_lb dout_0_lb
 	parent.status_dio = {}
 	for i in range(64):
 		for item in ['din', 'dout']:
@@ -745,7 +742,6 @@ def setup_jog(parent):
 def setup_spindle(parent):
 	parent.spindle_speed = 100
 	if 'spindle_speed_sb' in parent.children:
-		#parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False 
@@ -874,8 +870,6 @@ def set_status(parent):
 		#print('STATE_ESTOP')
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
-			#if key == 'power_pb' or key == 'actionPower':
-			#	print(f'{key} {getattr(parent, key).isEnabled()}')
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
 

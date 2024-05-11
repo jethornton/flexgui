@@ -93,7 +93,6 @@ def action_open(parent): # actionOpen
 	caption="Select G code File", directory=gcode_dir,
 	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
 	if gcode_file: load_file(parent, gcode_file)
-	# filename = QFileDialog.getOpenFileName("", "JPG (*.jpg);;PGM (*.pgm)"), self, "Read file", "Read file")
 
 def action_edit(parent): # actionEdit
 	parent.status.poll
