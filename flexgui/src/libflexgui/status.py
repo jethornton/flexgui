@@ -307,6 +307,14 @@ def update(parent):
 	for key, value in parent.status_spindle_overrides.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").spindle[value]["override"] * 100:.0f}%')
 
+	# spindle direction
+	for key, value in parent.status_spindle_dir.items():
+		if parent.status.spindle[0]['direction'] > 0:
+			direction = 'Fwd'
+		else:
+			direction = 'Rev'
+		getattr(parent, f'{key}').setText(direction)
+
 	# spindle actual speed
 	for item in parent.spindle_actual_speed:
 		override = parent.spindle_override_sl.value() / 100
