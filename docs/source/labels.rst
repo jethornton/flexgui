@@ -33,7 +33,6 @@ Set the Value to how many decimal places you want for that status label.
 .. image:: /images/status-04.png
    :align: center
 
-
 For more information about status labels read the LinuxCNC `Python Interface
 Status Attributes <http://linuxcnc.org/docs/stable/html/config/python-interface.html#_linuxcnc_stat_attributes>`_.
 
@@ -66,7 +65,6 @@ Status Labels
 	feed_override_enabled_lb, motion_type_lb, tool_offset_lb
 	feedrate_lb, optional_stop_lb
 	file_lb, paused_lb, 
-
 
 .. note:: You don't have to use all the labels, the ones found will be
 
@@ -176,10 +174,14 @@ Current Tool Offsets. Returns a float.
 
 .. note:: see the Controls page for axis numbering
 
-Tool velocity using two perpendicular joint velocities. Name the label
-`perp_vel_lb` and add two string Dynamic Properties called `joint_0` and
-`joint_1` and set the values to the perpendicular joint numbers you want to
-calculate.
+Tool velocity using two perpendicular joint velocities.
+
+Name the label `perp_vel_lb` and add two string Dynamic Properties called
+`joint_0` and `joint_1` and set the values to the perpendicular joint numbers
+you want to calculate.
+
+.. image:: /images/status-05.png
+   :align: center
 
 Comming soon:
 Tool teeth label and Feed per Tooth label... stay tuned.
