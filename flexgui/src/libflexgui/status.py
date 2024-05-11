@@ -276,7 +276,7 @@ def update(parent):
 	for label, stat in parent.overrides.items():
 		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
 
-	# current tool offsets FIXME
+	# current tool offsets FIXME key is label value is item
 	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").tool_offset[value[0]]:.{value[1]}f}')
 
@@ -294,11 +294,9 @@ def update(parent):
 	for key, value in parent.status_spindles.items():
 		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
 
-	# spindle lcd  FIXME key is label and value is spindle number
+	# spindle lcd
 	for key, value in parent.status_spindle_lcd.items():
-		key = key[0:-2]
-		#print(f'{int(getattr(parent, "status").spindle[0][key])}')
-		getattr(parent, f'{value}').display(f'{int(getattr(parent, "status").spindle[0][key])}')
+		getattr(parent, key).display(f'{getattr(parent, "status").spindle[0][value]}')
 
 	# spindle override parent.spindle[0]['override']
 	for key, value in parent.status_spindle_overrides.items():
