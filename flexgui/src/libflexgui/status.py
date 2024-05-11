@@ -1,3 +1,4 @@
+from math import sqrt
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
@@ -267,6 +268,12 @@ def update(parent):
 	for key, value in parent.joint_vel_min.items():
 		getattr(parent, key).setText(f'{abs(getattr(parent, "status").joint[value[0]]["velocity"]) * 60:.{value[1]}f}')
 
+	for key, value in parent.xy_vel.items():
+		x_vel = parent.status.joint[0]['velocity']
+		y_vel = parent.status.joint[1]['velocity']
+		xy_vel = sqrt((x_vel * x_vel) + (y_vel * y_vel))
+		getattr(parent, key).setText(f'{xy_vel * 60:.{value}f}')
+
 	# override items label : status item
 	for label, stat in parent.overrides.items():
 		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
@@ -289,6 +296,9 @@ def update(parent):
 	for key, value in parent.status_spindles.items():
 		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
 
+	for key, value in parent.status_spindle_speed.items():
+		getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value])}')
+
 	# spindle lcd
 	for key, value in parent.status_spindle_lcd.items():
 		getattr(parent, key).display(f'{getattr(parent, "status").spindle[0][value]}')
@@ -300,7 +310,7 @@ def update(parent):
 	# spindle actual speed
 	for item in parent.spindle_actual_speed:
 		override = parent.spindle_override_sl.value() / 100
-		commanded_rpm = parent.status.spindle[0]['speed']
+		commanded_rpm = abs(parent.status.spindle[0]['speed'])
 		override_rpm = commanded_rpm * override
 		if override_rpm >= parent.min_rpm:
 			getattr(parent, item).setText(f'{override_rpm:.1f}')

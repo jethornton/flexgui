@@ -521,6 +521,11 @@ def setup_status_labels(parent):
 			p = p if p is not None else default_precision
 			parent.status_axes_vel_min[label] = [i, 'velocity', p] # axis, item, precision
 
+	########################################################3
+	parent.xy_vel = {}
+	if 'xy_vel_lb' in parent.children:
+		parent.xy_vel['xy_vel_lb'] = 2
+
 	# check for joint labels in ui
 	# these return 16 joints
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
@@ -767,7 +772,7 @@ def setup_spindle(parent):
 
 	# check for spindle labels in the ui
 	spindle_items = ['brake', 'direction', 'enabled', 'homed',
-	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
+	'orient_fault', 'orient_state', 'override', 'override_enabled']
 	parent.status_spindles = {}
 	parent.status_spindle_overrides = {}
 	parent.status_spindle_lcd = {}
@@ -781,6 +786,10 @@ def setup_spindle(parent):
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
 			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
+
+	parent.status_spindle_speed = {}
+	if 'spindle_speed_0_lb' in parent.children:
+		parent.status_spindle_speed['spindle_speed_0_lb'] = 'speed'
 
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
