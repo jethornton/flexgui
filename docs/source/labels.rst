@@ -83,6 +83,9 @@ number of the axis. Axis numbers start at 0 and go through to 8. Returns a float
 	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb, axis_n_velocity_lb
 	axis_n_vel_per_min_lb
 
+.. note:: The Axis velocity label only reports back jogging speed, use the
+          joint velocity label for speed.
+
 Joint Status
 ------------
 
@@ -172,6 +175,14 @@ Current Tool Offsets. Returns a float.
 	tool_offset_lb_6, tool_offset_lb_7, tool_offset_lb_8
 
 .. note:: see the Controls page for axis numbering
+
+Tool velocity using two perpendicular joint velocities. Name the label
+`perp_vel_lb` and add two string Dynamic Properties called `joint_0` and
+`joint_1` and set the values to the perpendicular joint numbers you want to
+calculate.
+
+Comming soon:
+Tool teeth label and Feed per Tooth label... stay tuned.
 
 Spindle Status
 --------------
