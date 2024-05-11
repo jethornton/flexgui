@@ -290,11 +290,12 @@ def update(parent):
 	for key, value in parent.status_aio.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value[0]}")[value[1]]:.{value[2]}f}')
 
-	# spindle s.spindle[0]['brake']
+	# spindle s.spindle[0]['brake'] FIXME key is label and value is spindle number
 	for key, value in parent.status_spindles.items():
 		key = key[0:-2]
 		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key]}')
 
+	# spindle lcd  FIXME key is label and value is spindle number
 	for key, value in parent.status_spindle_lcd.items():
 		key = key[0:-2]
 		#print(f'{int(getattr(parent, "status").spindle[0][key])}')
@@ -307,7 +308,14 @@ def update(parent):
 	# spindle actual speed
 	for item in parent.spindle_actual_speed:
 		override = parent.spindle_override_sl.value() / 100
-		getattr(parent, item).setText(f'{parent.status.spindle[0]["speed"] * override:.1f}')
+		commanded_rpm = parent.status.spindle[0]['speed']
+		override_rpm = commanded_rpm * override
+		if override_rpm >= parent.min_rpm:
+			getattr(parent, item).setText(f'{override_rpm:.1f}')
+		elif override_rpm > 0:
+			getattr(parent, item).setText(f'{parent.min_rpm:.1f}')
+		else:
+			getattr(parent, item).setText('0.0')
 
 	# tool table s.tool_table[0].id
 	for key, value in parent.tool_table.items():
