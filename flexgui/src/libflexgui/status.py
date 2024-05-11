@@ -290,10 +290,9 @@ def update(parent):
 	for key, value in parent.status_aio.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value[0]}")[value[1]]:.{value[2]}f}')
 
-	# spindle s.spindle[0]['brake'] FIXME key is label and value is spindle number
+	# spindle s.spindle[0]['brake']
 	for key, value in parent.status_spindles.items():
-		key = key[0:-2]
-		getattr(parent, f'{value}').setText(f'{getattr(parent, "status").spindle[int(value[-4])][key]}')
+		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
 
 	# spindle lcd  FIXME key is label and value is spindle number
 	for key, value in parent.status_spindle_lcd.items():
