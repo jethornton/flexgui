@@ -787,6 +787,11 @@ def setup_spindle(parent):
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
 			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
 
+	# might think about this a bit...
+	parent.status_spindle_dir = {}
+	if 'spindle_direction_0_lb' in parent.children: 
+		parent.status_spindle_dir['spindle_direction_0_lb'] = ['direction']
+
 	parent.status_spindle_speed = {}
 	if 'spindle_speed_0_lb' in parent.children:
 		parent.status_spindle_speed['spindle_speed_0_lb'] = 'speed'
