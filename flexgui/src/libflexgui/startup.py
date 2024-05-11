@@ -791,13 +791,11 @@ def setup_spindle(parent):
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
 		#parent.spindle_speed_0_lcd.display(123.5)
 
-
 	# special spindle labels
 	parent.spindle_actual_speed = []
 	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_0_lb']
 	if all(x in parent.children for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
-
 
 def setup_tool_change(parent):
 	# tool change using a spin box
