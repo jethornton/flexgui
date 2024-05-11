@@ -597,37 +597,6 @@ def setup_status_labels(parent):
 				p = p if p is not None else default_precision
 				parent.status_aio[label] = [item, i, p] # add label, stat and precision
 
-	# check for spindle labels in the ui
-	spindle_items = ['brake', 'direction', 'enabled', 'homed',
-	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
-	parent.status_spindles = {}
-	parent.status_spindle_overrides = {}
-	parent.status_spindle_lcd = {}
-	parent.status.poll()
-	 # only look for the num of spindles configured
-	for i in range(parent.status.spindles):
-		for item in spindle_items:
-			if f'spindle_{item}_{i}_lb' in parent.children:
-				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
-
-		if f'spindle_override_{i}_lb' in parent.children:
-			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
-			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
-
-	for key, value in parent.status_spindle_overrides.items():
-		print(key, value)
-
-	if 'spindle_speed_0_lcd' in parent.children:
-		parent.status_spindle_lcd['speed_0'] = 'spindle_speed_0_lcd'
-		#parent.spindle_speed_0_lcd.display(123.5)
-
-
-	# special spindle labels
-	parent.spindle_actual_speed = []
-	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_0_lb']
-	if all(x in parent.children for x in spindle_actual_speed):
-		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
-
 	# check for tool table labels in the ui
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
 		'boffset', 'coffset', 'uoffset', 'voffset', 'woffset', 'diameter',
@@ -780,14 +749,18 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+		print(min_rpm)
 		min_rpm = int(min_rpm) if min_rpm else 0
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+		print(max_rpm)
 		max_rpm = int(max_rpm) if max_rpm else 1000
 		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
+		print(increment)
 		if not increment:
 			increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 		increment = int(increment) if increment else 100
 		parent.spindle_speed_sb.setMinimum(min_rpm)
+		parent.spindle_speed_sb.setValue(min_rpm)
 		parent.spindle_speed_sb.setMaximum(max_rpm)
 		parent.spindle_speed_sb.setSingleStep(increment)
 
@@ -799,6 +772,38 @@ def setup_spindle(parent):
 		parent.spindle_override_sl.setMaximum(max_spindle_override)
 		if max_spindle_override >= 100:
 			parent.spindle_override_sl.setValue(100)
+
+	# check for spindle labels in the ui
+	spindle_items = ['brake', 'direction', 'enabled', 'homed',
+	'orient_fault', 'orient_state', 'override', 'override_enabled', 'speed']
+	parent.status_spindles = {}
+	parent.status_spindle_overrides = {}
+	parent.status_spindle_lcd = {}
+	parent.status.poll()
+	 # only look for the num of spindles configured
+	for i in range(parent.status.spindles):
+		for item in spindle_items:
+			if f'spindle_{item}_{i}_lb' in parent.children:
+				parent.status_spindles[f'{item}_{i}'] = f'spindle_{item}_{i}_lb'
+
+		if f'spindle_override_{i}_lb' in parent.children:
+			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
+			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
+
+	for key, value in parent.status_spindle_overrides.items():
+		print(key, value)
+
+	if 'spindle_speed_0_lcd' in parent.children:
+		parent.status_spindle_lcd['speed_0'] = 'spindle_speed_0_lcd'
+		#parent.spindle_speed_0_lcd.display(123.5)
+
+
+	# special spindle labels
+	parent.spindle_actual_speed = []
+	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_0_lb']
+	if all(x in parent.children for x in spindle_actual_speed):
+		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
+
 
 def setup_tool_change(parent):
 	# tool change using a spin box
