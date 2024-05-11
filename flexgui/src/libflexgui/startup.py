@@ -748,16 +748,16 @@ def setup_spindle(parent):
 		#parent.spindle_speed_sb.valueChanged.connect(partial(utilities.spindle_speed, parent))
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
-		min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False 
-		min_rpm = int(min_rpm) if min_rpm else 0
+		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False 
+		parent.min_rpm = int(parent.min_rpm) if parent.min_rpm else 0
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 		max_rpm = int(max_rpm) if max_rpm else 1000
 		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 		if not increment:
 			increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 		increment = int(increment) if increment else 100
-		parent.spindle_speed_sb.setMinimum(min_rpm)
-		parent.spindle_speed_sb.setValue(min_rpm)
+		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
+		parent.spindle_speed_sb.setValue(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(max_rpm)
 		parent.spindle_speed_sb.setSingleStep(increment)
 
@@ -786,9 +786,6 @@ def setup_spindle(parent):
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
 			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
-
-	for key, value in parent.status_spindle_overrides.items():
-		print(key, value)
 
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['speed_0'] = 'spindle_speed_0_lcd'
