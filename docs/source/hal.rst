@@ -1,10 +1,10 @@
 HAL Buttons
 ===========
 
-Any QPushButton can have a HAL pin by adding a string Dynamic Property called
-`function` with the value of `hal_pin` and a string Dynamic Property called
-`pin_n` where n is some non repeated number with a property of 
-`pin_name, pin_type, pin_dir` seperated by comma's
+Any QPushButton, QCheckBox or QRadioButton can have a HAL pin by adding a string
+Dynamic Property called `function` with the value of `hal_pin` and a string
+Dynamic Property called `pin_n` where n is some non repeated number with a
+property of `pin_name, pin_type, pin_dir` seperated by comma's
 
 Pin Types::
 
@@ -20,6 +20,10 @@ Pin Directions::
 	HAL_IO
 
 Currently only `HAL_BIT` with `HAL_OUT` has been tested.
+
+.. warning:: By default no QRadioButtons are checked unless you set one checked
+          in the Designer. Starting up with none checked could be a problem if
+          you expect one to be selected at startup.
 
 Step by Step
 ------------
