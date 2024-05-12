@@ -294,11 +294,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'unhome_pb_1': 'unhome',
 	'unhome_pb_2': 'unhome',
 	'run_mdi_pb': 'run_mdi',
-	'spindle_fwd_pb': 'spindle',
-	'spindle_rev_pb': 'spindle',
-	'spindle_stop_pb': 'spindle',
-	'spindle_plus_pb': 'spindle',
-	'spindle_minus_pb': 'spindle',
 	}
 
 	for item in AXES:
@@ -325,9 +320,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'copy_mdi_history_pb': 'action_copy_mdi',
 	'clear_mdi_history_pb': 'action_clear_mdi'
 	}
-	for key, value in action_buttons.items():
-		if key in parent.children:
-			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
 	if 'clear_error_history_pb' in parent.children:
 		if 'errors_pte' in parent.children:
@@ -757,6 +749,19 @@ def setup_jog(parent):
 				parent.jog_modes_cb.addItem(item, float(data))
 
 def setup_spindle(parent):
+	spindle_buttons = {
+	'spindle_fwd_pb': 'spindle',
+	'spindle_rev_pb': 'spindle',
+	'spindle_stop_pb': 'spindle',
+	'spindle_plus_pb': 'spindle',
+	'spindle_minus_pb': 'spindle',
+	}
+	for key, value in spindle_buttons.items():
+		if key in parent.children:
+			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
+			if key in ['spindle_fwd_pb', 'spindle_rev_pb']:
+				getattr(parent, key).setCheckable(True)
+
 	parent.spindle_speed = 100
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
