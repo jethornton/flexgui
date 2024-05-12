@@ -239,8 +239,8 @@ def update(parent):
 
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
-		machine_position = getattr(parent, "status").position[value]
-		getattr(parent, f'{key}').setText(f'{machine_position:.{value}f}')
+		machine_position = getattr(parent, "status").position[value[0]]
+		getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
 	# axis position including offsets
 	for key, value in parent.status_dro.items(): # key is label value tuple position & precision
@@ -268,11 +268,20 @@ def update(parent):
 	for key, value in parent.joint_vel_min.items():
 		getattr(parent, key).setText(f'{abs(getattr(parent, "status").joint[value[0]]["velocity"]) * 60:.{value[1]}f}')
 
-	for key, value in parent.xy_vel.items():
-		x_vel = parent.status.joint[0]['velocity']
-		y_vel = parent.status.joint[1]['velocity']
-		xy_vel = sqrt((x_vel * x_vel) + (y_vel * y_vel))
-		getattr(parent, key).setText(f'{xy_vel * 60:.{value}f}')
+	# two joint velocity
+	for key, value in parent.two_vel.items():
+		vel_0 = getattr(parent, 'status').joint[value[0]]['velocity']
+		vel_1 = getattr(parent, 'status').joint[value[1]]['velocity']
+		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1))
+		getattr(parent, key).setText(f'{vel * 60:.{value[2]}f}')
+
+	# three joint velocity
+	for key, value in parent.three_vel.items():
+		vel_0 = getattr(parent, 'status').joint[value[0]]['velocity']
+		vel_1 = getattr(parent, 'status').joint[value[1]]['velocity']
+		vel_2 = getattr(parent, 'status').joint[value[2]]['velocity']
+		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
+		getattr(parent, key).setText(f'{vel * 60:.{value[3]}f}')
 
 	# override items label : status item
 	for label, stat in parent.overrides.items():
@@ -315,7 +324,6 @@ def update(parent):
 			direction = 'Rev'
 		elif parent.status.spindle[0]['direction'] == 0:
 			direction = 'Off'
-
 		getattr(parent, f'{key}').setText(direction)
 
 	# spindle actual speed

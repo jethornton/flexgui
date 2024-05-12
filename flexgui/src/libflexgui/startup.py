@@ -459,12 +459,15 @@ def setup_status_labels(parent):
 			parent.status_labels[item] = f'{item}_lb' # add the status and label
 
 	parent.status_position = {} # create an empty dictionary
-	for axis in AXES:
+	for i, axis in enumerate(AXES):
 		label = f'actual_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else default_precision
-			parent.status_position[f'{label}'] = p # add the label & precision
+			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
+
+	#for key, value in parent.status_position.items():
+	#	print(key, value)
 
 	parent.status_dro = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
@@ -521,10 +524,26 @@ def setup_status_labels(parent):
 			p = p if p is not None else default_precision
 			parent.status_axes_vel_min[label] = [i, 'velocity', p] # axis, item, precision
 
-	########################################################3
-	parent.xy_vel = {}
-	if 'xy_vel_lb' in parent.children:
-		parent.xy_vel['xy_vel_lb'] = 2
+	# two joint velocity
+	parent.two_vel = {}
+	if 'two_vel_lb' in parent.children:
+		joint_0 = parent.two_vel_lb.property('joint_0')
+		joint_1 = parent.two_vel_lb.property('joint_1')
+		p = getattr(parent, f'two_vel_lb').property('precision')
+		p = p if p is not None else default_precision
+		if None not in (joint_0, joint_1): # check for None or False
+			parent.two_vel['two_vel_lb'] = [joint_0, joint_1, p]
+
+	# three joint velocity
+	parent.three_vel = {}
+	if 'three_vel_lb' in parent.children:
+		joint_0 = parent.three_vel_lb.property('joint_0')
+		joint_1 = parent.three_vel_lb.property('joint_1')
+		joint_2 = parent.three_vel_lb.property('joint_2')
+		p = getattr(parent, f'three_vel_lb').property('precision')
+		p = p if p is not None else default_precision
+		if None not in (joint_0, joint_1, joint_2): # check for None or False
+			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
 
 	# check for joint labels in ui
 	# these return 16 joints
@@ -548,18 +567,12 @@ def setup_status_labels(parent):
 			p = p if p is not None else default_precision
 			parent.joint_vel_sec[f'joint_vel_sec_{i}_lb'] = [i, p] # add the label, tuple position & precision
 
-	#for key, value in parent.joint_vel_sec.items():
-	#	print(key, value)
-
 	parent.joint_vel_min = {}
 	for i in range(parent.status.joints):
 		if f'joint_vel_min_{i}_lb' in parent.children: # if the label is found
 			p = getattr(parent, f'joint_vel_min_{i}_lb').property('precision')
 			p = p if p is not None else default_precision
 			parent.joint_vel_min[f'joint_vel_min_{i}_lb'] = [i, p] # add the label, tuple position & precision
-
-	#for key, value in parent.joint_vel_min.items():
-	#	print(key, value)
 
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
