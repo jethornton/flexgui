@@ -174,14 +174,36 @@ Current Tool Offsets. Returns a float.
 
 .. note:: see the Controls page for axis numbering
 
+Velocity Labels
+---------------
+
 Tool velocity using two perpendicular joint velocities.
 
-Name the label `perp_vel_lb` and add two string Dynamic Properties called
+Name the label `two_vel_lb` and add two int type Dynamic Properties called
 `joint_0` and `joint_1` and set the values to the perpendicular joint numbers
-you want to calculate.
+you want to calculate. Typically this would be for the X and Y axes.
+
+To select an int type of Dynamic Property select `Other` after clicking on the
+green plus sign.
 
 .. image:: /images/status-05.png
    :align: center
+
+Then select the Property Type of `int`
+
+.. image:: /images/status-06.png
+   :align: center
+
+The two Dynamic Properties should look like this
+
+.. image:: /images/status-07.png
+   :align: center
+
+Tool velocity using three perpendicular joint velocities.
+
+Name the label `three_vel_lb` and add three int type Dynamic Properties called
+`joint_0`, `joint_1` and `joint_2` and set the values to the perpendicular joint
+numbers you want to calculate. Typically this would be for the X, Y and Z axes.
 
 Comming soon:
 Tool teeth label and Feed per Tooth label... stay tuned.
