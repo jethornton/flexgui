@@ -49,6 +49,7 @@ joint number or axis index.
    :align: center
 
 .. note:: Touch Off buttons require a Double Spin Box named `touchoff_dsb`
+
 .. note:: Tool Touch Off buttons require a Double Spin Box named `tool_touchoff_dsb`
 
 The following QPushButton controls need checkable set to true.
