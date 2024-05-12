@@ -311,8 +311,11 @@ def update(parent):
 	for key, value in parent.status_spindle_dir.items():
 		if parent.status.spindle[0]['direction'] > 0:
 			direction = 'Fwd'
-		else:
+		elif parent.status.spindle[0]['direction'] < 0:
 			direction = 'Rev'
+		elif parent.status.spindle[0]['direction'] == 0:
+			direction = 'Off'
+
 		getattr(parent, f'{key}').setText(direction)
 
 	# spindle actual speed
