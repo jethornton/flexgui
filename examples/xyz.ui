@@ -1518,10 +1518,42 @@
         <item row="4" column="0" colspan="2">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>Tool Velocity</string>
+           <string>XY Velocity</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3" colspan="2">
+         <widget class="QLabel" name="label_39">
+          <property name="text">
+           <string>XYZ Velocity</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="QLabel" name="three_vel_lb">
+          <property name="text">
+           <string>0</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="joint_0" stdset="0">
+           <number>0</number>
+          </property>
+          <property name="joint_1" stdset="0">
+           <number>1</number>
+          </property>
+          <property name="joint_2" stdset="0">
+           <number>2</number>
+          </property>
+          <property name="precision" stdset="0">
+           <string>2</string>
           </property>
          </widget>
         </item>
