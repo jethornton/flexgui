@@ -41,3 +41,12 @@ widget in the column.
 .. image:: /images/tips-05.png
    :align: center
 
+If you drag a container into another container that has a layout and it's real
+short just set the minimum height to make it larger and easier to drag and drop
+into.
+
+Ctrl + left click to select several widgets to change properties.
+
+The Monospace font is good for numbers that need a fixed width.
+
+
