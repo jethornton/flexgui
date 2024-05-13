@@ -11,6 +11,10 @@ are good references to use when creating your own stylesheet.
 .. note:: If there is a error in the stylesheet syntax no warning is issued, 
    it's just ignored. So don't forget the ; at the end or each setting.
 
+.. warning:: If you only set a background-color on a QPushButton, the background
+   may not appear unless you set the border property to some value even if
+   border is set to none.
+
 Colors
 ------
 
