@@ -27,6 +27,10 @@ def find_children(parent): # get the object names of all widgets
 	for action in actions:
 		if action.objectName():
 			parent.children.append(action.objectName())
+			widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
+			# make sure the action is in the tool bar
+			if parent.toolBar.widgetForAction(action) is not None:
+				parent.toolBar.widgetForAction(action).setObjectName(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
 		if menu.objectName():
