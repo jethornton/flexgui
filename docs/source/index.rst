@@ -8,6 +8,7 @@ Flex GUI
    description
    install
    designer
+   layout
    tips
    ini
    menu
