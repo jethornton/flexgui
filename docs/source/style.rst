@@ -2,7 +2,7 @@ StyleSheet
 ==========
 
 You can use your own qss style sheet by creating a valid qss file in the
-configuration directory and setting it in the INI file.
+configuration directory and setting it in the :doc:`ini`
 
 The Qt `Style Sheets Reference <https://doc.qt.io/qt-6/stylesheet-reference.html>`_
 and the `Style Sheet Syntax <https://doc.qt.io/qt-6/stylesheet-syntax.html>`_
