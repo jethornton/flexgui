@@ -1476,8 +1476,8 @@ Mode</string>
           <widget class="QLabel" name="gcodes_lb">
            <property name="geometry">
             <rect>
-             <x>0</x>
-             <y>30</y>
+             <x>10</x>
+             <y>10</y>
              <width>201</width>
              <height>91</height>
             </rect>
@@ -1496,7 +1496,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>230</x>
-             <y>30</y>
+             <y>10</y>
              <width>201</width>
              <height>91</height>
             </rect>
@@ -2155,6 +2155,9 @@ Mode</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -2215,6 +2218,9 @@ Mode</string>
    </property>
   </action>
   <action name="actionE_Stop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>E Stop</string>
    </property>
