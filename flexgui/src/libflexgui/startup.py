@@ -829,11 +829,13 @@ def setup_spindle(parent):
 	if all(x in parent.children for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
-def setup_tool_change(parent):
+def setup_tool_change(parent):# parent.home_required list
+	parent.home_required = []
 	# tool change using a spin box
 	if 'tool_change_pb' in parent.children:
 		if 'next_tool_sb' in parent.children:
 			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append('tool_change_pb')
 		else:
 			msg = ('Tool change Push Button\n'
 				'requires the next_tool_sb spin box.')
@@ -846,6 +848,7 @@ def setup_tool_change(parent):
 	for item in tc_buttons:
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append(item)
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
