@@ -325,6 +325,10 @@ def setup_buttons(parent): # connect buttons to functions
 	'clear_mdi_history_pb': 'action_clear_mdi'
 	}
 
+	for key, value in action_buttons.items():
+		if key in parent.children:
+			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+
 	if 'clear_error_history_pb' in parent.children:
 		if 'errors_pte' in parent.children:
 			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
