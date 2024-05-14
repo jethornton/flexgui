@@ -448,11 +448,11 @@ def setup_status_labels(parent):
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table']
 
-	# check for status labels in the ui FIXME key is label and value is status item
+	# check for status labels in the ui key is label and value is status item
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
 		if f'{item}_lb' in parent.children: # if the label is found
-			parent.status_labels[item] = f'{item}_lb' # add the status and label
+			parent.status_labels[f'{item}_lb'] = item # add the status and label
 
 	parent.status_position = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):

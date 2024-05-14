@@ -184,16 +184,14 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 		parent.mist_state = parent.status.mist
 
-	# FIXME key is label and value is status item
+	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
-		# key is the status item and value is the label
-		# get the label and set the text to the status value of the key
-		if key in parent.stat_dict:
-			stat_value = getattr(parent.status, f'{key}')
-			if stat_value in parent.stat_dict[key]:
-				getattr(parent, f'{value}').setText(f'{parent.stat_dict[key][stat_value]}')
+		if value in parent.stat_dict:
+			stat_value = getattr(parent.status, f'{value}')
+			if stat_value in parent.stat_dict[value]:
+				getattr(parent, f'{key}').setText(f'{parent.stat_dict[value][stat_value]}')
 		else:
-			getattr(parent, f'{value}').setText(f'{getattr(parent.status, f"{key}")}')
+			getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value}")}')
 
 	if 'gcodes_lb' in parent.children:
 		g_codes = []
