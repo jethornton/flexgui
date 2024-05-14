@@ -462,9 +462,6 @@ def setup_status_labels(parent):
 			p = p if p is not None else default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
-	#for key, value in parent.status_position.items():
-	#	print(key, value)
-
 	parent.status_dro = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'dro_lb_{axis}'
@@ -902,7 +899,6 @@ def setup_plot(parent):
 def set_status(parent):
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		#print('STATE_ESTOP')
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
@@ -916,7 +912,6 @@ def set_status(parent):
 			getattr(parent, key).setText(value)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
-		#print('STATE_ON')
 		for key, value in parent.state_on.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_on_names.items():
@@ -925,7 +920,6 @@ def set_status(parent):
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
 		if utilities.all_homed(parent):
-			#print('all homed')
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.home_controls:
