@@ -252,13 +252,14 @@ def action_copy_mdi(parent): # actionCopy_MDI
 	qclip.setText('\n'.join(mdi_list))
 
 def action_show_hal(parent): # actionShow_HAL
-	subprocess.Popen('halshow', cwd=parent.ini_path)
+	subprocess.Popen('halshow', stdin=None, stdout=None, stderr=None, cwd=parent.ini_path)
+	# , stdin=None, stdout=None, stderr=None
 
 def action_hal_meter(parent): # actionHal_Meter
-	subprocess.Popen('halmeter', cwd=parent.ini_path)
+	subprocess.Popen('halmeter', stdin=None, stdout=None, stderr=None, cwd=parent.ini_path)
 
 def action_hal_scope(parent): # actionHal_Scope
-	subprocess.Popen('halscope', cwd=parent.ini_path)
+	subprocess.Popen('halscope', stdin=None, stdout=None, stderr=None, cwd=parent.ini_path)
 
 def action_about(parent): # actionAbout
 	print(parent.sender().objectName())
