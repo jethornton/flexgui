@@ -14,12 +14,12 @@ QPushButton
 
 QPushButton:hover
 {
-	background-color: rgba(0, 192, 0, 40%);
+	background-color: rgba(0, 192, 0, 40%); color: white;
 }
 
 QPushButton:pressed
 {  
-	background-color: rgba(0, 192, 0, 80%); border none;
+	background-color: rgba(0, 192, 0, 80%); color: white; border none;
     border-style: inset;
     border-width: 2px;
 }
@@ -44,25 +44,25 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 
 QToolButton#flex_Stop:hover
 {
-	background-color: rgba(192, 0, 0, 40%);
+	background-color: rgba(192, 0, 0, 40%); color: white;
 }
 QToolButton#flex_Quit:hover
 {
-	background-color: rgba(192, 0, 0, 40%);
+	background-color: rgba(192, 0, 0, 40%); color: white;
 }
 QToolButton:hover {
-	background-color: rgba(0, 192, 0, 40%);
+	background-color: rgba(0, 192, 0, 40%); color: white;
 }
 
 QToolButton#flex_Quit:pressed {
-	background-color: rgba(192, 0, 0, 80%); border none;
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
 }
 QToolButton#flex_Stop:pressed {
-	background-color: rgba(192, 0, 0, 80%); border none;
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
 }
 
 QToolButton:pressed {
-	background-color: rgba(0, 192, 0, 80%); border none;
+	background-color: rgba(0, 192, 0, 80%);  color: white; border none;
 }
 
 /* the subcontrols below are used only in the MenuButtonPopup mode */
@@ -103,7 +103,7 @@ QTabBar::tab {
 }
 
 QTabBar::tab:hover {
-	background-color: rgba(0, 192, 0, 40%);
+	background-color: rgba(0, 192, 0, 40%); color: white;
 }
 QTabBar::tab:selected {
 	background-color: rgba(0, 192, 0, 80%);
