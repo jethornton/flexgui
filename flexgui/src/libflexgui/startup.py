@@ -49,6 +49,7 @@ def setup_enables(parent):
 	if 'home_all_pb' in parent.children:
 		if not utilities.home_all_check(parent):
 			parent.home_all_pb.setEnabled(False)
+			print('passed')
 
 	# STATE_ESTOP
 	parent.state_estop = {'power_pb': False, 'run_pb': False,
@@ -134,17 +135,11 @@ def setup_enables(parent):
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
 		'spindle_minus_pb': True, 'flood_pb': True, 'mist_pb': True,
 		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False, 'tool_change_pb': True,
-		'actionResume': False}
+		'actionStep': False, 'actionPause': False, 'actionResume': False}
 
 	for i in range(9):
 		parent.state_on[f'jog_plus_pb_{i}'] = True
 		parent.state_on[f'jog_minus_pb_{i}'] = True
-	for i in range(100):
-		parent.state_on[f'tool_change_pb_{i}'] = True
-	for item in AXES: # FIXME this needs to go in tool setup and only be on when homed and a tool is loaded
-		parent.state_on[f'touchoff_pb_{item}'] = True
-		parent.state_on[f'tool_touchoff_{item}'] = True
 	for i in range(1, 10):
 		parent.state_on[f'change_cs_{i}'] = True
 
@@ -168,7 +163,7 @@ def setup_enables(parent):
 	'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
-	for item in AXES: # FIXME this needs to bo in tool setup as well
+	for item in AXES: # FIXME this needs to bo in tool setup as well well maybe not...
 		run_items.append(f'tool_touchoff_{item}')
 		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
@@ -300,9 +295,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'run_mdi_pb': 'run_mdi',
 	}
 
-	for item in AXES: # FIXME move to tool setup
-		command_buttons[f'touchoff_pb_{item}'] = 'touchoff'
-		command_buttons[f'tool_touchoff_{item}'] = 'tool_touchoff'
 	for key, value in command_buttons.items():
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
@@ -830,8 +822,50 @@ def setup_spindle(parent):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
 def setup_tool_change(parent):# FIXME move tool touchoff buttons here and add to home required list
+	'''
+	for i in range(100):
+		parent.state_on[f'tool_change_pb_{i}'] = True
+	for item in AXES: # FIXME this needs to go in tool setup and only be on when homed and a tool is loaded
+		parent.state_on[f'touchoff_pb_{item}'] = True
+		parent.state_on[f'tool_touchoff_{item}'] = True
+
+	, 'tool_change_pb': True
+
+	for item in AXES:
+		touchoff_items = {}
+		touchoff_items[f'touchoff_pb_{item}'] = 'touchoff'
+		touchoff_items[f'tool_touchoff_{item}'] = 'tool_touchoff'
+	for key, value in touchoff_items.items():
+		if key in parent.children:
+			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
+	# tool change using buttons
+	tc_buttons = []
+	for i in range(100):
+		tc_buttons.append(f'tool_change_pb_{i}')
+	for item in tc_buttons:
+		if item in parent.children:
+			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append(item)
+	'''
+
+	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
 	parent.home_required = []
+	for i in range(100):
+		item = f'tool_change_pb_{i}'
+		if item in parent.children:
+			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append(item)
+	for axis in AXES:
+		item = f'touchoff_pb_{axis}'
+		if item in parent.children:
+			getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
+			parent.home_required.append(item)
+		item = f'tool_touchoff_{axis}'
+		if item in parent.children:
+			getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
+			parent.home_required.append(item)
+
 	# tool change using a spin box
 	if 'tool_change_pb' in parent.children:
 		if 'next_tool_sb' in parent.children:
@@ -841,15 +875,6 @@ def setup_tool_change(parent):# FIXME move tool touchoff buttons here and add to
 			msg = ('Tool change Push Button\n'
 				'requires the next_tool_sb spin box.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	# tool change using buttons
-	tc_buttons = []
-	for i in range(100):
-		tc_buttons.append(f'tool_change_pb_{i}')
-	for item in tc_buttons:
-		if item in parent.children:
-			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
-			parent.home_required.append(item)
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
