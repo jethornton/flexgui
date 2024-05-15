@@ -821,33 +821,7 @@ def setup_spindle(parent):
 	if all(x in parent.children for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
-def setup_tool_change(parent):# FIXME move tool touchoff buttons here and add to home required list
-	'''
-	for i in range(100):
-		parent.state_on[f'tool_change_pb_{i}'] = True
-	for item in AXES: # FIXME this needs to go in tool setup and only be on when homed and a tool is loaded
-		parent.state_on[f'touchoff_pb_{item}'] = True
-		parent.state_on[f'tool_touchoff_{item}'] = True
-
-	, 'tool_change_pb': True
-
-	for item in AXES:
-		touchoff_items = {}
-		touchoff_items[f'touchoff_pb_{item}'] = 'touchoff'
-		touchoff_items[f'tool_touchoff_{item}'] = 'tool_touchoff'
-	for key, value in touchoff_items.items():
-		if key in parent.children:
-			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
-	# tool change using buttons
-	tc_buttons = []
-	for i in range(100):
-		tc_buttons.append(f'tool_change_pb_{i}')
-	for item in tc_buttons:
-		if item in parent.children:
-			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
-			parent.home_required.append(item)
-	'''
-
+def setup_tool_change(parent):
 	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
 	parent.home_required = []
