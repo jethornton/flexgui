@@ -249,7 +249,8 @@ def tool_touchoff(parent):
 	offset = parent.tool_touchoff_dsb.value()
 	if cur_tool > 0:
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
-		parent.statusbar.showMessage(mdi_command)
+		if 'test_lb' in parent.children:
+			parent.test_lb.setText(mdi_command)
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
