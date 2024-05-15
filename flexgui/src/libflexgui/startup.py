@@ -44,7 +44,7 @@ def get_ini_values(parent):
 		parent.units = 'mm'
 
 def setup_enables(parent):
-
+	parent.home_required = [] # different functions add to this
 	# disable home all if home sequence is not found
 	if 'home_all_pb' in parent.children:
 		if not utilities.home_all_check(parent):
@@ -130,8 +130,7 @@ def setup_enables(parent):
 	# STATE_ON home, jog, spindle
 	parent.state_on = {'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 
-		'run_mdi_pb': True, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
+		'resume_pb': False, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
 		'spindle_minus_pb': True, 'flood_pb': True, 'mist_pb': True,
 		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
@@ -665,6 +664,7 @@ def setup_mdi(parent):
 	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
 		parent.mdi_command = ''
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+		parent.home_required.append('run_mdi_pb')
 		if 'mdi_history_lw' in parent.children:
 			path = os.path.dirname(parent.status.ini_filename)
 			mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -824,7 +824,6 @@ def setup_spindle(parent):
 def setup_tool_change(parent):
 	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
-	parent.home_required = []
 	for i in range(100):
 		item = f'tool_change_pb_{i}'
 		if item in parent.children:
