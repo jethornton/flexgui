@@ -142,7 +142,7 @@ def setup_enables(parent):
 		parent.state_on[f'jog_minus_pb_{i}'] = True
 	for i in range(100):
 		parent.state_on[f'tool_change_pb_{i}'] = True
-	for item in AXES:
+	for item in AXES: # FIXME this needs to go in tool setup and only be on when homed and a tool is loaded
 		parent.state_on[f'touchoff_pb_{item}'] = True
 		parent.state_on[f'tool_touchoff_{item}'] = True
 	for i in range(1, 10):
@@ -168,7 +168,7 @@ def setup_enables(parent):
 	'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
-	for item in AXES:
+	for item in AXES: # FIXME this needs to bo in tool setup as well
 		run_items.append(f'tool_touchoff_{item}')
 		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
@@ -300,7 +300,7 @@ def setup_buttons(parent): # connect buttons to functions
 	'run_mdi_pb': 'run_mdi',
 	}
 
-	for item in AXES:
+	for item in AXES: # FIXME move to tool setup
 		command_buttons[f'touchoff_pb_{item}'] = 'touchoff'
 		command_buttons[f'tool_touchoff_{item}'] = 'tool_touchoff'
 	for key, value in command_buttons.items():
@@ -829,7 +829,8 @@ def setup_spindle(parent):
 	if all(x in parent.children for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
-def setup_tool_change(parent):# parent.home_required list
+def setup_tool_change(parent):# FIXME move tool touchoff buttons here and add to home required list
+	# tool change is a MDI command so power on and all homed
 	parent.home_required = []
 	# tool change using a spin box
 	if 'tool_change_pb' in parent.children:
