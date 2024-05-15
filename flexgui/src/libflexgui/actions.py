@@ -177,7 +177,7 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	tool_file = os.path.join(ini_path, tool_table)
 	cmd = tool_editor.split()
 	cmd.append(tool_file)
-	subprocess.run(cmd)
+	subprocess.Popen(cmd, cwd=parent.ini_path)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
