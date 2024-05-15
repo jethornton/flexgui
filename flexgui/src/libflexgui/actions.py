@@ -1,5 +1,4 @@
 import os, sys, subprocess, shutil
-
 from functools import partial
 
 from PyQt6.QtWidgets import QFileDialog, QLabel
@@ -10,8 +9,6 @@ import hal
 from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import select
-
-#app = QApplication([])
 
 def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
