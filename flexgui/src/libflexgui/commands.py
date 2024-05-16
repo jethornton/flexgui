@@ -246,7 +246,8 @@ def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
 	cur_tool = parent.status.tool_in_spindle
-	offset = parent.tool_touchoff_dsb.value()
+	precision = parent.tool_touchoff_dsb.decimals()
+	offset = f'{parent.tool_touchoff_dsb.value():.{precision}f}'
 	if cur_tool > 0:
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
 		if 'test_lb' in parent.children:
