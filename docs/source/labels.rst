@@ -254,6 +254,6 @@ Replace the `_n_` with the position in the tool table.
 	tool_table_zoffset_n_lb, tool_table_aoffset_n_lb, tool_table_boffset_n_lb
 	tool_table_coffset_n_lb, tool_table_uoffset_n_lb, tool_table_voffset_n_lb
 	tool_table_woffset_n_lb, tool_table_diameter_n_lb, tool_table_frontangle_n_lb
-	tool_table_backangle_n_lb, tool_table_orientation_n_lb
+	tool_table_backangle_n_lb, tool_table_orientation_n_lb, tool_table_comment_n_lb
 
 
