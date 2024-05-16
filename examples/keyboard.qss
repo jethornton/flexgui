@@ -1,3 +1,8 @@
+QToolButton#flex_Quit:hover {
+	background-color: rgba(255, 0, 0, 75%);
+}
+
+
 QPushButton
 {
 

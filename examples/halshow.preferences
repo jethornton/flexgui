@@ -5,14 +5,13 @@ placeFrames 0.3
 set ::ratio 0.3
 set ::old_w_leftf 160
 set ::watchlist {
-    pin+flexhal.test_pin1
-    pin+flexhal.test_pin2
-    pin+flexhal.checkbox
-    pin+flexhal.rb_on
-    pin+flexhal.rb_off
-    pin+flexhal.test_mdi_pin0
-    pin+flexhal.test_mdi_pin1
-    pin+flexhal.test_mdi_pin2
+    pin+motion.analog-in-00
+    pin+motion.digital-in-00
+    pin+motion.digital-out-00
+    pin+spindle.0.speed-in
+    pin+spindle.0.speed-out
+    pin+spindle.0.speed-out-rps
+    pin+spindle.0.speed-out-abs
 }
 set ::workmode watchhal
 set ::watchInterval 100
