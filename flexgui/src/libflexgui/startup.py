@@ -139,8 +139,6 @@ def setup_enables(parent):
 	for i in range(9):
 		parent.state_on[f'jog_plus_pb_{i}'] = True
 		parent.state_on[f'jog_minus_pb_{i}'] = True
-	for i in range(1, 10):
-		parent.state_on[f'change_cs_{i}'] = True
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on):
@@ -332,12 +330,11 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.touchoff_system_cb.addItem(key, value)
 
 	# change coordinate system buttons
-	change_sc_buttons = []
 	for i in range(1, 10):
-		change_sc_buttons.append(f'change_cs_{i}')
-	for item in change_sc_buttons:
+		item = f'change_cs_{i}'
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(commands.change_cs, parent))
+			parent.home_required.append(item)
 
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
