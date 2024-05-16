@@ -195,8 +195,10 @@ def touchoff(parent):
 	else:
 		coordinate_system = 0
 	axis = parent.sender().objectName()[-1].upper()
-	value = parent.touchoff_dsb.value()
-	mdi_command = f'G10 L20 P{coordinate_system} {axis}{value}'
+	precision = parent.touchoff_dsb.decimals()
+	offset = f'{parent.touchoff_dsb.value():.{precision}f}'
+	#value = parent.touchoff_dsb.value()
+	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
