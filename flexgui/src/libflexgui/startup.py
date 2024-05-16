@@ -596,7 +596,7 @@ def setup_status_labels(parent):
 				p = p if p is not None else default_precision
 				parent.status_aio[label] = [item, i, p] # add label, stat and precision
 
-	# check for tool table labels in the ui
+	# check for tool table labels in the ui , 'comment'
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
 		'boffset', 'coffset', 'uoffset', 'voffset', 'woffset', 'diameter',
 		'frontangle', 'backangle', 'orientation']
