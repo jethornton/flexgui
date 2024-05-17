@@ -209,8 +209,10 @@ def touchoff(parent):
 		parent.command.wait_complete()
 
 def tool_change(parent):
-	if parent.sender().objectName()[-1].isdigit():
-		tool_number = parent.sender().objectName()[-1]
+	tool_number = parent.sender().objectName().split('_')[-1]
+	if tool_number.isdigit(): # tool button used
+		if 'tool_change_cb' in parent.children:
+			parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(tool_number))
 	else:
 		tool_number = parent.tool_change_cb.currentData()
 	if tool_number != parent.status.tool_in_spindle:
@@ -229,28 +231,6 @@ def tool_change(parent):
 		msg = (f'Tool {tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 
-
-	'''
-	if utilities.is_int(parent.sender().objectName().split('_')[-1]):
-		tool_number = int(parent.sender().objectName().split('_')[-1])
-	else:
-		tool_number = parent.next_tool_sb.value()
-	parent.status.poll()
-
-	if tool_number > 0: # make sure tool is in the tool table
-		tool_table = parent.status.tool_table
-		tool_found = False
-		for i in range(len(tool_table)):
-			if tool_table[i].id == tool_number:
-				tool_found = True
-				break
-		if not tool_found:
-			msg = (f'The requested tool {tool_number} was\n'
-				'not found in the tool table')
-			dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
-			return
-
-	'''
 def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
