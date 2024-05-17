@@ -26,10 +26,3 @@ Error Viewer
 To add an error viewer add a Plain Text Edit from Input Widgets and name it
 `errors_pte`.
 
-
-
-Print States
-------------
-
-For trouble shooting you can add a QCheckBox named `print_states_cb` and if it
-is checked any state changes will print out in the terminal.
