@@ -818,7 +818,13 @@ def setup_spindle(parent):
 	if all(x in parent.children for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
-def setup_tool_change(parent):
+def setup_tools(parent):
+	if 'tool_change_cb' in parent.children:
+		tools = len(parent.status.tool_table)
+		parent.tool_change_cb.addItem('Select', False)
+		for i in range(1, tools):
+			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', parent.status.tool_table[i][0])
+
 	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
 	for i in range(100):

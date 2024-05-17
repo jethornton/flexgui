@@ -209,6 +209,25 @@ def touchoff(parent):
 		parent.command.wait_complete()
 
 def tool_change(parent):
+	tool_number = parent.tool_change_cb.currentData()
+	if tool_number != parent.status.tool_in_spindle:
+		mdi_command = f'M6 T{tool_number}'
+		if parent.status.task_state == emc.STATE_ON:
+			if parent.status.task_mode != emc.MODE_MDI:
+				parent.command.mode(emc.MODE_MDI)
+				parent.command.wait_complete()
+			parent.command.mdi(mdi_command)
+			parent.command.wait_complete(30)
+			parent.command.mdi('G43')
+			parent.command.wait_complete()
+			parent.command.mode(emc.MODE_MANUAL)
+			parent.command.wait_complete()
+	else:
+		msg = (f'Tool {tool_number} is already in the Spindle.')
+		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+
+
+	'''
 	if utilities.is_int(parent.sender().objectName().split('_')[-1]):
 		tool_number = int(parent.sender().objectName().split('_')[-1])
 	else:
@@ -228,22 +247,7 @@ def tool_change(parent):
 			dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 			return
 
-	if tool_number != parent.status.tool_in_spindle:
-		mdi_command = f'M6 T{tool_number}'
-		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MDI:
-				parent.command.mode(emc.MODE_MDI)
-				parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
-			parent.command.wait_complete(30)
-			parent.command.mdi('G43')
-			parent.command.wait_complete()
-			parent.command.mode(emc.MODE_MANUAL)
-			parent.command.wait_complete()
-	else:
-		msg = (f'Tool {tool_number} is already in the Spindle.')
-		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
-
+	'''
 def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
