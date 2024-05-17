@@ -209,7 +209,10 @@ def touchoff(parent):
 		parent.command.wait_complete()
 
 def tool_change(parent):
-	tool_number = parent.tool_change_cb.currentData()
+	if parent.sender().objectName()[-1].isdigit():
+		tool_number = parent.sender().objectName()[-1]
+	else:
+		tool_number = parent.tool_change_cb.currentData()
 	if tool_number != parent.status.tool_in_spindle:
 		mdi_command = f'M6 T{tool_number}'
 		if parent.status.task_state == emc.STATE_ON:

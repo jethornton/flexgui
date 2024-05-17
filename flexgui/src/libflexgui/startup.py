@@ -823,7 +823,7 @@ def setup_tools(parent):
 	# tool change using a combo box
 	if 'tool_change_pb' in parent.children:
 		tools = len(parent.status.tool_table)
-		parent.tool_change_cb.addItem('Select', False)
+		parent.tool_change_cb.addItem('Tool 0', 0)
 		for i in range(1, tools):
 			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', parent.status.tool_table[i][0])
 		if 'tool_change_cb' in parent.children:
