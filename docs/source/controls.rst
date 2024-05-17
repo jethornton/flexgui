@@ -5,8 +5,8 @@ Push Buttons
 ------------
 
 Controls are QPushButtons that can be placed anywhere you like. Use the Name
-from the list below for each control widget objectName. Replace `_n` with the
-joint number or axis index.
+from the list below for each control widget objectName. Replace the `(1-9)` with
+the joint number or axis index. More controls are in :doc:`tools`
 ::
 
 	Control                      Name
@@ -29,11 +29,8 @@ joint number or axis index.
 	Unhome Joint (1-9)           unhome_pb_(1-9)
 	Manual Mode                  manual_mode_pb
 	Run MDI                      run_mdi_pb
-	Touch Off Axis               touchoff_pb_(axis letter)
-	Tool Touch Off               tool_touchoff_(axis letter)
 	Jog Plus Axis (1-9)          jog_plus_pb_(1-9)
 	Jog Minus Axis (1-9)         jog_minus_pb_(1-9)
-	Tool Change                  tool_change_pb
 	Spindle Forward              spindle_fwd_pb
 	Spindle Reverse              spindle_rev_pb
 	Spindle Stop                 spindle_stop_pb
@@ -52,6 +49,11 @@ joint number or axis index.
 
 .. note:: Tool Touch Off buttons require a Double Spin Box named `tool_touchoff_dsb`
 
+Options
+-------
+
+These buttons are toggle type buttons press to turn on press again to turn off.
+They are normal push buttons but in code they are set to checkable
 ::
 
 	Flood Toggle                           flood_pb
@@ -60,9 +62,6 @@ joint number or axis index.
 	Block Delete line that starts with /   block_delete_pb
 	Feed Hold Enable/Disable               feed_hold_enable_pb
 	Feed Override Enable/Disable           feed_override_pb
-
-.. image:: /images/checkable-pb.png
-   :align: center
 
 Axis Index
 ----------
@@ -104,5 +103,5 @@ Double Spin Boxes
 	Tool Touch Off Value    tool_touchoff_dsb
 
 .. note:: You don't have to use all the controls, the ones found will be
-   connected to the correct code. Some controls might be mandatory.
+   connected to the correct code. Nothing is mandatory to use it's Flexible.
 
