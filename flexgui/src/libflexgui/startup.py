@@ -819,11 +819,21 @@ def setup_spindle(parent):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
 def setup_tools(parent):
-	if 'tool_change_cb' in parent.children:
+
+	# tool change using a combo box
+	if 'tool_change_pb' in parent.children:
 		tools = len(parent.status.tool_table)
 		parent.tool_change_cb.addItem('Select', False)
 		for i in range(1, tools):
 			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', parent.status.tool_table[i][0])
+		if 'tool_change_cb' in parent.children:
+			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append('tool_change_pb')
+		else:
+			msg = ('Tool change Push Button\n'
+				'requires the next_tool_sb spin box.')
+			dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
 
 	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
@@ -842,15 +852,6 @@ def setup_tools(parent):
 			getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 			parent.home_required.append(item)
 
-	# tool change using a spin box
-	if 'tool_change_pb' in parent.children:
-		if 'next_tool_sb' in parent.children:
-			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-			parent.home_required.append('tool_change_pb')
-		else:
-			msg = ('Tool change Push Button\n'
-				'requires the next_tool_sb spin box.')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
