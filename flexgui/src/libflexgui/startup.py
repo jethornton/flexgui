@@ -819,16 +819,13 @@ def setup_spindle(parent):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
 def setup_tools(parent):
-
 	# tool change using a combo box
 	if 'tool_change_pb' in parent.children:
-		tools = len(parent.status.tool_table)
-		parent.tools = [0]
+		tool_len = len(parent.status.tool_table)
 		parent.tool_change_cb.addItem('Tool 0', 0)
-		for i in range(1, tools):
+		for i in range(1, tool_len):
 			tool_id = parent.status.tool_table[i][0]
 			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', tool_id)
-			parent.tools.append(tool_id)
 		if 'tool_change_cb' in parent.children:
 			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append('tool_change_pb')
