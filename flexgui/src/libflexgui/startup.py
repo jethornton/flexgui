@@ -478,14 +478,6 @@ def setup_status_labels(parent):
 			p = p if p is not None else default_precision
 			parent.status_g92[f'{label}'] = [i, p] # add the label, tuple position & precision
 
-	parent.status_tool_offset = {} # create an empty dictionary
-	for i in range(9):
-		label = f'tool_offset_lb_{i}'
-		if label in parent.children: # if the label is found
-			p = getattr(parent, label).property('precision')
-			p = p if p is not None else default_precision
-			parent.status_tool_offset[label] = [i, p] # add the label, tuple position & precision
-
 	# check for axis labels in the ui
 	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
 	# label axis_n_velocity_lb
@@ -600,12 +592,10 @@ def setup_status_labels(parent):
 	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
 		'boffset', 'coffset', 'uoffset', 'voffset', 'woffset', 'diameter',
 		'frontangle', 'backangle', 'orientation']
-	parent.tool_table = {}
-	parent.status.poll()
-	for i in range(len(parent.status.tool_table)):
-		for item in tool_table_items:
-			if f'tool_table_{item}_{i}_lb' in parent.children:
-				parent.tool_table[f'{item}_{i}'] = f'tool_table_{item}_{i}_lb'
+	parent.current_tool = {}
+	for item in tool_table_items:
+		if f'tool_{item}_lb' in parent.children:
+			parent.current_tool[f'tool_{item}_lb'] = item
 
 	if 'file_lb' in parent.children:
 		parent.status.poll()

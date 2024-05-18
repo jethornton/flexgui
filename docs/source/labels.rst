@@ -162,18 +162,6 @@ Offsets for G92.  Returns a float.
 	g92_lb_a, g92_lb_b, g92_lb_c
 	g92_lb_u, g92_lb_v, g92_lb_w
 
-Current Tool Offsets. Returns a float.
-
-.. csv-table:: Current Tool Status Labels
-   :width: 100%
-   :align: left
-
-	tool_offset_lb_0, tool_offset_lb_1, tool_offset_lb_2
-	tool_offset_lb_3, tool_offset_lb_4, tool_offset_lb_5
-	tool_offset_lb_6, tool_offset_lb_7, tool_offset_lb_8
-
-.. note:: see the Controls page for axis numbering
-
 Velocity Labels
 ---------------
 
@@ -240,20 +228,19 @@ I/O returns a float.
 	ain_n_lb, aout_n_lb, din_n_lb
 	dout_n_lb
 
-Tool Table Status
------------------
+Current Tool Status
+-------------------
 
-The Tool Table status contains status items for all the tools in the tool table.
-Replace the `_n_` with the position in the tool table.
+Current Tool status of the tool loaded in the spindle
 
 .. csv-table:: Tool Table Status Labels
    :width: 100%
    :align: left
 
-	tool_table_id_n_lb, tool_table_xoffset_n_lb, tool_table_yoffset_n_lb
-	tool_table_zoffset_n_lb, tool_table_aoffset_n_lb, tool_table_boffset_n_lb
-	tool_table_coffset_n_lb, tool_table_uoffset_n_lb, tool_table_voffset_n_lb
-	tool_table_woffset_n_lb, tool_table_diameter_n_lb, tool_table_frontangle_n_lb
-	tool_table_backangle_n_lb, tool_table_orientation_n_lb, tool_table_comment_n_lb
+	tool_id_lb, tool_xoffset_lb, tool_yoffset_lb
+	tool_zoffset_lb, tool_aoffset_lb, tool_boffset_lb
+	tool_coffset_lb, tool_uoffset_lb, tool_voffset_lb
+	tool_woffset_lb, tool_diameter_lb, tool_frontangle_lb
+	tool_backangle_lb, tool_orientation_lb
 
 
