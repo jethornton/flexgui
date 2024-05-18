@@ -823,9 +823,12 @@ def setup_tools(parent):
 	# tool change using a combo box
 	if 'tool_change_pb' in parent.children:
 		tools = len(parent.status.tool_table)
+		parent.tools = []
 		parent.tool_change_cb.addItem('Tool 0', 0)
 		for i in range(1, tools):
-			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', parent.status.tool_table[i][0])
+			tool_id = parent.status.tool_table[i][0]
+			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', tool_id)
+			parent.tools.append(tool_id)
 		if 'tool_change_cb' in parent.children:
 			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append('tool_change_pb')
@@ -834,6 +837,7 @@ def setup_tools(parent):
 				'requires the next_tool_sb spin box.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
+	print(parent.tools)
 
 	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
