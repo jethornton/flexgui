@@ -285,10 +285,6 @@ def update(parent):
 	for label, stat in parent.overrides.items():
 		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
 
-	# current tool offsets
-	for key, value in parent.status_tool_offset.items(): # key is label value tuple position & precision
-		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").tool_offset[value[0]]:.{value[1]}f}')
-
 	# dio din_0_lb din[0] dout_0_lb dout[0]
 	for key, value in parent.status_dio.items():
 		state = getattr(parent.status, f"{value[0]}")[value[1]]
