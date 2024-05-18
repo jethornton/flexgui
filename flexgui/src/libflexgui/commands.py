@@ -211,10 +211,17 @@ def touchoff(parent):
 def tool_change(parent):
 	tool_number = parent.sender().objectName().split('_')[-1]
 	if tool_number.isdigit(): # tool button used
+		tool_number = int(tool_number)
 		if 'tool_change_cb' in parent.children:
-			parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(tool_number))
+			if tool_number in parent.tools:
+				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(tool_number))
 	else:
 		tool_number = parent.tool_change_cb.currentData()
+	if tool_number not in parent.tools:
+		msg = (f'Tool {tool_number} is not in the Tool Table.')
+		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+		return
+
 	if tool_number != parent.status.tool_in_spindle:
 		mdi_command = f'M6 T{tool_number}'
 		if parent.status.task_state == emc.STATE_ON:
