@@ -825,7 +825,7 @@ def setup_tools(parent):
 		parent.tool_change_cb.addItem('Tool 0', 0)
 		for i in range(1, tool_len):
 			tool_id = parent.status.tool_table[i][0]
-			parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', tool_id)
+			parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
 		if 'tool_change_cb' in parent.children:
 			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append('tool_change_pb')
