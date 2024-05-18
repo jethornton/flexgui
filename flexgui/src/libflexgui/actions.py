@@ -194,7 +194,6 @@ def action_ladder_editor(parent): # actionLadder_Editor
 		dialogs.warn_msg_ok(msg, 'Error')
 
 def action_quit(parent): # actionQuit
-	#sys.exit()
 	parent.close()
 
 def action_estop(parent): # actionEstop
