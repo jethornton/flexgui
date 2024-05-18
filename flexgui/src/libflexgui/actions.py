@@ -178,6 +178,16 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
+	parent.status.poll()
+	tools = len(parent.status.tool_table)
+	parent.tools.clear()
+	parent.tools = [0]
+	parent.tool_change_cb.clear()
+	parent.tool_change_cb.addItem('Tool 0', 0)
+	for i in range(1, tools):
+		tool_id = parent.status.tool_table[i][0]
+		parent.tool_change_cb.addItem(f'Tool {parent.status.tool_table[i][0]}', tool_id)
+		parent.tools.append(tool_id)
 
 def action_ladder_editor(parent): # actionLadder_Editor
 	if hal.component_exists("classicladder_rt"):
