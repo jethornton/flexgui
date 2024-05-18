@@ -336,12 +336,14 @@ def update(parent):
 		else:
 			getattr(parent, item).setText('0.0')
 
+	'''
 	# tool table s.tool_table[0].id
 	for key, value in parent.tool_table.items():
 		tool = int(key.split('_')[-1])
 		key = key.split('_')[0] # get the status name from key xoffset_0
 		tr = getattr(parent.status, 'tool_table')[tool]
 		getattr(parent, f'{value}').setText(f'{getattr(tr, key)}')
+	'''
 
 	# handle errors
 	#if parent.status.state == parent.emc.RCS_ERROR:

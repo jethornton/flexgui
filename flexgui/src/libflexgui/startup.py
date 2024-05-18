@@ -823,7 +823,7 @@ def setup_tools(parent):
 	# tool change using a combo box
 	if 'tool_change_pb' in parent.children:
 		tools = len(parent.status.tool_table)
-		parent.tools = []
+		parent.tools = [0]
 		parent.tool_change_cb.addItem('Tool 0', 0)
 		for i in range(1, tools):
 			tool_id = parent.status.tool_table[i][0]
@@ -836,8 +836,6 @@ def setup_tools(parent):
 			msg = ('Tool change Push Button\n'
 				'requires the next_tool_sb spin box.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	print(parent.tools)
 
 	# home required touch off buttons
 	# tool change is a MDI command so power on and all homed
@@ -855,7 +853,6 @@ def setup_tools(parent):
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 			parent.home_required.append(item)
-
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
