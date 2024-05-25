@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+with open('s2.ngc') as f:
+	raw = f.readlines()
+
+line = raw[0].lower()
+print(line)
+x_start = line.find('x')
+axes = ['x', 'y', 'z']
+test = ['-', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+linear_moves = ['g0', 'g1']
+angular_moves = ['g2', 'g3']
+temp = False
+vertix = {}
+for linear_move in linear_moves:
+	if linear_move in line:
+		linear = True
+for line in raw:
+	line = line.strip().lower()
+
+	for c in line:
+		if temp and c not in test:
+			#print(temp)
+			vertix[temp[0]] = temp[1:]
+			temp = False
+		elif c in axes:
+			temp = c
+			#print(f'axis {temp}')
+		elif temp and c in test:
+			temp += c
+			#print(f'temp {temp}')
+		
+	print(vertix)
+
+#print(line[x_start:])
+'''
+print(txt.find("q"))
+print(txt.index("q")) 
+ver1 = {'x':0, 'y':0, 'z':0}
+ver2 = {}
+axes = ['x', 'y', 'z']
+for line in raw:
+	line = line.strip().lower()
+	for axis in line:
+		if axis in line:
+			print()
+	print(line)
+'''

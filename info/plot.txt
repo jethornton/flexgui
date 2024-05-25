@@ -1,6 +1,54 @@
+lib/python/rs274/glcannon.py
+
+from rs274 import glcanon
+/src/emc/usr_intf/axis/scripts/axis.py:63:from rs274.glcanon import GLCanon, GlCanonDraw
+/src/emc/usr_intf/gremlin/qt5_graphics.py:31:from rs274 import glcanon
+/share/qtvcp/screens/qtplasmac/qtplasmac_handler.py:67:from rs274.glcanon import GlCanonDraw as DRAW
+
+<TurBoss> I'll try "from rs274.glcanon import GLCanon"
+<lcnc-relay> <TurBoss> *2
+<lcnc-relay> <TurBoss> then something line "self.glcanon = GLCanon(colors, geometry)"
+ then pass self.glcanon to parse
+
+<JT-Mobile> so I'm guessing pass the gcode file and glcanon to gcode.parse
+<lcnc-relay> <TurBoss> yeah and the start gcodes
+<lcnc-relay> <TurBoss> whell the ini
 
 <turboss> JT-Cave, to plot the gcode you don't need to parse the file,
 just subclass canon and implement the GL plot line there
-<lcnc-relay> <turboss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/plugins/gcode_properties.py#L408
-<lcnc-relay> <turboss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/widgets/display_widgets/vtk_backplot/base_canon.py
-<lcnc-relay> <TurBoss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/plugins/gcode_properties.py#L508
+<turboss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/plugins/gcode_properties.py#L408
+<turboss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/widgets/display_widgets/vtk_backplot/base_canon.py
+<TurBoss> https://github.com/kcjengr/qtpyvcp/blob/main/src/qtpyvcp/plugins/gcode_properties.py#L508
+
+<TurBoss> check the PrintCanon from basecanon.py
+<TurBoss> instead of prints you put your opengl code there
+
+<TurBoss> oh looks like you could just pass a instance of glcanon to gcode.parse
+<TurBoss> it has gl instructions
+
+
+self.canon = PropertiesCanon()
+
+if os.path.exists(self.parameter_file):
+    shutil.copy(self.parameter_file, self.temp_parameter_file)
+
+self.canon.parameter_file = self.temp_parameter_file
+
+# Some initialization g-code to set the units and optional user code
+unitcode = "G%d" % (20 + (self.stat.linear_units == 1))
+initcode = self.ini.find("RS274NGC", "RS274NGC_STARTUP_CODE") or ""
+
+# THIS IS WHERE IT ALL HAPPENS: load_preview will execute the code,
+# call back to the canon with motion commands, and record a history
+# of all the movements.
+try:
+    result, seq = gcode.parse(self.loaded_file, self.canon, unitcode, initcode)
+
+    if result > gcode.MIN_ERROR:
+        msg = gcode.strerror(result)
+        LOG.debug(f"Error in {self.loaded_file} line {seq - 1}\n{msg}")
+except Exception as e:
+    LOG.debug(f"Error {e}")
+
+unitcode = "G%d" % (20 + (s.linear_units == 1))
+

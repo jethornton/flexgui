@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+with open('s2.ngc') as f:
+	raw = f.readlines()
+
+axes = ['x', 'y', 'z']
+test = ['-', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+axis_position = {'x': 0, 'y': 1, 'z': 2}
+vertices = []
+# this needs to be the current position
+last_move = [0.0,0.0,0.0]
+current_move = [0.0,0.0,0.0]
+axis = False
+for line in raw:
+	line = line.strip().lower()
+	for c in line:
+		if axis and c not in test:
+			current_move[axis_position[axis[0]]] = round(float(axis[1:]), 4)
+			axis = False
+		if c in axes:
+			axis = c
+		if axis and c in test:
+			axis += c
+	#lst = tuple(last_move)
+	#cur = tuple(current_move)
+	#ver = tuple((lst, cur))
+	#print(lst, cur)
+	#print(ver)
+	vertices.append(tuple(last_move))
+	vertices.append(tuple(current_move))
+	last_move = current_move.copy()
+#for vertice in vertices:
+#	print(vertice)
+print(vertices)
+
+
