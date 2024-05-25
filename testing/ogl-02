@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import sys
+from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget
+from PyQt6.QtWidgets import QPlainTextEdit, QVBoxLayout
+from PyQt6.QtOpenGLWidgets import QOpenGLWidget
+
+import linuxcnc
+import gcode
+from rs274.glcanon import GLCanon, GlCanonDraw
+
+class DummyCanon:
+	def comment(*args): pass
+	def next_line(*args): pass
+	def set_g5x_offset(*args): pass
+	def set_g92_offset(*args): pass
+	def set_xy_rotation(*args): pass
+	def get_external_angular_units(self): return 1.0
+	def get_external_length_units(self): return 1.0
+	def set_plane(*args): pass
+	def get_axis_mask(self): return 7
+	def get_tool(self, tool):
+		return tool, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0
+	def set_feed_rate(self, rate): pass
+	def user_defined_function(self, m, p, q):
+		self.number = p
+
+
+class MainWindow(QMainWindow):
+	def __init__(self):
+		super().__init__()
+
+		self.setGeometry(400, 400, 600, 400)
+		self.setWindowTitle('Main window')
+		central_widget = QWidget()
+		self.setCentralWidget(central_widget)
+		self.plot = QOpenGLWidget()
+		layout = QVBoxLayout(central_widget)
+		layout.addWidget(self.plot)
+		self.status = linuxcnc.stat()
+		self.status.poll()
+		#print(self.status.ini_filename)
+		self.inifile = linuxcnc.ini(self.status.ini_filename)
+		colors = GlCanonDraw.colors
+		geometry = 'XYZ'
+		#self.glcanon = GLCanon(colors, geometry)
+		canon = DummyCanon()
+		result, seq = gcode.parse("", canon, "M4", "M2")
+		gcode_file = '/home/john/github/flexgui/testing/s2.ngc'
+		#result, seq = gcode.parse(gcode_file, self.glcanon)
+		self.show()
+
+app = QApplication(sys.argv)
+ex = MainWindow()
+sys.exit(app.exec())
+
