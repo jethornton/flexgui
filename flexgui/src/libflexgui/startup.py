@@ -14,6 +14,7 @@ from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
+from libflexgui import flexplot
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
@@ -890,9 +891,10 @@ def setup_hal_buttons(parent):
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
-		parent.plot = QOpenGLWidget()
+		from libflexgui import flexplot
+		plotter = flexplot.graphics()
 		layout = QVBoxLayout(parent.plot_widget)
-		layout.addWidget(parent.plot)
+		layout.addWidget(plotter)
 
 def set_status(parent):
 	parent.status.poll()
