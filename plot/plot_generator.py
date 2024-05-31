@@ -4,7 +4,7 @@ import shutil
 import tempfile
 import linuxcnc
 import gcode
-	
+
 def float_fmt(f):
 	if isinstance(f, float): return "% 5.1g" % f
 	return "%5s" % f
@@ -52,5 +52,9 @@ class PlotGenerator:
 
 
 if __name__ == "__main__":
-	bp = PlotGenerator('/home/john/linuxcnc/nc_files/simple.ngc')
-	print(bp.load("/home/john/linuxcnc/configs/flex_examples/xyzh.ini"))
+	bp = PlotGenerator('/home/john/linuxcnc/configs/flex_examples/xyzh.ini')
+	print(bp.load('/home/john/linuxcnc/nc_files/simple.ngc'))
+
+
+
+
