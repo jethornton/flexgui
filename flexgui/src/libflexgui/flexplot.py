@@ -18,12 +18,12 @@ class graphics(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		super().__init__()
 		glnav.GlNavBase.__init__(self)
 
+		'''
 		self.status = linuxcnc.stat()
 		self.status.poll()
 		self.ini_filename = self.status.ini_filename
 		self.inifile = linuxcnc.ini(self.ini_filename)
 
-		'''
 		trajcoordinates = self.inifile.find("TRAJ", "COORDINATES").lower().replace(" ","")
 		kinsmodule = self.inifile.find("KINS", "KINEMATICS")
 		self.foam_option = bool(self.inifile.find("DISPLAY", "FOAM")) or False
