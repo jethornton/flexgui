@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
-import os
-import shutil
+
 import tempfile
+
 import linuxcnc
 import gcode
-
-def float_fmt(f):
-	if isinstance(f, float): return "% 5.1g" % f
-	return "%5s" % f
 
 class Canon:
 	def __getattr__(self, attr):
@@ -15,13 +11,13 @@ class Canon:
 		its args and return None"""
 
 		def inner(*args):
-			print(attr, args)
-			#print(type(args)) type is tuple
-			#args = list(map(float_fmt, args))
-			#print("%-17s %s" % (attr, " ".join(args)))
+			#print(attr, args)
+			# I assume open gl could be here
+			if attr == 'straight_feed' or attr == 'straight_traverse':
+				print(list(args)[:3])
 		return inner
 
-	def next_line(self, linecode): 
+	def next_line(self, linecode): # just pass next_line
 		pass
 
 	# These can't just return None...
@@ -33,33 +29,24 @@ class Canon:
 		return -1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0
 
 class PlotGenerator:
-
-	def __init__(self, inifile):
-		self.inifile = linuxcnc.ini(inifile)
-		#self.inifile_path = os.path.split(inifile)[0]
+	def __init__(self):
+		self.stat = linuxcnc.stat()
+		self.stat.poll()
+		self.inifile = linuxcnc.ini(self.stat.ini_filename)
 
 	def load(self, filename = None):
 		linuxcnc.command().task_plan_synch()
-		s = linuxcnc.stat()
-		s.poll()
-		unitcode = f'G{20 + (s.linear_units == 1)}'
+		self.stat.poll()
+		unitcode = f'G{20 + (self.stat.linear_units == 1)}'
 		initcode = self.inifile.find("RS274NGC", "RS274NGC_STARTUP_CODE") or ""
 
 		canon = Canon()
 		parameter = tempfile.NamedTemporaryFile()
 		canon.parameter_file = parameter.name
 		result, seq = gcode.parse(filename, canon, unitcode, initcode, '')
-		#print(result)
-		#print(seq)
-		#print(gcode.MIN_ERROR)
+
 		if result > gcode.MIN_ERROR: 
 			raise SystemExit(gcode.strerror(result))
 
-
-if __name__ == "__main__":
-	bp = PlotGenerator('/home/john/linuxcnc/configs/flex_examples/xyzh.ini')
-	print(bp.load('/home/john/linuxcnc/nc_files/cube.ngc'))
-
-
-
-
+pg = PlotGenerator()
+pg.load('/home/john/linuxcnc/nc_files/cube.ngc')
