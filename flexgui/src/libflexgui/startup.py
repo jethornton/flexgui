@@ -649,8 +649,9 @@ def setup_mdi(parent):
 	# mdi_command_le and run_mdi_pb are required to run mdi commands
 	# mdi_history_lw is optional
 	# determine if mdi is possible from the gui
+	# parent.mdi_command is tested in status.py so it much exist
+	parent.mdi_command = ''
 	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
-		parent.mdi_command = ''
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
 		parent.home_required.append('run_mdi_pb')
 		if 'mdi_history_lw' in parent.children:
