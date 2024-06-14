@@ -175,11 +175,24 @@ def jog(parent):
 	else:
 		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
 
+def mdi_button(parent, button):
+	mdi_command = button.property('command')
+	parent.status.poll()
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(mdi_command)
+		#parent.command.wait_complete()
+		#parent.command.mode(emc.MODE_MANUAL)
+		#parent.command.wait_complete()
+
 def change_cs(parent):
 	cs = parent.sender().objectName()[-1]
 	cd_dict = {'1': 'G54', '2': 'G55', '3': 'G56', '4': 'G57', '5': 'G58',
 		'6': 'G59', '7': 'G59.1', '8': 'G59.2', '9': 'G59.3', }
 	mdi_command = cd_dict[cs]
+	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
