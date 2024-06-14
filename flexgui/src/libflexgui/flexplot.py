@@ -38,6 +38,10 @@ class graphics(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		#self.load_preview()
 		'''
+
+	def parse_gcode(self):
+		pass
+
 	def load_preview(self):
 		canon = StatCanon(self.colors,
 			self.get_geometry(),

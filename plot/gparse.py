@@ -14,7 +14,7 @@ class Canon:
 			#print(attr, args)
 			# I assume open gl could be here
 			if attr == 'straight_feed' or attr == 'straight_traverse':
-				print(list(args)[:3])
+				print(f'{list(args)[:3]}, ')
 		return inner
 
 	def next_line(self, linecode): # just pass next_line
