@@ -65,6 +65,209 @@ Mode</string>
         <string>Manual</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Coolant</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="1">
+            <widget class="QPushButton" name="flood_pb">
+             <property name="text">
+              <string>Flood</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="mist_pb">
+             <property name="text">
+              <string>Mist</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="3" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>Start Hal run for these tests</string>
+          </property>
+          <property name="title">
+           <string>HAL Test Buttons</string>
+          </property>
+          <widget class="QPushButton" name="HAL_BIT_2">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>70</y>
+             <width>130</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Checkable Hal Btn</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_1" stdset="0">
+            <string>test_pin2, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="HAL_BIT">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>30</y>
+             <width>129</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Normal Hal Btn</string>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_0" stdset="0">
+            <string>test_pin1, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_on">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>70</y>
+             <width>41</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>On</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_3" stdset="0">
+            <string>rb_on, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_off">
+           <property name="geometry">
+            <rect>
+             <x>220</x>
+             <y>70</y>
+             <width>51</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Off</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_2" stdset="0">
+            <string>rb_off, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QCheckBox" name="checkBox">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>30</y>
+             <width>121</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Hal Check box</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_4" stdset="0">
+            <string>checkbox, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>110</y>
+             <width>71</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>MDI 0</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_5" stdset="0">
+            <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="geometry">
+            <rect>
+             <x>120</x>
+             <y>110</y>
+             <width>71</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>MDI 1</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_6" stdset="0">
+            <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="geometry">
+            <rect>
+             <x>210</x>
+             <y>110</y>
+             <width>61</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>MDI 2</string>
+           </property>
+           <property name="function" stdset="0">
+            <string>hal_pin</string>
+           </property>
+           <property name="pin_7" stdset="0">
+            <string>test_mdi_pin2, HAL_BIT, HAL_OUT</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
         <item row="0" column="0" rowspan="2">
          <widget class="QGroupBox" name="groupBox_7">
           <property name="title">
@@ -285,6 +488,107 @@ Mode</string>
           </widget>
          </widget>
         </item>
+        <item row="0" column="3">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>Spindle</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="0" column="1">
+            <widget class="QLabel" name="spindle_actual_speed_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="spindle_fwd_pb">
+             <property name="text">
+              <string>Spindle Fwd</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="spindle_plus_pb">
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Speed:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="spindle_direction_0_lb">
+             <property name="text">
+              <string>direction</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="3">
+            <widget class="QPushButton" name="spindle_stop_pb">
+             <property name="text">
+              <string>Spindle Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="spindle_rev_pb">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Spindle Rev</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Spindle RPM</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QSpinBox" name="spindle_speed_sb">
+             <property name="maximum">
+              <number>30000</number>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QPushButton" name="numberpad_pb_1">
+             <property name="text">
+              <string>Number Pad</string>
+             </property>
+             <property name="target" stdset="0">
+              <string>spindle_speed_sb</string>
+             </property>
+             <property name="type" stdset="0">
+              <string>int</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QPushButton" name="spindle_minus_pb">
+             <property name="text">
+              <string>-</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="1" rowspan="3">
          <widget class="QGroupBox" name="groupBox_4">
           <property name="title">
@@ -420,7 +724,7 @@ Mode</string>
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>219</y>
+             <y>150</y>
              <width>231</width>
              <height>201</height>
             </rect>
@@ -551,309 +855,75 @@ Mode</string>
             </property>
            </widget>
           </widget>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QGroupBox" name="groupBox_6">
-          <property name="title">
-           <string>Spindle</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_13">
-           <item row="0" column="1">
-            <widget class="QLabel" name="spindle_actual_speed_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="spindle_fwd_pb">
-             <property name="text">
-              <string>Spindle Fwd</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="spindle_plus_pb">
-             <property name="text">
-              <string>+</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_21">
-             <property name="text">
-              <string>Speed:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="spindle_direction_0_lb">
-             <property name="text">
-              <string>direction</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="3">
-            <widget class="QPushButton" name="spindle_stop_pb">
-             <property name="text">
-              <string>Spindle Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="spindle_rev_pb">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Spindle Rev</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0" colspan="2">
-            <widget class="QLabel" name="label_20">
-             <property name="text">
-              <string>Spindle RPM</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QSpinBox" name="spindle_speed_sb">
-             <property name="maximum">
-              <number>30000</number>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="2">
-            <widget class="QPushButton" name="numberpad_pb_1">
-             <property name="text">
-              <string>Number Pad</string>
-             </property>
-             <property name="target" stdset="0">
-              <string>spindle_speed_sb</string>
-             </property>
-             <property name="type" stdset="0">
-              <string>int</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QPushButton" name="spindle_minus_pb">
-             <property name="text">
-              <string>-</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Coolant</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="0" column="1">
-            <widget class="QPushButton" name="flood_pb">
-             <property name="text">
-              <string>Flood</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="mist_pb">
-             <property name="text">
-              <string>Mist</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="3" rowspan="2">
-         <widget class="QGroupBox" name="groupBox_12">
-          <property name="mouseTracking">
-           <bool>false</bool>
-          </property>
-          <property name="whatsThis">
-           <string>Start Hal run for these tests</string>
-          </property>
-          <property name="title">
-           <string>HAL TEST</string>
-          </property>
-          <widget class="QPushButton" name="HAL_BIT_2">
+          <widget class="QGroupBox" name="groupBox_15">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>70</y>
-             <width>130</width>
-             <height>21</height>
+             <x>0</x>
+             <y>350</y>
+             <width>271</width>
+             <height>61</height>
             </rect>
            </property>
-           <property name="text">
-            <string>Checkable Hal Btn</string>
+           <property name="title">
+            <string>MDI Button Example</string>
            </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_1" stdset="0">
-            <string>test_pin2, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="HAL_BIT">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>30</y>
-             <width>129</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Normal Hal Btn</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_0" stdset="0">
-            <string>test_pin1, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QRadioButton" name="rb_on">
-           <property name="geometry">
-            <rect>
-             <x>160</x>
-             <y>70</y>
-             <width>41</width>
-             <height>25</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>On</string>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_3" stdset="0">
-            <string>rb_on, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QRadioButton" name="rb_off">
-           <property name="geometry">
-            <rect>
-             <x>220</x>
-             <y>70</y>
-             <width>51</width>
-             <height>25</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Off</string>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_2" stdset="0">
-            <string>rb_off, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="checkBox">
-           <property name="geometry">
-            <rect>
-             <x>160</x>
-             <y>30</y>
-             <width>121</width>
-             <height>25</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Hal Check box</string>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_4" stdset="0">
-            <string>checkbox, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>110</y>
-             <width>71</width>
-             <height>27</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>MDI 0</string>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_5" stdset="0">
-            <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>110</y>
-             <width>71</width>
-             <height>27</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>MDI 1</string>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_6" stdset="0">
-            <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="geometry">
-            <rect>
-             <x>210</x>
-             <y>110</y>
-             <width>61</width>
-             <height>27</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>MDI 2</string>
-           </property>
-           <property name="function" stdset="0">
-            <string>hal_pin</string>
-           </property>
-           <property name="pin_7" stdset="0">
-            <string>test_mdi_pin2, HAL_BIT, HAL_OUT</string>
-           </property>
+           <widget class="QPushButton" name="mdi_flood">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>30</y>
+              <width>87</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MDI Flood</string>
+            </property>
+            <property name="function" stdset="0">
+             <string>mdi</string>
+            </property>
+            <property name="command" stdset="0">
+             <string>M8</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="mdi_mist">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>30</y>
+              <width>87</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MDI Mist</string>
+            </property>
+            <property name="function" stdset="0">
+             <string>mdi</string>
+            </property>
+            <property name="command" stdset="0">
+             <string>M7</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="mdi_coolant_off">
+            <property name="geometry">
+             <rect>
+              <x>180</x>
+              <y>30</y>
+              <width>87</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MDI Off</string>
+            </property>
+            <property name="function" stdset="0">
+             <string>mdi</string>
+            </property>
+            <property name="command" stdset="0">
+             <string>M9</string>
+            </property>
+           </widget>
           </widget>
          </widget>
         </item>
