@@ -24,13 +24,13 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Resume                       resume_pb
 	Stop                         stop_pb
 	Home All                     home_all_pb
-	Home Joint (1-9)             home_pb_(1-9)
+	Home Joint (0-8)             home_pb_(0-8)
 	Unhome All                   unhome_all_pb
-	Unhome Joint (1-9)           unhome_pb_(1-9)
+	Unhome Joint (0-8)           unhome_pb_(0-8)
 	Manual Mode                  manual_mode_pb
 	Run MDI                      run_mdi_pb
-	Jog Plus Axis (1-9)          jog_plus_pb_(1-9)
-	Jog Minus Axis (1-9)         jog_minus_pb_(1-9)
+	Jog Plus Axis (0-8)          jog_plus_pb_(0-8)
+	Jog Minus Axis (0-8)         jog_minus_pb_(0-8)
 	Spindle Forward              spindle_fwd_pb
 	Spindle Reverse              spindle_rev_pb
 	Spindle Stop                 spindle_stop_pb
@@ -40,7 +40,6 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Mist Toggle                  mist_pb
 	Change Coordinate System     change_cs_(1-9)
 	Clear Error History          clear_error_history_pb
-	Change Coordinate System     change_cs_(1-9) 
 
 .. image:: /images/controls-01.png
    :align: center
