@@ -7,39 +7,41 @@ Push Buttons
 Controls are QPushButtons that can be placed anywhere you like. Use the Name
 from the list below for each control widget objectName. Replace the `(1-9)` with
 the joint number or axis index. More controls are in :doc:`tools`
-::
 
-	Control                      Name
-	Open                         open_pb
-	Edit                         edit_pb
-	Reload                       reload_pb
-	Save As                      save_as_pb
-	Quit                         quit_pb
-	E-Stop                       estop_pb
-	Power                        power_pb
-	Run                          run_pb
-	Run From Line                run_from_line_pb
-	Step                         step_pb
-	Pause                        pause_pb
-	Resume                       resume_pb
-	Stop                         stop_pb
-	Home All                     home_all_pb
-	Home Joint (0-8)             home_pb_(0-8)
-	Unhome All                   unhome_all_pb
-	Unhome Joint (0-8)           unhome_pb_(0-8)
-	Manual Mode                  manual_mode_pb
-	Run MDI                      run_mdi_pb
-	Jog Plus Axis (0-8)          jog_plus_pb_(0-8)
-	Jog Minus Axis (0-8)         jog_minus_pb_(0-8)
-	Spindle Forward              spindle_fwd_pb
-	Spindle Reverse              spindle_rev_pb
-	Spindle Stop                 spindle_stop_pb
-	Spindle Faster               spindle_plus_pb
-	Spindle Slower               spindle_minus_pb
-	Flood Toggle                 flood_pb
-	Mist Toggle                  mist_pb
-	Change Coordinate System     change_cs_(1-9)
-	Clear Error History          clear_error_history_pb
+.. csv-table:: Control Push Buttons
+   :width: 80%
+   :align: center
+
+	Control Function, Object Name
+	Open a G code File, open_pb
+	Edit a G code File,edit_pb
+	Reload a G code File,reload_pb
+	Save As a New Name,save_as_pb
+	Quit the Program,quit_pb
+	E-Stop Toggle,estop_pb
+	Power Toggle,power_pb
+	Run a Loaded G code File,run_pb
+	Run From Line,run_from_line_pb
+	Step one Logical Line,step_pb
+	Pause a Running Program,pause_pb
+	Resume a Paused Program,resume_pb
+	Stop a Running Program,stop_pb
+	Home All Joints,home_all_pb
+	Home a Joint (0-8),home_pb_(0-8)
+	Unhome All Joints,unhome_all_pb
+	Unhome a Joint (0-8),unhome_pb_(0-8)
+	Manual Mode,manual_mode_pb
+	Run MDI Command,run_mdi_pb
+	Jog Plus Axis (0-8),jog_plus_pb_(0-8)
+	Jog Minus Axis (0-8),jog_minus_pb_(0-8)
+	Spindle Forward,spindle_fwd_pb
+	Spindle Reverse,spindle_rev_pb
+	Spindle Stop,spindle_stop_pb
+	Spindle Faster,spindle_plus_pb
+	Spindle Slower,spindle_minus_pb
+	Flood Toggle,flood_pb
+	Mist Toggle,mist_pb
+	Clear Error History,clear_error_history_pb
 
 .. image:: /images/controls-01.png
    :align: center
