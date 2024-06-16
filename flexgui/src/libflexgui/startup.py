@@ -866,9 +866,16 @@ def setup_defaults(parent):
 def setup_mdi_buttons(parent):
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'mdi':
-			button.clicked.connect(partial(commands.mdi_button, parent, button))
-			parent.home_required.append(button.objectName())
-			parent.state_estop[button.objectName()] = False
+			if button.property('command'):
+				button.clicked.connect(partial(commands.mdi_button, parent, button))
+				parent.home_required.append(button.objectName())
+				parent.state_estop[button.objectName()] = False
+			else:
+				msg = (f'MDI Button {button.text()}\n'
+				'Does not have a command\n'
+				f'{button.text()} will not be functional.')
+				dialogs.warn_msg_ok(msg, 'Configuration Error')
+				button.setEnabled(False)
 
 def setup_hal_buttons(parent):
 	hal_buttons = []
@@ -907,7 +914,7 @@ def setup_plot(parent):
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(plotter)
 
-def set_status(parent):
+def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
