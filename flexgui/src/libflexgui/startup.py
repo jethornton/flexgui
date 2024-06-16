@@ -867,6 +867,8 @@ def setup_mdi_buttons(parent):
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'mdi':
 			button.clicked.connect(partial(commands.mdi_button, parent, button))
+			parent.home_required.append(button.objectName())
+			parent.state_estop[button.objectName()] = False
 
 def setup_hal_buttons(parent):
 	hal_buttons = []
