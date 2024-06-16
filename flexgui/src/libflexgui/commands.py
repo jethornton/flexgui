@@ -291,11 +291,23 @@ def spindle(parent, value=0):
 		if parent.status.spindle[0]['speed'] < 0:
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(value))
 	elif sender_name == 'spindle_fwd_pb':
-		parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
-		parent.spindle_rev_pb.setChecked(False)
+		if parent.spindle_speed == 0:
+			msg = ('Can not start spindle\n'
+				'at 0 RPM')
+			dialogs.warn_msg_ok(msg, 'Error')
+			parent.spindle_fwd_pb.setChecked(False)
+		else:
+			parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
+			parent.spindle_rev_pb.setChecked(False)
 	elif sender_name == 'spindle_rev_pb':
-		parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
-		parent.spindle_fwd_pb.setChecked(False)
+		if parent.spindle_speed == 0:
+			msg = ('Can not start spindle\n'
+				'at 0 RPM')
+			dialogs.warn_msg_ok(msg, 'Error')
+			parent.spindle_rev_pb.setChecked(False)
+		else:
+			parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
+			parent.spindle_fwd_pb.setChecked(False)
 	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
 		parent.spindle_rev_pb.setChecked(False)
