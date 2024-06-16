@@ -72,7 +72,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>9</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1188,6 +1188,9 @@
              </property>
              <property name="function" stdset="0">
               <string>mdi</string>
+             </property>
+             <property name="command" stdset="0">
+              <string>G0 Z0</string>
              </property>
             </widget>
            </item>
