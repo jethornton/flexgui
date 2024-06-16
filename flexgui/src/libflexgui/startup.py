@@ -875,6 +875,9 @@ def setup_hal_buttons(parent):
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'hal_pin':
 			hal_buttons.append(button)
+			if button.property('required') == 'homed':
+				parent.home_required.append(button.objectName())
+				parent.state_estop[button.objectName()] = False
 	for n, button in enumerate(hal_buttons):
 		props = button.dynamicPropertyNames()
 		for prop in props:
@@ -933,6 +936,8 @@ def set_status(parent):
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
 		else:
+			for item in parent.home_required:
+				getattr(parent, item).setEnabled(False)
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
