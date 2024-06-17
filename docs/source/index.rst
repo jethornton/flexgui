@@ -13,6 +13,7 @@ Flex GUI
    ini
    menu
    controls
+   mdi
    labels
    spindle
    tools

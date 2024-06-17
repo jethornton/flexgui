@@ -50,44 +50,6 @@ the joint number or axis index. More controls are in :doc:`tools`
 
 .. note:: Tool Touch Off buttons require a Double Spin Box named `tool_touchoff_dsb`
 
-MDI Buttons
------------
-
-MDI buttons are created by adding two dynamic properties called `function` and
-`command`.
-
-Select the button then create a dynamic property by pressing on the green plus
-sign in the Property Editor.
-
-.. image:: /images/mdi-01.png
-   :align: center
-
-Then select `string`
-
-.. image:: /images/mdi-02.png
-   :align: center
-
-Name the property `function`
-
-.. image:: /images/mdi-03.png
-   :align: center
-
-Set the value of the property to `mdi`
-
-.. image:: /images/mdi-04.png
-   :align: center
-
-Add a property called `command`
-
-.. image:: /images/mdi-05.png
-   :align: center
-
-Set the value of the property to your valid MDI command
-
-.. image:: /images/mdi-06.png
-   :align: center
-
-
 Options
 -------
 
@@ -127,6 +89,15 @@ A QSlider is used to control the following functions.
 	Feed Override         feed_override_sl            feedrate_lb
 	Rapid Override        rapid_override_sl           rapid_override_lb
 	Spindle Override      spindle_override_sl         spindle_override_0_lb
+
+The following settings are from the DISPLAY section of the ini file if found.
+::
+
+	Jog Velocity minimum              MIN_LINEAR_VELOCITY
+	Jog Velocity maximum              MAX_LINEAR_VELOCITY
+	Jog Velocity default              DEFAULT_LINEAR_VELOCITY
+	Feed Override maximum             MAX_FEED_OVERRIDE
+	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
 
 Spin Boxes
 ----------
