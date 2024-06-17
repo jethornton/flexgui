@@ -81,10 +81,11 @@ Axis Index
 Sliders
 -------
 
-A QSlider is used to control the following functions.
+A QSlider is used to control the following functions and the corresponding label
+shows the value of the slider.
 ::
 
-	Function              Slider                      Status Label
+	Function              Object Name                 Status Label
 	Jog Velocity          jog_vel_sl                  jog_vel_lb
 	Feed Override         feed_override_sl            feedrate_lb
 	Rapid Override        rapid_override_sl           rapid_override_lb
