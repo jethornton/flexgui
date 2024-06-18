@@ -84,3 +84,14 @@ Now you can connect the Flex HAL pin in the postgui.hal file like normal.
 
 After installing Flex GUI from the CNC menu you can copy the Flex GUI examples
 and look at the hal-btn example.
+
+Homed Required
+--------------
+
+If the HAL button requires all joints to be homed before being enabled you can
+specifiy that by adding a Dynamic Property named `required` and set the value to
+`homed`.
+
+.. image:: /images/hal-08.png
+   :align: center
+
