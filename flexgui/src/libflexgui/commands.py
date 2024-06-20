@@ -202,25 +202,6 @@ def change_cs(parent):
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
-def touchoff(parent):
-	if 'touchoff_system_cb' in parent.children:
-		coordinate_system = parent.touchoff_system_cb.currentData()
-	else:
-		coordinate_system = 0
-	axis = parent.sender().objectName()[-1].upper()
-	precision = parent.touchoff_dsb.decimals()
-	offset = f'{parent.touchoff_dsb.value():.{precision}f}'
-	#value = parent.touchoff_dsb.value()
-	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_MDI:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-		parent.command.mdi(mdi_command)
-		parent.command.wait_complete()
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
-
 def tool_change(parent):
 	parent.status.poll()
 	tool_len = len(parent.status.tool_table)
@@ -255,6 +236,26 @@ def tool_change(parent):
 	else:
 		msg = (f'Tool {tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+
+def touchoff(parent): # FIXME to use touchoff_le or touchoff_dsb
+	if 'touchoff_system_cb' in parent.children:
+		coordinate_system = parent.touchoff_system_cb.currentData()
+	else:
+		coordinate_system = 0
+	axis = parent.sender().objectName()[-1].upper()
+	precision = parent.touchoff_dsb.decimals()
+	offset = f'{parent.touchoff_dsb.value():.{precision}f}'
+	#value = parent.touchoff_dsb.value()
+	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(mdi_command)
+		parent.command.wait_complete()
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
+
 
 def tool_touchoff(parent):
 	parent.status.poll()
