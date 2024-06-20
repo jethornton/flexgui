@@ -44,7 +44,7 @@ class number_pad(QDialog):
 
 	def retval(self):
 		try:
-			return(float(self.numbers_lb.text()))
+			return self.numbers_lb.text()
 		except:
 			return False
 

@@ -13,7 +13,6 @@ import linuxcnc, hal
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
-from libflexgui import number_pad
 from libflexgui import utilities
 from libflexgui import flexplot
 
