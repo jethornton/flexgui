@@ -20,6 +20,7 @@ from libflexgui import status
 from libflexgui import dialogs
 from libflexgui import editor
 
+
 class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -170,7 +171,7 @@ class flexgui(QMainWindow):
 			if event.button() == Qt.MouseButton.LeftButton:
 				editor.show_line(self)
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			print('touchoff_le')
+			dialogs.numbers(self, self.touchoff_le)
 		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			print('tool_touchoff_le')
 		return super(flexgui, self).eventFilter(obj, event)

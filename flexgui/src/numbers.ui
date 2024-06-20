@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Number Input</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="1">
@@ -21,14 +21,21 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="2">
+   <item row="9" column="2">
+    <widget class="QPushButton" name="dash_pb">
+     <property name="text">
+      <string>-</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
     <widget class="QPushButton" name="num_pb_3">
      <property name="text">
       <string>3</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="2">
+   <item row="6" column="2">
     <widget class="QPushButton" name="num_pb_6">
      <property name="text">
       <string>6</string>
@@ -36,19 +43,34 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="3">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="numbers_lb">
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
+   <item row="10" column="0">
+    <widget class="QPushButton" name="clear_pb">
+     <property name="text">
+      <string>Clear</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
     <widget class="QPushButton" name="num_pb_2">
      <property name="text">
       <string>2</string>
@@ -69,59 +91,45 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0">
+   <item row="9" column="0">
     <widget class="QPushButton" name="num_pb_0">
      <property name="text">
       <string>0</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QPushButton" name="num_pb_5">
-     <property name="text">
-      <string>4</string>
+   <item row="10" column="1" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
-    <widget class="QPushButton" name="num_pb_4">
-     <property name="text">
-      <string>5</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
+   <item row="8" column="0">
     <widget class="QPushButton" name="num_pb_1">
      <property name="text">
       <string>1</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="2">
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>-</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <widget class="QPushButton" name="pushButton_2">
+   <item row="9" column="1">
+    <widget class="QPushButton" name="dot_pb">
      <property name="text">
       <string>.</string>
      </property>
     </widget>
    </item>
-   <item row="9" column="0">
-    <widget class="QPushButton" name="pushButton_4">
+   <item row="6" column="0">
+    <widget class="QPushButton" name="num_pb_4">
      <property name="text">
-      <string>Send</string>
+      <string>4</string>
      </property>
     </widget>
    </item>
-   <item row="9" column="2">
-    <widget class="QPushButton" name="pushButton_3">
+   <item row="6" column="1">
+    <widget class="QPushButton" name="num_pb_5">
      <property name="text">
-      <string>Clear</string>
+      <string>5</string>
      </property>
     </widget>
    </item>
