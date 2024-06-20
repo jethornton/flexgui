@@ -13,6 +13,7 @@ import linuxcnc, hal
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
+from libflexgui import number_pad
 from libflexgui import utilities
 from libflexgui import flexplot
 
@@ -244,32 +245,7 @@ def setup_enables(parent):
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(False)
 
-	# check for required items tool_touchoff_ touchoff_pb_
-	to_missing = False
-	tto_missing = False
-	for item in AXES:
-		if f'touchoff_pb_{item}' in parent.children:
-			if 'touchoff_dsb' not in parent.children:
-				getattr(parent, f'touchoff_pb_{item}').setEnabled(False)
-				to_missing = True
-
-		if f'tool_touchoff_{item}' in parent.children:
-			if 'tool_touchoff_dsb' not in parent.children:
-				getattr(parent, f'tool_touchoff_{item}').setEnabled(False)
-				tto_missing = True
-
-	if to_missing:
-		msg = ('Touch Off Double Spin Box\n'
-			'touchoff_dsb not found.\n'
-			'Touch Off Buttons will be disabled')
-		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	if tto_missing:
-		msg = ('Touch Off Double Spin Box\n'
-			'tool_touchoff_dsb not found.\n'
-			'Tool Touch Off Buttons will be disabled')
-		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
+	# FIXME this needs to be in mdi setup
 	if 'run_mdi_pb' in parent.children:
 		if 'mdi_command_le' not in parent.children:
 			parent.run_mdi_pb.setEnabled(False)
@@ -354,6 +330,41 @@ def setup_buttons(parent): # connect buttons to functions
 		parent.feed_hold_enable_pb.setChecked(parent.status.feed_hold_enabled)
 	if 'feed_override_pb' in parent.children:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
+
+def setup_touchoff(parent):
+	# check for required items tool_touchoff_ touchoff_pb_
+	# FIXME add touchoff_le and tool_touchoff_le for touch screens
+	# self.lineEdit_passwort.mousePressEvent = self.on_lineEdit_passwort_clicked
+	# def on_lineEdit_passwort_clicked(self, *arg, **kwargs):
+	# 	print("lineEdit_passwort clicked!")
+	if 'touchoff_le' in parent.children:
+		parent.touchoff_le.installEventFilter(parent)
+		#parent.touchoff_le.mousePressEvent = test.test_it(parent)
+	to_missing = False
+	tto_missing = False
+	for item in AXES:
+		if f'touchoff_pb_{item}' in parent.children:
+			if 'touchoff_dsb' not in parent.children:
+				getattr(parent, f'touchoff_pb_{item}').setEnabled(False)
+				to_missing = True
+
+		if f'tool_touchoff_{item}' in parent.children:
+			if 'tool_touchoff_dsb' not in parent.children:
+				getattr(parent, f'tool_touchoff_{item}').setEnabled(False)
+				tto_missing = True
+
+	if to_missing:
+		msg = ('Touch Off Double Spin Box\n'
+			'touchoff_dsb not found.\n'
+			'Touch Off Buttons will be disabled')
+		dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
+	if tto_missing:
+		msg = ('Touch Off Double Spin Box\n'
+			'tool_touchoff_dsb not found.\n'
+			'Tool Touch Off Buttons will be disabled')
+		dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
 
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
