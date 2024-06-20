@@ -243,8 +243,11 @@ def touchoff(parent): # FIXME to use touchoff_le or touchoff_dsb
 	else:
 		coordinate_system = 0
 	axis = parent.sender().objectName()[-1].upper()
-	precision = parent.touchoff_dsb.decimals()
-	offset = f'{parent.touchoff_dsb.value():.{precision}f}'
+	if 'touchoff_dsb' in parent.children:
+		precision = parent.touchoff_dsb.decimals()
+		offset = f'{parent.touchoff_dsb.value():.{precision}f}'
+	elif 'touchoff_le' in parent.children:
+		offset = parent.touchoff_le.text()
 	#value = parent.touchoff_dsb.value()
 	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	if parent.status.task_state == emc.STATE_ON:
