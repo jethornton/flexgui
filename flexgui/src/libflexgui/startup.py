@@ -341,9 +341,13 @@ def setup_touchoff(parent):
 		#parent.touchoff_le.mousePressEvent = test.test_it(parent)
 	to_missing = False
 	tto_missing = False
+	touchoff = ['touchoff_le', 'touchoff_dsb']
 	for item in AXES:
 		if f'touchoff_pb_{item}' in parent.children:
-			if 'touchoff_dsb' not in parent.children:
+			print(bool(set(touchoff) & set(parent.children)))
+			if bool(set(touchoff) & set(parent.children)):
+				break
+			else:
 				getattr(parent, f'touchoff_pb_{item}').setEnabled(False)
 				to_missing = True
 
