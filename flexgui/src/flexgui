@@ -128,6 +128,7 @@ class flexgui(QMainWindow):
 		startup.get_ini_values(self)
 		startup.setup_enables(self)
 		startup.setup_buttons(self)
+		startup.setup_touchoff(self)
 		startup.setup_actions(self)
 		startup.setup_status_labels(self)
 		startup.setup_plain_text_edits(self)
@@ -165,9 +166,13 @@ class flexgui(QMainWindow):
 			self.show()
 
 	def eventFilter(self, obj, event):
-		if obj is self.gcode_pte.viewport() and event.type() == QEvent.Type.MouseButtonRelease:
+		if obj.objectName() == 'gcode_pte' and event.type() == QEvent.Type.MouseButtonRelease:
 			if event.button() == Qt.MouseButton.LeftButton:
 				editor.show_line(self)
+		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
+			print('touchoff_le')
+		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
+			print('tool_touchoff_le')
 		return super(flexgui, self).eventFilter(obj, event)
 
 	def closeEvent(self, event):
