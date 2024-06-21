@@ -50,7 +50,6 @@ def setup_enables(parent):
 	if 'home_all_pb' in parent.children:
 		if not utilities.home_all_check(parent):
 			parent.home_all_pb.setEnabled(False)
-			print('passed')
 
 	# STATE_ESTOP
 	parent.state_estop = {'power_pb': False, 'run_pb': False,
