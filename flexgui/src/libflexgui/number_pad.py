@@ -11,10 +11,10 @@ class number_pad(QDialog):
 
 		# set the library path
 		if self.path == '/usr/bin':
-			self.lib_path = '/usr/lib/libjet'
-			self.gui_path = '/usr/lib/libjet'
+			self.lib_path = '/usr/lib/libflexgui'
+			self.gui_path = '/usr/lib/libflexgui'
 		else:
-			self.lib_path = os.path.join(self.path, 'libjet')
+			self.lib_path = os.path.join(self.path, 'libflexgui')
 			self.gui_path = self.path
 
 		num_ui_path = os.path.join(self.gui_path, 'numbers.ui')
