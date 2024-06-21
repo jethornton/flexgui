@@ -772,6 +772,8 @@ def setup_spindle(parent):
 		parent.increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 		if not parent.increment:
 			parent.increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
+		elif not parent.increment:
+			parent.increment = 100
 		parent.increment = int(parent.increment) if parent.increment else 100
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setValue(parent.min_rpm)
