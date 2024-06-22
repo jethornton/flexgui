@@ -214,6 +214,9 @@ number of the spindle. Spindle numbers start at 0 and go through to 8.
 .. note:: Spindle speed is the commanded speed not the actual speed if an
    override is in effect.
 
+Spindle speed setting label `spindle_speed_lb` shows the current spindle
+speed setting even if the spindle is not running.
+
 I/O Status
 ----------
 
