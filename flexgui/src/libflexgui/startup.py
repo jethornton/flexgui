@@ -748,6 +748,13 @@ def setup_jog(parent):
 				parent.jog_modes_cb.addItem(item, float(data))
 
 def setup_spindle(parent):
+	# spindle defaults
+	parent.spindle_speed = 100
+	if 'spindle_speed_lb' in parent.children:
+		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+	parent.increment = 100
+	parent.min_rpm = 0
+
 	spindle_buttons = {
 	'spindle_fwd_pb': 'spindle',
 	'spindle_rev_pb': 'spindle',
@@ -761,23 +768,22 @@ def setup_spindle(parent):
 			if key in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, key).setCheckable(True)
 
-	parent.spindle_speed = 100
+	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
+	if not increment:
+		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
+	#elif not parent.increment:
+	#	parent.increment = 100
+	parent.increment = int(increment) if increment else 100
+
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False 
 		parent.min_rpm = int(parent.min_rpm) if parent.min_rpm else 0
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 		max_rpm = int(max_rpm) if max_rpm else 1000
-		parent.increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-		if not parent.increment:
-			parent.increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-		elif not parent.increment:
-			parent.increment = 100
-		parent.increment = int(parent.increment) if parent.increment else 100
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
-		parent.spindle_speed_sb.setValue(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(max_rpm)
+		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
 
 	if 'spindle_override_sl' in parent.children:
