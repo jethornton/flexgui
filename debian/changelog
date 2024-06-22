@@ -1,3 +1,9 @@
+flexgui (0.9.1) unstable; urgency=medium
+
+  * Fix spindle items
+
+ -- John Thornton <dev@gnipsel.com>  Sat, 22 Jun 2024 08:06:43 -0500
+
 flexgui (0.9.0) unstable; urgency=medium
 
   * Add touch screen number pad
