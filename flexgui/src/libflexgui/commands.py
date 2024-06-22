@@ -44,7 +44,7 @@ def home_all(parent):
 	parent.command.wait_complete()
 	parent.command.home(-1)
 
-def unhome(parent):
+def unhome(parent): # FIXME move disables to utilities
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 1:
@@ -66,7 +66,7 @@ def unhome(parent):
 				if 'home_all_pb' in parent.children:
 					parent.home_all_pb.setEnabled(True)
 
-def unhome_all(parent):
+def unhome_all(parent): # FIXME move disables to utilities
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
@@ -299,6 +299,8 @@ def spindle(parent, value=0):
 		parent.spindle_speed += parent.increment
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
+		if 'spindle_speed_lb' in parent.children:
+			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	elif sender_name == 'spindle_minus_pb':
 		parent.command.spindle(emc.SPINDLE_DECREASE)
 		parent.spindle_speed -= parent.increment
@@ -308,6 +310,8 @@ def spindle(parent, value=0):
 			parent.spindle_fwd_pb.setChecked(False)
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
+		if 'spindle_speed_lb' in parent.children:
+			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 
 def flood_toggle(parent):
 	parent.status.poll()
