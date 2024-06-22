@@ -343,7 +343,7 @@ def setup_touchoff(parent):
 	touchoff = ['touchoff_le', 'touchoff_dsb']
 	for item in AXES:
 		if f'touchoff_pb_{item}' in parent.children:
-			print(bool(set(touchoff) & set(parent.children)))
+			#print(bool(set(touchoff) & set(parent.children)))
 			if bool(set(touchoff) & set(parent.children)):
 				break
 			else:
@@ -938,7 +938,7 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 			getattr(parent, key).setText(value)
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		print('STATE_ESTOP_RESET')
+		#print('STATE_ESTOP_RESET')
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():

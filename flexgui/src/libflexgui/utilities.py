@@ -40,6 +40,18 @@ def home_all_check(parent):
 			return False
 	return True
 
+def set_homed_enable(parent):
+	print('all homed enabled')
+	for item in parent.home_controls:
+		getattr(parent, item).setEnabled(False)
+	for item in parent.unhome_controls:
+		getattr(parent, item).setEnabled(True)
+	for item in parent.home_required:
+		getattr(parent, item).setEnabled(True)
+	if parent.status.file:
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(True)
+
 def update_jog_lb(parent):
 	parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()} {parent.units}/min')
 

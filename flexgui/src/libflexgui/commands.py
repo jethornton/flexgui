@@ -34,16 +34,6 @@ def home(parent):
 		getattr(parent, f'home_pb_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
-		if utilities.all_homed(parent):
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.home_controls:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.home_required:
-				getattr(parent, item).setEnabled(True)
-			if parent.status.file:
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
 
 def home_all(parent):
 	parent.status.poll()
@@ -53,18 +43,6 @@ def home_all(parent):
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.home(-1)
-	parent.command.wait_complete()
-	parent.status.poll()
-	if utilities.all_homed(parent):
-		for item in parent.home_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.unhome_controls:
-			getattr(parent, item).setEnabled(True)
-		for item in parent.home_required:
-			getattr(parent, item).setEnabled(True)
-		if parent.status.file:
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
 
 def unhome(parent):
 	parent.status.poll()

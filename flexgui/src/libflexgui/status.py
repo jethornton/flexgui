@@ -35,6 +35,18 @@ def update(parent):
 	parent.status.poll()
 
 	# **************************
+	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
+	if parent.motion_mode != parent.status.motion_mode:
+		# when all joints are homed motion_mode changes
+		# from TRAJ_MODE_FREE to TRAJ_MODE_TELEOP
+		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
+			if utilities.all_homed(parent):
+				utilities.set_homed_enable(parent)
+
+		parent.motion_mode = parent.status.motion_mode
+
+
+	# **************************
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
 		#print(f'task state {TASK_STATES[parent.status.task_state]}')
