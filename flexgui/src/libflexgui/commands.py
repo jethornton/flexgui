@@ -303,12 +303,14 @@ def spindle(parent, value=0):
 		if 'spindle_speed_lb' in parent.children:
 			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	elif sender_name == 'spindle_minus_pb':
-		parent.command.spindle(emc.SPINDLE_DECREASE)
-		parent.spindle_speed -= parent.increment
 		if parent.spindle_speed <= 0:
 			parent.spindle_speed = 0
 			parent.spindle_rev_pb.setChecked(False)
 			parent.spindle_fwd_pb.setChecked(False)
+			parent.command.spindle(emc.SPINDLE_OFF)
+		else:
+			parent.command.spindle(emc.SPINDLE_DECREASE)
+			parent.spindle_speed -= parent.increment
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		if 'spindle_speed_lb' in parent.children:
