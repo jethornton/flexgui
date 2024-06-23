@@ -41,7 +41,6 @@ def home_all_check(parent):
 	return True
 
 def set_homed_enable(parent):
-	print('all homed enabled')
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
 	for item in parent.unhome_controls:
