@@ -77,6 +77,7 @@ def update(parent):
 
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
+				utilities.set_homed_enable(parent)
 				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.home_controls:
