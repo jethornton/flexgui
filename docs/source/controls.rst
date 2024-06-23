@@ -31,7 +31,6 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Unhome All Joints,unhome_all_pb
 	Unhome a Joint (0-8),unhome_pb_(0-8)
 	Manual Mode,manual_mode_pb
-	Run MDI Command,run_mdi_pb
 	Jog Plus Axis (0-8),jog_plus_pb_(0-8)
 	Jog Minus Axis (0-8),jog_minus_pb_(0-8)
 	Spindle Forward,spindle_fwd_pb
