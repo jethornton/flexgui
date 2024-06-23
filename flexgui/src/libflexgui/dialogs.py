@@ -6,6 +6,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
 from libflexgui import number_pad
+from libflexgui import gcode_pad
 
 def numbers(parent, obj):
 	np = number_pad.number_pad()
@@ -15,6 +16,15 @@ def numbers(parent, obj):
 	result = np.exec()
 	if result:
 		obj.setText(np.retval())
+
+def gcode(self, obj):
+	gp = gcode_pad.gcode_pad()
+	stylesheet = os.path.join(self.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as fh:
+		gp.setStyleSheet(fh.read())
+	result = gp.exec()
+	if result:
+		obj.setText(gp.retval())
 
 def warn_msg_ok(text, title=None):
 	msg_box = QMessageBox()

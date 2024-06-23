@@ -665,7 +665,10 @@ def setup_mdi(parent):
 	# parent.mdi_command is tested in status.py so it much exist
 	parent.mdi_command = ''
 	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
-		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+		if parent.mdi_command_le.property('mode') == 'touch':
+			parent.mdi_command_le.installEventFilter(parent)
+		else:
+			parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
 		parent.home_required.append('run_mdi_pb')
 		if 'mdi_history_lw' in parent.children:
 			path = os.path.dirname(parent.status.ini_filename)
