@@ -752,7 +752,11 @@ def setup_jog(parent):
 
 def setup_spindle(parent):
 	# spindle defaults
-	parent.spindle_speed = 100
+	default_rpm = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or False
+	if default_rpm:
+		parent.spindle_speed = int(default_rpm)
+	else:
+		parent.spindle_speed = 100
 	if 'spindle_speed_lb' in parent.children:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	parent.increment = 100
