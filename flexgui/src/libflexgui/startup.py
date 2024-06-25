@@ -186,11 +186,11 @@ def setup_enables(parent):
 
 	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
-		'resume_pb': False, 'actionReload': False, 'home_all_pb': False,
-		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': True, 'actionResume': False, 'unhome_all_pb': False,
-		'spindle_start_pb': False, 'spindle_fwd_pb': False, 'spindle_rev_pb': False,
-		'spindle_stop_pb': False, 'spindle_plus_pb': False,
+		'resume_pb': False, 'reload_pb': False, 'actionReload': False,
+		'home_all_pb': False, 'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': True, 'actionResume': False,
+		'unhome_all_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
+		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
 		'spindle_minus_pb': False, 'tool_change_pb': False, 'flood_pb': False,
 		'mist_pb': False}
 
