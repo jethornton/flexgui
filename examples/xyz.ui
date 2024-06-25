@@ -79,6 +79,13 @@
         <string>File</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="edit_pb">
+          <property name="text">
+           <string>Edit</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QPushButton" name="open_pb">
           <property name="text">
@@ -93,13 +100,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="edit_pb">
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="3">
          <widget class="QPushButton" name="save_as_pb">
           <property name="text">
@@ -107,7 +107,14 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="4">
+        <item row="0" column="4">
+         <widget class="QLabel" name="start_line_lb">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="5">
          <widget class="QPlainTextEdit" name="gcode_pte">
           <property name="font">
            <font>
@@ -309,40 +316,10 @@
            <string>Touch Off</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_29">
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QComboBox" name="touchoff_system_cb"/>
            </item>
-           <item row="1" column="1">
-            <widget class="QDoubleSpinBox" name="touchoff_dsb">
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-             <property name="decimals">
-              <number>4</number>
-             </property>
-             <property name="minimum">
-              <double>-100.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>100.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="touchoff_pb_x">
-             <property name="text">
-              <string>Touch Off X</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QPushButton" name="touchoff_pb_z">
-             <property name="text">
-              <string>Touch Off Z</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
+           <item row="2" column="3">
             <widget class="QPushButton" name="touchoff_pb_y">
              <property name="text">
               <string>Touch Off Y</string>
@@ -356,10 +333,37 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="touchoff_pb_x">
+             <property name="text">
+              <string>Touch Off X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QPushButton" name="touchoff_pb_z">
+             <property name="text">
+              <string>Touch Off Z</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_29">
              <property name="text">
               <string>Position</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="touchoff_le">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -652,6 +656,16 @@
            <string>Spindle Speed</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_16">
+           <item row="0" column="1">
+            <widget class="QLabel" name="spindle_speed_lb">
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QSpinBox" name="spindle_speed_sb"/>
            </item>
@@ -1123,7 +1137,11 @@
          <widget class="QListWidget" name="mdi_history_lw"/>
         </item>
         <item row="1" column="0">
-         <widget class="QLineEdit" name="mdi_command_le"/>
+         <widget class="QLineEdit" name="mdi_command_le">
+          <property name="mode" stdset="0">
+           <string>touch</string>
+          </property>
+         </widget>
         </item>
         <item row="0" column="1">
          <widget class="QGroupBox" name="groupBox_4">
@@ -1210,45 +1228,24 @@
            <string>Feed</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_27">
-           <item row="0" column="1">
-            <widget class="QLabel" name="feed_hold_enabled_lb">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_30">
              <property name="text">
-              <string>TextLabel</string>
+              <string>Feed Override &gt;</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="0" column="1">
             <widget class="QLabel" name="feed_override_enabled_lb">
              <property name="text">
               <string>TextLabel</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Feed Hold &gt;</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0" colspan="2">
-            <widget class="QPushButton" name="feed_hold_enable_pb">
-             <property name="text">
-              <string>Feed Hold Enable</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
             <widget class="QPushButton" name="feed_override_pb">
              <property name="text">
               <string>Feed Override Enable</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Feed Override &gt;</string>
              </property>
             </widget>
            </item>
@@ -1502,6 +1499,18 @@
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="1" column="4">
          <widget class="QLabel" name="joint_vel_sec_0_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1515,6 +1524,18 @@
         </item>
         <item row="2" column="2">
          <widget class="QLabel" name="actual_lb_y">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1525,6 +1546,18 @@
         </item>
         <item row="1" column="3">
          <widget class="QLabel" name="dro_lb_x">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1545,6 +1578,18 @@
         </item>
         <item row="3" column="5">
          <widget class="QLabel" name="joint_vel_min_2_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1558,6 +1603,18 @@
         </item>
         <item row="2" column="3">
          <widget class="QLabel" name="dro_lb_y">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1588,6 +1645,18 @@
         </item>
         <item row="2" column="4">
          <widget class="QLabel" name="joint_vel_sec_1_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1601,6 +1670,18 @@
         </item>
         <item row="3" column="2">
          <widget class="QLabel" name="actual_lb_z">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1611,6 +1692,18 @@
         </item>
         <item row="1" column="2">
          <widget class="QLabel" name="actual_lb_x">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1631,6 +1724,18 @@
         </item>
         <item row="1" column="5">
          <widget class="QLabel" name="joint_vel_min_0_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1691,6 +1796,18 @@
         </item>
         <item row="3" column="3">
          <widget class="QLabel" name="dro_lb_z">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1737,6 +1854,18 @@
         </item>
         <item row="2" column="5">
          <widget class="QLabel" name="joint_vel_min_1_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1750,6 +1879,18 @@
         </item>
         <item row="3" column="4">
          <widget class="QLabel" name="joint_vel_sec_2_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1763,6 +1904,18 @@
         </item>
         <item row="4" column="2">
          <widget class="QLabel" name="two_vel_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -1802,6 +1955,18 @@
         </item>
         <item row="4" column="5">
          <widget class="QLabel" name="three_vel_lb">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Monospace</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -2040,6 +2205,9 @@
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+   <property name="mode" stdset="0">
+    <string>touch</string>
    </property>
   </action>
   <action name="actionEdit">
