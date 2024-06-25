@@ -200,13 +200,6 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 		parent.mist_state = parent.status.mist
 
-	# ************************** feed_hold_enabled
-	# feed hold enable
-	if parent.feed_hold_state != parent.status.feed_hold_enabled:
-		if 'feed_hold_enable_pb' in parent.children:
-			parent.feed_hold_enable_pb.setChecked(parent.status.feed_hold_enabled)
-		parent.feed_hold_state = parent.status.feed_hold_enabled
-
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
 		if value in parent.stat_dict:
