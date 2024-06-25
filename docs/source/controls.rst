@@ -26,6 +26,7 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Pause a Running Program,pause_pb
 	Resume a Paused Program,resume_pb
 	Stop a Running Program,stop_pb
+	Feed Hold,feed_hold_pb
 	Home All Joints,home_all_pb
 	Home a Joint (0-8),home_pb_(0-8)
 	Unhome All Joints,unhome_all_pb
@@ -60,7 +61,6 @@ They are normal push buttons but in code they are set to checkable
 	Mist Toggle                            mist_pb
 	Optional Stop at M1                    optional_stop_pb
 	Block Delete line that starts with /   block_delete_pb
-	Feed Hold Enable/Disable               feed_hold_enable_pb
 	Feed Override Enable/Disable           feed_override_pb
 
 Axis Index
