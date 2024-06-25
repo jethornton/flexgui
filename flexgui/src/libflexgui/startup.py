@@ -314,8 +314,8 @@ def setup_buttons(parent): # connect buttons to functions
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
 		'block_delete_pb': 'block_delete_toggle',
-		'feed_hold_enable_pb': 'feed_hold_enable_toggle',
-		'feed_override_pb': 'feed_override_toggle'}
+		'feed_override_pb': 'feed_override_toggle',
+}
 	for key, value in checkable_buttons.items():
 		if key in parent.children: # make sure checkable is set to true
 			if not getattr(parent, key).isCheckable():
@@ -324,8 +324,6 @@ def setup_buttons(parent): # connect buttons to functions
 
 	# set the button checked states
 	parent.status.poll()
-	if 'feed_hold_enable_pb' in parent.children:
-		parent.feed_hold_enable_pb.setChecked(parent.status.feed_hold_enabled)
 	if 'feed_override_pb' in parent.children:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
