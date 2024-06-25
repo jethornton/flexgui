@@ -441,16 +441,15 @@ def setup_status_labels(parent):
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
 	'current_vel', 'cycle_time', 'debug', 'delay_left', 'distance_to_go',
 	'echo_serial_number', 'enabled', 'estop', 'exec_state',
-	'feed_hold_enabled', 'feed_override_enabled', 'flood',
-	'g5x_index', 'ini_filename', 'inpos', 'input_timeout', 'interp_state',
-	'interpreter_errcode', 'joint', 'joints', 'kinematics_type', 'linear_units',
-	'lube', 'lube_level', 'max_acceleration', 'max_velocity', 'mist',
-	'motion_line', 'motion_mode', 'motion_type', 'optional_stop', 'paused',
-	'pocket_prepped', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
-	'program_units', 'queue', 'queue_full', 'read_line',
-	'rotation_xy', 'settings', 'spindle', 'spindles', 'state', 'task_mode',
-	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
-	'tool_offset', 'tool_table']
+	'feed_override_enabled', 'flood', 'g5x_index', 'ini_filename', 'inpos',
+	'input_timeout', 'interp_state', 'interpreter_errcode', 'joint', 'joints',
+	'kinematics_type', 'linear_units', 'lube', 'lube_level', 'max_acceleration',
+	'max_velocity', 'mist', 'motion_line', 'motion_mode', 'motion_type',
+	'optional_stop', 'paused', 'pocket_prepped', 'probe_tripped', 'probe_val',
+	'probed_position', 'probing', 'program_units', 'queue', 'queue_full',
+	'read_line', 'rotation_xy', 'settings', 'spindle', 'spindles', 'state',
+	'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
+	'tool_from_pocket', 'tool_offset', 'tool_table']
 
 	# check for status labels in the ui key is label and value is status item
 	parent.status_labels = {} # create an empty dictionary
