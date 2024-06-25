@@ -156,7 +156,7 @@ def setup_enables(parent):
 
 	# run controls used to enable/disable when not running a program
 	run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
-	'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep',
+	'reload_pb', 'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep',
 	'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
