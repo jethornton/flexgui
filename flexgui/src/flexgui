@@ -64,6 +64,7 @@ class flexgui(QMainWindow):
 		self.error = linuxcnc.error_channel()
 		self.flood_state = self.status.flood
 		self.mist_state = self.status.mist
+		self.status_speed_setting = self.status.settings[2]
 
 		if self.installed:
 			self.halcomp = hal.component('flexhal')

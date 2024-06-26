@@ -200,6 +200,18 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 		parent.mist_state = parent.status.mist
 
+	# ************************** SPINDLE SPEED SETTINGS
+	if parent.status_speed_setting != parent.status.settings[2]:
+		parent.spindle_speed = int(parent.status.settings[2])
+		if 'spindle_speed_sb' in parent.children:
+			parent.spindle_speed_sb.setValue(parent.spindle_speed)
+			print(parent.status.settings[2])
+		if 'spindle_speed_lb' in parent.children:
+			parent.spindle_speed_lb.setText(str(parent.spindle_speed))
+		#print(type(parent.status.settings[2]))
+		parent.status_speed_setting = parent.status.settings[2]
+
+
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
 		if value in parent.stat_dict:
