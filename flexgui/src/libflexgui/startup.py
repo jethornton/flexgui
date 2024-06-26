@@ -26,7 +26,6 @@ def set_screen(parent):
 	except:
 		pass
 
-
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
 	children = parent.findChildren(QWidget)
@@ -345,10 +344,13 @@ def setup_touchoff(parent):
 	# 	print("lineEdit_passwort clicked!")
 	if 'touchoff_le' in parent.children:
 		parent.touchoff_le.installEventFilter(parent)
-		#parent.touchoff_le.mousePressEvent = test.test_it(parent)
+	if 'tool_touchoff_le' in parent.children:
+		parent.tool_touchoff_le.installEventFilter(parent)
+
 	to_missing = False
 	tto_missing = False
 	touchoff = ['touchoff_le', 'touchoff_dsb']
+
 	for item in AXES:
 		if f'touchoff_pb_{item}' in parent.children:
 			#print(bool(set(touchoff) & set(parent.children)))
@@ -374,7 +376,6 @@ def setup_touchoff(parent):
 			'tool_touchoff_dsb not found.\n'
 			'Tool Touch Off Buttons will be disabled')
 		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
 
 def setup_actions(parent): # setup menu actions
 	actions_dict = {'actionOpen': 'action_open', 'actionEdit': 'action_edit',
@@ -636,6 +637,13 @@ def setup_status_labels(parent):
 			getattr(parent, item).setText('*')
 		else:
 			getattr(parent, item).setText('')
+
+	if 'settings_speed_lb' in parent.children:
+		parent.status_settings = {'settings_speed_lb': 2}
+		parent.settings_speed_lb.setText(f'S{parent.status.settings[2]}')
+
+	if 'mdi_s_pb' in parent.children:
+		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
