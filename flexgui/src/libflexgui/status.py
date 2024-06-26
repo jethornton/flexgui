@@ -205,7 +205,6 @@ def update(parent):
 		parent.spindle_speed = int(parent.status.settings[2])
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
-			print(parent.status.settings[2])
 		if 'spindle_speed_lb' in parent.children:
 			parent.spindle_speed_lb.setText(str(parent.spindle_speed))
 		#print(type(parent.status.settings[2]))
