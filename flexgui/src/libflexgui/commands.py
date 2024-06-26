@@ -216,7 +216,7 @@ def tool_change(parent):
 		msg = (f'Tool {tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 
-def touchoff(parent): # FIXME to use touchoff_le or touchoff_dsb
+def touchoff(parent):
 	if 'touchoff_system_cb' in parent.children:
 		coordinate_system = parent.touchoff_system_cb.currentData()
 	else:
@@ -227,7 +227,7 @@ def touchoff(parent): # FIXME to use touchoff_le or touchoff_dsb
 		offset = f'{parent.touchoff_dsb.value():.{precision}f}'
 	elif 'touchoff_le' in parent.children:
 		offset = parent.touchoff_le.text()
-	#value = parent.touchoff_dsb.value()
+
 	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
@@ -238,13 +238,16 @@ def touchoff(parent): # FIXME to use touchoff_le or touchoff_dsb
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
-
 def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
 	cur_tool = parent.status.tool_in_spindle
-	precision = parent.tool_touchoff_dsb.decimals()
-	offset = f'{parent.tool_touchoff_dsb.value():.{precision}f}'
+	if 'tool_touchoff_dsb' in parent.children:
+		precision = parent.tool_touchoff_dsb.decimals()
+		offset = f'{parent.tool_touchoff_dsb.value():.{precision}f}'
+	elif 'tool_touchoff_le' in parent.children:
+		offset = parent.tool_touchoff_le.text()
+
 	if cur_tool > 0:
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
 		if 'test_lb' in parent.children:
@@ -311,10 +314,15 @@ def spindle(parent, value=0):
 		else:
 			parent.command.spindle(emc.SPINDLE_DECREASE)
 			parent.spindle_speed -= parent.increment
-		if 'spindle_speed_sb' in parent.children:
-			parent.spindle_speed_sb.setValue(parent.spindle_speed)
-		if 'spindle_speed_lb' in parent.children:
-			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+	elif  sender_name == 'mdi_s_pb':
+		run_mdi(parent, f'S{parent.spindle_speed}')
+
+	if 'spindle_speed_sb' in parent.children:
+		parent.spindle_speed_sb.setValue(parent.spindle_speed)
+	if 'spindle_speed_lb' in parent.children:
+		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+	if 'mdi_s_pb' in parent.children:
+		parent.mdi_s_pb.setText(f'MDI S{parent.spindle_speed}')
 
 def flood_toggle(parent):
 	parent.status.poll()
