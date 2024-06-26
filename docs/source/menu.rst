@@ -1,15 +1,17 @@
 Menu
 ====
 
+.. note:: Every menu item has a command button so you don't need to use any
+   menu items if you don't want to.
+
 Adding a menu items creates an action. When you create File > Open menu the
 `actionOpen` action is created.
 
 .. image:: /images/menu-01.png
    :align: center
 
-
-If you use the full screen option you will not be able to exit the application
-if you don't have the actionExit action.
+.. warning:: If you use the full screen option you will not be able to exit the application
+   if you don't have the Exit action or an Exit Push Button.
 
 .. code-block:: text
 
@@ -46,8 +48,11 @@ if you don't have the actionExit action.
   About                 actionAbout
   Quick Reference       actionQuick_Reference
 
-When you add a menu item it creates and action and names it based on the menu
-name. The action names must match exactly the above items to be found.
+When you add a menu item it creates an action and the Object Name is created
+from the menu name when you add a menu item.
+
+The Object Name must match the above items exactly in order to be discovered by
+Flex GUI.
 
 .. image:: /images/actions-01.png
    :align: center
@@ -58,8 +63,7 @@ Shortcut Keys
 
 Shortcut keys can be added in the Property Editor by clicking in the shortcut
 Value box and pressing the key or key combination you want to use. You can
-change text, icon Text or tool Tip but the objectName must match the above
-Action Names in order to be `discovered` by Flex GUI.
+change text, icon Text or tool Tip.
 
 .. image:: /images/actions-02.png
    :align: center
