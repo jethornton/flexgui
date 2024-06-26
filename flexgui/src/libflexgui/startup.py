@@ -18,6 +18,15 @@ from libflexgui import flexplot
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
+def set_screen(parent):
+	try:
+		parent.resize(parent.settings.value('GUI/window_size'))
+		parent.move(parent.settings.value('GUI/window_position'))
+		parent.no_check_firmware_cb.setChecked(True if parent.settings.value('NAGS/firmware') == "true" else False)
+	except:
+		pass
+
+
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
 	children = parent.findChildren(QWidget)
