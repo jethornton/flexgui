@@ -19,7 +19,7 @@ from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
 from libflexgui import editor
-
+from libflexgui import shutdown
 
 class flexgui(QMainWindow):
 	def __init__(self):
@@ -125,6 +125,7 @@ class flexgui(QMainWindow):
 			with open(stylesheet, 'r') as f:
 				self.setStyleSheet(f.read())
 
+		startup.set_screen(self)
 		startup.setup_recent_files(self)
 		startup.find_children(self)
 		startup.get_ini_values(self)
@@ -182,8 +183,7 @@ class flexgui(QMainWindow):
 		return super(flexgui, self).eventFilter(obj, event)
 
 	def closeEvent(self, event):
-		pass
-		#self.halcomp.exit()
+		shutdown.save_settings(self)
 
 app = QApplication(sys.argv)
 gui = flexgui()
