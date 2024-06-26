@@ -177,7 +177,7 @@ class flexgui(QMainWindow):
 			dialogs.numbers(self, self.touchoff_le)
 		# FIXME finish adding this
 		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			print('tool_touchoff_le')
+			dialogs.numbers(self, self.tool_touchoff_le)
 		if obj.objectName() == 'mdi_command_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.gcode(self, self.mdi_command_le)
 
