@@ -168,10 +168,21 @@ def update(parent):
 				if parent.status.interp_state == emc.INTERP_IDLE:
 					for key, value in parent.state_on.items():
 						getattr(parent, key).setEnabled(value)
-					for item in parent.run_controls:
-						getattr(parent, item).setEnabled(True)
-					for item in parent.unhome_controls:
-						getattr(parent, item).setEnabled(True)
+					# FIXME this is broken and needs more thought
+					# maybe move this to utilities so every place it's needed calls only
+					# one fuction
+					if parent.status.file:
+						#print('status update FILE LOADED')
+						for item in parent.file_edit_items:
+							getattr(parent, item).setEnabled(True)
+						if utilities.all_homed(parent):
+							#print('status update FILE LOADED and ALL HOMED')
+							for item in parent.run_controls:
+								getattr(parent, item).setEnabled(True)
+
+					# FIXME not sure what this does
+					#for item in parent.unhome_controls:
+					#	getattr(parent, item).setEnabled(True)
 		parent.task_mode = parent.status.task_mode
 
 	# **************************
