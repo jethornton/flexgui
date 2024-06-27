@@ -63,12 +63,12 @@ def setup_enables(parent):
 	parent.state_estop = {'power_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
 		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
-		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
-		'spindle_minus_pb': False, 'flood_pb': False, 'mist_pb': False,
-		'actionPower': False, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False, 'tool_change_pb': False,
-		'actionResume': False}
+		'run_mdi_pb': False, 'mdi_s_pb': False, 'spindle_start_pb': False,
+		'spindle_fwd_pb': False, 'spindle_rev_pb': False, 'spindle_stop_pb': False,
+		'spindle_plus_pb': False, 'spindle_minus_pb': False, 'flood_pb': False,
+		'mist_pb': False, 'actionPower': False, 'actionRun': False,
+		'actionRun_From_Line': False, 'actionStep': False, 'actionPause': False,
+		'tool_change_pb': False, 'actionResume': False}
 
 	for i in range(9):
 		parent.state_estop[f'home_pb_{i}'] = False
@@ -644,6 +644,7 @@ def setup_status_labels(parent):
 
 	if 'mdi_s_pb' in parent.children:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
+		parent.home_required.append('mdi_s_pb')
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
