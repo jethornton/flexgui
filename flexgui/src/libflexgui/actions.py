@@ -27,6 +27,8 @@ def load_file(parent, gcode_file):
 	# update controls
 	for item in parent.file_edit_items:
 		getattr(parent, item).setEnabled(True)
+	if 'start_line_lb' in parent.children:
+		parent.start_line_lb.setText('0')
 
 	# get recent files from settings
 	keys = parent.settings.allKeys()
