@@ -163,6 +163,7 @@ def setup_enables(parent):
 			del parent.state_on_names[item]
 
 	# run controls used to enable/disable when not running a program
+	# FIXME this is broken and needs more thought
 	run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
 	'reload_pb', 'actionReload', 'actionRun', 'actionRun_From_Line', 'actionStep',
 	'tool_change_pb', 'flood_pb', 'mist_pb']
