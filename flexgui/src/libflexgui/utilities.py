@@ -40,6 +40,13 @@ def home_all_check(parent):
 			return False
 	return True
 
+def set_enables(parent): # FIXME this may handle enables dunno
+	print('set_enables')
+
+	# STATE_ON
+	# ALL HOMED
+	# FILE LOADED
+
 def set_homed_enable(parent):
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
