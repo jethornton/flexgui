@@ -60,15 +60,21 @@ def setup_enables(parent):
 			parent.home_all_pb.setEnabled(False)
 
 	# STATE_ESTOP
-	parent.state_estop = {'power_pb': False, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False, 'mdi_s_pb': False, 'spindle_start_pb': False,
-		'spindle_fwd_pb': False, 'spindle_rev_pb': False, 'spindle_stop_pb': False,
-		'spindle_plus_pb': False, 'spindle_minus_pb': False, 'flood_pb': False,
-		'mist_pb': False, 'actionPower': False, 'actionRun': False,
-		'actionRun_From_Line': False, 'actionStep': False, 'actionPause': False,
-		'tool_change_pb': False, 'actionResume': False}
+	parent.state_estop = {
+		'power_pb': False, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False,
+		'pause_pb': False, 'resume_pb': False,
+		'home_all_pb': False, 'unhome_all_pb': False,
+		'run_mdi_pb': False, 'mdi_s_pb': False,
+		'spindle_start_pb': False, 'spindle_fwd_pb': False,
+		'spindle_rev_pb': False, 'spindle_stop_pb': False,
+		'spindle_plus_pb': False, 'spindle_minus_pb': False,
+		'flood_pb': False, 'mist_pb': False,
+		'actionPower': False, 'actionRun': False,
+		'actionRun_From_Line': False, 'actionStep': False,
+		'actionPause': False, 'tool_change_pb': False,
+		'actionResume': False
+		}
 
 	for i in range(9):
 		parent.state_estop[f'home_pb_{i}'] = False
@@ -98,15 +104,20 @@ def setup_enables(parent):
 			del parent.state_estop_names[item]
 
 	# STATE_ESTOP_RESET enable power
-	parent.state_estop_reset = {'power_pb': True, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
-		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
-		'spindle_minus_pb': False, 'flood_pb': False, 'mist_pb': False,
-		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False, 'tool_change_pb': False,
-		'actionResume': False}
+	parent.state_estop_reset = {
+		'power_pb': True, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False,
+		'pause_pb': False, 'resume_pb': False,
+		'home_all_pb': False, 'unhome_all_pb': False,
+		'run_mdi_pb': False, 'spindle_start_pb': False,
+		'spindle_fwd_pb': False, 'spindle_rev_pb': False,
+		'spindle_stop_pb': False, 'spindle_plus_pb': False,
+		'spindle_minus_pb': False, 'flood_pb': False,
+		'mist_pb': False, 'actionPower': True,
+		'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': False, 'actionPause': False,
+		'tool_change_pb': False, 'actionResume': False
+		}
 
 	for i in range(9):
 		parent.state_estop_reset[f'home_pb_{i}'] = False
@@ -126,9 +137,10 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_estop_reset[item]
 
-	parent.state_estop_reset_names = {'estop_pb': 'E Stop\nClosed',
-		'actionE_Stop': 'E Stop\nClosed', 'power_pb': 'Power\nOff',
-		'actionPower': 'Power\nOff'}
+	parent.state_estop_reset_names = {
+		'estop_pb': 'E Stop\nClosed', 'actionE_Stop': 'E Stop\nClosed',
+		'power_pb': 'Power\nOff', 'actionPower': 'Power\nOff'
+		}
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_reset_names):
@@ -136,13 +148,18 @@ def setup_enables(parent):
 			del parent.state_estop_reset_names[item]
 
 	# STATE_ON home, jog, spindle
-	parent.state_on = {'power_pb': True, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': False,
-		'resume_pb': False, 'spindle_start_pb': True, 'spindle_fwd_pb': True,
-		'spindle_rev_pb': True, 'spindle_stop_pb': True, 'spindle_plus_pb': True,
-		'spindle_minus_pb': True, 'flood_pb': True, 'mist_pb': True,
-		'actionPower': True, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False, 'actionResume': False}
+	parent.state_on = {
+		'power_pb': True, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': False,
+		'pause_pb': False, 'resume_pb': False,
+		'spindle_start_pb': True, 'spindle_fwd_pb': True,
+		'spindle_rev_pb': True, 'spindle_stop_pb': True,
+		'spindle_plus_pb': True, 'spindle_minus_pb': True,
+		'flood_pb': True, 'mist_pb': True,
+		'actionPower': True, 'actionRun': False,
+		'actionRun_From_Line': False, 'actionStep': False,
+		'actionPause': False, 'actionResume': False
+		}
 
 	for i in range(9):
 		parent.state_on[f'jog_plus_pb_{i}'] = True
@@ -193,15 +210,21 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.unhome_controls.append(item)
 
-	parent.program_running = {'run_mdi_pb': False, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False, 'pause_pb': True,
-		'resume_pb': False, 'reload_pb': False, 'actionReload': False,
-		'home_all_pb': False, 'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': True, 'actionResume': False,
-		'unhome_all_pb': False, 'spindle_start_pb': False, 'spindle_fwd_pb': False,
-		'spindle_rev_pb': False, 'spindle_stop_pb': False, 'spindle_plus_pb': False,
-		'spindle_minus_pb': False, 'tool_change_pb': False, 'flood_pb': False,
-		'mist_pb': False}
+	parent.program_running = {
+			'open_pb': False, 'reload_pb': False,
+			'run_pb': False, 'run_from_line_pb': False,
+			'step_pb': False, 'pause_pb': True,
+			'resume_pb': False, 'run_mdi_pb': False,
+			'home_all_pb': False,'actionRun': False,
+			'actionOpen': False, 'actionReload': False,
+			'actionRun_From_Line': False, 'actionStep': False,
+			'actionPause': True, 'actionResume': False,
+			'unhome_all_pb': False, 'spindle_start_pb': False,
+			'spindle_fwd_pb': False, 'spindle_rev_pb': False,
+			'spindle_stop_pb': False, 'spindle_plus_pb': False,
+			'spindle_minus_pb': False, 'tool_change_pb': False,
+			'flood_pb': False, 'mist_pb': False
+			}
 
 	for i in range(9):
 		parent.program_running[f'jog_plus_pb_{i}'] = False
@@ -221,12 +244,17 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.program_running[item]
 
-	parent.program_paused = {'run_mdi_pb': False, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': True, 'pause_pb': False,
-		'resume_pb': True, 'home_all_pb': False, 'unhome_all_pb': False,
-		'actionRun': False, 'actionRun_From_Line': False, 'actionStep': True,
-		'actionPause': False, 'actionResume': True, 'flood_pb': True,
-		'mist_pb': True}
+	parent.program_paused = {
+		'run_mdi_pb': False, 'run_pb': False,
+		'run_from_line_pb': False, 'step_pb': True,
+		'pause_pb': False, 'resume_pb': True,
+		'home_all_pb': False, 'unhome_all_pb': False,
+		'actionRun': False, 'actionRun_From_Line': False,
+		'actionStep': True, 'actionPause': False,
+		'actionResume': True, 'flood_pb': True,
+		'mist_pb': True
+		}
+
 	for i in range(9):
 		parent.program_paused[f'home_pb_{i}'] = False
 		parent.program_paused[f'unhome_pb_{i}'] = False
@@ -264,16 +292,11 @@ def setup_enables(parent):
 
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
-	'abort_pb': 'abort',
-	'manual_mode_pb':'set_mode_manual',
-	'home_all_pb': 'home_all',
-	'home_pb_0': 'home',
-	'home_pb_1': 'home',
-	'home_pb_2': 'home',
-	'unhome_all_pb': 'unhome_all',
-	'unhome_pb_0': 'unhome',
-	'unhome_pb_1': 'unhome',
-	'unhome_pb_2': 'unhome',
+	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
+	'home_all_pb': 'home_all', 'home_pb_0': 'home',
+	'home_pb_1': 'home', 'home_pb_2': 'home',
+	'unhome_all_pb': 'unhome_all', 'unhome_pb_0': 'unhome',
+	'unhome_pb_1': 'unhome', 'unhome_pb_2': 'unhome',
 	'run_mdi_pb': 'run_mdi',
 	}
 
@@ -282,20 +305,13 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	action_buttons = {
-	'estop_pb': 'action_estop',
-	'power_pb': 'action_power',
-	'run_pb': 'action_run',
-	'run_from_line_pb': 'action_run_from_line',
-	'step_pb': 'action_step',
-	'pause_pb': 'action_pause',
-	'resume_pb': 'action_resume',
-	'stop_pb': 'action_stop',
-	'open_pb': 'action_open',
-	'edit_pb': 'action_edit',
-	'reload_pb': 'action_reload',
-	'save_as_pb': 'action_save_as',
-	'quit_pb': 'action_quit',
-	'copy_mdi_history_pb': 'action_copy_mdi',
+	'estop_pb': 'action_estop', 'power_pb': 'action_power',
+	'run_pb': 'action_run', 'run_from_line_pb': 'action_run_from_line',
+	'step_pb': 'action_step', 'pause_pb': 'action_pause',
+	'resume_pb': 'action_resume', 'stop_pb': 'action_stop',
+	'open_pb': 'action_open', 'edit_pb': 'action_edit',
+	'reload_pb': 'action_reload', 'save_as_pb': 'action_save_as',
+	'quit_pb': 'action_quit', 'copy_mdi_history_pb': 'action_copy_mdi',
 	'clear_mdi_history_pb': 'action_clear_mdi'
 	}
 
@@ -625,8 +641,12 @@ def setup_status_labels(parent):
 		gcode_file = parent.status.file or False
 		if gcode_file:
 			parent.file_lb.setText(os.path.basename(gcode_file))
+			if 'start_line_lb' in parent.children:
+				parent.start_line_lb.setText('0')
 		else:
 			parent.file_lb.setText('No G code file loaded')
+			if 'start_line_lb' in parent.children:
+				parent.start_line_lb.setText('n/a')
 
 	parent.home_status = []
 	for i in range(9):
