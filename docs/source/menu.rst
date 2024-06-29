@@ -48,6 +48,9 @@ Adding a menu items creates an action. When you create File > Open menu the
   About                 actionAbout
   Quick Reference       actionQuick_Reference
 
+Action Names
+------------
+
 When you add a menu item it creates an action and the Object Name is created
 from the menu name when you add a menu item.
 
@@ -57,6 +60,20 @@ Flex GUI.
 .. image:: /images/actions-01.png
    :align: center
 
+Recent Files
+------------
+
+.. note:: The Recent menu item is added before the next action after actionOpen
+   in the order of the Action Editor. There must be at least one action after
+   actionOpen for the Recent menu to show up.
+
+.. image:: /images/menu-02.png
+   :align: center
+
+Location of the Recent menu from the above action list
+
+.. image:: /images/menu-03.png
+   :align: center
 
 Shortcut Keys
 -------------
