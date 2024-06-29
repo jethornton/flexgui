@@ -26,7 +26,6 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Pause a Running Program,pause_pb
 	Resume a Paused Program,resume_pb
 	Stop a Running Program,stop_pb
-	Feed Hold,feed_hold_pb
 	Home All Joints,home_all_pb
 	Home a Joint (0-8),home_pb_(0-8)
 	Unhome All Joints,unhome_all_pb

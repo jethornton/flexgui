@@ -245,4 +245,4 @@ Current Tool status of the tool loaded in the spindle
 	tool_woffset_lb, tool_diameter_lb, tool_frontangle_lb
 	tool_backangle_lb, tool_orientation_lb
 
-
+	settings_feed_lb, settings_speed_lb
