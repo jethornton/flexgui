@@ -75,6 +75,21 @@ Location of the Recent menu from the above action list
 .. image:: /images/menu-03.png
    :align: center
 
+Tool Bars
+---------
+
+If you right click on the main window you can add a Tool Bar.
+
+.. image:: /images/tool-bar-01.png
+   :align: center
+
+To add actions to the Tool Bar drag them from the Action Editor and drop them in
+the Tool Bar.
+
+.. image:: /images/tool-bar-02.png
+   :align: center
+
+
 Shortcut Keys
 -------------
 
