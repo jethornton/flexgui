@@ -232,13 +232,18 @@ def setup_enables(parent):
 		parent.program_running[f'jog_minus_pb_{i}'] = False
 		parent.program_running[f'home_pb_{i}'] = False
 		parent.program_running[f'unhome_pb_{i}'] = False
+
 	for i in range(100):
 		parent.program_running[f'tool_change_pb_{i}'] = False
+
 	for i in range(1, 10):
 		parent.program_running[f'change_cs_{i}'] = False
+
 	for item in AXES:
 		parent.program_running[f'touchoff_pb_{item}'] = False
 		parent.program_running[f'tool_touchoff_{item}'] = False
+
+	parent.program_running['mdi_s_pb'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.program_running):
@@ -941,6 +946,7 @@ def setup_mdi_buttons(parent):
 			if button.property('command'):
 				button.clicked.connect(partial(commands.mdi_button, parent, button))
 				parent.home_required.append(button.objectName())
+				parent.program_running[button.objectName()] = False
 				parent.state_estop[button.objectName()] = False
 			else:
 				msg = (f'MDI Button {button.text()}\n'
