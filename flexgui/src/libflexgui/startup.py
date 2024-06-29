@@ -36,10 +36,11 @@ def find_children(parent): # get the object names of all widgets
 	for action in actions:
 		if action.objectName():
 			parent.children.append(action.objectName())
-			widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
-			# make sure the action is in the tool bar
-			if parent.toolBar.widgetForAction(action) is not None:
-				parent.toolBar.widgetForAction(action).setObjectName(widget_name)
+			if 'toolBar' in parent.children:
+				widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
+				# make sure the action is in the tool bar
+				if parent.toolBar.widgetForAction(action) is not None:
+					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
 		if menu.objectName():
@@ -719,9 +720,15 @@ def setup_mdi(parent):
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)
-	# add the Recent menu FIXME look for file open then add before next action
-	action = parent.findChild(QAction, 'actionEdit') or False
-	if action:
+	menu_items = parent.findChildren(QAction)
+	open_found = False
+	for action in menu_items:
+		if open_found: # action is the next one after Open
+			break
+		if action.objectName() == 'actionOpen':
+			open_found = True
+
+	if open_found:
 		parent.menuFile.insertMenu(action, parent.menuRecent)
 
 		# if any files have been opened add them
