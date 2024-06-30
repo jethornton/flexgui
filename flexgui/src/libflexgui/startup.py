@@ -187,7 +187,7 @@ def setup_enables(parent):
 	'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
-	for item in AXES: # FIXME this needs to bo in tool setup as well well maybe not...
+	for item in AXES: # FIXME this needs to be in tool setup as well well maybe not...
 		run_items.append(f'tool_touchoff_{item}')
 		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
