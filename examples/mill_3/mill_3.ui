@@ -53,7 +53,7 @@
     <property name="geometry">
      <rect>
       <x>5</x>
-      <y>55</y>
+      <y>50</y>
       <width>326</width>
       <height>66</height>
      </rect>
@@ -1312,6 +1312,9 @@
        </property>
       </widget>
       <widget class="QPushButton" name="unhome_all_pb">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>130</x>
@@ -1382,14 +1385,14 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Touch Off</string>
+      <string>Touch Off - MDI</string>
      </attribute>
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
         <x>5</x>
         <y>5</y>
-        <width>296</width>
+        <width>331</width>
         <height>201</height>
        </rect>
       </property>
@@ -1469,335 +1472,254 @@
         <enum>QAbstractSpinBox::DefaultStepType</enum>
        </property>
       </widget>
-      <widget class="QGroupBox" name="groupBox_10">
+      <widget class="QLabel" name="label_13">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>175</x>
          <y>30</y>
-         <width>146</width>
-         <height>166</height>
+         <width>96</width>
+         <height>19</height>
         </rect>
        </property>
-       <property name="title">
-        <string>Active Offset</string>
+       <property name="text">
+        <string>Active Offset:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="g5x_index_lb">
+       <property name="geometry">
+        <rect>
+         <x>275</x>
+         <y>30</y>
+         <width>41</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>G5x</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="g5x_lb_z">
+       <property name="geometry">
+        <rect>
+         <x>205</x>
+         <y>170</y>
+         <width>91</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
-       <widget class="QLabel" name="g5x_lb_z">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>130</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="g5x_index_lb">
-        <property name="geometry">
-         <rect>
-          <x>105</x>
-          <y>0</y>
-          <width>41</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>G5x</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_26">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>130</y>
-          <width>21</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Z</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_24">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>70</y>
-          <width>21</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>X</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="g5x_lb_x">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>70</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="g5x_lb_y">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>100</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_25">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>100</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Y</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="mdi_G56">
-        <property name="geometry">
-         <rect>
-          <x>100</x>
-          <y>25</y>
-          <width>36</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>G56</string>
-        </property>
-        <property name="function" stdset="0">
-         <string>mdi</string>
-        </property>
-        <property name="command" stdset="0">
-         <string>G56</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="mdi_G54">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>25</y>
-          <width>36</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>G54</string>
-        </property>
-        <property name="function" stdset="0">
-         <string>mdi</string>
-        </property>
-        <property name="command" stdset="0">
-         <string>G54</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="mdi_G55">
-        <property name="geometry">
-         <rect>
-          <x>55</x>
-          <y>25</y>
-          <width>36</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>G55</string>
-        </property>
-        <property name="function" stdset="0">
-         <string>mdi</string>
-        </property>
-        <property name="command" stdset="0">
-         <string>G55</string>
-        </property>
-       </widget>
       </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_13">
-      <property name="geometry">
-       <rect>
-        <x>505</x>
-        <y>10</y>
-        <width>141</width>
-        <height>256</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Tool Change</string>
-      </property>
-      <widget class="QPushButton" name="tool_change_pb">
+      <widget class="QLabel" name="label_25">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>37</y>
-         <width>99</width>
+         <x>185</x>
+         <y>140</y>
+         <width>21</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Y</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="mdi_G54">
+       <property name="geometry">
+        <rect>
+         <x>175</x>
+         <y>65</y>
+         <width>36</width>
          <height>27</height>
         </rect>
        </property>
-       <property name="toolTip">
-        <string/>
-       </property>
-       <property name="toolTipDuration">
-        <number>-1</number>
-       </property>
        <property name="text">
-        <string>Toolchange</string>
+        <string>G54</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>G54</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="tool_change_pb_0">
+      <widget class="QLabel" name="label_24">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>185</x>
          <y>110</y>
-         <width>99</width>
-         <height>27</height>
+         <width>21</width>
+         <height>19</height>
         </rect>
        </property>
        <property name="text">
-        <string>Tool 0</string>
+        <string>X</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="tool_change_pb_1">
+      <widget class="QLabel" name="g5x_lb_x">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>145</y>
-         <width>101</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Tool 1</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="tool_change_pb_24">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>180</y>
-         <width>101</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Tool 24</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="tool_change_pb_2">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>80</y>
+         <x>205</x>
+         <y>110</y>
          <width>91</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="g5x_lb_y">
+       <property name="geometry">
+        <rect>
+         <x>205</x>
+         <y>140</y>
+         <width>91</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="mdi_G56">
+       <property name="geometry">
+        <rect>
+         <x>265</x>
+         <y>65</y>
+         <width>36</width>
          <height>27</height>
         </rect>
        </property>
        <property name="text">
-        <string>Tool 2</string>
+        <string>G56</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>G56</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="tool_change_pb_50">
+      <widget class="QPushButton" name="mdi_G55">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>215</y>
-         <width>101</width>
+         <x>220</x>
+         <y>65</y>
+         <width>36</width>
          <height>27</height>
         </rect>
        </property>
        <property name="text">
-        <string>Tool 50</string>
+        <string>G55</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>G55</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="tool_change_cb">
+      <widget class="QLabel" name="label_26">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>75</y>
-         <width>101</width>
-         <height>27</height>
+         <x>185</x>
+         <y>170</y>
+         <width>21</width>
+         <height>19</height>
         </rect>
+       </property>
+       <property name="text">
+        <string>Z</string>
+       </property>
+      </widget>
+      <widget class="Line" name="line_4">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>30</y>
+         <width>10</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_9">
+     <widget class="QGroupBox" name="groupBox_10">
       <property name="geometry">
        <rect>
-        <x>325</x>
-        <y>10</y>
-        <width>163</width>
-        <height>261</height>
+        <x>10</x>
+        <y>210</y>
+        <width>326</width>
+        <height>206</height>
        </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>163</width>
-        <height>16777215</height>
-       </size>
       </property>
       <property name="title">
        <string>Tool Touch Off</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-      <widget class="QPushButton" name="tool_touchoff_z">
+      <widget class="QLabel" name="tool_diameter_lb">
        <property name="geometry">
         <rect>
-         <x>12</x>
-         <y>34</y>
-         <width>87</width>
-         <height>27</height>
+         <x>30</x>
+         <y>170</y>
+         <width>91</width>
+         <height>20</height>
         </rect>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
        <property name="text">
-        <string>Touch Off Z</string>
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tool_zoffset_lb">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>140</y>
+         <width>91</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QDoubleSpinBox" name="tool_touchoff_dsb">
        <property name="geometry">
         <rect>
-         <x>12</x>
-         <y>72</y>
+         <x>20</x>
+         <y>70</y>
          <width>99</width>
          <height>28</height>
         </rect>
@@ -1815,242 +1737,212 @@
         <double>0.001000000000000</double>
        </property>
       </widget>
-      <widget class="QGroupBox" name="groupBox_11">
+      <widget class="QLabel" name="label_29">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>105</y>
-         <width>136</width>
-         <height>151</height>
+         <y>170</y>
+         <width>21</width>
+         <height>19</height>
         </rect>
        </property>
-       <property name="title">
-        <string>Current Tool Offset</string>
+       <property name="text">
+        <string>D</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tool_touchoff_z">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>32</y>
+         <width>87</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Touch Off Z</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Tool:</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
-       <widget class="QLabel" name="label_27">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>21</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Z</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="tool_zoffset_lb">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>90</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="tool_diameter_lb">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>120</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_29">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>120</y>
-          <width>21</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>D</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="tool_in_spindle_lb">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>30</y>
-          <width>61</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_14">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>41</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="baseSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Tool:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="indent">
-         <number>4</number>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_32">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>60</y>
-          <width>31</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>ID: </string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="tool_id_lb">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>60</y>
-          <width>51</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+       <property name="indent">
+        <number>4</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_27">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>21</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Z</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="tool_change_cb">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>115</y>
+         <width>86</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="tool_change_pb">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>77</y>
+         <width>86</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="toolTipDuration">
+        <number>-1</number>
+       </property>
+       <property name="text">
+        <string>Toolchange</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_19">
+       <property name="geometry">
+        <rect>
+         <x>185</x>
+         <y>40</y>
+         <width>96</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Tool Change</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="Line" name="line_3">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>35</y>
+         <width>16</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tool_id_lb">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>110</y>
+         <width>61</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string>Tool ID</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="mdi_tab">
-     <attribute name="title">
-      <string>MDI</string>
-     </attribute>
-     <layout class="QGridLayout" name="gridLayout_9">
-      <item row="0" column="0" rowspan="2" colspan="2">
-       <widget class="QFrame" name="frame_5">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QListWidget" name="mdi_history_lw">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>441</width>
-           <height>311</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="mdi_command_le">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>330</y>
-           <width>391</width>
-           <height>27</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="run_mdi_pb">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>370</y>
-           <width>111</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Run MDI Cmd</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="copy_mdi_history_pb">
-         <property name="geometry">
-          <rect>
-           <x>280</x>
-           <y>370</y>
-           <width>141</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Copy MDI Cmd</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="clear_mdi_history_pb">
-         <property name="geometry">
-          <rect>
-           <x>150</x>
-           <y>370</y>
-           <width>121</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Clear MDI Cmd</string>
-         </property>
-        </widget>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QPushButton" name="clear_mdi_history_pb">
+      <property name="geometry">
+       <rect>
+        <x>555</x>
+        <y>380</y>
+        <width>121</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear MDI Cmd</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="run_mdi_pb">
+      <property name="geometry">
+       <rect>
+        <x>435</x>
+        <y>380</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Run MDI Cmd</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="copy_mdi_history_pb">
+      <property name="geometry">
+       <rect>
+        <x>685</x>
+        <y>380</y>
+        <width>141</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Copy MDI Cmd</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="mdi_command_le">
+      <property name="geometry">
+       <rect>
+        <x>435</x>
+        <y>340</y>
+        <width>391</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="mdi_history_lw">
+      <property name="geometry">
+       <rect>
+        <x>435</x>
+        <y>20</y>
+        <width>391</width>
+        <height>311</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="status_tab">
      <attribute name="title">
@@ -2284,8 +2176,8 @@
    <widget class="QPushButton" name="optional_stop_pb">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>55</y>
+      <x>535</x>
+      <y>50</y>
       <width>116</width>
       <height>27</height>
      </rect>
@@ -2300,8 +2192,8 @@
    <widget class="QPushButton" name="reload_pb">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>95</y>
+      <x>535</x>
+      <y>90</y>
       <width>116</width>
       <height>27</height>
      </rect>
@@ -2411,8 +2303,8 @@
    <widget class="QPushButton" name="estop_pb">
     <property name="geometry">
      <rect>
-      <x>485</x>
-      <y>55</y>
+      <x>680</x>
+      <y>50</y>
       <width>87</width>
       <height>71</height>
      </rect>
@@ -2420,6 +2312,64 @@
     <property name="text">
      <string>E STOP</string>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>335</x>
+      <y>50</y>
+      <width>181</width>
+      <height>66</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_23">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>76</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tool:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="tool_in_spindle_lb">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>10</y>
+       <width>71</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string>N</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
