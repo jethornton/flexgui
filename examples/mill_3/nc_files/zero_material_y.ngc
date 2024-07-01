@@ -1,0 +1,8 @@
+o<zero_material_y> sub
+G91 G1 Y-.1 F60
+G90
+o<zero_material_y> endsub
+
+m2
+
+
