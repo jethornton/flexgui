@@ -10,6 +10,12 @@
     <height>670</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>918</width>
+    <height>670</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -200,7 +206,7 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>125</y>
       <width>901</width>
       <height>461</height>
@@ -822,7 +828,7 @@
         <x>680</x>
         <y>195</y>
         <width>216</width>
-        <height>196</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">
@@ -856,7 +862,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>120</y>
+         <y>140</y>
          <width>201</width>
          <height>61</height>
         </rect>
@@ -1159,8 +1165,8 @@
      <widget class="QGroupBox" name="groupBox_6">
       <property name="geometry">
        <rect>
-        <x>578</x>
-        <y>9</y>
+        <x>545</x>
+        <y>15</y>
         <width>310</width>
         <height>211</height>
        </rect>
@@ -1280,7 +1286,7 @@
      <widget class="QGroupBox" name="groupBox_8">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>300</x>
         <y>15</y>
         <width>231</width>
         <height>231</height>
@@ -1903,7 +1909,7 @@
      <widget class="QPushButton" name="clear_mdi_history_pb">
       <property name="geometry">
        <rect>
-        <x>620</x>
+        <x>600</x>
         <y>380</y>
         <width>121</width>
         <height>27</height>
@@ -1916,7 +1922,7 @@
      <widget class="QPushButton" name="run_mdi_pb">
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>480</x>
         <y>380</y>
         <width>111</width>
         <height>27</height>
@@ -1929,7 +1935,7 @@
      <widget class="QPushButton" name="copy_mdi_history_pb">
       <property name="geometry">
        <rect>
-        <x>750</x>
+        <x>730</x>
         <y>380</y>
         <width>141</width>
         <height>27</height>
@@ -1942,7 +1948,7 @@
      <widget class="QLineEdit" name="mdi_command_le">
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>480</x>
         <y>340</y>
         <width>391</width>
         <height>27</height>
@@ -1952,7 +1958,7 @@
      <widget class="QListWidget" name="mdi_history_lw">
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>480</x>
         <y>20</y>
         <width>391</width>
         <height>311</height>
@@ -2127,174 +2133,171 @@
      <attribute name="title">
       <string>Status</string>
      </attribute>
-     <layout class="QGridLayout" name="gridLayout_10">
-      <item row="0" column="0" rowspan="3">
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="title">
-         <string>Errors</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_11">
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_17">
-           <property name="text">
-            <string>Clear Error History</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QPushButton" name="clear_error_history_pb">
-           <property name="text">
-            <string>Clear Errors</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPlainTextEdit" name="errors_pte"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="1">
-       <widget class="QFrame" name="frame_6">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="task_mode_lb">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>90</y>
-           <width>131</width>
-           <height>34</height>
-          </rect>
-         </property>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>9</y>
+        <width>411</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Errors</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_11">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_17">
          <property name="text">
-          <string>TextLabel</string>
+          <string>Clear Error History</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_8">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>151</width>
-           <height>34</height>
-          </rect>
-         </property>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="clear_error_history_pb">
          <property name="text">
-          <string>Task Mode</string>
+          <string>Clear Errors</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_7">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>0</y>
-           <width>151</width>
-           <height>34</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Task State</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="task_state_lb">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>30</y>
-           <width>131</width>
-           <height>34</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="motion_mode_lb">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>90</y>
-           <width>151</width>
-           <height>34</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="interp_state_lb">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>30</y>
-           <width>151</width>
-           <height>34</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_22">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>60</y>
-           <width>131</width>
-           <height>34</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Motion</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_18">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>0</y>
-           <width>151</width>
-           <height>34</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Interp State</string>
-         </property>
-        </widget>
-        <widget class="Line" name="line_2">
-         <property name="geometry">
-          <rect>
-           <x>210</x>
-           <y>20</y>
-           <width>20</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </widget>
-      </item>
-     </layout>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="errors_pte"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="frame_6">
+      <property name="geometry">
+       <rect>
+        <x>455</x>
+        <y>30</y>
+        <width>236</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="task_mode_lb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>131</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>151</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Task Mode</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>151</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Task State</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="task_state_lb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>131</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="motion_mode_lb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>230</y>
+         <width>151</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="interp_state_lb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>170</y>
+         <width>151</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_22">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>200</y>
+         <width>131</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Motion</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_18">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>151</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Interp State</string>
+       </property>
+      </widget>
+      <widget class="Line" name="line">
+       <property name="geometry">
+        <rect>
+         <x>5</x>
+         <y>125</y>
+         <width>186</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="optional_stop_pb">
@@ -2488,7 +2491,7 @@
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>N</string>
+      <string>0</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -2667,6 +2670,67 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>jog_modes_cb</tabstop>
+  <tabstop>jog_plus_pb_0</tabstop>
+  <tabstop>jog_plus_pb_1</tabstop>
+  <tabstop>jog_plus_pb_2</tabstop>
+  <tabstop>jog_minus_pb_0</tabstop>
+  <tabstop>jog_minus_pb_1</tabstop>
+  <tabstop>jog_minus_pb_2</tabstop>
+  <tabstop>jog_vel_sl</tabstop>
+  <tabstop>home_all_pb</tabstop>
+  <tabstop>home_pb_0</tabstop>
+  <tabstop>home_pb_1</tabstop>
+  <tabstop>home_pb_2</tabstop>
+  <tabstop>spindle_override_sl</tabstop>
+  <tabstop>unhome_all_pb</tabstop>
+  <tabstop>unhome_pb_0</tabstop>
+  <tabstop>unhome_pb_1</tabstop>
+  <tabstop>unhome_pb_2</tabstop>
+  <tabstop>pushButton_7</tabstop>
+  <tabstop>pushButton_6</tabstop>
+  <tabstop>spindle_speed_sb</tabstop>
+  <tabstop>spindle_fwd_pb</tabstop>
+  <tabstop>spindle_stop_pb</tabstop>
+  <tabstop>spindle_rev_pb</tabstop>
+  <tabstop>spindle_plus_pb</tabstop>
+  <tabstop>spindle_minus_pb</tabstop>
+  <tabstop>mdi_s_pb</tabstop>
+  <tabstop>flood_pb</tabstop>
+  <tabstop>mist_pb</tabstop>
+  <tabstop>feed_override_sl</tabstop>
+  <tabstop>rapid_override_sl</tabstop>
+  <tabstop>reload_pb</tabstop>
+  <tabstop>touchoff_pb_x</tabstop>
+  <tabstop>touchoff_pb_y</tabstop>
+  <tabstop>touchoff_pb_z</tabstop>
+  <tabstop>mdi_G54</tabstop>
+  <tabstop>mdi_G55</tabstop>
+  <tabstop>mdi_G56</tabstop>
+  <tabstop>tool_change_cb</tabstop>
+  <tabstop>tool_change_pb</tabstop>
+  <tabstop>tool_touchoff_z</tabstop>
+  <tabstop>tool_touchoff_dsb</tabstop>
+  <tabstop>G1_X_move</tabstop>
+  <tabstop>G1_Y_move</tabstop>
+  <tabstop>G1_move_XY</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>mdi_command_le</tabstop>
+  <tabstop>run_mdi_pb</tabstop>
+  <tabstop>mdi_history_lw</tabstop>
+  <tabstop>clear_mdi_history_pb</tabstop>
+  <tabstop>copy_mdi_history_pb</tabstop>
+  <tabstop>clear_error_history_pb</tabstop>
+  <tabstop>optional_stop_pb</tabstop>
+  <tabstop>touchoff_dsb</tabstop>
+  <tabstop>estop_pb</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>errors_pte</tabstop>
+  <tabstop>pushButton_5</tabstop>
+  <tabstop>gcode_pte</tabstop>
+  <tabstop>pushButton_4</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
