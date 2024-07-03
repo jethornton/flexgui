@@ -121,6 +121,19 @@ QTabBar::tab:selected {
     border-bottom-color: #C2C7CB; /* same as pane color */
 }
 /* ****** RED ************** */
+QPushButton#optional_stop_pb:hover
+{
+	background-color: rgba(192, 0, 0, 40%); color: white; 
+}
+QPushButton#optional_stop_pb:pressed
+{
+	background-color: rgba(192, 0, 0, 80%); color: white; 
+}
+QPushButton#optional_stop_pb:on
+{
+	background-color: rgba(192, 0, 0, 60%); color: white; 
+}
+
 QPushButton#stop_pb:hover
 {
 	background-color: rgba(192, 0, 0, 40%); color: white;
@@ -142,4 +155,48 @@ QPushButton#stop_pb:pressed {
 QPlainTextEdit#errors_pte{
 	background-color: rgba(0, 0, 192, 30%); color: black;
 } */
+
+/* **** NOTES **** */
+/*  QMainWindow{
+	background-color: rgba(0, 0, 192, 20%);
+} */
+/* QPlainTextEdit{
+	background-color: rgba(192, 192, 192, 40%); color: black;
+} */
+/* Widget names for actions...
+flex_Open
+flex_Edit
+flex_Reload
+flex_Save_As
+flex_Edit_Tool_Table
+flex_Reload_Tool_Table
+flex_Ladder_Editor
+flex_Quit
+flex_E_Stop
+flex_Power
+flex_Run
+flex_Run_From_Line
+flex_Step
+flex_Pause
+flex_Resume
+flex_Stop
+flex_Clear_MDI_History
+flex_Copy_MDI_History
+flex_Show_HAL
+flex_HAL_Meter
+flex_HAL_Scope
+flex_About
+*/
+
+/* example for single button property:
+QPushButton#optional_stop_pb:hover
+*/
+
+/* _pb
+hover
+pressed
+released
+clicked
+on / off
+*/
 
