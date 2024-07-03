@@ -41,6 +41,9 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Flood Toggle,flood_pb
 	Mist Toggle,mist_pb
 	Clear Error History,clear_error_history_pb
+	Show HAL,show_hal_pb
+	HAL Meter,hal_meter_pb
+	HAL Scope,hal_scope_pb
 
 .. image:: /images/controls-01.png
    :align: center

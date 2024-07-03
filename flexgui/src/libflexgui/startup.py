@@ -318,7 +318,8 @@ def setup_buttons(parent): # connect buttons to functions
 	'open_pb': 'action_open', 'edit_pb': 'action_edit',
 	'reload_pb': 'action_reload', 'save_as_pb': 'action_save_as',
 	'quit_pb': 'action_quit', 'copy_mdi_history_pb': 'action_copy_mdi',
-	'clear_mdi_history_pb': 'action_clear_mdi'
+	'clear_mdi_history_pb': 'action_clear_mdi', 'show_hal_pb': 'action_show_hal',
+	'hal_meter_pb': 'action_hal_meter', 'hal_scope_pb': 'action_hal_scope'
 	}
 
 	for key, value in action_buttons.items():
