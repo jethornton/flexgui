@@ -1,0 +1,8 @@
+# ##################################################
+# MDI-Commands
+# ##################################################
+
+net but-work-zero-x flexhal.test_mdi_pin0 => halui.mdi-command-00
+net but-work-zero-y flexhal.test_mdi_pin1 => halui.mdi-command-01
+net but-vise-zero-x flexhal.test_mdi_pin2 => halui.mdi-command-02
+net but-vise-zero-y flexhal.test_mdi_pin3 => halui.mdi-command-03
