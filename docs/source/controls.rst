@@ -16,6 +16,8 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Open a G code File, open_pb
 	Edit a G code File,edit_pb
 	Reload a G code File,reload_pb
+	Edit Tool Table,edit_tool_table_pb
+	Reload Tool Table,reload_tool_table_pb
 	Save As a New Name,save_as_pb
 	Quit the Program,quit_pb
 	E-Stop Toggle,estop_pb
