@@ -72,7 +72,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -93,13 +93,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="reload_pb">
-          <property name="text">
-           <string>Reload</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="3">
          <widget class="QPushButton" name="save_as_pb">
           <property name="text">
@@ -107,14 +100,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="start_line_lb">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="5">
+        <item row="1" column="0" colspan="6">
          <widget class="QPlainTextEdit" name="gcode_pte">
           <property name="font">
            <font>
@@ -123,6 +109,33 @@
             <weight>75</weight>
             <bold>true</bold>
            </font>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="reload_pb">
+          <property name="text">
+           <string>Reload</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QLabel" name="start_line_lb">
+          <property name="text">
+           <string>N/A</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>RFL &gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -786,17 +799,57 @@
         <string>Tools</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_13">
-        <item row="0" column="1">
-         <widget class="QPushButton" name="tool_touchoff_x">
+        <item row="2" column="0">
+         <widget class="QLabel" name="tool_in_spindle_lb">
           <property name="text">
-           <string>Tool Touch Off X</string>
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_14">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_12">
           <property name="text">
-           <string>Tool Offset X</string>
+           <string>Tool in Spindle</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="tool_offset_lb_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>Tool Offset Y</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="tool_touchoff_z">
+          <property name="text">
+           <string>Tool Touch Off Z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>Tool Offset Z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -813,7 +866,86 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="0" column="2">
+         <widget class="QPushButton" name="tool_touchoff_y">
+          <property name="text">
+           <string>Tool Touch Off Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Tool Offset X</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="tool_touchoff_le"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="tool_touchoff_x">
+          <property name="text">
+           <string>Tool Touch Off X</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="tool_offset_lb_1">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QGroupBox" name="groupBox_8">
+          <property name="title">
+           <string>Tool Change</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_18">
+           <item row="0" column="0">
+            <widget class="QComboBox" name="tool_change_cb"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="tool_change_pb">
+             <property name="text">
+              <string>Change Tool</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QGroupBox" name="groupBox_19">
+          <property name="title">
+           <string>Tool Table</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_38">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="edit_tool_table_pb">
+             <property name="text">
+              <string>Edit Tool Table</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="reload_tool_table_pb">
+             <property name="text">
+              <string>Reload Tool Table</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="1" rowspan="2">
          <widget class="QGroupBox" name="groupBox_9">
           <property name="title">
            <string>Tool Change Buttons</string>
@@ -878,100 +1010,7 @@
           </layout>
          </widget>
         </item>
-        <item row="2" column="3">
-         <widget class="QLabel" name="tool_offset_lb_2">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="tool_touchoff_y">
-          <property name="text">
-           <string>Tool Touch Off Y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="tool_offset_lb_1">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Tool Offset Y</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="tool_in_spindle_lb">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QGroupBox" name="groupBox_8">
-          <property name="title">
-           <string>Tool Change</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_18">
-           <item row="0" column="0">
-            <widget class="QComboBox" name="tool_change_cb"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="tool_change_pb">
-             <property name="text">
-              <string>Change Tool</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="tool_touchoff_z">
-          <property name="text">
-           <string>Tool Touch Off Z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>Tool Offset Z</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Tool in Spindle</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2" colspan="2">
+        <item row="3" column="2" rowspan="2" colspan="2">
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
            <string>Current Tool Info</string>
@@ -1105,9 +1144,6 @@
            </item>
           </layout>
          </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="tool_touchoff_le"/>
         </item>
        </layout>
       </widget>
@@ -1351,6 +1387,27 @@
            <string>Program Options</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_26">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="block_delete_pb">
+             <property name="text">
+              <string>Block Delete /</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="hal_meter_pb">
+             <property name="text">
+              <string>HAL Meter</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="show_hal_pb">
+             <property name="text">
+              <string>Show HAL</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="optional_stop_pb">
              <property name="text">
@@ -1358,10 +1415,10 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="block_delete_pb">
+           <item row="4" column="0">
+            <widget class="QPushButton" name="hal_scope_pb">
              <property name="text">
-              <string>Block Delete /</string>
+              <string>HAL Scope</string>
              </property>
             </widget>
            </item>
