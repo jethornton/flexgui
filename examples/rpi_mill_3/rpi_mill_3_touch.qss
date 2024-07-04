@@ -26,8 +26,8 @@ QPushButton:checked
 
 QPushButton#exit_pb
 {
-border: none;
-background-color: rgba(0, 0, 0, 0);
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 QTabBar::tab {
@@ -36,12 +36,12 @@ QTabBar::tab {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	min-width: 75px;
-	min-height: 50px;
+	min-height: 40px; /*	min-height: 50px; */
 	padding: 0px;
 }
 
 QTabBar::tab:selected {
-  background: lightgray;
+	background: lightgray;
 }
 
 QToolButton { /* all types of tool button */
@@ -63,7 +63,7 @@ QAbstractSpinBox::up-button {
 QAbstractSpinBox::down-button {
 	min-width: 30px;
 }
-/* ************************** */
+/* ********** General Buttons ********** */
 QPushButton:hover
 {
 	background-color: rgba(0, 192, 0, 40%); color: white;
@@ -82,13 +82,13 @@ QPushButton:checked
 	border-style: inset;
 }
 
-/* **** TABS **** */
+/* ********** General Tabs ********** */
 
-QTabWidget::pane { /* The tab widget frame */
-    border-top: 2px solid #C2C7CB;
+ QTabWidget::pane { /* The tab widget frame */
+    border-top: 1px solid #C2C7CB;
     position: absolute;
-    top: -0.5em;
-}
+    top: -0.05em;  /* top: -0.5em; */
+} 
 
 QTabWidget::tab-bar {
     alignment: left;
@@ -98,56 +98,61 @@ QTabWidget::tab-bar {
     it reads QTabBar _not_ QTabWidget */
 QTabBar::tab {
 	background-color: rgba(192, 192, 192, 50%);
-    border: 2px solid #C4C4C3;
+    /* border: 2px solid #C4C4C3; */
     border-bottom-color: #C2C7CB; /* same as the pane color */
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     min-width: 8ex;
-    padding: 2px;
+    padding: 1px;
 }
 
 QTabBar::tab:hover {
 	background-color: rgba(0, 192, 0, 40%); color: white;
 }
-QTabBar::tab:selected {
-	background-color: rgba(0, 192, 0, 80%);
-}
-/*QTabBar::tab:selected, QTabBar::tab:hover {
+
+QTabBar::tab:selected, QTabBar::tab:hover {
 	background-color: rgba(0, 192, 0, 40%);
-}*/
+}
 
 QTabBar::tab:selected {
     border-color: #9B9B9B;
     border-bottom-color: #C2C7CB; /* same as pane color */
 }
-/* ****** RED ************** */
-QPushButton#optional_stop_pb:hover
-{
+/* ********** Op Stop RED ********** */
+QPushButton#optional_stop_pb:hover {
 	background-color: rgba(192, 0, 0, 40%); color: white; 
 }
-QPushButton#optional_stop_pb:pressed
-{
+QPushButton#optional_stop_pb:pressed {
 	background-color: rgba(192, 0, 0, 80%); color: white; 
 }
-QPushButton#optional_stop_pb:on
-{
+QPushButton#optional_stop_pb:on {
 	background-color: rgba(192, 0, 0, 60%); color: white; 
 }
-
-QPushButton#stop_pb:hover
-{
+/* ********** E Stop RED ********** */
+QPushButton#estop_pb:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white; 
+}
+QPushButton#estop_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; 
+}
+QPushButton#estop_pb:off {
+	background-color: rgba(192, 0, 0, 60%); color: white; 
+}
+/* ********** Stop RED ********** */
+QPushButton#stop_pb:hover {
 	background-color: rgba(192, 0, 0, 40%); color: white;
 }
-QPushButton#quit_pb:hover
-{
+QPushButton#stop_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+}
+/* ********** Quit RED ********** */
+QPushButton#quit_pb:hover {
 	background-color: rgba(192, 0, 0, 40%); color: white;
 }
 QPushButton#quit_pb:pressed {
 	background-color: rgba(192, 0, 0, 80%); color: white; border none;
 }
-QPushButton#stop_pb:pressed {
-	background-color: rgba(192, 0, 0, 80%); color: white; border none;
-}
+
 /* ********** TEST COLOR FOR Edit Windows ********** */
 /* QPlainTextEdit#gcode_pte{
 	background-color: rgba(0, 0, 192, 10%); color: white;
@@ -192,7 +197,7 @@ flex_About
 QPushButton#optional_stop_pb:hover
 */
 
-/* _pb
+/* _pb properties
 hover
 pressed
 released
