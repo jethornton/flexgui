@@ -113,32 +113,3 @@ def update_qcode_pte(parent):
 		parent.start_line_lb.setText(f'{selected_block}')
 
 
-	'''
-	background = parent.gcode_pte.palette().color(QPalette.ColorRole.Window).name()
-	cursor = parent.gcode_pte.textCursor()
-	selected_block = cursor.blockNumber() # get current block number
-	format_normal = QTextBlockFormat()
-	format_normal.setBackground(QColor(background))
-	cursor.select(QTextCursor.SelectionType.Document)
-	cursor.setBlockFormat(format_normal)
-	cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(selected_block))
-	highlight_format = QTextBlockFormat()
-	highlight_format.setBackground(QColor('yellow'))
-	highlight_format.setForeground(QColor('black'))
-	cursor.setBlockFormat(highlight_format)
-	'''
-
-def highlightCurrentLine(parent):
-	extraSelections = []
-	if not self.view.isReadOnly():
-		selection = QTextEdit.ExtraSelection()
-		lineColor = QColor('yellow').lighter(160)
-		selection.format.setBackground(lineColor)
-		selection.format.setForeground(QColor('black'))
-		selection.format.setProperty(QTextFormat.Property.FullWidthSelection, True)
-		selection.cursor = self.view.textCursor()
-		selection.cursor.clearSelection()
-		extraSelections.append(selection)
-	self.view.setExtraSelections(extraSelections)
-
-
