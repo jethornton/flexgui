@@ -838,9 +838,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>25</y>
          <width>201</width>
-         <height>91</height>
+         <height>81</height>
         </rect>
        </property>
        <property name="font">
@@ -854,6 +854,9 @@
        <property name="text">
         <string>TextLabel</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
        <property name="wordWrap">
         <bool>true</bool>
        </property>
@@ -862,7 +865,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>140</y>
+         <y>120</y>
          <width>201</width>
          <height>61</height>
         </rect>
@@ -877,6 +880,12 @@
        </property>
        <property name="text">
         <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="Line" name="line_5">

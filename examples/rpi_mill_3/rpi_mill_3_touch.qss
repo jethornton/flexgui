@@ -1,3 +1,5 @@
+/* ********** Regular Buttons ********** */
+
 QPushButton {
 	background-color: rgba(192, 192, 192, 50%);
 	min-height: 50px;
@@ -7,44 +9,10 @@ QPushButton {
 	border-width: 3px;
 	border-radius: 10px;
 	margin-bottom: 1px;
-	/*padding: 2px;*/
 	padding-right: 10px;
 	padding-left: 10px;
 	}
 
-QTabBar::tab {
-	background-color: rgba(192, 192, 192, 50%);
-    border-bottom-color: #C2C7CB; /* same as the pane color */
-	border: 2px solid rgba(128, 128, 128, 100%);
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	min-height: 40px; /*	min-height: 50px; */
-    min-width: 8ex;
-    padding: 1px;
-	}
-
-QToolButton { /* all types of tool button */
-	background-color: rgba(230, 230, 230, 50%);
-	min-width: 75px;
-	min-height: 50px;
-	border: 2px solid rgb(128, 128, 128);
-	border-radius: 10px;
-	}
-
-/* ********** Spin Box ********** */
-QAbstractSpinBox {
-	min-height: 50px;
-	}
-
-QAbstractSpinBox::up-button {
-	min-width: 30px;
-	}
-
-QAbstractSpinBox::down-button {
-	min-width: 30px;
-	}
-
-/* ********** General Buttons ********** */
 QPushButton:hover {
 	background-color: rgba(0, 192, 0, 40%); color: white;
 	}
@@ -60,8 +28,19 @@ QPushButton:checked {
 	border-style: inset;
 	}
 
-/* ********** General Tabs ********** */
- QTabWidget::pane { /* The tab widget frame */
+/* ********** Tool Bar Buttons ********** */
+
+QToolButton { /* all types of tool button */
+	background-color: rgba(230, 230, 230, 50%);
+	min-width: 75px;
+	min-height: 50px;
+	border: 2px solid rgb(128, 128, 128);
+	border-radius: 10px;
+	}
+
+/* ********** Tabs ********** */
+
+QTabWidget::pane { /* The tab widget frame */
     border-top: 1px solid #C2C7CB;
     position: absolute;
     top: -0.05em;  /* top: -0.5em; */
@@ -69,6 +48,19 @@ QPushButton:checked {
 
 QTabWidget::tab-bar {
     alignment: left;
+	}
+
+/* Style the tab using the tab sub-control. Note that
+    it reads QTabBar _not_ QTabWidget */
+QTabBar::tab {
+	background-color: rgba(192, 192, 192, 50%);
+    border-bottom-color: #C2C7CB; /* same as the pane color */
+	border: 2px solid rgba(128, 128, 128, 100%);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	min-height: 40px; /*	min-height: 50px; */
+    min-width: 8ex;
+    padding: 1px;
 	}
 
 QTabBar::tab:hover {
@@ -85,6 +77,7 @@ QTabBar::tab:selected {
 	}
 
 /* ********** Sliders ********** */
+
 QSlider::groove:horizontal {
     border: 1px solid;
     height: 10px;
@@ -99,6 +92,33 @@ QSlider::handle:horizontal {
     width: 10px;
     margin: -15px 0px;
     }
+
+
+
+
+
+
+
+
+
+/* ********** Spin Box ********** */
+QAbstractSpinBox {
+	min-height: 50px;
+	}
+
+QAbstractSpinBox::up-button {
+	min-width: 30px;
+	}
+
+QAbstractSpinBox::down-button {
+	min-width: 30px;
+	}
+
+
+
+
+
+
 
 /* ********** Op Stop RED ********** */
 QPushButton#optional_stop_pb:hover {
