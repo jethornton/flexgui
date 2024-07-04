@@ -1,7 +1,8 @@
 import os
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor
+from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
+from PyQt6.QtWidgets import QTextEdit
 
 import linuxcnc as emc
 
@@ -95,16 +96,45 @@ def spindle_override(parent, value):
 	parent.command.spindleoverride(float(value / 100), 0)
 
 def update_qcode_pte(parent):
+	extraSelections = []
+	if not parent.gcode_pte.isReadOnly():
+		selection = QTextEdit.ExtraSelection()
+		lineColor = QColor('yellow').lighter(160)
+		selection.format.setBackground(lineColor)
+		selection.format.setForeground(QColor('black'))
+		selection.format.setProperty(QTextFormat.Property.FullWidthSelection, True)
+		selection.cursor = parent.gcode_pte.textCursor()
+		selection.cursor.clearSelection()
+		extraSelections.append(selection)
+	parent.gcode_pte.setExtraSelections(extraSelections)
+
+
+	'''
+	background = parent.gcode_pte.palette().color(QPalette.ColorRole.Window).name()
 	cursor = parent.gcode_pte.textCursor()
 	selected_block = cursor.blockNumber() # get current block number
 	format_normal = QTextBlockFormat()
-	format_normal.setBackground(QColor('white'))
+	format_normal.setBackground(QColor(background))
 	cursor.select(QTextCursor.SelectionType.Document)
 	cursor.setBlockFormat(format_normal)
 	cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(selected_block))
 	highlight_format = QTextBlockFormat()
 	highlight_format.setBackground(QColor('yellow'))
+	highlight_format.setForeground(QColor('black'))
 	cursor.setBlockFormat(highlight_format)
+	'''
 
+def highlightCurrentLine(parent):
+	extraSelections = []
+	if not self.view.isReadOnly():
+		selection = QTextEdit.ExtraSelection()
+		lineColor = QColor('yellow').lighter(160)
+		selection.format.setBackground(lineColor)
+		selection.format.setForeground(QColor('black'))
+		selection.format.setProperty(QTextFormat.Property.FullWidthSelection, True)
+		selection.cursor = self.view.textCursor()
+		selection.cursor.clearSelection()
+		extraSelections.append(selection)
+	self.view.setExtraSelections(extraSelections)
 
 

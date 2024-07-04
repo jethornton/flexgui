@@ -93,7 +93,6 @@ class flexgui(QMainWindow):
 		if gui_file: # gui is in the ini file
 			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
 			if not os.path.isfile(gui_path): # gui not found
-				#print(f'The {gui_path} was not found')
 				gui_path = os.path.join(self.gui_path, 'flex.ui')
 				gui_file = 'flex.ui'
 		else: # no gui specified
@@ -116,10 +115,16 @@ class flexgui(QMainWindow):
 				stylesheet = os.path.join(self.lib_path, 'touch.qss')
 			elif input_type.lower() == 'keyboard':
 				stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
+			elif input_type.lower() == 'key_dark':
+				stylesheet = os.path.join(self.lib_path, 'key_dark.qss')
 
 		if qss_file: # load local qss file make sure it exists !!!!!
+			print(qss_file)
 			if os.path.isfile(os.path.join(self.ini_path, qss_file)):
+				print('yes')
 				stylesheet = os.path.join(self.ini_path, qss_file)
+			else:
+				print('no')
 
 		if stylesheet:
 			with open(stylesheet, 'r') as f:
@@ -171,8 +176,9 @@ class flexgui(QMainWindow):
 	def eventFilter(self, obj, event):
 		# the gcode_pte returns the viewport which is a child of the QPlainTextEdit
 		# so the test needs to see if the parent widget name matches
-		if obj.parentWidget().objectName() == 'gcode_pte' and event.type() == QEvent.Type.MouseButtonRelease:
-			editor.show_line(self)
+		#if obj.parentWidget().objectName() == 'gcode_pte' and event.type() == QEvent.Type.MouseButtonRelease:
+		#	editor.show_line(self)
+			#editor.highlight_line(self)
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, self.touchoff_le)
 		# FIXME finish adding this
