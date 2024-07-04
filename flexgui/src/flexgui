@@ -18,7 +18,6 @@ import linuxcnc, hal
 from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
-from libflexgui import editor
 from libflexgui import shutdown
 
 class flexgui(QMainWindow):
@@ -174,11 +173,6 @@ class flexgui(QMainWindow):
 			self.show()
 
 	def eventFilter(self, obj, event):
-		# the gcode_pte returns the viewport which is a child of the QPlainTextEdit
-		# so the test needs to see if the parent widget name matches
-		#if obj.parentWidget().objectName() == 'gcode_pte' and event.type() == QEvent.Type.MouseButtonRelease:
-		#	editor.show_line(self)
-			#editor.highlight_line(self)
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, self.touchoff_le)
 		# FIXME finish adding this
