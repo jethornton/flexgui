@@ -252,21 +252,20 @@ def update(parent):
 
 	# update gcode_pte
 	if 'gcode_pte' in parent.children:
-		n = parent.status.motion_line
-		if n != parent.last_line:
-			format_normal = QTextBlockFormat()
-			format_normal.setBackground(QColor('white'))
-			highlight_format = QTextBlockFormat()
-			highlight_format.setBackground(QColor('yellow'))
-			motion_line = parent.status.motion_line
+		motion_line = parent.status.motion_line
+		if motion_line != parent.last_line:
+			#format_normal = QTextBlockFormat()
+			#format_normal.setBackground(QColor('white'))
+			#highlight_format = QTextBlockFormat()
+			#highlight_format.setBackground(QColor('yellow'))
 			cursor = parent.gcode_pte.textCursor()
-			cursor.select(QTextCursor.SelectionType.Document)
-			cursor.setBlockFormat(format_normal)
+			#cursor.select(QTextCursor.SelectionType.Document)
+			#cursor.setBlockFormat(format_normal)
 			cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(motion_line))
 			cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
-			cursor.setBlockFormat(highlight_format)
+			#cursor.setBlockFormat(highlight_format)
 			parent.gcode_pte.setTextCursor(cursor)
-			parent.last_line = n
+			parent.last_line = motion_line
 
 	# homed status
 	for item in parent.home_status:
