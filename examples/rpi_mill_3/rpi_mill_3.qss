@@ -152,7 +152,63 @@ QLineEdit#mdi_command_le {
 /*	background-color: rgba(0, 0, 192, 30%); color: black; */
 	background-color: rgba(71, 178, 245, 50%); color: black;
 	}
-	
+
+/* ********** Op Stop RED ********** */
+QPushButton#optional_stop_pb:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white; 
+	}
+
+QPushButton#optional_stop_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; 
+	}
+
+QPushButton#optional_stop_pb:on {
+	background-color: rgba(192, 0, 0, 60%); color: white; 
+	}
+
+/* ********** E Stop RED ********** */
+QPushButton#estop_pb:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white; 
+	}
+
+QPushButton#estop_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; 
+	}
+
+QPushButton#estop_pb:off {
+	background-color: rgba(192, 0, 0, 60%); color: white; 
+	}
+
+/* ********** Stop RED ********** */
+QPushButton#stop_pb:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white;
+	}
+
+QPushButton#stop_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+	}
+
+/* ********** Quit RED ********** */
+QPushButton#quit_pb:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white;
+	}
+
+QPushButton#quit_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+	}
+
+/* ********** XY Plus/Minus Yellow ********** */
+QPushButton#G1_XY_plus:hover, QPushButton#G1_XY_minus:hover { 
+	background-color: rgba(250, 250, 0, 60%); color: white; border none;
+	}
+
+QPushButton#G1_XY_plus:pressed, QPushButton#G1_XY_minus:pressed {
+	background-color: rgba(250, 250, 0, 80%); color: white; border none;
+	} 
+
+
+
+
 /* **** NOTES **** */
 /*  QMainWindow{
 	background-color: rgba(0, 0, 192, 20%);
