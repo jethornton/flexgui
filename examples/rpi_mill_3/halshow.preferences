@@ -1,10 +1,16 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 700x475+899+69
+wm geometry . 700x475+875+70
 placeFrames 0.3
 set ::ratio 0.3
 set ::old_w_leftf 160
 set ::watchlist {
+    pin+halui.mdi-command-00
+    pin+halui.mdi-command-01
+    pin+flexhal.test_mdi_pin0
+    pin+flexhal.test_mdi_pin1
+    sig+but-zero_material_xy
+    sig+but-zero_vise_xy
 }
 set ::workmode watchhal
 set ::watchInterval 100
