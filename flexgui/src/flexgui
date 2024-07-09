@@ -108,6 +108,7 @@ class flexgui(QMainWindow):
 		self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
 
 		# find and load the stylesheet
+
 		stylesheet = False
 		if input_type:
 			if input_type.lower() == 'touch':
@@ -118,16 +119,20 @@ class flexgui(QMainWindow):
 				stylesheet = os.path.join(self.lib_path, 'key_dark.qss')
 
 		if qss_file: # load local qss file make sure it exists !!!!!
-			print(qss_file)
 			if os.path.isfile(os.path.join(self.ini_path, qss_file)):
-				print('yes')
 				stylesheet = os.path.join(self.ini_path, qss_file)
-			else:
-				print('no')
 
 		if stylesheet:
 			with open(stylesheet, 'r') as f:
 				self.setStyleSheet(f.read())
+
+		'''
+		with open (os.path.join(self.lib_path, 'touch.qss')) as f:
+			styles = f.read()
+		with open (os.path.join(self.lib_path, 'dark.qss')) as f:
+			styles += f.read()
+		self.setStyleSheet(styles)
+		'''
 
 		startup.set_screen(self)
 		startup.setup_recent_files(self)
