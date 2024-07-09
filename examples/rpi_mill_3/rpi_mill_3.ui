@@ -823,7 +823,7 @@
         <x>20</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -852,7 +852,7 @@
         <x>115</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -1345,7 +1345,7 @@
       <widget class="QLabel" name="label_29">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>5</x>
          <y>325</y>
          <width>21</width>
          <height>19</height>
@@ -1401,7 +1401,7 @@
       <widget class="QLabel" name="label_27">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>5</x>
          <y>295</y>
          <width>21</width>
          <height>19</height>
@@ -1437,7 +1437,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>275</y>
+         <y>295</y>
          <width>99</width>
          <height>28</height>
         </rect>
@@ -1463,9 +1463,12 @@
         <rect>
          <x>210</x>
          <y>30</y>
-         <width>31</width>
+         <width>36</width>
          <height>19</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
        </property>
        <property name="text">
         <string>G5x</string>
@@ -1493,7 +1496,7 @@
       <widget class="QLabel" name="label_25">
        <property name="geometry">
         <rect>
-         <x>175</x>
+         <x>170</x>
          <y>295</y>
          <width>21</width>
          <height>20</height>
@@ -1506,7 +1509,7 @@
       <widget class="QLabel" name="label_24">
        <property name="geometry">
         <rect>
-         <x>175</x>
+         <x>170</x>
          <y>265</y>
          <width>21</width>
          <height>19</height>
@@ -1557,7 +1560,7 @@
       <widget class="QLabel" name="label_26">
        <property name="geometry">
         <rect>
-         <x>175</x>
+         <x>170</x>
          <y>325</y>
          <width>21</width>
          <height>19</height>
@@ -1598,9 +1601,9 @@
        <widget class="QLabel" name="label_30">
         <property name="geometry">
          <rect>
-          <x>0</x>
+          <x>5</x>
           <y>5</y>
-          <width>81</width>
+          <width>76</width>
           <height>19</height>
          </rect>
         </property>
@@ -1728,9 +1731,9 @@
        <property name="geometry">
         <rect>
          <x>195</x>
-         <y>60</y>
+         <y>50</y>
          <width>96</width>
-         <height>186</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -1743,7 +1746,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>0</y>
+          <y>5</y>
           <width>81</width>
           <height>19</height>
          </rect>
@@ -1756,7 +1759,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>40</y>
+          <y>45</y>
           <width>76</width>
           <height>27</height>
          </rect>
@@ -1771,11 +1774,11 @@
          <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="G1_move_XY">
+       <widget class="QPushButton" name="G1_XY_minus">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>120</y>
+          <y>125</y>
           <width>76</width>
           <height>27</height>
          </rect>
@@ -1794,7 +1797,7 @@
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>20</y>
+          <y>25</y>
           <width>31</width>
           <height>19</height>
          </rect>
@@ -1807,7 +1810,7 @@
         <property name="geometry">
          <rect>
           <x>15</x>
-          <y>100</y>
+          <y>105</y>
           <width>61</width>
           <height>19</height>
          </rect>
@@ -1816,6 +1819,19 @@
          <string>Material</string>
         </property>
        </widget>
+      </widget>
+      <widget class="QLabel" name="label_39">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>265</y>
+         <width>66</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Touchoff</string>
+       </property>
       </widget>
      </widget>
      <widget class="QPushButton" name="copy_mdi_history_pb">
@@ -1896,7 +1912,7 @@
        <rect>
         <x>30</x>
         <y>20</y>
-        <width>256</width>
+        <width>261</width>
         <height>316</height>
        </rect>
       </property>
@@ -1996,7 +2012,7 @@
         <rect>
          <x>14</x>
          <y>30</y>
-         <width>100</width>
+         <width>81</width>
          <height>27</height>
         </rect>
        </property>
@@ -2120,7 +2136,7 @@
      <widget class="QGroupBox" name="groupBox_6">
       <property name="geometry">
        <rect>
-        <x>299</x>
+        <x>305</x>
         <y>20</y>
         <width>341</width>
         <height>316</height>
@@ -2179,6 +2195,9 @@
          <width>66</width>
          <height>19</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
        </property>
        <property name="text">
         <string>TextLabel</string>
@@ -2359,7 +2378,7 @@
       <property name="geometry">
        <rect>
         <x>580</x>
-        <y>25</y>
+        <y>30</y>
         <width>191</width>
         <height>291</height>
        </rect>
@@ -2374,7 +2393,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
+         <y>95</y>
          <width>131</width>
          <height>34</height>
         </rect>
@@ -2387,7 +2406,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>60</y>
+         <y>65</y>
          <width>151</width>
          <height>34</height>
         </rect>
@@ -2400,7 +2419,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>0</y>
+         <y>5</y>
          <width>151</width>
          <height>34</height>
         </rect>
@@ -2413,7 +2432,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>35</y>
          <width>131</width>
          <height>34</height>
         </rect>

@@ -1,8 +1,0 @@
-o<zero_vise_x> sub
-G91 G1 X .1 F60
-G90
-o<zero_vise_x> endsub
-
-m2
-
-
