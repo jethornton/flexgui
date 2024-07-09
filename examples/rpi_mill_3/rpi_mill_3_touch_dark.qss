@@ -44,13 +44,19 @@ QMenu::separator {
     margin-right: 3px;
 	}
 
-QMenu::item {
-    background-color: transparent;
+QMenu::item:selected{
+	background-color: rgba(192, 192, 192, 90%);
+	color: black;
 	}
-
-QMenu::item:selected {
-    border-color: darkblue;
-    background: rgba(100, 100, 100, 150);
+	
+QMenu::item:!selected{
+	background-color: black;
+	color: white;
+	}
+	
+QMenu::item:disabled {
+	background-color: black;
+	color: darkgray;
 	}
 
 QMenu::icon:checked { /* appearance of a 'checked' icon */
@@ -261,6 +267,16 @@ QPushButton#G1_XY_plus:hover, QPushButton#G1_XY_minus:hover {
 QPushButton#G1_XY_plus:pressed, QPushButton#G1_XY_minus:pressed {
 	background-color: rgba(250, 250, 0, 80%); color: white; border none;
 	} 
+/* ********** Tool Change Combo Box ********** */
+
+QComboBox#tool_change_cb::item:selected{
+	background-color: rgba(192, 192, 192, 90%);
+	color: black;
+	}
+QComboBox#tool_change_cb::item:!selected{
+	background-color: black;
+	color: white;
+	}
 
 /* ********** NOTES ********** */
 /*  QMainWindow{
