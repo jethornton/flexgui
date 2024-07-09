@@ -139,7 +139,6 @@ def jog(parent):
 		msg = ('Can not jog without a\njog velocity slider.')
 		dialogs.warn_msg_ok(msg, 'Error')
 		return
-
 	jog_command = parent.sender().objectName().split('_')
 	joint = int(jog_command[-1])
 	increment = parent.jog_modes_cb.currentData()
@@ -148,11 +147,14 @@ def jog(parent):
 
 	jjogmode = get_jog_mode(parent)
 	if parent.sender().isDown():
+		if vel == 0.0:
+			msg = ('Can not jog at Zero Velocity!')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return
 		if increment:
 			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
 		else:
 			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
-
 	else:
 		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
 
