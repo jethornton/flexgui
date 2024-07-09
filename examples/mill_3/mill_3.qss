@@ -41,9 +41,39 @@ QPushButton:checked {
 	border-style: inset;
 	}
 
+/* ********** Op Stop RED ********** */
+QPushButton#optional_stop_pb:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white; 
+	}
+
+QPushButton#optional_stop_pb:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; 
+	}
+
+QPushButton#optional_stop_pb:on {
+	background-color: rgba(192, 0, 0, 60%); color: white; 
+	}
+/* ********** XY Plus/Minus Yellow ********** */
+QPushButton#g1_x_minus:hover, QPushButton#g1_y_minus:hover { 
+	background-color: rgba(250, 250, 0, 30%); color: white; border none;
+	}
+
+QPushButton#g1_x_plus:hover, QPushButton#g1_y_plus:hover { 
+	background-color: rgba(250, 250, 0, 30%); color: white; border none;
+	}
+
+QPushButton#g1_x_minus:pressed, QPushButton#g1_y_minus:pressed {
+	background-color: rgba(250, 250, 0, 60%); color: white; border none;
+	}
+	 
+QPushButton#g1_x_plus:pressed, QPushButton#g1_y_plus:pressed {
+	background-color: rgba(250, 250, 0, 60%); color: white; border none;
+	} 
+
+
 /* ********** General Tabs ********** */
 QTabWidget::pane { /* The tab widget frame */
-    border-top: 2px solid #C2C7CB;
+    border-top: 0px solid #C2C7CB;
     position: absolute;
     top: -0.5em;
 	}
@@ -112,20 +142,19 @@ QToolButton::menu-arrow:open {
 	}
 
 /* **** SLIDERS **** */
-/*QSlider::groove:horizontal {
+QSlider::groove:horizontal {
     border: 1px solid;
     height: 10px;
     margin: 0px;
     }
     
 QSlider::handle:horizontal {
-    background-color: grey;
+	background-color: rgba(0, 0, 192, 60%); /* background-color: rgba(192, 192, 192, 80%); */
     border: 1px solid;
     height: 15px;
     width: 10px;
     margin: -15px 0px;
     }
-*/
 
 /* **** NOTES **** */
 /*  QMainWindow{

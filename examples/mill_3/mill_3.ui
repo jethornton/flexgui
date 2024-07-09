@@ -838,9 +838,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>25</y>
          <width>201</width>
-         <height>91</height>
+         <height>81</height>
         </rect>
        </property>
        <property name="font">
@@ -854,6 +854,9 @@
        <property name="text">
         <string>TextLabel</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
        <property name="wordWrap">
         <bool>true</bool>
        </property>
@@ -862,7 +865,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>140</y>
+         <y>120</y>
          <width>201</width>
          <height>61</height>
         </rect>
@@ -877,6 +880,12 @@
        </property>
        <property name="text">
         <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="Line" name="line_5">
@@ -2019,7 +2028,7 @@
       <property name="title">
        <string>Edge Finder Adjustment</string>
       </property>
-      <widget class="QPushButton" name="G1_X_move">
+      <widget class="QPushButton" name="g1_x_minus">
        <property name="geometry">
         <rect>
          <x>15</x>
@@ -2038,7 +2047,7 @@
         <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="G1_Y_move">
+      <widget class="QPushButton" name="g1_y_minus">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -2057,7 +2066,7 @@
         <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="G1_move_XY">
+      <widget class="QPushButton" name="g1_x_plus">
        <property name="geometry">
         <rect>
          <x>15</x>
@@ -2108,7 +2117,7 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="g1_y_plus">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -2712,10 +2721,10 @@
   <tabstop>tool_change_pb</tabstop>
   <tabstop>tool_touchoff_z</tabstop>
   <tabstop>tool_touchoff_dsb</tabstop>
-  <tabstop>G1_X_move</tabstop>
-  <tabstop>G1_Y_move</tabstop>
-  <tabstop>G1_move_XY</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>g1_x_minus</tabstop>
+  <tabstop>g1_y_minus</tabstop>
+  <tabstop>g1_x_plus</tabstop>
+  <tabstop>g1_y_plus</tabstop>
   <tabstop>mdi_command_le</tabstop>
   <tabstop>run_mdi_pb</tabstop>
   <tabstop>mdi_history_lw</tabstop>
