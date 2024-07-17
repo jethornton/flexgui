@@ -1,0 +1,83 @@
+QLabel{
+font-size: 20px;
+}
+
+QListWidget{
+border-radius: 5px;
+font-size: 20px;
+}
+
+QListWidget::item { /* the items in the list */
+min-height: 50px;
+
+selection-color: black;
+selection-background-color: #0d0d0d;
+border: 1px solid grey;
+border-radius: 5px;
+}
+
+QScrollBar:vertical {
+border: 1px solid grey;
+background: #bfbfbf;
+width: 50px;
+height: 50px;
+margin: 50px 0 50px 0;
+}
+/*
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+border: 2px solid grey;
+width: 10px;
+height: 10px;
+background: white;
+}
+*/
+
+QScrollBar::up-arrow { /* requires width and height */
+image: url(:/images/arrow_up.png);
+width: 25px;
+height: 25px;
+}
+
+QScrollBar::up-arrow:disabled,
+QScrollBar::up-arrow:off { /* off state when value is max */
+	image: url(:/images/arrow_up_disabled.png);
+}
+
+QScrollBar::down-arrow { /* requires width and height */
+image: url(:/images/arrow_down.png);
+width: 25px;
+height: 25px;
+}
+
+QScrollBar::down-arrow:disabled,
+QScrollBar::down-arrow:off { /* off state when value in min */
+	image: url(:/images/arrow_down_disabled.png);
+}
+
+QScrollBar::handle:vertical {
+background: white;
+min-height: 50px;
+}
+
+QScrollBar::add-line:vertical {
+border: 2px solid grey;
+background: #bfbfbf;
+height: 50px;
+subcontrol-position: bottom;
+subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+border: 2px solid grey;
+background: #bfbfbf;
+height: 50px;
+subcontrol-position: top;
+subcontrol-origin: margin;
+}
+
+/*
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+}
+*/
+
