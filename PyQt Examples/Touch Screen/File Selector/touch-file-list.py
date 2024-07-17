@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
 		home = os.path.expanduser('~')
 		self.dir = os.path.join(home, 'linuxcnc', 'nc_files')
 		if os.path.isdir(self.dir):
-			files = os.listdir(self.dir)
+			files = sorted(os.listdir(self.dir))
 			self.listWidget.addItem('Parent Directory')
 			self.listWidget.addItems(files)
 			self.listWidget_2.addItem('Parent Directory')
@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
 		path = os.path.join(self.dir, item)
 		if os.path.isdir(path):
 			self.dir = path
-			files = os.listdir(self.dir)
+			files = sorted(os.listdir(self.dir))
 			self.listWidget.clear()
 			self.listWidget.addItem('Parent Directory')
 			self.listWidget.addItems(files)
@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
 			self.label.setText(f'Selected File: {path}')
 		elif item == 'Parent Directory':
 			self.dir = os.path.dirname(self.dir)
-			files = os.listdir(self.dir)
+			files = sorted(os.listdir(self.dir))
 			self.listWidget.clear()
 			self.listWidget.addItem('Parent Directory')
 			self.listWidget.addItems(files)
