@@ -24,14 +24,20 @@ To use your style sheet add with `file-name` being the name of your .qss file.
 
 	QSS = file-name.qss
 
-To use the built in stylesheets add either
+.. note:: If a qss file is specified then input and theme are not used
+
+To use the built in input stylesheets add either
 ::
 
 	INPUT = TOUCH
 	INPUT = KEYBOARD
 
-If no stylesheet is selected or entered then the default keyboard qss file will
-be used.
+.. note:: If no INPUT or QSS is specified then no qss file will be used.
+
+To use the built in dark theme an INPUT must be specified.
+::
+
+	THEME = DARK
 
 To control the initial size of the screen add either
 ::
