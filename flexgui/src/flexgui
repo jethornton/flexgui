@@ -84,8 +84,6 @@ class flexgui(QMainWindow):
 		# get ini values if any
 		gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
-		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
-		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
 
 		# find and load the gui
@@ -107,32 +105,46 @@ class flexgui(QMainWindow):
 		loadUi(gui_path, self)
 		self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
 
-		# find and load the stylesheet
+		# check for theme and input type or a qss file
+		theme = self.inifile.find('DISPLAY', 'THEME') or False
+		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
+		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 
 		stylesheet = False
-		if input_type:
-			if input_type.lower() == 'touch':
-				stylesheet = os.path.join(self.lib_path, 'touch.qss')
-			elif input_type.lower() == 'keyboard':
-				stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
-			elif input_type.lower() == 'key_dark':
-				stylesheet = os.path.join(self.lib_path, 'key_dark.qss')
-
-		if qss_file: # load local qss file make sure it exists !!!!!
-			if os.path.isfile(os.path.join(self.ini_path, qss_file)):
-				stylesheet = os.path.join(self.ini_path, qss_file)
+		if qss_file: # use a local qss file
+			stylesheet = os.path.join(self.ini_path, qss_file)
+		else: # check for input and theme options
+			if input_type:
+				if theme: # if the dark theme is found use it
+					if theme.lower() == 'dark':
+						if input_type.lower() == 'keyboard':
+							stylesheet = os.path.join(self.lib_path, 'dark-keyboard.qss')
+						elif input_type.lower() == 'touch':
+							stylesheet = os.path.join(self.lib_path, 'dark-touch.qss')
+					else:
+						msg(f'The theme {theme} is not found.')
+						dialogs.warn_msg_ok(msg, 'INI Error')
+				else: # no theme entry in the ini
+					if input_type:
+						if input_type.lower() == 'keyboard':
+							stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
+						elif input_type.lower() == 'touch':
+							stylesheet = os.path.join(self.lib_path, 'touch.qss')
+					else:
+						msg(f'The input type {input_type} is not a valid type.')
+						dialogs.warn_msg_ok(msg, 'INI Error')
 
 		if stylesheet:
-			with open(stylesheet, 'r') as f:
-				self.setStyleSheet(f.read())
-
-		'''
-		with open (os.path.join(self.lib_path, 'touch.qss')) as f:
-			styles = f.read()
-		with open (os.path.join(self.lib_path, 'dark.qss')) as f:
-			styles += f.read()
-		self.setStyleSheet(styles)
-		'''
+			print(stylesheet)
+			if os.path.isfile(stylesheet):
+				with open(stylesheet, 'r') as f:
+					self.setStyleSheet(f.read())
+			else:
+				msg (f'The Stylesheet {stylesheet}\n
+					'was not found.')
+				dialogs.warn_msg_ok(msg, 'INI Error')
+		else:
+			print('No Stylesheet used')
 
 		startup.set_screen(self)
 		startup.setup_recent_files(self)
@@ -143,6 +155,7 @@ class flexgui(QMainWindow):
 		startup.setup_touchoff(self)
 		startup.setup_actions(self)
 		startup.setup_status_labels(self)
+		startup.setup_list_widgets(self)
 		startup.setup_plain_text_edits(self)
 		startup.setup_check_boxes(self)
 		startup.setup_spindle(self)
