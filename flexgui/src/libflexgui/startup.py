@@ -676,6 +676,16 @@ def setup_status_labels(parent):
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
 		parent.home_required.append('mdi_s_pb')
 
+def setup_list_widgets(parent):
+	if 'file_lw' in parent.children:
+		parent.file_lw.itemClicked.connect(partial(actions.file_selector, parent))
+		home = os.path.expanduser('~')
+		parent.dir = os.path.join(home, 'linuxcnc', 'nc_files')
+		if os.path.isdir(parent.dir):
+			files = sorted(os.listdir(parent.dir))
+			parent.file_lw.addItem('Parent Directory')
+			parent.file_lw.addItems(files)
+
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	if 'gcode_pte' in parent.children:
