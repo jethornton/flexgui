@@ -13,7 +13,7 @@ from libflexgui import select
 def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
 	parent.command.wait_complete()
-	if utilities.all_homed(parent):
+	if utilities.all_homed(parent): # FIXME maybe you don't need to be homed to edit
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(True)
 
@@ -25,7 +25,7 @@ def load_file(parent, gcode_file):
 		parent.file_lb.setText(base)
 
 	# update controls
-	for item in parent.file_edit_items:
+	for item in parent.file_edit_items: # FIXME this is a duplicate of above...
 		getattr(parent, item).setEnabled(True)
 	if 'start_line_lb' in parent.children:
 		parent.start_line_lb.setText('0')
@@ -67,6 +67,24 @@ def load_file(parent, gcode_file):
 	if utilities.all_homed(parent) and parent.status.task_state == emc.STATE_ON:
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
+
+def file_selector(parent):
+		item = parent.file_lw.currentItem().text()
+		path = os.path.join(parent.dir, item)
+		if os.path.isdir(path):
+			parent.dir = path
+			files = sorted(os.listdir(path))
+			parent.file_lw.clear()
+			parent.file_lw.addItem('Parent Directory')
+			parent.file_lw.addItems(files)
+		elif os.path.isfile(path):
+			load_file(parent, path)
+		elif item == 'Parent Directory':
+			parent.dir = os.path.dirname(parent.dir)
+			files = sorted(os.listdir(parent.dir))
+			parent.file_lw.clear()
+			parent.file_lw.addItem('Parent Directory')
+			parent.file_lw.addItems(files)
 
 def action_open(parent): # actionOpen
 	extensions = parent.inifile.findall("FILTER", "PROGRAM_EXTENSION") or False
