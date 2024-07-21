@@ -56,3 +56,4 @@ Touch and hold to move the slider.
 .. image:: /images/file-selector-01.png
    :align: center
 
+.. note:: Make sure you use a QListWidget and not a QListView for the file selector 
