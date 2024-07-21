@@ -1,0 +1,50 @@
+/* QAbstractButton Inherited By QCheckBox, QPushButton, QRadioButton, and
+QToolButton so basic size can be set by QAbstractButton*/
+
+QAbstractButton{
+min-height: 50px;
+min-width: 50px;
+background-color: rgba(224, 224, 224, 50%);
+border: 2px solid;
+border-style: outset;
+border-width: 3px;
+border-radius: 10px;
+margin-bottom: 1px;
+padding-right: 10px;
+padding-left: 10px;
+}
+
+QAbstractButton:pressed
+{
+border-style: inset;
+background-color: rgba(192, 192, 192, 100%);
+}
+
+QAbstractButton:disabled
+{
+border-color:rgba(125, 125, 125, 15%)
+}
+
+QPushButton:checked
+{
+border-style: inset;
+background-color: rgba(125, 125, 125, 75%);
+}
+
+QRadioButton {
+spacing: 20px; /* Distance between the radio button and the text*/
+}
+
+QRadioButton::indicator {
+width: 35px;
+height: 35px;
+}
+
+QCheckBox {
+spacing: 20px; /* Distance between the checkbox and the text*/
+}
+
+QCheckBox::indicator {
+width: 35px;
+height: 35px;
+}

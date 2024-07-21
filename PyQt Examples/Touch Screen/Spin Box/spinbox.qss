@@ -1,0 +1,73 @@
+QAbstractSpinBox {
+	border: 1px solid rgb(64, 64, 64);
+	border-radius: 4px;
+	/* min-height = button height + top margin + bottom margin*/
+	min-height: 35px;
+	font-size: 25px;
+}
+
+QAbstractSpinBox::up-button {
+	border: 1px solid rgb(64, 64, 64);
+	border-radius: 4px;
+	padding: 1px;
+	subcontrol-origin: border;
+	subcontrol-position: right;
+	width: 25px;
+	height: 25px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+QAbstractSpinBox::up-button:enabled:hover {
+	border: 2px solid rgb(0, 0, 0);
+	padding: 0px;
+}
+
+QAbstractSpinBox::up-arrow { /* requires width and height */
+	image: url(:/images/arrow_up.png);
+	width: 15px;
+	height: 15px;
+}
+
+QAbstractSpinBox::up-arrow:hover {
+	image: url(:/images/arrow_up_hover.png);
+}
+
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off { /* off state when value is max */
+	image: url(:/images/arrow_up_disabled.png);
+}
+
+QAbstractSpinBox::down-button {
+	border: 1px solid rgb(64, 64, 64);
+	border-radius: 4px;
+	padding: 1px;
+	subcontrol-origin: border;
+	subcontrol-position: right;
+	width: 25px;
+	height: 25px;
+	margin-right: 37px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+QAbstractSpinBox::down-button:on:hover {
+	border: 2px solid rgb(0, 0, 0);
+	padding: 0px;
+}
+
+QAbstractSpinBox::down-arrow { /* requires width and height */
+	image: url(:/images/arrow_down.png);
+	width: 15px;
+	height: 15px;
+}
+
+QAbstractSpinBox::down-arrow:hover {
+	image: url(:/images/arrow_down_hover.png);
+}
+
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off { /* off state when value in min */
+	image: url(:/images/arrow_down_disabled.png);
+}
