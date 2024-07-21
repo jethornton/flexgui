@@ -33,11 +33,6 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Unhome All Joints,unhome_all_pb
 	Unhome a Joint (0-8),unhome_pb_(0-8)
 	Manual Mode,manual_mode_pb
-	Spindle Forward,spindle_fwd_pb
-	Spindle Reverse,spindle_rev_pb
-	Spindle Stop,spindle_stop_pb
-	Spindle Faster,spindle_plus_pb
-	Spindle Slower,spindle_minus_pb
 	Flood Toggle,flood_pb
 	Mist Toggle,mist_pb
 	Clear Error History,clear_error_history_pb
@@ -82,6 +77,9 @@ Axis Index
 Jog Controls
 ------------
 
+Jogging requires the Jog Velocity Slider and Jog Mode Selector. If either is not
+found any Jog Buttons will be disabled.
+
 .. csv-table:: Jog Widgets
    :width: 100%
    :align: left
@@ -93,7 +91,7 @@ Jog Controls
 	Jog Velocity Label, QLabel, jog_vel_lb
 	Jog Mode Selector, QComboBox, jog_modes_cb
 
-.. note:: Jog Plus/Minus buttons use the `Axis Index`_
+.. note:: Jog Plus/Minus buttons use the `Axis Index`_ Jog Y Plus is jog_plus_pb_1
 
 The following settings are from the DISPLAY section of the ini file if found.
 ::
@@ -103,25 +101,23 @@ The following settings are from the DISPLAY section of the ini file if found.
 	Jog Velocity default              DEFAULT_LINEAR_VELOCITY
 
 
-Sliders
--------
+Overrides
+---------
 
 A QSlider is used to control the following functions and the corresponding label
 shows the value of the slider.
 ::
 
+	Function              QSlider                     QLabel
 	Feed Override         feed_override_sl            feedrate_lb
 	Rapid Override        rapid_override_sl           rapid_override_lb
 	Spindle Override      spindle_override_sl         spindle_override_0_lb
 
-	Feed Override maximum             MAX_FEED_OVERRIDE
-	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
-
-Spin Boxes
-----------
+The following settings are from the DISPLAY section of the ini file if found.
 ::
 
-	Spindle Speed           spindle_speed_sb
+	Feed Override maximum             MAX_FEED_OVERRIDE
+	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
 
 Double Spin Boxes
 -----------------
