@@ -33,8 +33,6 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Unhome All Joints,unhome_all_pb
 	Unhome a Joint (0-8),unhome_pb_(0-8)
 	Manual Mode,manual_mode_pb
-	Jog Plus Axis (0-8),jog_plus_pb_(0-8)
-	Jog Minus Axis (0-8),jog_minus_pb_(0-8)
 	Spindle Forward,spindle_fwd_pb
 	Spindle Reverse,spindle_rev_pb
 	Spindle Stop,spindle_stop_pb
@@ -81,18 +79,21 @@ Axis Index
 	V 7
 	W 8
 
-Sliders
--------
+Jog Controls
+------------
 
-A QSlider is used to control the following functions and the corresponding label
-shows the value of the slider.
-::
+.. csv-table:: Jog Widgets
+   :width: 100%
+   :align: left
 
-	Function              Object Name                 Status Label
-	Jog Velocity          jog_vel_sl                  jog_vel_lb
-	Feed Override         feed_override_sl            feedrate_lb
-	Rapid Override        rapid_override_sl           rapid_override_lb
-	Spindle Override      spindle_override_sl         spindle_override_0_lb
+	Function, Widget, Name
+	Jog Plus Axis (0-8), QPushButton,jog_plus_pb_(0-8)
+	Jog Minus Axis (0-8), QPushButton, jog_minus_pb_(0-8)
+	Jog Velocity Slider, QSlider, jog_vel_sl
+	Jog Velocity Label, QLabel, jog_vel_lb
+	Jog Mode Selector, QComboBox, jog_modes_cb
+
+.. note:: Jog Plus/Minus buttons use the `Axis Index`_
 
 The following settings are from the DISPLAY section of the ini file if found.
 ::
@@ -100,6 +101,19 @@ The following settings are from the DISPLAY section of the ini file if found.
 	Jog Velocity minimum              MIN_LINEAR_VELOCITY
 	Jog Velocity maximum              MAX_LINEAR_VELOCITY
 	Jog Velocity default              DEFAULT_LINEAR_VELOCITY
+
+
+Sliders
+-------
+
+A QSlider is used to control the following functions and the corresponding label
+shows the value of the slider.
+::
+
+	Feed Override         feed_override_sl            feedrate_lb
+	Rapid Override        rapid_override_sl           rapid_override_lb
+	Spindle Override      spindle_override_sl         spindle_override_0_lb
+
 	Feed Override maximum             MAX_FEED_OVERRIDE
 	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
 
