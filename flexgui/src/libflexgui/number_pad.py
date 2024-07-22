@@ -24,6 +24,7 @@ class number_pad(QDialog):
 		self.clear_pb.clicked.connect(self.clear)
 		self.dot_pb.clicked.connect(self.dot)
 		self.dash_pb.clicked.connect(self.dash)
+		self.backspace_pb.clicked.connect(self.backspace)
 		for i in range(10):
 			getattr(self, f'num_pb_{i}').clicked.connect(self.post)
 
@@ -41,6 +42,11 @@ class number_pad(QDialog):
 	def dash(self):
 		txt = self.numbers_lb.text()
 		self.numbers_lb.setText(f'-{txt}')
+
+	def backspace(self):
+		txt = self.numbers_lb.text()
+		if len(txt) > 0:
+			self.numbers_lb.setText(txt[:-1])
 
 	def retval(self):
 		try:
