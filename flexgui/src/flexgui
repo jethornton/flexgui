@@ -135,7 +135,6 @@ class flexgui(QMainWindow):
 						dialogs.warn_msg_ok(msg, 'INI Error')
 
 		if stylesheet:
-			print(stylesheet)
 			if os.path.isfile(stylesheet):
 				with open(stylesheet, 'r') as f:
 					self.setStyleSheet(f.read())
