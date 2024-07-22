@@ -1,9 +1,13 @@
+/* Customizing the QAbstractSpinBox you must set everything */
+
 QAbstractSpinBox {
 	border: 1px solid rgb(64, 64, 64);
 	border-radius: 4px;
 	/* min-height = button height + top margin + bottom margin*/
 	min-height: 35px;
-	font-size: 25px;
+	min-width: 100px; /* this is based on the number of digits displayed */
+	margin-right: 5px;
+	font-size: 20px;
 }
 
 QAbstractSpinBox::up-button {
