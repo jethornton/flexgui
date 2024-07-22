@@ -1,0 +1,219 @@
+/* QAbstractButton Inherited By QCheckBox, QPushButton, QRadioButton, and
+QToolButton so basic size can be set by QAbstractButton*/
+
+QAbstractButton{
+min-height: 50px;
+min-width: 50px;
+background-color: rgba(224, 224, 224, 50%);
+border: 2px solid;
+border-style: outset;
+border-width: 3px;
+border-radius: 10px;
+margin-bottom: 1px;
+padding-right: 10px;
+padding-left: 10px;
+}
+
+QAbstractButton:pressed
+{
+border-style: inset;
+background-color: rgba(192, 192, 192, 100%);
+}
+
+QAbstractButton:disabled
+{
+border-color:rgba(125, 125, 125, 15%)
+}
+
+QPushButton:checked
+{
+border-style: inset;
+background-color: rgba(125, 125, 125, 75%);
+}
+
+QRadioButton {
+spacing: 20px; /* Distance between the radio button and the text*/
+}
+
+QRadioButton::indicator {
+width: 35px;
+height: 35px;
+}
+
+QCheckBox {
+spacing: 20px; /* Distance between the checkbox and the text*/
+}
+
+QCheckBox::indicator {
+width: 35px;
+height: 35px;
+}
+
+QLabel{
+font-size: 20px;
+}
+
+/***** QListWidget *****/
+
+QListWidget{
+border-radius: 5px;
+font-size: 20px;
+}
+
+QListWidget::item { /* the items in the list */
+min-height: 50px;
+
+selection-color: black;
+selection-background-color: #0d0d0d;
+border: 1px solid grey;
+border-radius: 5px;
+}
+
+/***** QScrollBar *****/
+
+QScrollBar:vertical {
+border: 1px solid grey;
+background: #bfbfbf;
+width: 50px;
+height: 50px;
+margin: 50px 0 50px 0;
+}
+/*
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+border: 2px solid grey;
+width: 10px;
+height: 10px;
+background: white;
+}
+*/
+
+QScrollBar::up-arrow { /* requires width and height */
+image: url(:/images/arrow_up.png);
+width: 25px;
+height: 25px;
+}
+
+QScrollBar::up-arrow:disabled,
+QScrollBar::up-arrow:off { /* off state when value is max */
+	image: url(:/images/arrow_up_disabled.png);
+}
+
+QScrollBar::down-arrow { /* requires width and height */
+image: url(:/images/arrow_down.png);
+width: 25px;
+height: 25px;
+}
+
+QScrollBar::down-arrow:disabled,
+QScrollBar::down-arrow:off { /* off state when value in min */
+	image: url(:/images/arrow_down_disabled.png);
+}
+
+QScrollBar::handle:vertical {
+background: white;
+min-height: 50px;
+}
+
+QScrollBar::add-line:vertical {
+border: 2px solid grey;
+background: #bfbfbf;
+height: 50px;
+subcontrol-position: bottom;
+subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+border: 2px solid grey;
+background: #bfbfbf;
+height: 50px;
+subcontrol-position: top;
+subcontrol-origin: margin;
+}
+
+/*
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+}
+*/
+
+
+/***** Customizing the QAbstractSpinBox you must set everything *****/
+
+QAbstractSpinBox {
+	border: 1px solid rgb(64, 64, 64);
+	border-radius: 4px;
+	/* min-height = button height + top margin + bottom margin*/
+	min-height: 35px;
+	min-width: 100px; /* this is based on the number of digits displayed */
+	margin-right: 5px;
+	font-size: 20px;
+}
+
+QAbstractSpinBox::up-button {
+	border: 1px solid rgb(64, 64, 64);
+	border-radius: 4px;
+	padding: 1px;
+	subcontrol-origin: border;
+	subcontrol-position: right;
+	width: 25px;
+	height: 25px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+QAbstractSpinBox::up-button:enabled:hover {
+	border: 2px solid rgb(0, 0, 0);
+	padding: 0px;
+}
+
+QAbstractSpinBox::up-arrow { /* requires width and height */
+	image: url(:/images/arrow_up.png);
+	width: 15px;
+	height: 15px;
+}
+
+QAbstractSpinBox::up-arrow:hover {
+	image: url(:/images/arrow_up_hover.png);
+}
+
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off { /* off state when value is max */
+	image: url(:/images/arrow_up_disabled.png);
+}
+
+QAbstractSpinBox::down-button {
+	border: 1px solid rgb(64, 64, 64);
+	border-radius: 4px;
+	padding: 1px;
+	subcontrol-origin: border;
+	subcontrol-position: right;
+	width: 25px;
+	height: 25px;
+	margin-right: 37px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+QAbstractSpinBox::down-button:on:hover {
+	border: 2px solid rgb(0, 0, 0);
+	padding: 0px;
+}
+
+QAbstractSpinBox::down-arrow { /* requires width and height */
+	image: url(:/images/arrow_down.png);
+	width: 15px;
+	height: 15px;
+}
+
+QAbstractSpinBox::down-arrow:hover {
+	image: url(:/images/arrow_down_hover.png);
+}
+
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off { /* off state when value in min */
+	image: url(:/images/arrow_down_disabled.png);
+}
+
+
+
