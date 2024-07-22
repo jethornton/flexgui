@@ -1,0 +1,28 @@
+border-style
+
+The style of all the border's edges.
+
+This property is supported by QAbstractItemView subclasses,
+QAbstractSpinBox subclasses, QCheckBox, QComboBox, QFrame, QGroupBox, QLabel,
+QLineEdit, QMenu, QMenuBar, QPushButton, QRadioButton, QSplitter, QTextEdit,
+and QToolTip.
+
+If this property is not specified, it defaults to none.
+
+Border Styles
+dashed
+dot-dash
+dot-dot-dash
+dotted
+double
+groove
+inset
+outset
+ridge
+solid
+none
+
+Warning: If you only set a background-color on a QPushButton, the background may
+not appear unless you set the border property to some value. This is because, by
+default, the QPushButton draws a native border which completely overlaps the
+background-color.
