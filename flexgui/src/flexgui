@@ -16,6 +16,7 @@ from PyQt6.QtCore import Qt, QTimer, QEvent, QSettings
 import linuxcnc, hal
 
 from libflexgui import startup
+from libflexgui import resources
 from libflexgui import status
 from libflexgui import dialogs
 from libflexgui import shutdown
