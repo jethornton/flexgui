@@ -77,6 +77,8 @@ def file_selector(parent):
 			parent.file_lw.clear()
 			parent.file_lw.addItem('Parent Directory')
 			parent.file_lw.addItems(files)
+			print(parent.file_lw.sizeHintForColumn(0))
+			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 		elif os.path.isfile(path):
 			load_file(parent, path)
 		elif item == 'Parent Directory':
@@ -85,6 +87,8 @@ def file_selector(parent):
 			parent.file_lw.clear()
 			parent.file_lw.addItem('Parent Directory')
 			parent.file_lw.addItems(files)
+			print(parent.file_lw.sizeHintForColumn(0))
+			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 
 def action_open(parent): # actionOpen
 	extensions = parent.inifile.findall("FILTER", "PROGRAM_EXTENSION") or False
