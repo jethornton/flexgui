@@ -685,6 +685,7 @@ def setup_list_widgets(parent):
 			files = sorted(os.listdir(parent.dir))
 			parent.file_lw.addItem('Parent Directory')
 			parent.file_lw.addItems(files)
+			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
