@@ -231,6 +231,10 @@ def touchoff(parent):
 		offset = f'{parent.touchoff_dsb.value():.{precision}f}'
 	elif 'touchoff_le' in parent.children:
 		offset = parent.touchoff_le.text()
+		if offset == '':
+			msg = ('Coordinate System Offset\ncan not be blank!')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return
 
 	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	if parent.status.task_state == emc.STATE_ON:
@@ -251,6 +255,10 @@ def tool_touchoff(parent):
 		offset = f'{parent.tool_touchoff_dsb.value():.{precision}f}'
 	elif 'tool_touchoff_le' in parent.children:
 		offset = parent.tool_touchoff_le.text()
+		if offset == '':
+			msg = ('Tool Touchoff Offset\ncan not be blank!')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return
 
 	if cur_tool > 0:
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
