@@ -2,6 +2,12 @@
 or sub-control is customized, all the other properties or sub-controls must be
 customized as well. */
 
+/***** QLineEdit *****/
+
+QLineEdit {
+min-height: 30px;
+}
+
 /***** QTabWidget *****/
 
 QTabWidget::tab-bar {
@@ -59,7 +65,7 @@ background-color: rgba(125, 125, 125, 75%);
 
 QListWidget{
 border-radius: 5px;
-font-size: 20px;
+font-size: 18px;
 }
 
 QListWidget::item { /* the items in the list */
