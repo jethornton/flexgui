@@ -370,8 +370,10 @@ def setup_touchoff(parent):
 	# 	print("lineEdit_passwort clicked!")
 	if 'touchoff_le' in parent.children:
 		parent.touchoff_le.installEventFilter(parent)
+		parent.touchoff_le.setText('0')
 	if 'tool_touchoff_le' in parent.children:
 		parent.tool_touchoff_le.installEventFilter(parent)
+		parent.tool_touchoff_le.setText('0')
 
 	to_missing = False
 	tto_missing = False
