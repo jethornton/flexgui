@@ -20,12 +20,23 @@ class MainWindow(QMainWindow):
 
 		home = os.path.expanduser('~')
 		self.dir = os.path.join(home, 'linuxcnc', 'nc_files')
+		dir_list = []
 		if os.path.isdir(self.dir):
-			files = sorted(os.listdir(self.dir))
-			self.listWidget.addItem('Parent Directory')
-			self.listWidget.addItems(files)
-			self.listWidget_2.addItem('Parent Directory')
-			self.listWidget_2.addItems(files)
+			dir_list.append('Parent Directory')
+
+			# get directories
+			for item in sorted(os.listdir(self.dir)):
+				path = os.path.join(self.dir, item)
+				if os.path.isdir(path):
+					dir_list.append(f'< {item}')
+
+			# get g code filess
+			for item in sorted(os.listdir(self.dir)):
+				if item.lower().endswith('.ngc'):
+					dir_list.append(item)
+
+			self.listWidget.addItems(dir_list)
+			self.listWidget_2.addItems(dir_list)
 
 		self.label.setText('Select a file or Directory')
 
