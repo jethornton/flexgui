@@ -86,6 +86,13 @@ class flexgui(QMainWindow):
 		gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
+		self.extensions = ['.ngc']
+		ini_extensions = self.inifile.find('DISPLAY', 'EXTENSIONS') or False
+		if ini_extensions: # add any extensions from the ini to ngc
+			for ext in ini_extensions.split(','):
+				self.extensions.append(ext.strip())
+		home_dir = os.path.expanduser('~')
+		self.gcode_dir = os.path.join(home_dir, 'linuxcnc', 'nc_files')
 
 		# find and load the gui
 		if gui_file: # gui is in the ini file

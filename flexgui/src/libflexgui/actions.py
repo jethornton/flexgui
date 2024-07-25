@@ -69,24 +69,18 @@ def load_file(parent, gcode_file):
 			getattr(parent, item).setEnabled(True)
 
 def file_selector(parent):
-		item = parent.file_lw.currentItem().text()
-		path = os.path.join(parent.dir, item)
-		if os.path.isdir(path):
-			parent.dir = path
-			files = sorted(os.listdir(path))
-			parent.file_lw.clear()
-			parent.file_lw.addItem('Parent Directory')
-			parent.file_lw.addItems(files)
-			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
-		elif os.path.isfile(path):
-			load_file(parent, path)
-		elif item == 'Parent Directory':
-			parent.dir = os.path.dirname(parent.dir)
-			files = sorted(os.listdir(parent.dir))
-			parent.file_lw.clear()
-			parent.file_lw.addItem('Parent Directory')
-			parent.file_lw.addItems(files)
-			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
+	item = parent.file_lw.currentItem().text()
+
+	if item == 'Parent Directory': # move up one directory
+		parent.gcode_dir = os.path.abspath(os.path.join(parent.gcode_dir, os.pardir))
+		utilities.read_dir(parent)
+
+	elif item.endswith('...'): # a subdirectory
+		parent.gcode_dir = os.path.join(parent.gcode_dir, item.split()[0])
+		utilities.read_dir(parent)
+
+	else: # must be a file name
+		load_file(parent, os.path.join(parent.gcode_dir, item))
 
 def action_open(parent): # actionOpen
 	extensions = parent.inifile.findall("FILTER", "PROGRAM_EXTENSION") or False

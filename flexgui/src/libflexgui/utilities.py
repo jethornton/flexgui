@@ -112,4 +112,20 @@ def update_qcode_pte(parent):
 		selected_block = cursor.blockNumber() # get current block number
 		parent.start_line_lb.setText(f'{selected_block}')
 
+def read_dir(parent):
+	if os.path.isdir(parent.gcode_dir):
+		file_list = []
+		# get directories
+		for item in sorted(os.listdir(parent.gcode_dir)):
+			path = os.path.join(parent.gcode_dir, item)
+			if os.path.isdir(path):
+				file_list.append(f'{item} ...')
+		# get gcode files
+		for item in sorted(os.listdir(parent.gcode_dir)):
+			if os.path.splitext(item)[1].lower() in parent.extensions:
+				file_list.append(item)
+		parent.file_lw.clear()
+		parent.file_lw.addItem('Parent Directory')
+		parent.file_lw.addItems(file_list)
+		parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 
