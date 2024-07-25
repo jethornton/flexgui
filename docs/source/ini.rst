@@ -39,6 +39,13 @@ To use the built in dark theme an INPUT must be specified.
 
 	THEME = DARK
 
+The touch screen file selector defaults to `.ngc` (any case) to add more
+extensions add EXTENSIONS with other g code extensions seperated by a comma.
+The extensions must be in the form `.ext` with the leading dot.
+::
+
+	EXTENSIONS = .nc, .gcode, .xt
+
 To control the initial size of the screen add either
 ::
 
@@ -47,8 +54,8 @@ To control the initial size of the screen add either
 	SIZE = maximized
 	SIZE = full
 
-.. warning:: Full size screen does not have any window controls. To close the app
-  press `Ctrl Alt x` or select `File` > `Exit` from the menu if you added that
-  action to the menu or make sure you add a Quit button somewhere before trying full.
+.. warning:: Full size screen does not have any window controls. Make sure there
+   is a way to close the GUI like an Exit button or you will not be able to
+   close the application.
 
 
