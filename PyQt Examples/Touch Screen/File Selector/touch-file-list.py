@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
 			for item in sorted(os.listdir(self.dir)):
 				path = os.path.join(self.dir, item)
 				if os.path.isdir(path):
-					dir_list.append(f'< {item}')
+					dir_list.append(f'{item} ...')
 
 			# get g code filess
 			for item in sorted(os.listdir(self.dir)):
