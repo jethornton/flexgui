@@ -39,9 +39,9 @@ To use the built in dark theme an INPUT must be specified.
 
 	THEME = DARK
 
-The touch screen file selector defaults to `.ngc` (any case) to add more
-extensions add EXTENSIONS with other g code extensions seperated by a comma.
-The extensions must be in the form `.ext` with the leading dot.
+The ile selector defaults to `.ngc` (any case) to add more extensions add
+EXTENSIONS with other g code extensions seperated by a comma. The extensions
+must be in the form `.ext` with the leading dot.
 ::
 
 	EXTENSIONS = .nc, .gcode, .xt
