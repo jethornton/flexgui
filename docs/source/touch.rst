@@ -43,17 +43,4 @@ Tool Touch Off
 
 Working on this...
 
-File Selector
--------------
 
-Add a QListWidget and name it `file_lw`, this is typicly used with a touch
-screen. A single left click or touch is all that's needed to use the `File
-Selector`. A left click or touch on a directory will change to that directory.
-A left click or touch on the up or down arrow will move the list by one. A left
-click or touch inbetween an arrow and the slider will move the list by one page.
-Touch and hold to move the slider.
-
-.. image:: /images/file-selector-01.png
-   :align: center
-
-.. note:: Make sure you use a QListWidget and not a QListView for the file selector 
