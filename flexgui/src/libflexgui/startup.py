@@ -1002,8 +1002,15 @@ def setup_plot(parent):
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
 
+	if 'view_inches_cb' in parent.children:
+		parent.view_inches_cb.toggled.connect(partial(utilities.view_units, parent))
+
 	if 'show_vel_rb' in parent.children:
 		parent.show_vel_rb.toggled.connect(parent.plotter.get_show_machine_speed)
+
+	if 'test_pb' in parent.children:
+		parent.test_pb.clicked.connect(partial(utilities.test, parent))
+
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
