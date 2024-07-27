@@ -998,7 +998,7 @@ def setup_hal_buttons(parent):
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
 		from libflexgui import flexplot
-		plotter = flexplot.graphics(parent)
+		plotter = flexplot.emc_plot(parent)
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(plotter)
 
