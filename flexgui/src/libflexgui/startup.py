@@ -998,9 +998,12 @@ def setup_hal_buttons(parent):
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
 		from libflexgui import flexplot
-		plotter = flexplot.emc_plot(parent)
+		parent.plotter = flexplot.emc_plot(parent)
 		layout = QVBoxLayout(parent.plot_widget)
-		layout.addWidget(plotter)
+		layout.addWidget(parent.plotter)
+
+	if 'show_vel_rb' in parent.children:
+		parent.show_vel_rb.toggled.connect(parent.plotter.get_show_machine_speed)
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
