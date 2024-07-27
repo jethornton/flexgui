@@ -129,3 +129,20 @@ def read_dir(parent):
 		parent.file_lw.addItems(file_list)
 		parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 
+def test(parent):
+	if parent.plotter.metric_units:
+		parent.plotter.metric_units = False
+	else:
+		parent.plotter.metric_units = True
+	parent.plotter.load()
+
+def view_units(parent):
+	if parent.sender().isChecked():
+		parent.plotter.metric_units = False
+	else:
+		parent.plotter.metric_units = True
+	parent.plotter.load()
+
+
+
+
