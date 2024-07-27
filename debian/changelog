@@ -1,3 +1,9 @@
+flexgui (0.9.4) unstable; urgency=medium
+
+  * Add plot widget
+
+ -- John Thornton <dev@gnipsel.com>  Sat, 27 Jul 2024 07:01:34 -0500
+
 flexgui (0.9.3) unstable; urgency=medium
 
   * Start touch screen stylesheet
