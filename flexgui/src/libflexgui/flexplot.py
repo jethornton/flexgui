@@ -39,7 +39,7 @@ import shutil
 import os
 
 from qtvcp.widgets.fake_status import fakeStatus
-
+'''
 ###################################
 # For stand alone window
 ###################################
@@ -97,7 +97,7 @@ class Window(QWidget):
 		slider.setTickPosition(QSlider.TickPosition.TicksRight)
 
 		return slider
-
+'''
 #################
 # Helper class
 #################
@@ -1257,6 +1257,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self._fontLarge = 'monospace bold 22'
 	dro_large_font = pyqtProperty(str, getfontlarge, setfontlarge, resetfontlarge)
 
+'''
 ###########
 # Testing
 ###########
@@ -1273,5 +1274,5 @@ if __name__ == '__main__':
 	window = Window(inifilename)
 	window.show()
 	sys.exit(app.exec())
-
+'''
 
