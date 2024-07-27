@@ -28,6 +28,7 @@ class gcode_pad(QDialog):
 		self.next_pb_1.clicked.connect(self.next)
 		self.back_pb_0.clicked.connect(self.back)
 		self.back_pb_1.clicked.connect(self.back)
+		self.backspace_pb.clicked.connect(self.backspace)
 
 		char_list = []
 		for item in self.findChildren(QPushButton):
@@ -57,6 +58,12 @@ class gcode_pad(QDialog):
 	def dash(self):
 		txt = self.gcode_lb.text()
 		self.gcode_lb.setText(f'{txt}-')
+
+	def backspace(self):
+		txt = self.gcode_lb.text()
+		if len(txt) > 0:
+			self.gcode_lb.setText(txt[:-1])
+
 
 	def retval(self):
 		try:
