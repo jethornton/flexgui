@@ -68,6 +68,9 @@ def load_file(parent, gcode_file):
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
 
+	if 'plot_widget' in parent.children:
+		parent.plotter.load()
+
 def file_selector(parent):
 	item = parent.file_lw.currentItem().text()
 
