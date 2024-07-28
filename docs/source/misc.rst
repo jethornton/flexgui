@@ -18,13 +18,6 @@ If you use the touch input the selector looks like this.
 
 .. note:: Make sure you use a QListWidget and not a QListView for the file selector 
 
-Plotter
--------
-
-To add a path plotter add a QWidget or QFrame and name it `plot_widget`
-
-.. note:: The plot widget is under construction and not working at this point.
-
 G code Viewer
 -------------
 
