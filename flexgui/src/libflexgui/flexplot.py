@@ -3,27 +3,13 @@
 import sys
 import math
 
-
-# Set up logging
-from qtvcp import logger
-LOG = logger.getLogger(__name__)
-
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, QSize, Qt, QTimer
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QSlider, QWidget
-try:
-	from PyQt6.QtOpenGLWidgets import QOpenGLWidget
-except ImportError:
-	LOG.critical("Qtvcp error with qt5_graphics - is package python3-pyqt5.qtopengl installed?")
-
-LIB_GOOD = True
-try:
-	from OpenGL import GL
-	from OpenGL.GL import glColor4f
-	from OpenGL import GLU
-except ImportError:
-	LOG.error('Qtvcp Error with graphics - is python3-openGL installed?')
-	LIB_GOOD = False
+from PyQt6.QtOpenGLWidgets import QOpenGLWidget
+from OpenGL import GL
+from OpenGL.GL import glColor4f
+from OpenGL import GLU
 
 import _thread
 
@@ -38,7 +24,7 @@ import tempfile
 import shutil
 import os
 
-from qtvcp.widgets.fake_status import fakeStatus
+#from qtvcp.widgets.fake_status import fakeStatus
 '''
 ###################################
 # For stand alone window
@@ -201,11 +187,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		# if status is not available then we are probably
 		# displaying in designer so fake it
 		stat = linuxcnc.stat()
-		try:
-			stat.poll()
-		except:
-			#LOG.warning('linuxcnc status failed, Assuming linuxcnc is not running so using fake status for a XYZ machine')
-			stat = fakeStatus()
+		stat.poll()
 
 		self.inifile = linuxcnc.ini(inifile)
 		self.foam_option = bool(self.inifile.find("DISPLAY", "FOAM"))
@@ -776,7 +758,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 	# called when widget is completely redrawn
 	def initializeGL(self):
-		self.object = self.makeObject()
+		#self.object = self.makeObject()
 		self.realize()
 		GL.glEnable(GL.GL_CULL_FACE)
 		return
@@ -1058,7 +1040,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		if event.button() & self._buttonList[2]:
 			self.logger.clear()
 
-	def mouseMoveEvent(self, event):	
+	def mouseMoveEvent(self, event):
 		self._mousemoved = True
 		if event.buttons():
 			b = event.buttons()
@@ -1140,6 +1122,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.panView(x, y)
 		self.set_viewangle(lat, lon)
 
+	'''
 	############################################################
 	# display for when linuxcnc isn't runnimg - forQTDesigner
 	############################################################
@@ -1257,7 +1240,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self._fontLarge = 'monospace bold 22'
 	dro_large_font = pyqtProperty(str, getfontlarge, setfontlarge, resetfontlarge)
 
-'''
+
 ###########
 # Testing
 ###########
