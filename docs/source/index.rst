@@ -14,6 +14,7 @@ Flex GUI
    ini
    menu
    controls
+   plotter
    mdi
    labels
    spindle
