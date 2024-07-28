@@ -129,6 +129,61 @@ def read_dir(parent):
 		parent.file_lw.addItems(file_list)
 		parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 
+def view_clear(parent):
+	parent.plotter.clear_live_plotter()
+
+def view_pan_up(parent):
+	parent.view_y = parent.view_y - 10
+	parent.plotter.translateOrRotate(parent.view_x, parent.view_y)
+
+def view_pan_down(parent):
+	parent.view_y = parent.view_y + 10
+	parent.plotter.translateOrRotate(parent.view_x, parent.view_y)
+
+def view_pan_left(parent):
+	parent.view_x = parent.view_x - 10
+	parent.plotter.translateOrRotate(parent.view_x, parent.view_y)
+
+def view_pan_right(parent):
+	parent.view_x = parent.view_x + 10
+	parent.plotter.translateOrRotate(parent.view_x, parent.view_y)
+
+def view_rotate_up(parent): # rotateView(self,vertical=0,horizontal=0)
+	parent.plotter.rotateView(0, -2)
+
+def view_rotate_down(parent): # rotateView(self,vertical=0,horizontal=0)
+	parent.plotter.rotateView(0, 2)
+
+def view_rotate_left(parent): # rotateView(self,vertical=0,horizontal=0)
+	parent.plotter.rotateView(-2, 0)
+
+def view_rotate_right(parent): # rotateView(self,vertical=0,horizontal=0)
+	parent.plotter.rotateView(2, 0)
+
+def view_zoom_in(parent):
+	parent.plotter.distance = parent.plotter.distance - 1
+	parent.plotter.update()
+
+def view_zoom_out(parent):
+	parent.plotter.distance = parent.plotter.distance + 1
+	parent.plotter.update()
+
+def view_p(parent):
+	parent.plotter.current_view = 'p'
+	parent.plotter.load()
+
+def view_x(parent):
+	parent.plotter.current_view = 'x'
+	parent.plotter.set_current_view()
+	#parent.plotter.load()
+
+def view_limits(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_limits = True
+	else:
+		parent.plotter.show_limits = False
+	parent.plotter.load()
+
 def test(parent):
 	if parent.plotter.metric_units:
 		parent.plotter.metric_units = False
@@ -141,6 +196,20 @@ def view_units(parent):
 		parent.plotter.metric_units = False
 	else:
 		parent.plotter.metric_units = True
+	parent.plotter.load()
+
+def view_vel(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_velocity = False
+	else:
+		parent.plotter.show_velocity = True
+	parent.plotter.load()
+
+def view_dro(parent):
+	if parent.sender().isChecked():
+		parent.plotter.enable_dro = False
+	else:
+		parent.plotter.enable_dro = True
 	parent.plotter.load()
 
 

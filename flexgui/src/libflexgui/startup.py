@@ -1002,14 +1002,65 @@ def setup_plot(parent):
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
 
+	parent.view_x = 0
+	parent.view_y = 0
+
+	if 'view_rotate_up_pb' in parent.children:
+		parent.view_rotate_up_pb.clicked.connect(partial(utilities.view_rotate_up, parent))
+
+	if 'view_rotate_down_pb' in parent.children:
+		parent.view_rotate_down_pb.clicked.connect(partial(utilities.view_rotate_down, parent))
+
+	if 'view_pan_up_pb' in parent.children:
+		parent.view_pan_up_pb.clicked.connect(partial(utilities.view_pan_up, parent))
+
+	if 'view_pan_down_pb' in parent.children:
+		parent.view_pan_down_pb.clicked.connect(partial(utilities.view_pan_down, parent))
+
+	if 'view_pan_left_pb' in parent.children:
+		parent.view_pan_left_pb.clicked.connect(partial(utilities.view_pan_left, parent))
+
+	if 'view_pan_right_pb' in parent.children:
+		parent.view_pan_right_pb.clicked.connect(partial(utilities.view_pan_right, parent))
+
+	if 'view_rotate_left_pb' in parent.children:
+		parent.view_rotate_left_pb.clicked.connect(partial(utilities.view_rotate_left, parent))
+
+	if 'view_rotate_right_pb' in parent.children:
+		parent.view_rotate_right_pb.clicked.connect(partial(utilities.view_rotate_right, parent))
+
+
+	if 'view_zoom_in_pb' in parent.children:
+		parent.view_zoom_in_pb.clicked.connect(partial(utilities.view_zoom_in, parent))
+
+	if 'view_zoom_out_pb' in parent.children:
+		parent.view_zoom_out_pb.clicked.connect(partial(utilities.view_zoom_out, parent))
+
+	if 'view_clear_pb' in parent.children:
+		parent.view_clear_pb.clicked.connect(partial(utilities.view_clear, parent))
+
+	if 'view_p_pb' in parent.children:
+		parent.view_p_pb.clicked.connect(partial(utilities.view_p, parent))
+
+	if 'view_x_pb' in parent.children:
+		parent.view_x_pb.clicked.connect(partial(utilities.view_x, parent))
+
+	if 'show_limits_cb' in parent.children:
+		parent.show_limits_cb.toggled.connect(partial(utilities.view_limits, parent))
+
+	if 'show_dro_cb' in parent.children:
+		parent.view_inches_cb.toggled.connect(partial(utilities.view_dro, parent))
+
 	if 'view_inches_cb' in parent.children:
 		parent.view_inches_cb.toggled.connect(partial(utilities.view_units, parent))
 
-	if 'show_vel_rb' in parent.children:
-		parent.show_vel_rb.toggled.connect(parent.plotter.get_show_machine_speed)
+	if 'show_vel_cb' in parent.children:
+		parent.show_vel_cb.toggled.connect(partial(utilities.view_vel, parent))
 
 	if 'test_pb' in parent.children:
 		parent.test_pb.clicked.connect(partial(utilities.test, parent))
+
+
 
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
