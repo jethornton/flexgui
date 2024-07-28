@@ -1297,7 +1297,7 @@
       <widget class="QPushButton" name="view_pan_up_pb">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>45</x>
          <y>25</y>
          <width>71</width>
          <height>21</height>
@@ -1336,7 +1336,7 @@
       <widget class="QPushButton" name="view_pan_down_pb">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>45</x>
          <y>150</y>
          <width>71</width>
          <height>21</height>
@@ -1391,7 +1391,7 @@
       <widget class="QPushButton" name="view_rotate_up_pb">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>50</x>
          <y>30</y>
          <width>66</width>
          <height>21</height>
@@ -1404,7 +1404,7 @@
       <widget class="QPushButton" name="view_rotate_down_pb">
        <property name="geometry">
         <rect>
-         <x>55</x>
+         <x>50</x>
          <y>150</y>
          <width>71</width>
          <height>21</height>
