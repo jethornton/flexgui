@@ -1,0 +1,24 @@
+In the plot widget, to automatically reload a file when an offset has changed you could maybe use the fingerprint
+For example:
+
+fingerprint = (self.logger.npts,
+self.soft_limits(),
+s.actual_position,
+s.motion_mode,
+s.current_vel,
+s.joint_actual_position,
+s.homed,
+s.limit,
+s.tool_in_spindle,
+s.g5x_offset,
+s.g92_offset,
+s.rotation_xy,
+s.tool_offset)
+
+if fingerprint[9:12] != self.fingerprint[9:12] or s.file != self._current_file:
+	if self.display_loaded:
+		self.load()
+
+if fingerprint != self.fingerprint:
+	self.fingerprint = fingerprint
+	self.update()

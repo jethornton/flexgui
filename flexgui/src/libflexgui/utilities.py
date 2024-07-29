@@ -200,17 +200,17 @@ def view_units(parent):
 
 def view_vel(parent):
 	if parent.sender().isChecked():
-		parent.plotter.show_velocity = False
-	else:
 		parent.plotter.show_velocity = True
+	else:
+		parent.plotter.show_velocity = False
 	parent.plotter.load()
 
-def view_dro(parent):
+def view_show_dro(parent):
 	if parent.sender().isChecked():
-		parent.plotter.enable_dro = False
-	else:
 		parent.plotter.enable_dro = True
-	parent.plotter.load()
+	else:
+		parent.plotter.enable_dro = False
+	#parent.plotter.load()
 
 
 
