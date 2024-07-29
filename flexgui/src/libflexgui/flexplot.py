@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-import sys
-import math
+#import sys
+#import math
 
-from PyQt6.QtCore import pyqtProperty, pyqtSignal, QSize, Qt, QTimer
+#from PyQt6.QtCore import pyqtProperty, pyqtSignal, QSize, Qt, QTimer
+from PyQt6.QtCore import pyqtSignal, pyqtSignal, QSize, Qt, QTimer
 from PyQt6.QtGui import QColor
-from PyQt6.QtWidgets import QApplication, QHBoxLayout, QSlider, QWidget
+#from PyQt6.QtWidgets import QApplication, QHBoxLayout, QSlider, QWidget
+from PyQt6.QtWidgets import QApplication
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 from OpenGL import GL
 from OpenGL.GL import glColor4f
@@ -232,20 +234,20 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.gcode_properties = None
 		self.show_live_plot = True
 		self.show_velocity = True
-		self.metric_units = True
+		self.metric_units = False
 		self.show_program = True
 		self.show_rapids = True
 		self.use_relative = True
 		self.show_tool = True
 		self.show_lathe_radius = False
-		self.show_dtg = True
+		self.show_dtg = False
 		self.grid_size = 0.0
 		temp = self.inifile.find("DISPLAY", "LATHE")
 		self.lathe_option = bool(temp == "1" or temp == "True" or temp == "true" )
 
-		self.show_offsets = False
+		self.show_offsets = True
 		self.show_overlay = False
-		self.enable_dro = False
+		self.enable_dro = True
 		self.use_default_controls = True
 		self.mouse_btn_mode = 0
 		self._mousemoved = False
@@ -281,7 +283,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.dro_mm = "% 9.3f"
 		self.dro_deg = "% 9.2f"
 		self.dro_vel = "   Vel:% 9.2F"
-		self._font = 'monospace bold 16'
+		self._font = 'monospace bold 12'
 		self._fontLarge = 'monospace bold 22'
 		self._largeFontState = False
 		self.addTimer()
@@ -307,10 +309,28 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			s.poll()
 		except:
 			return
-		fingerprint = (self.logger.npts, self.soft_limits(),
-			s.actual_position, s.joint_actual_position,
-			s.homed, s.g5x_offset, s.g92_offset, s.limit, s.tool_in_spindle,
-			s.motion_mode, s.current_vel)
+		fingerprint = (
+			self.logger.npts,
+			self.soft_limits(),
+			s.actual_position,
+			s.motion_mode,
+			s.current_vel,
+			s.joint_actual_position,
+			s.homed,
+			s.limit,
+			s.tool_in_spindle,
+			s.g5x_offset,
+			s.g92_offset,
+			s.rotation_xy,
+			s.tool_offset
+		)
+
+		if fingerprint[9:12] != self.fingerprint[9:12] or s.file != self._current_file:
+			if self.display_loaded:
+				self.load()
+
+		if self._current_file != s.file:
+			self._current_file = s.file
 
 		if fingerprint != self.fingerprint:
 			self.fingerprint = fingerprint
@@ -324,14 +344,13 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			self.set_current_view()
 			self.display_loaded = True
 
-	def load(self,filename = None):
+	def load(self, filename = None):
 		s = self.stat
 		s.poll()
 		if not filename and s.file:
 			filename = s.file
 		elif not filename and not s.file:
 			return
-
 
 		lines = open(filename).readlines()
 		progress = Progress(2, len(lines))

@@ -1005,6 +1005,15 @@ def setup_plot(parent):
 	parent.view_x = 0
 	parent.view_y = 0
 
+	if 'show_dro_cb' in parent.children:
+		parent.show_dro_cb.toggled.connect(partial(utilities.view_show_dro, parent))
+
+	if 'view_inches_cb' in parent.children:
+		parent.view_inches_cb.toggled.connect(partial(utilities.view_units, parent))
+
+	if 'show_vel_cb' in parent.children:
+		parent.show_vel_cb.toggled.connect(partial(utilities.view_vel, parent))
+
 	if 'view_rotate_up_pb' in parent.children:
 		parent.view_rotate_up_pb.clicked.connect(partial(utilities.view_rotate_up, parent))
 
@@ -1047,15 +1056,6 @@ def setup_plot(parent):
 
 	if 'show_limits_cb' in parent.children:
 		parent.show_limits_cb.toggled.connect(partial(utilities.view_limits, parent))
-
-	if 'show_dro_cb' in parent.children:
-		parent.view_inches_cb.toggled.connect(partial(utilities.view_dro, parent))
-
-	if 'view_inches_cb' in parent.children:
-		parent.view_inches_cb.toggled.connect(partial(utilities.view_units, parent))
-
-	if 'show_vel_cb' in parent.children:
-		parent.show_vel_cb.toggled.connect(partial(utilities.view_vel, parent))
 
 	if 'test_pb' in parent.children:
 		parent.test_pb.clicked.connect(partial(utilities.test, parent))
