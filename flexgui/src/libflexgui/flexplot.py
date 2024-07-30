@@ -225,29 +225,31 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.maxlat = 90
 
 		self._current_file = None
+		self.gcode_properties = None
 		self.highlight_line = None
 		self.program_alpha = False
 		self.use_joints_mode = True
 		self.use_commanded = True
+
+		self.enable_dro = True
 		self.show_limits = True
 		self.show_extents_option = True
-		self.gcode_properties = None
 		self.show_live_plot = True
 		self.show_velocity = True
 		self.metric_units = False
 		self.show_program = True
 		self.show_rapids = True
-		self.use_relative = True
 		self.show_tool = True
 		self.show_lathe_radius = False
 		self.show_dtg = False
 		self.grid_size = 0.0
-		temp = self.inifile.find("DISPLAY", "LATHE")
-		self.lathe_option = bool(temp == "1" or temp == "True" or temp == "true" )
-
 		self.show_offsets = True
 		self.show_overlay = False
-		self.enable_dro = True
+		self.use_relative = True
+
+		temp = self.inifile.find("DISPLAY", "LATHE") or 'False'
+		self.lathe_option = temp.lower() in ['1', 'true']
+
 		self.use_default_controls = True
 		self.mouse_btn_mode = 0
 		self._mousemoved = False

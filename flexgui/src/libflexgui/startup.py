@@ -15,6 +15,7 @@ from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import flexplot
+from libflexgui import view
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
@@ -416,8 +417,17 @@ def setup_actions(parent): # setup menu actions
 		'actionStep': 'action_step', 'actionPause': 'action_pause',
 		'actionResume': 'action_resume', 'actionStop': 'action_stop',
 		'actionClear_MDI_History': 'action_clear_mdi',
-		'actionCopy_MDI_History': 'action_copy_mdi',
-		'actionShow_HAL': 'action_show_hal', 'actionHAL_Meter': 'action_hal_meter',
+		'actionCopy_MDI_History': 'action_copy_mdi', 'actionDRO': 'action_dro',
+		'actionLimits': 'action_limits',
+		'actionExtents_Option': 'action_extents_option',
+		'actionLive_Plot': 'action_live_plot',
+		'actionVelocity': 'action_velocity',
+		'actionMetric_Units': 'action_metric_units',
+		'actionProgram': 'action_program', 'actionRapids': 'action_rapids',
+		'actionTool': 'action_tool', 'actionLathe_Radius': 'action_lathe_radius',
+		'actionDTG': 'action_dtg', 'actionOffsets': 'action_offsets',
+		'actionOverlay': 'action_overlay', 'actionShow_HAL': 'action_show_hal',
+		'actionHAL_Meter': 'action_hal_meter',
 		'actionHAL_Scope': 'action_hal_scope', 'actionAbout': 'action_about',
 		'actionQuick_Reference': 'action_quick_reference'}
 
@@ -427,6 +437,15 @@ def setup_actions(parent): # setup menu actions
 			if key == 'action_Power':
 				print('etc')
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
+
+	# actions that need to be checkable
+	checked_actions = ['actionDRO', 'actionLimits', 'actionExtents_Option'
+		'actionLive_Plot', 'actionVelocity', 'actionMetric_Units', 'actionProgram',
+		'actionRapids', 'actionTool', 'actionLathe_Radius', 'actionDTG',
+		'actionOffsets', 'actionOverlay']
+	for item in checked_actions:
+		if item in parent.children:
+			getattr(parent, item).setCheckable(True)
 
 	# special check for the classicladder editor
 	if parent.findChild(QAction, 'actionLadder_Editor'):
@@ -1005,63 +1024,113 @@ def setup_plot(parent):
 	parent.view_x = 0
 	parent.view_y = 0
 
-	if 'show_dro_cb' in parent.children:
-		parent.show_dro_cb.toggled.connect(partial(utilities.view_show_dro, parent))
+	'''
+	self.enable_dro = True
+	self.show_limits = True
+	self.show_extents_option = True
+	self.show_live_plot = True
+	self.show_velocity = True
+	self.metric_units = False
+	self.show_program = True
+	self.show_rapids = True
+	self.show_tool = True
+	self.show_lathe_radius = False
+	self.show_dtg = False
+	self.show_offsets = True
+	self.show_overlay = False
+	self.use_relative = True
+	self.grid_size = 0.0
+	'''
 
-	if 'view_inches_cb' in parent.children:
-		parent.view_inches_cb.toggled.connect(partial(utilities.view_units, parent))
+	if 'view_dro_cb' in parent.children:
+		parent.view_dro_cb.toggled.connect(partial(view.view_dro, parent))
 
-	if 'show_vel_cb' in parent.children:
-		parent.show_vel_cb.toggled.connect(partial(utilities.view_vel, parent))
+	if 'view_limits_cb' in parent.children:
+		parent.view_limits_cb.toggled.connect(partial(view.view_limits, parent))
+
+	if 'view_extents_option_cb' in parent.children:
+		parent.view_extents_option_cb.toggled.connect(partial(view.view_extents_option, parent))
+
+	if 'view_live_plot_cb' in parent.children:
+		parent.view_live_plot_cb.toggled.connect(partial(view.view_live_plot, parent))
+
+	if 'view_velocity_cb' in parent.children:
+		parent.view_velocity_cb.toggled.connect(partial(view.view_velocity, parent))
+
+	if 'view_metric_units_cb' in parent.children:
+		parent.view_metric_units_cb.toggled.connect(partial(view.view_metric_units, parent))
+
+	if 'view_program_cb' in parent.children:
+		parent.view_program_cb.toggled.connect(partial(view.view_program, parent))
+
+	if 'view_rapids_cb' in parent.children:
+		parent.view_rapids_cb.toggled.connect(partial(view.view_rapids, parent))
+
+	if 'view_tool_cb' in parent.children:
+		parent.view_tool_cb.toggled.connect(partial(view.view_tool, parent))
+
+	if 'view_lathe_radius_cb' in parent.children:
+		parent.view_lathe_radius_cb.toggled.connect(partial(view.view_lathe_radius, parent))
+
+	if 'view_dtg_cb' in parent.children:
+		parent.view_dtg_cb.toggled.connect(partial(view.view_dtg, parent))
+
+	if 'view_offsets_cb' in parent.children:
+		parent.view_offsets_cb.toggled.connect(partial(view.view_offsets, parent))
+
+	if 'view_overlay_cb' in parent.children:
+		parent.view_overlay_cb.toggled.connect(partial(view.view_overlay, parent))
 
 	if 'view_rotate_up_pb' in parent.children:
-		parent.view_rotate_up_pb.clicked.connect(partial(utilities.view_rotate_up, parent))
+		parent.view_rotate_up_pb.clicked.connect(partial(view.view_rotate_up, parent))
 
 	if 'view_rotate_down_pb' in parent.children:
-		parent.view_rotate_down_pb.clicked.connect(partial(utilities.view_rotate_down, parent))
+		parent.view_rotate_down_pb.clicked.connect(partial(view.view_rotate_down, parent))
 
 	if 'view_pan_up_pb' in parent.children:
-		parent.view_pan_up_pb.clicked.connect(partial(utilities.view_pan_up, parent))
+		parent.view_pan_up_pb.clicked.connect(partial(view.view_pan_up, parent))
 
 	if 'view_pan_down_pb' in parent.children:
-		parent.view_pan_down_pb.clicked.connect(partial(utilities.view_pan_down, parent))
+		parent.view_pan_down_pb.clicked.connect(partial(view.view_pan_down, parent))
 
 	if 'view_pan_left_pb' in parent.children:
-		parent.view_pan_left_pb.clicked.connect(partial(utilities.view_pan_left, parent))
+		parent.view_pan_left_pb.clicked.connect(partial(view.view_pan_left, parent))
 
 	if 'view_pan_right_pb' in parent.children:
-		parent.view_pan_right_pb.clicked.connect(partial(utilities.view_pan_right, parent))
+		parent.view_pan_right_pb.clicked.connect(partial(view.view_pan_right, parent))
 
 	if 'view_rotate_left_pb' in parent.children:
-		parent.view_rotate_left_pb.clicked.connect(partial(utilities.view_rotate_left, parent))
+		parent.view_rotate_left_pb.clicked.connect(partial(view.view_rotate_left, parent))
 
 	if 'view_rotate_right_pb' in parent.children:
-		parent.view_rotate_right_pb.clicked.connect(partial(utilities.view_rotate_right, parent))
-
+		parent.view_rotate_right_pb.clicked.connect(partial(view.view_rotate_right, parent))
 
 	if 'view_zoom_in_pb' in parent.children:
-		parent.view_zoom_in_pb.clicked.connect(partial(utilities.view_zoom_in, parent))
+		parent.view_zoom_in_pb.clicked.connect(partial(view.view_zoom_in, parent))
 
 	if 'view_zoom_out_pb' in parent.children:
-		parent.view_zoom_out_pb.clicked.connect(partial(utilities.view_zoom_out, parent))
+		parent.view_zoom_out_pb.clicked.connect(partial(view.view_zoom_out, parent))
 
 	if 'view_clear_pb' in parent.children:
-		parent.view_clear_pb.clicked.connect(partial(utilities.view_clear, parent))
+		parent.view_clear_pb.clicked.connect(partial(view.view_clear, parent))
 
 	if 'view_p_pb' in parent.children:
-		parent.view_p_pb.clicked.connect(partial(utilities.view_p, parent))
+		parent.view_p_pb.clicked.connect(partial(view.view_p, parent))
 
 	if 'view_x_pb' in parent.children:
-		parent.view_x_pb.clicked.connect(partial(utilities.view_x, parent))
+		parent.view_x_pb.clicked.connect(partial(view.view_x, parent))
 
-	if 'show_limits_cb' in parent.children:
-		parent.show_limits_cb.toggled.connect(partial(utilities.view_limits, parent))
+	if 'view_y_pb' in parent.children:
+		parent.view_y_pb.clicked.connect(partial(view.view_y, parent))
 
-	if 'test_pb' in parent.children:
-		parent.test_pb.clicked.connect(partial(utilities.test, parent))
+	if 'view_y2_pb' in parent.children:
+		parent.view_y2_pb.clicked.connect(partial(view.view_y2, parent))
 
+	if 'view_z_pb' in parent.children:
+		parent.view_z_pb.clicked.connect(partial(view.view_z, parent))
 
-
+	if 'view_z2_pb' in parent.children:
+		parent.view_z2_pb.clicked.connect(partial(view.view_z2, parent))
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
