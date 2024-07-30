@@ -433,13 +433,11 @@ def setup_actions(parent): # setup menu actions
 
 	# if an action is found connect it to the function
 	for key, value in actions_dict.items():
-		if parent.findChild(QAction, f'{key}'):
-			if key == 'action_Power':
-				print('etc')
+		if key in parent.children:
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 	# actions that need to be checkable
-	checked_actions = ['actionDRO', 'actionLimits', 'actionExtents_Option'
+	checked_actions = ['actionDRO', 'actionLimits', 'actionExtents_Option',
 		'actionLive_Plot', 'actionVelocity', 'actionMetric_Units', 'actionProgram',
 		'actionRapids', 'actionTool', 'actionLathe_Radius', 'actionDTG',
 		'actionOffsets', 'actionOverlay']
