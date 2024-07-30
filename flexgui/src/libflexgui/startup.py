@@ -320,8 +320,8 @@ def setup_buttons(parent): # connect buttons to functions
 	'reload_pb': 'action_reload', 'save_as_pb': 'action_save_as',
 	'edit_tool_table_pb': 'action_edit_tool_table',
 	'reload_tool_table_pb': 'action_reload_tool_table',
-	'quit_pb': 'action_quit', 'copy_mdi_history_pb': 'action_copy_mdi',
-	'clear_mdi_history_pb': 'action_clear_mdi', 'show_hal_pb': 'action_show_hal',
+	'quit_pb': 'action_quit', 'clear_mdi_history_pb': 'action_clear_mdi',
+	'copy_mdi_history_pb': 'action_copy_mdi', 'show_hal_pb': 'action_show_hal',
 	'hal_meter_pb': 'action_hal_meter', 'hal_scope_pb': 'action_hal_scope'
 	}
 
@@ -1040,6 +1040,24 @@ def setup_plot(parent):
 	self.grid_size = 0.0
 	'''
 
+	view_actions = {
+		'view_dro_cb': 'action_dro', 'view_limits_cb': 'action_limits',
+		'view_extents_option_cb': 'action_extents_option',
+		'view_live_plot_cb': 'action_live_plot',
+		'view_velocity_cb': 'action_velocity',
+		'view_metric_units_cb': 'action_metric_units',
+		'view_program_cb': 'action_program', 'view_rapids_cb': 'action_rapids',
+		'view_tool_cb': 'action_tool',
+		'view_lathe_radius_cb': 'action_lathe_radius',
+		'view_dtg_cb': 'action_dtg', 'view_offsets_cb': 'action_offsets',
+		'view_overlay_cb': 'action_overlay'
+	}
+
+	for key, value in view_actions.items():
+		if key in parent.children:
+			getattr(parent, key).toggled.connect(partial(f'actions.{value}', parent))
+
+	'''
 	if 'view_dro_cb' in parent.children:
 		parent.view_dro_cb.toggled.connect(partial(view.view_dro, parent))
 
@@ -1129,7 +1147,7 @@ def setup_plot(parent):
 
 	if 'view_z2_pb' in parent.children:
 		parent.view_z2_pb.clicked.connect(partial(view.view_z2, parent))
-
+	'''
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
