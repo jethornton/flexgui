@@ -11,3 +11,7 @@ debuild -us -uc
 
 Qt Info
 https://doc.qt.io/qt-6/qtwidgets-module.html
+
+so to recap I need checkable menu items for each setting, finish the checkboxes,
+read the ini to set some, save settings to the preference file and use that on
+startup
