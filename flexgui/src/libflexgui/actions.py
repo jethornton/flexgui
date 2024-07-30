@@ -273,31 +273,31 @@ def action_copy_mdi(parent): # actionCopy_MDI
 	qclip.setText('\n'.join(mdi_list))
 
 def action_dro(parent):
-	pass
+	print(parent.sender().objectName())
 def action_limits(parent):
-	pass
+	print(parent.sender().objectName())
 def action_extents_option(parent):
-	pass
+	print(parent.sender().objectName())
 def action_live_plot(parent):
-	pass
+	print(parent.sender().objectName())
 def action_velocity(parent):
-	pass
+	print(parent.sender().objectName())
 def action_metric_units(parent):
-	pass
+	print(parent.sender().objectName())
 def action_program(parent):
-	pass
+	print(parent.sender().objectName())
 def action_rapids(parent):
-	pass
+	print(parent.sender().objectName())
 def action_tool(parent):
-	pass
+	print(parent.sender().objectName())
 def action_lathe_radius(parent):
-	pass
+	print(parent.sender().objectName())
 def action_dtg(parent):
-	pass
+	print(parent.sender().objectName())
 def action_offsets(parent):
-	pass
+	print(parent.sender().objectName())
 def action_overlay(parent):
-	pass
+	print(parent.sender().objectName())
 
 
 def action_show_hal(parent): # actionShow_HAL
