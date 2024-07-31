@@ -1055,6 +1055,8 @@ def setup_plot(parent):
 	for key, value in view_actions.items():
 		if key in parent.children:
 			getattr(parent, key).toggled.connect(partial(getattr(actions, value), parent))
+			checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+			getattr(parent, key).setChecked(checked)
 
 	view_controls = {
 		'view_rotate_up_pb': 'view_rotate_up',
