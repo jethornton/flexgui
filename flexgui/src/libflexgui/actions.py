@@ -272,32 +272,96 @@ def action_copy_mdi(parent): # actionCopy_MDI
 	qclip = QApplication.clipboard()
 	qclip.setText('\n'.join(mdi_list))
 
-def action_dro(parent):
-	print(parent.sender().objectName())
-def action_limits(parent):
-	print(parent.sender().objectName())
-def action_extents_option(parent):
-	print(parent.sender().objectName())
-def action_live_plot(parent):
-	print(parent.sender().objectName())
-def action_velocity(parent):
-	print(parent.sender().objectName())
-def action_metric_units(parent):
-	print(parent.sender().objectName())
-def action_program(parent):
-	print(parent.sender().objectName())
-def action_rapids(parent):
-	print(parent.sender().objectName())
-def action_tool(parent):
-	print(parent.sender().objectName())
-def action_lathe_radius(parent):
-	print(parent.sender().objectName())
-def action_dtg(parent):
-	print(parent.sender().objectName())
-def action_offsets(parent):
-	print(parent.sender().objectName())
-def action_overlay(parent):
-	print(parent.sender().objectName())
+def action_toggle_dro(parent):
+	if parent.sender().isChecked():
+		parent.plotter.enable_dro = True
+	else:
+		parent.plotter.enable_dro = False
+	parent.plotter.load()
+
+def action_toggle_limits(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_limits = True
+	else:
+		parent.plotter.show_limits = False
+	parent.plotter.load()
+
+def action_toggle_extents_option(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_extents_option = True
+	else:
+		parent.plotter.show_extents_option = False
+	parent.plotter.load()
+
+def action_toggle_live_plot(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_live_plot = True
+	else:
+		parent.plotter.show_live_plot = False
+	parent.plotter.load()
+
+def action_toggle_velocity(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_velocity = True
+	else:
+		parent.plotter.show_velocity = False
+	parent.plotter.load()
+
+def action_toggle_metric_units(parent):
+	if parent.sender().isChecked():
+		parent.plotter.metric_units = True
+	else:
+		parent.plotter.metric_units = False
+	parent.plotter.load()
+
+def action_toggle_program(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_program = True
+	else:
+		parent.plotter.show_program = False
+	parent.plotter.load()
+
+def action_toggle_rapids(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_rapids = True
+	else:
+		parent.plotter.show_rapids = False
+	parent.plotter.load()
+
+def action_toggle_tool(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_tool = True
+	else:
+		parent.plotter.show_tool = False
+	parent.plotter.load()
+
+def action_toggle_lathe_radius(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_lathe_radius = True
+	else:
+		parent.plotter.show_lathe_radius = False
+	parent.plotter.load()
+
+def action_toggle_dtg(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_dtg = True
+	else:
+		parent.plotter.show_dtg = False
+	parent.plotter.load()
+
+def action_toggle_offsets(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_offsets = True
+	else:
+		parent.plotter.show_offsets = False
+	parent.plotter.load()
+
+def action_toggle_overlay(parent):
+	if parent.sender().isChecked():
+		parent.plotter.show_overlay = True
+	else:
+		parent.plotter.show_overlay = False
+	parent.plotter.load()
 
 
 def action_show_hal(parent): # actionShow_HAL
