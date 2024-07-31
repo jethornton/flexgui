@@ -279,12 +279,24 @@ def action_toggle_dro(parent):
 		parent.plotter.enable_dro = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_dro_cb' and 'actionDRO' in parent.children:
+		parent.actionDRO.setChecked(parent.sender().isChecked())
+	if name == 'actionDRO' and 'view_dro_cb' in parent.children:
+		parent.view_dro_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_limits(parent):
 	if parent.sender().isChecked():
 		parent.plotter.show_limits = True
 	else:
 		parent.plotter.show_limits = False
 	parent.plotter.load()
+
+	name = parent.sender().objectName()
+	if name == 'view_limits_cb' and 'actionLimits' in parent.children:
+		parent.actionLimits.setChecked(parent.sender().isChecked())
+	if name == 'actionLimits' and 'view_limits_cb' in parent.children:
+		parent.view_limits_cb.setChecked(parent.sender().isChecked())
 
 def action_toggle_extents_option(parent):
 	if parent.sender().isChecked():
@@ -293,12 +305,24 @@ def action_toggle_extents_option(parent):
 		parent.plotter.show_extents_option = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_extents_option_cb' and 'actionExtents_Option' in parent.children:
+		parent.actionExtents_Option.setChecked(parent.sender().isChecked())
+	if name == 'actionExtents_Option' and 'view_extents_option_cb' in parent.children:
+		parent.view_extents_option_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_live_plot(parent):
 	if parent.sender().isChecked():
 		parent.plotter.show_live_plot = True
 	else:
 		parent.plotter.show_live_plot = False
 	parent.plotter.load()
+
+	name = parent.sender().objectName()
+	if name == 'view_live_plot_cb' and 'actionLive_Plot' in parent.children:
+		parent.actionLive_Plot.setChecked(parent.sender().isChecked())
+	if name == 'actionLive_Plot' and 'view_live_plot_cb' in parent.children:
+		parent.view_live_plot_cb.setChecked(parent.sender().isChecked())
 
 def action_toggle_velocity(parent):
 	if parent.sender().isChecked():
@@ -307,12 +331,24 @@ def action_toggle_velocity(parent):
 		parent.plotter.show_velocity = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_velocity_cb' and 'actionVelocity' in parent.children:
+		parent.actionVelocity.setChecked(parent.sender().isChecked())
+	if name == 'actionVelocity' and 'view_velocity_cb' in parent.children:
+		parent.view_velocity_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_metric_units(parent):
 	if parent.sender().isChecked():
 		parent.plotter.metric_units = True
 	else:
 		parent.plotter.metric_units = False
 	parent.plotter.load()
+
+	name = parent.sender().objectName()
+	if name == 'view_metric_units_cb' and 'actionMetric_Units' in parent.children:
+		parent.actionMetric_Units.setChecked(parent.sender().isChecked())
+	if name == 'actionMetric_Units' and 'view_metric_units_cb' in parent.children:
+		parent.view_metric_units_cb.setChecked(parent.sender().isChecked())
 
 def action_toggle_program(parent):
 	if parent.sender().isChecked():
@@ -321,12 +357,24 @@ def action_toggle_program(parent):
 		parent.plotter.show_program = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_program_cb' and 'actionProgram' in parent.children:
+		parent.actionProgram.setChecked(parent.sender().isChecked())
+	if name == 'actionProgram' and 'view_program_cb' in parent.children:
+		parent.view_program_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_rapids(parent):
 	if parent.sender().isChecked():
 		parent.plotter.show_rapids = True
 	else:
 		parent.plotter.show_rapids = False
 	parent.plotter.load()
+
+	name = parent.sender().objectName()
+	if name == 'view_rapids_cb' and 'actionRapids' in parent.children:
+		parent.actionRapids.setChecked(parent.sender().isChecked())
+	if name == 'actionRapids' and 'view_rapids_cb' in parent.children:
+		parent.view_rapids_cb.setChecked(parent.sender().isChecked())
 
 def action_toggle_tool(parent):
 	if parent.sender().isChecked():
@@ -335,12 +383,24 @@ def action_toggle_tool(parent):
 		parent.plotter.show_tool = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_tool_cb' and 'actionTool' in parent.children:
+		parent.actionTool.setChecked(parent.sender().isChecked())
+	if name == 'actionTool' and 'view_tool_cb' in parent.children:
+		parent.view_tool_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_lathe_radius(parent):
 	if parent.sender().isChecked():
 		parent.plotter.show_lathe_radius = True
 	else:
 		parent.plotter.show_lathe_radius = False
 	parent.plotter.load()
+
+	name = parent.sender().objectName()
+	if name == 'view_lathe_radius_cb' and 'actionLathe_Radius' in parent.children:
+		parent.actionLathe_Radius.setChecked(parent.sender().isChecked())
+	if name == 'actionLathe_Radius' and 'view_lathe_radius_cb' in parent.children:
+		parent.view_lathe_radius_cb.setChecked(parent.sender().isChecked())
 
 def action_toggle_dtg(parent):
 	if parent.sender().isChecked():
@@ -349,6 +409,12 @@ def action_toggle_dtg(parent):
 		parent.plotter.show_dtg = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_dtg_cb' and 'actionDTG' in parent.children:
+		parent.actionDTG.setChecked(parent.sender().isChecked())
+	if name == 'actionDTG' and 'view_dtg_cb' in parent.children:
+		parent.view_dtg_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_offsets(parent):
 	if parent.sender().isChecked():
 		parent.plotter.show_offsets = True
@@ -356,12 +422,24 @@ def action_toggle_offsets(parent):
 		parent.plotter.show_offsets = False
 	parent.plotter.load()
 
+	name = parent.sender().objectName()
+	if name == 'view_offsets_cb' and 'actionOffsets' in parent.children:
+		parent.actionOffsets.setChecked(parent.sender().isChecked())
+	if name == 'actionOffsets' and 'view_offsets_cb' in parent.children:
+		parent.view_offsets_cb.setChecked(parent.sender().isChecked())
+
 def action_toggle_overlay(parent):
 	if parent.sender().isChecked():
 		parent.plotter.show_overlay = True
 	else:
 		parent.plotter.show_overlay = False
 	parent.plotter.load()
+
+	name = parent.sender().objectName()
+	if name == 'view_overlay_cb' and 'actionOverlay' in parent.children:
+		parent.actionOverlay.setChecked(parent.sender().isChecked())
+	if name == 'actionOverlay' and 'view_overlay_cb' in parent.children:
+		parent.view_overlay_cb.setChecked(parent.sender().isChecked())
 
 
 def action_show_hal(parent): # actionShow_HAL
