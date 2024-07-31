@@ -1052,6 +1052,7 @@ def setup_plot(parent):
 		'view_overlay_cb': 'action_toggle_overlay'
 	}
 
+	# <Tom_L> JT-Cave, if DRO isn't checked the other items should be greyed out FIXME
 	for key, value in view_actions.items():
 		if key in parent.children:
 			getattr(parent, key).toggled.connect(partial(getattr(actions, value), parent))
@@ -1074,7 +1075,8 @@ def setup_plot(parent):
 
 	for key, value in view_controls.items():
 		if key in parent.children:
-			getattr(parent, key).clicked.connect(partial(getattr(view, value), parent))
+			getattr(parent, key).pressed.connect(partial(getattr(view, value), parent))
+			getattr(parent, key).released.connect(partial(getattr(view, value), parent))
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()

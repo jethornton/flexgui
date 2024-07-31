@@ -1,7 +1,27 @@
-
+from PyQt6.QtCore import QTimer
 
 def view_rotate_up(parent): # rotateView(self,vertical=0,horizontal=0)
 	parent.plotter.rotateView(0, -2)
+	parent.plotter.update()
+
+	'''
+	def rotate_up():
+		print('here')
+
+	def timer_start():
+		timer.start(100)
+		timer.timeout.connect(rotate_up)
+
+	timer = QTimer()
+
+	if parent.sender().isDown():
+		print('down')
+		timer_start()
+	else:
+		print('up')
+		timer.stop()
+	'''
+
 
 def view_rotate_down(parent): # rotateView(self,vertical=0,horizontal=0)
 	parent.plotter.rotateView(0, 2)
