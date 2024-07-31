@@ -25,8 +25,6 @@ class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
-		self.settings = QSettings('JET', 'Flex GUI')
-
 		# get the path to the executable
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
@@ -83,6 +81,9 @@ class flexgui(QMainWindow):
 			self.ini_path = os.path.split(self.status.ini_filename)[0]
 
 		# get ini values if any
+		machine_name = self.inifile.find("EMC", "MACHINE") or "unknown"
+		self.settings = QSettings('Flex', machine_name)
+
 		gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
