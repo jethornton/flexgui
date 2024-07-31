@@ -243,7 +243,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.show_lathe_radius = False
 		self.show_dtg = False
 		self.grid_size = 0.0
-		self.show_offsets = True
+		self.show_offsets = False
 		self.show_overlay = False
 		self.use_relative = True
 
