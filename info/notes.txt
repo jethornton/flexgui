@@ -2,7 +2,7 @@ create a changelog file
 dch --create
 
 To change the version
-dch -v 0.9.4
+dch -v 0.9.5
 
 change to released Note: you must either change something or use Ctrl o to save.
 dch --release
@@ -12,6 +12,4 @@ debuild -us -uc
 Qt Info
 https://doc.qt.io/qt-6/qtwidgets-module.html
 
-so to recap I need checkable menu items for each setting, finish the checkboxes,
-read the ini to set some, save settings to the preference file and use that on
-startup
+so to recap I need read the ini to set some plot options
