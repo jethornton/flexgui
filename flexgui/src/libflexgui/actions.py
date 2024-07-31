@@ -478,9 +478,9 @@ def action_toggle_offsets(parent):
 
 def action_toggle_overlay(parent):
 	if parent.sender().isChecked():
-		parent.plotter.show_overlay = True
-	else:
 		parent.plotter.show_overlay = False
+	else:
+		parent.plotter.show_overlay = True
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
