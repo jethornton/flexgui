@@ -182,9 +182,6 @@
       <property name="title">
        <string>Programs</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
       <widget class="QPushButton" name="hal_scope_pb">
        <property name="geometry">
         <rect>
@@ -227,7 +224,7 @@
       <widget class="QLabel" name="label_20">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>165</x>
          <y>55</y>
          <width>21</width>
          <height>19</height>
@@ -240,7 +237,7 @@
       <widget class="QLabel" name="label_32">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>165</x>
          <y>125</y>
          <width>21</width>
          <height>19</height>
@@ -253,7 +250,7 @@
       <widget class="QLabel" name="label_33">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>165</x>
          <y>195</y>
          <width>21</width>
          <height>19</height>
@@ -276,14 +273,11 @@
       <property name="title">
        <string>Tool Table</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
       <widget class="QPushButton" name="edit_tool_table_pb">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>35</y>
+         <y>40</y>
          <width>146</width>
          <height>27</height>
         </rect>
@@ -296,7 +290,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>105</y>
+         <y>110</y>
          <width>146</width>
          <height>27</height>
         </rect>
@@ -309,7 +303,7 @@
        <property name="geometry">
         <rect>
          <x>165</x>
-         <y>55</y>
+         <y>60</y>
          <width>21</width>
          <height>19</height>
         </rect>
@@ -322,7 +316,7 @@
        <property name="geometry">
         <rect>
          <x>165</x>
-         <y>125</y>
+         <y>130</y>
          <width>21</width>
          <height>19</height>
         </rect>
@@ -368,7 +362,7 @@
        <string>Overrides</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
       <widget class="QLabel" name="feedrate_lb">
        <property name="geometry">
@@ -561,9 +555,6 @@
       </property>
       <property name="title">
        <string>Positions</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
       <widget class="QLabel" name="label_42">
        <property name="geometry">
@@ -1024,9 +1015,6 @@
       <property name="title">
        <string>Homing</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
       <widget class="QPushButton" name="unhome_pb_2">
        <property name="enabled">
         <bool>false</bool>
@@ -1165,9 +1153,6 @@
       <property name="title">
        <string>Coolant</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="1">
         <widget class="QPushButton" name="flood_pb">
@@ -1233,286 +1218,6 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_6">
-     <attribute name="title">
-      <string>Plotter</string>
-     </attribute>
-     <widget class="QCheckBox" name="view_inches_cb">
-      <property name="geometry">
-       <rect>
-        <x>560</x>
-        <y>315</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string> Inch</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QWidget" name="plot_widget" native="true">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>441</width>
-        <height>366</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="show_limits_cb">
-      <property name="geometry">
-       <rect>
-        <x>670</x>
-        <y>315</y>
-        <width>106</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Show Limits</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_10">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>0</y>
-        <width>166</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Pan</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <widget class="QPushButton" name="view_pan_up_pb">
-       <property name="geometry">
-        <rect>
-         <x>45</x>
-         <y>25</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>^</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_pan_left_pb">
-       <property name="geometry">
-        <rect>
-         <x>5</x>
-         <y>90</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>&lt;</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_pan_right_pb">
-       <property name="geometry">
-        <rect>
-         <x>85</x>
-         <y>90</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>&gt;</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_pan_down_pb">
-       <property name="geometry">
-        <rect>
-         <x>45</x>
-         <y>150</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>v</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_11">
-      <property name="geometry">
-       <rect>
-        <x>625</x>
-        <y>0</y>
-        <width>171</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Rotate</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <widget class="QPushButton" name="view_rotate_left_pb">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>90</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>&lt;</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_rotate_right_pb">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>90</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>&gt;</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_rotate_up_pb">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>30</y>
-         <width>66</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>^</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_rotate_down_pb">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>150</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>v</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_14">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>210</y>
-        <width>86</width>
-        <height>151</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Zoom</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <widget class="QPushButton" name="view_zoom_out_pb">
-       <property name="geometry">
-        <rect>
-         <x>5</x>
-         <y>25</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>OUT</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_zoom_in_pb">
-       <property name="geometry">
-        <rect>
-         <x>5</x>
-         <y>85</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>IN</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_16">
-      <property name="geometry">
-       <rect>
-        <x>545</x>
-        <y>210</y>
-        <width>251</width>
-        <height>86</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Controls</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <widget class="QPushButton" name="view_clear_pb">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>25</y>
-         <width>66</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>CLEAR</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_p_pb">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>25</y>
-         <width>66</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>P</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="view_x_pb">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>25</y>
-         <width>66</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>X</string>
-       </property>
-      </widget>
-     </widget>
-    </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
       <string>Touchoff - MDI</string>
@@ -1528,9 +1233,6 @@
       </property>
       <property name="title">
        <string>Tool Setting</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
       <widget class="QComboBox" name="tool_change_cb">
        <property name="geometry">
@@ -1729,7 +1431,7 @@
        <string>Coordinate System</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
       <widget class="QDoubleSpinBox" name="touchoff_dsb">
        <property name="geometry">
@@ -1874,7 +1576,7 @@
          <x>15</x>
          <y>25</y>
          <width>86</width>
-         <height>216</height>
+         <height>211</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -1945,7 +1647,7 @@
          <x>105</x>
          <y>50</y>
          <width>86</width>
-         <height>191</height>
+         <height>186</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -2217,9 +1919,6 @@
       <property name="title">
        <string>Jogging</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
       <widget class="QPushButton" name="jog_plus_pb_2">
        <property name="geometry">
         <rect>
@@ -2447,7 +2146,7 @@
        <string>Spindle</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
       <widget class="QPushButton" name="spindle_plus_pb">
        <property name="geometry">
@@ -2645,14 +2344,11 @@
         <x>5</x>
         <y>5</y>
         <width>381</width>
-        <height>341</height>
+        <height>361</height>
        </rect>
       </property>
       <property name="title">
        <string>Errors</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
       <widget class="QPushButton" name="clear_error_history_pb">
        <property name="geometry">
@@ -2681,8 +2377,8 @@
      <widget class="QFrame" name="frame_6">
       <property name="geometry">
        <rect>
-        <x>570</x>
-        <y>5</y>
+        <x>580</x>
+        <y>30</y>
         <width>191</width>
         <height>291</height>
        </rect>
@@ -2822,9 +2518,6 @@
       </property>
       <property name="title">
        <string>Current Active Codes</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
       <widget class="QLabel" name="gcodes_lb">
        <property name="geometry">

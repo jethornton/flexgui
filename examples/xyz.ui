@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>850</width>
-    <height>656</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -245,24 +245,132 @@
          <widget class="QFrame" name="plot_widget"/>
         </item>
         <item row="1" column="1">
-         <widget class="QFrame" name="frame_6">
+         <widget class="QGroupBox" name="groupBox_20">
           <property name="maximumSize">
            <size>
-            <width>100</width>
+            <width>170</width>
             <height>16777215</height>
            </size>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+          <property name="title">
+           <string>DRO</string>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+          <layout class="QGridLayout" name="gridLayout_39">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="view_dro_cb">
+             <property name="text">
+              <string>View DRO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QCheckBox" name="view_lathe_radius_cb">
+             <property name="text">
+              <string>View Lathe Radius</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="view_offsets_cb">
+             <property name="text">
+              <string>View Offsets</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="view_dtg_cb">
+             <property name="text">
+              <string>View DTG</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="view_velocity_cb">
+             <property name="text">
+              <string>View Velocity</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QCheckBox" name="view_overlay_cb">
+             <property name="text">
+              <string>View Overlay</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Program</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_33">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="load_plot_pb">
+           <item row="8" column="0">
+            <widget class="QCheckBox" name="view_tool_cb">
              <property name="text">
-              <string>Load</string>
+              <string>View Tool</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QCheckBox" name="view_rapids_cb">
+             <property name="text">
+              <string>View Rapids</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="view_live_plot_cb">
+             <property name="text">
+              <string>View Live Plot</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="view_limits_cb">
+             <property name="text">
+              <string>View Limits</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QCheckBox" name="view_program_cb">
+             <property name="text">
+              <string>View Program</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="view_extents_option_cb">
+             <property name="text">
+              <string>View Ext Option</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QCheckBox" name="view_metric_units_cb">
+             <property name="text">
+              <string>View Metric Units</string>
              </property>
             </widget>
            </item>
@@ -2305,8 +2413,27 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionDRO"/>
+    <addaction name="actionLimits"/>
+    <addaction name="actionExtents_Option"/>
+    <addaction name="actionLive_Plot"/>
+    <addaction name="actionVelocity"/>
+    <addaction name="actionMetric_Units"/>
+    <addaction name="actionProgram"/>
+    <addaction name="actionRapids"/>
+    <addaction name="actionTool"/>
+    <addaction name="actionLathe_Radius"/>
+    <addaction name="actionDTG"/>
+    <addaction name="actionOffsets"/>
+    <addaction name="actionOverlay"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuMachine"/>
+   <addaction name="menuView"/>
    <addaction name="menuProgams"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -2449,6 +2576,71 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionDRO">
+   <property name="text">
+    <string>DRO</string>
+   </property>
+  </action>
+  <action name="actionLimits">
+   <property name="text">
+    <string>Limits</string>
+   </property>
+  </action>
+  <action name="actionExtents_Option">
+   <property name="text">
+    <string>Extents Option</string>
+   </property>
+  </action>
+  <action name="actionLive_Plot">
+   <property name="text">
+    <string>Live Plot</string>
+   </property>
+  </action>
+  <action name="actionVelocity">
+   <property name="text">
+    <string>Velocity</string>
+   </property>
+  </action>
+  <action name="actionMetric_Units">
+   <property name="text">
+    <string>Metric Units</string>
+   </property>
+  </action>
+  <action name="actionProgram">
+   <property name="text">
+    <string>Program</string>
+   </property>
+  </action>
+  <action name="actionRapids">
+   <property name="text">
+    <string>Rapids</string>
+   </property>
+  </action>
+  <action name="actionTool">
+   <property name="text">
+    <string>Tool</string>
+   </property>
+  </action>
+  <action name="actionLathe_Radius">
+   <property name="text">
+    <string>Lathe Radius</string>
+   </property>
+  </action>
+  <action name="actionDTG">
+   <property name="text">
+    <string>DTG</string>
+   </property>
+  </action>
+  <action name="actionOffsets">
+   <property name="text">
+    <string>Offsets</string>
+   </property>
+  </action>
+  <action name="actionOverlay">
+   <property name="text">
+    <string>Overlay</string>
    </property>
   </action>
  </widget>
