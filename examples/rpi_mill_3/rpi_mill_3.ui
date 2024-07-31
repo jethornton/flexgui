@@ -3544,17 +3544,11 @@
    </property>
   </action>
   <action name="actionDRO">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>DRO</string>
    </property>
   </action>
   <action name="actionLimits">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="checked">
     <bool>false</bool>
    </property>
@@ -3563,9 +3557,6 @@
    </property>
   </action>
   <action name="actionExtents_Option">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="checked">
     <bool>false</bool>
    </property>
@@ -3574,73 +3565,46 @@
    </property>
   </action>
   <action name="actionLive_Plot">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Live Plot</string>
    </property>
   </action>
   <action name="actionVelocity">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Velocity</string>
    </property>
   </action>
   <action name="actionMetric_Units">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Metric Units</string>
    </property>
   </action>
   <action name="actionProgram">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Program</string>
    </property>
   </action>
   <action name="actionRapids">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Rapids</string>
    </property>
   </action>
   <action name="actionTool">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Tool</string>
    </property>
   </action>
   <action name="actionDTG">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>DTG</string>
    </property>
   </action>
   <action name="actionOffsets">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Offsets</string>
    </property>
   </action>
   <action name="actionOverlay">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Overlay</string>
    </property>
