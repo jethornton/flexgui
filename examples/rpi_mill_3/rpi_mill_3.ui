@@ -2872,7 +2872,7 @@
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>56</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2885,7 +2885,7 @@
        <rect>
         <x>40</x>
         <y>110</y>
-        <width>71</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2899,9 +2899,9 @@
      <widget class="QCheckBox" name="view_tool_cb">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>160</x>
         <y>110</y>
-        <width>71</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2915,9 +2915,9 @@
      <widget class="QCheckBox" name="view_dtg_cb">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>160</x>
         <y>155</y>
-        <width>56</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2925,7 +2925,7 @@
        <string>DTG</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="view_limits_cb">
@@ -2933,7 +2933,7 @@
        <rect>
         <x>40</x>
         <y>65</y>
-        <width>71</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2941,7 +2941,7 @@
        <string>Limits</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="view_live_plot_cb">
@@ -2965,7 +2965,7 @@
        <rect>
         <x>40</x>
         <y>245</y>
-        <width>71</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2979,9 +2979,9 @@
      <widget class="QCheckBox" name="view_offsets_cb">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>160</x>
         <y>200</y>
-        <width>76</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -2989,15 +2989,15 @@
        <string>Offsets</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="view_overlay_cb">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>160</x>
         <y>245</y>
-        <width>71</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -3013,7 +3013,7 @@
        <rect>
         <x>40</x>
         <y>200</y>
-        <width>76</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
@@ -3021,13 +3021,13 @@
        <string>Velocity</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="view_program_cb">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>160</x>
         <y>20</y>
         <width>81</width>
         <height>25</height>
@@ -3043,9 +3043,9 @@
      <widget class="QCheckBox" name="view_rapids_cb">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>160</x>
         <y>65</y>
-        <width>71</width>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
