@@ -1,3 +1,9 @@
+flexgui (0.9.5) unstable; urgency=medium
+
+  * Get preferences workging for plot widget
+
+ -- John Thornton <dev@gnipsel.com>  Wed, 31 Jul 2024 08:19:21 -0500
+
 flexgui (0.9.4) unstable; urgency=medium
 
   * Add plot widget
