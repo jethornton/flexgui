@@ -213,7 +213,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="gcode_tab">
      <attribute name="title">
@@ -1667,7 +1667,7 @@
         <x>640</x>
         <y>210</y>
         <width>251</width>
-        <height>66</height>
+        <height>151</height>
        </rect>
       </property>
       <property name="title">
@@ -1699,7 +1699,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>P</string>
+        <string>View P</string>
        </property>
       </widget>
       <widget class="QPushButton" name="view_x_pb">
@@ -1712,198 +1712,61 @@
         </rect>
        </property>
        <property name="text">
-        <string>X</string>
+        <string>View X</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QCheckBox" name="view_rapids_cb">
-      <property name="geometry">
-       <rect>
-        <x>780</x>
-        <y>305</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Rapids</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_offsets_cb">
-      <property name="geometry">
-       <rect>
-        <x>780</x>
-        <y>365</y>
-        <width>76</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Offsets</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_dro_cb">
-      <property name="geometry">
-       <rect>
-        <x>685</x>
-        <y>285</y>
-        <width>56</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>DRO</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_dtg_cb">
-      <property name="geometry">
-       <rect>
-        <x>780</x>
-        <y>345</y>
-        <width>56</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>DTG</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_velocity_cb">
-      <property name="geometry">
-       <rect>
-        <x>685</x>
-        <y>365</y>
-        <width>76</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Velocity</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_program_cb">
-      <property name="geometry">
-       <rect>
-        <x>780</x>
-        <y>285</y>
-        <width>81</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Program</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_live_plot_cb">
-      <property name="geometry">
-       <rect>
-        <x>685</x>
-        <y>345</y>
-        <width>81</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Live Plot</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_tool_cb">
-      <property name="geometry">
-       <rect>
-        <x>780</x>
-        <y>325</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Tool</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_metric_units_cb">
-      <property name="geometry">
-       <rect>
-        <x>685</x>
-        <y>385</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Metric</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_limits_cb">
-      <property name="geometry">
-       <rect>
-        <x>685</x>
-        <y>305</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Limits</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_overlay_cb">
-      <property name="geometry">
-       <rect>
-        <x>780</x>
-        <y>385</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Overlay</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="view_extents_option_cb">
-      <property name="geometry">
-       <rect>
-        <x>685</x>
-        <y>325</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Extents</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
+      <widget class="QPushButton" name="view_y_pb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>65</y>
+         <width>66</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Y</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_y2_pb">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>65</y>
+         <width>66</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Y2</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_z_pb">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>105</y>
+         <width>66</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Z</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_z2_pb">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>105</y>
+         <width>66</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Z2</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -2743,6 +2606,218 @@
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Plot Options</string>
+     </attribute>
+     <widget class="QCheckBox" name="view_limits_cb">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>75</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Limits</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_rapids_cb">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>75</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Rapids</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_extents_option_cb">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>120</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extents</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_velocity_cb">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>210</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_dro_cb">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>30</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DRO</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_live_plot_cb">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>165</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Live Plot</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_overlay_cb">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>255</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Overlay</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_tool_cb">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>120</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Tool</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_dtg_cb">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>165</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DTG</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_program_cb">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>30</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Program</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_metric_units_cb">
+      <property name="geometry">
+       <rect>
+        <x>55</x>
+        <y>255</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Metric</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="view_offsets_cb">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>210</y>
+        <width>81</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Offsets</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
      </widget>
     </widget>
    </widget>
