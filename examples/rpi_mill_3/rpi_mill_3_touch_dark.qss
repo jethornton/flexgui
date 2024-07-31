@@ -83,22 +83,7 @@ QPlainTextEdit {
 QListWidget {
     border: 1px solid gray;
     border-radius: 3px;
-	}
-	
-QCheckBox {
-	background-color: rgba(192, 192, 192, 50%);
-    border: 1px solid white;
-	color: black;
-	}
-QCheckBox:hover {
-	background-color: rgba(0, 192, 0, 40%); color: white;
-	}
 
-QGroupBox {
-    border: 1px solid gray;
-    /* border-radius: 3px; */
-	color: white
-	/* color: darkgrey */
 	}
 
 QLineEdit{
