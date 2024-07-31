@@ -1389,7 +1389,7 @@
         <x>460</x>
         <y>195</y>
         <width>86</width>
-        <height>151</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="title">
@@ -1431,7 +1431,7 @@
         <x>545</x>
         <y>195</y>
         <width>251</width>
-        <height>86</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="title">
@@ -1440,17 +1440,17 @@
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <widget class="QPushButton" name="view_clear_pb">
+      <widget class="QPushButton" name="view_z2_pb">
        <property name="geometry">
         <rect>
-         <x>175</x>
-         <y>25</y>
-         <width>71</width>
+         <x>80</x>
+         <y>115</y>
+         <width>81</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>CLEAR</string>
+        <string>View Z2</string>
        </property>
       </widget>
       <widget class="QPushButton" name="view_p_pb">
@@ -1463,20 +1463,72 @@
         </rect>
        </property>
        <property name="text">
-        <string>P</string>
+        <string>View P</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_y2_pb">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>70</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Y2</string>
        </property>
       </widget>
       <widget class="QPushButton" name="view_x_pb">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>80</x>
          <y>25</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View X</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_z_pb">
+       <property name="geometry">
+        <rect>
+         <x>5</x>
+         <y>115</y>
          <width>71</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>X</string>
+        <string>View Z</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_y_pb">
+       <property name="geometry">
+        <rect>
+         <x>5</x>
+         <y>70</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Y</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="view_clear_pb">
+       <property name="geometry">
+        <rect>
+         <x>165</x>
+         <y>25</y>
+         <width>76</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CLEAR</string>
        </property>
       </widget>
      </widget>
@@ -2908,6 +2960,9 @@
       <property name="text">
        <string>Tool</string>
       </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
       <property name="checked">
        <bool>false</bool>
       </property>
@@ -2923,6 +2978,9 @@
       </property>
       <property name="text">
        <string>DTG</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
       </property>
       <property name="checked">
        <bool>false</bool>
@@ -2988,6 +3046,9 @@
       <property name="text">
        <string>Offsets</string>
       </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
       <property name="checked">
        <bool>false</bool>
       </property>
@@ -3003,6 +3064,9 @@
       </property>
       <property name="text">
        <string>Overlay</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
       </property>
       <property name="checked">
        <bool>false</bool>
@@ -3036,6 +3100,9 @@
       <property name="text">
        <string>Program</string>
       </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
       <property name="checked">
        <bool>false</bool>
       </property>
@@ -3051,6 +3118,9 @@
       </property>
       <property name="text">
        <string>Rapids</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
       </property>
       <property name="checked">
        <bool>false</bool>
