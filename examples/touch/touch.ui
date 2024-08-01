@@ -86,7 +86,7 @@
     <item row="3" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -424,7 +424,7 @@
         <item row="0" column="0" rowspan="2">
          <widget class="QTabWidget" name="tabWidget_2">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_8">
            <attribute name="title">
@@ -454,14 +454,14 @@
                <string>Plot</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_26">
-               <item row="0" column="0">
-                <widget class="QCheckBox" name="show_limits_cb">
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="view_limits_cb">
                  <property name="text">
                   <string>Show Limits</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
+               <item row="5" column="0">
                 <spacer name="verticalSpacer_3">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -474,10 +474,24 @@
                  </property>
                 </spacer>
                </item>
-               <item row="1" column="0">
-                <widget class="QCheckBox" name="view_inches_cb">
+               <item row="3" column="0">
+                <widget class="QCheckBox" name="view_extents_option_cb">
                  <property name="text">
-                  <string>Use Inches</string>
+                  <string>Show Extents</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QCheckBox" name="view_metric_units_cb">
+                 <property name="text">
+                  <string>Use Metric</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QCheckBox" name="view_tool_cb">
+                 <property name="text">
+                  <string>Show Tool</string>
                  </property>
                 </widget>
                </item>
@@ -554,13 +568,13 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_27">
                <item row="0" column="0">
-                <widget class="QCheckBox" name="checkBox">
+                <widget class="QCheckBox" name="view_program_cb">
                  <property name="text">
-                  <string>Show Rapids</string>
+                  <string>Show Program</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item row="3" column="0">
                 <spacer name="verticalSpacer_4">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -572,6 +586,20 @@
                   </size>
                  </property>
                 </spacer>
+               </item>
+               <item row="2" column="0">
+                <widget class="QCheckBox" name="view_rapids_cb">
+                 <property name="text">
+                  <string>Show Rapids</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="view_live_plot_cb">
+                 <property name="text">
+                  <string>Show Live Plot</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
