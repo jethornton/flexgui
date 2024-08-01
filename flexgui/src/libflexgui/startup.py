@@ -363,6 +363,8 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'feed_override_pb' in parent.children:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
+	# zero axis button setup
+
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
 	# FIXME add touchoff_le and tool_touchoff_le for touch screens
