@@ -15,9 +15,6 @@ def load_file(parent, gcode_file):
 	parent.command.wait_complete()
 	if 'plot_widget' in parent.children:
 		parent.plotter.clear_live_plotter()
-	if utilities.all_homed(parent): # FIXME maybe you don't need to be homed to edit
-		for item in parent.file_edit_items:
-			getattr(parent, item).setEnabled(True)
 
 	text = open(gcode_file).read()
 	if 'gcode_pte' in parent.children:
@@ -27,7 +24,7 @@ def load_file(parent, gcode_file):
 		parent.file_lb.setText(base)
 
 	# update controls
-	for item in parent.file_edit_items: # FIXME this is a duplicate of above...
+	for item in parent.file_edit_items:
 		getattr(parent, item).setEnabled(True)
 	if 'start_line_lb' in parent.children:
 		parent.start_line_lb.setText('0')
