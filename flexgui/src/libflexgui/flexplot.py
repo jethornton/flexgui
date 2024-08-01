@@ -3,10 +3,8 @@
 #import sys
 #import math
 
-#from PyQt6.QtCore import pyqtProperty, pyqtSignal, QSize, Qt, QTimer
 from PyQt6.QtCore import pyqtSignal, pyqtSignal, QSize, Qt, QTimer
 from PyQt6.QtGui import QColor
-#from PyQt6.QtWidgets import QApplication, QHBoxLayout, QSlider, QWidget
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 from OpenGL import GL
@@ -26,66 +24,6 @@ import tempfile
 import shutil
 import os
 
-#from qtvcp.widgets.fake_status import fakeStatus
-'''
-###################################
-# For stand alone window
-###################################
-class Window(QWidget):
-	def __init__(self, inifile):
-		super(Window, self).__init__()
-		self.glWidget = emc_plot()
-
-		self.xSlider = self.createSlider()
-		self.ySlider = self.createSlider()
-		self.zSlider = self.createSlider()
-		self.zoomSlider = self.createZoomSlider()
-
-		self.xSlider.valueChanged.connect(self.glWidget.setXRotation)
-		self.glWidget.xRotationChanged.connect(self.xSlider.setValue)
-		self.ySlider.valueChanged.connect(self.glWidget.setYRotation)
-		self.glWidget.yRotationChanged.connect(self.ySlider.setValue)
-		self.zSlider.valueChanged.connect(self.glWidget.setZRotation)
-		self.glWidget.zRotationChanged.connect(self.zSlider.setValue)
-		self.zoomSlider.valueChanged.connect(self.glWidget.setZoom)
-
-		mainLayout = QHBoxLayout()
-		mainLayout.addWidget(self.glWidget)
-		mainLayout.addWidget(self.xSlider)
-		mainLayout.addWidget(self.ySlider)
-		mainLayout.addWidget(self.zSlider)
-		mainLayout.addWidget(self.zoomSlider)
-		self.setLayout(mainLayout)
-
-		self.xSlider.setValue(15 * 16)
-		self.ySlider.setValue(345 * 16)
-		self.zSlider.setValue(0 * 16)
-		self.zSlider.setValue(10)
-
-		self.setWindowTitle("Hello GL")
-
-	def createSlider(self):
-		slider = QSlider(Qt.Orientation.Vertical)
-
-		slider.setRange(0, 360 * 16)
-		slider.setSingleStep(16)
-		slider.setPageStep(15 * 16)
-		slider.setTickInterval(15 * 16)
-		slider.setTickPosition(QSlider.TickPosition.TicksRight)
-
-		return slider
-
-	def createZoomSlider(self):
-		slider = QSlider(Qt.Orientation.Vertical)
-
-		slider.setRange(1, 1000000)
-		slider.setSingleStep(1)
-		slider.setPageStep(10)
-		slider.setTickInterval(10)
-		slider.setTickPosition(QSlider.TickPosition.TicksRight)
-
-		return slider
-'''
 #################
 # Helper class
 #################
@@ -1077,7 +1015,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			# zoom
 			elif ((b & self._buttonList[1]) and m == 0) or m == 3:
 				self.continueZoom(event.pos().y())
-					
+
 
 	def user_plot(self):
 		pass
@@ -1142,141 +1080,4 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.set_zoom_distance(z)
 		self.panView(x, y)
 		self.set_viewangle(lat, lon)
-
-	'''
-	############################################################
-	# display for when linuxcnc isn't runnimg - forQTDesigner
-	############################################################
-	def makeObject(self):
-		genList = GL.glGenLists(1)
-		GL.glNewList(genList, GL.GL_COMPILE)
-
-		GL.glBegin(GL.GL_QUADS)
-		factor = 4
-		# Make a tee section
-		x1 = +0.06 * factor
-		y1 = -0.14 * factor
-		x2 = +0.14 * factor
-		y2 = -0.06 * factor
-		x3 = +0.08 * factor
-		y3 = +0.00 * factor
-		x4 = +0.30 * factor
-		y4 = +0.22 * factor
-
-		# cross
-		self.quad(x1, y1, x2, y2, y2, x2, y1, x1, z= .05, color = self.Green)
-		# vertical line
-		self.quad(x3, y3, x4, y4, y4, x4, y3, x3, z= .05, color = self.Green)
-
-		# cross depth
-		self.extrude(x1, y1, x2, y2, z= .05, color = self.Green)
-		self.extrude(x2, y2, y2, x2, z= .05, color = self.Green)
-		self.extrude(y2, x2, y1, x1, z= .05, color = self.Green)
-		self.extrude(y1, x1, x1, y1, z= .05, color = self.Green)
-
-		# vertical depth
-		self.extrude(x3, y3, x4, y4, z= .05, color = self.Green)
-		self.extrude(x4, y4, y4, x4, z= .05, color = self.Green)
-		self.extrude(y4, x4, y3, x3, z= .05, color = self.Green)
-
-		NumSectors = 200
-
-		# Make a circle
-		for i in range(NumSectors):
-			angle1 = (i * 2 * math.pi) / NumSectors
-			x5 = 0.30 * math.sin(angle1) * factor
-			y5 = 0.30 * math.cos(angle1) * factor
-			x6 = 0.20 * math.sin(angle1) * factor
-			y6 = 0.20 * math.cos(angle1) * factor
-
-			angle2 = ((i + 1) * 2 * math.pi) / NumSectors
-			x7 = 0.20 * math.sin(angle2) * factor
-			y7 = 0.20 * math.cos(angle2) * factor
-			x8 = 0.30 * math.sin(angle2) * factor
-			y8 = 0.30 * math.cos(angle2) * factor
-
-			self.quad(x5, y5, x6, y6, x7, y7, x8, y8, z= .05, color = self.Green)
-
-			self.extrude(x6, y6, x7, y7, z= .05, color = self.Green)
-			self.extrude(x8, y8, x5, y5, z= .05, color = self.Green)
-
-		GL.glEnd()
-		GL.glEndList()
-
-		return genList
-
-	def quad(self, x1, y1, x2, y2, x3, y3, x4, y4, z, color):
-		self.qglColor(color)
-
-		GL.glVertex3d(x1, y1, -z)
-		GL.glVertex3d(x2, y2, -z)
-		GL.glVertex3d(x3, y3, -z)
-		GL.glVertex3d(x4, y4, -z)
-
-		GL.glVertex3d(x4, y4, +z)
-		GL.glVertex3d(x3, y3, +z)
-		GL.glVertex3d(x2, y2, +z)
-		GL.glVertex3d(x1, y1, +z)
-
-	def lathe_quad(self, x1, x2, x3, x4, z1, z2, z3, z4, color):
-		self.qglColor(color)
-
-		GL.glVertex3d(x1, 0, z1)
-		GL.glVertex3d(x2, 0, z2)
-		GL.glVertex3d(x3, 0, z3)
-		GL.glVertex3d(x4, 0, z4)
-
-		# defeat back face cull
-		GL.glVertex3d(x4, 0, z4)
-		GL.glVertex3d(x3, 0, z3)
-		GL.glVertex3d(x2, 0, z2)
-		GL.glVertex3d(x1, 0, z1)
-
-	def extrude(self, x1, y1, x2, y2, z, color):
-		self.qglColor(color)
-
-		GL.glVertex3d(x1, y1, +z)
-		GL.glVertex3d(x2, y2, +z)
-		GL.glVertex3d(x2, y2, -z)
-		GL.glVertex3d(x1, y1, -z)
-
-#############
-# QProperties
-#############
-	def setfont(self, font):
-		self._font = font
-		self.set_font()
-	def getfont(self):
-		return self._font
-	def resetfont(self):
-		self._font = 'monospace bold 16'
-	dro_font = pyqtProperty(str, getfont, setfont, resetfont)
-
-	def setfontlarge(self, font):
-		self._fontLarge = font
-		self.set_font()
-	def getfontlarge(self):
-		return self._fontLarge
-	def resetfontlarge(self):
-		self._fontLarge = 'monospace bold 22'
-	dro_large_font = pyqtProperty(str, getfontlarge, setfontlarge, resetfontlarge)
-
-
-###########
-# Testing
-###########
-if __name__ == '__main__':
-
-	app = QApplication(sys.argv)
-	if len(sys.argv) == 1:
-		inifilename = None
-	elif len(sys.argv) == 2:
-		inifilename = sys.argv[1]
-	else:
-		usage()
-	
-	window = Window(inifilename)
-	window.show()
-	sys.exit(app.exec())
-'''
 
