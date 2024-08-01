@@ -138,27 +138,19 @@ def select_editor(parent, gcode_file):
 			subprocess.Popen([editor, gcode_file])
 
 def action_reload(parent): # actionReload
-	parent.status.poll
+	parent.status.poll()
 	gcode_file = parent.status.file or False
 	if gcode_file:
-		parent.status.poll()
-		if len(parent.status.file) > 0:
-			if parent.status.task_mode != emc.MODE_MANUAL:
-				parent.command.mode(emc.MODE_MANUAL)
-				parent.command.wait_complete()
-			gcode_file = parent.status.file 
-			# Force a sync of the interpreter, which writes out the var file.
-			parent.command.task_plan_synch()
+		print(gcode_file)
+		if parent.status.task_mode != emc.MODE_MANUAL:
+			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
-			parent.command.program_open(gcode_file)
 		parent.command.program_open(gcode_file)
-		text = open(gcode_file).read()
-	if 'gcode_pte' in parent.children:
-		parent.gcode_pte.setPlainText(text)
-
-	else:
-		msg = ('No File is open to reload')
-		response = dialogs.warn_msg_ok(msg, 'Error')
+		if 'plot_widget' in parent.children:
+			parent.plotter.clear_live_plotter()
+		if 'gcode_pte' in parent.children:
+			with open(gcode_file) as f:
+				parent.gcode_pte.setPlainText(f.read())
 
 def action_save_as(parent): # actionSave_As
 	current_gcode_file = parent.status.file or False
