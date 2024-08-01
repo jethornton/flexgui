@@ -184,8 +184,8 @@ def setup_enables(parent):
 	# run controls used to enable/disable when not running a program
 	# FIXME this is broken and needs more thought
 	run_items = ['open_pb', 'run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
-	'reload_pb', 'actionOpen', 'actionReload', 'actionRun', 'actionRun_From_Line',
-	'actionStep', 'tool_change_pb', 'flood_pb', 'mist_pb']
+	'reload_pb', 'actionOpen', 'menuRecent', 'actionReload', 'actionRun',
+	'actionRun_From_Line', 'actionStep', 'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
 	for item in AXES: # FIXME this needs to be in tool setup as well well maybe not...
@@ -218,7 +218,7 @@ def setup_enables(parent):
 			'step_pb': False, 'pause_pb': True,
 			'resume_pb': False, 'run_mdi_pb': False,
 			'home_all_pb': False,'actionRun': False,
-			'actionOpen': False, 'actionReload': False,
+			'actionOpen': False, 'menuRecent': False, 'actionReload': False,
 			'actionRun_From_Line': False, 'actionStep': False,
 			'actionPause': True, 'actionResume': False,
 			'unhome_all_pb': False, 'spindle_start_pb': False,
@@ -766,6 +766,8 @@ def setup_mdi(parent):
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)
+	parent.menuRecent.setObjectName('menuRecent')
+	parent.children.append('menuRecent')
 	menu_items = parent.findChildren(QAction)
 	open_found = False
 	for action in menu_items:
