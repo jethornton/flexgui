@@ -13,6 +13,8 @@ from libflexgui import select
 def load_file(parent, gcode_file):
 	parent.command.program_open(gcode_file)
 	parent.command.wait_complete()
+	if 'plot_widget' in parent.children:
+		parent.plotter.clear_live_plotter()
 	if utilities.all_homed(parent): # FIXME maybe you don't need to be homed to edit
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(True)
