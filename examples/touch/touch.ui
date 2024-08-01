@@ -675,27 +675,48 @@
            </size>
           </property>
           <property name="title">
-           <string>Controls</string>
+           <string>Views</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_22">
-           <item row="0" column="1">
-            <widget class="QPushButton" name="view_p_pb">
+           <item row="3" column="1">
+            <widget class="QPushButton" name="view_z2_pb">
              <property name="text">
-              <string>P</string>
+              <string>Z2</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="2" column="1">
+            <widget class="QPushButton" name="view_y2_pb">
+             <property name="text">
+              <string>Y2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="view_z_pb">
+             <property name="text">
+              <string>Z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="view_y_pb">
+             <property name="text">
+              <string>Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
             <widget class="QPushButton" name="view_x_pb">
              <property name="text">
               <string>X</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="view_clear_pb">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="view_p_pb">
              <property name="text">
-              <string>Clear</string>
+              <string>P</string>
              </property>
             </widget>
            </item>
@@ -719,6 +740,13 @@
             <widget class="QPushButton" name="view_zoom_in_pb">
              <property name="text">
               <string>In</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="view_clear_pb">
+             <property name="text">
+              <string>Clear</string>
              </property>
             </widget>
            </item>
