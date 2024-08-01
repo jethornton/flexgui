@@ -1059,6 +1059,7 @@ def setup_plot(parent):
 			checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
 			getattr(parent, key).setChecked(checked)
 
+	'''
 	view_controls = {
 		'view_rotate_up_pb': 'view_rotate_up',
 		'view_rotate_down_pb': 'view_rotate_down',
@@ -1077,6 +1078,53 @@ def setup_plot(parent):
 		if key in parent.children:
 			getattr(parent, key).pressed.connect(partial(getattr(view, value), parent))
 			getattr(parent, key).released.connect(partial(getattr(view, value), parent))
+	'''
+
+	view_controls = {
+		'view_rotate_up_pb': ('rotateView', 0, -10),
+		'view_rotate_down_pb': ('rotateView', 0, 10),
+		'view_rotate_left_pb': ('rotateView', 10, 0),
+		'view_rotate_right_pb': ('rotateView', -10, 0),
+		'view_pan_up_pb': ('panView', 0, 10),
+		'view_pan_down_pb': ('panView', 0, -10),
+		'view_pan_left_pb': ('panView', 10, 0),
+		'view_pan_right_pb': ('panView', -10, 0),
+		'view_zoom_in_pb': ('zoomin',),
+		'view_zoom_out_pb': ('zoomout',),
+		'view_clear_pb': ('clear_live_plotter',)
+	}
+
+	for key, value in view_controls.items():
+		if key in parent.children:
+			button = getattr(parent, key)
+			if len(value) == 3:
+				method, vertical, horizontal = value
+				button.clicked.connect(lambda _, m=method, v=vertical, h=horizontal: (
+					getattr(parent.plotter, m)(vertical=v, horizontal=h)
+				))
+			elif len(value) == 1:
+				method = value[0]
+				button.clicked.connect(lambda _, m=method: (
+					getattr(parent.plotter, m)()
+				))
+			
+	views = {
+		'view_p_pb': 'p',
+		'view_x_pb': 'x',
+		'view_y_pb': 'y',
+		'view_y2_pb': 'y2',
+		'view_z_pb': 'z',
+		'view_z2_pb': 'z2'
+	}
+
+	for key, value in views.items():
+		if key in parent.children:
+			button = getattr(parent, key)
+			button.clicked.connect(lambda _, v=value: (
+				parent.plotter.makeCurrent(),
+				setattr(parent.plotter, 'current_view', v),
+				parent.plotter.set_current_view()
+			))
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
