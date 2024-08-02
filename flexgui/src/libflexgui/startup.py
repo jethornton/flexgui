@@ -83,9 +83,10 @@ def setup_enables(parent):
 		parent.state_estop[f'unhome_pb_{i}'] = False
 		parent.state_estop[f'jog_plus_pb_{i}'] = False
 		parent.state_estop[f'jog_minus_pb_{i}'] = False
-	for item in AXES:
-		parent.state_estop[f'touchoff_pb_{item}'] = False
-		parent.state_estop[f'tool_touchoff_{item}'] = False
+	for axis in AXES:
+		parent.state_estop[f'touchoff_pb_{axis}'] = False
+		parent.state_estop[f'tool_touchoff_{axis}'] = False
+		parent.state_estop[f'zero_{axis}_pb'] =  False
 	for i in range(100):
 		parent.state_estop[f'tool_change_pb_{i}'] = False
 	for i in range(1, 10):
@@ -369,6 +370,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.children:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.zero_axis, parent, axis.upper()))
+			parent.home_required.append(name)
 
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
@@ -1090,14 +1092,14 @@ def setup_plot(parent):
 	'''
 
 	view_controls = {
-		'view_rotate_up_pb': ('rotateView', 0, -10),
-		'view_rotate_down_pb': ('rotateView', 0, 10),
-		'view_rotate_left_pb': ('rotateView', 10, 0),
-		'view_rotate_right_pb': ('rotateView', -10, 0),
-		'view_pan_up_pb': ('panView', 0, -10),
-		'view_pan_down_pb': ('panView', 0, 10),
-		'view_pan_left_pb': ('panView', -10, 0),
-		'view_pan_right_pb': ('panView', 10, 0),
+		'view_rotate_up_pb': ('rotateView', 0, -2),
+		'view_rotate_down_pb': ('rotateView', 0, 2),
+		'view_rotate_left_pb': ('rotateView', 2, 0),
+		'view_rotate_right_pb': ('rotateView', -2, 0),
+		'view_pan_up_pb': ('panView', 0, -2),
+		'view_pan_down_pb': ('panView', 0, 2),
+		'view_pan_left_pb': ('panView', -2, 0),
+		'view_pan_right_pb': ('panView', 2, 0),
 		'view_zoom_in_pb': ('zoomin',),
 		'view_zoom_out_pb': ('zoomout',),
 		'view_clear_pb': ('clear_live_plotter',)
