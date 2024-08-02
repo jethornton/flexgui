@@ -1092,14 +1092,14 @@ def setup_plot(parent):
 	'''
 
 	view_controls = {
-		'view_rotate_up_pb': ('rotateView', 0, -2),
-		'view_rotate_down_pb': ('rotateView', 0, 2),
-		'view_rotate_left_pb': ('rotateView', 2, 0),
-		'view_rotate_right_pb': ('rotateView', -2, 0),
-		'view_pan_up_pb': ('panView', 0, -2),
-		'view_pan_down_pb': ('panView', 0, 2),
-		'view_pan_left_pb': ('panView', -2, 0),
-		'view_pan_right_pb': ('panView', 2, 0),
+		'view_rotate_up_pb': ('rotateView', 0, -5),
+		'view_rotate_down_pb': ('rotateView', 0, 5),
+		'view_rotate_left_pb': ('rotateView', 5, 0),
+		'view_rotate_right_pb': ('rotateView', -5, 0),
+		'view_pan_up_pb': ('panView', 0, -5),
+		'view_pan_down_pb': ('panView', 0, 5),
+		'view_pan_left_pb': ('panView', -5, 0),
+		'view_pan_right_pb': ('panView', 5, 0),
 		'view_zoom_in_pb': ('zoomin',),
 		'view_zoom_out_pb': ('zoomout',),
 		'view_clear_pb': ('clear_live_plotter',)
