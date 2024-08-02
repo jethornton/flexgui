@@ -1,0 +1,116 @@
+/* ********** Regular Buttons ********** */
+
+QPushButton {
+	background-color: rgba(192, 192, 192, 50%);
+	min-height: 25px;
+	min-width: 25px;
+	border:0px solid rgb(128, 128, 128);
+	border-style: outset;
+	border-width: 3px;
+	border-radius: 6px;
+	margin-bottom: 1px;
+	}
+	
+QPushButton:hover {
+	background-color: rgba(0, 192, 0, 40%); color: white;
+}
+
+QPushButton:pressed {  
+	background-color: rgba(0, 192, 0, 80%);
+    border-style: inset;
+    border-width: 2px;
+}
+
+QPushButton:checked {
+	background-color: rgba(0, 192, 0, 90%); border none;
+	border-style: inset;
+}
+
+/* ********** Tool Bar Buttons ********** */
+QToolButton { /* all types of tool button */
+	background-color: rgba(192, 192, 192, 50%);
+    border: 1px solid black;
+    border-radius: 3px;
+	}
+		
+QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
+    padding-right: 20px; /* make way for the popup button */
+	}
+
+QToolButton#flex_Stop:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white;
+	}
+
+QToolButton#flex_Quit:hover {
+	background-color: rgba(192, 0, 0, 40%); color: white;
+	}
+
+QToolButton:hover {
+	background-color: rgba(0, 192, 0, 40%); color: white;
+	}
+
+QToolButton#flex_Quit:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+	}
+
+QToolButton#flex_Stop:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+	}
+
+QToolButton:pressed {
+	background-color: rgba(0, 192, 0, 80%);  color: white; border none;
+	}
+
+	/* the subcontrols below are used only in the MenuButtonPopup mode */
+QToolButton::menu-button {
+    border: 2px solid gray;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    /* 16px width + 4px for border = 20px allocated above */
+    width: 16px;
+	}
+
+QToolButton::menu-arrow:open {
+    top: 1px; left: 1px; /* shift it a bit */
+	}
+
+/* ********** Tabs ********** */
+
+/* QTabWidget::pane { /* The tab widget frame */
+    border-top: 2px solid #C2C7CB;
+    position: absolute;
+    top: -0.5em;
+	} */
+
+/* QTabWidget::tab-bar {
+    alignment: left;
+	} */
+
+
+
+
+
+
+/* QToolButton#flex_Quit:hover {
+	background-color: rgba(255, 0, 0, 75%);
+} */
+
+
+
+
+
+
+
+QSlider::groove:horizontal {
+    border: 1px solid;
+    height: 10px;
+    margin: 0px;
+    }
+QSlider::handle:horizontal {
+    background-color: black;
+    border: 1px solid;
+    height: 25px;
+    width: 25px;
+    margin: -15px 0px;
+    }
+
