@@ -276,6 +276,17 @@ def tool_touchoff(parent):
 		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(msg, 'Touch Off Aborted')
 
+def zero_axis(parent, axis):
+	mdi_command = f'G10 L20 P0 {axis}0'
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(mdi_command)
+		parent.command.wait_complete()
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
+
 def spindle(parent, value=0):
 	# spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
 	# Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE, SPINDLE_DECREASE, or SPINDLE_CONSTANT]

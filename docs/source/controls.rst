@@ -5,7 +5,7 @@ Push Buttons
 ------------
 
 Controls are QPushButtons that can be placed anywhere you like. Use the Name
-from the list below for each control widget objectName. Replace the `(1-9)` with
+from the list below for each control widget objectName. Replace the `(0-8)` with
 the joint number or axis index. More controls are in :doc:`tools`
 
 .. csv-table:: Control Push Buttons
@@ -32,6 +32,7 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Home a Joint (0-8),home_pb_(0-8)
 	Unhome All Joints,unhome_all_pb
 	Unhome a Joint (0-8),unhome_pb_(0-8)
+	Zero an Axis, zero_(axis letter)_pb
 	Manual Mode,manual_mode_pb
 	Flood Toggle,flood_pb
 	Mist Toggle,mist_pb

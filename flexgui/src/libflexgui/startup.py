@@ -364,6 +364,11 @@ def setup_buttons(parent): # connect buttons to functions
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
 	# zero axis button setup
+	for axis in AXES:
+		name = f'zero_{axis}_pb'
+		if name in parent.children:
+			button = getattr(parent, name)
+			button.clicked.connect(partial(commands.zero_axis, parent, axis.upper()))
 
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
@@ -1111,7 +1116,7 @@ def setup_plot(parent):
 				button.clicked.connect(lambda _, m=method: (
 					getattr(parent.plotter, m)()
 				))
-			
+
 	views = {
 		'view_p_pb': 'p',
 		'view_x_pb': 'x',
