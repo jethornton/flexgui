@@ -1,6 +1,10 @@
-action displays all the action widgets in Touch Screen Mode
-status displays all the status widgets in Keyboard Mode
-xyz is a 3 axis simulator with no home sequece in Keyboard Mode
-xyzh is a 3 axis simulator with home sequence in Keyboard Mode
-hal_pin shows how to make a hal button and connect it to a mdi command
-hal_pin can not be run from the terminal with a sim running
+All the examples are simulated hardware examples.
+
+mill_3 is a 3 axis mill
+
+mill_3_plot is a 3 axis mill with the plotter on the main page
+
+rpi_mill_3 is a 3 axis mill for 800x480 touch screen like the Raspberry Pi has
+
+touch is a 3 axis mill touch screen example
+
