@@ -82,15 +82,6 @@ class StatCanon(glcanon.GLCanon, interpret.StatMixin):
 		glcanon.GLCanon.change_tool(self,pocket)
 		interpret.StatMixin.change_tool(self,pocket)
 
-	# not sure if this is used - copied from AXIS code
-	def do_cancel(self, event):
-		self.aborted = True
-
-	# not sure if this is used - copied from AXIS code
-	def check_abort(self):
-		#root_window.update()
-		if self.aborted: raise KeyboardInterrupt
-
 	def next_line(self, st):
 		glcanon.GLCanon.next_line(self, st)
 		self.progress.update(self.lineno)
