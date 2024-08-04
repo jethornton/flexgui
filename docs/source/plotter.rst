@@ -99,6 +99,7 @@ when creating the Menu then press enter.
 	View Offsets, Offsets, actionOffsets
 	View Overlay, Overlay, actionOverlay
 
-
+.. note:: Once a veiw selection has been set Flex GUI remembers that the next
+   time you start the configuration.
 
 
