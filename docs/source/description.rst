@@ -10,3 +10,4 @@ Flex GUI is a flexible GUI that can be customized to suit your needs.
 * Your GUI can have exactly the controls and labels you want
 * You can use your own style sheet
 * All configuration is done in the ini file
+* Flex GUI remembers the size and position of the GUI
