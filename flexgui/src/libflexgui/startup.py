@@ -1044,6 +1044,11 @@ def setup_plot(parent):
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
 
+		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
+		print(dro_font)
+		parent.plotter._font = f'monospace bold {dro_font}'
+
+		# self._font = 'monospace bold 12'
 	parent.view_x = 0
 	parent.view_y = 0
 
