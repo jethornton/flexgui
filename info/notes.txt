@@ -7,6 +7,8 @@ dch -v 0.9.5
 change to released Note: you must either change something or use Ctrl o to save.
 dch --release
 
+sudo apt install devscripts
+
 debuild -us -uc
 
 Qt Info
