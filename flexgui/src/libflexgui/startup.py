@@ -403,13 +403,13 @@ def setup_touchoff(parent):
 				getattr(parent, f'tool_touchoff_{item}').setEnabled(False)
 				tto_missing = True
 
-	if to_missing:
+	if to_missing: # FIXME delete 
 		msg = ('Touch Off Double Spin Box\n'
 			'touchoff_dsb not found.\n'
 			'Touch Off Buttons will be disabled')
 		dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
-	if tto_missing:
+	if tto_missing: # FIXME delete 
 		msg = ('Touch Off Double Spin Box\n'
 			'tool_touchoff_dsb not found.\n'
 			'Tool Touch Off Buttons will be disabled')
