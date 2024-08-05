@@ -100,7 +100,11 @@ when creating the Menu then press enter.
 	View Offsets, Offsets, actionOffsets
 	View Overlay, Overlay, actionOverlay
 
-.. note:: Once a veiw selection has been set Flex GUI remembers that the next
+.. note:: Once a view selection has been set Flex GUI remembers that the next
    time you start the configuration.
 
+DRO
+---
 
+The font size can be set in the ini file by adding in the [DISPLAY] section
+DRO_FONT_SIZE = n where n is an integer. The default size is 12.
