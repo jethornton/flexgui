@@ -262,7 +262,7 @@ def tool_touchoff(parent):
 
 	if cur_tool > 0:
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
-		if 'test_lb' in parent.children:
+		if 'test_lb' in parent.children: # ********* FIXME is this even used *******
 			parent.test_lb.setText(mdi_command)
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
