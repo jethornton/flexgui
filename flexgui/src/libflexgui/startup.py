@@ -379,12 +379,15 @@ def setup_touchoff(parent):
 	# def on_lineEdit_passwort_clicked(self, *arg, **kwargs):
 	# 	print("lineEdit_passwort clicked!")
 	if 'touchoff_le' in parent.children:
-		parent.touchoff_le.installEventFilter(parent)
 		parent.touchoff_le.setText('0')
+		if parent.touchoff_le.property('mode') == 'touch': # enable the number pad
+			parent.touchoff_le.installEventFilter(parent)
 	if 'tool_touchoff_le' in parent.children:
-		parent.tool_touchoff_le.installEventFilter(parent)
 		parent.tool_touchoff_le.setText('0')
+		if parent.tool_touchoff_le.property('mode') == 'touch': # enable the number pad
+			parent.tool_touchoff_le.installEventFilter(parent)
 
+	'''
 	to_missing = False
 	tto_missing = False
 	touchoff = ['touchoff_le', 'touchoff_dsb']
@@ -414,6 +417,7 @@ def setup_touchoff(parent):
 			'tool_touchoff_dsb not found.\n'
 			'Tool Touch Off Buttons will be disabled')
 		dialogs.warn_msg_ok(msg, 'Required Item Missing')
+	'''
 
 def setup_actions(parent): # setup menu actions
 	actions_dict = {
