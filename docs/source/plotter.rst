@@ -74,6 +74,9 @@ to metric for now.
 	View Offsets, QCheckBox, view_offsets_cb
 	View Overlay, QCheckBox, view_overlay_cb
 
+.. note:: Don't set the checked property to checked in the Designer. That is
+   handled in the code. Once you check an option it is remembered.
+
 Menu
 ----
 

@@ -7,12 +7,14 @@ Tool Change
 .. image:: /images/tools-01.png
    :align: center
 
-A tool change QPushButton with a QSpinBox to select the tool number to change
-to is done with QPushButton named `tool_change_pb` and a QSpinBox named
-`next_tool_sb`. It is an error if the tool selected is not in the tool table.
+A tool change QPushButton with a QComboBox to select the tool number to change
+to is done with QPushButton named `tool_change_pb` and a QComboBox named
+`tool_change_cb`. The tool change combobox will be populated with all the tools
+found in the tool table.
 ::
 
 	Tool Change                  tool_change_pb
+	Tools Combo Box              tool_change_cb
 
 Tool Change Button
 ------------------
@@ -37,10 +39,17 @@ To touch off a tool to an axis use a tool touch off pushbutton
 Coordinate System Touchoff
 --------------------------
 
-To touch off an axis use a touch off pushbutton
-::
+To touch off an axis use a pushbutton and either a double spin box or a line
+edit to set the touch off value
 
-	Touch Off Axis               touchoff_pb_(axis letter)
+.. csv-table:: Touch Off Controls
+   :width: 80%
+   :align: center
+
+	Function, Widget, Object Name
+	Touch Off Axis, QPushButton, touchoff_pb_(axis letter)
+	Touch Off Value, QDoubleSpinBox, touchoff_dsb
+	Touch Off Value, QLineEdit, touchoff_le
 
 
 Change Coordinate System
