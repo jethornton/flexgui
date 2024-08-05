@@ -226,10 +226,7 @@ def touchoff(parent):
 	else:
 		coordinate_system = 0
 	axis = parent.sender().objectName()[-1].upper()
-	if 'touchoff_dsb' in parent.children:
-		precision = parent.touchoff_dsb.decimals()
-		offset = f'{parent.touchoff_dsb.value():.{precision}f}'
-	elif 'touchoff_le' in parent.children:
+	if 'touchoff_le' in parent.children:
 		offset = parent.touchoff_le.text()
 		if offset == '':
 			msg = ('Coordinate System Offset\ncan not be blank!')
@@ -250,10 +247,7 @@ def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
 	cur_tool = parent.status.tool_in_spindle
-	if 'tool_touchoff_dsb' in parent.children:
-		precision = parent.tool_touchoff_dsb.decimals()
-		offset = f'{parent.tool_touchoff_dsb.value():.{precision}f}'
-	elif 'tool_touchoff_le' in parent.children:
+	if 'tool_touchoff_le' in parent.children:
 		offset = parent.tool_touchoff_le.text()
 		if offset == '':
 			msg = ('Tool Touchoff Offset\ncan not be blank!')
