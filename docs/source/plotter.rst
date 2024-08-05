@@ -38,8 +38,6 @@ The following controls set predefined views
 	View Z, QPushButton, view_z_pb
 	View Z2, QPushButton, view_z2_pb
 
-.. note:: P and X presets do not function at this time... not figured them out yet.
-
 To clear the Live plot use:
 
 .. csv-table:: Display Functions
