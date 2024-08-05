@@ -8,7 +8,7 @@ MDI
 ---
 
 To enable the G code popup for the MDI entry add a Dynamic Property called
-`mode` and set the value to `touch`.
+`mode` to the and set the value to `touch`.
 
 .. image:: /images/touch-01.png
    :align: center
@@ -26,9 +26,9 @@ The Arrow Buttons change the bottom section to different letters.
 Touch Off
 ---------
 
-The Coordinate System Touch Off can have either a QDoubleSpinBox or a QLineEdit.
-A QLineEdit named `touchoff_le` is used when you have a Touch Screen and you
-want the Number Popup when you touch it.
+The Coordinate System Touch Off offset is a QLineEdit named `touchoff_le`.
+To enable the number pad popup for the offset entry add a Dynamic Property
+called `mode` to the and set the value to `touch`.
 
 .. image:: /images/touch-04.png
    :align: center
@@ -41,6 +41,8 @@ Touch Off
 Tool Touch Off
 --------------
 
-Working on this...
+The Tool Touch Off offset is a QLineEdit named `tool_touchoff_le`.
+To enable the number pad popup for the offset entry add a Dynamic Property
+called `mode` to the and set the value to `touch`.
 
 

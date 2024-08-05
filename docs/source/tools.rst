@@ -39,8 +39,7 @@ To touch off a tool to an axis use a tool touch off pushbutton
 Coordinate System Touchoff
 --------------------------
 
-To touch off an axis use a pushbutton and either a double spin box or a line
-edit to set the touch off value
+To touch off an axis use a QPushButton and QLineEdit to set the touch off value
 
 .. csv-table:: Touch Off Controls
    :width: 80%
@@ -48,7 +47,6 @@ edit to set the touch off value
 
 	Function, Widget, Object Name
 	Touch Off Axis, QPushButton, touchoff_pb_(axis letter)
-	Touch Off Value, QDoubleSpinBox, touchoff_dsb
 	Touch Off Value, QLineEdit, touchoff_le
 
 
