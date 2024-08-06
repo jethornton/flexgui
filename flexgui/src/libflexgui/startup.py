@@ -411,6 +411,8 @@ def setup_actions(parent): # setup menu actions
 		'actionAbout': 'action_about',
 		'actionQuick_Reference': 'action_quick_reference'}
 
+	# FIXME move plot actions to setup_plot, no use to have them if no plotter
+
 	# if an action is found connect it to the function
 	for key, value in actions_dict.items():
 		if key in parent.children:
@@ -424,6 +426,8 @@ def setup_actions(parent): # setup menu actions
 	for item in checked_actions:
 		if item in parent.children:
 			getattr(parent, item).setCheckable(True)
+			checked = True if parent.settings.value(f'PLOT/{item}') == 'true' else False
+			getattr(parent, item).setChecked(checked)
 
 	# special check for the classicladder editor
 	if parent.findChild(QAction, 'actionLadder_Editor'):
@@ -1113,7 +1117,7 @@ def setup_plot(parent):
 	# <Tom_L> JT-Cave, if DRO isn't checked the other items should be greyed out FIXME
 	for key, value in view_actions.items():
 		if key in parent.children:
-			getattr(parent, key).toggled.connect(partial(getattr(actions, value), parent))
+			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 			checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
 			getattr(parent, key).setChecked(checked)
 
