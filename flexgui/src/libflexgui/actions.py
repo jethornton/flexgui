@@ -272,14 +272,17 @@ def action_toggle_dro(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_dro_cb' and 'actionDRO' in parent.children:
-		parent.actionDRO.setChecked(parent.sender().isChecked())
+	if name == 'view_dro_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionDRO' in parent.children:
+			parent.actionDRO.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionDRO', getattr(parent, name).isChecked())
-	if name == 'actionDRO' and 'view_dro_cb' in parent.children:
-		parent.view_dro_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionDRO':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_dro_cb' in parent.children:
+			parent.view_dro_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_dro_cb', getattr(parent, name).isChecked())
 
 def action_toggle_limits(parent):
 	if parent.sender().isChecked():
@@ -289,14 +292,17 @@ def action_toggle_limits(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_limits_cb' and 'actionLimits' in parent.children:
-		parent.actionLimits.setChecked(parent.sender().isChecked())
+	if name == 'view_limits_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionLimits' in parent.children:
+			parent.actionLimits.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionLimits', getattr(parent, name).isChecked())
-	if name == 'actionLimits' and 'view_limits_cb' in parent.children:
-		parent.view_limits_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionLimits':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_limits_cb' in parent.children:
+			parent.view_limits_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_limits_cb', getattr(parent, name).isChecked())
 
 def action_toggle_extents_option(parent):
 	if parent.sender().isChecked():
@@ -306,14 +312,17 @@ def action_toggle_extents_option(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_extents_option_cb' and 'actionExtents_Option' in parent.children:
-		parent.actionExtents_Option.setChecked(parent.sender().isChecked())
+	if name == 'view_extents_option_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionExtents_Option' in parent.children:
+			parent.actionExtents_Option.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionExtents_Option', getattr(parent, name).isChecked())
-	if name == 'actionExtents_Option' and 'view_extents_option_cb' in parent.children:
-		parent.view_extents_option_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionExtents_Option':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_extents_option_cb' in parent.children:
+			parent.view_dro_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_extents_option_cb', getattr(parent, name).isChecked())
 
 def action_toggle_live_plot(parent):
 	if parent.sender().isChecked():
@@ -323,14 +332,17 @@ def action_toggle_live_plot(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_live_plot_cb' and 'actionLive_Plot' in parent.children:
-		parent.actionLive_Plot.setChecked(parent.sender().isChecked())
+	if name == 'view_live_plot_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionLive_Plot' in parent.children:
+			parent.actionLive_Plot.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionLive_Plot', getattr(parent, name).isChecked())
-	if name == 'actionLive_Plot' and 'view_live_plot_cb' in parent.children:
-		parent.view_live_plot_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionLive_Plot':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_live_plot_cb' in parent.children:
+			parent.view_live_plot_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_live_plot_cb', getattr(parent, name).isChecked())
 
 def action_toggle_velocity(parent):
 	if parent.sender().isChecked():
@@ -340,14 +352,17 @@ def action_toggle_velocity(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_velocity_cb' and 'actionVelocity' in parent.children:
-		parent.actionVelocity.setChecked(parent.sender().isChecked())
+	if name == 'view_velocity_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionVelocity' in parent.children:
+			parent.actionVelocity.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionVelocity', getattr(parent, name).isChecked())
-	if name == 'actionVelocity' and 'view_velocity_cb' in parent.children:
-		parent.view_velocity_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionVelocity':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_velocity_cb' in parent.children:
+			parent.view_velocity_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_velocity_cb', getattr(parent, name).isChecked())
 
 def action_toggle_metric_units(parent):
 	if parent.sender().isChecked():
@@ -357,14 +372,17 @@ def action_toggle_metric_units(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_metric_units_cb' and 'actionMetric_Units' in parent.children:
-		parent.actionMetric_Units.setChecked(parent.sender().isChecked())
+	if name == 'view_metric_units_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionMetric_Units' in parent.children:
-			parent.settings.setValue(f'PLOT/actionMetric_Units', getattr(parent, name).isChecked())
-	if name == 'actionMetric_Units' and 'view_metric_units_cb' in parent.children:
-		parent.view_metric_units_cb.setChecked(parent.sender().isChecked())
+			parent.actionMetric_Units.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/action', getattr(parent, name).isChecked())
+
+	if name == 'actionMetric_Units':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_metric_units_cb' in parent.children:
+			parent.view_metric_units_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_metric_units_cb', getattr(parent, name).isChecked())
 
 def action_toggle_program(parent):
 	if parent.sender().isChecked():
@@ -374,14 +392,17 @@ def action_toggle_program(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_program_cb' and 'actionProgram' in parent.children:
-		parent.actionProgram.setChecked(parent.sender().isChecked())
+	if name == 'view_program_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionProgram' in parent.children:
-			parent.settings.setValue(f'PLOT/actionProgram', getattr(parent, name).isChecked())
-	if name == 'actionProgram' and 'view_program_cb' in parent.children:
-		parent.view_program_cb.setChecked(parent.sender().isChecked())
+			parent.actionProgram.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/action', getattr(parent, name).isChecked())
+
+	if name == 'actionProgram':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_program_cb' in parent.children:
+			parent.view_program_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_program_cb', getattr(parent, name).isChecked())
 
 def action_toggle_rapids(parent):
 	if parent.sender().isChecked():
@@ -391,14 +412,17 @@ def action_toggle_rapids(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_rapids_cb' and 'actionRapids' in parent.children:
-		parent.actionRapids.setChecked(parent.sender().isChecked())
+	if name == 'view_rapids_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionRapids' in parent.children:
-			parent.settings.setValue(f'PLOT/actionRapids', getattr(parent, name).isChecked())
-	if name == 'actionRapids' and 'view_rapids_cb' in parent.children:
-		parent.view_rapids_cb.setChecked(parent.sender().isChecked())
+			parent.actionRapids.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/action', getattr(parent, name).isChecked())
+
+	if name == 'actionRapids':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_rapids_cb' in parent.children:
+			parent.view_rapids_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_rapids_cb', getattr(parent, name).isChecked())
 
 def action_toggle_tool(parent):
 	if parent.sender().isChecked():
@@ -408,14 +432,17 @@ def action_toggle_tool(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_tool_cb' and 'actionTool' in parent.children:
-		parent.actionTool.setChecked(parent.sender().isChecked())
+	if name == 'view_tool_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionTool' in parent.children:
+			parent.actionTool.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionTool', getattr(parent, name).isChecked())
-	if name == 'actionTool' and 'view_tool_cb' in parent.children:
-		parent.view_tool_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionTool':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_tool_cb' in parent.children:
+			parent.view_tool_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_tool_cb', getattr(parent, name).isChecked())
 
 def action_toggle_lathe_radius(parent):
 	if parent.sender().isChecked():
@@ -425,14 +452,17 @@ def action_toggle_lathe_radius(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_lathe_radius_cb' and 'actionLathe_Radius' in parent.children:
-		parent.actionLathe_Radius.setChecked(parent.sender().isChecked())
+	if name == 'view_lathe_radius_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionLathe_Radius' in parent.children:
+			parent.actionLathe_Radius.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionLathe_Radius', getattr(parent, name).isChecked())
-	if name == 'actionLathe_Radius' and 'view_lathe_radius_cb' in parent.children:
-		parent.view_lathe_radius_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionLathe_Radius':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_lathe_radius_cb' in parent.children:
+			parent.view_lathe_radius_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_lathe_radius_cb', getattr(parent, name).isChecked())
 
 def action_toggle_dtg(parent):
 	if parent.sender().isChecked():
@@ -442,14 +472,17 @@ def action_toggle_dtg(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_dtg_cb' and 'actionDTG' in parent.children:
-		parent.actionDTG.setChecked(parent.sender().isChecked())
+	if name == 'view_dtg_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionDTG' in parent.children:
+			parent.actionDTG.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionDTG', getattr(parent, name).isChecked())
-	if name == 'actionDTG' and 'view_dtg_cb' in parent.children:
-		parent.view_dtg_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionDTG':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_dtg_cb' in parent.children:
+			parent.view_dtg_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_dtg_cb', getattr(parent, name).isChecked())
 
 def action_toggle_offsets(parent):
 	if parent.sender().isChecked():
@@ -459,14 +492,17 @@ def action_toggle_offsets(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_offsets_cb' and 'actionOffsets' in parent.children:
-		parent.actionOffsets.setChecked(parent.sender().isChecked())
+	if name == 'view_offsets_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionOffsets' in parent.children:
+			parent.actionOffsets.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionOffsets', getattr(parent, name).isChecked())
-	if name == 'actionOffsets' and 'view_offsets_cb' in parent.children:
-		parent.view_offsets_cb.setChecked(parent.sender().isChecked())
+
+	if name == 'actionOffsets':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_offsets_cb' in parent.children:
+			parent.view_offsets_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_offsets_cb', getattr(parent, name).isChecked())
 
 def action_toggle_overlay(parent):
 	if parent.sender().isChecked():
@@ -476,15 +512,17 @@ def action_toggle_overlay(parent):
 	parent.plotter.load()
 
 	name = parent.sender().objectName()
-	if name == 'view_overlay_cb' and 'actionOverlay' in parent.children:
-		parent.actionOverlay.setChecked(parent.sender().isChecked())
+	if name == 'view_overlay_cb':
 		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 		if 'actionOverlay' in parent.children:
+			parent.actionOverlay.setChecked(parent.sender().isChecked())
 			parent.settings.setValue(f'PLOT/actionOverlay', getattr(parent, name).isChecked())
-	if name == 'actionOverlay' and 'view_overlay_cb' in parent.children:
-		parent.view_overlay_cb.setChecked(parent.sender().isChecked())
-		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
 
+	if name == 'actionOverlay':
+		parent.settings.setValue(f'PLOT/{name}', getattr(parent, name).isChecked())
+		if 'view_overlay_cb' in parent.children:
+			parent.view_overlay_cb.setChecked(parent.sender().isChecked())
+			parent.settings.setValue(f'PLOT/view_overlay_cb', getattr(parent, name).isChecked())
 
 def action_show_hal(parent): # actionShow_HAL
 	subprocess.Popen('halshow', cwd=parent.ini_path)
