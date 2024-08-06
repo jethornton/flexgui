@@ -1,0 +1,59 @@
+QSlider:horizontal {
+    min-height: 50px;
+    max-height: 50px;
+    background: #bfbfbf;
+}
+
+QSlider::groove:horizontal {
+    height: 42px;
+    background: #393939;
+    margin-left: -1px;
+}
+
+QSlider::handle:horizontal {
+    background: #bfbfbf;
+    width: 50px;
+    margin-top: -3px;
+    margin-bottom: -3px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+QSlider::add-page:horizontal {
+    background: white;
+}
+
+QSlider::sub-page:horizontal {
+    background: green;
+}
+
+QSlider:vertical {
+    min-width: 50px;
+    max-width: 50px;
+    background: #bfbfbf;
+}
+
+QSlider::groove:vertical {
+    background: #bfbfbf;
+    position: absolute; /* absolutely position 4px from the left and right of the widget. setting margins on the widget should work too... */
+    left: 4px;
+    right: 4px;
+}
+
+QSlider::handle:vertical {
+    height: 40px;
+    background: #bfbfbf;
+    margin-left: -3px;
+    margin-right: -3px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+
+QSlider::add-page:vertical {
+    background: green;
+}
+
+QSlider::sub-page:vertical {
+    background: white;
+}
+
+

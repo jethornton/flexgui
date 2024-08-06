@@ -504,9 +504,6 @@
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
-             <property name="mode" stdset="0">
-              <string>touch</string>
-             </property>
             </widget>
            </item>
           </layout>
@@ -921,11 +918,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLineEdit" name="tool_touchoff_le">
-          <property name="mode" stdset="0">
-           <string>touch</string>
-          </property>
-         </widget>
+         <widget class="QLineEdit" name="tool_touchoff_le"/>
         </item>
         <item row="2" column="2">
          <widget class="QLabel" name="tool_in_spindle_lb">
