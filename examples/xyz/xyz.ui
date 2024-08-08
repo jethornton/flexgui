@@ -245,75 +245,12 @@
          <widget class="QFrame" name="plot_widget"/>
         </item>
         <item row="1" column="1">
-         <widget class="QGroupBox" name="groupBox_20">
-          <property name="maximumSize">
-           <size>
-            <width>170</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>DRO</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_39">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="view_dro_cb">
-             <property name="text">
-              <string>View DRO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QCheckBox" name="view_lathe_radius_cb">
-             <property name="text">
-              <string>View Lathe Radius</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="view_offsets_cb">
-             <property name="text">
-              <string>View Offsets</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="view_dtg_cb">
-             <property name="text">
-              <string>View DTG</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="view_velocity_cb">
-             <property name="text">
-              <string>View Velocity</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QCheckBox" name="view_overlay_cb">
-             <property name="text">
-              <string>View Overlay</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QGroupBox" name="groupBox_6">
+         <widget class="QTabWidget" name="tabWidget_3">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
           </property>
           <property name="maximumSize">
            <size>
@@ -321,60 +258,114 @@
             <height>16777215</height>
            </size>
           </property>
-          <property name="title">
-           <string>Program</string>
+          <property name="currentIndex">
+           <number>1</number>
           </property>
-          <layout class="QGridLayout" name="gridLayout_33">
-           <item row="8" column="0">
-            <widget class="QCheckBox" name="view_tool_cb">
-             <property name="text">
-              <string>View Tool</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QCheckBox" name="view_rapids_cb">
-             <property name="text">
-              <string>View Rapids</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="view_live_plot_cb">
-             <property name="text">
-              <string>View Live Plot</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="view_limits_cb">
-             <property name="text">
-              <string>View Limits</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QCheckBox" name="view_program_cb">
-             <property name="text">
-              <string>View Program</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="view_extents_option_cb">
-             <property name="text">
-              <string>View Ext Option</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QCheckBox" name="view_metric_units_cb">
-             <property name="text">
-              <string>View Metric Units</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QWidget" name="tab_14">
+           <attribute name="title">
+            <string>DRO</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_41">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="view_dro_cb">
+              <property name="text">
+               <string>View DRO</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="view_dtg_cb">
+              <property name="text">
+               <string>View DTG</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="view_velocity_cb">
+              <property name="text">
+               <string>View Velocity</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="view_offsets_cb">
+              <property name="text">
+               <string>View Offsets</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QCheckBox" name="view_lathe_radius_cb">
+              <property name="text">
+               <string>View Lathe Radius</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QCheckBox" name="view_overlay_cb">
+              <property name="text">
+               <string>View Overlay</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_15">
+           <attribute name="title">
+            <string>Program</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_40">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="view_limits_cb">
+              <property name="text">
+               <string>View Limits</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="view_extents_option_cb">
+              <property name="text">
+               <string>View Ext Option</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="view_live_plot_cb">
+              <property name="text">
+               <string>View Live Plot</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="view_metric_units_cb">
+              <property name="text">
+               <string>View Metric Units</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QCheckBox" name="view_program_cb">
+              <property name="text">
+               <string>View Program</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QCheckBox" name="view_rapids_cb">
+              <property name="text">
+               <string>View Rapids</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QCheckBox" name="view_tool_cb">
+              <property name="text">
+               <string>View Tool</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
