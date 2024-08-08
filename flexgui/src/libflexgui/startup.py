@@ -399,8 +399,6 @@ def setup_actions(parent): # setup menu actions
 		'actionAbout': 'action_about',
 		'actionQuick_Reference': 'action_quick_reference'}
 
-	# FIXME move plot actions to setup_plot, no use to have them if no plotter
-
 	# if an action is found connect it to the function
 	for key, value in actions_dict.items():
 		if key in parent.children:
@@ -1063,12 +1061,16 @@ def setup_hal_buttons(parent):
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
+		# add the plotter to the container
 		from libflexgui import flexplot
 		parent.plotter = flexplot.emc_plot(parent)
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
 		#parent.view_x = 0
 		#parent.view_y = 0
+
+		# determine if there are any settings in the pref file
+
 
 		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
 		parent.plotter._font = f'monospace bold {dro_font}'
@@ -1091,11 +1093,12 @@ def setup_plot(parent):
 		}
 
 		# if an action is found connect it to the function
+		print(parent.settings.value('PLOT/key')!= None)
 		for key, value in plot_actions.items():
 			if key in parent.children:
 				getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value[0]}'), parent))
 				setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
-				print(value[1], getattr(parent.plotter, f'{value[1]}'))
+				#print(value[1], getattr(parent.plotter, f'{value[1]}'))
 				getattr(parent, key).setCheckable(True)
 				checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
 				getattr(parent, key).setChecked(checked)
