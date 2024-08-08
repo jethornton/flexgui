@@ -299,7 +299,8 @@ def spindle(parent, value=0):
 			parent.spindle_fwd_pb.setChecked(False)
 		else:
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
-			parent.spindle_rev_pb.setChecked(False)
+			if 'spindle_rev_pb' in parent.children:
+				parent.spindle_rev_pb.setChecked(False)
 	elif sender_name == 'spindle_rev_pb':
 		if parent.spindle_speed == 0:
 			msg = ('Can not start spindle\n'
@@ -308,11 +309,14 @@ def spindle(parent, value=0):
 			parent.spindle_rev_pb.setChecked(False)
 		else:
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
-			parent.spindle_fwd_pb.setChecked(False)
+			if 'spindle_fwd_pb' in parent.children:
+				parent.spindle_fwd_pb.setChecked(False)
 	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
-		parent.spindle_rev_pb.setChecked(False)
-		parent.spindle_fwd_pb.setChecked(False)
+		if 'spindle_fwd_pb' in parent.children:
+			parent.spindle_fwd_pb.setChecked(False)
+		if 'spindle_rev_pb' in parent.children:
+			parent.spindle_rev_pb.setChecked(False)
 	elif sender_name == 'spindle_plus_pb':
 		parent.command.spindle(emc.SPINDLE_INCREASE)
 		parent.spindle_speed += parent.increment
@@ -323,8 +327,10 @@ def spindle(parent, value=0):
 	elif sender_name == 'spindle_minus_pb':
 		if parent.spindle_speed <= 0:
 			parent.spindle_speed = 0
-			parent.spindle_rev_pb.setChecked(False)
+		if 'spindle_fwd_pb' in parent.children:
 			parent.spindle_fwd_pb.setChecked(False)
+		if 'spindle_rev_pb' in parent.children:
+			parent.spindle_rev_pb.setChecked(False)
 			parent.command.spindle(emc.SPINDLE_OFF)
 		else:
 			parent.command.spindle(emc.SPINDLE_DECREASE)
