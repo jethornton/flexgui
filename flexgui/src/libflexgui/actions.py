@@ -269,7 +269,7 @@ def action_toggle_dro(parent):
 		parent.plotter.enable_dro = True
 	else:
 		parent.plotter.enable_dro = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_dro_cb':
@@ -282,7 +282,7 @@ def action_toggle_limits(parent):
 		parent.plotter.show_limits = True
 	else:
 		parent.plotter.show_limits = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_limits_cb':
@@ -295,7 +295,7 @@ def action_toggle_extents_option(parent):
 		parent.plotter.show_extents_option = True
 	else:
 		parent.plotter.show_extents_option = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_extents_option_cb':
@@ -308,7 +308,7 @@ def action_toggle_live_plot(parent):
 		parent.plotter.show_live_plot = True
 	else:
 		parent.plotter.show_live_plot = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_live_plot_cb':
@@ -321,7 +321,7 @@ def action_toggle_velocity(parent):
 		parent.plotter.show_velocity = True
 	else:
 		parent.plotter.show_velocity = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_velocity_cb':
@@ -334,7 +334,7 @@ def action_toggle_metric_units(parent):
 		parent.plotter.metric_units = True
 	else:
 		parent.plotter.metric_units = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_metric_units_cb':
@@ -347,7 +347,7 @@ def action_toggle_program(parent):
 		parent.plotter.show_program = True
 	else:
 		parent.plotter.show_program = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_program_cb':
@@ -360,7 +360,7 @@ def action_toggle_rapids(parent):
 		parent.plotter.show_rapids = True
 	else:
 		parent.plotter.show_rapids = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_rapids_cb':
@@ -373,7 +373,7 @@ def action_toggle_tool(parent):
 		parent.plotter.show_tool = True
 	else:
 		parent.plotter.show_tool = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_tool_cb':
@@ -386,7 +386,7 @@ def action_toggle_lathe_radius(parent):
 		parent.plotter.show_lathe_radius = True
 	else:
 		parent.plotter.show_lathe_radius = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_lathe_radius_cb':
@@ -399,7 +399,7 @@ def action_toggle_dtg(parent):
 		parent.plotter.show_dtg = True
 	else:
 		parent.plotter.show_dtg = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_dtg_cb':
@@ -412,7 +412,7 @@ def action_toggle_offsets(parent):
 		parent.plotter.show_offsets = True
 	else:
 		parent.plotter.show_offsets = False
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_offsets_cb':
@@ -425,7 +425,7 @@ def action_toggle_overlay(parent):
 		parent.plotter.show_overlay = False
 	else:
 		parent.plotter.show_overlay = True
-	parent.plotter.load()
+	parent.plotter.update()
 
 	name = parent.sender().objectName()
 	if name == 'view_overlay_cb':
