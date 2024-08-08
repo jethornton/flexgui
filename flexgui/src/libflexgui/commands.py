@@ -101,8 +101,6 @@ def run_mdi(parent, cmd=''):
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
-			parent.spindle_rev_pb.setChecked(False)
-			parent.spindle_fwd_pb.setChecked(False)
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
