@@ -1007,10 +1007,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			elif ((b & self._buttonList[1]) and m == 0) or m == 3:
 				self.continueZoom(event.pos().y())
 
-
-	def user_plot(self):
-		pass
-
 	# follow mouse buttons, pan, rotate or zoom on mouse movement
 	def setScrollMode(self, mode):
 		if not mode in(0,1,2,3):
