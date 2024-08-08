@@ -392,18 +392,6 @@ def setup_actions(parent): # setup menu actions
 		'actionStop': 'action_stop',
 		'actionClear_MDI_History': 'action_clear_mdi',
 		'actionCopy_MDI_History': 'action_copy_mdi',
-		'actionDRO': 'action_toggle_dro',
-		'actionLimits': 'action_toggle_limits',
-		'actionExtents_Option': 'action_toggle_extents_option',
-		'actionLive_Plot': 'action_toggle_live_plot',
-		'actionVelocity': 'action_toggle_velocity',
-		'actionMetric_Units': 'action_toggle_metric_units',
-		'actionProgram': 'action_toggle_program',
-		'actionRapids': 'action_toggle_rapids',
-		'actionTool': 'action_toggle_tool',
-		'actionLathe_Radius': 'action_toggle_lathe_radius',
-		'actionDTG': 'action_toggle_dtg',
-		'actionOffsets': 'action_toggle_offsets',
 		'actionOverlay': 'action_toggle_overlay',
 		'actionShow_HAL': 'action_show_hal',
 		'actionHAL_Meter': 'action_hal_meter',
@@ -417,17 +405,6 @@ def setup_actions(parent): # setup menu actions
 	for key, value in actions_dict.items():
 		if key in parent.children:
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
-
-	# actions that need to be checkable
-	checked_actions = ['actionDRO', 'actionLimits', 'actionExtents_Option',
-		'actionLive_Plot', 'actionVelocity', 'actionMetric_Units', 'actionProgram',
-		'actionRapids', 'actionTool', 'actionLathe_Radius', 'actionDTG',
-		'actionOffsets', 'actionOverlay']
-	for item in checked_actions:
-		if item in parent.children:
-			getattr(parent, item).setCheckable(True)
-			checked = True if parent.settings.value(f'PLOT/{item}') == 'true' else False
-			getattr(parent, item).setChecked(checked)
 
 	# special check for the classicladder editor
 	if parent.findChild(QAction, 'actionLadder_Editor'):
@@ -1090,103 +1067,111 @@ def setup_plot(parent):
 		parent.plotter = flexplot.emc_plot(parent)
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
+		#parent.view_x = 0
+		#parent.view_y = 0
 
 		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
 		parent.plotter._font = f'monospace bold {dro_font}'
 
-		# self._font = 'monospace bold 12'
-	parent.view_x = 0
-	parent.view_y = 0
+		#key object name, value[0] function, value[1] plot function
+		plot_actions = {
+		'actionDRO': ['action_toggle_dro', 'enable_dro'],
+		'actionLimits': ['action_toggle_limits', 'show_limits'],
+		'actionExtents_Option': ['action_toggle_extents_option', 'show_extents_option'],
+		'actionLive_Plot': ['action_toggle_live_plot', 'show_live_plot'],
+		'actionVelocity': ['action_toggle_velocity', 'show_velocity'],
+		'actionMetric_Units': ['action_toggle_metric_units', 'metric_units'],
+		'actionProgram': ['action_toggle_program', 'show_program'],
+		'actionRapids': ['action_toggle_rapids', 'show_rapids'],
+		'actionTool': ['action_toggle_tool', 'show_tool'],
+		'actionLathe_Radius': ['action_toggle_lathe_radius', 'show_lathe_radius'],
+		'actionDTG': ['action_toggle_dtg', 'show_dtg'],
+		'actionOffsets': ['action_toggle_offsets', 'show_offsets'],
+		'actionOverlay': ['action_toggle_overlay', 'show_overlay']
+		}
 
-	view_actions = {
-		'view_dro_cb': 'action_toggle_dro',
-		'view_limits_cb': 'action_toggle_limits',
-		'view_extents_option_cb': 'action_toggle_extents_option',
-		'view_live_plot_cb': 'action_toggle_live_plot',
-		'view_velocity_cb': 'action_toggle_velocity',
-		'view_metric_units_cb': 'action_toggle_metric_units',
-		'view_program_cb': 'action_toggle_program',
-		'view_rapids_cb': 'action_toggle_rapids',
-		'view_tool_cb': 'action_toggle_tool',
-		'view_lathe_radius_cb': 'action_toggle_lathe_radius',
-		'view_dtg_cb': 'action_toggle_dtg',
-		'view_offsets_cb': 'action_toggle_offsets',
-		'view_overlay_cb': 'action_toggle_overlay'
-	}
+		# if an action is found connect it to the function
+		for key, value in plot_actions.items():
+			if key in parent.children:
+				getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value[0]}'), parent))
+				setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
+				print(value[1], getattr(parent.plotter, f'{value[1]}'))
+				getattr(parent, key).setCheckable(True)
+				checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+				getattr(parent, key).setChecked(checked)
 
-	# <Tom_L> JT-Cave, if DRO isn't checked the other items should be greyed out FIXME
-	for key, value in view_actions.items():
-		if key in parent.children:
-			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-			checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
-			getattr(parent, key).setChecked(checked)
+		view_checkboxes = {
+			'view_dro_cb': ['action_toggle_dro', 'enable_dro'],
+			'view_limits_cb': ['action_toggle_limits', 'show_limits'],
+			'view_extents_option_cb': ['action_toggle_extents_option', 'show_extents_option'],
+			'view_live_plot_cb': ['action_toggle_live_plot', 'show_live_plot'],
+			'view_velocity_cb': ['action_toggle_velocity', 'show_velocity'],
+			'view_metric_units_cb': ['action_toggle_metric_units', 'metric_units'],
+			'view_program_cb': ['action_toggle_program', 'show_program'],
+			'view_rapids_cb': ['action_toggle_rapids', 'show_rapids'],
+			'view_tool_cb': ['action_toggle_tool', 'show_tool'],
+			'view_lathe_radius_cb': ['action_toggle_lathe_radius', 'show_lathe_radius'],
+			'view_dtg_cb': ['action_toggle_dtg', 'show_dtg'],
+			'view_offsets_cb': ['action_toggle_offsets', 'show_offsets'],
+			'view_overlay_cb': ['action_toggle_overlay', 'show_overlay']
+		}
 
-	'''
-	view_controls = {
-		'view_rotate_up_pb': 'view_rotate_up',
-		'view_rotate_down_pb': 'view_rotate_down',
-		'view_rotate_left_pb': 'view_rotate_left',
-		'view_rotate_right_pb': 'view_pan_right',
-		'view_pan_up_pb': 'view_pan_up',
-		'view_pan_down_pb': 'view_pan_down',
-		'view_pan_left_pb': 'view_pan_left',
-		'view_pan_right_pb': 'view_pan_right',
-		'view_zoom_in_pb': 'view_zoom_in', 'view_zoom_out_pb': 'view_zoom_out',
-		'view_p_pb': 'view_p', 'view_x_pb': 'view_x', 'view_y_pb': 'view_y',
-		'view_y2_pb': 'view_y2', 'view_z_pb': 'view_z', 'view_z2_pb': 'view_z2'
-	}
+		# if a checkbox is found connect it to the function
+		for key, value in view_checkboxes.items():
+			if key in parent.children:
+				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
+				setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
+				getattr(parent, key).setCheckable(True)
+				checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+				getattr(parent, key).setChecked(checked)
 
-	for key, value in view_controls.items():
-		if key in parent.children:
-			getattr(parent, key).pressed.connect(partial(getattr(view, value), parent))
-			getattr(parent, key).released.connect(partial(getattr(view, value), parent))
-	'''
+		parent.plotter.update()
 
-	view_controls = {
-		'view_rotate_up_pb': ('rotateView', 0, -5),
-		'view_rotate_down_pb': ('rotateView', 0, 5),
-		'view_rotate_left_pb': ('rotateView', 5, 0),
-		'view_rotate_right_pb': ('rotateView', -5, 0),
-		'view_pan_up_pb': ('panView', 0, -5),
-		'view_pan_down_pb': ('panView', 0, 5),
-		'view_pan_left_pb': ('panView', -5, 0),
-		'view_pan_right_pb': ('panView', 5, 0),
-		'view_zoom_in_pb': ('zoomin',),
-		'view_zoom_out_pb': ('zoomout',),
-		'view_clear_pb': ('clear_live_plotter',)
-	}
+		view_controls = {
+			'view_rotate_up_pb': ('rotateView', 0, -5),
+			'view_rotate_down_pb': ('rotateView', 0, 5),
+			'view_rotate_left_pb': ('rotateView', 5, 0),
+			'view_rotate_right_pb': ('rotateView', -5, 0),
+			'view_pan_up_pb': ('panView', 0, -5),
+			'view_pan_down_pb': ('panView', 0, 5),
+			'view_pan_left_pb': ('panView', -5, 0),
+			'view_pan_right_pb': ('panView', 5, 0),
+			'view_zoom_in_pb': ('zoomin',),
+			'view_zoom_out_pb': ('zoomout',),
+			'view_clear_pb': ('clear_live_plotter',)
+		}
 
-	for key, value in view_controls.items():
-		if key in parent.children:
-			button = getattr(parent, key)
-			if len(value) == 3:
-				method, vertical, horizontal = value
-				button.clicked.connect(lambda _, m=method, v=vertical, h=horizontal: (
-					getattr(parent.plotter, m)(vertical=v, horizontal=h)
+		for key, value in view_controls.items():
+			if key in parent.children:
+				button = getattr(parent, key)
+				if len(value) == 3:
+					method, vertical, horizontal = value
+					button.clicked.connect(lambda _, m=method, v=vertical, h=horizontal: (
+						getattr(parent.plotter, m)(vertical=v, horizontal=h)
+					))
+				elif len(value) == 1:
+					method = value[0]
+					button.clicked.connect(lambda _, m=method: (
+						getattr(parent.plotter, m)()
+					))
+
+		views = {
+			'view_p_pb': 'p',
+			'view_x_pb': 'x',
+			'view_y_pb': 'y',
+			'view_y2_pb': 'y2',
+			'view_z_pb': 'z',
+			'view_z2_pb': 'z2'
+		}
+
+		for key, value in views.items():
+			if key in parent.children:
+				button = getattr(parent, key)
+				button.clicked.connect(lambda _, v=value: (
+					parent.plotter.makeCurrent(),
+					setattr(parent.plotter, 'current_view', v),
+					parent.plotter.set_current_view()
 				))
-			elif len(value) == 1:
-				method = value[0]
-				button.clicked.connect(lambda _, m=method: (
-					getattr(parent.plotter, m)()
-				))
-
-	views = {
-		'view_p_pb': 'p',
-		'view_x_pb': 'x',
-		'view_y_pb': 'y',
-		'view_y2_pb': 'y2',
-		'view_z_pb': 'z',
-		'view_z2_pb': 'z2'
-	}
-
-	for key, value in views.items():
-		if key in parent.children:
-			button = getattr(parent, key)
-			button.clicked.connect(lambda _, v=value: (
-				parent.plotter.makeCurrent(),
-				setattr(parent.plotter, 'current_view', v),
-				parent.plotter.set_current_view()
-			))
 
 def set_status(parent): # FIXME look close at this to make sure it catches all
 	parent.status.poll()
