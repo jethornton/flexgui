@@ -1070,7 +1070,9 @@ def setup_plot(parent):
 		#parent.view_y = 0
 
 		# determine if there are any settings in the pref file
-
+		# if (parent.settings.childGroups().contains("SearchedKey", Qt::CaseInsensitive))
+		# if parent.settings.contains("actionDRO"):
+		# if 'PLOT' in parent.settings.childGroups():
 
 		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
 		parent.plotter._font = f'monospace bold {dro_font}'
@@ -1092,16 +1094,19 @@ def setup_plot(parent):
 		'actionOverlay': ['action_toggle_overlay', 'show_overlay']
 		}
 
+		# FIXME set check boxes and actions to default value if not found in pref file
 		# if an action is found connect it to the function
-		print(parent.settings.value('PLOT/key')!= None)
 		for key, value in plot_actions.items():
 			if key in parent.children:
 				getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value[0]}'), parent))
-				setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
-				#print(value[1], getattr(parent.plotter, f'{value[1]}'))
 				getattr(parent, key).setCheckable(True)
-				checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
-				getattr(parent, key).setChecked(checked)
+				#if parent.settings.value(f'PLOT/{key}') != None:
+				if parent.settings.contains(f'PLOT/{key}'):
+					setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
+					checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+					getattr(parent, key).setChecked(checked)
+				else:
+					getattr(parent, f'{key}').setChecked(getattr(parent.plotter, f'{value[1]}'))
 
 		view_checkboxes = {
 			'view_dro_cb': ['action_toggle_dro', 'enable_dro'],
@@ -1123,10 +1128,13 @@ def setup_plot(parent):
 		for key, value in view_checkboxes.items():
 			if key in parent.children:
 				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
-				setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
-				getattr(parent, key).setCheckable(True)
-				checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
-				getattr(parent, key).setChecked(checked)
+				#getattr(parent, key).setCheckable(True)
+				if parent.settings.contains(f'PLOT/{key}'):
+					setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
+					checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+					getattr(parent, key).setChecked(checked)
+				else:
+					getattr(parent, f'{key}').setChecked(getattr(parent.plotter, f'{value[1]}'))
 
 		parent.plotter.update()
 
