@@ -14,32 +14,33 @@ the joint number or axis index. More controls are in :doc:`tools`
 
 	Control Function, Object Name
 	Open a G code File, open_pb
-	Edit a G code File,edit_pb
-	Reload a G code File,reload_pb
-	Edit Tool Table,edit_tool_table_pb
-	Reload Tool Table,reload_tool_table_pb
-	Save As a New Name,save_as_pb
-	Quit the Program,quit_pb
-	E-Stop Toggle,estop_pb
-	Power Toggle,power_pb
-	Run a Loaded G code File,run_pb
-	Run From Line,run_from_line_pb
-	Step one Logical Line,step_pb
-	Pause a Running Program,pause_pb
-	Resume a Paused Program,resume_pb
-	Stop a Running Program,stop_pb
-	Home All Joints,home_all_pb
-	Home a Joint (0-8),home_pb_(0-8)
-	Unhome All Joints,unhome_all_pb
-	Unhome a Joint (0-8),unhome_pb_(0-8)
+	Edit a G code File, edit_pb
+	Reload a G code File, reload_pb
+	Edit Tool Table, edit_tool_table_pb
+	Edit Ladder, edit_ladder_pb
+	Reload Tool Table, reload_tool_table_pb
+	Save As a New Name, save_as_pb
+	Quit the Program, quit_pb
+	E-Stop Toggle, estop_pb
+	Power Toggle, power_pb
+	Run a Loaded G code File, run_pb
+	Run From Line, run_from_line_pb
+	Step one Logical Line, step_pb
+	Pause a Running Program, pause_pb
+	Resume a Paused Program, resume_pb
+	Stop a Running Program, stop_pb
+	Home All Joints, home_all_pb
+	Home a Joint (0-8), home_pb_(0-8)
+	Unhome All Joints, unhome_all_pb
+	Unhome a Joint (0-8), unhome_pb_(0-8)
 	Zero an Axis, zero_(axis letter)_pb
-	Manual Mode,manual_mode_pb
-	Flood Toggle,flood_pb
-	Mist Toggle,mist_pb
-	Clear Error History,clear_error_history_pb
-	Show HAL,show_hal_pb
-	HAL Meter,hal_meter_pb
-	HAL Scope,hal_scope_pb
+	Manual Mode, manual_mode_pb
+	Flood Toggle, flood_pb
+	Mist Toggle, mist_pb
+	Clear Error History, clear_error_history_pb
+	Show HAL, show_hal_pb
+	HAL Meter, hal_meter_pb
+	HAL Scope, hal_scope_pb
 
 .. image:: /images/controls-01.png
    :align: center
