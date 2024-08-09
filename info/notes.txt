@@ -16,5 +16,5 @@ https://doc.qt.io/qt-6/qtwidgets-module.html
 
 so to recap I need read the ini to set some plot options
 
-
+linuxcnc /home/john/linuxcnc/configs/flex_examples/plc/plc.ini
 linuxcnc /home/john/linuxcnc/configs/flex_examples/xyz/xyz.ini
