@@ -40,8 +40,8 @@ def load_file(parent, gcode_file):
 		file_list.remove(gcode_file)
 	# insert the g code file at the top of the list
 	file_list.insert(0, gcode_file)
-	# trim the list to 5
-	file_list = file_list[:5]
+	# trim the list to 10
+	file_list = file_list[:10]
 
 	# add files back into settings
 	parent.settings.beginGroup('recent_files')
