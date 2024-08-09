@@ -313,17 +313,27 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	action_buttons = {
-	'estop_pb': 'action_estop', 'power_pb': 'action_power',
-	'run_pb': 'action_run', 'run_from_line_pb': 'action_run_from_line',
-	'step_pb': 'action_step', 'pause_pb': 'action_pause',
-	'resume_pb': 'action_resume', 'stop_pb': 'action_stop',
-	'open_pb': 'action_open', 'edit_pb': 'action_edit',
-	'reload_pb': 'action_reload', 'save_as_pb': 'action_save_as',
+	'estop_pb': 'action_estop',
+	'power_pb': 'action_power',
+	'run_pb': 'action_run',
+	'run_from_line_pb': 'action_run_from_line',
+	'step_pb': 'action_step',
+	'pause_pb': 'action_pause',
+	'resume_pb': 'action_resume',
+	'stop_pb': 'action_stop',
+	'open_pb': 'action_open',
+	'edit_pb': 'action_edit',
+	'reload_pb': 'action_reload',
+	'save_as_pb': 'action_save_as',
 	'edit_tool_table_pb': 'action_edit_tool_table',
+	'edit_ladder_pb': 'action_ladder_editor',
 	'reload_tool_table_pb': 'action_reload_tool_table',
-	'quit_pb': 'action_quit', 'clear_mdi_history_pb': 'action_clear_mdi',
-	'copy_mdi_history_pb': 'action_copy_mdi', 'show_hal_pb': 'action_show_hal',
-	'hal_meter_pb': 'action_hal_meter', 'hal_scope_pb': 'action_hal_scope'
+	'quit_pb': 'action_quit',
+	'clear_mdi_history_pb': 'action_clear_mdi',
+	'copy_mdi_history_pb': 'action_copy_mdi',
+	'show_hal_pb': 'action_show_hal',
+	'hal_meter_pb': 'action_hal_meter',
+	'hal_scope_pb': 'action_hal_scope'
 	}
 
 	for key, value in action_buttons.items():
@@ -1066,13 +1076,6 @@ def setup_plot(parent):
 		parent.plotter = flexplot.emc_plot(parent)
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
-		#parent.view_x = 0
-		#parent.view_y = 0
-
-		# determine if there are any settings in the pref file
-		# if (parent.settings.childGroups().contains("SearchedKey", Qt::CaseInsensitive))
-		# if parent.settings.contains("actionDRO"):
-		# if 'PLOT' in parent.settings.childGroups():
 
 		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
 		parent.plotter._font = f'monospace bold {dro_font}'
@@ -1094,19 +1097,19 @@ def setup_plot(parent):
 		'actionOverlay': ['action_toggle_overlay', 'show_overlay']
 		}
 
-		# FIXME set check boxes and actions to default value if not found in pref file
-		# if an action is found connect it to the function
 		for key, value in plot_actions.items():
 			if key in parent.children:
 				getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value[0]}'), parent))
 				getattr(parent, key).setCheckable(True)
-				#if parent.settings.value(f'PLOT/{key}') != None:
 				if parent.settings.contains(f'PLOT/{key}'):
-					setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
-					checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
-					getattr(parent, key).setChecked(checked)
-				else:
-					getattr(parent, f'{key}').setChecked(getattr(parent.plotter, f'{value[1]}'))
+					state = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+				else: # add it and set to default
+					state = getattr(parent.plotter, value[1])
+					parent.settings.beginGroup('PLOT')
+					parent.settings.setValue(key, state)
+					parent.settings.endGroup()
+				getattr(parent, key).setChecked(state)
+				setattr(parent.plotter, value[1], state)
 
 		view_checkboxes = {
 			'view_dro_cb': ['action_toggle_dro', 'enable_dro'],
@@ -1128,13 +1131,14 @@ def setup_plot(parent):
 		for key, value in view_checkboxes.items():
 			if key in parent.children:
 				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
-				#getattr(parent, key).setCheckable(True)
 				if parent.settings.contains(f'PLOT/{key}'):
-					setattr(parent.plotter, f'{value[1]}', bool(parent.settings.value(f'PLOT/{key}')))
-					checked = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
-					getattr(parent, key).setChecked(checked)
-				else:
-					getattr(parent, f'{key}').setChecked(getattr(parent.plotter, f'{value[1]}'))
+					state = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+				else: # add it and set to default
+					state = getattr(parent.plotter, value[1])
+					parent.settings.beginGroup('PLOT')
+					parent.settings.setValue(key, state)
+					parent.settings.endGroup()
+				getattr(parent, key).setChecked(state)
 
 		parent.plotter.update()
 
