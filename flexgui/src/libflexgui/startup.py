@@ -415,9 +415,11 @@ def setup_actions(parent): # setup menu actions
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 	# special check for the classicladder editor
-	if parent.findChild(QAction, 'actionLadder_Editor'):
-		if not hal.component_exists("classicladder_rt"):
+	if not hal.component_exists("classicladder_rt"):
+		if 'actionLadder_Editor' in parent.children:
 			parent.actionLadder_Editor.setEnabled(False)
+		if 'edit_ladder_pb' in parent.children:
+			parent.edit_ladder_pb.setEnabled(False)
 
 	# special check for MDI
 	if 'mdi_history_lw' in parent.children:
