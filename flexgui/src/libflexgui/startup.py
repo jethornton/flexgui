@@ -1141,6 +1141,7 @@ def setup_plot(parent):
 					parent.settings.setValue(key, state)
 					parent.settings.endGroup()
 				getattr(parent, key).setChecked(state)
+				setattr(parent.plotter, value[1], state)
 
 		parent.plotter.update()
 
