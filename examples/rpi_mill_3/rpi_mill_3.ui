@@ -176,7 +176,7 @@
         <x>345</x>
         <y>65</y>
         <width>186</width>
-        <height>251</height>
+        <height>246</height>
        </rect>
       </property>
       <property name="title">
@@ -1606,28 +1606,6 @@
         <number>4</number>
        </property>
       </widget>
-      <widget class="QDoubleSpinBox" name="tool_touchoff_dsb">
-       <property name="geometry">
-        <rect>
-         <x>15</x>
-         <y>200</y>
-         <width>99</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-1000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>1000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-      </widget>
       <widget class="QLabel" name="tool_diameter_lb">
        <property name="geometry">
         <rect>
@@ -1729,6 +1707,29 @@
         <string>Z</string>
        </property>
       </widget>
+      <widget class="QLabel" name="label_40">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>195</y>
+         <width>66</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Touchoff</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="tool_touchoff_le">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>220</y>
+         <width>86</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_13">
       <property name="geometry">
@@ -1751,31 +1752,6 @@
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <widget class="QDoubleSpinBox" name="touchoff_dsb">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>295</y>
-         <width>99</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-1000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>1000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-       <property name="stepType">
-        <enum>QAbstractSpinBox::DefaultStepType</enum>
-       </property>
-      </widget>
       <widget class="QLabel" name="g5x_index_lb">
        <property name="geometry">
         <rect>
@@ -2141,7 +2117,7 @@
       <widget class="QLabel" name="label_39">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>25</x>
          <y>265</y>
          <width>66</width>
          <height>19</height>
@@ -2149,6 +2125,16 @@
        </property>
        <property name="text">
         <string>Touchoff</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="touchoff_le">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>290</y>
+         <width>86</width>
+         <height>27</height>
+        </rect>
        </property>
       </widget>
      </widget>
@@ -2568,7 +2554,7 @@
       </widget>
       <widget class="QPushButton" name="spindle_rev_pb">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -3584,14 +3570,6 @@
     <string>Copy MDI History</string>
    </property>
   </action>
-  <action name="actionShow_HAL">
-   <property name="text">
-    <string>HAL Show</string>
-   </property>
-   <property name="shortcut">
-    <string>F5</string>
-   </property>
-  </action>
   <action name="actionHAL_Meter">
    <property name="text">
     <string>HAL Meter</string>
@@ -3677,6 +3655,14 @@
   <action name="actionOverlay">
    <property name="text">
     <string>Overlay</string>
+   </property>
+  </action>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>HAL Show</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
  </widget>

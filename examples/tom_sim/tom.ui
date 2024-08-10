@@ -12,30 +12,13 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_6">
-    <item row="3" column="5">
-     <widget class="QLabel" name="motion_line_lb">
-      <property name="maximumSize">
-       <size>
-        <width>50</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>FreeMono</family>
-        <pointsize>12</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
+    <item row="2" column="5">
+     <widget class="QLabel" name="label_5">
       <property name="text">
-       <string/>
+       <string>Start Line</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -46,245 +29,6 @@
       </property>
       <property name="checkable">
        <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="6" rowspan="2">
-     <widget class="QPushButton" name="manual_mode_pb">
-      <property name="text">
-       <string>Manual
-Mode</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="7">
-     <widget class="QLabel" name="status_lb">
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <widget class="QLabel" name="start_line_lb">
-      <property name="maximumSize">
-       <size>
-        <width>50</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>FreeMono</family>
-        <pointsize>12</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="4">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Motion Line</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" rowspan="2" colspan="2">
-     <widget class="QFrame" name="frame_4">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="1" column="7">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Z</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="home_lb_1">
-         <property name="text">
-          <string>HY</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="home_lb_0">
-         <property name="text">
-          <string>HX</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="dro_lb_x">
-         <property name="font">
-          <font>
-           <family>FreeMono</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="8">
-        <widget class="QLabel" name="dro_lb_z">
-         <property name="font">
-          <font>
-           <family>FreeMono</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Y</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="5">
-        <widget class="QLabel" name="dro_lb_y">
-         <property name="font">
-          <font>
-           <family>FreeMono</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>X</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="6">
-        <widget class="QLabel" name="home_lb_2">
-         <property name="text">
-          <string>HZ</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="7">
-     <widget class="QLabel" name="state_lb">
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QPushButton" name="optional_stop_pb">
-      <property name="text">
-       <string>Op Stop M1</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="reload_pb">
-      <property name="text">
-       <string>Reload Gcode</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="file_lb">
-      <property name="text">
-       <string>No File Loaded</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-      <property name="margin">
-       <number>0</number>
-      </property>
-      <property name="indent">
-       <number>10</number>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="8">
-     <widget class="QFrame" name="frame">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout"/>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>Start Line</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -1318,20 +1062,7 @@ Mode</string>
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QDoubleSpinBox" name="tool_touchoff_dsb">
-           <property name="decimals">
-            <number>3</number>
-           </property>
-           <property name="minimum">
-            <double>-1000.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>1000.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>0.001000000000000</double>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="tool_touchoff_le"/>
          </item>
         </layout>
        </widget>
@@ -1638,6 +1369,20 @@ Mode</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
         <layout class="QGridLayout" name="gridLayout_12">
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_23">
+           <property name="text">
+            <string>Coordinate offset:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QPushButton" name="touchoff_pb_z">
+           <property name="text">
+            <string>Touch Off Z</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QPushButton" name="touchoff_pb_x">
            <property name="text">
@@ -1648,13 +1393,6 @@ Mode</string>
          <item row="5" column="0">
           <widget class="QComboBox" name="touchoff_system_cb"/>
          </item>
-         <item row="2" column="0">
-          <widget class="QPushButton" name="touchoff_pb_z">
-           <property name="text">
-            <string>Touch Off Z</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QPushButton" name="touchoff_pb_y">
            <property name="text">
@@ -1662,31 +1400,8 @@ Mode</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_23">
-           <property name="text">
-            <string>Coordinate offset:</string>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="0">
-          <widget class="QDoubleSpinBox" name="touchoff_dsb">
-           <property name="decimals">
-            <number>3</number>
-           </property>
-           <property name="minimum">
-            <double>-1000.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>1000.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>0.001000000000000</double>
-           </property>
-           <property name="stepType">
-            <enum>QAbstractSpinBox::DefaultStepType</enum>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="touchoff_le"/>
          </item>
         </layout>
        </widget>
@@ -2656,6 +2371,525 @@ Mode</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Plot Options</string>
+       </attribute>
+       <widget class="QCheckBox" name="view_rapids_cb">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>85</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Rapids</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_live_plot_cb">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>175</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Live Plot</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_velocity_cb">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>220</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Velocity</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_overlay_cb">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>265</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Overlay</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_tool_cb">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>130</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Tool</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_dtg_cb">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>175</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>DTG</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_offsets_cb">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>220</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Offsets</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_limits_cb">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>85</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Limits</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_dro_cb">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>DRO</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_extents_option_cb">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>130</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Extents</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_metric_units_cb">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>265</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Metric</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="view_program_cb">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>40</y>
+          <width>81</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Program</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="reload_pb">
+      <property name="text">
+       <string>Reload Gcode</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="optional_stop_pb">
+      <property name="text">
+       <string>Op Stop M1</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="7">
+     <widget class="QLabel" name="state_lb">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="7">
+     <widget class="QLabel" name="status_lb">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="file_lb">
+      <property name="text">
+       <string>No File Loaded</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <property name="indent">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="8">
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout"/>
+     </widget>
+    </item>
+    <item row="2" column="0" rowspan="2" colspan="2">
+     <widget class="QFrame" name="frame_4">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="1" column="7">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Z</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="home_lb_1">
+         <property name="text">
+          <string>HY</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="home_lb_0">
+         <property name="text">
+          <string>HX</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="dro_lb_x">
+         <property name="font">
+          <font>
+           <family>FreeMono</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="8">
+        <widget class="QLabel" name="dro_lb_z">
+         <property name="font">
+          <font>
+           <family>FreeMono</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Y</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLabel" name="dro_lb_y">
+         <property name="font">
+          <font>
+           <family>FreeMono</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>X</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
+        <widget class="QLabel" name="home_lb_2">
+         <property name="text">
+          <string>HZ</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="manual_mode_pb">
+      <property name="text">
+       <string>Manual</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QLabel" name="start_line_lb">
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>FreeMono</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="6">
+     <widget class="QLabel" name="motion_line_lb">
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>FreeMono</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="5">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Motion Line</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4" rowspan="2">
+     <widget class="QFrame" name="frame_2">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="tool_in_spindle_lb_2">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>10</y>
+         <width>46</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_31">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>15</y>
+         <width>46</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Tool:</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -2711,9 +2945,27 @@ Mode</string>
     <addaction name="actionHAL_Meter"/>
     <addaction name="actionHAL_Scope"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionDRO"/>
+    <addaction name="actionLimits"/>
+    <addaction name="actionExtents_Option"/>
+    <addaction name="actionLive_Plot"/>
+    <addaction name="actionVelocity"/>
+    <addaction name="actionMetric_Units"/>
+    <addaction name="actionProgram"/>
+    <addaction name="actionRapids"/>
+    <addaction name="actionTool"/>
+    <addaction name="actionDTG"/>
+    <addaction name="actionOffsets"/>
+    <addaction name="actionOverlay"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuMachine"/>
    <addaction name="menuPrograms"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -2845,6 +3097,66 @@ Mode</string>
   <action name="actionShow_HAL">
    <property name="text">
     <string>HAL Show</string>
+   </property>
+  </action>
+  <action name="actionDRO">
+   <property name="text">
+    <string>DRO</string>
+   </property>
+  </action>
+  <action name="actionLimits">
+   <property name="text">
+    <string>Limits</string>
+   </property>
+  </action>
+  <action name="actionExtents_Option">
+   <property name="text">
+    <string>Extents Option</string>
+   </property>
+  </action>
+  <action name="actionLive_Plot">
+   <property name="text">
+    <string>Live Plot</string>
+   </property>
+  </action>
+  <action name="actionVelocity">
+   <property name="text">
+    <string>Velocity</string>
+   </property>
+  </action>
+  <action name="actionProgram">
+   <property name="text">
+    <string>Program</string>
+   </property>
+  </action>
+  <action name="actionRapids">
+   <property name="text">
+    <string>Rapids</string>
+   </property>
+  </action>
+  <action name="actionTool">
+   <property name="text">
+    <string>Tool</string>
+   </property>
+  </action>
+  <action name="actionDTG">
+   <property name="text">
+    <string>DTG</string>
+   </property>
+  </action>
+  <action name="actionOffsets">
+   <property name="text">
+    <string>Offsets</string>
+   </property>
+  </action>
+  <action name="actionOverlay">
+   <property name="text">
+    <string>Overlay</string>
+   </property>
+  </action>
+  <action name="actionMetric_Units">
+   <property name="text">
+    <string>Metric Units</string>
    </property>
   </action>
  </widget>
