@@ -1,0 +1,105 @@
+( Rectangular Probing                                                   )
+(                                                                       )
+( This program is based on smartProbe, but is a bit different          )
+( probed location to the file 'probe-results.ngc' in the same directory )
+( as the .ini file                                                      )
+
+(Configuration section)
+G20   (Inches)
+F20    (probe speed)
+
+http://www.linuxcnc.org/index.php/english/component/kunena/?func=view&catid=38&id=13940&limit=6
+#<xMin> = 0
+#<xMax>= 1
+
+#<yMin>=-.5
+#<ymax>= 0.0
+#<yStepDist>=.125
+
+#<d>=.1
+#<r>=[#<d>/4]
+
+
+#<zSaftey>=1.1 (Z safety)
+#<zProbeMax>=1 (Z probe)
+#<zProbeMin>=-.1
+(End configuration section)
+
+#5070=0
+(LOGOPEN,probe-results.ngc)
+#<i>=0 
+G0Z[#<zSaftey>]
+G0 X[#<xMin>] Y[#<yMin>]
+o1 while [#<i> lt fix[[#<yMax>-#<yMin>]/#<yStepDist>]]
+    G0 Y[#<yMin>+#<yStepDist>*#<i>]
+	o2 if [[[#<i>/2] - fix[#<i>/2]] eq 0]
+            #<thisDirection>=1
+        o2 else      
+            #<thisDirection>=-1
+        o2 endIf
+	(G38.3 Z[-.1])
+	o399 if [#5070 NE 0]
+		(LOG,#5061 #5062 #5063)
+		#<lastXLocation>=#5061
+		#<lastYLocation>=#5061
+		#<lastZLocation>=#5061
+	o399 else
+		#<lastXLocation>=#5400
+		#<lastYLocation>=#5401
+		#<lastZLocation>=#5402
+	o399 endIf
+	
+
+	
+    #<lastContactDirection>=0 (0 for Z, 1 for x)
+	o400 while [#<lastXLocation> lt #<xMax>]
+		o410 if [#lastContactDirection EQ 0]
+			(code for the case that the last contact was in the z- direction)
+		o410 endIf 
+		
+		o420 if [#lastContactDirection EQ 1]
+			(code for the case that the last contact was in the x+ direction)
+			g01 X[-#<r>*#<thisDirection>]
+		o420 endIf
+		
+		g38.3 Z[#<lastZLocation>+d]
+		o430 while [#5070 NE 0]
+				(back off the undercut and try again)
+				g01 X[-#<r>*#<thisDirection>]
+				g38.3 Z[#<lastZLocation>+d]
+		o430 endWhile
+		
+		G38.3 X[#lastXLocation>+[d*#<thisDirection>]]
+		o440 if [#5070 NE 0]
+			(LOG,#5061 #5062 #5063)
+			#<lastXLocation>=#5061
+			#<lastYLocation>=#5062
+			#<lastZLocation>=#5063
+			#<lastContactDirection>=1
+			o400 continue
+		o440 endIf
+		G38.3 Z[#<zProbeMin>]
+		o440 if [#5070 NE 0]
+			(LOG,#5061 #5062 #5063)
+			#<lastXLocation>=#5061
+			#<lastYLocation>=#5062
+			#<lastZLocation>=#5063
+			#<lastContactDirection>=0
+			o400 continue
+		o440 endIf
+		#<lastXLocation>=#5420
+		#<lastYLocation>=#5421
+		#<lastZLocation>=#5422
+		#<lastContactDirection>=0
+		
+		
+	o400 endWhile
+
+    G0Z[#<zSaftey>]
+    #<i>=[#<i>+1]
+O1 endWhile
+
+(LOGCLOSE)
+G0Z[#<zSaftey>]
+G0X[#<xMin>]Y[#<yMin>]
+M2
