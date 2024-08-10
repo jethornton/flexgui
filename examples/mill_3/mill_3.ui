@@ -1468,6 +1468,19 @@
        </property>
       </widget>
      </widget>
+     <widget class="QPushButton" name="zero_x_pb">
+      <property name="geometry">
+       <rect>
+        <x>345</x>
+        <y>295</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Zero X</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -1833,31 +1846,6 @@
         <string>Y</string>
        </property>
       </widget>
-      <widget class="QDoubleSpinBox" name="touchoff_dsb">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>190</y>
-         <width>99</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-1000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>1000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
-       </property>
-       <property name="stepType">
-        <enum>QAbstractSpinBox::DefaultStepType</enum>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_13">
        <property name="geometry">
         <rect>
@@ -2053,6 +2041,16 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLineEdit" name="touchoff_le">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>190</y>
+         <width>86</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_10">
       <property name="geometry">
@@ -2083,28 +2081,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-      <widget class="QDoubleSpinBox" name="tool_touchoff_dsb">
-       <property name="geometry">
-        <rect>
-         <x>15</x>
-         <y>75</y>
-         <width>99</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-1000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>1000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.001000000000000</double>
        </property>
       </widget>
       <widget class="QLabel" name="tool_id_lb">
@@ -2212,6 +2188,16 @@
        </property>
        <property name="text">
         <string>Touch Off Z</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="tool_touchoff_le">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>75</y>
+         <width>86</width>
+         <height>27</height>
+        </rect>
        </property>
       </widget>
      </widget>
@@ -3310,7 +3296,6 @@
   <tabstop>tool_change_cb</tabstop>
   <tabstop>tool_change_pb</tabstop>
   <tabstop>tool_touchoff_z</tabstop>
-  <tabstop>tool_touchoff_dsb</tabstop>
   <tabstop>g1_x_minus</tabstop>
   <tabstop>g1_y_minus</tabstop>
   <tabstop>g1_x_plus</tabstop>
@@ -3322,7 +3307,6 @@
   <tabstop>copy_mdi_history_pb</tabstop>
   <tabstop>clear_error_history_pb</tabstop>
   <tabstop>optional_stop_pb</tabstop>
-  <tabstop>touchoff_dsb</tabstop>
   <tabstop>estop_pb</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>errors_pte</tabstop>
