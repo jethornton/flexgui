@@ -1,0 +1,8 @@
+%
+G20
+G91 G38.2 F25 X+0.5
+G90 G0 X[#5061-0.010]
+G91 G38.2 F0.2 X+0.020
+G90 G0 X[#5061-0.2+[3.0/25.4]]
+(debug,Spindle center is X-0.2 from the edge)
+%
