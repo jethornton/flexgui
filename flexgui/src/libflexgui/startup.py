@@ -289,15 +289,6 @@ def setup_enables(parent):
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(False)
 
-	# FIXME this needs to be in mdi setup
-	if 'run_mdi_pb' in parent.children:
-		if 'mdi_command_le' not in parent.children:
-			parent.run_mdi_pb.setEnabled(False)
-			msg = ('Run MDI can not work without\n'
-				'the Line Edit mdi_command_le.\n'
-				'The Run MDI Button will be disabled')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
 	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
@@ -703,7 +694,7 @@ def setup_mdi(parent):
 	# mdi_command_le and run_mdi_pb are required to run mdi commands
 	# mdi_history_lw is optional
 	# determine if mdi is possible from the gui
-	# parent.mdi_command is tested in status.py so it much exist
+	# parent.mdi_command is tested in status.py so it must exist
 	parent.mdi_command = ''
 	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
 		if parent.mdi_command_le.property('mode') == 'touch':
@@ -720,6 +711,13 @@ def setup_mdi(parent):
 					for item in history_list:
 						parent.mdi_history_lw.addItem(item.strip())
 			parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
+
+	if 'run_mdi_pb' in parent.children and 'mdi_command_le' not in parent.children:
+			parent.run_mdi_pb.setEnabled(False)
+			msg = ('Run MDI can not work without\n'
+				'the Line Edit mdi_command_le.\n'
+				'The Run MDI Button will be disabled')
+			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 def setup_recent_files(parent):
 	parent.menuRecent = QMenu('Recent', parent)
