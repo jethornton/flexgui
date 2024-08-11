@@ -1,7 +1,8 @@
 Status Labels
 =============
 
-Status labels come in two forms, single status items like `Machine Status` and
+Status labels are created using a QLabel and setting the `Object Name`. Status
+labels come in two forms, single status items like `Machine Status` and
 multiple status labels like the `joint` dictionary which has multiple items and
 displays for all joints. Multiple status labels use a number identifier to
 select the axis, joint or spindle information wanted. When creating a status
@@ -39,9 +40,10 @@ Status Attributes <http://linuxcnc.org/docs/stable/html/config/python-interface.
 Status Labels
 -------------
 
-.. csv-table:: Single Status Labels
-   :width: 100%
+.. csv-table:: Single Status Label Object Names
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	acceleration_lb, flood_lb, pocket_prepped_lb
 	active_queue_lb, gcodes_lb, probe_tripped_lb
@@ -62,10 +64,10 @@ Status Labels
 	estop_lb, mist_lb, task_state_lb
 	exec_state_lb, motion_line_lb, tool_in_spindle_lb
 	feed_hold_enabled_lb, motion_mode_lb, tool_from_pocket_lb
-	motion_type_lb, tool_offset_lb, feedrate_lb, optional_stop_lb
-	file_lb, paused_lb, 
+	motion_type_lb, tool_offset_lb, feedrate_lb
+	optional_stop_lb, file_lb, paused_lb
 
-.. note:: You don't have to use all the labels, the ones found will be
+.. note:: You don't have to use all the labels, the ones found will be used
 
 Axis Status
 -----------
@@ -74,11 +76,12 @@ The Axis status contains status items for 9 axes. Replace the `_n_` with the
 number of the axis. Axis numbers start at 0 and go through to 8. Returns a float.
 
 .. csv-table:: Axis Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 60 60
 
-	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb, axis_n_velocity_lb
-	axis_n_vel_per_min_lb
+	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb
+	axis_n_velocity_lb, axis_n_vel_per_min_lb
 
 .. note:: The Axis velocity label only reports back jogging speed, use the
           joint velocity label for speed.
@@ -90,17 +93,22 @@ The Joint status contains status items for 16 joints. Replace the `_n_` with the
 number of the joint. Joint numbers start at 0 and go through to 15.
 
 .. csv-table:: Joint Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 60 60
 
-	joint_backlash_n_lb, joint_input_n_lb, joint_min_position_limit
-	joint_enabled_n_lb, joint_jointType_n_lb, joint_in_soft_limit_n_lb
-	joint_fault_n_lb, joint_max_ferror_n_lb, joint_output_n_lb
-	joint_ferror_current_n_lb, joint_max_hard_limit_n_lb, joint_override_limits_n_lb
-	joint_ferror_highmark_n_lb, joint_max_position_limit_n_lb, joint_units_n_lb
-	joint_homed_n_lb, joint_max_soft_limit_n_lb, joint_vel_sec_n_lb
-	joint_vel_min_n_lb, joint_homing_n_lb, joint_min_ferror_n_lb
-	joint_inpos_n_lb, joint_min_hard_limit_n_lb,
+	joint_backlash_n_lb, joint_input_n_lb
+	joint_min_position_limit, joint_enabled_n_lb
+	joint_jointType_n_lb, joint_in_soft_limit_n_lb
+	joint_fault_n_lb, joint_max_ferror_n_lb
+	joint_output_n_lb, joint_ferror_current_n_lb
+	joint_max_hard_limit_n_lb, joint_override_limits_n_lb
+	joint_ferror_highmark_n_lb, joint_max_position_limit_n_lb
+	joint_units_n_lb, joint_homed_n_lb
+	joint_max_soft_limit_n_lb, joint_vel_sec_n_lb
+	joint_vel_min_n_lb, joint_homing_n_lb
+	joint_min_ferror_n_lb, joint_inpos_n_lb
+	joint_min_hard_limit_n_lb,
 
 Special Labels
 --------------
@@ -112,8 +120,9 @@ Run from line label
 Axis machine position labels no offsets. Returns a float.
 
 .. csv-table:: Machine Position Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	actual_lb_x, actual_lb_y, actual_lb_z
 	actual_lb_a, actual_lb_b, actual_lb_c
@@ -123,8 +132,9 @@ Axis machine position labels no offsets. Returns a float.
 Axis position labels including all offsets. Returns a float.
 
 .. csv-table:: DRO Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	dro_lb_x, dro_lb_y, dro_lb_z
 	dro_lb_a, dro_lb_b, dro_lb_c
@@ -133,8 +143,9 @@ Axis position labels including all offsets. Returns a float.
 Axis homed labels
 
 .. csv-table:: Axis Homed Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	home_lb_0, home_lb_1, home_lb_2
 	home_lb_3, home_lb_4, home_lb_5
@@ -144,8 +155,9 @@ Axis homed labels
 Offsets for the currently active G5x coordinate system. Returns a float.
 
 .. csv-table:: G5x Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	g5x_lb_x, g5x_lb_y, g5x_lb_z
 	g5x_lb_a, g5x_lb_b, g5x_lb_c
@@ -154,8 +166,9 @@ Offsets for the currently active G5x coordinate system. Returns a float.
 Offsets for G92.  Returns a float.
 
 .. csv-table:: G92 Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	g92_lb_x, g92_lb_y, g92_lb_z
 	g92_lb_a, g92_lb_b, g92_lb_c
@@ -202,13 +215,15 @@ The Spindle status contains status items for 9 spindles. Replace the `_n_` with 
 number of the spindle. Spindle numbers start at 0 and go through to 8.
 
 .. csv-table:: Spindle Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 60 60
 
-	spindle_brake_n_lb, spindle_direction_n_lb, spindle_enabled_n_lb
-	spindle_override_enabled_n_lb, spindle_speed_n_lb, spindle_override_n_lb
-	spindle_homed_n_lb, spindle_orient_state_n_lb, spindle_orient_fault_n_lb
-	spindle_actual_speed_lb
+	spindle_brake_n_lb, spindle_direction_n_lb
+	spindle_enabled_n_lb, spindle_override_enabled_n_lb
+	spindle_speed_n_lb, spindle_override_n_lb
+	spindle_homed_n_lb, spindle_orient_state_n_lb
+	spindle_orient_fault_n_lb, spindle_actual_speed_lb
 
 .. note:: Spindle speed is the commanded speed not the actual speed if an
    override is in effect.
@@ -224,8 +239,9 @@ number of the joint. Joint numbers start at 0 and go through to 63. Analog
 I/O returns a float.
 
 .. csv-table:: I/O Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	ain_n_lb, aout_n_lb, din_n_lb
 	dout_n_lb
@@ -236,8 +252,9 @@ Current Tool Status
 Current Tool status of the tool loaded in the spindle
 
 .. csv-table:: Tool Table Status Labels
-   :width: 100%
+   :width: 80%
    :align: left
+   :widths: 40 40 40
 
 	tool_id_lb, tool_xoffset_lb, tool_yoffset_lb
 	tool_zoffset_lb, tool_aoffset_lb, tool_boffset_lb
@@ -245,4 +262,3 @@ Current Tool status of the tool loaded in the spindle
 	tool_woffset_lb, tool_diameter_lb, tool_frontangle_lb
 	tool_backangle_lb, tool_orientation_lb
 
-	settings_feed_lb, settings_speed_lb

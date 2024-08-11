@@ -11,24 +11,26 @@ If you're using a touch screen add pan, zoom and rotate controls.
 .. csv-table:: Display Controls
    :width: 80%
    :align: center
+   :widths: 40 40 40
 
 	Control, Widget, Object Name
-	Rotate Up, QPushButton, view_rotate_up_pb
-	Rotate Down, QPushButton, view_rotate_down_pb
-	Rotate Left, QPushButton, view_rotate_left_pb
-	Rotate Right, QPushButton, view_rotate_right_pb
-	Pan Up, QPushButton, view_pan_up_pb
-	Pan Down, QPushButton, view_pan_down_pb
-	Pan Left, QPushButton, view_pan_left_pb
-	Pan Right, QPushButton, view_pan_right_pb
-	Zoom In, QPushButton, view_zoom_in_pb
-	Zoom Out, QPushButton, view_zoom_out_pb
+	Rotate View Up, QPushButton, view_rotate_up_pb
+	Rotate View Down, QPushButton, view_rotate_down_pb
+	Rotate View Left, QPushButton, view_rotate_left_pb
+	Rotate View Right, QPushButton, view_rotate_right_pb
+	Pan View Up, QPushButton, view_pan_up_pb
+	Pan View Down, QPushButton, view_pan_down_pb
+	Pan View Left, QPushButton, view_pan_left_pb
+	Pan View Right, QPushButton, view_pan_right_pb
+	Zoom View In, QPushButton, view_zoom_in_pb
+	Zoom View Out, QPushButton, view_zoom_out_pb
 
 The following controls set predefined views
 
 .. csv-table:: Display Views
    :width: 80%
    :align: center
+   :widths: 40 40 40
 
 	Control, Widget, Object Name
 	View Perspetive, QPushButton, view_p_pb
@@ -43,6 +45,7 @@ To clear the Live plot use:
 .. csv-table:: Display Functions
    :width: 80%
    :align: center
+   :widths: 40 40 40
 
 	Control, Widget, Name
 	Clear Live Plot, QPushButton, view_clear_pb
@@ -50,12 +53,13 @@ To clear the Live plot use:
 Display
 -------
 
-Some items in the plot can be turned on or off and note the program limits default
-to metric for now.
+The DRO can be customized by turning on or off different parts using either a
+QCheckbox or a Menu.
 
-.. csv-table:: Display Control Options
+.. csv-table:: Display Checkbox Options
    :width: 80%
    :align: center
+   :widths: 40 40 40
 
 	Function, Widget, Object Name
 	View DRO, QCheckBox, view_dro_cb
@@ -84,6 +88,7 @@ when creating the Menu then press enter.
 .. csv-table:: Display Menu Options
    :width: 80%
    :align: center
+   :widths: 40 40 40
 
 	Function, Menu Name, Object Name
 	View DRO, DRO, actionDRO
