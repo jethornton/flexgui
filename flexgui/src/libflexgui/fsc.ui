@@ -47,7 +47,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="fsc_load_le">
+       <widget class="QLineEdit" name="fsc_chip_load_le">
         <property name="maximumSize">
          <size>
           <width>100</width>
