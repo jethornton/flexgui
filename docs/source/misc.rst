@@ -38,3 +38,9 @@ Error Viewer
 To add an error viewer add a Plain Text Edit from Input Widgets and name it
 `errors_pte`.
 
+Speed & Feed Calculator
+-----------------------
+
+To add a SFM add a QFrame or QWidget and set the Object Name to `sfm_container`
+
+
