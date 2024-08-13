@@ -1,0 +1,31 @@
+
+Variables / Abbreviations
+
+    Speed – Surface Feet per Minute (SFM)
+    Feed – Inches per Minute (IPM)
+    Feed per Tooth (FPT)
+    Adjusted Feed per Tooth – Chip Thinning (AFPT)
+    Feed per Revolution (FPR)
+    Depth of Cut (DOC)
+    Width of Cut (WOC)
+    Tool Diameter (D)
+    # of Teeth in Cutter (Z)
+    Metal Removal Rate – Cubic Inches per Minute (MRR)
+
+
+
+Milling Formulas
+
+    Speed (RPM) = (SFM x 3.82) / D
+    Feed (IPM) = RPM x FPT x Z
+    SFM (Surface Feet per Minute) = (RPM x D) / 3.82
+    IPT (Inches per Tooth) = (IPM / RPM) / Z
+    MRR (Cubic Inches per Minute) = IPM * WOC * DOC
+    AFPT (@ less than 1/2 dia. WOC) = IPM x sqroot of (D / WOC)
+    HP (Horsepower Consumption) = MRR x mf
+        mf - steel = 1
+        mf - gray iron = .65
+        mf - aluminum = .3
+        * - 1.5% from total for every degree positive
+
+Chip load = 
