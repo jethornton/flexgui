@@ -66,3 +66,24 @@ objectName for that widget. For example the E Stop button is called estop_pb.
 .. note:: Each object name must be unique, designer will not allow duplicate names
 
 Save the GUI in the configuration directory where you launch LinuxCNC.
+
+You can start Qt5 Designer from a terminal with `designer &` which spawns a new
+process
+
+.. note:: There is an issue with Qt5 Designer and bold fonts.
+
+Qt6 Designer
+------------
+
+Qt6 Designer can be installed from a terminal with
+::
+
+	sudo apt install designer-qt6
+
+To run Qt6 Designer you have to use the full path to the executable
+::
+
+	/usr/lib/qt6/bin/designer
+
+
+

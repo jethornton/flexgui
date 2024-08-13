@@ -1225,4 +1225,12 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
 
+def setup_fsc(parent):
+	if 'fsc_container' in parent.children:
+		from libflexgui import fsc
+		parent.fsc_calc = fsc.feed_speed_calc()
+		layout = QVBoxLayout(parent.fsc_container)
+		layout.addWidget(parent.fsc_calc)
+
+
 
