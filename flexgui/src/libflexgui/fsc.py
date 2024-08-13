@@ -14,11 +14,6 @@ class feed_speed_calc(QWidget):
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 		loadUi(os.path.join(self.lib_path, 'fsc.ui'), self)
 
-		self.fsc_diameter_le.setText('0.5')
-		self.fsc_flutes_le.setText('4')
-		self.fsc_rpm_le.setText('4000')
-		self.fsc_feed_le.setText('80')
-		self.fsc_chip_load_le.setText('0.005')
 		self.fsc_cl_lb.setText('')
 		self.fsc_feed_lb.setText('')
 		self.fsc_sfm_lb.setText('')
