@@ -90,12 +90,8 @@ the Tool Bar.
    :align: center
 
 To set the style of a Tool Bar Button use the action name and replace action
-with `flex_` for example the actionQuit would be `flex_Quit`
-::
-
-	QToolButton#flex_Quit:pressed {
-		background-color: rgba(192, 0, 0, 80%); color: white; border none;
-	}
+with `flex_` for example the actionQuit would be `flex_Quit` see
+`Tool Bar Buttons` in the stylesheet examples.
 
 Shortcut Keys
 -------------
