@@ -201,12 +201,15 @@ class flexgui(QMainWindow):
 
 	def eventFilter(self, obj, event):
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.numbers(self, self.touchoff_le)
+			dialogs.numbers(self, obj)
 		# FIXME finish adding this
 		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.numbers(self, self.tool_touchoff_le)
+			dialogs.numbers(self, obj)
 		if obj.objectName() == 'mdi_command_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.gcode(self, self.mdi_command_le)
+			dialogs.gcode(self, obj)
+		fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
+		if obj.objectName() in fsc_items and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.numbers(self, obj)
 
 		return super(flexgui, self).eventFilter(obj, event)
 
