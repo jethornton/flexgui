@@ -30,6 +30,7 @@ QPushButton:checked {
 
 QToolButton { /* all types of tool button */
 	background-color: rgba(192, 192, 192, 50%);
+	min-height: 40px;
     border: 1px solid black;
     border-radius: 3px;
 	}
