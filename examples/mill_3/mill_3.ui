@@ -251,7 +251,7 @@
       <property name="geometry">
        <rect>
         <x>455</x>
-        <y>195</y>
+        <y>210</y>
         <width>216</width>
         <height>156</height>
        </rect>
@@ -428,7 +428,7 @@
       <property name="geometry">
        <rect>
         <x>455</x>
-        <y>5</y>
+        <y>20</y>
         <width>276</width>
         <height>181</height>
        </rect>
@@ -826,9 +826,9 @@
       <property name="geometry">
        <rect>
         <x>680</x>
-        <y>195</y>
+        <y>210</y>
         <width>216</width>
-        <height>221</height>
+        <height>206</height>
        </rect>
       </property>
       <property name="title">
@@ -2596,7 +2596,7 @@
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Plot Options</string>
+      <string>Plot Options - FSC</string>
      </attribute>
      <widget class="QCheckBox" name="view_limits_cb">
       <property name="geometry">
@@ -2803,6 +2803,22 @@
       </property>
       <property name="checked">
        <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="fsc_container">
+      <property name="geometry">
+       <rect>
+        <x>325</x>
+        <y>15</y>
+        <width>516</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
      </widget>
     </widget>
