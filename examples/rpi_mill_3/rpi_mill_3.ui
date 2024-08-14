@@ -2903,7 +2903,7 @@
     </widget>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
-      <string>Plot Options</string>
+      <string>Plot Options - FSC</string>
      </attribute>
      <widget class="QCheckBox" name="view_dro_cb">
       <property name="geometry">
@@ -3110,6 +3110,22 @@
       </property>
       <property name="checked">
        <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="fsc_container">
+      <property name="geometry">
+       <rect>
+        <x>265</x>
+        <y>5</y>
+        <width>506</width>
+        <height>341</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
      </widget>
     </widget>
@@ -3591,23 +3607,25 @@
     <string>E Stop</string>
    </property>
   </action>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>HAL Show</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
   <action name="actionDRO">
    <property name="text">
     <string>DRO</string>
    </property>
   </action>
   <action name="actionLimits">
-   <property name="checked">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Limits</string>
    </property>
   </action>
   <action name="actionExtents_Option">
-   <property name="checked">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Extents Option</string>
    </property>
@@ -3655,14 +3673,6 @@
   <action name="actionOverlay">
    <property name="text">
     <string>Overlay</string>
-   </property>
-  </action>
-  <action name="actionShow_HAL">
-   <property name="text">
-    <string>HAL Show</string>
-   </property>
-   <property name="shortcut">
-    <string>F5</string>
    </property>
   </action>
  </widget>
