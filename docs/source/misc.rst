@@ -24,23 +24,43 @@ G code Viewer
 To add a G code viewer add a Plain Text Edit from Input Widgets and name it
 `gcode_pte`.
 
+.. image:: /images/gcode-viewer-01.png
+   :align: center
+
 MDI Viewer
 ----------
 
 To add a MDI viewer add a List Widget from Item Widgets and name it
 `mdi_history_lw`
 
+.. image:: /images/mdi-viewer-01.png
+   :align: center
+
 To enter MDI commands add a Line Edit and name it `mdi_command_le`
 
 Error Viewer
 ------------
 
-To add an error viewer add a Plain Text Edit from Input Widgets and name it
+To add an error viewer add a QPlainTextEdit from Input Widgets and name it
 `errors_pte`.
+
+.. image:: /images/error-viewer-01.png
+   :align: center
 
 Speed & Feed Calculator
 -----------------------
 
-To add a SFM add a QFrame or QWidget and set the Object Name to `sfm_container`
+To add a SFC add a QFrame or QWidget and set the Object Name to `fsc_container`
+
+To make the entry boxes touch screen aware add a Dynamic Property called `mode`
+and set the value to `touch`.
+
+.. image:: /images/fsc-01.png
+   :align: center
+
+SFC calculator
+
+.. image:: /images/fsc-02.png
+   :align: center
 
 
