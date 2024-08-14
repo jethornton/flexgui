@@ -1227,10 +1227,19 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 
 def setup_fsc(parent):
 	if 'fsc_container' in parent.children:
+		if parent.fsc_container.property('mode') == 'touch':
+			touch = True
+		else:
+			touch = False
 		from libflexgui import fsc
-		parent.fsc_calc = fsc.feed_speed_calc()
+		parent.fsc_calc = fsc.feed_speed_calc(touch)
 		layout = QVBoxLayout(parent.fsc_container)
 		layout.addWidget(parent.fsc_calc)
+
+		if touch:
+			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
+			for item in fsc_items:
+				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
 
 
 
