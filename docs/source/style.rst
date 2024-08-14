@@ -69,6 +69,8 @@ A tool bar button created from a menu action can be styled by using the
 		background-color: rgba(255, 0, 0, 75%);
 	}
 
+.. _refname:
+
 To set the style of a single tool bar button you need to use the widget name for
 that action. The tool bar button has to exist in the tool bar
 
