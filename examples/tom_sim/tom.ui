@@ -2373,7 +2373,7 @@
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Plot Options</string>
+        <string>Plot Options - FSC</string>
        </attribute>
        <widget class="QCheckBox" name="view_rapids_cb">
         <property name="geometry">
@@ -2580,6 +2580,22 @@
         </property>
         <property name="checked">
          <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QFrame" name="fsc_container">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>20</y>
+          <width>516</width>
+          <height>391</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
         </property>
        </widget>
       </widget>
