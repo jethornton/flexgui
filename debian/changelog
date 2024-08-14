@@ -1,3 +1,9 @@
+flexgui (0.9.7) unstable; urgency=medium
+
+  * Add feed and speed calculator
+
+ -- John Thornton <dev@gnipsel.com>  Wed, 14 Aug 2024 07:36:24 -0500
+
 flexgui (0.9.6) unstable; urgency=medium
 
   * Update touch stylesheet
