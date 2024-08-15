@@ -1232,7 +1232,7 @@ def setup_fsc(parent):
 		else:
 			touch = False
 		from libflexgui import fsc
-		parent.fsc_calc = fsc.feed_speed_calc(touch)
+		parent.fsc_calc = fsc.fs_calc(touch)
 		layout = QVBoxLayout(parent.fsc_container)
 		layout.addWidget(parent.fsc_calc)
 
@@ -1240,6 +1240,17 @@ def setup_fsc(parent):
 			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 			for item in fsc_items:
 				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
+
+def setup_dsf(parent):
+	if 'dsf_container' in parent.children:
+		if parent.dsf_container.property('mode') == 'touch':
+			touch = True
+		else:
+			touch = False
+		from libflexgui import dsf
+		parent.dsf_calc = dsf.dsf_calc(touch)
+		layout = QVBoxLayout(parent.dsf_container)
+		layout.addWidget(parent.dsf_calc)
 
 
 
