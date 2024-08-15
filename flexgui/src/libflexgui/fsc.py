@@ -1,3 +1,5 @@
+# Feed and Speed Calculator
+
 import os, sys
 from math import pi
 
@@ -7,7 +9,7 @@ from PyQt6.uic import loadUi
 from libflexgui import utilities
 from libflexgui import dialogs
 
-class feed_speed_calc(QWidget):
+class fs_calc(QWidget):
 	def __init__(self, touch=False):
 		super().__init__()
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
