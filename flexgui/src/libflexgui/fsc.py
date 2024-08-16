@@ -83,7 +83,7 @@ class fs_calc(QWidget):
 		if utilities.is_float(self.fsc_diameter_le.text()):
 			return float(self.fsc_diameter_le.text())
 		else:
-			msg = ('Flutes is not a valid number')
+			msg = ('Diameter is not a valid number')
 			dialogs.warn_msg_ok(msg, 'Error')
 			return False
 
