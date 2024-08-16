@@ -5,6 +5,9 @@ import os, sys
 from PyQt6.QtWidgets import QWidget
 from PyQt6.uic import loadUi
 
+from libflexgui import utilities
+from libflexgui import dialogs
+
 '''
 • Feed equals .001" per revolution for every 1/16" of drill diameter, plus or
   minus .001" on the total.
@@ -19,6 +22,13 @@ from PyQt6.uic import loadUi
 • Machine Time (seconds) = (60 x Feed minus Stroke) / I.P.M.
 1 inch is exactly 25.4 MM Therefore 1 meter is about 39.37 IN, or 3.281 FT.
 1 foot is 0.3048 meters
+
+A quick rule to follow is you generally want to be 2/3 the SFM and 2-3 Times
+the IPR Feed Rate you would run a HSS/Cobalt Drill at.  This can give you good
+starting speeds and feeds.
+
+Also, you want to leave 2%-3% of the hole diameter for the reamer
+(Example: .1250" Reamer needs to be drilled to .121"-.1225" before Reaming). 
 '''
 
 class dsf_calc(QWidget):
@@ -33,9 +43,69 @@ class dsf_calc(QWidget):
 
 		self.units = 'Inch'
 		self.dsf_units_pb.clicked.connect(self.change_units)
+		self.dfs_calculate_pb.clicked.connect(self.calculate)
+		self.dsf_feed_lb.setText('')
+		self.dsf_drill_lb.setText('')
+		#self.dfs_rpm_lb.setText('')
+		self.dsf_ream_lb.setText('')
 		self.setup_material()
+		self.dfs_diameter_le.setText('0.5')
+		self.dfs_surface_speed_le.setText('100')
 
+	def check_dia(self):
+		if self.dfs_diameter_le.text() == '':
+			msg = ('Diameter can not be blank')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return False
+		if utilities.is_float(self.dfs_diameter_le.text()):
+			return float(self.dfs_diameter_le.text())
+		else:
+			msg = ('Diameter is not a valid number')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return False
 
+	def check_speed(self):
+		if self.dfs_surface_speed_le.text() == '':
+			msg = ('Surface Speed can not be blank')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return False
+		if utilities.is_float(self.dfs_surface_speed_le.text()):
+			return float(self.dfs_surface_speed_le.text())
+		else:
+			msg = ('Surface Speed is not a valid number')
+			dialogs.warn_msg_ok(msg, 'Error')
+			return False
+
+	def calculate(self):
+		dia = self.check_dia()
+		if not dia:
+			return
+		speed = self.check_speed()
+		if not speed:
+			return
+
+		if self.units == 'Inch':
+			feed_rev = (dia / 0.0625) * 0.001
+			feed_rev = feed_rev * 0.5 if self.dsf_deep_hole_cb.isChecked() else feed_rev
+			self.dsf_feed_lb.setText(f'{feed_rev:.3f}" ± 0.001" per revolution')
+			rpm = (3.8197 / dia) * speed
+			rpm = rpm * 0.5 if self.dsf_deep_hole_cb.isChecked() else rpm
+			#self.dfs_rpm_lb.setText(f'{rpm:.0f} RPM')
+			feed = feed_rev * rpm
+			tol = 0.001 * rpm
+			#self.dfs_feed_lb.setText(f'{feed:.1f} IPM ± {tol:.1f}')
+			self.dsf_drill_lb.setText(f'{rpm:.0f} RPM {feed:.1f} IPM ± {tol:.1f}')
+
+			ream_feed_rev = (dia / 0.0625) * 0.001
+			ream_sfm = speed * 0.667
+			ream_rpm = (3.8197 / dia) * ream_sfm
+			ream_feed = (ream_feed_rev * 2) * ream_rpm
+			self.dsf_ream_lb.setText(f'{ream_rpm:.0f} RPM {ream_feed:.1f} IPM')
+
+		elif self.units == 'Metric':
+			self.dsf_feed_lb.setText('Working')
+			self.dfs_feed_lb.setText('on')
+			self.dfs_rpm_lb.setText('Metric')
 
 	def change_units(self):
 		if self.units == 'Inch':
@@ -45,7 +115,6 @@ class dsf_calc(QWidget):
 			self.dsf_units_pb.setText('Inch')
 			self.units = 'Inch'
 		self.setup_material()
-
 
 	def setup_material(self):
 		self.dsf_material_cb.clear()
