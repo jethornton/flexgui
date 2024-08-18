@@ -1,6 +1,7 @@
 # Drill Speed and Feed Calculator
 
 import os, sys
+from math import pi
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.uic import loadUi
@@ -11,6 +12,9 @@ from libflexgui import dialogs
 '''
 • Feed equals .001" per revolution for every 1/16" of drill diameter, plus or
   minus .001" on the total.
+
+** Metric Feed 0.025 for every 1.5
+
 • Speed equals 80 surface feet per minute in 100 Brinell hardness material and
   the speed should be reduced 10 surface feet per minute for each additional 50
   points Brinell hardness.
@@ -46,11 +50,10 @@ class dsf_calc(QWidget):
 		self.dfs_calculate_pb.clicked.connect(self.calculate)
 		self.dsf_feed_lb.setText('')
 		self.dsf_drill_lb.setText('')
-		#self.dfs_rpm_lb.setText('')
 		self.dsf_ream_lb.setText('')
 		self.setup_material()
-		self.dfs_diameter_le.setText('0.5')
-		self.dfs_surface_speed_le.setText('100')
+		self.dfs_diameter_le.setText('10')
+		self.dfs_surface_speed_le.setText('45')
 
 	def check_dia(self):
 		if self.dfs_diameter_le.text() == '':
@@ -80,40 +83,53 @@ class dsf_calc(QWidget):
 		dia = self.check_dia()
 		if not dia:
 			return
-		speed = self.check_speed()
-		if not speed:
+		surface_speed = self.check_speed()
+		if not surface_speed:
 			return
 
 		if self.units == 'Inch':
+			rpm = (surface_speed * 12) / (pi * dia)
 			feed_rev = (dia / 0.0625) * 0.001
-			feed_rev = feed_rev * 0.5 if self.dsf_deep_hole_cb.isChecked() else feed_rev
-			self.dsf_feed_lb.setText(f'{feed_rev:.3f}" ± 0.001" per revolution')
-			rpm = (3.8197 / dia) * speed
+			ream_sfm = surface_speed * 0.667
+			ream_rpm = (3.8197 / dia) * ream_sfm
+			ream_feed = (feed_rev * 2) * ream_rpm
+
+			# do this after setting reaming data
 			rpm = rpm * 0.5 if self.dsf_deep_hole_cb.isChecked() else rpm
-			#self.dfs_rpm_lb.setText(f'{rpm:.0f} RPM')
+			feed_rev = feed_rev * 0.5 if self.dsf_deep_hole_cb.isChecked() else feed_rev
 			feed = feed_rev * rpm
 			tol = 0.001 * rpm
-			#self.dfs_feed_lb.setText(f'{feed:.1f} IPM ± {tol:.1f}')
-			self.dsf_drill_lb.setText(f'{rpm:.0f} RPM {feed:.1f} IPM ± {tol:.1f}')
 
-			ream_feed_rev = (dia / 0.0625) * 0.001
-			ream_sfm = speed * 0.667
-			ream_rpm = (3.8197 / dia) * ream_sfm
-			ream_feed = (ream_feed_rev * 2) * ream_rpm
+			self.dsf_feed_lb.setText(f'{feed_rev:.3f}" ± 0.001" per revolution')
+			self.dsf_drill_lb.setText(f'{rpm:.0f} RPM {feed:.1f} IPM ± {tol:.1f}')
 			self.dsf_ream_lb.setText(f'{ream_rpm:.0f} RPM {ream_feed:.1f} IPM')
 
 		elif self.units == 'Metric':
-			self.dsf_feed_lb.setText('Working')
-			self.dfs_feed_lb.setText('on')
-			self.dfs_rpm_lb.setText('Metric')
+			rpm = (surface_speed * 1000) / (pi * (dia))
+			feed_rev = (dia / 1.5875) * 0.0254
+			feed = feed_rev * rpm
+			tol = 0.0254 * rpm
+			ream_smm = surface_speed * 0.667
+			ream_feed = feed * 2
+			ream_rpm = (ream_smm * 1000) / (pi * (dia))
+			rpm = rpm * 0.5 if self.dsf_deep_hole_cb.isChecked() else rpm
+			feed_rev = feed_rev * 0.5 if self.dsf_deep_hole_cb.isChecked() else feed_rev
+
+			self.dsf_feed_lb.setText(f'{feed_rev:.3f}mm ± 0.025mm per revolution')
+			self.dsf_drill_lb.setText(f'{rpm:.0f} RPM {feed:.1f} mm/M ± {tol:.1f}')
+			self.dsf_ream_lb.setText(f'{ream_rpm:.0f} RPM {ream_feed:.1f} mm/M')
 
 	def change_units(self):
 		if self.units == 'Inch':
 			self.dsf_units_pb.setText('Metric')
 			self.units = 'Metric'
+			self.dsf_diameter_units_lb.setText('mm')
+			self.dsf_speed_units_lb.setText('SMM')
 		elif self.units == 'Metric':
 			self.dsf_units_pb.setText('Inch')
 			self.units = 'Inch'
+			self.dsf_diameter_units_lb.setText('in')
+			self.dsf_speed_units_lb.setText('SFM')
 		self.setup_material()
 
 	def setup_material(self):
@@ -123,23 +139,23 @@ class dsf_calc(QWidget):
 			'Aluminum: 200-300 SFM',
 			'Brass and Bronze: 150-300 SFM',
 			'Bronze (High Tensile) 70-150 SFM',
-			'Iron-Cast (Soft): 75-125 SFM',
+			'Cast Iron: 60-80 SFM',
 			'Plastics: 100-300 SFM',
-			'Steel .2 to .3 carbon:  80-110 SFM',
-			'Steel .4 to .5 carbon:  70-80 SFM',
-			'Tool Steel 1.2 carbon:  50-60 SFM',
-			'',
+			'Steel .2 to .3 carbon: 80-110 SFM',
+			'Steel .4 to .5 carbon: 70-80 SFM',
+			'Tool Steel 1.2 carbon: 50-60 SFM',
+			'Stainless Steel: 75-125 SFM',
 		]
 		smm = [
 			'Aluminum: 60-90 SMM',
 			'Brass and Bronze: 45-90 SMM',
 			'Bronze (High Tensile) 21-45 SMM',
-			'Iron-Cast (Soft): 23-38 SMM',
+			'Cast Iron: 18-24 SMM',
 			'Plastics: 30-90 SMM',
 			'Steel .2 to .3 carbon:  25-34 SMM',
 			'Steel .4 to .5 carbon:  21-25 SMM',
 			'Tool Steel 1.2 carbon:  15-18 SMM',
-			'',
+			'Stainless Steel: 23-40 SFM',
 		]
 
 		if self.units == 'Inch':
