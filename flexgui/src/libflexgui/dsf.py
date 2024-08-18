@@ -52,8 +52,8 @@ class dsf_calc(QWidget):
 		self.dsf_drill_lb.setText('')
 		self.dsf_ream_lb.setText('')
 		self.setup_material()
-		self.dfs_diameter_le.setText('10')
-		self.dfs_surface_speed_le.setText('45')
+		self.dfs_diameter_le.setText('')
+		self.dfs_surface_speed_le.setText('')
 
 	def check_dia(self):
 		if self.dfs_diameter_le.text() == '':
