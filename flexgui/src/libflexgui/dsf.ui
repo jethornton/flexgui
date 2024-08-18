@@ -24,6 +24,13 @@
    <item row="2" column="1">
     <widget class="QLineEdit" name="dfs_surface_speed_le"/>
    </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="dsf_speed_units_lb">
+     <property name="text">
+      <string>IPM</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
@@ -61,19 +68,6 @@
       <string>TextLabel</string>
      </property>
     </widget>
-   </item>
-   <item row="1" column="2">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item row="3" column="0" colspan="2">
     <widget class="QCheckBox" name="dsf_deep_hole_cb">
@@ -130,6 +124,26 @@
     <widget class="QLabel" name="dsf_feed_lb">
      <property name="text">
       <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="dsf_diameter_units_lb">
+     <property name="text">
+      <string>in</string>
      </property>
     </widget>
    </item>
