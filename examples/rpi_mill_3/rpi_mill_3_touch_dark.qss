@@ -146,6 +146,9 @@ QTabBar::tab {
 	border-top-right-radius: 10px;
 	min-height: 40px; /*	min-height: 50px; */
     min-width: 8ex;
+	margin-left:1px;
+    margin-right:1px;
+	margin-top:2px;
     padding: 1px;
 	}
 
@@ -286,7 +289,7 @@ QPushButton#G1_XY_plus:pressed, QPushButton#G1_XY_minus:pressed {
 	} 
 /* ********** Tool Change Combo Box ********** */
 
-QComboBox#tool_change_cb::item:selected{
+/* QComboBox#tool_change_cb::item:selected{
 	background-color: rgba(192, 192, 192, 90%);
 	color: black;
 	}
@@ -294,6 +297,17 @@ QComboBox#tool_change_cb::item:!selected{
 	background-color: black;
 	color: white;
 	}
+*/
+QComboBox::item:selected{
+	background-color: rgba(192, 192, 192, 90%);
+	color: black;
+	}
+QComboBox::item:!selected{
+	background-color: black;
+	color: white;
+	}
+
+
 
 /* ********** NOTES ********** */
 /*  QMainWindow{

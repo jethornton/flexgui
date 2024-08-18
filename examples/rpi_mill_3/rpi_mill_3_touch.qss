@@ -20,6 +20,9 @@ QTabBar::tab {
 	border-top-right-radius: 10px;
 	min-height: 40px; /*	min-height: 50px; */
     min-width: 8ex;
+	margin-left:1px;
+    margin-right:1px;
+	margin-top:2px;
     padding: 1px;
 	}
 
