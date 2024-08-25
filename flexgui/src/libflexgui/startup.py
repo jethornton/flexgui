@@ -720,28 +720,24 @@ def setup_mdi(parent):
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 def setup_recent_files(parent):
-	parent.menuRecent = QMenu('Recent', parent)
-	parent.menuRecent.setObjectName('menuRecent')
-	parent.children.append('menuRecent')
-	menu_items = parent.findChildren(QAction)
-	open_found = False
-	for action in menu_items:
-		if open_found: # action is the next one after Open
-			break
-		if action.objectName() == 'actionOpen':
-			open_found = True
-
-	if open_found:
-		parent.menuFile.insertMenu(action, parent.menuRecent)
-
-		# if any files have been opened add them
-		keys = parent.settings.allKeys()
-		for key in keys:
-			if key.startswith('recent_files'):
-				path = parent.settings.value(key)
-				name = os.path.basename(path)
-				a = parent.menuRecent.addAction(name)
-				a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+	menus = parent.findChildren(QMenu)
+	for menu in menus:
+		menu_list = menu.actions()
+		for index, action in enumerate(menu_list):
+			if action.objectName() == 'actionOpen':
+				if index + 1 < len(menu_list):
+					parent.menuRecent = QMenu('Recent', parent)
+					parent.menuRecent.setObjectName('menuRecent')
+					parent.children.append('menuRecent')
+					parent.menuFile.insertMenu(menu_list[index + 1], parent.menuRecent)
+					# if any files have been opened add them
+					keys = parent.settings.allKeys()
+					for key in keys:
+						if key.startswith('recent_files'):
+							path = parent.settings.value(key)
+							name = os.path.basename(path)
+							a = parent.menuRecent.addAction(name)
+							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
 
 def setup_jog(parent):
 	jog_buttons = {}
