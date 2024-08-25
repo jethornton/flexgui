@@ -1,4 +1,4 @@
-# flexgui
+# Flex GUI
 A flexible GUI for LinuxCNC
 
 As of 0.9.0 testing on real machines has begun. 
