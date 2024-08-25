@@ -47,10 +47,11 @@ To add an error viewer add a QPlainTextEdit from Input Widgets and name it
 .. image:: /images/error-viewer-01.png
    :align: center
 
-Speed & Feed Calculator
------------------------
+Speed & Feed Calculators
+------------------------
 
-To add a SFC add a QFrame or QWidget and set the Object Name to `fsc_container`
+To add a milling Speed and Feed Calculator add a QFrame or QWidget and set the
+Object Name to `fsc_container`
 
 To make the entry boxes touch screen aware add a Dynamic Property called `mode`
 and set the value to `touch`.
@@ -62,5 +63,12 @@ SFC calculator
 
 .. image:: /images/fsc-02.png
    :align: center
+
+To add a Drill Feed and Speed calculator add a QFrame or QWidget and set the
+Object Name to `dsc_container`
+
+.. image:: /images/dsc-01.png
+   :align: center
+
 
 

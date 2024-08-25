@@ -63,16 +63,12 @@ Flex GUI.
 Recent Files
 ------------
 
-.. note:: The Recent menu item is added before the next action after actionOpen
-   in the order of the Action Editor. There must be at least one action after
-   actionOpen for the Recent menu to show up.
+.. note:: The Recent menu item is added after the Open menu. There must be at
+   least one menu item after Open for the Recent menu to be added.
+
+Location of the Recent menu after the Open menu
 
 .. image:: /images/menu-02.png
-   :align: center
-
-Location of the Recent menu from the above action list
-
-.. image:: /images/menu-03.png
    :align: center
 
 Tool Bars
