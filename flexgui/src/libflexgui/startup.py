@@ -786,7 +786,7 @@ def setup_jog(parent):
 		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 		# INCREMENTS = 1 in, 0.1 in, 10 mil, 1 mil, 1mm, .1mm, 1/8000 in
 		if increments:
-			for item in increments.split():
+			for item in increments.split(','):
 				data = ''
 				for char in item:
 					if char.isdigit() or char == '.':
