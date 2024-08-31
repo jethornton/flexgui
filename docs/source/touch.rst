@@ -4,6 +4,29 @@ Touch Screens
 Some entry widgets like MDI and Touch Off have a touch screen popup available to
 make it easier to use a Touch Screen.
 
+Tool Bar
+--------
+
+To add a button to the tool bar without having a menu item that creates an
+action you just have to create an action yourself.
+
+.. image:: /images/new-action-01.png
+   :align: center
+
+The action creating window, when you type in the Text name the Object name is
+created for you.
+
+.. image:: /images/new-action-02.png
+   :align: center
+
+.. warning:: Make sure the Object name matches the Action Name created when you
+   create a menu item see the :doc:`menu` section for the Action Names.
+
+Now you just drag the action into the tool bar to create a new tool bar button.
+
+.. image:: /images/new-action-03.png
+   :align: center
+
 MDI
 ---
 
