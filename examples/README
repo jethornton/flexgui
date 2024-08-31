@@ -6,6 +6,9 @@ mill_3_plot is a 3 axis mill with the plotter on the main page
 
 rpi_mill_3 is a 3 axis mill for 800x480 touch screen like the Raspberry Pi has
 
+mill_touch is a 3 axis mill with the touch screen above shoulder height so the
+controls are located at the bottom of the screen where possible.
+
 touch is a 3 axis mill touch screen example
 
 xyz is a 3 axis mill keyboard and mouse example

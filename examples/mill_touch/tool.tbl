@@ -1,0 +1,7 @@
+T1   P1   D+0.045000 Z+0.155207 ;#1 center drill
+T2   P2   D+0.031250 Z+3.317000 ;1/32" end mill
+T5   P5   D+0.125000 Z+0.016000 ;1/8" end mill
+T6   P6   D+0.156200 Z-0.731188 ;5/32" end mill
+T7   P7   D+0.187500 Z-0.000430 ;3/16" end mill
+T8   P8   D+0.187500 ;3/16" 60 deg end mill
+

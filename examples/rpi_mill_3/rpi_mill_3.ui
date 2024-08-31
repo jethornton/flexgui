@@ -44,7 +44,7 @@
    </size>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="main">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -3113,72 +3113,6 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_7">
-     <attribute name="title">
-      <string>Calculators</string>
-     </attribute>
-     <widget class="QTabWidget" name="calculators">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>0</y>
-        <width>786</width>
-        <height>361</height>
-       </rect>
-      </property>
-      <property name="tabPosition">
-       <enum>QTabWidget::North</enum>
-      </property>
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_8">
-       <attribute name="title">
-        <string>Mill Feeds</string>
-       </attribute>
-       <widget class="QFrame" name="fsc_container">
-        <property name="geometry">
-         <rect>
-          <x>5</x>
-          <y>5</y>
-          <width>561</width>
-          <height>301</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_11">
-       <attribute name="title">
-        <string>Drill Feeds</string>
-       </attribute>
-       <widget class="QFrame" name="dsf_container">
-        <property name="geometry">
-         <rect>
-          <x>5</x>
-          <y>5</y>
-          <width>421</width>
-          <height>301</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-    </widget>
    </widget>
    <widget class="QFrame" name="frame_4">
     <property name="geometry">
@@ -3657,25 +3591,23 @@
     <string>E Stop</string>
    </property>
   </action>
-  <action name="actionShow_HAL">
-   <property name="text">
-    <string>HAL Show</string>
-   </property>
-   <property name="shortcut">
-    <string>F5</string>
-   </property>
-  </action>
   <action name="actionDRO">
    <property name="text">
     <string>DRO</string>
    </property>
   </action>
   <action name="actionLimits">
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Limits</string>
    </property>
   </action>
   <action name="actionExtents_Option">
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Extents Option</string>
    </property>
@@ -3723,6 +3655,14 @@
   <action name="actionOverlay">
    <property name="text">
     <string>Overlay</string>
+   </property>
+  </action>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>HAL Show</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
  </widget>

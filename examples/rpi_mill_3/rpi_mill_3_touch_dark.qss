@@ -127,8 +127,8 @@ QPushButton {
 	background-color: rgba(192, 192, 192, 50%);
 /*	min-height: 50px; */
 /*	min-width: 50px; */
-	min-height: 30px;
-	min-width: 30x;
+	min-height: 35px;
+	min-width: 35px;
 	border: 0px solid rgba(128, 128, 128, 100%);
 	border-style: outset;
 	border-width: 3px;
@@ -146,9 +146,6 @@ QTabBar::tab {
 	border-top-right-radius: 10px;
 	min-height: 40px; /*	min-height: 50px; */
     min-width: 8ex;
-	margin-left:1px;
-    margin-right:1px;
-	margin-top:2px;
     padding: 1px;
 	}
 
@@ -289,7 +286,7 @@ QPushButton#G1_XY_plus:pressed, QPushButton#G1_XY_minus:pressed {
 	} 
 /* ********** Tool Change Combo Box ********** */
 
-/* QComboBox#tool_change_cb::item:selected{
+QComboBox#tool_change_cb::item:selected{
 	background-color: rgba(192, 192, 192, 90%);
 	color: black;
 	}
@@ -297,17 +294,6 @@ QComboBox#tool_change_cb::item:!selected{
 	background-color: black;
 	color: white;
 	}
-*/
-QComboBox::item:selected{
-	background-color: rgba(192, 192, 192, 90%);
-	color: black;
-	}
-QComboBox::item:!selected{
-	background-color: black;
-	color: white;
-	}
-
-
 
 /* ********** NOTES ********** */
 /*  QMainWindow{
