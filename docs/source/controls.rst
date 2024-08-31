@@ -95,6 +95,9 @@ found any Jog Buttons will be disabled.
 
 .. note:: Jog Plus/Minus buttons use the `Axis Index`_ Jog Y Plus is jog_plus_pb_1
 
+.. note:: Jog Mode Selector reads the ini entry [DISPLAY] INCREMENTS and if not
+   found only Continuous will show up as an option
+
 The following settings are from the DISPLAY section of the ini file if found.
 ::
 
