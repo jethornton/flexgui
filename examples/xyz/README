@@ -1,11 +1,1 @@
-All the examples are simulated hardware examples.
-
-mill_3 is a 3 axis mill
-
-mill_3_plot is a 3 axis mill with the plotter on the main page
-
-rpi_mill_3 is a 3 axis mill for 800x480 touch screen like the Raspberry Pi has
-
-touch is a 3 axis mill touch screen example
-
-xyz is a 3 axis mill keyboard and mouse example
+This is a 3 axis mill simulated hardware example for keyboard and mouse example

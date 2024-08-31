@@ -213,7 +213,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="gcode_tab">
      <attribute name="title">
@@ -251,7 +251,7 @@
       <property name="geometry">
        <rect>
         <x>455</x>
-        <y>210</y>
+        <y>195</y>
         <width>216</width>
         <height>156</height>
        </rect>
@@ -428,7 +428,7 @@
       <property name="geometry">
        <rect>
         <x>455</x>
-        <y>20</y>
+        <y>5</y>
         <width>276</width>
         <height>181</height>
        </rect>
@@ -826,9 +826,9 @@
       <property name="geometry">
        <rect>
         <x>680</x>
-        <y>210</y>
+        <y>195</y>
         <width>216</width>
-        <height>206</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">
@@ -2808,62 +2808,23 @@
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
-      <string>Calculators</string>
+      <string>FSC</string>
      </attribute>
-     <widget class="QTabWidget" name="tabWidget_2">
+     <widget class="QFrame" name="fsc_container">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>881</width>
-        <height>421</height>
+        <x>240</x>
+        <y>30</y>
+        <width>621</width>
+        <height>351</height>
        </rect>
       </property>
-      <property name="currentIndex">
-       <number>0</number>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <widget class="QWidget" name="tab_5">
-       <attribute name="title">
-        <string>Mill Feeds</string>
-       </attribute>
-       <widget class="QFrame" name="fsc_container">
-        <property name="geometry">
-         <rect>
-          <x>5</x>
-          <y>10</y>
-          <width>516</width>
-          <height>376</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_6">
-       <attribute name="title">
-        <string>Drill Feeds</string>
-       </attribute>
-       <widget class="QFrame" name="dsf_container">
-        <property name="geometry">
-         <rect>
-          <x>5</x>
-          <y>10</y>
-          <width>421</width>
-          <height>296</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-       </widget>
-      </widget>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
      </widget>
     </widget>
    </widget>
