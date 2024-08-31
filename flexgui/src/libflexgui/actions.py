@@ -1,7 +1,7 @@
 import os, sys, subprocess, shutil
 from functools import partial
 
-from PyQt6.QtWidgets import QApplication, QFileDialog, QLabel
+from PyQt6.QtWidgets import QApplication, QFileDialog, QLabel, QMenu
 
 import linuxcnc as emc
 import hal
@@ -51,15 +51,16 @@ def load_file(parent, gcode_file):
 	parent.settings.endGroup()
 
 	# clear the recent menu
-	parent.menuRecent.clear()
-	# add the recent files from settings
-	keys = parent.settings.allKeys()
-	for key in keys:
-		if key.startswith('recent_files'):
-			path = parent.settings.value(key)
-			name = os.path.basename(path)
-			a = parent.menuRecent.addAction(name)
-			a.triggered.connect(partial(load_file, parent, path))
+	if parent.findChild(QMenu, 'menuRecent'):
+		parent.menuRecent.clear()
+		# add the recent files from settings
+		keys = parent.settings.allKeys()
+		for key in keys:
+			if key.startswith('recent_files'):
+				path = parent.settings.value(key)
+				name = os.path.basename(path)
+				a = parent.menuRecent.addAction(name)
+				a.triggered.connect(partial(load_file, parent, path))
 
 	# enable run items
 	parent.status.poll()
