@@ -848,7 +848,7 @@
         <x>210</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -874,7 +874,7 @@
         <x>305</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -887,7 +887,7 @@
         <x>400</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -900,7 +900,7 @@
         <x>495</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -913,7 +913,7 @@
         <x>590</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
@@ -926,7 +926,7 @@
         <x>685</x>
         <y>290</y>
         <width>87</width>
-        <height>27</height>
+        <height>46</height>
        </rect>
       </property>
       <property name="text">
