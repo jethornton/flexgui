@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, re
 from functools import partial
 
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
@@ -334,6 +334,8 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'clear_error_history_pb' in parent.children:
 		if 'errors_pte' in parent.children:
 			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
+
+	# FIXME add a copy error history button
 
 	# touch off coordinate system combo box
 	if 'touchoff_system_cb' in parent.children:
@@ -782,16 +784,80 @@ def setup_jog(parent):
 			parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()}')
 			utilities.update_jog_lb(parent)
 
+		# machine units are inch
+		# do not convert in or inch
+		# convert mil to inch mil * 0.001 = inch
+		# convert cm to inch divide the value by 2.54
+		# convert mm to inch divide the value by 25.4
+		# convert um to inch divide the value by 25400
+
+		# machine units are mm
+		# convert inches to mm multiply the value by 25.4
+		# convert mil to mm mil * 0.001 = inch multiply the value by 25.4
+		# convert cm to mm multiply the length value by 10
+		# no conversion for mm
+		# convert um to mm divide the length value by 1000
+
 		parent.jog_modes_cb.addItem('Continuous', False)
+		machine_units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
+		units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
 		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
-		# INCREMENTS = 1 in, 0.1 in, 10 mil, 1 mil, 1mm, .1mm, 1/8000 in
+
 		if increments:
-			for item in increments.split(','):
-				data = ''
-				for char in item:
-					if char.isdigit() or char == '.':
-						data += char
-				parent.jog_modes_cb.addItem(item, float(data))
+			incr_list = []
+			values = increments.split(',')
+			for item in values:
+				item = item.strip()
+				if item[-1].isdigit():
+					distance = conv_to_decimal(item) # if it's a fraction convert to decimal
+					incr_list.append([item, distance])
+					parent.jog_modes_cb.addItem(item, distance)
+				else:
+					for suffix in units:
+						if item.endswith(suffix):
+							distance = item.removesuffix(suffix).strip()
+							converted_distance = conv_units(distance, suffix, machine_units)
+							incr_list.append([item, converted_distance])
+							parent.jog_modes_cb.addItem(item, converted_distance)
+							break
+					else:
+						msg = ('INI section DISPLAY value INCREMENTS\n'
+							f'{item} is not a valid jog increment\n'
+							'and will not be added to the jog options.')
+						dialogs.warn_msg_ok(msg, 'Configuration Error')
+						print(f'{item} not valid')
+
+def conv_units(value, suffix, machine_units):
+	if machine_units == 'inch':
+		if suffix == 'in' or suffix == 'inch':
+			return float(value)
+		elif suffix == 'mil':
+			return float(value) * 0.001
+		elif suffix == 'cm':
+			return float(value) / 2.54
+		elif suffix == 'mm':
+			return float(value) / 25.4
+		elif suffix == 'um':
+			return float(value) / 25400
+
+	elif machine_units == 'mm':
+		if suffix == 'in' or suffix == 'inch':
+			return float(value) * 25.4
+		elif suffix == 'mil':
+			return float(value) * 0.0254
+		elif suffix == 'cm':
+			return float(value) * 10
+		elif suffix == 'mm':
+			return float(value)
+		elif suffix == 'um':
+			return float(value) / 1000
+
+def conv_to_decimal(data):
+	if "/" in data:
+		p, q = data.split("/")
+		return (float(p) / float(q))
+	else:
+		return data
 
 def setup_spindle(parent):
 	# spindle defaults
