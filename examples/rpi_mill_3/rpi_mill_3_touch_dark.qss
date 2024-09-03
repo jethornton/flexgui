@@ -284,13 +284,14 @@ QPushButton#G1_XY_plus:hover, QPushButton#G1_XY_minus:hover {
 QPushButton#G1_XY_plus:pressed, QPushButton#G1_XY_minus:pressed {
 	background-color: rgba(250, 250, 0, 80%); color: white; border none;
 	} 
-/* ********** Tool Change Combo Box ********** */
+/* ********** Tool Change, Jog Modes Combo Box ********** */
 
-QComboBox#tool_change_cb::item:selected{
+QComboBox#tool_change_cb::item:selected, QComboBox#jog_modes_cb::item:selected {
 	background-color: rgba(192, 192, 192, 90%);
 	color: black;
 	}
-QComboBox#tool_change_cb::item:!selected{
+	
+QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected {
 	background-color: black;
 	color: white;
 	}
