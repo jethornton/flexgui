@@ -47,6 +47,9 @@ To add an error viewer add a QPlainTextEdit from Input Widgets and name it
 .. image:: /images/error-viewer-01.png
    :align: center
 
+.. note:: See the :doc:`controls` section for buttons that pertain to the Error
+   Viewer
+
 Speed & Feed Calculators
 ------------------------
 
