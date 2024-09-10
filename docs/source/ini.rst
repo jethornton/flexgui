@@ -26,6 +26,13 @@ To use your style sheet add with `file-name` being the name of your .qss file.
 
 .. note:: If a qss file is specified then input and theme are not used
 
+To use a resources file to add images to buttons with your qss stylesheet place
+the resource file in the configuration directory and add the following line to
+the ini file.
+::
+
+	RESOURCES = resources.py
+
 To use the built in input stylesheets add either
 ::
 

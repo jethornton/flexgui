@@ -22,3 +22,4 @@ Flex GUI
    misc
    hal
    style
+   resources
