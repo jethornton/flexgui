@@ -114,11 +114,21 @@ class flexgui(QMainWindow):
 		loadUi(gui_path, self)
 		self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
 
+		# check for a resources.py file with images for the stylesheet
+		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
+		if resources_file: # import the resources file
+			try:
+				sys.path.append(self.ini_path)
+				import resources
+			except:
+				msg = (f'The resources file {resources_file} was\n'
+					'not found, check for file name resources.py.')
+				dialogs.warn_msg_ok(msg, 'Import Failed')
+
 		# check for theme and input type or a qss file
 		theme = self.inifile.find('DISPLAY', 'THEME') or False
 		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
-
 		stylesheet = False
 		if qss_file: # use a local qss file
 			stylesheet = os.path.join(self.ini_path, qss_file)
@@ -200,6 +210,14 @@ class flexgui(QMainWindow):
 				self.showFullScreen()
 		else:
 			self.show()
+
+	# this can import a module from a file for resources.py in a config dir
+	def module_from_file(self, module_name, file_path):
+		spec = importlib.util.spec_from_file_location(module_name, file_path)
+		module = importlib.util.module_from_spec(spec)
+		spec.loader.exec_module(module)
+		return module
+
 
 	def eventFilter(self, obj, event):
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
