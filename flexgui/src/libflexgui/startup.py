@@ -816,10 +816,16 @@ def setup_jog(parent):
 					for suffix in units:
 						if item.endswith(suffix):
 							distance = item.removesuffix(suffix).strip()
-							converted_distance = conv_units(distance, suffix, machine_units)
-							incr_list.append([item, converted_distance])
-							parent.jog_modes_cb.addItem(item, converted_distance)
-							break
+							if utilities.is_float(distance):
+								converted_distance = conv_units(distance, suffix, machine_units)
+								incr_list.append([item, converted_distance])
+								parent.jog_modes_cb.addItem(item, converted_distance)
+								break
+							else:
+								msg = ('Malformed INCREMENTS value\n'
+									f'{distance}\n'
+									'may be missing comma seperators?')
+								dialogs.warn_msg_ok(msg, 'Error')
 					else:
 						msg = ('INI section DISPLAY value INCREMENTS\n'
 							f'{item} is not a valid jog increment\n'
@@ -1287,7 +1293,7 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
 
-def setup_fsc(parent):
+def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.children:
 		if parent.fsc_container.property('mode') == 'touch':
 			touch = True
@@ -1303,7 +1309,7 @@ def setup_fsc(parent):
 			for item in fsc_items:
 				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
 
-def setup_dsf(parent):
+def setup_dsf(parent): # drill speed and feed calculator
 	if 'dsf_container' in parent.children:
 		if parent.dsf_container.property('mode') == 'touch':
 			touch = True
@@ -1314,5 +1320,6 @@ def setup_dsf(parent):
 		layout = QVBoxLayout(parent.dsf_container)
 		layout.addWidget(parent.dsf_calc)
 
-
+def setup_probing(parent):
+	print('probing')
 

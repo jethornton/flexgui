@@ -187,6 +187,7 @@ class flexgui(QMainWindow):
 		startup.setup_plot(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
+		startup.setup_probing(self)
 
 		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
