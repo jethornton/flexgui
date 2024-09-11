@@ -1,0 +1,28 @@
+<RCC>
+  <qresource prefix="images">
+    <file>angleX+.png</file>
+    <file>angleX-.png</file>
+    <file>angleY+.png</file>
+    <file>angleY-.png</file>
+    <file>inHole.png</file>
+    <file>inX+.png</file>
+    <file>inX-.png</file>
+    <file>inX+Y+.png</file>
+    <file>inX+Y-.png</file>
+    <file>inX-Y+.png</file>
+    <file>inX-Y-.png</file>
+    <file>inY+.png</file>
+    <file>inY-.png</file>
+    <file>ts_height.png</file>
+    <file>workpiece_height.png</file>
+    <file>X+.png</file>
+    <file>X-.png</file>
+    <file>X+Y+.png</file>
+    <file>X+Y-.png</file>
+    <file>X-Y+.png</file>
+    <file>X-Y-.png</file>
+    <file>xy_center.png</file>
+    <file>Y+.png</file>
+    <file>Y-.png</file>
+  </qresource>
+</RCC>
