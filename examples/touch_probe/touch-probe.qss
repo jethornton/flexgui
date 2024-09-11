@@ -47,9 +47,9 @@ QPushButton:checked
 }
 
 /* **************************************** */
-QPushButton#inXminusYplus {
+/*QPushButton#inXminusYplus {
 	background-image: url(":images/inX-Y+.png");
-}
+}*/
 QPushButton#inYplus { 
 	background-image: url(":images/inY+.png");
 }
