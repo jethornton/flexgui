@@ -298,9 +298,9 @@ QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected
 	}
 
 /* **************************************** */
-/*QPushButton#inXminusYplus {
+QPushButton#inXminusYplus {
 	background-image: url(":images/inX-Y+.png");
-}*/
+}
 QPushButton#inYplus { 
 	background-image: url(":images/inY+.png");
 }
@@ -358,9 +358,9 @@ QPushButton#Yminus {
 QPushButton#workpiece_height {
 	background-image: url(":images/workpiece_height.png");
 }	
-/*QPushButton#ts_height {
+QPushButton#ts_height {
 	background-image: url(":images/ts_height.png");
-}*/	
+}	
 /*QPushButton#angleXplus {
 	background-image: url(":images/angleX+.png");
 }	
