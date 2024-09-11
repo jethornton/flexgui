@@ -110,7 +110,7 @@ QMenuBar {
     background-color: black; color: white;
     spacing: 3px;
 	border: white;
-/*	border-spacing: 3px; */
+	/*border-spacing: 3px;*/
 	}
 
 QDoubleSpinBox, QSpinbox, QSlider, QLabel#spindle_actual_speed_lb {
@@ -298,80 +298,80 @@ QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected
 	}
 
 /* **************************************** */
-/*QPushButton#inXminusYplus {
-	background-image: url("./images/inX-Y+.png");
-}*/
+QPushButton#inXminusYplus {
+	background-image: url(":images/inX-Y+.png");
+}
 QPushButton#inYplus { 
-	background-image: url("./images/inY+.png");
+	background-image: url(":images/inY+.png");
 }
 /*QPushButton#inXplusYplus {
-	background-image: url("./images/inX+Y+.png");
+	background-image: url(":images/inX+Y+.png");
 }*/
 QPushButton#inXminus{
-	background-image: url("./images/inX-.png");
+	background-image: url(":images/inX-.png");
 }
 QPushButton#inhole{
-	background-image: url("./images/inHole.png");
+	background-image: url(":images/inHole.png");
 }
 QPushButton#inXplus {
-	background-image: url("./images/inX+.png");
+	background-image: url(":images/inX+.png");
 }
 /*QPushButton#inXminusYminus {
-	background-image: url("./images/inX-Y-.png");
+	background-image: url(":images/inX-Y-.png");
 }*/
 QPushButton#inYminus {
-	background-image: url("./images/inY-.png");
+	background-image: url(":images/inY-.png");
 }
 /*QPushButton#inXplusYminus {
-	background-image: url("./images/inX+Y-.png");
+	background-image: url(":images/inX+Y-.png");
 }*/
 
 /* **************************************** */
 
 /*QPushButton#XminusYplus {
-	background-image: url("./images/X-Y+.png");
+	background-image: url(":images/X-Y+.png");
 }*/
 QPushButton#Yplus {
-	background-image: url("./images/Y+.png");
+	background-image: url(":images/Y+.png");
 }
 /*QPushButton#XplusYplus {
-	background-image: url("./images/X+Y+.png");
+	background-image: url(":images/X+Y+.png");
 }*/
 QPushButton#Xminus{
-	background-image: url("./images/X-.png");
+	background-image: url(":images/X-.png");
 }
 /*QPushButton#wk_center{
-	background-image: url("./images/xy_center.png");
+	background-image: url(":images/xy_center.png");
 }*/
 QPushButton#Xplus {
-	background-image: url("./images/X+.png");
+	background-image: url(":images/X+.png");
 }
 /*QPushButton#XminusYminus {
-	background-image: url("./images/X-Y-.png");
+	background-image: url(":images/X-Y-.png");
 }*/
 QPushButton#Yminus {
-	background-image: url("./images/Y-.png");
+	background-image: url(":images/Y-.png");
 }
 /*QPushButton#XplusYminus {
-	background-image: url("./images/X+Y-.png");
+	background-image: url(":images/X+Y-.png");
 }*/	
 QPushButton#workpiece_height {
-	background-image: url("./images/workpiece_height.png");
+	background-image: url(":images/workpiece_height.png");
 }	
 /*QPushButton#ts_height {
-	background-image: url("./images/ts_height.png");
+	background-image: url(":images/ts_height.png");
 }*/	
 /*QPushButton#angleXplus {
-	background-image: url("./images/angleX+.png");
+	background-image: url(":images/angleX+.png");
 }	
 QPushButton#angleXminus {
-	background-image: url("./images/angleX-.png");
+	background-image: url(":images/angleX-.png");
 }
 QPushButton#angleYplus {
-	background-image: url("./images/angleY+.png");
+	background-image: url(":images/angleY+.png");
 }	
 QPushButton#angleYminus {
-	background-image: url("./images/angleY-.png");
+	background-image: url(":images/angleY-.png");
 }*/	
 
 
