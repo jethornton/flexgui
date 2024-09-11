@@ -110,7 +110,7 @@ QMenuBar {
     background-color: black; color: white;
     spacing: 3px;
 	border: white;
-	border-spacing: 3px;
+/*	border-spacing: 3px; */
 	}
 
 QDoubleSpinBox, QSpinbox, QSlider, QLabel#spindle_actual_speed_lb {
