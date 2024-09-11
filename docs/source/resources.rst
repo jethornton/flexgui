@@ -58,9 +58,10 @@ add the following with a line for each file.
 Example
 ::
 
-	<file>images/inX+.png</file>
-	background-image: url(images/inX+.png);
+	<file>inX+.png</file>
+	background-image: url(:inX+.png);
 
+.. note:: The file name must start with : to use the internal resources.
 
 Open a terminal in the directory where the images and the resourses.qrc file is
 and use the following command to create the resourses.py file that is needed
