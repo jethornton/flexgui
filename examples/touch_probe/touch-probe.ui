@@ -20,7 +20,7 @@
       <x>5</x>
       <y>40</y>
       <width>201</width>
-      <height>181</height>
+      <height>156</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
       <x>215</x>
       <y>40</y>
       <width>306</width>
-      <height>221</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -44,7 +44,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>265</y>
+      <y>245</y>
       <width>156</width>
       <height>19</height>
      </rect>
@@ -84,10 +84,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>O&lt;zero_vise_xy&gt; call</string>
+      <string>o&lt;p_tool&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="workpiece_height">
@@ -103,10 +103,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_9" stdset="0">
-      <string>material_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_top&gt; call</string>
      </property>
     </widget>
    </widget>
@@ -114,7 +114,7 @@
     <property name="geometry">
      <rect>
       <x>255</x>
-      <y>265</y>
+      <y>245</y>
       <width>146</width>
       <height>19</height>
      </rect>
@@ -130,7 +130,7 @@
     <property name="geometry">
      <rect>
       <x>225</x>
-      <y>290</y>
+      <y>270</y>
       <width>206</width>
       <height>206</height>
      </rect>
@@ -180,10 +180,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_5" stdset="0">
-      <string>inXminus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_right&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="inYminus">
@@ -199,10 +199,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_1" stdset="0">
-      <string>inYminus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_back&gt;  call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="inhole">
@@ -218,10 +218,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_8" stdset="0">
-      <string>inhole_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_hole&gt;  call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="inYplus">
@@ -237,10 +237,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_3" stdset="0">
-      <string>inYplus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_front&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="inXplus">
@@ -256,10 +256,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_7" stdset="0">
-      <string>inXplus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_left&gt;  call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="inXplusYminus">
@@ -293,7 +293,7 @@
     <property name="geometry">
      <rect>
       <x>5</x>
-      <y>290</y>
+      <y>270</y>
       <width>206</width>
       <height>206</height>
      </rect>
@@ -343,10 +343,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_4" stdset="0">
-      <string>Xminus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_right&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="Yminus">
@@ -362,10 +362,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_0" stdset="0">
-      <string>Yminus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_back&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="wk_center">
@@ -420,10 +420,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_2" stdset="0">
-      <string>Yplus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_front&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="Xplus">
@@ -439,10 +439,10 @@
       <string/>
      </property>
      <property name="function" stdset="0">
-      <string>hal_pin</string>
+      <string>mdi</string>
      </property>
-     <property name="pin_6" stdset="0">
-      <string>Xplus_pin, HAL_BIT, HAL_OUT</string>
+     <property name="command" stdset="0">
+      <string>o&lt;p_left&gt;  call</string>
      </property>
     </widget>
    </widget>
@@ -550,7 +550,7 @@
     <property name="geometry">
      <rect>
       <x>5</x>
-      <y>225</y>
+      <y>200</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -563,7 +563,7 @@
     <property name="geometry">
      <rect>
       <x>585</x>
-      <y>175</y>
+      <y>160</y>
       <width>161</width>
       <height>27</height>
      </rect>
@@ -578,7 +578,7 @@
       <x>535</x>
       <y>10</y>
       <width>256</width>
-      <height>156</height>
+      <height>146</height>
      </rect>
     </property>
    </widget>
@@ -1021,13 +1021,60 @@
     <property name="geometry">
      <rect>
       <x>125</x>
-      <y>225</y>
+      <y>200</y>
       <width>76</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>CLEAR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="gcodes_lb">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>485</y>
+      <width>246</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::MarkdownText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mcodes_lb">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>485</y>
+      <width>161</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -1262,7 +1309,7 @@
   </action>
  </widget>
  <resources>
-  <include location="images/resources.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
