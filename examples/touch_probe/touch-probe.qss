@@ -107,9 +107,9 @@ QPushButton#Yminus {
 QPushButton#workpiece_height {
 	background-image: url(":images/workpiece_height.png");
 }	
-/*QPushButton#ts_height {
+QPushButton#ts_height {
 	background-image: url(":images/ts_height.png");
-}*/	
+}	
 /*QPushButton#angleXplus {
 	background-image: url(":images/angleX+.png");
 }	
