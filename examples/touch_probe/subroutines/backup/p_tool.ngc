@@ -8,10 +8,14 @@ G4 P0.5
 G91
 G49
 G38.2 Z #<_ini[TOOLSENSOR]Z_MAXPROBE>
+(debug, 5063 1st probe #5063)
+(debug, INIRetr #<_ini[TOOLSENSOR]Z_RETRACT_DIST )
 G0 Z #<_ini[TOOLSENSOR]Z_RETRACT_DIST>
 F#<_ini[TOOLSENSOR]SEARCH_FEED>
 G38.2 Z #<_ini[TOOLSENSOR]Z_MAXPROBE>
 #<zworkoffset> = [[#[5203 + #5220 * 20] + #5213 * #5210]+ #5063]
+(debug, 5400 #5400)
+(debug, 5063 2nd probe #5063)
 o100 if [#5400 GT 0]
     G10 L1 P#5400 Z#<zworkoffset> (set new tool offset)
 o100 else
