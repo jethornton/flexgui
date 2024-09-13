@@ -52,15 +52,21 @@ the joint number or axis index. More controls are in :doc:`tools`
 Options
 -------
 
-These buttons are toggle type buttons press to turn on press again to turn off.
-They are normal push buttons but in code they are set to checkable
-::
+The QPushButton options are toggle type buttons press to turn on press again to
+turn off. They are normal push buttons but in code they are set to checkable.
 
-	Flood Toggle                           flood_pb
-	Mist Toggle                            mist_pb
-	Optional Stop at M1                    optional_stop_pb
-	Block Delete line that starts with /   block_delete_pb
-	Feed Override Enable/Disable           feed_override_pb
+.. csv-table:: Options
+   :width: 100%
+   :align: left
+
+	Function, Widget, Name
+	Flood Toggle, QPushButton, flood_pb
+	Mist Toggle, QPushButton, mist_pb
+	Optional Stop at M1, QPushButton, optional_stop_pb
+	Block Delete line that starts with /, QPushButton, block_delete_pb
+	Feed Override Enable/Disable, QPushButton, feed_override_pb
+	Override Limits, QCheckBox, override_limits_cb
+
 
 Axis Index
 ----------
