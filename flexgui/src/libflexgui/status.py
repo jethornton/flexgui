@@ -26,7 +26,7 @@ INTERP_STATES = {1: 'INTERP_IDLE', 2: 'INTERP_READING', 3: 'INTERP_PAUSED',
 	4: 'INTERP_WAITING'}
 EXEC_STATES = {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
 	4: 'EXEC_WAITING_FOR_MOTION_QUEUE', 5: 'EXEC_WAITING_FOR_IO',
-	7: 'EXEC_WAITING_FOR_MOTION_AND_IO)', 8: 'EXEC_WAITING_FOR_DELAY',
+	7: 'EXEC_WAITING_FOR_MOTION_AND_IO', 8: 'EXEC_WAITING_FOR_DELAY',
 	9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED', }
 MOTION_MODES = {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'}
 STATES = {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'}
@@ -49,7 +49,7 @@ def update(parent):
 	# **************************
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		#print(f'task state {TASK_STATES[parent.status.task_state]}')
+		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
 
 		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
@@ -108,7 +108,7 @@ def update(parent):
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		#print(f'interp state {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
@@ -156,7 +156,7 @@ def update(parent):
 	# **************************
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		#print(f'{TASK_MODES[parent.status.task_mode]}')
+		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		# catch MDI commands that don't change the interp state like M53
 		if parent.status.task_mode == emc.MODE_MDI:
 			if parent.status.interp_state == emc.INTERP_IDLE:
@@ -191,6 +191,7 @@ def update(parent):
 	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
+		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
 	# ************************** FLOOD_OFF or FLOOD_ON
@@ -368,6 +369,7 @@ def update(parent):
 	for key, value in parent.current_tool.items():
 		tr = parent.status.tool_table[0]
 		getattr(parent, key).setText(f'{getattr(tr, value)}')
+
 	# handle errors
 	#if parent.status.state == parent.emc.RCS_ERROR:
 	if 'errors_pte' in parent.children:
@@ -378,6 +380,9 @@ def update(parent):
 				error_type = 'Error'
 			else:
 				error_type = 'Info'
+			if 'override_limits_cb' in parent.children:
+				if 'limit switch error' in text:
+					parent.override_limits_cb.setEnabled(True)
 			parent.errors_pte.appendPlainText(error_type)
 			parent.errors_pte.appendPlainText(text)
 			parent.errors_pte.setFocus()

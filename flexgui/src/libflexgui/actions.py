@@ -213,6 +213,9 @@ def action_estop(parent): # actionEstop
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
+		if 'override_limits_cb' in parent.children:
+			if parent.override_limits_cb.isChecked():
+				parent.command. override_limits()
 		parent.command.state(emc.STATE_ON)
 	else:
 		parent.command.state(emc.STATE_OFF)

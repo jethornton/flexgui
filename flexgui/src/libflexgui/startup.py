@@ -1085,6 +1085,10 @@ def setup_sliders(parent):
 		parent.rapid_override_sl.setMaximum(100)
 		parent.rapid_override_sl.setValue(100)
 
+def setup_overrides(parent):
+	if 'override_limits_cb' in parent.children:
+		parent.override_limits_cb.setEnabled(False)
+
 def setup_defaults(parent):
 	if 'optional_stop_pb' in parent.children:
 		if parent.optional_stop_pb.isChecked():
