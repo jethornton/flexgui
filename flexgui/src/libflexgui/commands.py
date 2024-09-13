@@ -155,6 +155,9 @@ def jog(parent):
 			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
 	else:
 		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
+		if 'override_limits_cb' in parent.children:
+			parent.override_limits_cb.setChecked(False)
+			parent.override_limits_cb.setEnabled(False)
 
 def mdi_button(parent, button):
 	mdi_command = button.property('command')
