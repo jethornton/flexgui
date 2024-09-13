@@ -60,7 +60,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>455</y>
+      <y>270</y>
       <width>141</width>
       <height>76</height>
      </rect>
@@ -450,97 +450,13 @@
     <property name="geometry">
      <rect>
       <x>470</x>
-      <y>435</y>
+      <y>250</y>
       <width>81</width>
       <height>19</height>
      </rect>
     </property>
     <property name="text">
      <string>Tool Probe</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_9">
-    <property name="geometry">
-     <rect>
-      <x>445</x>
-      <y>290</y>
-      <width>141</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QPushButton" name="angleXminus">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>70</y>
-       <width>65</width>
-       <height>65</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="angleYminus">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>5</y>
-       <width>65</width>
-       <height>65</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="angleXplus">
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>5</y>
-       <width>65</width>
-       <height>65</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="angleYplus">
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>70</y>
-       <width>65</width>
-       <height>65</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="label_45">
-    <property name="geometry">
-     <rect>
-      <x>475</x>
-      <y>265</y>
-      <width>81</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Rotation</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -792,9 +708,9 @@
     <property name="geometry">
      <rect>
       <x>590</x>
-      <y>245</y>
+      <y>205</y>
       <width>201</width>
-      <height>286</height>
+      <height>326</height>
      </rect>
     </property>
     <property name="title">
@@ -911,7 +827,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>190</y>
+       <y>195</y>
        <width>26</width>
        <height>28</height>
       </rect>
@@ -927,7 +843,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>220</y>
+       <y>225</y>
        <width>141</width>
        <height>20</height>
       </rect>
@@ -943,7 +859,7 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>190</y>
+       <y>195</y>
        <width>32</width>
        <height>25</height>
       </rect>
@@ -959,7 +875,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>240</y>
+       <y>245</y>
        <width>32</width>
        <height>21</height>
       </rect>
@@ -975,7 +891,7 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>240</y>
+       <y>245</y>
        <width>31</width>
        <height>21</height>
       </rect>
@@ -991,7 +907,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>260</y>
+       <y>265</y>
        <width>100</width>
        <height>21</height>
       </rect>
@@ -1007,7 +923,7 @@
      <property name="geometry">
       <rect>
        <x>115</x>
-       <y>260</y>
+       <y>265</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -1033,9 +949,9 @@
    <widget class="QLabel" name="gcodes_lb">
     <property name="geometry">
      <rect>
-      <x>15</x>
+      <x>5</x>
       <y>485</y>
-      <width>246</width>
+      <width>256</width>
       <height>51</height>
      </rect>
     </property>
@@ -1075,6 +991,96 @@
     </property>
     <property name="wordWrap">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="override_limits_cb">
+    <property name="geometry">
+     <rect>
+      <x>605</x>
+      <y>505</y>
+      <width>131</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Override Limits</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>439</x>
+      <y>440</y>
+      <width>141</width>
+      <height>96</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QComboBox" name="tool_change_cb">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>5</y>
+       <width>96</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tool_change_pb">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>101</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="toolTipDuration">
+      <number>-1</number>
+     </property>
+     <property name="text">
+      <string>Toolchange</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="probe_trigger">
+    <property name="geometry">
+     <rect>
+      <x>455</x>
+      <y>379</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SET</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_pin</string>
+    </property>
+    <property name="pin_0" stdset="0">
+     <string>probe_trigger_pin, HAL_BIT, HAL_OUT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>445</x>
+      <y>350</y>
+      <width>126</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Probe Test Button</string>
     </property>
    </widget>
   </widget>

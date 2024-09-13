@@ -12,6 +12,7 @@ set ::watchlist {
     pin+spindle.0.speed-out
     pin+spindle.0.speed-out-rps
     pin+spindle.0.speed-out-abs
+    pin+flexhal.probe_trigger_pin
 }
 set ::workmode watchhal
 set ::watchInterval 100
