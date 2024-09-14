@@ -1,8 +1,10 @@
 o<p_hole> sub
 o100 if [#<_ini[TOOLSENSOR]LINEAR_UNITS> EQ 1]
 	G20
+	(debug,inch)
 o100 else
 	G21
+	(debug,metric)
 o100 endif
 F#<_ini[TOOLSENSOR]SEARCH_FEED>
 
