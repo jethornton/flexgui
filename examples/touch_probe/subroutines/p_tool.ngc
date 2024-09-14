@@ -1,33 +1,29 @@
 o<p_tool> sub
-G20
-F#<_ini[TOOLSENSOR]RAPID_FEED>
+o100 if [#<_ini[TOOLSENSOR]LINEAR_UNITS> EQ 1]
+	G20
+o100 else
+	G21
+o100 endif
+F#<_ini[TOOLSENSOR]SEARCH_FEED>
 G90 G53 G1 Z[#<_ini[AXIS_Z]MAX_LIMIT>]
-G53 G1 X[#<_ini[TOOLSENSOR]X_PROBE_COORD>] Y[#<_ini[TOOLSENSOR]Y_PROBE_COORD>]
+G53 G0 X[#<_ini[TOOLSENSOR]X_PROBE_COORD>] Y[#<_ini[TOOLSENSOR]Y_PROBE_COORD>]
 G53 G1 Z[#<_ini[TOOLSENSOR]Z_START>]
 G4 P0.5
 G91
 G49
 G38.2 Z #<_ini[TOOLSENSOR]Z_MAXPROBE>
-G0 Z #<_ini[TOOLSENSOR]Z_RETRACT_DIST>
-F#<_ini[TOOLSENSOR]SEARCH_FEED>
+G0 Z #<_ini[TOOLSENSOR]RETRACT_DIST>
+F#<_ini[TOOLSENSOR]PROBE_FEED>
 G38.2 Z #<_ini[TOOLSENSOR]Z_MAXPROBE>
 #<zworkoffset> = [[#[5203 + #5220 * 20] + #5213 * #5210]+ #5063]
-o100 if [#5400 GT 0]
+o101 if [#5400 GT 0]
     G10 L1 P#5400 Z#<zworkoffset> (set new tool offset)
-o100 else
+    (debug, Successful probe.)
+o101 else
    (debug,Tool must be non zero)
-o100 endif
+o101 endif
 G43
-G90 G53 G1 Z[#<_ini[TOOLSENSOR]Z_START>] F#<_ini[TOOLSENSOR]RAPID_FEED>
+G90 G53 G1 Z[#<_ini[TOOLSENSOR]Z_START>] F#<_ini[TOOLSENSOR]SEARCH_FEED>
 o<p_tool> endsub
 M2
 
-( INI SECTION PARAMETERS )
-( [TOOLSENSOR] )
-( RAPID_FEED = 30 )
-( SEARCH_FEED = 15 )
-( X_PROBE_COORD = -11 )
-( Y_PROBE_COORD = -6 )
-( Z_START = -.1 )
-( Z_RETRACT_DIST = .2)
-( Z_MAXPROBE = -2 )
