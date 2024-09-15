@@ -9,4 +9,4 @@ Add a QCheckBox named `spindle_block_cb` and if
 it is checked the spindle is set to 0 and off and any push button with an object
 name that starts with `probe` will be enabled.
 
-Add a QPushButton named `probe_block_pb`
+Add a QPushButton named `spindle_block_pb`
