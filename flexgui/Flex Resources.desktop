@@ -4,12 +4,11 @@ Type=Application
 Name=Flex Resources
 Exec=flexqrc
 Icon=linuxcncicon
-Categories=Utility;Engineering;X-CNC;
+Categories=Engineering;X-CNC;
 Terminal=false
 StartupNotify=true
 StartupWMClass=flexqrc
 GenericName=Flex GUI
 Comment=Build resource file
- to add images to Flex GUI
 
 Name[en_US]=Flex Resources
