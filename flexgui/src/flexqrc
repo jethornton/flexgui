@@ -75,7 +75,7 @@ class flexqrc(QMainWindow):
 		self.qrc_file = os.path.join(self.images_directory, 'resources.qrc')
 		contents = []
 		contents.append('<RCC>\n')
-		contents.append('  <qresource prefix="\\">\n')
+		contents.append('  <qresource prefix="/">\n')
 		for file in self.files:
 			contents.append(f'    <file>{os.path.basename(file)}</file>\n')
 		contents.append('  </qresource>\n')
