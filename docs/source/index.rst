@@ -18,6 +18,7 @@ Flex GUI
    mdi
    labels
    spindle
+   probe
    tools
    misc
    hal
