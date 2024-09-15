@@ -3,7 +3,7 @@ from functools import partial
 
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
-from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton
+from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QDoubleSpinBox
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -1121,7 +1121,6 @@ def setup_hal_buttons(parent):
 			hal_buttons.append(button)
 			if button.property('required') == 'homed':
 				parent.home_required.append(button.objectName())
-				parent.state_estop[button.objectName()] = False
 	for n, button in enumerate(hal_buttons):
 		props = button.dynamicPropertyNames()
 		for prop in props:
@@ -1142,6 +1141,14 @@ def setup_hal_buttons(parent):
 				parent.state_estop[button.objectName()] = False
 				parent.state_estop_reset[button.objectName()] = False
 				parent.state_on[button.objectName()] = True
+
+	hal_dsb = []
+	for dsb in parent.findChildren(QDoubleSpinBox):
+		if dsb.property('function') == 'hal_pin':
+			hal_dsb.append(dsb)
+			if dsb.property('required') == 'homed':
+				parent.home_required.append(dsb.objectName())
+
 	parent.halcomp.ready()
 
 def setup_plot(parent):
