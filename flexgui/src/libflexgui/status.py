@@ -37,6 +37,7 @@ def update(parent):
 	# **************************
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
+		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
 		# when all joints are homed motion_mode changes
 		# from TRAJ_MODE_FREE to TRAJ_MODE_TELEOP
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
