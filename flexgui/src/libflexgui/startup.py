@@ -3,7 +3,7 @@ from functools import partial
 
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
-from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QDoubleSpinBox
+from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QAbstractSpinBox
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -1143,11 +1143,65 @@ def setup_hal_buttons(parent):
 				parent.state_on[button.objectName()] = True
 
 	hal_dsb = []
-	for dsb in parent.findChildren(QDoubleSpinBox):
+	for dsb in parent.findChildren(QAbstractSpinBox):
 		if dsb.property('function') == 'hal_pin':
 			hal_dsb.append(dsb)
-			if dsb.property('required') == 'homed':
-				parent.home_required.append(dsb.objectName())
+
+	if len(hal_dsb) > 0:
+		for dsb in hal_dsb:
+			#print(dsb.objectName())
+			pin_name = dsb.property('pin_name')
+			hal_type = dsb.property('hal_type')
+			hal_dir = dsb.property('hal_dir')
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+
+				setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				dsb.valueChanged.connect(partial(utilities.update_hal_float, parent))
+				if dsb.property('required') == 'homed':
+					parent.home_required.append(dsb.objectName())
+			else:
+				print('missing')
+
+	return
+
+	print(pin_name)
+	print(pin_type)
+	print(pin_dir)
+	test = dsb.property('test')
+	print(test)
+	if dsb.property('required') == 'homed':
+		parent.home_required.append(dsb.objectName())
+
+
+	if len(hal_dsb) > 0:
+		for n, dsb in enumerate(hal_dsb):
+			dsb.valueChanged.connect(partial(utilities.update_hal_float, parent))
+			props = dsb.dynamicPropertyNames()
+			for prop in props:
+				prop = str(prop, 'utf-8')
+				if prop.startswith('pin_'): # we have a hal dsb
+					pin_settings = dsb.property(prop).split(',')
+					name = dsb.objectName()
+					pin_name = pin_settings[0]
+					pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
+					pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
+					#print(pin_name, pin_type, pin_dir)
+					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
+					pin = getattr(parent, f'{prop}')
+					#print(pin_name)
+					#parent.halcomp(set_p, 
+					#hal.set_p(parent.halcomp.pin_seek, 123.5)
+					print(parent.halcomp)
+					#parent.halcomp.pin_seek = 123.5
+					#print(parent.halcomp.pin_seek)
+					#listOfDicts = hal.get_info_pins()
+					#print(listOfDicts)
+	#pinName1 = listOfDicts[0].get('NAME')
+	#pinValue1 = listOfDicts[0].get('VALUE')
+	#pinType1 = listOfDicts[0].get('TYPE')
+	#pinDirection1 = listOfDicts[0].get('DIRECTION')
 
 	parent.halcomp.ready()
 
