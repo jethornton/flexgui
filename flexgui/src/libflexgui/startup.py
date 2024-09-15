@@ -16,6 +16,7 @@ from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import flexplot
 from libflexgui import view
+from libflexgui import probe
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
@@ -197,7 +198,9 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.run_controls.append(item)
 
-	home_items = ['home_all_pb']
+	home_items = []
+	if utilities.home_all_check(parent):
+		home_items.append('home_all_pb')
 	for i in range(9):
 		home_items.append(f'home_pb_{i}')
 	parent.home_controls = []
@@ -1325,5 +1328,18 @@ def setup_dsf(parent): # drill speed and feed calculator
 		layout.addWidget(parent.dsf_calc)
 
 def setup_probing(parent):
-	print('probing')
+	if 'spindle_block_pb' in parent.children:
+		parent.spindle_block_pb.setCheckable(True)
+		parent.home_required.append('spindle_block_pb')
+		parent.spindle_block_pb.clicked.connect(partial(probe.enable, parent))
+		for child in parent.children:
+			if child.startswith('probe'):
+				getattr(parent, child).setEnabled(False)
+
+
+
+
+
+
+
 
