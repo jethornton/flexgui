@@ -1,10 +1,31 @@
 HAL Buttons
 ===========
 
-Any QPushButton, QCheckBox or QRadioButton can have a HAL pin by adding a string
-Dynamic Property called `function` with the value of `hal_pin` and a string
-Dynamic Property called `pin_n` where n is some non repeated number with a
+Any QPushButton, QCheckBox or QRadioButton can have a HAL BIT pin by adding a
+string Dynamic Property called `function` with the value of `hal_pin` and a
+string Dynamic Property called `pin_name` where n is some non repeated number with a
 property of `pin_name, pin_type, pin_dir` seperated by comma's
+
+.. csv-table:: HAL Push Button
+   :width: 80%
+   :align: center
+
+	Property Name, Pin Value
+	pin_name, any unique name
+	hal_type, HAL_BIT
+	hal_dir, HAL_OUT
+
+Any QSpinBox or QDoubleSpinBox can be a hal pin.
+
+.. csv-table:: HAL Spin Box
+   :width: 80%
+   :align: center
+
+	Property Name, Pin Value
+	pin_name, any unique name
+	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	hal_dir, HAL_OUT
+
 
 Pin Types::
 
