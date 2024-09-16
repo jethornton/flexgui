@@ -70,18 +70,19 @@ def clear_errors(parent):
 	parent.statusbar.clearMessage()
 
 def update_mdi(parent):
-	parent.mdi_history_lw.addItem(parent.mdi_command)
-	path = os.path.dirname(parent.status.ini_filename)
-	mdi_file = os.path.join(path, 'mdi_history.txt')
-	mdi_codes = []
-	for index in range(parent.mdi_history_lw.count()):
-		mdi_codes.append(parent.mdi_history_lw.item(index).text())
-	with open(mdi_file, 'w') as f:
-		f.write('\n'.join(mdi_codes))
-	parent.mdi_command_le.setText('')
-	parent.command.mode(emc.MODE_MANUAL)
-	parent.command.wait_complete()
-	parent.mdi_command = ''
+	if 'mdi_history_lw' in parent.children:
+		parent.mdi_history_lw.addItem(parent.mdi_command)
+		path = os.path.dirname(parent.status.ini_filename)
+		mdi_file = os.path.join(path, 'mdi_history.txt')
+		mdi_codes = []
+		for index in range(parent.mdi_history_lw.count()):
+			mdi_codes.append(parent.mdi_history_lw.item(index).text())
+		with open(mdi_file, 'w') as f:
+			f.write('\n'.join(mdi_codes))
+		parent.mdi_command_le.setText('')
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
+		parent.mdi_command = ''
 
 def print_states(parent, state):
 	parent.print_states = parent.print_states_cb.isChecked()
