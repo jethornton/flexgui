@@ -1066,8 +1066,14 @@
     <property name="function" stdset="0">
      <string>hal_pin</string>
     </property>
-    <property name="pin_0" stdset="0">
-     <string>probe_trigger_pin, HAL_BIT, HAL_OUT</string>
+    <property name="pin_name" stdset="0">
+     <string>probe_trigger_pin</string>
+    </property>
+    <property name="hal_type" stdset="0">
+     <string>HAL_BIT</string>
+    </property>
+    <property name="hal_dir" stdset="0">
+     <string>HAL_OUT</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
