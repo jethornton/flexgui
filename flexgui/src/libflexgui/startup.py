@@ -1167,6 +1167,7 @@ def setup_hal_buttons(parent):
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				setattr(parent.halcomp, pin_name, spinbox.value())
 				spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 				parent.state_estop[spinbox_name] = False
 				parent.state_estop_reset[spinbox_name] = False
