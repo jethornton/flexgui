@@ -1,31 +1,31 @@
 HAL Buttons
 ===========
 
-Any QPushButton, QCheckBox or QRadioButton can have a HAL BIT pin by adding a
-string Dynamic Property called `function` with the value of `hal_pin` and a
-string Dynamic Property called `pin_name` where n is some non repeated number with a
-property of `pin_name, pin_type, pin_dir` seperated by comma's
+Any QPushButton, QCheckBox or QRadioButton can have a HAL BIT pin by adding four
+string type Dynamic Propertys as shown in the table.
 
 .. csv-table:: HAL Push Button
    :width: 80%
    :align: center
 
 	Property Name, Pin Value
+	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_BIT
 	hal_dir, HAL_OUT
 
-Any QSpinBox or QDoubleSpinBox can be a hal pin.
+Any QSpinBox or QDoubleSpinBox can be a hal number pin by adding four string
+type Dynamic Propertys as shown in the table.
 
 .. csv-table:: HAL Spin Box
    :width: 80%
    :align: center
 
 	Property Name, Pin Value
+	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
 	hal_dir, HAL_OUT
-
 
 Pin Types::
 
@@ -49,8 +49,10 @@ Currently only `HAL_BIT` with `HAL_OUT` has been tested.
 Step by Step
 ------------
 
-You can use a QPushButton, QPushButton with checkable selected, QCheckBox or
-QRadioButton for a HAL output control.
+.. note:: This example is for a QPushButton
+
+You can use a QPushButton as a momentary output or with checkable selected for a
+toggle type output or, QCheckBox or QRadioButton for a HAL output control.
 
 Drag the widget into the GUI and the widget can have any name you like. Names
 are not used by Flex GUI for HAL controls.
@@ -72,30 +74,32 @@ have a HAL pin.
 .. image:: /images/hal-03.png
    :align: center
 
-Add another Dynamic Property named `pin_n` where `n` is a unique number or word
-and click Ok. Flex GUI searches the Dynamic Properties for a property that
-starts with `pin_` so any unique letters or numbers after the underscore are
-valid.
+Add another Dynamic Property named `pin_name` and set the value to any unique
+name
 
 .. image:: /images/hal-04.png
    :align: center
 
-The first item in the Value must be unique Flex HAL name, then seperated by
-commas the next item must be the HAL Pin Type then the HAL Pin Direction. The
-pin name created by Flex is flexhal.(the name you put first).
+Add another Dynamic Property named `hal_type` and set the value to HAL_BIT
 
 .. image:: /images/hal-05.png
    :align: center
 
-If you added Show HAL to your menu you can open up the `Halshow` program and
-view the pin names.
+Add another Dynamic Property named `hal_dir` and set the value to HAL_OUT
 
 .. image:: /images/hal-06.png
    :align: center
 
-The pin names will all start with flexhal then the unique name you gave them.
+
+If you added Show HAL to your menu you can open up the `Halshow` program and
+view the pin names.
 
 .. image:: /images/hal-07.png
+   :align: center
+
+The pin names will all start with flexhal then the unique name you gave them.
+
+.. image:: /images/hal-08.png
    :align: center
 
 Now you can connect the Flex HAL pin in the postgui.hal file like normal.
@@ -113,6 +117,6 @@ If the HAL button requires all joints to be homed before being enabled you can
 specifiy that by adding a Dynamic Property named `required` and set the value to
 `homed`.
 
-.. image:: /images/hal-08.png
+.. image:: /images/hal-09.png
    :align: center
 
