@@ -50,6 +50,15 @@ To add an error viewer add a QPlainTextEdit from Input Widgets and name it
 .. note:: See the :doc:`controls` section for buttons that pertain to the Error
    Viewer
 
+Information Viewer
+------------------
+To add an information viewer add a QPlainTextEdit from Input Widgets and name it
+`info_pte`. Information messages from MSG, DEBUG and PRINT will show up in the
+Information Viewer
+
+If `info_pte` is not found and the `errors_pte` is found then information
+messeges will show up in the Error Viewer
+
 Speed & Feed Calculators
 ------------------------
 
