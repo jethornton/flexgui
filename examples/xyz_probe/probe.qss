@@ -1,0 +1,48 @@
+
+QPushButton[objectName*="probe"] {
+	min-height: 80px;
+	min-width: 80px;
+	margin: 2px;
+	background-position: center;
+	background-origin: content;
+	background-clip: padding;
+	background-repeat: no-repeat;
+}
+
+QPushButton#probe_ym {
+	background-image: url(:inY-.png);
+}
+
+QPushButton#probe_yp {
+	background-image: url(:inY+.png);
+}
+
+QPushButton#probe_xp {
+	background-image: url(:inX+.png);
+}
+
+QPushButton#probe_xm {
+	background-image: url(:inX-.png);
+}
+
+QPushButton#probe_xp_yp {
+	background-image: url(:inX+Y+.png);
+}
+
+QPushButton#probe_xp_ym {
+	background-image: url(:inX+Y-.png);
+}
+
+QPushButton#probe_xm_ym {
+	background-image: url(:inX-Y-.png);
+}
+
+QPushButton#probe_xm_yp {
+	background-image: url(:inX-Y+.png);
+}
+
+
+QPushButton#probe_xy_c {
+	background-image: url(:xy_center.png);
+}
+

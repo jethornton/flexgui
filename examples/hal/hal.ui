@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Power Controls</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="estop_pb">
+         <property name="text">
+          <string>E-Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="power_pb">
+         <property name="text">
+          <string>Power</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="title">
+       <string>HAL Objects</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Checkbox</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>check-me</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_BIT</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Homed Required</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>HAL Float</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="text">
+          <string>MDI Button</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="required" stdset="0">
+          <string>homed</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-mdi-01</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_BIT</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Toggle Button</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>MDI Homed Required</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>Must Home HAL</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>must-home</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_BIT</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+         <property name="required" stdset="0">
+          <string>homed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>Checkable Hal</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-check</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_BIT</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QDoubleSpinBox" name="probe_seek_dsb">
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>probe_seek</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_FLOAT</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>HAL U32 Homed Required</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QSpinBox" name="probe_seek_dsb_2">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>spin</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_U32</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+         <property name="required" stdset="0">
+          <string>homed</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="2" colspan="2">
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="title">
+       <string>Notes</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="plainTextEdit">
+         <property name="plainText">
+          <string>HAL Demo
+Look at the Dynamic Properties for examples.
+
+Programs &gt; Show HAL to view the pins
+
+If you run this the HAL Component Name should be flexhal. If you have an Axis Sim and run flexgui in a terminal the name is random.</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Home Controls</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="home_all_pb">
+         <property name="text">
+          <string>Home All</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="unhome_all_pb">
+         <property name="text">
+          <string>UnHome All</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="2" colspan="2">
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="title">
+       <string>Status</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="1" column="0">
+        <widget class="QLabel" name="task_state_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="interp_state_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="task_mode_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>HAL Component Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" rowspan="2">
+        <widget class="QLabel" name="hal_comp_name_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuPrograms">
+    <property name="title">
+     <string>Programs</string>
+    </property>
+    <addaction name="actionShow_HAL"/>
+   </widget>
+   <addaction name="menuPrograms"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>Show HAL</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
