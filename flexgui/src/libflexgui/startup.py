@@ -1121,89 +1121,63 @@ def setup_hal_buttons(parent):
 			hal_buttons.append(button)
 			if button.property('required') == 'homed':
 				parent.home_required.append(button.objectName())
-	for n, button in enumerate(hal_buttons):
-		props = button.dynamicPropertyNames()
-		for prop in props:
-			prop = str(prop, 'utf-8')
-			if prop.startswith('pin_'): # we have a hal button
-				pin_settings = button.property(prop).split(',')
-				name = button.objectName()
-				pin_name = pin_settings[0]
-				pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
-				pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
-				setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
-				pin = getattr(parent, f'{prop}')
+
+	if len(hal_buttons) > 0:
+		for button in hal_buttons:
+			button_name = button.objectName()
+			pin_name = button.property('pin_name')
+			hal_type = button.property('hal_type')
+			hal_dir = button.property('hal_dir')
+			#print(button.objectName(), pin_name, hal_type, hal_dir)
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				#print('building')
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				pin = getattr(parent, f'{pin_name}')
+
 				if button.isCheckable():
 					button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
 				else:
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
-				parent.state_estop[button.objectName()] = False
-				parent.state_estop_reset[button.objectName()] = False
-				parent.state_on[button.objectName()] = True
 
-	hal_dsb = []
-	for dsb in parent.findChildren(QAbstractSpinBox):
-		if dsb.property('function') == 'hal_pin':
-			hal_dsb.append(dsb)
+				parent.state_estop[button_name] = False
+				parent.state_estop_reset[button_name] = False
 
-	if len(hal_dsb) > 0:
-		for dsb in hal_dsb:
-			#print(dsb.objectName())
-			pin_name = dsb.property('pin_name')
-			hal_type = dsb.property('hal_type')
-			hal_dir = dsb.property('hal_dir')
+				if button.property('required') == 'homed':
+					parent.home_required.append(button_name)
+				else:
+					parent.state_on[button_name] = True
+
+	hal_spinbox = []
+	for item in parent.findChildren(QAbstractSpinBox):
+		if item.property('function') == 'hal_pin': # HAL spin box
+			hal_spinbox.append(item)
+
+	if len(hal_spinbox) > 0:
+		for spinbox in hal_spinbox:
+			spinbox_name = spinbox.objectName()
+			pin_name = spinbox.property('pin_name')
+			hal_type = spinbox.property('hal_type')
+			hal_dir = spinbox.property('hal_dir')
+
 			if None not in [pin_name, hal_type, hal_dir]:
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
-
-				setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-				dsb.valueChanged.connect(partial(utilities.update_hal_float, parent))
-				if dsb.property('required') == 'homed':
-					parent.home_required.append(dsb.objectName())
-			else:
-				print('missing')
-
-	return
-
-	print(pin_name)
-	print(pin_type)
-	print(pin_dir)
-	test = dsb.property('test')
-	print(test)
-	if dsb.property('required') == 'homed':
-		parent.home_required.append(dsb.objectName())
-
-
-	if len(hal_dsb) > 0:
-		for n, dsb in enumerate(hal_dsb):
-			dsb.valueChanged.connect(partial(utilities.update_hal_float, parent))
-			props = dsb.dynamicPropertyNames()
-			for prop in props:
-				prop = str(prop, 'utf-8')
-				if prop.startswith('pin_'): # we have a hal dsb
-					pin_settings = dsb.property(prop).split(',')
-					name = dsb.objectName()
-					pin_name = pin_settings[0]
-					pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
-					pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
-					#print(pin_name, pin_type, pin_dir)
-					setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
-					pin = getattr(parent, f'{prop}')
-					#print(pin_name)
-					#parent.halcomp(set_p, 
-					#hal.set_p(parent.halcomp.pin_seek, 123.5)
-					print(parent.halcomp)
-					#parent.halcomp.pin_seek = 123.5
-					#print(parent.halcomp.pin_seek)
-					#listOfDicts = hal.get_info_pins()
-					#print(listOfDicts)
-	#pinName1 = listOfDicts[0].get('NAME')
-	#pinValue1 = listOfDicts[0].get('VALUE')
-	#pinType1 = listOfDicts[0].get('TYPE')
-	#pinDirection1 = listOfDicts[0].get('DIRECTION')
+				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
+				parent.state_estop[spinbox_name] = False
+				parent.state_estop_reset[spinbox_name] = False
+				if spinbox.property('required') == 'homed':
+					parent.home_required.append(spinbox_name)
+				else:
+					parent.state_on[spinbox_name] = True
 
 	parent.halcomp.ready()
+	if 'hal_comp_name_lb' in parent.children:
+		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
@@ -1325,42 +1299,6 @@ def setup_plot(parent):
 					parent.plotter.set_current_view()
 				))
 
-def set_status(parent): # FIXME look close at this to make sure it catches all
-	parent.status.poll()
-	if parent.status.task_state == linuxcnc.STATE_ESTOP:
-		for key, value in parent.state_estop.items():
-			getattr(parent, key).setEnabled(value)
-		for key, value in parent.state_estop_names.items():
-			getattr(parent, key).setText(value)
-
-	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		#print('STATE_ESTOP_RESET')
-		for key, value in parent.state_estop_reset.items():
-			getattr(parent, key).setEnabled(value)
-		for key, value in parent.state_estop_reset_names.items():
-			getattr(parent, key).setText(value)
-
-	if parent.status.task_state == linuxcnc.STATE_ON:
-		for key, value in parent.state_on.items():
-			getattr(parent, key).setEnabled(value)
-		for key, value in parent.state_on_names.items():
-			getattr(parent, key).setText(value)
-		if utilities.all_homed and parent.status.file:
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
-		if utilities.all_homed(parent):
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.home_controls:
-				getattr(parent, item).setEnabled(False)
-		else:
-			for item in parent.home_required:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(False)
-
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.children:
 		if parent.fsc_container.property('mode') == 'touch':
@@ -1398,6 +1336,41 @@ def setup_probing(parent):
 				getattr(parent, child).setEnabled(False)
 
 
+def set_status(parent): # FIXME look close at this to make sure it catches all
+	parent.status.poll()
+	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+		for key, value in parent.state_estop.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_estop_names.items():
+			getattr(parent, key).setText(value)
+
+	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
+		#print('STATE_ESTOP_RESET')
+		for key, value in parent.state_estop_reset.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_estop_reset_names.items():
+			getattr(parent, key).setText(value)
+
+	if parent.status.task_state == linuxcnc.STATE_ON:
+		for key, value in parent.state_on.items():
+			getattr(parent, key).setEnabled(value)
+		for key, value in parent.state_on_names.items():
+			getattr(parent, key).setText(value)
+		if utilities.all_homed and parent.status.file:
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
+		if utilities.all_homed(parent):
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.home_controls:
+				getattr(parent, item).setEnabled(False)
+		else:
+			for item in parent.home_required:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(False)
 
 
 
