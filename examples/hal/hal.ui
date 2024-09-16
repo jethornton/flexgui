@@ -169,6 +169,12 @@
          <property name="decimals">
           <number>3</number>
          </property>
+         <property name="maximum">
+          <double>250.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>123.560000000000002</double>
+         </property>
          <property name="function" stdset="0">
           <string>hal_pin</string>
          </property>
