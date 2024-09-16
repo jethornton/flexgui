@@ -373,19 +373,31 @@ def update(parent):
 
 	# handle errors
 	#if parent.status.state == parent.emc.RCS_ERROR:
-	if 'errors_pte' in parent.children:
-		error = parent.error.poll()
-		if error:
-			kind, text = error
-			if kind in (emc.NML_ERROR, emc.OPERATOR_ERROR):
-				error_type = 'Error'
-			else:
-				error_type = 'Info'
-			if 'override_limits_cb' in parent.children:
-				if 'limit switch error' in text:
-					parent.override_limits_cb.setEnabled(True)
-			parent.errors_pte.appendPlainText(error_type)
-			parent.errors_pte.appendPlainText(text)
-			parent.errors_pte.setFocus()
-			parent.statusbar.showMessage('Error')
+	error = parent.error.poll()
+	if error:
+		kind, text = error
+		if kind in (emc.NML_ERROR, emc.OPERATOR_ERROR):
+			error_type = 'Error'
+		else:
+			error_type = 'Info'
+		if 'override_limits_cb' in parent.children:
+			if 'limit switch error' in text:
+				parent.override_limits_cb.setEnabled(True)
+		if error_type == 'Info':
+			if 'info_pte' in parent.children:
+				parent.info_pte.appendPlainText(error_type)
+				parent.info_pte.appendPlainText(text)
+			elif 'errors_pte' in parent.children:
+				parent.errors_pte.appendPlainText(error_type)
+				parent.errors_pte.appendPlainText(text)
+				parent.errors_pte.setFocus()
+				parent.statusbar.showMessage('Error')
+		elif error_type == 'Error':
+			if 'errors_pte' in parent.children:
+				parent.errors_pte.appendPlainText(error_type)
+				parent.errors_pte.appendPlainText(text)
+				parent.errors_pte.setFocus()
+				parent.statusbar.showMessage('Error')
+
+
 
