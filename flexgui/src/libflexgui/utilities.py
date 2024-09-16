@@ -135,8 +135,9 @@ def sync_checkboxes(parent, sender, receiver):
 		getattr(parent, receiver).setChecked(getattr(parent, sender).isChecked())
 		parent.settings.setValue(f'PLOT/{receiver}', getattr(parent, sender).isChecked())
 
-def update_hal_float(parent, value):
-			setattr(parent.halcomp, parent.sender().property('pin_name'), value)
+def update_hal_spinbox(parent, value):
+	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
+	print(value)
 
 	#parent.halcomp.pin_seek = 123.5
 
