@@ -1944,8 +1944,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_0" stdset="0">
-        <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin0</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
       <widget class="QPushButton" name="g1_y_minus">
@@ -1963,8 +1969,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_1" stdset="0">
-        <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin1</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
       <widget class="QPushButton" name="g1_x_plus">
@@ -1982,8 +1994,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_2" stdset="0">
-        <string>test_mdi_pin2, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin2</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_19">
@@ -2033,8 +2051,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_3" stdset="0">
-        <string>test_mdi_pin3, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin3</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
      </widget>
