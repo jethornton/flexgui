@@ -1,0 +1,23 @@
+# Halshow settings
+# This file is generated automatically.
+wm geometry . 700x475+1102+43
+placeFrames 0.3502906976744186
+set ::ratio 0.3502906976744186
+set ::old_w_leftf 160
+set ::watchlist {
+    pin+motion.analog-in-00
+    pin+motion.digital-in-00
+    pin+motion.digital-out-00
+    pin+spindle.0.speed-in
+    pin+spindle.0.speed-out
+    pin+spindle.0.speed-out-rps
+    pin+spindle.0.speed-out-abs
+    pin+flexhal.probe_trigger_pin
+}
+set ::workmode showhal
+set ::watchInterval 100
+set ::col1_width 100
+set ::ffmts 
+set ::ifmts 
+set ::alwaysOnTop 0
+set ::autoSaveWatchlist 1
