@@ -59,6 +59,8 @@ Information Viewer
 If `info_pte` is not found and the `errors_pte` is found then information
 messeges will show up in the Error Viewer
 
+To clear the information viewer add a QPushButton and name it `clear_info_pb`.
+
 Speed & Feed Calculators
 ------------------------
 

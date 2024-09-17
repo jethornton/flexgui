@@ -37,7 +37,9 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Manual Mode, manual_mode_pb
 	Flood Toggle, flood_pb
 	Mist Toggle, mist_pb
-	Clear Error History, clear_error_history_pb
+	Clear Error History, clear_errors_pb
+	Copy Error History, copy_errors_pb
+	Clear Information History, clear_info_pb
 	Show HAL, show_hal_pb
 	HAL Meter, hal_meter_pb
 	HAL Scope, hal_scope_pb
