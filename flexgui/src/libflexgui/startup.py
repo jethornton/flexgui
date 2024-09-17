@@ -334,11 +334,16 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
-	if 'clear_error_history_pb' in parent.children:
-		if 'errors_pte' in parent.children:
-			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
+	if 'errors_pte' in parent.children:
+		if 'clear_errors_pb' in parent.children:
+			parent.clear_errors_pb.clicked.connect(partial(utilities.clear_errors, parent))
 
-	# FIXME add a copy error history button
+		if 'copy_errors_pb' in parent.children:
+			parent.copy_errors_pb.clicked.connect(partial(utilities.copy_errors, parent))
+
+	if 'clear_info_pb' in parent.children:
+		if 'info_pte' in parent.children:
+			parent.clear_info_pb.clicked.connect(partial(utilities.clear_info, parent))
 
 	# touch off coordinate system combo box
 	if 'touchoff_system_cb' in parent.children:

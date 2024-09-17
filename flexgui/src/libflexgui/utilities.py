@@ -2,7 +2,7 @@ import os
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtWidgets import QTextEdit
+from PyQt6.QtWidgets import QApplication, QTextEdit
 
 import linuxcnc as emc
 
@@ -65,9 +65,17 @@ def update_jog_lb(parent):
 def add_mdi(parent):
 	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
+def copy_errors(parent):
+	qclip = QApplication.clipboard()
+	qclip.setText(parent.errors_pte.toPlainText())
+	parent.statusbar.showMessage('Errors copied to clipboard')
+
 def clear_errors(parent):
 	parent.errors_pte.clear()
 	parent.statusbar.clearMessage()
+
+def clear_info(parent):
+	parent.info_pte.clear()
 
 def update_mdi(parent):
 	if 'mdi_history_lw' in parent.children:
