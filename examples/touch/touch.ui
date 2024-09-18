@@ -366,7 +366,11 @@
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLineEdit" name="tool_touchoff_le"/>
+               <widget class="QLineEdit" name="tool_touchoff_le">
+                <property name="mode" stdset="0">
+                 <string>touch</string>
+                </property>
+               </widget>
               </item>
               <item row="0" column="2">
                <widget class="QPushButton" name="tool_touchoff_y">
@@ -406,7 +410,11 @@
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLineEdit" name="touchoff_le"/>
+               <widget class="QLineEdit" name="touchoff_le">
+                <property name="mode" stdset="0">
+                 <string>touch</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -1023,6 +1031,26 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QFrame" name="fsc_container">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="mode" stdset="0">
+           <string>touch</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>DSF</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QFrame" name="dsf_container">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
