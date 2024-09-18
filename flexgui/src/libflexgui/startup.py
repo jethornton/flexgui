@@ -463,7 +463,6 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
-	# FIXME move linear_units and set precision
 	status_items = ['acceleration', 'active_queue', 
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
@@ -471,7 +470,7 @@ def setup_status_labels(parent):
 	'echo_serial_number', 'enabled', 'estop', 'exec_state',
 	'feed_override_enabled', 'flood', 'g5x_index', 'ini_filename', 'inpos',
 	'input_timeout', 'interp_state', 'interpreter_errcode', 'joint', 'joints',
-	'kinematics_type', 'linear_units', 'lube', 'lube_level', 'max_acceleration',
+	'kinematics_type', 'lube', 'lube_level', 'max_acceleration',
 	'max_velocity', 'mist', 'motion_line', 'motion_mode', 'motion_type',
 	'optional_stop', 'paused', 'pocket_prepped', 'probe_tripped', 'probe_val',
 	'probed_position', 'probing', 'program_units', 'queue', 'queue_full',
@@ -560,6 +559,10 @@ def setup_status_labels(parent):
 		p = p if p is not None else default_precision
 		if None not in (joint_0, joint_1, joint_2): # check for None or False
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
+
+	parent.status_units = {}
+	if 'linear_units_lb' in parent.children:
+		p = parent.linear_units_lb.property('precision') or default_precision
 
 	# check for joint labels in ui
 	# these return 16 joints

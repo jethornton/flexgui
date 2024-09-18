@@ -315,6 +315,10 @@ def update(parent):
 		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
 		getattr(parent, key).setText(f'{vel * 60:.{value[3]}f}')
 
+	# units
+	for key, value in parent.status_units.items():
+		getattr(parent, f'{key}').setText(f'{getattr(parent.status, value[0]):.{value[1]}f}')
+
 	# override items label : status item
 	for label, stat in parent.overrides.items():
 		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
