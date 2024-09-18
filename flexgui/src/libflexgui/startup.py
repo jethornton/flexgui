@@ -964,14 +964,15 @@ def setup_spindle(parent):
 
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
-	# FIXME add touchoff_le and tool_touchoff_le for touch screens
-	# self.lineEdit_passwort.mousePressEvent = self.on_lineEdit_passwort_clicked
-	# def on_lineEdit_passwort_clicked(self, *arg, **kwargs):
-	# 	print("lineEdit_passwort clicked!")
 	if 'touchoff_le' in parent.children:
 		parent.touchoff_le.setText('0')
 		if parent.touchoff_le.property('mode') == 'touch': # enable the number pad
 			parent.touchoff_le.installEventFilter(parent)
+
+	if 'tool_touchoff_le' in parent.children:
+		parent.tool_touchoff_le.setText('0')
+		if parent.tool_touchoff_le.property('mode') == 'touch': # enable the number pad
+			parent.tool_touchoff_le.installEventFilter(parent)
 
 	# setup touch off buttons
 	for axis in AXES:
@@ -979,39 +980,6 @@ def setup_touchoff(parent):
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 			parent.home_required.append(item)
-
-
-	'''
-	to_missing = False
-	tto_missing = False
-	touchoff = ['touchoff_le', 'touchoff_dsb']
-
-	for item in AXES:
-		if f'touchoff_pb_{item}' in parent.children:
-			#print(bool(set(touchoff) & set(parent.children)))
-			if bool(set(touchoff) & set(parent.children)):
-				break
-			else:
-				getattr(parent, f'touchoff_pb_{item}').setEnabled(False)
-				to_missing = True
-
-		if f'tool_touchoff_{item}' in parent.children:
-			if 'tool_touchoff_dsb' not in parent.children:
-				getattr(parent, f'tool_touchoff_{item}').setEnabled(False)
-				tto_missing = True
-
-	if to_missing: # FIXME delete 
-		msg = ('Touch Off Double Spin Box\n'
-			'touchoff_dsb not found.\n'
-			'Touch Off Buttons will be disabled')
-		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	if tto_missing: # FIXME delete 
-		msg = ('Touch Off Double Spin Box\n'
-			'tool_touchoff_dsb not found.\n'
-			'Tool Touch Off Buttons will be disabled')
-		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-	'''
 
 def setup_tools(parent):
 	# tool change using a combo box
@@ -1057,30 +1025,6 @@ def setup_tools(parent):
 				'the Tool Offset Line Edit tool_touchoff_le')
 				dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
-	'''
-	# setup tool touch off buttons
-	for axis in AXES:
-		item = f'tool_touchoff_{axis}'
-		if item in parent.children:
-
-
-
-	# children = ['tool_touchoff_le', 'tool_change_cb']
-	if 'tool_change_pb' in parent.children:
-
-	if 'tool_change_cb' in parent.children:
-		else:
-			msg = ('Tool change Push Button\n'
-				'requires the tool_change_cb combo box.')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	if 'tool_touchoff_le' in parent.children:
-		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('mode') == 'touch': # enable the number pad
-			parent.tool_touchoff_le.installEventFilter(parent)
-
-
-	'''
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
