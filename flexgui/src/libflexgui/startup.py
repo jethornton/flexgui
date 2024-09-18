@@ -904,8 +904,6 @@ def setup_spindle(parent):
 	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-	#elif not parent.increment:
-	#	parent.increment = 100
 	parent.increment = int(increment) if increment else 100
 
 	if 'spindle_speed_sb' in parent.children:
