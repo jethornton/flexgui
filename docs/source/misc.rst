@@ -67,19 +67,25 @@ Speed & Feed Calculators
 To add a milling Speed and Feed Calculator add a QFrame or QWidget and set the
 Object Name to `fsc_container`
 
-To make the entry boxes touch screen aware add a Dynamic Property called `mode`
-and set the value to `touch`.
-
-.. image:: /images/fsc-01.png
-   :align: center
-
 SFC calculator
 
 .. image:: /images/fsc-02.png
    :align: center
 
+To make the entry boxes touch screen aware add a Dynamic Property called `mode`
+and set the value to `touch` and when you touch an entry field a numeric popup
+will show up to enter the numbers.
+
+.. image:: /images/fsc-01.png
+   :align: center
+
+
 To add a Drill Feed and Speed calculator add a QFrame or QWidget and set the
-Object Name to `dsc_container`
+Object Name to `dsf_container`.
+
+To make the entry boxes touch screen aware add a Dynamic Property called `mode`
+and set the value to `touch` and when you touch an entry field a numeric popup
+will show up to enter the numbers.
 
 .. image:: /images/dsc-01.png
    :align: center
