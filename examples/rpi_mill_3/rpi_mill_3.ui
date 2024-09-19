@@ -2672,7 +2672,7 @@
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <widget class="QPushButton" name="clear_error_history_pb">
+      <widget class="QPushButton" name="clear_errors_pb">
        <property name="geometry">
         <rect>
          <x>45</x>
