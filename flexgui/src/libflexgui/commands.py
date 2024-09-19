@@ -34,6 +34,11 @@ def home(parent):
 		getattr(parent, f'home_pb_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
+		if utilities.all_homed(parent): # all homed
+			if 'unhome_all_pb' in parent.children:
+				parent.unhome_all_pb.setEnabled(True)
+			if 'home_all_pb' in parent.children:
+				parent.home_all_pb.setEnabled(False)
 
 def home_all(parent):
 	parent.status.poll()
@@ -43,11 +48,15 @@ def home_all(parent):
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.home(-1)
+	for item in parent.home_controls:
+		getattr(parent, item).setEnabled(False)
+	for item in parent.unhome_controls:
+		getattr(parent, item).setEnabled(True)
 
-def unhome(parent): # FIXME move disables to utilities
+def unhome(parent):
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 1:
+	if parent.status.homed[joint] == 1: # joint is homed so unhome it
 		set_mode(parent, emc.MODE_MANUAL)
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
@@ -55,10 +64,6 @@ def unhome(parent): # FIXME move disables to utilities
 		getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
 		if f'home_pb_{joint}' in parent.children:
 			getattr(parent, f'home_pb_{joint}').setEnabled(True)
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.home_required:
-			getattr(parent, item).setEnabled(False)
 		if utilities.all_unhomed(parent):
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(False)
@@ -66,13 +71,25 @@ def unhome(parent): # FIXME move disables to utilities
 				if 'home_all_pb' in parent.children:
 					parent.home_all_pb.setEnabled(True)
 
-def unhome_all(parent): # FIXME move disables to utilities
+		'''
+		utilities.set_enables(parent)
+
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.home_required:
+			getattr(parent, item).setEnabled(False)
+		'''
+
+def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.unhome(-1)
 	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
+	utilities.set_enables(parent)
+
+
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(True)
 	for item in parent.unhome_controls:

@@ -1285,7 +1285,7 @@ def setup_probing(parent):
 			if child.startswith('probe'):
 				getattr(parent, child).setEnabled(False)
 
-def set_status(parent):
+def set_status(parent): # only used when running a sim and flex
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
@@ -1320,7 +1320,6 @@ def set_status(parent):
 			for item in parent.home_controls:
 				if item[-1].isnumeric():
 					joint = int(item[-1])
-					print(parent.status.homed[joint])
 					if parent.status.homed[joint] == 0: # not homed
 						getattr(parent, item).setEnabled(True)
 					elif parent.status.homed[joint] == 1: # homed
@@ -1328,7 +1327,6 @@ def set_status(parent):
 			for item in parent.unhome_controls:
 				if item[-1].isnumeric():
 					joint = int(item[-1])
-					print(parent.status.homed[joint])
 					if parent.status.homed[joint] == 0: # not homed
 						getattr(parent, item).setEnabled(False)
 					elif parent.status.homed[joint] == 1: # homed
