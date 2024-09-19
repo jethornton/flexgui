@@ -71,15 +71,6 @@ def unhome(parent):
 			if 'home_all_pb' in parent.children:
 				parent.home_all_pb.setEnabled(True)
 
-		'''
-		utilities.set_enables(parent)
-
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.home_required:
-			getattr(parent, item).setEnabled(False)
-		'''
-
 def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
@@ -87,8 +78,6 @@ def unhome_all(parent):
 	parent.command.unhome(-1)
 	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
-	#utilities.set_enables(parent)
-
 
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(True)
