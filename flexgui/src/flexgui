@@ -192,8 +192,8 @@ class flexgui(QMainWindow):
 		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
-		else: # running with a sim
-			startup.set_status(self)
+
+		startup.set_status(self)
 
 		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
