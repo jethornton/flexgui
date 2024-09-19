@@ -41,41 +41,6 @@ def home_all_check(parent):
 			return False
 	return True
 
-def set_enables(parent): # FIXME this may handle enables dunno
-	print('set_enables')
-	if parent.status.task_state == emc.STATE_ESTOP:
-		# everything disabled except the E Stop
-		print('STATE_ESTOP')
-
-	elif parent.status.task_state == emc.STATE_ESTOP_RESET:
-		# everything disabled except the Power
-		print('STATE_ESTOP_RESET')
-
-	elif parent.status.task_state == emc.STATE_ON:
-		print('STATE_ON')
-		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
-			# all joints are homed
-			print('All Homed')
-			for item in parent.home_required:
-				getattr(parent, item).setEnabled(True)
-			if parent.status.file:
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
-		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
-			# a joint is not homed
-			print('All NOT Homed')
-			for item in parent.home_required:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(False)
-
-
-
-	# STATE_ON
-	# ALL HOMED
-	# FILE LOADED
-
-
 def set_homed_enable(parent):
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
