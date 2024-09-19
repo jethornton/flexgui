@@ -67,9 +67,9 @@ def unhome(parent):
 		if utilities.all_unhomed(parent):
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(False)
-			if utilities.home_all_check(parent):
-				if 'home_all_pb' in parent.children:
-					parent.home_all_pb.setEnabled(True)
+		if utilities.home_all_check(parent):
+			if 'home_all_pb' in parent.children:
+				parent.home_all_pb.setEnabled(True)
 
 		'''
 		utilities.set_enables(parent)
@@ -87,7 +87,7 @@ def unhome_all(parent):
 	parent.command.unhome(-1)
 	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
-	utilities.set_enables(parent)
+	#utilities.set_enables(parent)
 
 
 	for item in parent.home_controls:
