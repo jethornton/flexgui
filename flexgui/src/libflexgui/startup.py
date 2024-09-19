@@ -184,13 +184,12 @@ def setup_enables(parent):
 			del parent.state_on_names[item]
 
 	# run controls used to enable/disable when not running a program
-	# FIXME this is broken and needs more thought
 	run_items = ['open_pb', 'run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
 	'reload_pb', 'actionOpen', 'menuRecent', 'actionReload', 'actionRun',
 	'actionRun_From_Line', 'actionStep', 'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
-	for item in AXES: # FIXME this needs to be in tool setup as well well maybe not...
+	for item in AXES:
 		run_items.append(f'tool_touchoff_{item}')
 		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
@@ -1286,8 +1285,7 @@ def setup_probing(parent):
 			if child.startswith('probe'):
 				getattr(parent, child).setEnabled(False)
 
-
-def set_status(parent): # FIXME look close at this to make sure it catches all
+def set_status(parent):
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
@@ -1296,7 +1294,6 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 			getattr(parent, key).setText(value)
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		#print('STATE_ESTOP_RESET')
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():
@@ -1315,13 +1312,27 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 				getattr(parent, item).setEnabled(True)
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
-		else:
+		else: # a joint is not homed
 			for item in parent.home_required:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.home_controls:
+				if item[-1].isnumeric():
+					joint = int(item[-1])
+					print(parent.status.homed[joint])
+					if parent.status.homed[joint] == 0: # not homed
+						getattr(parent, item).setEnabled(True)
+					elif parent.status.homed[joint] == 1: # homed
+						getattr(parent, item).setEnabled(False)
+			for item in parent.unhome_controls:
+				if item[-1].isnumeric():
+					joint = int(item[-1])
+					print(parent.status.homed[joint])
+					if parent.status.homed[joint] == 0: # not homed
+						getattr(parent, item).setEnabled(False)
+					elif parent.status.homed[joint] == 1: # homed
+						getattr(parent, item).setEnabled(True)
 
 
 
