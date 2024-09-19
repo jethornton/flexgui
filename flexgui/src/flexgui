@@ -189,11 +189,11 @@ class flexgui(QMainWindow):
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
 		startup.setup_probing(self)
-
 		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
-		startup.set_status(self)
+		else: # running with a sim
+			startup.set_status(self)
 
 		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
@@ -224,7 +224,6 @@ class flexgui(QMainWindow):
 	def eventFilter(self, obj, event):
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
-		# FIXME finish adding this
 		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
 		if obj.objectName() == 'mdi_command_le' and event.type() == QEvent.Type.MouseButtonRelease:
