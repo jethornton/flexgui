@@ -1312,12 +1312,16 @@ def set_status(parent): # only used when running a sim and flex
 				getattr(parent, item).setEnabled(True)
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
+		elif utilities.all_unhomed(parent): # disable all unhome items
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
 		else: # a joint is not homed
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
-			for item in parent.home_controls:
+
+			for item in parent.home_controls: # enable/disable by joint
 				if item[-1].isnumeric():
 					joint = int(item[-1])
 					if parent.status.homed[joint] == 0: # not homed
