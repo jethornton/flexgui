@@ -37,11 +37,11 @@ def update(parent):
 	# **************************
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
+		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
 
 		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
-			print('status update STATE_ESTOP')
+			#print('status update STATE_ESTOP')
 			for key, value in parent.state_estop.items():
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_names.items():
@@ -49,7 +49,7 @@ def update(parent):
 
 		# e stop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
-			print('status update STATE_ESTOP_RESET')
+			#print('status update STATE_ESTOP_RESET')
 			for key, value in parent.state_estop_reset.items():
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_reset_names.items():
@@ -57,7 +57,7 @@ def update(parent):
 
 		# e stop closed power on
 		if parent.status.task_state == emc.STATE_ON:
-			print('status update STATE_ON')
+			#print('status update STATE_ON')
 			for key, value in parent.state_on.items():
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_on_names.items():
@@ -78,16 +78,15 @@ def update(parent):
 					getattr(parent, item).setEnabled(False)
 
 			if parent.status.file:
-				print('status update FILE LOADED')
+				#print('status update FILE LOADED')
 				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(True)
 				if utilities.all_homed(parent):
-					print('status update FILE LOADED and ALL HOMED')
+					#print('status update FILE LOADED and ALL HOMED')
 					for item in parent.run_controls:
 						getattr(parent, item).setEnabled(True)
-
 			else:
-				print('status update NO FILE LOADED')
+				#print('status update NO FILE LOADED')
 				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(False)
 
@@ -96,27 +95,35 @@ def update(parent):
 	# **************************
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
-		print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
-		utilities.set_enables(parent)
-		# when all joints are homed motion_mode changes
-		# from TRAJ_MODE_FREE to TRAJ_MODE_TELEOP
-		# when any joint is not homed the motion_mode is TRAJ_MODE_FREE
-		#if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
-		#	if utilities.all_homed(parent):
-		#		utilities.set_homed_enable(parent)
+		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
+		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
+			# all joints are homed
+			#print('All Homed')
+			for item in parent.home_required:
+				getattr(parent, item).setEnabled(True)
+			if parent.status.file:
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
+		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
+			# a joint is not homed
+			#print('All NOT Homed')
+			for item in parent.home_required:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(False)
 
 		parent.motion_mode = parent.status.motion_mode
 
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
 				parent.command.mode(emc.MODE_MANUAL)
 				parent.command.wait_complete()
-				print(f'{TASK_MODES[parent.status.task_mode]}')
+				#print(f'{TASK_MODES[parent.status.task_mode]}')
 
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
 				if parent.mdi_command: # only update mdi if it's configured
@@ -124,24 +131,24 @@ def update(parent):
 				else:
 					parent.command.mode(emc.MODE_MANUAL)
 					parent.command.wait_complete()
-				print('status update INTERP_IDLE MODE_MANUAL')
+				#print('status update INTERP_IDLE MODE_MANUAL')
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if parent.status.interp_state == emc.INTERP_WAITING:
-				print('INTERP_WAITING MODE_AUTO')
+				#print('INTERP_WAITING MODE_AUTO')
 				if parent.status.exec_state != emc.EXEC_WAITING_FOR_IO:
 					for key, value in parent.program_running.items():
 						getattr(parent, key).setEnabled(value)
 
 			# program is paused
 			if parent.status.interp_state == emc.INTERP_PAUSED:
-				print('INTERP_PAUSED MODE_AUTO')
+				#print('INTERP_PAUSED MODE_AUTO')
 				for key, value in parent.program_paused.items():
 					getattr(parent, key).setEnabled(value)
 
 		if parent.status.interp_state == emc.INTERP_READING:
-			print('INTERP_READING')
+			#print('INTERP_READING')
 			if parent.status.task_mode == emc.MODE_AUTO:
 				for key, value in parent.program_running.items():
 					getattr(parent, key).setEnabled(value)
@@ -150,7 +157,7 @@ def update(parent):
 	# **************************
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
+		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		# catch MDI commands that don't change the interp state like M53
 		if parent.status.task_mode == emc.MODE_MDI:
 			if parent.status.interp_state == emc.INTERP_IDLE:
@@ -178,7 +185,7 @@ def update(parent):
 	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
-		print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
+		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
 	# ************************** FLOOD_OFF or FLOOD_ON
