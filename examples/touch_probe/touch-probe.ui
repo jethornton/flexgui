@@ -475,7 +475,7 @@
      <string>Home All</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="clear_error_history_pb">
+   <widget class="QPushButton" name="clear_errors_pb">
     <property name="geometry">
      <rect>
       <x>585</x>

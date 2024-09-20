@@ -2460,7 +2460,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="clear_error_history_pb">
+        <widget class="QPushButton" name="clear_errors_pb">
          <property name="text">
           <string>Clear Errors</string>
          </property>
@@ -3337,7 +3337,7 @@
   <tabstop>mdi_history_lw</tabstop>
   <tabstop>clear_mdi_history_pb</tabstop>
   <tabstop>copy_mdi_history_pb</tabstop>
-  <tabstop>clear_error_history_pb</tabstop>
+  <tabstop>clear_errors_pb</tabstop>
   <tabstop>optional_stop_pb</tabstop>
   <tabstop>estop_pb</tabstop>
   <tabstop>tabWidget</tabstop>
