@@ -93,17 +93,11 @@ def run_mdi(parent, cmd=''):
 		mdi_command = cmd
 	else:
 		if 'mdi_command_le' in parent.children:
-			if parent.mdi_command_le.text():
-				mdi_command = parent.mdi_command_le.text()
-			else:
-				msg = 'No MDI command was found!'
-				dialogs.warn_msg_ok(msg, 'Error')
-				return
-		else:
-			msg = 'QLineEdit mdi_command_le not found!'
-			dialogs.warn_msg_ok(msg, 'Error')
-			return
-
+			mdi_command = parent.mdi_command_le.text()
+		elif 'mdi_command_gc_le' in parent.children:
+			mdi_command = parent.mdi_command_gc_le.text()
+		elif 'mdi_command_kb_le' in parent.children:
+			mdi_command = parent.mdi_command_kb_le.text()
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
@@ -111,6 +105,9 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
+	else:
+		msg = 'No MDI command was found!'
+		dialogs.warn_msg_ok(msg, 'Error')
 
 def set_motion_teleop(parent, value):
 	# 1:teleop, 0: joint

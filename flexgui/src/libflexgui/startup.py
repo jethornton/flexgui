@@ -708,12 +708,35 @@ def setup_mdi(parent):
 	# determine if mdi is possible from the gui
 	# parent.mdi_command is tested in status.py so it must exist
 	parent.mdi_command = ''
-	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
-		if parent.mdi_command_le.property('mode') == 'touch':
-			parent.mdi_command_le.installEventFilter(parent)
-		else:
-			parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
-		parent.home_required.append('run_mdi_pb')
+	mdi_entries = ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']
+
+	if len(list(set(mdi_entries) & set(parent.children))) > 1: # more than one
+		too_many = ', '.join(list(set(mdi_entries) & set(parent.children)))
+		msg = ('More than one MDI Entry widget found\n'
+			f'{too_many}\n'
+			'MDI will not be enabled until one is removed')
+		dialogs.critical_msg_ok(msg, 'Multiple Entry Widgets')
+		if 'run_mdi_pb' in parent.children:
+			parent.run_mdi_pb.setEnabled(False)
+		return
+
+	for item in mdi_entries:
+		if item in parent.children:
+			if 'run_mdi_pb' in parent.children:
+				if item == 'mdi_command_le':
+					parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+				elif item == 'mdi_command_gc_le':
+					parent.mdi_command_gc_le.installEventFilter(parent)
+				elif item == 'mdi_command_kb_le':
+					parent.mdi_command_kb_le.installEventFilter(parent)
+				parent.home_required.append('run_mdi_pb')
+			else: # run_mdi_pb not found
+				getattr(parent, item).setEnabled(False)
+				msg = ('Can not run a MDI Command\n'
+					'without the run_mdi_pb\n'
+					'The MDI Entry will be disabled')
+				dialogs.critical_msg_ok(msg, 'Required Item Missing')
+
 		if 'mdi_history_lw' in parent.children:
 			path = os.path.dirname(parent.status.ini_filename)
 			mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -723,13 +746,6 @@ def setup_mdi(parent):
 					for item in history_list:
 						parent.mdi_history_lw.addItem(item.strip())
 			parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
-
-	if 'run_mdi_pb' in parent.children and 'mdi_command_le' not in parent.children:
-			parent.run_mdi_pb.setEnabled(False)
-			msg = ('Run MDI can not work without\n'
-				'the Line Edit mdi_command_le.\n'
-				'The Run MDI Button will be disabled')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 def setup_recent_files(parent):
 	menus = parent.findChildren(QMenu)

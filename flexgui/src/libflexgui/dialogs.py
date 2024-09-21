@@ -7,6 +7,7 @@ from PyQt6.QtCore import Qt
 
 from libflexgui import number_pad
 from libflexgui import gcode_pad
+from libflexgui import keyboard_pad
 
 def numbers(parent, obj):
 	np = number_pad.number_pad()
@@ -28,9 +29,9 @@ def gcode(self, obj):
 
 def keyboard(self, obj):
 	kb = keyboard_pad.keyboard_pad()
-	result = gp.exec()
+	result = kb.exec()
 	if result:
-		obj.setText(gp.retval())
+		obj.setText(kb.retval())
 
 def question_msg_yes_no_check(body_text, chkbx_text, title=None):
 	chkBox = QCheckBox()
