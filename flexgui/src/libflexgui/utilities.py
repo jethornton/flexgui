@@ -63,11 +63,13 @@ def add_mdi(parent):
 def copy_errors(parent):
 	qclip = QApplication.clipboard()
 	qclip.setText(parent.errors_pte.toPlainText())
-	parent.statusbar.showMessage('Errors copied to clipboard')
+	if 'statusbar' in parent.children:
+		parent.statusbar.showMessage('Errors copied to clipboard')
 
 def clear_errors(parent):
 	parent.errors_pte.clear()
-	parent.statusbar.clearMessage()
+	if 'statusbar' in parent.children:
+		parent.statusbar.clearMessage()
 
 def clear_info(parent):
 	parent.info_pte.clear()
