@@ -5,7 +5,7 @@ o100 else
 	G21
 o100 endif
 F#<_hal[flexhal.probe_SEARCH_FEED]>
-G90 G53 G1 Z[#<_ini[AXIS_Z]MAX_LIMIT>]
+G90 G53 G1 Z[#<_ini[AXIS_Z]MAX_LIMIT>-.0001]
 G53 G0 X[#<_hal[flexhal.probe_X_COORD]>] Y[#<_hal[flexhal.probe_Y_COORD]>]
 G53 G1 Z[#<_hal[flexhal.probe_Z_START]>]
 G4 P0.5
