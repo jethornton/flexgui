@@ -64,14 +64,14 @@ def update(parent):
 				getattr(parent, key).setText(value)
 
 			if utilities.all_homed(parent):
-				print('status update ALL HOMED')
+				#print('status update ALL HOMED')
 				utilities.set_homed_enable(parent)
 				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.home_controls:
 					getattr(parent, item).setEnabled(False)
 			else:
-				print('status update NOT HOMED')
+				#print('status update NOT HOMED')
 				for item in parent.home_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.unhome_controls:

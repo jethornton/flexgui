@@ -56,7 +56,9 @@ def update_jog_lb(parent):
 	parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()} {parent.units}/min')
 
 def add_mdi(parent):
-	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
+	for item in ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']:
+		if item in parent.children:
+			getattr(parent, item).setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
 def copy_errors(parent):
 	qclip = QApplication.clipboard()
@@ -71,6 +73,7 @@ def clear_info(parent):
 	parent.info_pte.clear()
 
 def update_mdi(parent):
+	print('update_mdi')
 	if 'mdi_history_lw' in parent.children:
 		parent.mdi_history_lw.addItem(parent.mdi_command)
 		path = os.path.dirname(parent.status.ini_filename)
@@ -80,7 +83,9 @@ def update_mdi(parent):
 			mdi_codes.append(parent.mdi_history_lw.item(index).text())
 		with open(mdi_file, 'w') as f:
 			f.write('\n'.join(mdi_codes))
-		parent.mdi_command_le.setText('')
+		for item in ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']:
+			if item in parent.children:
+				getattr(parent, item).setText('')
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 		parent.mdi_command = ''

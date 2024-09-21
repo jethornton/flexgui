@@ -226,11 +226,16 @@ class flexgui(QMainWindow):
 			dialogs.numbers(self, obj)
 		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
-		if obj.objectName() == 'mdi_command_le' and event.type() == QEvent.Type.MouseButtonRelease:
+		if obj.objectName() == 'mdi_command_gc_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.gcode(self, obj)
+		if obj.objectName() == 'mdi_command_kb_le' and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.keyboard(self, obj)
+
 		fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 		if obj.objectName() in fsc_items and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
+
+		# FIXME add drill speed feed
 
 		return super(flexgui, self).eventFilter(obj, event)
 

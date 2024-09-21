@@ -37,59 +37,10 @@ min-width: 50
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="1" column="2">
-        <widget class="QPushButton" name="char_M">
-         <property name="text">
-          <string>M</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="char_S">
-         <property name="text">
-          <string>S</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="char_T">
-         <property name="text">
-          <string>T</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="char_G">
          <property name="text">
           <string>G</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="next_pb_0">
-         <property name="text">
-          <string>-&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="char_F">
-         <property name="text">
-          <string>F</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="char_X">
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="char_Y">
-         <property name="text">
-          <string>Y</string>
          </property>
         </widget>
        </item>
@@ -100,25 +51,56 @@ min-width: 50
          </property>
         </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_2">
-      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="3" column="0">
+        <widget class="QPushButton" name="char_T">
+         <property name="text">
+          <string>T</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="2">
-        <widget class="QPushButton" name="char_K">
+        <widget class="QPushButton" name="char_M">
          <property name="text">
-          <string>K</string>
+          <string>M</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="next_pb_1">
+       <item row="3" column="2">
+        <widget class="QPushButton" name="next_pb_0">
          <property name="text">
-          <string>--&gt;</string>
+          <string>-&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="char_Y">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="char_X">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="char_S">
+         <property name="text">
+          <string>S</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="char_F">
+         <property name="text">
+          <string>F</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <widget class="QPushButton" name="char_I">
          <property name="text">
           <string>I</string>
@@ -126,20 +108,38 @@ min-width: 50
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="char_R">
-         <property name="text">
-          <string>R</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
         <widget class="QPushButton" name="char_J">
          <property name="text">
           <string>J</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="2" column="2">
+        <widget class="QPushButton" name="char_K">
+         <property name="text">
+          <string>K</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="char_U">
+         <property name="text">
+          <string>U</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="char_B">
+         <property name="text">
+          <string>B</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <widget class="QPushButton" name="back_pb_0">
          <property name="text">
           <string>&lt;--</string>
@@ -153,10 +153,10 @@ min-width: 50
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="char_B">
+       <item row="3" column="1">
+        <widget class="QPushButton" name="char_R">
          <property name="text">
-          <string>B</string>
+          <string>R</string>
          </property>
         </widget>
        </item>
@@ -167,46 +167,7 @@ min-width: 50
          </property>
         </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_3">
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="char_U">
-         <property name="text">
-          <string>U</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="char_V">
-         <property name="text">
-          <string>V</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="back_pb_1">
-         <property name="text">
-          <string>&lt;--</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="next_pb_2">
-         <property name="text">
-          <string>--&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="char_W">
-         <property name="text">
-          <string>W</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
         <widget class="QPushButton" name="char_P">
          <property name="text">
           <string>P</string>
@@ -214,97 +175,30 @@ min-width: 50
         </widget>
        </item>
        <item row="1" column="1">
+        <widget class="QPushButton" name="char_V">
+         <property name="text">
+          <string>V</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
         <widget class="QPushButton" name="char_L">
          <property name="text">
           <string>L</string>
          </property>
         </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_4">
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="char_left_bracket">
-         <property name="text">
-          <string>(</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="char_right_bracket">
-         <property name="text">
-          <string>)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="char_comma">
-         <property name="text">
-          <string>,</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="2">
-        <widget class="QPushButton" name="char_right_square_bracket">
+        <widget class="QPushButton" name="char_W">
          <property name="text">
-          <string>]</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="char_underscore">
-         <property name="text">
-          <string>_</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="char_left_square_bracket">
-         <property name="text">
-          <string>[</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="back_pb_2">
-         <property name="text">
-          <string>&lt;---</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="char_number_sign">
-         <property name="text">
-          <string>#</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QPushButton" name="char_debug">
-         <property name="text">
-          <string>DEBUG</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QPushButton" name="char_msg">
-         <property name="text">
-          <string>MSG</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="char_hal">
-         <property name="text">
-          <string>_hal</string>
+          <string>W</string>
          </property>
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QPushButton" name="char_ini">
+        <widget class="QPushButton" name="pushButton_9">
          <property name="text">
-          <string>_ini</string>
+          <string/>
          </property>
         </widget>
        </item>
