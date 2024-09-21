@@ -22,21 +22,15 @@ class gcode_pad(QDialog):
 		self.buttonBox.accepted.connect(self.accept)
 		self.buttonBox.rejected.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)
-		self.dot_pb.clicked.connect(self.dot)
-		self.dash_pb.clicked.connect(self.dash)
-		self.next_pb_0.clicked.connect(self.next)
-		self.next_pb_1.clicked.connect(self.next)
-		self.back_pb_0.clicked.connect(self.back)
-		self.back_pb_1.clicked.connect(self.back)
 		self.backspace_pb.clicked.connect(self.backspace)
 
-		char_list = []
 		for item in self.findChildren(QPushButton):
 			if item.objectName().startswith('char_'):
-				char_list.append(item.objectName())
-
-		for item in char_list:
-			getattr(self, f'{item}').clicked.connect(self.post)
+				getattr(self, f'{item.objectName()}').clicked.connect(self.post)
+			elif item.objectName().startswith('next_'):
+				getattr(self, f'{item.objectName()}').clicked.connect(self.next)
+			elif item.objectName().startswith('back_'):
+				getattr(self, f'{item.objectName()}').clicked.connect(self.back)
 
 	def next(self):
 		self.letters_sw.setCurrentIndex(self.letters_sw.currentIndex() + 1)
@@ -46,24 +40,15 @@ class gcode_pad(QDialog):
 
 	def post(self):
 		txt = self.gcode_lb.text()
-		self.gcode_lb.setText(f'{txt}{self.sender().objectName()[-1]}')
+		self.gcode_lb.setText(f'{txt}{self.sender().text()}')
 
 	def clear(self):
 		self.gcode_lb.clear()
-
-	def dot(self):
-		txt = self.gcode_lb.text()
-		self.gcode_lb.setText(f'{txt}.')
-
-	def dash(self):
-		txt = self.gcode_lb.text()
-		self.gcode_lb.setText(f'{txt}-')
 
 	def backspace(self):
 		txt = self.gcode_lb.text()
 		if len(txt) > 0:
 			self.gcode_lb.setText(txt[:-1])
-
 
 	def retval(self):
 		try:
