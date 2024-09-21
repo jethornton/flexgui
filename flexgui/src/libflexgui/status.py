@@ -386,13 +386,15 @@ def update(parent):
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
 				parent.errors_pte.setFocus()
-				parent.statusbar.showMessage('Error')
+				if 'statusbar' in parent.children:
+					parent.statusbar.showMessage('Error')
 		elif error_type == 'Error':
 			if 'errors_pte' in parent.children:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
 				parent.errors_pte.setFocus()
-				parent.statusbar.showMessage('Error')
+				if 'statusbar' in parent.children:
+					parent.statusbar.showMessage('Error')
 
 
 
