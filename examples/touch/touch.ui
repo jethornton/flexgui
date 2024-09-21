@@ -223,7 +223,32 @@
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_13"/>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="clear_info_pb">
+             <property name="text">
+              <string>Clear
+Info</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" rowspan="2">
+            <widget class="QPlainTextEdit" name="info_pte"/>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
@@ -1016,7 +1041,7 @@
          <widget class="QPlainTextEdit" name="errors_pte"/>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="clear_error_history_pb">
+         <widget class="QPushButton" name="clear_errors_pb">
           <property name="text">
            <string>Clear Errors</string>
           </property>
