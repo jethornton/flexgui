@@ -92,7 +92,8 @@ QCheckBox {
 	background-color: rgba(0, 96, 192, 60%);
 /*	background-color: rgba(192, 192, 192, 50%);*/
     border: 1px solid white;
-	color: black;
+/*	color: black;*/
+	color: darkgrey;
 	}
 QCheckBox:hover {
 /*	background-color: rgba(0, 192, 0, 40%); color: white;*/
@@ -175,15 +176,15 @@ QToolButton { /* all types of tool button */
 
 /* ********** Spin Box ********** */
 QAbstractSpinBox {
-	min-height: 50px;
+	min-height: 40px;
 	}
 
 QAbstractSpinBox::up-button {
-	min-width: 30px;
+	min-width: 20px;
 	}
 
 QAbstractSpinBox::down-button {
-	min-width: 30px;
+	min-width: 20px;
 	}
 
 /* ********** General Buttons ********** */
@@ -361,9 +362,9 @@ QPushButton#Yplus {
 QPushButton#Xminus{
 	background-image: url(":images/X-.png");
 }
-/*QPushButton#wk_center{
+QPushButton#wk_center{
 	background-image: url(":images/xy_center.png");
-}*/
+}
 QPushButton#Xplus {
 	background-image: url(":images/X+.png");
 }
