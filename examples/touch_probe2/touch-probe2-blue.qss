@@ -21,7 +21,8 @@ QPushButton
 	border-width: 2px;		/* border-width: 1px; */
 	border-style: outset;	/* border-style: solid; */
 	border-radius: 5px;
-	background-color: rgba(192, 192, 192, 50%);
+	background-color: rgba(0, 96, 192, 60%);
+/*	background-color: rgba(192, 192, 192, 50%);*/
 	background-position: center;
 	background-origin: content;
 	/* background-clip: padding; */
@@ -30,22 +31,70 @@ QPushButton
 
 QPushButton:hover
 {
-	background-color: rgba(0, 192, 0, 40%); color: white;
+	background-color: rgba(0, 96, 192, 90%); color: white;
+/*	background-color: rgba(0, 192, 0, 40%); color: white;*/
 }
 
 QPushButton:pressed
 {  
-	background-color: rgba(0, 192, 0, 80%); color: white; border none;
+	background-color: rgba(0, 96, 192, 35%); color: white; border none;
+/*	background-color: rgba(0, 192, 0, 80%); color: white; border none;*/
     border-style: inset;
     border-width: 2px;
 }
 
 QPushButton:checked
 {
-	background-color: rgba(0, 192, 0, 90%); border none;
+	background-color: rgba(0, 192, 0, 40%); border none;
+/*	background-color: rgba(0, 192, 0, 90%); border none;*/
 	border-style: inset;
 }
+QDoubleSpinBox, QSpinbox, QSlider, QLabel#spindle_actual_speed_lb {
+    border: 1px solid gray;
+    border-radius: 3px;
+	background-color: rgba(192, 192, 192, 50%);
+	background-color: rgba(0, 96, 192, 60%);
+    padding: 1px 1px 1px 1px;
+	}
 
+QStatusBar {
+	background-color: rgba(0, 96, 192, 60%); color: white;
+/*	background-color: rgba(192, 0, 0, 40%); color: white; */
+	}
+	
+QListWidget, QLineEdit, QComboBox {
+	background-color: rgba(0, 96, 192, 60%);
+/*	background-color: #121212;*/
+	color: #ffffff;
+	border-color: #051a39;
+	}	
+	QComboBox#tool_change_cb::item:selected, QComboBox#jog_modes_cb::item:selected {
+	background-color: rgba(0, 96, 192, 60%);
+/*	background-color: rgba(192, 192, 192, 90%);*/
+/*	color: black;*/
+	color: white;
+	}
+	
+QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected {
+	background-color: rgba(0, 96, 192, 80%);
+/*	background-color: black;*/
+/*	color: white;*/
+	color: black;
+	}
+QPlainTextEdit#gcode_pte {
+    border: 1px solid white;
+	background-color: rgba(0, 96, 192, 60%);
+   	}
+
+QPlainTextEdit#errors_pte {
+	background-color: rgba(0, 96, 192, 60%); color: white;
+/*	background-color: rgba(192, 0, 0, 40%); color: white; */
+	/*background-color: #121212; color: #ffffff; */
+    border: 1px solid white;
+	}
+	
+	
+	
 /* **************************************** */
 /*QPushButton#inXminusYplus {
 	background-image: url(":images/inX-Y+.png");
@@ -133,7 +182,8 @@ QToolButton { /* all types of tool button */
 	min-height: 40px;
 	border: 1px solid black;
     border-radius: 3px;
-	background-color: rgba(192, 192, 192, 50%);
+	background-color: rgba(230, 230, 230, 50%);
+/*	background-color: rgba(192, 192, 192, 50%);*/
 }
 
 QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
