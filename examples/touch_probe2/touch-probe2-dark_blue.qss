@@ -89,13 +89,15 @@ QListWidget {
 	}
 	
 QCheckBox {
-	background-color: rgba(192, 192, 192, 50%);
+	background-color: rgba(0, 96, 192, 60%);
+/*	background-color: rgba(192, 192, 192, 50%);*/
     border: 1px solid white;
-	color: black;
+/*	color: black;*/
+	color: darkgrey;
 	}
 QCheckBox:hover {
 /*	background-color: rgba(0, 192, 0, 40%); color: white;*/
-	background-color: rgba(0, 96, 192, 60%); color: white;
+	background-color: rgba(0, 96, 192, 90%); color: white;
 	}
 
 QGroupBox {
