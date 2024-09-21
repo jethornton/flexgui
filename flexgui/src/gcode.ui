@@ -6,14 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>325</width>
-    <height>323</height>
+    <width>519</width>
+    <height>379</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>G code Input</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+min-height: 50;
+min-width: 50
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="10" column="1">
+    <widget class="QPushButton" name="backspace_pb">
+     <property name="text">
+      <string>Bksp</string>
+     </property>
+    </widget>
+   </item>
    <item row="9" column="0" colspan="4">
     <widget class="QStackedWidget" name="letters_sw">
      <property name="frameShape">
@@ -158,10 +171,38 @@
      </widget>
      <widget class="QWidget" name="page_3">
       <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="char_U">
+         <property name="text">
+          <string>U</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="char_V">
+         <property name="text">
+          <string>V</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="0">
         <widget class="QPushButton" name="back_pb_1">
          <property name="text">
           <string>&lt;--</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="next_pb_2">
+         <property name="text">
+          <string>--&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="char_W">
+         <property name="text">
+          <string>W</string>
          </property>
         </widget>
        </item>
@@ -179,42 +220,96 @@
          </property>
         </widget>
        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_4">
+      <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="0">
-        <widget class="QPushButton" name="char_U">
+        <widget class="QPushButton" name="char_left_bracket">
          <property name="text">
-          <string>U</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="char_V">
-         <property name="text">
-          <string>V</string>
+          <string>(</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="char_W">
+        <widget class="QPushButton" name="char_right_bracket">
          <property name="text">
-          <string>W</string>
+          <string>)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="char_comma">
+         <property name="text">
+          <string>,</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="char_right_square_bracket">
+         <property name="text">
+          <string>]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="char_underscore">
+         <property name="text">
+          <string>_</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="char_left_square_bracket">
+         <property name="text">
+          <string>[</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="back_pb_2">
+         <property name="text">
+          <string>&lt;---</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="char_number_sign">
+         <property name="text">
+          <string>#</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="char_debug">
+         <property name="text">
+          <string>DEBUG</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QPushButton" name="char_msg">
+         <property name="text">
+          <string>MSG</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="char_hal">
+         <property name="text">
+          <string>_hal</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="char_ini">
+         <property name="text">
+          <string>_ini</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="10" column="2" colspan="2">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-     </property>
     </widget>
    </item>
    <item row="10" column="0">
@@ -224,24 +319,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="4">
-    <widget class="QLabel" name="gcode_lb">
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1">
-    <widget class="QPushButton" name="backspace_pb">
-     <property name="text">
-      <string>Bksp</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" rowspan="2" colspan="4">
+   <item row="9" column="4">
     <widget class="QFrame" name="frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -264,31 +342,10 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="char_5">
-        <property name="text">
-         <string>5</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="char_0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="char_4">
         <property name="text">
          <string>4</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="char_1">
-        <property name="text">
-         <string>1</string>
         </property>
        </widget>
       </item>
@@ -299,10 +356,17 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="dot_pb">
+      <item row="2" column="2">
+       <widget class="QPushButton" name="char_3">
         <property name="text">
-         <string>.</string>
+         <string>3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="char_5">
+        <property name="text">
+         <string>5</string>
         </property>
        </widget>
       </item>
@@ -313,6 +377,27 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="char_dash">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="char_0">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="char_1">
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="char_6">
         <property name="text">
@@ -320,21 +405,37 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="char_3">
+      <item row="3" column="1">
+       <widget class="QPushButton" name="char_dot">
         <property name="text">
-         <string>3</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QPushButton" name="dash_pb">
-        <property name="text">
-         <string>-</string>
+         <string>.</string>
         </property>
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="10" column="4">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="5">
+    <widget class="QLabel" name="gcode_lb">
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </item>
   </layout>
