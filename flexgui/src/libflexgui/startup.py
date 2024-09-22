@@ -1295,12 +1295,12 @@ def setup_dsf(parent): # drill speed and feed calculator
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
 
 def setup_probing(parent):
-	if 'spindle_block_pb' in parent.children:
-		parent.spindle_block_pb.setCheckable(True)
-		parent.home_required.append('spindle_block_pb')
-		parent.spindle_block_pb.clicked.connect(partial(probe.enable, parent))
+	if 'probing_enable_pb' in parent.children:
+		parent.probing_enable_pb.setCheckable(True)
+		parent.home_required.append('probing_enable_pb')
+		parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
 		for child in parent.children:
-			if child.startswith('probe'):
+			if child.startswith('probe_'):
 				getattr(parent, child).setEnabled(False)
 
 def set_status(parent):
