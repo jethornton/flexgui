@@ -1,39 +1,16 @@
 o<p_right> sub
-o100 if [#<_hal[flexhal.probe_LINEAR_UNITS]> EQ 1]
-	(debug, inch)
 	G20
-	(#1020 = [[ 2 / 25.4] / 2])
-	#1020 = [[#<_hal[flexhal.probe_tip_diam]> / 25.4] / 2]
+	#1020 = [#<_hal[flexhal.probe_tip_diam]> / 2]
 	#1021 = #<_hal[flexhal.probe_RETRACT_DIST]>	(.15 cradek .010)
 	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>	(.5  cradek 25)
 	#1023 = #<_hal[flexhal.probe_FINAL_DIST]>	(.1)
-(debug, TIP: #1020)
-	( #<_hal[flexhal.probe_SEARCH_FEED]> 		  5 )
-	( #<_hal[flexhal.probe_FINE_FEED]> 		  2 )
 	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> X-#1022
 	G90 G0 X[#5061 + #1021]
 	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> X-[#1021 + 0.020]
-(	G90 G0 X[#5061 + 0.2 - #1020])
-(debug, #5601 -- +.2 + #1020)
-	G90 G1 X[[#5061 + 0.2] - #1020]	( + #1023 - *1023 is .1)
-	(debug,1st Spindle center is X +0.2 from the edge)
-
-
-o100 else
-	(debug, metric)
-	G21
-	#1020 = [#<_hal[flexhal.probe_TIP_DIAM]>/2]
-	#1021 = #<_hal[flexhal.probe_RETRACT_DIST]>
-	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>
-	#1023 = #<_hal[flexhal.probe_FINAL_DIST]>
-	( #<_hal[flexhal.probe_SEARCH_FEED]> 		  5 )
-	( #<_hal[flexhal.probe_FINE_FEED]> 		  2 )
-	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> X-#1022
-	G90 G0 X[#5061 + #1021]
-	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> X-[#1021 + 0.50]
-	G90 G0 X[#5061 + 5.0 - #1020]
-	(debug,Spindle center is X +5mm from the edge)
-o100 endif
+	#1019 = [#5061 - # 1020]
+	(debug, X Center: #1019)
+	G90 G0 X[[#5061 + 0.2] - #1020]	( + #1023 - *1023 is .1)
+	;(debug,1st Spindle center is X +0.2 from the edge)
 o<p_right> endsub
 
 M2

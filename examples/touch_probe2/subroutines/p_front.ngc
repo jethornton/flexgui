@@ -1,29 +1,16 @@
 o<p_front> sub
-o100 if [#<_hal[flexhal.probe_LINEAR_UNITS]> EQ 1]
-	(debug, inch)
 	G20
-	#1020 = [[#<_hal[flexhal.probe_TIP_DIAM]>/25.4]/2]
-	#1021 = #<_hal[flexhal.probe_RETRACT_DIST]>
-	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>
-	#1023 = #<_hal[flexhal.probe_FINAL_DIST]>
-	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> Y+#1022
-	G90 G0 Y[#5062 - #1021]
-	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Y+[#1021 + 0.020]
-	G90 G0 Y[#5062 - 0.2 + #1020]
-	(debug,Spindle center is Y - 0.2 from the edge)
-o100 else
-	(debug, metric)
-	G21
 	#1020 = [#<_hal[flexhal.probe_TIP_DIAM]>/2]
 	#1021 = #<_hal[flexhal.probe_RETRACT_DIST]>
 	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>
 	#1023 = #<_hal[flexhal.probe_FINAL_DIST]>
 	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> Y+#1022
 	G90 G0 Y[#5062 - #1021]
-	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Y+[#1021 + 0.50]
-	G90 G0 Y[#5062 - 5.0 + #1020]
-	(debug,Spindle center is Y - 5mm from the edge)
-o100 endif
+	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Y+[#1021 + 0.020]
+	#1019 = [#5062 + # 1020]
+	(debug, Y Center: #1019)
+	G90 G0 Y[#5062 - 0.2 + #1020]
+	;(debug,Spindle center is Y - 0.2 from the edge)
 o<p_front> endsub
 
 M2

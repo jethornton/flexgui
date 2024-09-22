@@ -1,18 +1,18 @@
-o<p-bar> sub
+o<p_bar> sub
 	#1010 = #<_hal[flexhal.probe_SEARCH_FEED]>
 	#1011 = #<_hal[flexhal.probe_FINE_FEED]>
 	(;#1000 = 1.00 ;max radius)
  	#1000 = #<_hal[flexhal.probe_MAX_BAR_R]>
+
  	G20 F#1010
+
 	G91 G38.3 Z-.00001
 	#1001=#5061				; store X
 	#1002=#5062				; store Y
-	;(debug, 1001 #1001 -- 1002 #1002)
 ; find Z top
 	G91 G38.2 Z -3			; find top of bar
 	#1007 = [#5063 +.2]		; store Z +.2 (z clear)
 	#1008 = [#1007 - .3]	; move .1 below bar top to begin XY probing)
-	;(debug, 1007 #1007 -- 1008 #1008)
 ; find X center
 	G90 G0 Z #1007			; move to Z clear
 	#1003 = [#1001 + #1000]	; move to start X + max X)
@@ -32,7 +32,6 @@ o<p-bar> sub
 	#1001=[[#1003+#1004]/2]	; 1st side + 2nd side /2 for X center
 	G90 G0 Z #1007			; raise to z clear
 	G90 G0 X#1001			; move back to X center
-	;(debug, 1001 #1001)
 ; find Y center
 	#1009 = [#1002 + #1000]
 	G90 G0 Y #1009
@@ -51,8 +50,6 @@ o<p-bar> sub
 	#1002=[[#1009 + #1006]/2]	; 1st side + 2nd side /2 for Y center
 	G90 G0 Z #1007			; move to Z clear
 	G90 G0 Y #1002			; move back to Y center
-	;(debug, 1001 #1001)
-	;(debug, 1002 #1002 1009 #1009 1006 #1006)
 
 ; 2nd probe check
 	F#1010
@@ -78,7 +75,6 @@ o<p-bar> sub
 	#1001=[[#1003+#1004]/2]	; 1st side + 2nd side /2 for X center
 	G90 G0 Z #1007			; raise to z clear
 	G90 G0 X#1001			; move back to X center
-	;(debug, 1001 #1001)
 ; find Y center
 	#1009 = [#1002 + #1000]
 	G90 G0 Y #1009
@@ -97,6 +93,7 @@ o<p-bar> sub
 	#1002=[[#1009 + #1006]/2]	; 1st side + 2nd side /2 for Y center
 	G90 G0 Z #1007			; move to Z clear
 	G90 G0 Y #1002			; move back to Y center
-	(debug, Center X: #1001 Y: #1002)
-o<p-bar-new> endsub
+	(debug, X Center: #1001)
+	(debug, Y Center: #1002)
+o<p_bar> endsub
 M2
