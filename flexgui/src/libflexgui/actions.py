@@ -214,26 +214,29 @@ def action_quit(parent): # actionQuit
 def action_estop(parent): # actionEstop
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
-		if 'estop_pb' in parent.children:
-			closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
-			parent.estop_pb.setStyleSheet(closed_color)
-		if 'flex_E_Stop' in parent.children:
-			closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
-			parent.flex_E_Stop.setStyleSheet(closed_color)
+		if parent.estop_closed_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(closed_color)
+			if 'flex_E_Stop' in parent.children:
+				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(closed_color)
 	else:
 		parent.command.state(emc.STATE_ESTOP)
-		if 'estop_pb' in parent.children:
-			open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
-			parent.estop_pb.setStyleSheet(open_color)
-		if 'flex_E_Stop' in parent.children:
-			open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
-			parent.flex_E_Stop.setStyleSheet(open_color)
-		if 'power_pb' in parent.children:
-			off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-			parent.power_pb.setStyleSheet(off_color)
-		if 'flex_Power' in parent.children:
-			off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-			parent.flex_Power.setStyleSheet(off_color)
+		if parent.estop_open_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
+				parent.estop_pb.setStyleSheet(open_color)
+			if 'flex_E_Stop' in parent.children:
+				open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
+				parent.flex_E_Stop.setStyleSheet(open_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
@@ -241,20 +244,22 @@ def action_power(parent): # actionPower
 			if parent.override_limits_cb.isChecked():
 				parent.command. override_limits()
 		parent.command.state(emc.STATE_ON)
-		if 'power_pb' in parent.children:
-			on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
-			parent.power_pb.setStyleSheet(on_color)
-		if 'flex_Power' in parent.children:
-			on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
-			parent.flex_Power.setStyleSheet(on_color)
+		if parent.power_on_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
+				parent.power_pb.setStyleSheet(on_color)
+			if 'flex_Power' in parent.children:
+				on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
+				parent.flex_Power.setStyleSheet(on_color)
 	else:
 		parent.command.state(emc.STATE_OFF)
-		if 'power_pb' in parent.children:
-			off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-			parent.power_pb.setStyleSheet(off_color)
-		if 'flex_Power' in parent.children:
-			off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-			parent.flex_Power.setStyleSheet(off_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 def action_run(parent, line = 0): # actionRun
 	if parent.status.task_state == emc.STATE_ON:

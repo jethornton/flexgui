@@ -57,10 +57,10 @@ def get_ini_values(parent):
 		parent.units = 'in'
 	else:
 		parent.units = 'mm'
-	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or '#80ff80'
-	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or '#ff6666'
-	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or '#ff8080'
-	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or '#00ff00'
+	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or False
+	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or False
+	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or False
+	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or False
 
 def setup_enables(parent):
 	parent.home_required = [] # different functions add to this
@@ -1310,36 +1310,40 @@ def set_status(parent):
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
-		if 'estop_pb' in parent.children:
-			open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
-			parent.estop_pb.setStyleSheet(open_color)
-		if 'flex_E_Stop' in parent.children:
-			open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
-			parent.flex_E_Stop.setStyleSheet(open_color)
-		if 'power_pb' in parent.children:
-			off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-			parent.power_pb.setStyleSheet(off_color)
-		if 'flex_Power' in parent.children:
-			off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-			parent.flex_Power.setStyleSheet(off_color)
+		if parent.estop_open_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
+				parent.estop_pb.setStyleSheet(open_color)
+			if 'flex_E_Stop' in parent.children:
+				open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
+				parent.flex_E_Stop.setStyleSheet(open_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():
 			getattr(parent, key).setText(value)
-		if 'estop_pb' in parent.children:
-			closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
-			parent.estop_pb.setStyleSheet(closed_color)
-		if 'flex_E_Stop' in parent.children:
-			closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
-			parent.flex_E_Stop.setStyleSheet(closed_color)
-		if 'power_pb' in parent.children:
-			off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-			parent.power_pb.setStyleSheet(off_color)
-		if 'flex_Power' in parent.children:
-			off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-			parent.flex_Power.setStyleSheet(off_color)
+		if parent.estop_closed_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(closed_color)
+			if 'flex_E_Stop' in parent.children:
+				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(closed_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		for key, value in parent.state_on.items():
@@ -1349,18 +1353,20 @@ def set_status(parent):
 		if utilities.all_homed and parent.status.file:
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
-		if 'estop_pb' in parent.children:
-			closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
-			parent.estop_pb.setStyleSheet(closed_color)
-		if 'flex_E_Stop' in parent.children:
-			closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
-			parent.flex_E_Stop.setStyleSheet(closed_color)
-		if 'power_pb' in parent.children:
-			on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
-			parent.power_pb.setStyleSheet(on_color)
-		if 'flex_Power' in parent.children:
-			on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
-			parent.flex_Power.setStyleSheet(on_color)
+		if parent.estop_closed_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(closed_color)
+			if 'flex_E_Stop' in parent.children:
+				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(closed_color)
+		if parent.power_on_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
+				parent.power_pb.setStyleSheet(on_color)
+			if 'flex_Power' in parent.children:
+				on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
+				parent.flex_Power.setStyleSheet(on_color)
 		if utilities.all_homed(parent):
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
