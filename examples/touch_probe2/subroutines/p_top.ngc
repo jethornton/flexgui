@@ -7,8 +7,10 @@ o<p_top> sub
 	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> Z-#1022
 	G90 G0 Z[#5063 + #1021]
 	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Z-[#1021 + 0.020]
+	#1019 = #5063
+	(debug, Z Top: #1019)
 	G90 G0 Z[#5063 + 0.2 ]	;	G90 G0 Z[#5063 + 0.2 - #1020])
-	(debug,Probe tip is 0.2 above)
+	;(debug,Probe tip is 0.2 above)
 o<p_top> endsub
 
 M2

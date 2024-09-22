@@ -2,7 +2,6 @@ USE AT YOUR OWN RISK!
 
 hal_pins needed for probe examples
 					in			mm(testing)
-probe_linear_units 	= 1			0		( 1 for inch 0 for metric )
 probe_search_feed 	= 20 		508		( initial search feedrate )
 probe_fine_feed 	= 10 		254		( 2nd probe touch feedrate )
 probe_search_dist	= .5		12.7	( dist before probe gives up )
