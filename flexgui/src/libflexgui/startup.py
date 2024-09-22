@@ -1274,30 +1274,25 @@ def setup_plot(parent):
 
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.children:
-		if parent.fsc_container.property('mode') == 'touch':
-			touch = True
-		else:
-			touch = False
 		from libflexgui import fsc
-		parent.fsc_calc = fsc.fs_calc(touch)
+		parent.fsc_calc = fsc.fs_calc()
 		layout = QVBoxLayout(parent.fsc_container)
 		layout.addWidget(parent.fsc_calc)
-
-		if touch:
+		if parent.fsc_container.property('mode') == 'touch':
 			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 			for item in fsc_items:
 				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
 
 def setup_dsf(parent): # drill speed and feed calculator
 	if 'dsf_container' in parent.children:
-		if parent.dsf_container.property('mode') == 'touch':
-			touch = True
-		else:
-			touch = False
 		from libflexgui import dsf
-		parent.dsf_calc = dsf.dsf_calc(touch)
+		parent.dsf_calc = dsf.dsf_calc()
 		layout = QVBoxLayout(parent.dsf_container)
 		layout.addWidget(parent.dsf_calc)
+		if parent.dsf_container.property('mode') == 'touch':
+			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
+			for item in dsf_items:
+				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
 
 def setup_probing(parent):
 	if 'spindle_block_pb' in parent.children:

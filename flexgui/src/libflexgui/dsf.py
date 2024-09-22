@@ -36,7 +36,7 @@ Also, you want to leave 2%-3% of the hole diameter for the reamer
 '''
 
 class dsf_calc(QWidget):
-	def __init__(self, touch=False):
+	def __init__(self):
 		super().__init__()
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		if self.path == '/usr/bin':

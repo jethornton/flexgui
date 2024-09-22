@@ -10,7 +10,7 @@ from libflexgui import utilities
 from libflexgui import dialogs
 
 class fs_calc(QWidget):
-	def __init__(self, touch=False):
+	def __init__(self):
 		super().__init__()
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		if self.path == '/usr/bin':
