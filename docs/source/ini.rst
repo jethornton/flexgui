@@ -65,4 +65,20 @@ To control the initial size of the screen add either
    is a way to close the GUI like an Exit button or you will not be able to
    close the application.
 
+Colors
+------
+
+The E-Stop and Power Buttons can have a static color for E-Stop Open and or
+Closed and the Power Button can have a static color for Power Off and or On.
+
+Create a section in the ini file called FLEX_COLORS and use the following to
+control the static color of these items. The value can be any valid color
+specification, it's suggested you use the RGB or Hex colors.
+::
+
+	[FLEX_COLORS]
+	ESTOP_OPEN = rgb(128, 255, 128)
+	ESTOP_CLOSED = rgb(255, 77, 77)
+	POWER_OFF = rgb(255, 128, 128)
+	POWER_ON = rgb(0, 255, 0)
 
