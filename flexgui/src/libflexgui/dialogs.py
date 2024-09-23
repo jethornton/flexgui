@@ -1,7 +1,7 @@
 import os
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
-from PyQt6.QtWidgets import QMessageBox, QCheckBox
+from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
@@ -21,6 +21,7 @@ def line_edit_numbers(parent, obj):
 
 def spinbox_numbers(parent, obj):
 	np = number_pad.number_pad()
+	print(type(obj))
 	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
 		np.setStyleSheet(fh.read())
@@ -28,7 +29,10 @@ def spinbox_numbers(parent, obj):
 	if result:
 		number = utilities.convert_string_to_number(np.retval())
 		if number:
-			obj.setValue(number)
+			if isinstance(obj, QSpinBox): # return an int
+				obj.setValue(int(number))
+			else:
+				obj.setValue(number)
 
 def gcode(self, obj):
 	gp = gcode_pad.gcode_pad()
