@@ -704,11 +704,12 @@ def setup_spin_boxes(parent):
 	for child in parent.findChildren(QAbstractSpinBox):
 		print(child.objectName())
 		if child.property('input') == 'touch': # enable the number pad
-			parent.touch_sb.append(child.objectName())
-			#le = child.findChild(QLineEdit)
-			child.installEventFilter(parent)
+			sb_child = child.findChild(QLineEdit)
+			sb_child.setObjectName(f'{child.objectName()}_child')
+			parent.touch_sb.append(sb_child.objectName())
+			sb_child.installEventFilter(parent)
 			#le.installEventFilter(parent)
-			#print(le)
+			print(f'object name: {sb_child.objectName()}')
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None

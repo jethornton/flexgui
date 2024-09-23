@@ -243,7 +243,7 @@ class flexgui(QMainWindow):
 			dialogs.line_edit_numbers(self, obj)
 
 		if obj.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.spinbox_numbers(self, obj)
+			dialogs.spinbox_numbers(self, obj.parent())
 
 		return super(flexgui, self).eventFilter(obj, event)
 
