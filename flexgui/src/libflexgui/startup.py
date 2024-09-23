@@ -705,7 +705,7 @@ def setup_line_edits(parent):
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
 	for child in parent.findChildren(QAbstractSpinBox):
-		if child.property('input') == 'touch': # enable the number pad
+		if child.property('input') == 'number': # enable the number pad
 			sb_child = child.findChild(QLineEdit)
 			sb_child.setObjectName(f'{child.objectName()}_child')
 			parent.touch_sb.append(sb_child.objectName())
@@ -1001,12 +1001,12 @@ def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
 	if 'touchoff_le' in parent.children:
 		parent.touchoff_le.setText('0')
-		if parent.touchoff_le.property('input') == 'touch': # enable the number pad
+		if parent.touchoff_le.property('input') == 'number': # enable the number pad
 			parent.touchoff_le.installEventFilter(parent)
 
 	if 'tool_touchoff_le' in parent.children:
 		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('input') == 'touch': # enable the number pad
+		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
 			parent.tool_touchoff_le.installEventFilter(parent)
 
 	# setup touch off buttons
@@ -1293,7 +1293,7 @@ def setup_fsc(parent): # mill feed and speed calculator
 		parent.fsc_calc = fsc.fs_calc()
 		layout = QVBoxLayout(parent.fsc_container)
 		layout.addWidget(parent.fsc_calc)
-		if parent.fsc_container.property('input') == 'touch':
+		if parent.fsc_container.property('input') == 'number':
 			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 			for item in fsc_items:
 				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
@@ -1304,7 +1304,7 @@ def setup_dsf(parent): # drill speed and feed calculator
 		parent.dsf_calc = dsf.dsf_calc()
 		layout = QVBoxLayout(parent.dsf_container)
 		layout.addWidget(parent.dsf_calc)
-		if parent.dsf_container.property('input') == 'touch':
+		if parent.dsf_container.property('input') == 'number':
 			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
 			for item in dsf_items:
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
