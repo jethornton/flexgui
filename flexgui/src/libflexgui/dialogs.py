@@ -1,15 +1,31 @@
 import os
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
-from PyQt6.QtWidgets import QMessageBox, QCheckBox
+from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
 from libflexgui import number_pad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
+from libflexgui import utilities
 
-def numbers(parent, obj):
+def spinbox_numbers(parent, obj):
+	np = number_pad.number_pad()
+	print(type(obj))
+	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as fh:
+		np.setStyleSheet(fh.read())
+	result = np.exec()
+	if result:
+		number = utilities.convert_string_to_number(np.retval())
+		if number:
+			if isinstance(obj, QSpinBox): # return an int
+				obj.setValue(int(number))
+			else:
+				obj.setValue(number)
+
+def line_edit_numbers(parent, obj):
 	np = number_pad.number_pad()
 	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
