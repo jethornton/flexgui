@@ -7,8 +7,8 @@ o<p_left> sub
 	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> X+#1022
 	G90 G0 X[#5061 - #1021]
 	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> X+[#1021 + 0.020]
-	#1019 = [#5061 + # 1020]
-	(debug, X Center: #1019)
+	#1017 = [#5061 + # 1020]
+	(debug, X Center: #1017)
 	G90 G0 X[#5061 - 0.2 + #1020]
 	;(debug,Spindle center is X -0.2 from the edge)
 o<p_left> endsub
