@@ -30,8 +30,8 @@ Now you just drag the action into the tool bar to create a new tool bar button.
 MDI
 ---
 
-To enable the G code popup for the MDI entry add a Dynamic Property called
-`input` to the and set the value to `touch`.
+To enable the G code popup for the MDI entry add a Dynamic Property named
+`input` to the and set the value to `gcode` or `keyboard`.
 
 .. image:: /images/touch-01.png
    :align: center
@@ -51,7 +51,7 @@ Touch Off
 
 The Coordinate System Touch Off offset is a QLineEdit named `touchoff_le`.
 To enable the number pad popup for the offset entry add a Dynamic Property
-called `input` to the and set the value to `touch`.
+named `input` to the and set the value to `number`.
 
 .. image:: /images/touch-04.png
    :align: center
@@ -66,11 +66,16 @@ Tool Touch Off
 
 The Tool Touch Off offset is a QLineEdit named `tool_touchoff_le`.
 To enable the number pad popup for the offset entry add a Dynamic Property
-called `input` to the and set the value to `touch`.
+named `input` to the and set the value to `number`.
 
 Spin Boxes
 ----------
 QDoubleSpinBox and QSpinBox can use the popup numbers keypad by adding a Dynamic
-Property called `input` and seting the value to `touch`. If you enter a float
+Property named `input` and seting the value to `number`. If you enter a float
 value for a QSpinBox the value will get converted to an integer.
 
+Line Edits
+----------
+A QLineEdit can have a popup entry for numbers, G code or a full keyboard. Add
+a Dynamic Property named `input` and set the value to one of these `number`,
+`gcode` or `keyboard`.
