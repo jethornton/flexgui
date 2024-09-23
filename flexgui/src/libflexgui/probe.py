@@ -1,4 +1,4 @@
-
+import linuxcnc as emc
 
 def toggle(parent):
 	if parent.sender().isChecked():
