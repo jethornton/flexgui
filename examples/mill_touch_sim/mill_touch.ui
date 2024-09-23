@@ -701,14 +701,14 @@
             <string>Main</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_12">
-            <item row="1" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_4">
               <property name="text">
                <string>Search Velocity</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
+            <item row="3" column="2">
              <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -721,14 +721,14 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="0" colspan="2">
+            <item row="4" column="0" colspan="2">
              <widget class="QPushButton" name="probing_enable_pb">
               <property name="text">
                <string>Probing Enable</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="3" column="1">
              <widget class="QDoubleSpinBox" name="probe_search_dsb">
               <property name="maximum">
                <double>100.000000000000000</double>
@@ -768,6 +768,20 @@
                </size>
               </property>
              </spacer>
+            </item>
+            <item row="2" column="1">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+              <property name="input" stdset="0">
+               <string>touch</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+              <property name="input" stdset="0">
+               <string>touch</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
