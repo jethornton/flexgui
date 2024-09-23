@@ -783,6 +783,13 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="2">
+             <widget class="QSpinBox" name="spinBox">
+              <property name="input" stdset="0">
+               <string>touch</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
           <widget class="QWidget" name="tab_7">
