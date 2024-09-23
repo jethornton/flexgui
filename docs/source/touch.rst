@@ -31,7 +31,7 @@ MDI
 ---
 
 To enable the G code popup for the MDI entry add a Dynamic Property called
-`mode` to the and set the value to `touch`.
+`input` to the and set the value to `touch`.
 
 .. image:: /images/touch-01.png
    :align: center
@@ -51,7 +51,7 @@ Touch Off
 
 The Coordinate System Touch Off offset is a QLineEdit named `touchoff_le`.
 To enable the number pad popup for the offset entry add a Dynamic Property
-called `mode` to the and set the value to `touch`.
+called `input` to the and set the value to `touch`.
 
 .. image:: /images/touch-04.png
    :align: center
@@ -66,6 +66,10 @@ Tool Touch Off
 
 The Tool Touch Off offset is a QLineEdit named `tool_touchoff_le`.
 To enable the number pad popup for the offset entry add a Dynamic Property
-called `mode` to the and set the value to `touch`.
+called `input` to the and set the value to `touch`.
 
+Spin Boxes
+----------
+QDoubleSpinBox and QSpinBox can use the popup numbers keypad by adding a Dynamic
+Property called `input` to the and seting the value to `touch`.
 
