@@ -42,7 +42,7 @@ Status Labels
 
 .. csv-table:: Single Status Label Object Names
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	acceleration_lb, flood_lb, pocket_prepped_lb
@@ -77,7 +77,7 @@ number of the axis. Axis numbers start at 0 and go through to 8. Returns a float
 
 .. csv-table:: Axis Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 60 60
 
 	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb
@@ -94,7 +94,7 @@ number of the joint. Joint numbers start at 0 and go through to 15.
 
 .. csv-table:: Joint Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 60 60
 
 	joint_backlash_n_lb, joint_input_n_lb
@@ -121,7 +121,7 @@ Axis machine position labels no offsets. Returns a float.
 
 .. csv-table:: Machine Position Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	actual_lb_x, actual_lb_y, actual_lb_z
@@ -133,7 +133,7 @@ Axis position labels including all offsets. Returns a float.
 
 .. csv-table:: DRO Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	dro_lb_x, dro_lb_y, dro_lb_z
@@ -144,7 +144,7 @@ Axis homed labels
 
 .. csv-table:: Axis Homed Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	home_lb_0, home_lb_1, home_lb_2
@@ -156,7 +156,7 @@ Offsets for the currently active G5x coordinate system. Returns a float.
 
 .. csv-table:: G5x Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	g5x_lb_x, g5x_lb_y, g5x_lb_z
@@ -167,7 +167,7 @@ Offsets for G92.  Returns a float.
 
 .. csv-table:: G92 Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	g92_lb_x, g92_lb_y, g92_lb_z
@@ -216,7 +216,7 @@ number of the spindle. Spindle numbers start at 0 and go through to 8.
 
 .. csv-table:: Spindle Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 60 60
 
 	spindle_brake_n_lb, spindle_direction_n_lb
@@ -234,17 +234,21 @@ speed setting even if the spindle is not running.
 I/O Status
 ----------
 
-The I/O status contains status items for 64 I/O's. Replace the `_n_` with the
-number of the joint. Joint numbers start at 0 and go through to 63. Analog
-I/O returns a float.
+The I/O status contains status items for 64 I/O's. Replace the `n` with the
+number of the I/O. I/O numbers start at 0 and go through to 63. Analog
+I/O returns a float. For example a QLabel with an object name of din_5_lb will
+show the status of the motion.digital-in-05 HAL pin.
 
 .. csv-table:: I/O Status Labels
    :width: 80%
-   :align: left
-   :widths: 40 40 40
+   :align: center
+   :widths: 40 40
 
-	ain_n_lb, aout_n_lb, din_n_lb
-	dout_n_lb
+	HAL Pin, Label Name
+	motion.analog-in-nn, ain_n_lb
+	motion.analog-out-nn, aout_n_lb
+	motion.digital-in-nn, din_n_lb
+	motion.digital-out-nn, dout_n_lb
 
 Current Tool Status
 -------------------
@@ -253,7 +257,7 @@ Current Tool status of the tool loaded in the spindle
 
 .. csv-table:: Tool Table Status Labels
    :width: 80%
-   :align: left
+   :align: center
    :widths: 40 40 40
 
 	tool_id_lb, tool_xoffset_lb, tool_yoffset_lb
