@@ -1,7 +1,7 @@
 import os, shutil, re
 from functools import partial
 
-from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
+from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QAbstractSpinBox
 from PyQt6.QtGui import QAction
@@ -699,6 +699,17 @@ def setup_check_boxes(parent):
 	else:
 		parent.print_states = False
 
+def setup_spin_boxes(parent):
+	parent.touch_sb = []
+	for child in parent.findChildren(QAbstractSpinBox):
+		print(child.objectName())
+		if child.property('input') == 'touch': # enable the number pad
+			parent.touch_sb.append(child.objectName())
+			#le = child.findChild(QLineEdit)
+			child.installEventFilter(parent)
+			#le.installEventFilter(parent)
+			#print(le)
+
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
@@ -988,12 +999,12 @@ def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
 	if 'touchoff_le' in parent.children:
 		parent.touchoff_le.setText('0')
-		if parent.touchoff_le.property('mode') == 'touch': # enable the number pad
+		if parent.touchoff_le.property('input') == 'touch': # enable the number pad
 			parent.touchoff_le.installEventFilter(parent)
 
 	if 'tool_touchoff_le' in parent.children:
 		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('mode') == 'touch': # enable the number pad
+		if parent.tool_touchoff_le.property('input') == 'touch': # enable the number pad
 			parent.tool_touchoff_le.installEventFilter(parent)
 
 	# setup touch off buttons
@@ -1145,6 +1156,8 @@ def setup_hal_buttons(parent):
 				parent.state_estop_reset[spinbox_name] = False
 				if spinbox.property('required') == 'homed':
 					parent.home_required.append(spinbox_name)
+				elif spinbox_name.startswith('probe_'): # don't enable it when power is on
+					parent.home_required.append(spinbox_name)
 				else:
 					parent.state_on[spinbox_name] = True
 
@@ -1278,7 +1291,7 @@ def setup_fsc(parent): # mill feed and speed calculator
 		parent.fsc_calc = fsc.fs_calc()
 		layout = QVBoxLayout(parent.fsc_container)
 		layout.addWidget(parent.fsc_calc)
-		if parent.fsc_container.property('mode') == 'touch':
+		if parent.fsc_container.property('input') == 'touch':
 			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 			for item in fsc_items:
 				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
@@ -1289,7 +1302,7 @@ def setup_dsf(parent): # drill speed and feed calculator
 		parent.dsf_calc = dsf.dsf_calc()
 		layout = QVBoxLayout(parent.dsf_container)
 		layout.addWidget(parent.dsf_calc)
-		if parent.dsf_container.property('mode') == 'touch':
+		if parent.dsf_container.property('input') == 'touch':
 			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
 			for item in dsf_items:
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)

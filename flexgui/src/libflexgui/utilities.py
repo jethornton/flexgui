@@ -20,6 +20,19 @@ def is_int(string):
 	except ValueError:
 		return False
 
+def convert_string_to_number(string):
+	try:
+		number = int(string)
+		return number
+	except ValueError:
+		pass
+
+	try:
+		number = float(string)
+		return number
+	except ValueError:
+		return False
+
 def all_homed(parent):
 	parent.status.poll()
 	return parent.status.homed.count(1) == parent.status.joints

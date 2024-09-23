@@ -8,8 +8,9 @@ from PyQt6.QtCore import Qt
 from libflexgui import number_pad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
+from libflexgui import utilities
 
-def numbers(parent, obj):
+def line_edit_numbers(parent, obj):
 	np = number_pad.number_pad()
 	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
@@ -17,6 +18,17 @@ def numbers(parent, obj):
 	result = np.exec()
 	if result:
 		obj.setText(np.retval())
+
+def spinbox_numbers(parent, obj):
+	np = number_pad.number_pad()
+	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as fh:
+		np.setStyleSheet(fh.read())
+	result = np.exec()
+	if result:
+		number = utilities.convert_string_to_number(np.retval())
+		if number:
+			obj.setValue(number)
 
 def gcode(self, obj):
 	gp = gcode_pad.gcode_pad()
