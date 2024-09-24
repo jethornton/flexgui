@@ -1311,6 +1311,8 @@ def setup_dsf(parent): # drill speed and feed calculator
 
 def setup_probing(parent):
 	if 'probing_enable_pb' in parent.children:
+		parent.state_estop[f'probing_enable_pb'] = False
+		parent.home_required.append('probing_enable_pb')
 		parent.probing_enable_pb.setCheckable(True)
 		parent.home_required.append('probing_enable_pb')
 		parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
@@ -1340,6 +1342,7 @@ def set_status(parent):
 				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
 				parent.flex_Power.setStyleSheet(off_color)
 
+	# this state can only happen when runnning with a sim
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
@@ -1387,15 +1390,15 @@ def set_status(parent):
 				getattr(parent, item).setEnabled(True)
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
-		elif utilities.all_unhomed(parent): # disable all unhome items
+		elif utilities.all_unhomed(parent):
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(False)
-		else: # a joint is not homed
+		else:
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
+				print(item)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
-
 			for item in parent.home_controls: # enable/disable by joint
 				if item[-1].isnumeric():
 					joint = int(item[-1])
