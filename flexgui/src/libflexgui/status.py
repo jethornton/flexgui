@@ -100,7 +100,8 @@ def update(parent):
 			# all joints are homed
 			#print('All Homed')
 			for item in parent.home_required:
-				getattr(parent, item).setEnabled(True)
+				if not item.startswith('probe_'):
+					getattr(parent, item).setEnabled(True)
 			if parent.status.file:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
@@ -169,11 +170,11 @@ def update(parent):
 					for key, value in parent.state_on.items():
 						getattr(parent, key).setEnabled(value)
 					if parent.status.file:
-						print('status update FILE LOADED')
+						#print('status update FILE LOADED')
 						for item in parent.file_edit_items:
 							getattr(parent, item).setEnabled(True)
 						if utilities.all_homed(parent):
-							print('status update FILE LOADED and ALL HOMED')
+							#print('status update FILE LOADED and ALL HOMED')
 							for item in parent.run_controls:
 								getattr(parent, item).setEnabled(True)
 

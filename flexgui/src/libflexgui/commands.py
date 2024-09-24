@@ -52,6 +52,7 @@ def home_all(parent):
 		getattr(parent, item).setEnabled(False)
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(True)
+	utilities.set_homed_enable(parent)
 
 def unhome(parent):
 	parent.status.poll()

@@ -6,7 +6,8 @@ def toggle(parent):
 			if child.startswith('probe_'):
 				getattr(parent, child).setEnabled(True)
 		for key, value in parent.program_running.items():
-			getattr(parent, key).setEnabled(False)
+			if not key.startswith('probe_'):
+				getattr(parent, key).setEnabled(False)
 		parent.spindle_speed = 0
 		if 'spindle_speed_lb' in parent.children:
 			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
@@ -17,7 +18,8 @@ def toggle(parent):
 			if child.startswith('probe_'):
 				getattr(parent, child).setEnabled(False)
 		for key, value in parent.program_running.items():
-			getattr(parent, key).setEnabled(True)
+			if not key.startswith('probe_'):
+				getattr(parent, key).setEnabled(True)
 
 
 
