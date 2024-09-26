@@ -62,7 +62,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QFrame" name="probe_frame_10">
+   <widget class="QFrame" name="frame_10">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -93,7 +93,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_tool&gt; call</string>
+      <string>o&lt;p_tool_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_workpiece_height">
@@ -112,7 +112,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_top&gt; call</string>
+      <string>o&lt;p_top_m&gt; call</string>
      </property>
     </widget>
    </widget>
@@ -189,7 +189,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_right&gt; call</string>
+      <string>o&lt;p_right_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_inYminus">
@@ -208,7 +208,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_back&gt;  call</string>
+      <string>o&lt;p_back_m&gt;  call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_inhole">
@@ -227,7 +227,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_hole&gt;  call</string>
+      <string>o&lt;p_hole_m&gt;  call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_inYplus">
@@ -246,7 +246,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_front&gt; call</string>
+      <string>o&lt;p_front_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_inXplus">
@@ -265,7 +265,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_left&gt;  call</string>
+      <string>o&lt;p_left_m&gt;  call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_inXplusYminus">
@@ -352,7 +352,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_right&gt; call</string>
+      <string>o&lt;p_right_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_Yminus">
@@ -371,7 +371,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_back&gt; call</string>
+      <string>o&lt;p_back_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_wk_center">
@@ -390,7 +390,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_bar&gt; call</string>
+      <string>o&lt;p_bar_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_XplusYminus">
@@ -435,7 +435,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_front&gt; call</string>
+      <string>o&lt;p_front_m&gt; call</string>
      </property>
     </widget>
     <widget class="QPushButton" name="probe_Xplus">
@@ -454,7 +454,7 @@
       <string>mdi</string>
      </property>
      <property name="command" stdset="0">
-      <string>o&lt;p_left&gt;  call</string>
+      <string>o&lt;p_left_m&gt;  call</string>
      </property>
     </widget>
    </widget>
@@ -936,7 +936,7 @@
       <rect>
        <x>110</x>
        <y>265</y>
-       <width>71</width>
+       <width>76</width>
        <height>21</height>
       </rect>
      </property>
@@ -1008,7 +1008,7 @@
    <widget class="QCheckBox" name="override_limits_cb">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>625</x>
       <y>670</y>
       <width>131</width>
       <height>25</height>
@@ -1172,7 +1172,7 @@
    <widget class="QCheckBox" name="view_overlay_cb">
     <property name="geometry">
      <rect>
-      <x>445</x>
+      <x>440</x>
       <y>355</y>
       <width>81</width>
       <height>25</height>
@@ -1194,7 +1194,7 @@
       <x>810</x>
       <y>5</y>
       <width>226</width>
-      <height>561</height>
+      <height>556</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -1207,7 +1207,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>25</y>
+       <y>20</y>
        <width>111</width>
        <height>19</height>
       </rect>
@@ -1223,7 +1223,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>75</y>
+       <y>70</y>
        <width>111</width>
        <height>19</height>
       </rect>
@@ -1239,7 +1239,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>125</y>
+       <y>120</y>
        <width>121</width>
        <height>19</height>
       </rect>
@@ -1255,7 +1255,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>320</y>
+       <y>315</y>
        <width>121</width>
        <height>19</height>
       </rect>
@@ -1271,13 +1271,13 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>220</y>
+       <y>215</y>
        <width>121</width>
        <height>19</height>
       </rect>
      </property>
      <property name="text">
-      <string> XY RETRACT DIST</string>
+      <string>XY RETRACT DIST</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1287,7 +1287,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>270</y>
+       <y>265</y>
        <width>121</width>
        <height>19</height>
       </rect>
@@ -1303,7 +1303,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>10</y>
+       <y>5</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1312,13 +1312,13 @@
       <number>3</number>
      </property>
      <property name="maximum">
-      <double>100.000000000000000</double>
+      <double>600.000000000000000</double>
      </property>
      <property name="singleStep">
       <double>0.100000000000000</double>
      </property>
      <property name="value">
-      <double>20.000000000000000</double>
+      <double>508.000000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1337,7 +1337,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>60</y>
+       <y>55</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1346,13 +1346,13 @@
       <number>3</number>
      </property>
      <property name="maximum">
-      <double>50.000000000000000</double>
+      <double>500.000000000000000</double>
      </property>
      <property name="singleStep">
       <double>0.100000000000000</double>
      </property>
      <property name="value">
-      <double>10.000000000000000</double>
+      <double>254.000000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1371,7 +1371,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>110</y>
+       <y>105</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1389,7 +1389,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <double>0.500000000000000</double>
+      <double>12.699999999999999</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1408,7 +1408,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>310</y>
+       <y>305</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1426,7 +1426,7 @@
       <double>0.001000000000000</double>
      </property>
      <property name="value">
-      <double>-6.000000000000000</double>
+      <double>-152.400000000000006</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1445,7 +1445,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>210</y>
+       <y>205</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1461,6 +1461,9 @@
      </property>
      <property name="singleStep">
       <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>3.810000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1479,7 +1482,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>260</y>
+       <y>255</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1497,7 +1500,7 @@
       <double>0.001000000000000</double>
      </property>
      <property name="value">
-      <double>-10.000000000000000</double>
+      <double>-254.000000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1516,7 +1519,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>470</y>
+       <y>465</y>
        <width>121</width>
        <height>19</height>
       </rect>
@@ -1532,7 +1535,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>170</y>
+       <y>165</y>
        <width>111</width>
        <height>19</height>
       </rect>
@@ -1548,7 +1551,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>160</y>
+       <y>155</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1557,16 +1560,16 @@
       <number>3</number>
      </property>
      <property name="minimum">
-      <double>-50.000000000000000</double>
+      <double>-100.000000000000000</double>
      </property>
      <property name="maximum">
-      <double>50.000000000000000</double>
+      <double>20.000000000000000</double>
      </property>
      <property name="singleStep">
       <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <double>-2.000000000000000</double>
+      <double>-50.799999999999997</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1585,7 +1588,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>370</y>
+       <y>365</y>
        <width>111</width>
        <height>19</height>
       </rect>
@@ -1601,7 +1604,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>420</y>
+       <y>415</y>
        <width>121</width>
        <height>19</height>
       </rect>
@@ -1617,13 +1620,13 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>510</y>
+       <y>505</y>
        <width>91</width>
        <height>28</height>
       </rect>
      </property>
      <property name="decimals">
-      <number>4</number>
+      <number>3</number>
      </property>
      <property name="maximum">
       <double>10.000000000000000</double>
@@ -1632,7 +1635,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="value">
-      <double>0.078700000000000</double>
+      <double>2.000000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1651,7 +1654,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>360</y>
+       <y>355</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1669,7 +1672,7 @@
       <double>0.001000000000000</double>
      </property>
      <property name="value">
-      <double>-0.100000000000000</double>
+      <double>-2.540000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1688,7 +1691,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>410</y>
+       <y>405</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1700,7 +1703,7 @@
       <double>0.001000000000000</double>
      </property>
      <property name="value">
-      <double>1.250000000000000</double>
+      <double>30.000000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1719,7 +1722,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>460</y>
+       <y>455</y>
        <width>91</width>
        <height>28</height>
       </rect>
@@ -1734,7 +1737,7 @@
       <double>0.001000000000000</double>
      </property>
      <property name="value">
-      <double>1.250000000000000</double>
+      <double>30.000000000000000</double>
      </property>
      <property name="function" stdset="0">
       <string>hal_pin</string>
@@ -1753,7 +1756,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>520</y>
+       <y>515</y>
        <width>121</width>
        <height>19</height>
       </rect>
@@ -1871,24 +1874,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QSlider" name="rapid_override_sl">
-    <property name="geometry">
-     <rect>
-      <x>835</x>
-      <y>595</y>
-      <width>160</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
       <x>860</x>
-      <y>570</y>
+      <y>565</y>
       <width>111</width>
       <height>19</height>
      </rect>
@@ -1900,10 +1890,36 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QSlider" name="rapid_override_sl">
+    <property name="geometry">
+     <rect>
+      <x>835</x>
+      <y>590</y>
+      <width>160</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="power_pb">
+    <property name="geometry">
+     <rect>
+      <x>125</x>
+      <y>350</y>
+      <width>106</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Polwer</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="probing_enable_pb">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>235</x>
       <y>350</y>
       <width>106</width>
       <height>27</height>
@@ -1916,7 +1932,7 @@
    <widget class="QPushButton" name="estop_pb">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>15</x>
       <y>350</y>
       <width>106</width>
       <height>27</height>
@@ -1924,19 +1940,6 @@
     </property>
     <property name="text">
      <string>E-stop</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="power_pb">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>350</y>
-      <width>106</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Polwer</string>
     </property>
    </widget>
   </widget>
