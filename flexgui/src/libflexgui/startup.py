@@ -740,7 +740,7 @@ def setup_mdi(parent):
 			parent.run_mdi_pb.setEnabled(False)
 		return
 
-	for item in mdi_entries:
+	for item in mdi_entries: # figure out which line edit we have
 		if item in parent.children:
 			if 'run_mdi_pb' in parent.children:
 				if item == 'mdi_command_le':
@@ -1084,14 +1084,43 @@ def setup_defaults(parent):
 		else:
 			parent.command.set_optional_stop(False)
 
+def setup_probing(parent):
+	# any object name that starts with probe_ is disabled
+	parent.probe_controls = []
+	for child in parent.children:
+		if child.startswith('probe_'):
+			getattr(parent, child).setEnabled(False)
+			parent.probe_controls.append(child)
+
+	if 'probing_enable_pb' in parent.children:
+		parent.state_estop[f'probing_enable_pb'] = False
+		parent.home_required.append('probing_enable_pb')
+		parent.probing_enable_pb.setCheckable(True)
+		parent.home_required.append('probing_enable_pb')
+		parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
+	else:
+		parent.probe_controls = False
+		msg = ('The Probing Enable Push Button\n'
+			'was not found, all probe controls\n'
+			'will be disabled. Did you name it\n'
+			'probing_enable_pb?')
+		dialogs.warn_msg_ok(msg, 'Object Not Found!')
+
+
 def setup_mdi_buttons(parent):
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'mdi':
 			if button.property('command'):
+				button_name = button.objectName()
 				button.clicked.connect(partial(commands.mdi_button, parent, button))
-				parent.home_required.append(button.objectName())
-				parent.program_running[button.objectName()] = False
-				parent.state_estop[button.objectName()] = False
+				parent.program_running[button_name] = False
+				parent.state_estop[button_name] = False
+				# probe buttons must be homed and enabled by the probe button
+				if button_name.startswith('probe_'):
+					if parent.probe_controls: # make sure probing_enable_pb is present
+						parent.probe_controls.append(button_name)
+				else:
+					parent.home_required.append(button_name)
 			else:
 				msg = (f'MDI Button {button.text()}\n'
 				'Does not have a command\n'
@@ -1156,9 +1185,10 @@ def setup_hal_buttons(parent):
 				spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 				parent.state_estop[spinbox_name] = False
 				parent.state_estop_reset[spinbox_name] = False
-				if spinbox.property('required') == 'homed':
-					parent.home_required.append(spinbox_name)
-				elif spinbox_name.startswith('probe_'): # don't enable it when power is on
+				if parent.probe_controls: # make sure the probing_enable_pb is there
+					if spinbox_name.startswith('probe_'): # don't enable it when power is on
+						parent.probe_controls.append(spinbox_name)
+				elif spinbox.property('required') == 'homed':
 					parent.home_required.append(spinbox_name)
 				else:
 					parent.state_on[spinbox_name] = True
@@ -1308,17 +1338,6 @@ def setup_dsf(parent): # drill speed and feed calculator
 			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
 			for item in dsf_items:
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
-
-def setup_probing(parent):
-	if 'probing_enable_pb' in parent.children:
-		parent.state_estop[f'probing_enable_pb'] = False
-		parent.home_required.append('probing_enable_pb')
-		parent.probing_enable_pb.setCheckable(True)
-		parent.home_required.append('probing_enable_pb')
-		parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
-		for child in parent.children:
-			if child.startswith('probe_'):
-				getattr(parent, child).setEnabled(False)
 
 def set_status(parent):
 	parent.status.poll()
