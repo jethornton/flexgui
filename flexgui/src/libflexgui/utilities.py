@@ -89,7 +89,6 @@ def clear_info(parent):
 	parent.info_pte.clear()
 
 def update_mdi(parent):
-	print('update_mdi')
 	if 'mdi_history_lw' in parent.children:
 		parent.mdi_history_lw.addItem(parent.mdi_command)
 		path = os.path.dirname(parent.status.ini_filename)
