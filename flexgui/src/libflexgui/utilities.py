@@ -61,7 +61,6 @@ def set_homed_enable(parent):
 		getattr(parent, item).setEnabled(True)
 	for item in parent.home_required:
 		if not item.startswith('probe_'): # don't enable probe buttons
-			print(item)
 			getattr(parent, item).setEnabled(True)
 	if parent.status.file:
 		for item in parent.run_controls:
