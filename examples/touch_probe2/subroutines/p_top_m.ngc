@@ -1,15 +1,16 @@
-o<p_top> sub
-	G20
+o<p_top_m> sub
+	G21
 	#1020 = [#<_hal[flexhal.probe_TIP_DIAM]>/2]
 	#1021 = #<_hal[flexhal.probe_RETRACT_DIST]>
 	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>
 	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> Z-#1022
 	G90 G0 Z[#5063 + #1021]
-	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Z-[#1021 + 0.020]
+	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Z-[#1021 + 0.50]
 	#1019 = #5063
 	(debug, Z Top: #1019)
-	G90 G0 Z[#5063 + 0.2 ]	;	G90 G0 Z[#5063 + 0.2 - #1020])
-	;(debug,Probe tip is 0.2 above)
-o<p_top> endsub
+	G90 G0 Z[#5063 + 5.0]	;G90 G0 Z[#5063 + 5.0 - #1020]
+	;(debug,Probe tip is 5.0mm above)
+	G20
+o<p_top_m> endsub
 
 M2
