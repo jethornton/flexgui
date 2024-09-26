@@ -179,6 +179,7 @@ class flexgui(QMainWindow):
 		startup.setup_line_edits(self)
 		startup.setup_spindle(self)
 		startup.setup_jog(self)
+		startup.setup_probing(self)
 		startup.setup_mdi(self)
 		startup.setup_mdi_buttons(self)
 		startup.setup_hal_buttons(self)
@@ -190,7 +191,6 @@ class flexgui(QMainWindow):
 		startup.setup_plot(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
-		startup.setup_probing(self)
 		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
