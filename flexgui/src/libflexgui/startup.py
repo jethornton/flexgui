@@ -757,15 +757,15 @@ def setup_mdi(parent):
 					'The MDI Entry will be disabled')
 				dialogs.critical_msg_ok(msg, 'Required Item Missing')
 
-		if 'mdi_history_lw' in parent.children:
-			path = os.path.dirname(parent.status.ini_filename)
-			mdi_file = os.path.join(path, 'mdi_history.txt')
-			if os.path.exists(mdi_file): # load mdi history
-				with open(mdi_file, 'r') as f:
-					history_list = f.readlines()
-					for item in history_list:
-						parent.mdi_history_lw.addItem(item.strip())
-			parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
+	if 'mdi_history_lw' in parent.children:
+		path = os.path.dirname(parent.status.ini_filename)
+		mdi_file = os.path.join(path, 'mdi_history.txt')
+		if os.path.exists(mdi_file): # load mdi history
+			with open(mdi_file, 'r') as f:
+				history_list = f.readlines()
+				for item in history_list:
+					parent.mdi_history_lw.addItem(item.strip())
+		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
 
 def setup_recent_files(parent):
 	menus = parent.findChildren(QMenu)
