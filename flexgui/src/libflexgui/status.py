@@ -214,6 +214,8 @@ def update(parent):
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		if 'spindle_speed_lb' in parent.children:
 			parent.spindle_speed_lb.setText(str(parent.spindle_speed))
+		if 'spindle_speed_lcd' in parent.children:
+			parent.spindle_speed_lcd.setText(str(parent.spindle_speed))
 		if 'settings_speed_lb' in parent.children:
 			parent.settings_speed_lb.setText(f'S{int(parent.status.settings[2])}')
 		parent.status_speed_setting = parent.status.settings[2]
