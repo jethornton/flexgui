@@ -20,6 +20,11 @@ def is_int(string):
 	except ValueError:
 		return False
 
+def string_to_int(string):
+	if '.' in string:
+		string, digits = string.split('.')
+		return int(string)
+
 def convert_string_to_number(string):
 	try:
 		number = int(string)
