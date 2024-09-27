@@ -608,10 +608,8 @@ def setup_status_labels(parent):
 				p = p if p is not None else default_precision
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	#override_items = ['feedrate',  'rapidrate',]
-	override_items = {'feedrate_lb': 'feedrate' , 'rapidrate_lb': 'rapidrate',
-		'rapid_override_lb': 'max_velocity'}
-	# label : status item rapid_override_lb
+	override_items = {'feedrate_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
+
 	parent.overrides = {}
 	for label, stat in override_items.items():
 		if label in parent.children:
@@ -1086,6 +1084,7 @@ def setup_defaults(parent):
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
+	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.children:
 		if child.startswith('probe_'):
