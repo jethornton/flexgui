@@ -166,16 +166,17 @@ def update(parent):
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				if parent.status.interp_state == emc.INTERP_IDLE:
-					for key, value in parent.state_on.items():
-						getattr(parent, key).setEnabled(value)
-					if parent.status.file:
-						#print('status update FILE LOADED')
-						for item in parent.file_edit_items:
-							getattr(parent, item).setEnabled(True)
-						if utilities.all_homed(parent):
-							#print('status update FILE LOADED and ALL HOMED')
-							for item in parent.run_controls:
+					if not parent.probing:
+						for key, value in parent.state_on.items():
+							getattr(parent, key).setEnabled(value)
+						if parent.status.file:
+							#print('status update FILE LOADED')
+							for item in parent.file_edit_items:
 								getattr(parent, item).setEnabled(True)
+							if utilities.all_homed(parent):
+								#print('status update FILE LOADED and ALL HOMED')
+								for item in parent.run_controls:
+									getattr(parent, item).setEnabled(True)
 
 		parent.task_mode = parent.status.task_mode
 
