@@ -1091,14 +1091,12 @@ def setup_probing(parent):
 		if child.startswith('probe_'):
 			getattr(parent, child).setEnabled(False)
 			parent.probe_controls.append(child)
-	print(parent.probe_controls)
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
 		if 'probing_enable_pb' in parent.children:
 			parent.state_estop[f'probing_enable_pb'] = False
-			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.setCheckable(True)
 			parent.home_required.append('probing_enable_pb')
-			parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
+			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
 		else:
 			parent.probe_controls = False
 			msg = ('The Probing Enable Push Button\n'
@@ -1113,14 +1111,12 @@ def setup_mdi_buttons(parent):
 			if button.property('command'):
 				button_name = button.objectName()
 				button.clicked.connect(partial(commands.mdi_button, parent, button))
-				parent.program_running[button_name] = False
-				parent.state_estop[button_name] = False
-				# probe buttons must be homed and enabled by the probe button
-				if button_name.startswith('probe_'):
-					if parent.probe_controls: # make sure probing_enable_pb is present
-						parent.probe_controls.append(button_name)
-				else:
+				# probe buttons are taken care of in setup_probe function
+				if not button_name.startswith('probe_'):
+					parent.program_running[button_name] = False
+					parent.state_estop[button_name] = False
 					parent.home_required.append(button_name)
+					print(button_name)
 			else:
 				msg = (f'MDI Button {button.text()}\n'
 				'Does not have a command\n'
