@@ -1091,21 +1091,21 @@ def setup_probing(parent):
 		if child.startswith('probe_'):
 			getattr(parent, child).setEnabled(False)
 			parent.probe_controls.append(child)
-
-	if 'probing_enable_pb' in parent.children:
-		parent.state_estop[f'probing_enable_pb'] = False
-		parent.home_required.append('probing_enable_pb')
-		parent.probing_enable_pb.setCheckable(True)
-		parent.home_required.append('probing_enable_pb')
-		parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
-	else:
-		parent.probe_controls = False
-		msg = ('The Probing Enable Push Button\n'
-			'was not found, all probe controls\n'
-			'will be disabled. Did you name it\n'
-			'probing_enable_pb?')
-		dialogs.warn_msg_ok(msg, 'Object Not Found!')
-
+	print(parent.probe_controls)
+	if len(parent.probe_controls) > 0: # make sure the probe enable is present
+		if 'probing_enable_pb' in parent.children:
+			parent.state_estop[f'probing_enable_pb'] = False
+			parent.home_required.append('probing_enable_pb')
+			parent.probing_enable_pb.setCheckable(True)
+			parent.home_required.append('probing_enable_pb')
+			parent.probing_enable_pb.clicked.connect(partial(probe.toggle, parent))
+		else:
+			parent.probe_controls = False
+			msg = ('The Probing Enable Push Button\n'
+				'was not found, all probe controls\n'
+				'will be disabled. Did you name it\n'
+				'probing_enable_pb?')
+			dialogs.warn_msg_ok(msg, 'Object Not Found!')
 
 def setup_mdi_buttons(parent):
 	for button in parent.findChildren(QAbstractButton):
