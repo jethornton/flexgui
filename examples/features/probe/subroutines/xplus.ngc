@@ -1,0 +1,5 @@
+(filename xplus.ngc)
+o<xplus> sub
+  (msg, xplus subroutine)
+o<xplus> endsub
+M2
