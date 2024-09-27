@@ -653,7 +653,7 @@ def setup_status_labels(parent):
 			if 'start_line_lb' in parent.children:
 				parent.start_line_lb.setText('0')
 		else:
-			parent.file_lb.setText('No G code file loaded')
+			parent.file_lb.setText('N/A')
 			if 'start_line_lb' in parent.children:
 				parent.start_line_lb.setText('n/a')
 
