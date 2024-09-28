@@ -8,11 +8,10 @@ o<p_back_m> sub
 	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> Y-[#1021 + 0.50]
 	#1019 = [#5062 - # 1020]
 	(debug, Y Center: #1019)
-	(debug, Raise Z, move to Y#1019)
-	(debug, Press Set Y)
+;	(debug, Raise Z, move to Y#1019)
+;	(debug, Press Set Y)
 	G90 G0 Y[#5062 + 5.0 - #1020]
-	;(debug,Spindle center is Y +5.0 from the edge)
-	G20
+	(debug,Spindle center is Y +5.0 from the edge)
 o<p_back_m> endsub
 
 M2 

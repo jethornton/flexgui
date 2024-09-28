@@ -27,7 +27,6 @@ o100 else
 o100 endif
 	G43
 	G90 G53 G1 Z[#<_hal[flexhal.probe_Z_START]>] F #1010
-	G20
 o<p_tool_m> endsub
 M2
 
