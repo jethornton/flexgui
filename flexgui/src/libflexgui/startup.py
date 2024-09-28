@@ -941,12 +941,24 @@ def setup_spindle(parent):
 
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
+
 		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
-		parent.min_rpm = utilities.string_to_int(parent.min_rpm) if parent.min_rpm else 0
-		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
-		max_rpm = utilities.string_to_int(max_rpm) if max_rpm else 1000
+		if parent.min_rpm and utilities.is_int(parent.min_rpm): # found in the ini and a valid int
+			parent.min_rpm = int(parent.min_rpm)
+		elif parent.min_rpm and utilities.is_float(parent.min_rpm): # see if it's a float if so convert to int
+			parent.min_rpm = utilities.string_to_int(parent.min_rpm)
+		else:
+			parent.min_rpm = 0
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
-		parent.spindle_speed_sb.setMaximum(max_rpm)
+
+		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+		if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
+			parent.spindle_speed_sb.setMaximum(int(max_rpm))
+		elif max_rpm and utilities.is_float(max_rpm): # see if it's a float if so convert to int
+			parent.spindle_speed_sb.setMaximum(utilities.string_to_int(max_rpm))
+		else:
+			parent.spindle_speed_sb.setMaximum(100)
+
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
 
