@@ -54,6 +54,23 @@ directory is.
 
 	SUBROUTINE_PATH = ./subroutines
 
+The example files used are the following and notice that the xplus.ngc is in the
+subdirectory subroutines.
+::
+
+	├── main.hal
+	├── parameters.var
+	├── parameters.var.bak
+	├── postgui.hal
+	├── probe.ini
+	├── probe.ui
+	├── README
+	├── sim_axis_probe.ini
+	├── subroutines
+	│   └── xplus.ngc
+	└── tool.tbl
+
+
 The subroutine is a normal LinuxCNC subroutine. The magic is how you get the
 values from HAL pins with `#<_hal[pin_name]>` where pin_name is the actual pin
 name in HAL.
