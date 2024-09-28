@@ -40,3 +40,5 @@ The following QPushButtons control the spindle on/off direction and speed.
 
 If a QLCDNumber named `spindle_speed_0_lcd` is found it will display the
 commanded spindle speed without any offsets.
+
+.. note:: The digitCount property must be large enough to display the number.
