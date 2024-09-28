@@ -1,5 +1,8 @@
-HAL Buttons
-===========
+HAL Pins
+========
+
+Button
+------
 
 Any QPushButton, QCheckBox or QRadioButton can have a HAL BIT pin by adding four
 string type Dynamic Propertys as shown in the table.
@@ -13,6 +16,11 @@ string type Dynamic Propertys as shown in the table.
 	pin_name, any unique name
 	hal_type, HAL_BIT
 	hal_dir, HAL_OUT
+
+.. _SpinBoxTag:
+
+Spinbox
+-------
 
 Any QSpinBox or QDoubleSpinBox can be a hal number pin by adding four string
 type Dynamic Propertys as shown in the table.
