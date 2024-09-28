@@ -69,8 +69,6 @@ o<p_hole_m> sub
 	(debug, Xdia #1107 Ydia #1108)
 	(debug, X Center: #1017)
 	(debug, Y Center: #1018)
-	G20
-
 o<p_hole_m> endsub
 
 M2
