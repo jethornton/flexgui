@@ -1,3 +1,9 @@
+flexgui (1.0.0) unstable; urgency=medium
+
+  * Add probing
+
+ -- John Thornton <dev@gnipsel.com>  Sun, 29 Sep 2024 11:33:32 -0500
+
 flexgui (0.9.9) unstable; urgency=medium
 
   * Add resource builder
