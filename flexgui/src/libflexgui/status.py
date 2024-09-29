@@ -119,21 +119,22 @@ def update(parent):
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
+				#print('status update INTERP_IDLE MODE_AUTO')
 				parent.command.mode(emc.MODE_MANUAL)
 				parent.command.wait_complete()
 				#print(f'{TASK_MODES[parent.status.task_mode]}')
 
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
+				#print('status update INTERP_IDLE MODE_MANUAL')
 				if parent.mdi_command: # only update mdi if it's configured
 					utilities.update_mdi(parent)
 				else:
 					parent.command.mode(emc.MODE_MANUAL)
 					parent.command.wait_complete()
-				#print('status update INTERP_IDLE MODE_MANUAL')
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
@@ -154,6 +155,7 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_AUTO:
 				for key, value in parent.program_running.items():
 					getattr(parent, key).setEnabled(value)
+
 		parent.interp_state = parent.status.interp_state
 
 	# **************************
@@ -162,13 +164,20 @@ def update(parent):
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		# catch MDI commands that don't change the interp state like M53
 		if parent.status.task_mode == emc.MODE_MDI:
+			for item in parent.probe_controls:
+				getattr(parent, item).setEnabled(False)
+
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				if parent.mdi_command:
 					utilities.update_mdi(parent)
+
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				if parent.status.interp_state == emc.INTERP_IDLE:
-					if not parent.probing:
+					if parent.probing:
+						for item in parent.probe_controls:
+							getattr(parent, item).setEnabled(True)
+					else:
 						#print('Task Mode Manual, Not Probing')
 						for key, value in parent.state_on.items():
 							getattr(parent, key).setEnabled(value)
