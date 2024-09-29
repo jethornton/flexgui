@@ -1,4 +1,5 @@
 # Flex GUI
+/home/john/github/flexgui/examples/images/logo_submissions/FlexGUI-blackbg.png
 A flexible GUI for LinuxCNC
 
 Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
