@@ -97,14 +97,16 @@ def update(parent):
 	if parent.motion_mode != parent.status.motion_mode:
 		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
+			#print('status update TRAJ_MODE_TELEOP')
 			# all joints are homed
 			#print('All Homed')
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(True)
-			if parent.status.file:
+			if parent.status.file and not parent.probing:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
 		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
+			#print('status update TRAJ_MODE_FREE')
 			# a joint is not homed
 			#print('All NOT Homed')
 			for item in parent.home_required:
@@ -167,6 +169,7 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				if parent.status.interp_state == emc.INTERP_IDLE:
 					if not parent.probing:
+						#print('Task Mode Manual, Not Probing')
 						for key, value in parent.state_on.items():
 							getattr(parent, key).setEnabled(value)
 						if parent.status.file:
