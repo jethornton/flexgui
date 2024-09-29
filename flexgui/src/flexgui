@@ -92,8 +92,8 @@ class flexgui(QMainWindow):
 		if ini_extensions: # add any extensions from the ini to ngc
 			for ext in ini_extensions.split(','):
 				self.extensions.append(ext.strip())
-		home_dir = os.path.expanduser('~')
-		self.gcode_dir = os.path.join(home_dir, 'linuxcnc', 'nc_files')
+		self.home_dir = os.path.expanduser('~')
+		self.gcode_dir = os.path.join(self.home_dir, 'linuxcnc', 'nc_files')
 
 		# find and load the gui
 		if gui_file: # gui is in the ini file
