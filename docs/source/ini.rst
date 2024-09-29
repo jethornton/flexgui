@@ -3,6 +3,9 @@ INI Settings
 
 .. note:: All settings are in the [DISPLAY] section of the ini file.
 
+Display Settings
+----------------
+
 To use the Flex GUI change the DISPLAY value to:
 ::
 
@@ -26,12 +29,32 @@ To use your style sheet add with `file-name` being the name of your .qss file.
 
 .. note:: If a qss file is specified then input and theme are not used
 
+Open File
+---------
+
+To open a file on startup add the OPEN_FILE item with either the full path to
+the G code file or you can use ~/ for the user home direcory or ./ if the file
+is in the configuration directory.
+::
+
+	OPEN_FILE = /home/john/linuxcnc/configs/flex_examples/probe_sim/square.ngc
+	or
+	OPEN_FILE = ~/linuxcnc/configs/flex_examples/probe_sim/square.ngc
+	or
+	OPEN_FILE = ./square.ngc
+
+Resource File
+-------------
+
 To use a resources file to add images to buttons with your qss stylesheet place
 the resource file in the configuration directory and add the following line to
 the ini file.
 ::
 
 	RESOURCES = resources.py
+
+Stylesheets
+-----------
 
 To use the built in input stylesheets add either
 ::
