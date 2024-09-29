@@ -1063,7 +1063,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="probe_trigger">
+   <widget class="QPushButton" name="trigger_probe">
     <property name="geometry">
      <rect>
       <x>460</x>
