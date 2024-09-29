@@ -143,14 +143,14 @@ def about_dialog(parent):
 	layout = QVBoxLayout(dialog_box)
 
 	titleLabel =  QLabel()
-	titleLabel.setText('Mesa Configuration Tool')
+	titleLabel.setText('FlexGUI')
 	titleLabel.setAlignment(Qt.AlignCenter)
 	layout.addWidget(titleLabel)
 
 	imageLabel = QLabel()
 	imageLabel.setAlignment(Qt.AlignCenter)
 
-	image_path = os.path.join(parent.lib_path, 'mesact.jpg')
+	image_path = os.path.join(parent.lib_path, 'flexgui.jpg')
 	pixmap = QPixmap(image_path)
 	pixmap = pixmap.scaled(256, 256, Qt.KeepAspectRatio)
 	imageLabel.setPixmap(pixmap)
@@ -167,7 +167,7 @@ def about_dialog(parent):
 	layout.addWidget(versionLabel)
 
 	aboutLabel =  QLabel()
-	aboutLabel.setText('Mesa CT Creates LinuxCNC\nconfigurations for Mesa Boards')
+	aboutLabel.setText('Flexible Graphical User Interface\nfor LinuxCNC')
 	aboutLabel.setAlignment(Qt.AlignCenter)
 	layout.addWidget(aboutLabel)
 
@@ -184,7 +184,7 @@ def about_dialog(parent):
 	layout.addWidget(repoLabel)
 
 	copyrightLabel =  QLabel()
-	copyrightLabel.setText('Copyright © 1953-2023 John Thornton')
+	copyrightLabel.setText('Copyright © 1953-2024 John Thornton')
 	copyrightLabel.setAlignment(Qt.AlignCenter)
 	layout.addWidget(copyrightLabel)
 
