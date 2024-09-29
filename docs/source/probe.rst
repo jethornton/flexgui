@@ -16,9 +16,12 @@ QPushButtons with an objectName that starts with `probe_` and configured as a
 :ref:`MdiButtonTag` to launch the probing subroutines will be enabled when
 probing is enabled and disabled when probing is disabled.
 
-You can create a HAL QDoubleSpinBox to use in your probing subroutine. If you're
-using a touch screen add a Dynamic Property name `input` and set the value to
-`touch`.
+You can create a HAL :ref:`SpinBoxTag` to use in your probing subroutine. Set
+the objectName to start with `probe_` and it will be enabled and disabled with
+the probe buttons.
+
+If you're using a touch screen add a Dynamic Property name `input` and set the
+value to `touch`.
 
 Example
 -------
