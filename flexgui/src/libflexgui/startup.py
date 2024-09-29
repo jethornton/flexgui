@@ -1441,7 +1441,7 @@ def set_status(parent):
 
 	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 	gcode_path = ''
-	if open_file:
+	if open_file and open_file != '""':
 		if open_file.startswith('./'):
 			gcode_path = os.path.join(parent.ini_path, open_file.lstrip('./'))
 		elif open_file.startswith('~'):
