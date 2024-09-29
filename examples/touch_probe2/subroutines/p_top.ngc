@@ -9,7 +9,7 @@ o<p_top> sub
 	#1019 = #5063
 	(debug, Z Top: #1019)
 	G90 G0 Z[#5063 + 0.2 ]	;	G90 G0 Z[#5063 + 0.2 - #1020])
-	;(debug,Probe tip is 0.2 above)
+	(debug,Probe tip is 0.2 above)
 o<p_top> endsub
 
 M2
