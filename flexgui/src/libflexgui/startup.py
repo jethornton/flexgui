@@ -676,8 +676,18 @@ def setup_status_labels(parent):
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.children:
+		# PROGRAM_PREFIX = ~/linuxcnc/nc_files
+		gcode_location = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
+		if gcode_location:
+			if gcode_location.startswith('./'):
+				parent.gcode_dir = os.path.join(parent.ini_path, gcode_location.lstrip('./'))
+			elif gcode_location.startswith('~'):
+				parent.gcode_dir = gcode_location.replace('~', parent.home_dir)
+		else:
+			parent.gcode_dir = os.path.join(parent.home_dir, 'linuxcnc', 'nc_files')
+		if os.path.exists(parent.gcode_dir):
+			utilities.read_dir(parent)
 		parent.file_lw.itemClicked.connect(partial(actions.file_selector, parent))
-		utilities.read_dir(parent)
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
