@@ -12,6 +12,10 @@ When the `probing_enable_pb` is toggled `ON` the widgets that start with
 `probe_` will be enabled. In addition spindle controls will disabled, spindle
 speed set to 0, run controls will be disabled, MDI controls will be disabled.
 
+QPushButtons with an objectName that starts with `probe_` and configured as a
+:ref:`MdiButtonTag` to launch the probing subroutines will be enabled when
+probing is enabled and disabled when probing is disabled.
+
 You can create a HAL QDoubleSpinBox to use in your probing subroutine. If you're
 using a touch screen add a Dynamic Property name `input` and set the value to
 `touch`.

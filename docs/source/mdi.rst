@@ -50,8 +50,10 @@ MDI history
 The MDI history is kept in a file named 'mdi_history.txt` in the configuration
 directory.
 
-MDI Buttons
------------
+.. _MdiButtonTag:
+
+MDI Button
+----------
 
 MDI buttons execute a MDI command when the button it pressed and are created by
 adding two dynamic properties called `function` and `command` to a QPushButton.
