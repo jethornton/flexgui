@@ -1123,7 +1123,9 @@ def setup_mdi_buttons(parent):
 				button_name = button.objectName()
 				button.clicked.connect(partial(commands.mdi_button, parent, button))
 				# probe buttons are taken care of in setup_probe function
-				if not button_name.startswith('probe_'):
+				if button_name.startswith('probe_'):
+					parent.probe_controls.append(button_name)
+				else:
 					parent.program_running[button_name] = False
 					parent.state_estop[button_name] = False
 					parent.home_required.append(button_name)
