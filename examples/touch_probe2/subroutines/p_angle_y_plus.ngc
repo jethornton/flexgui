@@ -1,20 +1,18 @@
 o<p_angle_y_plus> sub
 	G20
-	#1004 = .5				; store fixed length side B
 	#1010 = #<_hal[flexhal.probe_SEARCH_FEED]>
 	#1011 = #<_hal[flexhal.probe_FINE_FEED]>
-   	F #1010
+  	F #1010
+	#1001 = .1				; store side a length
 	G91 G38.2 Y .5			; locate start point
-	G91 G1 Y -.1			; back out a fixed dist
-	G91 G1 X #1004			; move to end of side B
-	G91 G1 Y .1				; move back in back out a fixed dist
-	G91 G38.3 Z-.00001		; trigger the point for side A
-	#1002 = #5062			; store first Y point
-	G91 G38.2 Y .5			; locate 2nd point for side A
-	#1003 = #5062			; store 2nd Y point
-	G91 G1 Y -.1			; back out a fixed dist
-	#1001 = [#1003 - #1002 ]	; length of side A
-	#1005 = ATAN[#1001]/[#1004]
+	G91 G1 Y -.1			; move to side a
+	G91 G38.3 Z-.00001		; trigger the first point read
+	#1002 = #5061			; store first Y point
+	G91 G38.2 F#1011 X 2	; slow down for 2nd point
+	#1003 = #5061			; store 2nd Y point
+	G91 G1 Y -.1			; retract a bit
+	#1004 = [#1002 - #1003]
+	#1005 = [90+ATAN[#1004]/[#1001]]
 	(debug, #1005 deg)
-o<p_angle_y_plus> endsub
+	o<p_angle_y_plus> endsub
 M2
