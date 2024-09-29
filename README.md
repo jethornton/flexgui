@@ -10,10 +10,8 @@ Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 * No minimum required widgets
 * Widget object names are used to connect the code to the widget
 * Most Python status items are supported
+* Plotter with controls
+* Probing with safety for spindle and run controls and MDI controls
 
-We are at version 0.9.9, at this point I consider Flex GUI to be ready for
-production very soon.
-
-Note: until the version is 1.0.0 or greater this will often be broken
 
 [Documents](https://gnipsel.com/linuxcnc/flexgui/index.html)
