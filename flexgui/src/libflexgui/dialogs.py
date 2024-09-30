@@ -178,7 +178,7 @@ def about_dialog(parent):
 	layout.addWidget(websiteLabel)
 
 	repoLabel =  QLabel()
-	repoLabel.setText("<a href='https://github.com/jethornton/mesact'>Code Website</a>")
+	repoLabel.setText("<a href='https://github.com/jethornton/flexgui'>Code Website</a>")
 	repoLabel.setAlignment(Qt.AlignCenter)
 	repoLabel.setOpenExternalLinks(True)
 	layout.addWidget(repoLabel)
