@@ -83,20 +83,13 @@ def file_selector(parent):
 		load_file(parent, os.path.join(parent.gcode_dir, item))
 
 def action_open(parent): # actionOpen
-	extensions = parent.inifile.findall("FILTER", "PROGRAM_EXTENSION") or False
+	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
 	if extensions:
-		ext_groups = ['G code Files (*.ngc *.NGC)']
-		for extension in extensions:
-			filter_type = extension.split(' ', 1)
-			if len(filter_type) > 1:
-				ext_list = []
-				desc = filter_type[1]
-				exts = filter_type[0].split(',')
-				for ext in exts:
-					ext_list.append(f'*{ext}')
-				ext_groups.append(f'{desc} ({" ".join(ext_list)})')
-		ext_filter = ';;'.join(ext_groups)
+		extensions = extensions.split(',')
+		extensions = ' '.join(extensions).strip()
+		ext_filter = f'G code Files ({extensions});;All Files (*)'
 	else:
+		print(f'False {extensions}')
 		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
