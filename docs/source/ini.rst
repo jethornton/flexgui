@@ -49,8 +49,8 @@ File Location
 To specify the loction to look for files add the PROGRAM_PREFIX item with either
 the full path to the G code files or you can use ~/ for the user home direcory
 or ./ if the path is in the configuration directory.
+::
 
- = 
 	PROGRAM_PREFIX = /home/john/linuxcnc/configs/flex_examples/probe_sim
 	or
 	PROGRAM_PREFIX = ~/linuxcnc/configs/flex_examples/probe_sim
@@ -78,17 +78,15 @@ To use the built in input stylesheets add either
 
 .. note:: If no INPUT or QSS is specified then no qss file will be used.
 
-To use the built in dark theme an INPUT must be specified.
+File Extensions
+---------------
+
+The keyboard file selector defaults to `.ngc` (any case) to specify extensions
+add EXTENSIONS with the g code extensions seperated by a comma. The extensions
+must be in the form `*.ext` with the asterisk and dot.
 ::
 
-	THEME = DARK
-
-The ile selector defaults to `.ngc` (any case) to add more extensions add
-EXTENSIONS with other g code extensions seperated by a comma. The extensions
-must be in the form `.ext` with the leading dot.
-::
-
-	EXTENSIONS = .nc, .gcode, .xt
+	EXTENSIONS = *.nc, *.gcode, *.ngc, *.NGC
 
 To control the initial size of the screen add either
 ::
