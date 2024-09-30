@@ -33,8 +33,9 @@ a QPushButton as well that executes the same function.
 MDI
 ---
 
-To enable the G code popup for the MDI entry add a Dynamic Property named
-`input` to the and set the value to `gcode` or `keyboard`.
+To enable the G code popup for the MDI entry the QLineEdit object name must be
+either `mdi_command_gc_le` for the G code popup or `mdi_command_kb_le` for the
+keyboard popup.
 
 .. image:: /images/touch-01.png
    :align: center
