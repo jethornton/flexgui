@@ -76,7 +76,7 @@ def file_selector(parent):
 		utilities.read_dir(parent)
 
 	elif item.endswith('...'): # a subdirectory
-		parent.gcode_dir = os.path.join(parent.gcode_dir, item.split()[0])
+		parent.gcode_dir = os.path.join(parent.gcode_dir, item.replace(' ...', ''))
 		utilities.read_dir(parent)
 
 	else: # must be a file name
