@@ -27,6 +27,9 @@ Now you just drag the action into the tool bar to create a new tool bar button.
 .. image:: /images/new-action-03.png
    :align: center
 
+Another option is to just use QPushButtons in a QFrame as every menu action has
+a QPushButton as well that executes the same function.
+
 MDI
 ---
 
@@ -79,3 +82,17 @@ Line Edits
 A QLineEdit can have a popup entry for numbers, G code or a full keyboard. Add
 a Dynamic Property named `input` and set the value to one of these `number`,
 `gcode` or `keyboard`.
+
+File Navigator
+--------------
+
+If a QListWidget with an objectName of `file_lw` is found a touch friendly file
+selector is added. A Parent Directory and possibly a directory name with an
+ellipsis can be used to change directories. Touch a file name and it's loaded
+into the GUI.
+
+If PROGRAM_PREFIX is specified that will be the starting directory.
+
+.. image:: /images/touch-06.png
+   :align: center
+
