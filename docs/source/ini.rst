@@ -81,9 +81,10 @@ To use the built in input stylesheets add either
 File Extensions
 ---------------
 
-The keyboard file selector defaults to `.ngc` (any case) to specify extensions
-add EXTENSIONS with the g code extensions seperated by a comma. The extensions
-must be in the form `*.ext` with the asterisk and dot.
+The keyboard file dialog defaults to `*.ngc` (any case) to specify the G code
+extensions you want the file dialog to use add EXTENSIONS with the g code
+extensions seperated by a comma. The extensions must be in the form `*.ext` with
+the asterisk and dot.
 ::
 
 	EXTENSIONS = *.nc, *.gcode, *.ngc, *.NGC
