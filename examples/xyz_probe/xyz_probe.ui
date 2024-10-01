@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
+    <width>967</width>
     <height>674</height>
    </rect>
   </property>
@@ -1432,13 +1432,6 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="0" colspan="3">
-         <widget class="QCheckBox" name="print_states_cb">
-          <property name="text">
-           <string>Print States</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="4">
          <widget class="QGroupBox" name="groupBox_13">
           <property name="title">
@@ -2651,8 +2644,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>850</width>
-     <height>24</height>
+     <width>967</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
