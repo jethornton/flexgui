@@ -112,7 +112,6 @@ class flexgui(QMainWindow):
 
 		loadUi(gui_path, self)
 		machine = self.inifile.find('EMC', 'MACHINE') or False
-		print(machine)
 		if machine:
 			self.setWindowTitle(f'{machine} Flex GUI V{flex_version}')
 		else:
