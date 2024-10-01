@@ -1220,6 +1220,37 @@ def setup_hal_buttons(parent):
 				else:
 					parent.state_on[spinbox_name] = True
 
+	hal_slider = []
+	for item in parent.findChildren(QSlider):
+		if item.property('function') == 'hal_pin': # HAL spin box
+			hal_slider.append(item)
+
+	if len(hal_slider) > 0:
+		for slider in hal_slider:
+			print(slider)
+			slider_name = slider.objectName()
+			pin_name = slider.property('pin_name')
+			hal_type = slider.property('hal_type')
+			hal_dir = slider.property('hal_dir')
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				# set the default value of the spin box to the hal pin
+				setattr(parent.halcomp, pin_name, slider.value())
+				slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
+				parent.state_estop[slider_name] = False
+				parent.state_estop_reset[slider_name] = False
+				if parent.probe_controls: # make sure the probing_enable_pb is there
+					if slider_name.startswith('probe_'): # don't enable it when power is on
+						parent.probe_controls.append(slider_name)
+				elif slider.property('required') == 'homed':
+					parent.home_required.append(slider_name)
+				else:
+					parent.state_on[slider_name] = True
+
+
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.children:
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')

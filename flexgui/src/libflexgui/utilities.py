@@ -165,6 +165,7 @@ def sync_checkboxes(parent, sender, receiver):
 def update_hal_spinbox(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
-	#parent.halcomp.pin_seek = 123.5
+def update_hal_slider(parent, value):
+	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 
