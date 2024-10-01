@@ -1158,9 +1158,16 @@ def setup_hal_buttons(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
+			if button_name == pin_name:
+				msg = (f'The object name {button_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
 			hal_type = button.property('hal_type')
 			hal_dir = button.property('hal_dir')
-			#print(button.objectName(), pin_name, hal_type, hal_dir)
+			print(button.objectName(), pin_name, hal_type, hal_dir)
 
 			if None not in [pin_name, hal_type, hal_dir]:
 				#print('building')
