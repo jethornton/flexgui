@@ -111,7 +111,12 @@ class flexgui(QMainWindow):
 			flex_version = 'Unknown'
 
 		loadUi(gui_path, self)
-		self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
+		machine = self.inifile.find('EMC', 'MACHINE') or False
+		print(machine)
+		if machine:
+			self.setWindowTitle(f'{machine} Flex GUI V{flex_version}')
+		else:
+			self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
 
 		# check for a resources.py file with images for the stylesheet
 		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
