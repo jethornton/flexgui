@@ -1776,7 +1776,7 @@
       </rect>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;On Distance probe routines sets max XY travel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max travel on XY Distance , 2nd point search distance on Angle&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="decimals">
       <number>3</number>
