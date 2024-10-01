@@ -1167,7 +1167,6 @@ def setup_hal_buttons(parent):
 				continue
 			hal_type = button.property('hal_type')
 			hal_dir = button.property('hal_dir')
-			print(button.objectName(), pin_name, hal_type, hal_dir)
 
 			if None not in [pin_name, hal_type, hal_dir]:
 				#print('building')
