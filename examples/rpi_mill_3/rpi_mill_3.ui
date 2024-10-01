@@ -454,7 +454,7 @@
         <number>0</number>
        </property>
       </widget>
-      <widget class="QLabel" name="rapidrate_lb">
+      <widget class="QLabel" name="rapid_override_lb">
        <property name="geometry">
         <rect>
          <x>150</x>
