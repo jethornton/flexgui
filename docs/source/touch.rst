@@ -27,11 +27,15 @@ Now you just drag the action into the tool bar to create a new tool bar button.
 .. image:: /images/new-action-03.png
    :align: center
 
+Another option is to just use QPushButtons in a QFrame as every menu action has
+a QPushButton as well that executes the same function.
+
 MDI
 ---
 
-To enable the G code popup for the MDI entry add a Dynamic Property called
-`mode` to the and set the value to `touch`.
+To enable the G code popup for the MDI entry the QLineEdit object name must be
+either `mdi_command_gc_le` for the G code popup or `mdi_command_kb_le` for the
+keyboard popup.
 
 .. image:: /images/touch-01.png
    :align: center
@@ -51,7 +55,7 @@ Touch Off
 
 The Coordinate System Touch Off offset is a QLineEdit named `touchoff_le`.
 To enable the number pad popup for the offset entry add a Dynamic Property
-called `mode` to the and set the value to `touch`.
+named `input` to the and set the value to `number`.
 
 .. image:: /images/touch-04.png
    :align: center
@@ -66,6 +70,30 @@ Tool Touch Off
 
 The Tool Touch Off offset is a QLineEdit named `tool_touchoff_le`.
 To enable the number pad popup for the offset entry add a Dynamic Property
-called `mode` to the and set the value to `touch`.
+named `input` to the and set the value to `number`.
 
+Spin Boxes
+----------
+QDoubleSpinBox and QSpinBox can use the popup numbers keypad by adding a Dynamic
+Property named `input` and seting the value to `number`. If you enter a float
+value for a QSpinBox the value will get converted to an integer.
+
+Line Edits
+----------
+A QLineEdit can have a popup entry for numbers, G code or a full keyboard. Add
+a Dynamic Property named `input` and set the value to one of these `number`,
+`gcode` or `keyboard`.
+
+File Navigator
+--------------
+
+If a QListWidget with an objectName of `file_lw` is found a touch friendly file
+selector is added. A Parent Directory and possibly a directory name with an
+ellipsis can be used to change directories. Touch a file name and it's loaded
+into the GUI.
+
+If PROGRAM_PREFIX is specified that will be the starting directory.
+
+.. image:: /images/touch-06.png
+   :align: center
 

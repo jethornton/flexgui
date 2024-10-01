@@ -1,0 +1,17 @@
+(filename xplus.ngc)
+(HAL pins #<_hal[pin_name]>)
+(G90 absolute distance mode G91 incremental distance mode)
+o<xplus> sub
+	(msg, xplus subroutine)
+	G20
+	; initial search
+	G91 G38.2 F#<_hal[flexhal.search-speed]> X#<_hal[flexhal.search-distance]>
+	;5061-5069 - Coordinates of a G38 probe result (X, Y, Z, A, B, C, U, V & W)
+	(debug, Probe Contact at #5061)
+	; back off using #5061 to compensate for over travel on the probe
+	G90 G0 X[#5061-#<_hal[flexhal.backoff-distance]>]
+	; final probe at latch speed
+	G91 G38.2 F#<_hal[flexhal.latch-speed]> X[#<_hal[flexhal.backoff-distance]> + 0.02]
+	(debug, Probe Contact at #5061)
+o<xplus> endsub
+M2

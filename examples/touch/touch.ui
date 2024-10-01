@@ -223,7 +223,32 @@
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_13"/>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="clear_info_pb">
+             <property name="text">
+              <string>Clear
+Info</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" rowspan="2">
+            <widget class="QPlainTextEdit" name="info_pte"/>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
@@ -366,7 +391,11 @@
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLineEdit" name="tool_touchoff_le"/>
+               <widget class="QLineEdit" name="tool_touchoff_le">
+                <property name="input" stdset="0">
+                 <string>number</string>
+                </property>
+               </widget>
               </item>
               <item row="0" column="2">
                <widget class="QPushButton" name="tool_touchoff_y">
@@ -406,7 +435,11 @@
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLineEdit" name="touchoff_le"/>
+               <widget class="QLineEdit" name="touchoff_le">
+                <property name="input" stdset="0">
+                 <string>number</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -792,11 +825,7 @@
          <widget class="QListWidget" name="mdi_history_lw"/>
         </item>
         <item row="3" column="0">
-         <widget class="QLineEdit" name="mdi_command_le">
-          <property name="mode" stdset="0">
-           <string>touch</string>
-          </property>
-         </widget>
+         <widget class="QLineEdit" name="mdi_command_gc_le"/>
         </item>
         <item row="0" column="1" rowspan="4">
          <widget class="QFrame" name="frame_4">
@@ -1008,7 +1037,7 @@
          <widget class="QPlainTextEdit" name="errors_pte"/>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="clear_error_history_pb">
+         <widget class="QPushButton" name="clear_errors_pb">
           <property name="text">
            <string>Clear Errors</string>
           </property>
@@ -1029,8 +1058,28 @@
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <property name="mode" stdset="0">
-           <string>touch</string>
+          <property name="input" stdset="0">
+           <string>number</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>DSF</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QFrame" name="dsf_container">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="input" stdset="0">
+           <string>number</string>
           </property>
          </widget>
         </item>

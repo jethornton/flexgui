@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+import os, sys, subprocess, shutil
+
+# disable cache usage must be before any local imports
+sys.dont_write_bytecode = True
+
+from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
+from PyQt6.uic import loadUi
+
+class flexqrc(QMainWindow):
+	def __init__(self):
+		super().__init__()
+
+		if os.path.split(sys.argv[0])[0] == '/usr/bin':
+			self.lib_path = '/usr/lib/libflexgui'
+			loadUi(os.path.join(self.lib_path, 'flexqrc.ui'), self)
+		else:
+			srcPath = os.path.split(os.path.realpath(sys.argv[0]))[0]
+			self.lib_path = os.path.join(srcPath, 'libflexgui')
+			loadUi(os.path.join(srcPath, 'flexqrc.ui'), self)
+		stylesheet = os.path.join(self.lib_path, 'flexqrc.qss')
+		with open(stylesheet,'r') as fh:
+			self.setStyleSheet(fh.read())
+
+		self.images_directory = False
+		self.files = []
+		self.qrc_file = ''
+
+		self.get_images_pb.setEnabled(False)
+		self.build_qrc_pb.setEnabled(False)
+		self.get_config_dir_pb.setEnabled(False)
+		self.build_resources_pb.setEnabled(False)
+
+		self.get_images_dir_pb.clicked.connect(self.get_images_dir)
+		self.get_images_pb.clicked.connect(self.get_images)
+		self.build_qrc_pb.clicked.connect(self.build_qrc)
+		self.get_config_dir_pb.clicked.connect(self.get_config_dir)
+		self.build_resources_pb.clicked.connect(self.build_resources)
+
+		self.setWindowTitle('Flex Resource Builder')
+		check_rcc = subprocess.run(["which", "rcc"], capture_output=True, text=True)
+		if check_rcc.returncode == 0:
+			rcc_version = subprocess.run(['rcc', '-v'], capture_output=True, text=True)
+			self.rcc_version_lb.setText(f'{rcc_version.stdout.strip()}')
+			self.rcc = True
+		else:
+			self.rcc_version_lb.setText('rcc was not found')
+			self.rcc = False
+
+		self.show()
+
+	def get_images_dir(self):
+		options = QFileDialog.Option.ShowDirsOnly
+		options |= QFileDialog.Option.DontUseNativeDialog
+		result = QFileDialog.getExistingDirectory(self, 'Select Images Directory',
+		options=options)
+		if result:
+			self.images_directory = result
+			self.image_dir_lb.setText(result)
+			self.get_images_pb.setEnabled(True)
+
+	def get_images(self):
+		if self.images_directory:
+			options = QFileDialog.Option.DontUseNativeDialog
+			files, filter = QFileDialog.getOpenFileNames(self,'Select Images',
+			self.images_directory, "All Files (*);;Python Files (*.py)", options=options)
+			if files:
+				self.images_lw.addItems(files)
+				for file in files:
+					self.files.append(file)
+				self.build_qrc_pb.setEnabled(True)
+				self.get_images_lb.setText(f'{len(files)} images selected')
+
+	def build_qrc(self):
+		self.qrc_file = os.path.join(self.images_directory, 'resources.qrc')
+		contents = []
+		contents.append('<RCC>\n')
+		contents.append('  <qresource prefix="/">\n')
+		for file in self.files:
+			contents.append(f'    <file>{os.path.basename(file)}</file>\n')
+		contents.append('  </qresource>\n')
+		contents.append('</RCC>')
+		with open(self.qrc_file, 'w') as f:
+			f.writelines(contents)
+		self.get_config_dir_pb.setEnabled(True)
+		self.build_qrc_lb.setText('Build QRC Done')
+
+	def get_config_dir(self):
+		if os.path.isdir(os.path.expanduser('~/linuxcnc/configs')):
+			configsDir = os.path.expanduser('~/linuxcnc/configs')
+		else:
+			configsDir = os.path.expanduser('~/')
+		#QFileDialog::QFileDialog(QWidget *parent = nullptr,
+		# const QString &caption = QString(), const QString &directory = QString(),
+		# const QString &filter = QString())
+		options = QFileDialog.Option.ShowDirsOnly
+		options |= QFileDialog.Option.DontUseNativeDialog
+		result = QFileDialog.getExistingDirectory(self, 'Select Configuration Directory',
+		configsDir, options=options)
+		if result:
+			self.config_directory = result
+			self.config_dir_lb.setText(result)
+			if self.rcc:
+				self.build_resources_pb.setEnabled(True)
+			else:
+				self.build_resources_lb.setText('install rcc')
+
+	def build_resources(self):
+		os.chdir(self.images_directory)
+		result = subprocess.run(['rcc', '-g', 'python', '-o', 'resources.py',
+			'resources.qrc'], capture_output=True, text=True)
+		if result.returncode == 0: # success
+			resource_file = os.path.join(self.images_directory, 'resources.py')
+			self.build_resources_lb.setText('Build Success')
+			# fix the file first lol
+			# Read in the file
+			with open(resource_file, 'r') as file:
+				filedata = file.read()
+			# Replace the target string
+				filedata = filedata.replace('PySide2', 'PyQt6')
+			# Write the file out again
+
+			with open(resource_file, 'w') as file:
+				file.write(filedata)
+			shutil.copy2(resource_file, self.config_directory)
+
+		#print('build')
+		#print(os.getcwd())
+		#shutil.copy2(self.qrc_file, self.config_directory)
+		#os.chdir(self.config_directory)
+		#print(os.getcwd())
+		#result = subprocess.run(['rcc', '-g', 'python', '-o', 'resources.py',
+		#	'resources.qrc'], capture_output=True, text=True)
+		#print(result)
+
+
+		# rcc -g python -o resources.py resources.qrc
+
+app = QApplication(sys.argv)
+gui = flexqrc()
+sys.exit(app.exec())

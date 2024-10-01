@@ -1,0 +1,2443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>754</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1040</width>
+    <height>754</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPlainTextEdit" name="gcode_pte">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>40</y>
+      <width>201</width>
+      <height>256</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QFrame" name="plot_widget">
+    <property name="geometry">
+     <rect>
+      <x>215</x>
+      <y>40</y>
+      <width>306</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_41">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>410</y>
+      <width>156</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Outside Measurement</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_10">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>605</y>
+      <width>141</width>
+      <height>76</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="probe_ts_height">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_tool_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_workpiece_height">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_top_m&gt; call</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_43">
+    <property name="geometry">
+     <rect>
+      <x>255</x>
+      <y>410</y>
+      <width>146</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Inside Measurement</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_8">
+    <property name="geometry">
+     <rect>
+      <x>225</x>
+      <y>435</y>
+      <width>206</width>
+      <height>206</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="probe_inXminusYplus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inXminusYminus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>135</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inXminus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_right_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inYminus">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>135</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_back_m&gt;  call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inhole">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_hole_m&gt;  call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inYplus">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_front_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inXplus">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_left_m&gt;  call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inXplusYminus">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>135</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_inXplusYplus">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_7">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>435</y>
+      <width>206</width>
+      <height>206</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="probe_XminusYplus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_XminusYminus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>135</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_Xminus">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_right_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_Yminus">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_back_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_wk_center">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_bar_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_XplusYminus">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>135</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_XplusYplus">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_Yplus">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>135</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_front_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_Xplus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_left_m&gt;  call</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_44">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>585</y>
+      <width>81</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tool Probe</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="home_all_pb">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>300</y>
+      <width>76</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Home All</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clear_errors_pb">
+    <property name="geometry">
+     <rect>
+      <x>645</x>
+      <y>295</y>
+      <width>121</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CLEAR ERROR</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="errors_pte">
+    <property name="geometry">
+     <rect>
+      <x>535</x>
+      <y>10</y>
+      <width>256</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_4">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>5</y>
+      <width>486</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>5</y>
+       <width>16</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Y</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>5</y>
+       <width>16</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Z</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="dro_lb_x">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>5</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="dro_lb_z">
+     <property name="geometry">
+      <rect>
+       <x>385</x>
+       <y>5</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>83</x>
+       <y>5</y>
+       <width>16</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>X</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="dro_lb_y">
+     <property name="geometry">
+      <rect>
+       <x>246</x>
+       <y>5</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="home_lb_0">
+     <property name="geometry">
+      <rect>
+       <x>53</x>
+       <y>5</y>
+       <width>21</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>HX</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="home_lb_1">
+     <property name="geometry">
+      <rect>
+       <x>194</x>
+       <y>5</y>
+       <width>20</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>HY</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="home_lb_2">
+     <property name="geometry">
+      <rect>
+       <x>333</x>
+       <y>5</y>
+       <width>21</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>HZ</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_34">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>46</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Offset</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_7">
+    <property name="geometry">
+     <rect>
+      <x>745</x>
+      <y>375</y>
+      <width>191</width>
+      <height>326</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Jogging</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QPushButton" name="jog_plus_pb_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>71</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog Z +</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jog_minus_pb_2">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>150</y>
+       <width>71</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog Z -</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jog_minus_pb_0">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>60</y>
+       <width>71</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog X -</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jog_plus_pb_0">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>71</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog X +</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jog_minus_pb_1">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>105</y>
+       <width>71</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog Y -</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jog_plus_pb_1">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>105</y>
+       <width>71</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog Y +</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="jog_modes_cb">
+     <property name="geometry">
+      <rect>
+       <x>55</x>
+       <y>25</y>
+       <width>121</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>25</y>
+       <width>56</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Mode</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>195</y>
+       <width>26</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Min</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSlider" name="jog_vel_sl">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>225</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickPosition">
+      <enum>QSlider::TicksBelow</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>195</y>
+       <width>32</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Max</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="min_jog_vel_lb_2">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>245</y>
+       <width>32</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="max_jog_vel_lb_2">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>245</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>265</y>
+       <width>96</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jog Velocity &gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="jog_vel_lb">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>265</y>
+       <width>76</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="view_clear_pb">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>300</y>
+      <width>76</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CLEAR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="gcodes_lb">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>650</y>
+      <width>256</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::MarkdownText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mcodes_lb">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>650</y>
+      <width>161</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="override_limits_cb">
+    <property name="geometry">
+     <rect>
+      <x>775</x>
+      <y>670</y>
+      <width>131</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Override Limits</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>589</x>
+      <y>605</y>
+      <width>141</width>
+      <height>96</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QComboBox" name="tool_change_cb">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>5</y>
+       <width>96</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tool_change_pb">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>45</y>
+       <width>101</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="toolTipDuration">
+      <number>-1</number>
+     </property>
+     <property name="text">
+      <string>Toolchange</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="trigger_probe">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>365</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SET</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_pin</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>probe_trigger_pin</string>
+    </property>
+    <property name="hal_type" stdset="0">
+     <string>HAL_BIT</string>
+    </property>
+    <property name="hal_dir" stdset="0">
+     <string>HAL_OUT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>341</y>
+      <width>126</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Probe Test Button</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="mdi_command_le">
+    <property name="geometry">
+     <rect>
+      <x>535</x>
+      <y>265</y>
+      <width>256</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="mdi_history_lw">
+    <property name="geometry">
+     <rect>
+      <x>535</x>
+      <y>125</y>
+      <width>256</width>
+      <height>136</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>331</width>
+      <height>256</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="run_mdi_pb">
+    <property name="geometry">
+     <rect>
+      <x>555</x>
+      <y>295</y>
+      <width>86</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RUN MDI</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="view_p_pb">
+    <property name="geometry">
+     <rect>
+      <x>255</x>
+      <y>300</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>View P</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="view_z_pb">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>300</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>View Z</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>5</y>
+      <width>226</width>
+      <height>616</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>25</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SEARCH FEED</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>75</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FINE  FEED</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>125</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string> XY SEARCH DIST</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>370</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Y PROBE COORD</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>220</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>XY RETRACT DIST</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>320</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>X PROBE COORD</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_search_feed">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>10</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>600.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>508.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_search_feed</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_fine_feed">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>60</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>500.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>254.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_fine_feed</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_search_dist">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>110</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-20.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>20.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>12.699999999999999</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_search_dist</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_y_coord">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>360</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-500.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>500.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.001000000000000</double>
+     </property>
+     <property name="value">
+      <double>-152.400000000000006</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_y_coord</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_retract_dist">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>210</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>0.150000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>4.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>3.810000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_retract_dist</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_x_coord">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>310</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-500.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>500.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.001000000000000</double>
+     </property>
+     <property name="value">
+      <double>-254.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_x_coord</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_25">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>520</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MAX BAR RAD</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_26">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>170</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Z SEARCH DIST</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_z_max_probe">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>160</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-100.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>20.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>-50.799999999999997</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_z_max_probe</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>420</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TOOL Z START</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_28">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>470</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MAX HOLE RAD</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_tip_diam">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>560</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>2.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_tip_diam</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_z_start">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>410</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-50.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>50.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.001000000000000</double>
+     </property>
+     <property name="value">
+      <double>-2.540000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_z_start</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_max_hole_r">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>460</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="singleStep">
+      <double>0.001000000000000</double>
+     </property>
+     <property name="value">
+      <double>30.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_max_hole_r</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_max_bar_r">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>510</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>99.989999999999995</double>
+     </property>
+     <property name="singleStep">
+      <double>0.001000000000000</double>
+     </property>
+     <property name="value">
+      <double>30.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_max_bar_r</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_29">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>570</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PROBE TIP DIAM</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="probe_xy_travel_dist">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>260</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>0.200000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>999.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>75.000000000000000</double>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>probe_xy_travel_dist</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_OUT</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>270</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string> XY TRAVEL DIST</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="unhome_all_pb">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>95</x>
+      <y>300</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>UnHome All</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>640</y>
+      <width>111</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rapid Override</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QSlider" name="rapid_override_sl">
+    <property name="geometry">
+     <rect>
+      <x>965</x>
+      <y>665</y>
+      <width>160</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="power_pb">
+    <property name="geometry">
+     <rect>
+      <x>125</x>
+      <y>350</y>
+      <width>106</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Polwer</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="probing_enable_pb">
+    <property name="geometry">
+     <rect>
+      <x>235</x>
+      <y>350</y>
+      <width>106</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Probe Enable</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="estop_pb">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>350</y>
+      <width>106</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>E-stop</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>410</y>
+      <width>76</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Distance</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_5">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>435</y>
+      <width>141</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="probe_p_lx_in">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_lx_in_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_p_ly_in">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_ly_in_m&gt;  call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_p_lx_out">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_lx_out_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_p_ly_out">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_ly_out_m&gt;  call</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>795</x>
+      <y>110</y>
+      <width>161</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set Probed Location</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="set_X">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>66</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set X</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>G10 L20 P0 X 0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="set_Y">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>66</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set Y</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>G10 L20 P0 Y 0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="set_Z">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>66</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set Z</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>G10 L20 P0 Z 0</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="rapid_override_lb">
+    <property name="geometry">
+     <rect>
+      <x>1135</x>
+      <y>660</y>
+      <width>41</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_6">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>435</y>
+      <width>141</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="probe_p_angle_x_plus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_angle_x_plus_m&gt; call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_p_angle_x_minus">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_angle_x_minus_m&gt;  call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_p_angle_y_plus">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>70</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_angle_y_plus_m&gt;  call</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="probe_p_angle_y_minus">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>5</y>
+       <width>65</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>o&lt;p_angle_y_minus_m&gt; call</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_19">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>410</y>
+      <width>76</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Angle</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionReload"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit_Tool_Table"/>
+    <addaction name="actionReload_Tool_Table"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuMachine">
+    <property name="title">
+     <string>Machine</string>
+    </property>
+    <addaction name="actionE_Stop"/>
+    <addaction name="actionPower"/>
+    <addaction name="actionRun"/>
+    <addaction name="actionRun_From_Line"/>
+    <addaction name="actionStep"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionResume"/>
+    <addaction name="actionStop"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_MDI_History"/>
+    <addaction name="actionCopy_MDI_History"/>
+   </widget>
+   <widget class="QMenu" name="menuPrograms">
+    <property name="title">
+     <string>Programs</string>
+    </property>
+    <addaction name="actionShow_HAL"/>
+    <addaction name="actionHAL_Meter"/>
+    <addaction name="actionHAL_Scope"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionDRO"/>
+    <addaction name="actionLimits"/>
+    <addaction name="actionExtents_Option"/>
+    <addaction name="actionLive_Plot"/>
+    <addaction name="actionVelocity"/>
+    <addaction name="actionMetric_Units"/>
+    <addaction name="actionProgram"/>
+    <addaction name="actionRapids"/>
+    <addaction name="actionTool"/>
+    <addaction name="actionDTG"/>
+    <addaction name="actionOffsets"/>
+    <addaction name="actionOverlay"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuMachine"/>
+   <addaction name="menuPrograms"/>
+   <addaction name="menuView"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionReload">
+   <property name="text">
+    <string>Reload</string>
+   </property>
+  </action>
+  <action name="actionEdit_Tool_Table">
+   <property name="text">
+    <string>Edit Tool Table</string>
+   </property>
+  </action>
+  <action name="actionReload_Tool_Table">
+   <property name="text">
+    <string>Reload Tool Table</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionPower_Off">
+   <property name="text">
+    <string>Power Off</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </action>
+  <action name="actionRun_From_Line">
+   <property name="text">
+    <string>Run From Line</string>
+   </property>
+  </action>
+  <action name="actionStep">
+   <property name="text">
+    <string>Step</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionResume">
+   <property name="text">
+    <string>Resume</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="text">
+    <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionClear_MDI_History">
+   <property name="text">
+    <string>Clear MDI History</string>
+   </property>
+  </action>
+  <action name="actionCopy_MDI_History">
+   <property name="text">
+    <string>Copy MDI History</string>
+   </property>
+  </action>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>Show HAL</string>
+   </property>
+  </action>
+  <action name="actionHAL_Meter">
+   <property name="text">
+    <string>HAL Meter</string>
+   </property>
+  </action>
+  <action name="actionHAL_Scope">
+   <property name="text">
+    <string>HAL Scope</string>
+   </property>
+  </action>
+  <action name="actionDRO">
+   <property name="text">
+    <string>DRO</string>
+   </property>
+  </action>
+  <action name="actionLimits">
+   <property name="text">
+    <string>Limits</string>
+   </property>
+  </action>
+  <action name="actionExtents_Option">
+   <property name="text">
+    <string>Extents Option</string>
+   </property>
+  </action>
+  <action name="actionLive_Plot">
+   <property name="text">
+    <string>Live Plot</string>
+   </property>
+  </action>
+  <action name="actionVelocity">
+   <property name="text">
+    <string>Velocity</string>
+   </property>
+  </action>
+  <action name="actionMetric_Units">
+   <property name="text">
+    <string>Metric Units</string>
+   </property>
+  </action>
+  <action name="actionProgram">
+   <property name="text">
+    <string>Program</string>
+   </property>
+  </action>
+  <action name="actionRapids">
+   <property name="text">
+    <string>Rapids</string>
+   </property>
+  </action>
+  <action name="actionDTG">
+   <property name="text">
+    <string>DTG</string>
+   </property>
+  </action>
+  <action name="actionTool">
+   <property name="text">
+    <string>Tool</string>
+   </property>
+  </action>
+  <action name="actionOffsets">
+   <property name="text">
+    <string>Offsets</string>
+   </property>
+  </action>
+  <action name="actionOverlay">
+   <property name="text">
+    <string>Overlay</string>
+   </property>
+  </action>
+  <action name="actionE_Stop">
+   <property name="text">
+    <string>E Stop</string>
+   </property>
+  </action>
+  <action name="actionPower">
+   <property name="text">
+    <string>Power</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

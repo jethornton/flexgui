@@ -1,0 +1,13 @@
+o<xplus> sub
+(msg, Moving to Start Position)
+G90 G0 X4 Y4
+F#<_hal[flexhal.probe-search]>
+G91 G1 X0.500
+G1 X-0.150
+F#<_hal[flexhal.probe-latch]>
+G1 X0.150
+(debug, Part Edge X#<_x>)
+(msg, Probing Finished)
+G90 G0 X0.5 Y0.5
+o<xplus> endsub
+M2

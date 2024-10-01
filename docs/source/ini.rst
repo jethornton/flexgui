@@ -3,6 +3,9 @@ INI Settings
 
 .. note:: All settings are in the [DISPLAY] section of the ini file.
 
+Display Settings
+----------------
+
 To use the Flex GUI change the DISPLAY value to:
 ::
 
@@ -26,12 +29,46 @@ To use your style sheet add with `file-name` being the name of your .qss file.
 
 .. note:: If a qss file is specified then input and theme are not used
 
+Startup File
+------------
+
+To open a file on startup add the OPEN_FILE item with either the full path to
+the G code file or you can use ~/ for the user home direcory or ./ if the file
+is in the configuration directory.
+::
+
+	OPEN_FILE = /home/john/linuxcnc/configs/flex_examples/probe_sim/square.ngc
+	or
+	OPEN_FILE = ~/linuxcnc/configs/flex_examples/probe_sim/square.ngc
+	or
+	OPEN_FILE = ./square.ngc
+
+File Location
+-------------
+
+To specify the loction to look for files add the PROGRAM_PREFIX item with either
+the full path to the G code files or you can use ~/ for the user home direcory
+or ./ if the path is in the configuration directory.
+::
+
+	PROGRAM_PREFIX = /home/john/linuxcnc/configs/flex_examples/probe_sim
+	or
+	PROGRAM_PREFIX = ~/linuxcnc/configs/flex_examples/probe_sim
+	or
+	PROGRAM_PREFIX = ./
+
+Resource File
+-------------
+
 To use a resources file to add images to buttons with your qss stylesheet place
 the resource file in the configuration directory and add the following line to
 the ini file.
 ::
 
 	RESOURCES = resources.py
+
+Stylesheets
+-----------
 
 To use the built in input stylesheets add either
 ::
@@ -41,17 +78,16 @@ To use the built in input stylesheets add either
 
 .. note:: If no INPUT or QSS is specified then no qss file will be used.
 
-To use the built in dark theme an INPUT must be specified.
+File Extensions
+---------------
+
+The keyboard file dialog defaults to `*.ngc` (any case) to specify the G code
+extensions you want the file dialog to use add EXTENSIONS with the g code
+extensions seperated by a comma. The extensions must be in the form `*.ext` with
+the asterisk and dot.
 ::
 
-	THEME = DARK
-
-The ile selector defaults to `.ngc` (any case) to add more extensions add
-EXTENSIONS with other g code extensions seperated by a comma. The extensions
-must be in the form `.ext` with the leading dot.
-::
-
-	EXTENSIONS = .nc, .gcode, .xt
+	EXTENSIONS = *.nc, *.gcode, *.ngc, *.NGC
 
 To control the initial size of the screen add either
 ::
@@ -65,4 +101,20 @@ To control the initial size of the screen add either
    is a way to close the GUI like an Exit button or you will not be able to
    close the application.
 
+Colors
+------
+
+The E-Stop and Power Buttons can have a static color for E-Stop Open and or
+Closed and the Power Button can have a static color for Power Off and or On.
+
+Create a section in the ini file called FLEX_COLORS and use the following to
+control the static color of these items. The value can be any valid color
+specification, it's suggested you use the RGB or Hex colors.
+::
+
+	[FLEX_COLORS]
+	ESTOP_OPEN = rgb(128, 255, 128)
+	ESTOP_CLOSED = rgb(255, 77, 77)
+	POWER_OFF = rgb(255, 128, 128)
+	POWER_ON = rgb(0, 255, 0)
 

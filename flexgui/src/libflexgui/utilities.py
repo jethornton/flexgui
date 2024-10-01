@@ -2,7 +2,7 @@ import os
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtWidgets import QTextEdit
+from PyQt6.QtWidgets import QApplication, QTextEdit
 
 import linuxcnc as emc
 
@@ -17,6 +17,24 @@ def is_int(string):
 	try:
 		int(string)
 		return True
+	except ValueError:
+		return False
+
+def string_to_int(string):
+	if '.' in string:
+		string, digits = string.split('.')
+		return int(string)
+
+def convert_string_to_number(string):
+	try:
+		number = int(string)
+		return number
+	except ValueError:
+		pass
+
+	try:
+		number = float(string)
+		return number
 	except ValueError:
 		return False
 
@@ -41,20 +59,14 @@ def home_all_check(parent):
 			return False
 	return True
 
-def set_enables(parent): # FIXME this may handle enables dunno
-	print('set_enables')
-
-	# STATE_ON
-	# ALL HOMED
-	# FILE LOADED
-
 def set_homed_enable(parent):
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(True)
 	for item in parent.home_required:
-		getattr(parent, item).setEnabled(True)
+		if not item.startswith('probe_'): # don't enable probe buttons
+			getattr(parent, item).setEnabled(True)
 	if parent.status.file:
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
@@ -63,25 +75,40 @@ def update_jog_lb(parent):
 	parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()} {parent.units}/min')
 
 def add_mdi(parent):
-	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
+	for item in ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']:
+		if item in parent.children:
+			getattr(parent, item).setText(f'{parent.mdi_history_lw.currentItem().text()}')
+
+def copy_errors(parent):
+	qclip = QApplication.clipboard()
+	qclip.setText(parent.errors_pte.toPlainText())
+	if 'statusbar' in parent.children:
+		parent.statusbar.showMessage('Errors copied to clipboard')
 
 def clear_errors(parent):
 	parent.errors_pte.clear()
-	parent.statusbar.clearMessage()
+	if 'statusbar' in parent.children:
+		parent.statusbar.clearMessage()
+
+def clear_info(parent):
+	parent.info_pte.clear()
 
 def update_mdi(parent):
-	parent.mdi_history_lw.addItem(parent.mdi_command)
-	path = os.path.dirname(parent.status.ini_filename)
-	mdi_file = os.path.join(path, 'mdi_history.txt')
-	mdi_codes = []
-	for index in range(parent.mdi_history_lw.count()):
-		mdi_codes.append(parent.mdi_history_lw.item(index).text())
-	with open(mdi_file, 'w') as f:
-		f.write('\n'.join(mdi_codes))
-	parent.mdi_command_le.setText('')
-	parent.command.mode(emc.MODE_MANUAL)
-	parent.command.wait_complete()
-	parent.mdi_command = ''
+	if 'mdi_history_lw' in parent.children:
+		parent.mdi_history_lw.addItem(parent.mdi_command)
+		path = os.path.dirname(parent.status.ini_filename)
+		mdi_file = os.path.join(path, 'mdi_history.txt')
+		mdi_codes = []
+		for index in range(parent.mdi_history_lw.count()):
+			mdi_codes.append(parent.mdi_history_lw.item(index).text())
+		with open(mdi_file, 'w') as f:
+			f.write('\n'.join(mdi_codes))
+		for item in ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']:
+			if item in parent.children:
+				getattr(parent, item).setText('')
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
+		parent.mdi_command = ''
 
 def print_states(parent, state):
 	parent.print_states = parent.print_states_cb.isChecked()
@@ -135,6 +162,10 @@ def sync_checkboxes(parent, sender, receiver):
 		getattr(parent, receiver).setChecked(getattr(parent, sender).isChecked())
 		parent.settings.setValue(f'PLOT/{receiver}', getattr(parent, sender).isChecked())
 
+def update_hal_spinbox(parent, value):
+	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
+def update_hal_slider(parent, value):
+	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 

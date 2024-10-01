@@ -1,0 +1,3 @@
+(debug, #<_hal[flexhal.pin_seek]>)
+G0 X0
+G0 X0

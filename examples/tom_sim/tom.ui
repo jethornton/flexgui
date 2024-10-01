@@ -35,7 +35,7 @@
     <item row="4" column="0" colspan="8">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="gcode_tab">
        <attribute name="title">
@@ -114,8 +114,14 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_1" stdset="0">
-            <string>test_pin2, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>test_pin2</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
           <widget class="QPushButton" name="HAL_BIT">
@@ -136,11 +142,17 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_0" stdset="0">
-            <string>test_pin1, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>test_pin1</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
-          <widget class="QRadioButton" name="rb_on">
+          <widget class="QRadioButton" name="rb_on_rb">
            <property name="geometry">
             <rect>
              <x>160</x>
@@ -155,11 +167,17 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_3" stdset="0">
-            <string>rb_on, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>rb_on</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
-          <widget class="QRadioButton" name="rb_off">
+          <widget class="QRadioButton" name="rb_off_rb">
            <property name="geometry">
             <rect>
              <x>220</x>
@@ -174,8 +192,14 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_2" stdset="0">
-            <string>rb_off, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>rb_off</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
           <widget class="QCheckBox" name="checkBox">
@@ -193,8 +217,14 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_4" stdset="0">
-            <string>checkbox, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>checkbox</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton">
@@ -212,8 +242,14 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_5" stdset="0">
-            <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>test_mdi_pin0</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton_2">
@@ -231,8 +267,14 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_6" stdset="0">
-            <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>test_mdi_pin1</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton_3">
@@ -250,8 +292,14 @@
            <property name="function" stdset="0">
             <string>hal_pin</string>
            </property>
-           <property name="pin_7" stdset="0">
-            <string>test_mdi_pin2, HAL_BIT, HAL_OUT</string>
+           <property name="pin_name" stdset="0">
+            <string>test_mdi_pin2</string>
+           </property>
+           <property name="hal_type" stdset="0">
+            <string>HAL_BIT</string>
+           </property>
+           <property name="hal_dir" stdset="0">
+            <string>HAL_OUT</string>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButton_4">
@@ -1982,7 +2030,7 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QPushButton" name="clear_error_history_pb">
+            <widget class="QPushButton" name="clear_errors_pb">
              <property name="text">
               <string>Clear Errors</string>
              </property>
