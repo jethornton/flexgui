@@ -110,9 +110,6 @@ def update_mdi(parent):
 		parent.command.wait_complete()
 		parent.mdi_command = ''
 
-def print_states(parent, state):
-	parent.print_states = parent.print_states_cb.isChecked()
-
 def feed_override(parent, value):
 	parent.command.feedrate(float(value / 100))
 
