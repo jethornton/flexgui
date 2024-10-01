@@ -1171,6 +1171,8 @@ def setup_hal_buttons(parent):
 
 				if button.isCheckable():
 					button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+					# set the hal pin default
+					setattr(parent.halcomp, pin_name, button.isChecked())
 				else:
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
@@ -1199,6 +1201,7 @@ def setup_hal_buttons(parent):
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				# set the default value of the spin box to the hal pin
 				setattr(parent.halcomp, pin_name, spinbox.value())
 				spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 				parent.state_estop[spinbox_name] = False
