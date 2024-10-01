@@ -4,7 +4,7 @@ Resources
 To create a resources.py file with images to use with the qss stylesheet start
 by placing all the images in one directory.
 
-Add the following library
+Add the following library if not installed.
 ::
 
 	sudo apt install qtbase5-dev-tools
@@ -52,15 +52,19 @@ add the following with a line for each file.
 	  </qresource>
 	</RCC>
 
-.. note:: The name and path of the file between <file> and </file> must match
-   exactly in the qss file.
+.. note:: The name of the file between <file> and </file> must match exactly in
+   the qss file plus a leading colon to use the internal resourses.py.
 
 Example
 ::
 
-	<file>images/inX+.png</file>
-	background-image: url(images/inX+.png);
+	# resources.qrc file
+	<file>inX+.png</file>
 
+	/* your qss file */
+	background-image: url(:inX+.png);
+
+.. note:: The file name must start with : to use the internal resources.
 
 Open a terminal in the directory where the images and the resourses.qrc file is
 and use the following command to create the resourses.py file that is needed

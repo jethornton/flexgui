@@ -1,0 +1,267 @@
+/* **** REGULAR BUTTONS **** */
+
+/* QPushButton
+{
+	background-color: rgba(192, 192, 192, 50%);
+	min-height: 25px;
+	min-width: 25px;
+	border:0px solid rgb(128, 128, 128);
+	border-style: outset;
+	border-width: 2px;
+	border-radius: 3px;
+	margin-bottom: 1px;
+} */
+
+QPushButton
+{
+	min-height: 35px;
+	min-width: 35px;
+	margin: 2px;
+	border: 0px solid rgba(128, 128, 128, 100%);
+	border-width: 2px;		/* border-width: 1px; */
+	border-style: outset;	/* border-style: solid; */
+	border-radius: 5px;
+	background-color: rgba(192, 192, 192, 50%);
+	background-position: center;
+	background-origin: content;
+	/* background-clip: padding; */
+	background-repeat: no-repeat;
+}
+
+QPushButton:hover
+{
+	background-color: rgba(0, 192, 0, 40%); color: white;
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 192, 0, 80%); color: white; border none;
+    border-style: inset;
+    border-width: 2px;
+}
+
+QPushButton:checked
+{
+	background-color: rgba(0, 192, 0, 90%); border none;
+	border-style: inset;
+}
+
+/* **************************************** */
+/*QPushButton#probe_inXminusYplus {
+	background-image: url(":images/inX-Y+.png");
+}*/
+QPushButton#probe_inYplus { 
+	background-image: url(":images/inY+.png");
+}
+/*QPushButton#probe_inXplusYplus {
+	background-image: url(":images/inX+Y+.png");
+}*/
+QPushButton#probe_inXminus{
+	background-image: url(":images/inX-.png");
+}
+QPushButton#probe_inhole{
+	background-image: url(":images/inHole.png");
+}
+QPushButton#probe_inXplus {
+	background-image: url(":images/inX+.png");
+}
+/*QPushButton#probe_inXminusYminus {
+	background-image: url(":images/inX-Y-.png");
+}*/
+QPushButton#probe_inYminus {
+	background-image: url(":images/inY-.png");
+}
+/*QPushButton#probe_inXplusYminus {
+	background-image: url(":images/inX+Y-.png");
+}*/
+
+/* **************************************** */
+
+/*QPushButton#probe_XminusYplus {
+	background-image: url(":images/X-Y+.png");
+}*/
+QPushButton#probe_Yplus {
+	background-image: url(":images/Y+.png");
+}
+/*QPushButton#probe_XplusYplus {
+	background-image: url(":images/X+Y+.png");
+}*/
+QPushButton#probe_Xminus{
+	background-image: url(":images/X-.png");
+}
+QPushButton#probe_wk_center{
+	background-image: url(":images/xy_center.png");
+}
+QPushButton#probe_Xplus {
+	background-image: url(":images/X+.png");
+}
+/*QPushButton#probe_XminusYminus {
+	background-image: url(":images/X-Y-.png");
+}*/
+QPushButton#probe_Yminus {
+	background-image: url(":images/Y-.png");
+}
+/*QPushButton#probe_XplusYminus {
+	background-image: url(":images/X+Y-.png");
+}*/	
+QPushButton#probe_workpiece_height {
+	background-image: url(":images/workpiece_height.png");
+}	
+QPushButton#probe_ts_height {
+	background-image: url(":images/ts_height.png");
+}	
+/*QPushButton#probe_angleXplus {
+	background-image: url(":images/angleX+.png");
+}	
+QPushButton#probe_angleXminus {
+	background-image: url(":images/angleX-.png");
+}
+QPushButton#probe_angleYplus {
+	background-image: url(":images/angleY+.png");
+}	
+QPushButton#probe_angleYminus {
+	background-image: url(":images/angleY-.png");
+}*/	
+
+
+/* **************************************** */
+/* **************************************** */
+
+/* **** TOOL BAR BUTTONS **** */
+
+QToolButton { /* all types of tool button */
+	min-height: 40px;
+	border: 1px solid black;
+    border-radius: 3px;
+	background-color: rgba(192, 192, 192, 50%);
+}
+
+QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
+    padding-right: 20px; /* make way for the popup button */
+}
+
+QToolButton#flex_Stop:hover
+{
+	background-color: rgba(192, 0, 0, 40%); color: white;
+}
+QToolButton#flex_Quit:hover
+{
+	background-color: rgba(192, 0, 0, 40%); color: white;
+}
+QToolButton:hover {
+	background-color: rgba(0, 192, 0, 40%); color: white;
+}
+
+QToolButton#flex_Quit:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+}
+QToolButton#flex_Stop:pressed {
+	background-color: rgba(192, 0, 0, 80%); color: white; border none;
+}
+
+QToolButton:pressed {
+	background-color: rgba(0, 192, 0, 80%);  color: white; border none;
+}
+
+/* the subcontrols below are used only in the MenuButtonPopup mode */
+QToolButton::menu-button {
+    border: 2px solid gray;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    /* 16px width + 4px for border = 20px allocated above */
+    width: 16px;
+}
+
+QToolButton::menu-arrow:open {
+    top: 1px; left: 1px; /* shift it a bit */
+}
+
+/* **** TABS **** */
+
+QTabWidget::pane { /* The tab widget frame */
+    border-top: 0px solid #C2C7CB;
+    position: absolute;
+    top: -0.5em;
+}
+
+QTabWidget::tab-bar {
+    alignment: left;
+}
+
+/* Style the tab using the tab sub-control. Note that
+    it reads QTabBar _not_ QTabWidget */
+QTabBar::tab {
+	background-color: rgba(192, 192, 192, 50%);
+    border: 2px solid #C4C4C3;
+    border-bottom-color: #C2C7CB; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 2px;
+}
+
+QTabBar::tab:hover {
+	background-color: rgba(0, 192, 0, 40%); color: white;
+}
+QTabBar::tab:selected {
+	background-color: rgba(0, 192, 0, 80%);
+}
+/*QTabBar::tab:selected, QTabBar::tab:hover {
+	background-color: rgba(0, 192, 0, 40%);
+}*/
+
+QTabBar::tab:selected {
+    border-color: #9B9B9B;
+    border-bottom-color: #C2C7CB; /* same as pane color */
+}
+
+/* **** SLIDERS **** */
+
+/*QSlider::groove:horizontal {
+    border: 1px solid;
+    height: 10px;
+    margin: 0px;
+    }
+QSlider::handle:horizontal {
+    background-color: grey;
+    border: 1px solid;
+    height: 15px;
+    width: 10px;
+    margin: -15px 0px;
+    }
+*/
+
+/* **** NOTES **** */
+
+/* Widget names for actions...
+flex_Open
+flex_Edit
+flex_Reload
+flex_Save_As
+flex_Edit_Tool_Table
+flex_Reload_Tool_Table
+flex_Ladder_Editor
+flex_Quit
+flex_E_Stop
+flex_Power
+flex_Run
+flex_Run_From_Line
+flex_Step
+flex_Pause
+flex_Resume
+flex_Stop
+flex_Clear_MDI_History
+flex_Copy_MDI_History
+flex_Show_HAL
+flex_HAL_Meter
+flex_HAL_Scope
+flex_About
+*/
+
+/* example for single button property:
+QPushButton#optional_stop_pb:hover
+*/
+/* QPushButton#inXminusYplus {
+	background-image: url(inX-Y+.png);
+} */
+

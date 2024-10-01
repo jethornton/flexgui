@@ -1,0 +1,17 @@
+o<hole> sub
+(msg, Moving to Start Position)
+G90 G0 X4 Y4
+F#<_hal[flexhal.probe-search]>
+G91 Z-0.50
+G1 X0.500
+X-1.000
+X0.500
+Y0.500
+Y-1.000
+Y0.500
+Z0.50
+(debug, Hole Center X#<_x> Y#<_y>)
+(msg, Probing Finished)
+G90 G0 X0.5 Y0.5
+o<hole> endsub
+M2

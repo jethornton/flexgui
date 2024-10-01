@@ -727,7 +727,19 @@
             </widget>
            </item>
            <item row="0" column="2" colspan="2">
-            <widget class="QLCDNumber" name="spindle_speed_0_lcd"/>
+            <widget class="QLCDNumber" name="spindle_speed_0_lcd">
+             <property name="font">
+              <font>
+               <family>Monospace</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1592,7 +1604,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
            <item row="0" column="0">
-            <widget class="QPushButton" name="clear_error_history_pb">
+            <widget class="QPushButton" name="clear_errors_pb">
              <property name="text">
               <string>Clear Errors</string>
              </property>

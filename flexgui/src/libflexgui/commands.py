@@ -34,6 +34,11 @@ def home(parent):
 		getattr(parent, f'home_pb_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
+		if utilities.all_homed(parent): # all homed
+			if 'unhome_all_pb' in parent.children:
+				parent.unhome_all_pb.setEnabled(True)
+			if 'home_all_pb' in parent.children:
+				parent.home_all_pb.setEnabled(False)
 
 def home_all(parent):
 	parent.status.poll()
@@ -43,11 +48,16 @@ def home_all(parent):
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.home(-1)
+	for item in parent.home_controls:
+		getattr(parent, item).setEnabled(False)
+	for item in parent.unhome_controls:
+		getattr(parent, item).setEnabled(True)
+	utilities.set_homed_enable(parent)
 
-def unhome(parent): # FIXME move disables to utilities
+def unhome(parent):
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 1:
+	if parent.status.homed[joint] == 1: # joint is homed so unhome it
 		set_mode(parent, emc.MODE_MANUAL)
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
@@ -55,24 +65,21 @@ def unhome(parent): # FIXME move disables to utilities
 		getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
 		if f'home_pb_{joint}' in parent.children:
 			getattr(parent, f'home_pb_{joint}').setEnabled(True)
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.home_required:
-			getattr(parent, item).setEnabled(False)
 		if utilities.all_unhomed(parent):
 			if 'unhome_all_pb' in parent.children:
 				parent.unhome_all_pb.setEnabled(False)
-			if utilities.home_all_check(parent):
-				if 'home_all_pb' in parent.children:
-					parent.home_all_pb.setEnabled(True)
+		if utilities.home_all_check(parent):
+			if 'home_all_pb' in parent.children:
+				parent.home_all_pb.setEnabled(True)
 
-def unhome_all(parent): # FIXME move disables to utilities
+def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.unhome(-1)
 	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
+
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(True)
 	for item in parent.unhome_controls:
@@ -87,17 +94,11 @@ def run_mdi(parent, cmd=''):
 		mdi_command = cmd
 	else:
 		if 'mdi_command_le' in parent.children:
-			if parent.mdi_command_le.text():
-				mdi_command = parent.mdi_command_le.text()
-			else:
-				msg = 'No MDI command was found!'
-				dialogs.warn_msg_ok(msg, 'Error')
-				return
-		else:
-			msg = 'QLineEdit mdi_command_le not found!'
-			dialogs.warn_msg_ok(msg, 'Error')
-			return
-
+			mdi_command = parent.mdi_command_le.text()
+		elif 'mdi_command_gc_le' in parent.children:
+			mdi_command = parent.mdi_command_gc_le.text()
+		elif 'mdi_command_kb_le' in parent.children:
+			mdi_command = parent.mdi_command_kb_le.text()
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
@@ -105,6 +106,9 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
+	else:
+		msg = 'No MDI command was found!'
+		dialogs.warn_msg_ok(msg, 'Error')
 
 def set_motion_teleop(parent, value):
 	# 1:teleop, 0: joint
@@ -155,6 +159,9 @@ def jog(parent):
 			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
 	else:
 		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
+		if 'override_limits_cb' in parent.children:
+			parent.override_limits_cb.setChecked(False)
+			parent.override_limits_cb.setEnabled(False)
 
 def mdi_button(parent, button):
 	mdi_command = button.property('command')

@@ -37,7 +37,9 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Manual Mode, manual_mode_pb
 	Flood Toggle, flood_pb
 	Mist Toggle, mist_pb
-	Clear Error History, clear_error_history_pb
+	Clear Error History, clear_errors_pb
+	Copy Error History, copy_errors_pb
+	Clear Information History, clear_info_pb
 	Show HAL, show_hal_pb
 	HAL Meter, hal_meter_pb
 	HAL Scope, hal_scope_pb
@@ -52,15 +54,19 @@ the joint number or axis index. More controls are in :doc:`tools`
 Options
 -------
 
-These buttons are toggle type buttons press to turn on press again to turn off.
-They are normal push buttons but in code they are set to checkable
-::
+The QPushButton options are toggle type buttons press to turn on press again to
+turn off. They are normal push buttons but in code they are set to checkable.
 
-	Flood Toggle                           flood_pb
-	Mist Toggle                            mist_pb
-	Optional Stop at M1                    optional_stop_pb
-	Block Delete line that starts with /   block_delete_pb
-	Feed Override Enable/Disable           feed_override_pb
+.. csv-table:: Options
+   :width: 100%
+   :align: left
+
+	Function, Widget, Name
+	Flood Toggle, QPushButton, flood_pb
+	Mist Toggle, QPushButton, mist_pb
+	Optional Stop at M1, QPushButton, optional_stop_pb
+	Block Delete line that starts with /, QPushButton, block_delete_pb
+	Feed Override Enable/Disable, QPushButton, feed_override_pb
 
 Axis Index
 ----------
@@ -114,12 +120,19 @@ Overrides
 
 A QSlider is used to control the following functions and the corresponding label
 shows the value of the slider.
-::
 
-	Function              QSlider                     QLabel
-	Feed Override         feed_override_sl            feedrate_lb
-	Rapid Override        rapid_override_sl           rapid_override_lb
-	Spindle Override      spindle_override_sl         spindle_override_0_lb
+.. csv-table:: Overrides
+   :width: 100%
+   :align: left
+
+	Function, Widget, Object Name
+	Feed Override Slider, QSlider, feed_override_sl
+	Feed Override Percent, QLabel, feedrate_lb
+	Rapid Override Slider, QSlider, rapid_override_sl
+	Rapid Override Percent, QLabel, rapid_override_lb
+	Spindle Override Slider, QSlider, spindle_override_sl
+	Spindle Override Percent, QLabel, spindle_override_0_lb
+	Override Limits, QCheckBox, override_limits_cb
 
 The following settings are from the DISPLAY section of the ini file if found.
 ::

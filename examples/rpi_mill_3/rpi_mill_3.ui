@@ -2064,8 +2064,14 @@
         <property name="function" stdset="0">
          <string>hal_pin</string>
         </property>
-        <property name="pin_0" stdset="0">
-         <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
+        <property name="pin_name" stdset="0">
+         <string>test_mdi_pin0</string>
+        </property>
+        <property name="hal_type" stdset="0">
+         <string>HAL_BIT</string>
+        </property>
+        <property name="hal_dir" stdset="0">
+         <string>HAL_OUT</string>
         </property>
        </widget>
        <widget class="QPushButton" name="G1_XY_minus">
@@ -2083,8 +2089,14 @@
         <property name="function" stdset="0">
          <string>hal_pin</string>
         </property>
-        <property name="pin_1" stdset="0">
-         <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
+        <property name="pin_name" stdset="0">
+         <string>test_mdi_pin1</string>
+        </property>
+        <property name="hal_type" stdset="0">
+         <string>HAL_BIT</string>
+        </property>
+        <property name="hal_dir" stdset="0">
+         <string>HAL_OUT</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_36">
@@ -2660,7 +2672,7 @@
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <widget class="QPushButton" name="clear_error_history_pb">
+      <widget class="QPushButton" name="clear_errors_pb">
        <property name="geometry">
         <rect>
          <x>45</x>

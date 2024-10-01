@@ -1,0 +1,28 @@
+<RCC>
+  <qresource prefix="/">
+    <file>images/angleX+.png</file>
+    <file>images/angleX-.png</file>
+    <file>images/angleY+.png</file>
+    <file>images/angleY-.png</file>
+    <file>images/inHole.png</file>
+    <file>images/inX+.png</file>
+    <file>images/inX-.png</file>
+    <file>images/inX+Y+.png</file>
+    <file>images/inX+Y-.png</file>
+    <file>images/inX-Y+.png</file>
+    <file>images/inX-Y-.png</file>
+    <file>images/inY+.png</file>
+    <file>images/inY-.png</file>
+    <file>images/ts_height.png</file>
+    <file>images/workpiece_height.png</file>
+    <file>images/X+.png</file>
+    <file>images/X-.png</file>
+    <file>images/X+Y+.png</file>
+    <file>images/X+Y-.png</file>
+    <file>images/X-Y+.png</file>
+    <file>images/X-Y-.png</file>
+    <file>images/xy_center.png</file>
+    <file>images/Y+.png</file>
+    <file>images/Y-.png</file>
+  </qresource>
+</RCC>

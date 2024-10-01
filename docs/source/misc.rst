@@ -40,15 +40,32 @@ To enter MDI commands add a Line Edit and name it `mdi_command_le`
 
 Error Viewer
 ------------
-
-To add an error viewer add a QPlainTextEdit from Input Widgets and name it
+To add an error viewer add a `QPlainTextEdit` from Input Widgets and name it
 `errors_pte`.
 
 .. image:: /images/error-viewer-01.png
    :align: center
 
-.. note:: See the :doc:`controls` section for buttons that pertain to the Error
-   Viewer
+To clear the error history add a QPushButton and set the objectName to
+`clear_errors_pb`.
+
+To copy the errors to the clipboard addd a QPushButton and
+set the object name to `copy_errors_pb`.
+
+.. warning:: The error viewer must be a QPlainTextEdit not a QTextEdit
+
+Information Viewer
+------------------
+To add an information viewer add a `QPlainTextEdit` from Input Widgets and name it
+`info_pte`. Information messages from MSG, DEBUG and PRINT will show up in the
+Information Viewer if it is found.
+
+If `info_pte` is not found and the `errors_pte` is found then information
+messeges will show up in the Error Viewer
+
+To clear the information viewer add a QPushButton and name it `clear_info_pb`.
+
+.. warning:: The information viewer must be a QPlainTextEdit not a QTextEdit
 
 Speed & Feed Calculators
 ------------------------
@@ -56,19 +73,25 @@ Speed & Feed Calculators
 To add a milling Speed and Feed Calculator add a QFrame or QWidget and set the
 Object Name to `fsc_container`
 
-To make the entry boxes touch screen aware add a Dynamic Property called `mode`
-and set the value to `touch`.
-
-.. image:: /images/fsc-01.png
-   :align: center
-
 SFC calculator
 
 .. image:: /images/fsc-02.png
    :align: center
 
+To make the entry boxes touch screen aware add a Dynamic Property called `mode`
+and set the value to `touch` and when you touch an entry field a numeric popup
+will show up to enter the numbers.
+
+.. image:: /images/fsc-01.png
+   :align: center
+
+
 To add a Drill Feed and Speed calculator add a QFrame or QWidget and set the
-Object Name to `dsc_container`
+Object Name to `dsf_container`.
+
+To make the entry boxes touch screen aware add a Dynamic Property called `mode`
+and set the value to `touch` and when you touch an entry field a numeric popup
+will show up to enter the numbers.
 
 .. image:: /images/dsc-01.png
    :align: center

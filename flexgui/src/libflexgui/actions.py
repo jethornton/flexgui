@@ -76,27 +76,20 @@ def file_selector(parent):
 		utilities.read_dir(parent)
 
 	elif item.endswith('...'): # a subdirectory
-		parent.gcode_dir = os.path.join(parent.gcode_dir, item.split()[0])
+		parent.gcode_dir = os.path.join(parent.gcode_dir, item.replace(' ...', ''))
 		utilities.read_dir(parent)
 
 	else: # must be a file name
 		load_file(parent, os.path.join(parent.gcode_dir, item))
 
 def action_open(parent): # actionOpen
-	extensions = parent.inifile.findall("FILTER", "PROGRAM_EXTENSION") or False
+	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
 	if extensions:
-		ext_groups = ['G code Files (*.ngc *.NGC)']
-		for extension in extensions:
-			filter_type = extension.split(' ', 1)
-			if len(filter_type) > 1:
-				ext_list = []
-				desc = filter_type[1]
-				exts = filter_type[0].split(',')
-				for ext in exts:
-					ext_list.append(f'*{ext}')
-				ext_groups.append(f'{desc} ({" ".join(ext_list)})')
-		ext_filter = ';;'.join(ext_groups)
+		extensions = extensions.split(',')
+		extensions = ' '.join(extensions).strip()
+		ext_filter = f'G code Files ({extensions});;All Files (*)'
 	else:
+		print(f'False {extensions}')
 		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
@@ -205,17 +198,61 @@ def action_ladder_editor(parent): # actionLadder_Editor
 def action_quit(parent): # actionQuit
 	parent.close()
 
+	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or ''
+	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or '#ff6666'
+	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or ''
+	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or '#00ff00'
+
+
 def action_estop(parent): # actionEstop
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
+		if parent.estop_closed_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(closed_color)
+			if 'flex_E_Stop' in parent.children:
+				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(closed_color)
 	else:
 		parent.command.state(emc.STATE_ESTOP)
+		if parent.estop_open_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
+				parent.estop_pb.setStyleSheet(open_color)
+			if 'flex_E_Stop' in parent.children:
+				open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
+				parent.flex_E_Stop.setStyleSheet(open_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
+		if 'override_limits_cb' in parent.children:
+			if parent.override_limits_cb.isChecked():
+				parent.command. override_limits()
 		parent.command.state(emc.STATE_ON)
+		if parent.power_on_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
+				parent.power_pb.setStyleSheet(on_color)
+			if 'flex_Power' in parent.children:
+				on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
+				parent.flex_Power.setStyleSheet(on_color)
 	else:
 		parent.command.state(emc.STATE_OFF)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 def action_run(parent, line = 0): # actionRun
 	if parent.status.task_state == emc.STATE_ON:

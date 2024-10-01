@@ -92,8 +92,7 @@ class flexgui(QMainWindow):
 		if ini_extensions: # add any extensions from the ini to ngc
 			for ext in ini_extensions.split(','):
 				self.extensions.append(ext.strip())
-		home_dir = os.path.expanduser('~')
-		self.gcode_dir = os.path.join(home_dir, 'linuxcnc', 'nc_files')
+		self.home_dir = os.path.expanduser('~')
 
 		# find and load the gui
 		if gui_file: # gui is in the ini file
@@ -112,7 +111,11 @@ class flexgui(QMainWindow):
 			flex_version = 'Unknown'
 
 		loadUi(gui_path, self)
-		self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
+		machine = self.inifile.find('EMC', 'MACHINE') or False
+		if machine:
+			self.setWindowTitle(f'{machine} Flex GUI V{flex_version}')
+		else:
+			self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
 
 		# check for a resources.py file with images for the stylesheet
 		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
@@ -175,22 +178,26 @@ class flexgui(QMainWindow):
 		startup.setup_list_widgets(self)
 		startup.setup_plain_text_edits(self)
 		startup.setup_check_boxes(self)
+		startup.setup_spin_boxes(self)
+		startup.setup_line_edits(self)
 		startup.setup_spindle(self)
 		startup.setup_jog(self)
+		startup.setup_probing(self)
 		startup.setup_mdi(self)
 		startup.setup_mdi_buttons(self)
 		startup.setup_hal_buttons(self)
 		startup.setup_touchoff(self)
 		startup.setup_tools(self)
 		startup.setup_sliders(self)
+		startup.setup_overrides(self)
 		startup.setup_defaults(self)
 		startup.setup_plot(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
-
 		# loading the post gui files can only happen once
 		if gui.lower() == 'flexgui':
 			startup.load_postgui(self)
+
 		startup.set_status(self)
 
 		# setup and start the status update timer every 0.01 second
@@ -218,18 +225,29 @@ class flexgui(QMainWindow):
 		spec.loader.exec_module(module)
 		return module
 
-
 	def eventFilter(self, obj, event):
 		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.numbers(self, obj)
-		# FIXME finish adding this
+			dialogs.line_edit_numbers(self, obj)
+
 		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.numbers(self, obj)
-		if obj.objectName() == 'mdi_command_le' and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.line_edit_numbers(self, obj)
+
+		if obj.objectName() == 'mdi_command_gc_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.gcode(self, obj)
+
+		if obj.objectName() == 'mdi_command_kb_le' and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.keyboard(self, obj)
+
 		fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 		if obj.objectName() in fsc_items and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.numbers(self, obj)
+			dialogs.line_edit_numbers(self, obj)
+
+		dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
+		if obj.objectName() in dsf_items and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.line_edit_numbers(self, obj)
+
+		if obj.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.spinbox_numbers(self, obj.parent())
 
 		return super(flexgui, self).eventFilter(obj, event)
 

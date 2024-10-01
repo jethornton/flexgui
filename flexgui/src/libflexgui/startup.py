@@ -1,9 +1,9 @@
 import os, shutil, re
 from functools import partial
 
-from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit
+from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
-from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton
+from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QAbstractSpinBox
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -16,6 +16,7 @@ from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import flexplot
 from libflexgui import view
+from libflexgui import probe
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
@@ -42,6 +43,9 @@ def find_children(parent): # get the object names of all widgets
 				# make sure the action is in the tool bar
 				if parent.toolBar.widgetForAction(action) is not None:
 					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
+					setattr(parent, widget_name, parent.toolBar.widgetForAction(action))
+					#print(parent.toolBar.widgetForAction(action).objectName())
+					parent.children.append(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
 		if menu.objectName():
@@ -53,6 +57,10 @@ def get_ini_values(parent):
 		parent.units = 'in'
 	else:
 		parent.units = 'mm'
+	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or False
+	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or False
+	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or False
+	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or False
 
 def setup_enables(parent):
 	parent.home_required = [] # different functions add to this
@@ -183,13 +191,12 @@ def setup_enables(parent):
 			del parent.state_on_names[item]
 
 	# run controls used to enable/disable when not running a program
-	# FIXME this is broken and needs more thought
 	run_items = ['open_pb', 'run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
 	'reload_pb', 'actionOpen', 'menuRecent', 'actionReload', 'actionRun',
 	'actionRun_From_Line', 'actionStep', 'tool_change_pb', 'flood_pb', 'mist_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
-	for item in AXES: # FIXME this needs to be in tool setup as well well maybe not...
+	for item in AXES:
 		run_items.append(f'tool_touchoff_{item}')
 		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
@@ -197,7 +204,9 @@ def setup_enables(parent):
 		if item in parent.children:
 			parent.run_controls.append(item)
 
-	home_items = ['home_all_pb']
+	home_items = []
+	if utilities.home_all_check(parent):
+		home_items.append('home_all_pb')
 	for i in range(9):
 		home_items.append(f'home_pb_{i}')
 	parent.home_controls = []
@@ -331,11 +340,16 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
-	if 'clear_error_history_pb' in parent.children:
-		if 'errors_pte' in parent.children:
-			parent.clear_error_history_pb.clicked.connect(partial(utilities.clear_errors, parent))
+	if 'errors_pte' in parent.children:
+		if 'clear_errors_pb' in parent.children:
+			parent.clear_errors_pb.clicked.connect(partial(utilities.clear_errors, parent))
 
-	# FIXME add a copy error history button
+		if 'copy_errors_pb' in parent.children:
+			parent.copy_errors_pb.clicked.connect(partial(utilities.copy_errors, parent))
+
+	if 'clear_info_pb' in parent.children:
+		if 'info_pte' in parent.children:
+			parent.clear_info_pb.clicked.connect(partial(utilities.clear_info, parent))
 
 	# touch off coordinate system combo box
 	if 'touchoff_system_cb' in parent.children:
@@ -455,7 +469,6 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
-	# FIXME move linear_units and set precision
 	status_items = ['acceleration', 'active_queue', 
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
@@ -463,7 +476,7 @@ def setup_status_labels(parent):
 	'echo_serial_number', 'enabled', 'estop', 'exec_state',
 	'feed_override_enabled', 'flood', 'g5x_index', 'ini_filename', 'inpos',
 	'input_timeout', 'interp_state', 'interpreter_errcode', 'joint', 'joints',
-	'kinematics_type', 'linear_units', 'lube', 'lube_level', 'max_acceleration',
+	'kinematics_type', 'lube', 'lube_level', 'max_acceleration',
 	'max_velocity', 'mist', 'motion_line', 'motion_mode', 'motion_type',
 	'optional_stop', 'paused', 'pocket_prepped', 'probe_tripped', 'probe_val',
 	'probed_position', 'probing', 'program_units', 'queue', 'queue_full',
@@ -553,6 +566,10 @@ def setup_status_labels(parent):
 		if None not in (joint_0, joint_1, joint_2): # check for None or False
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
 
+	parent.status_units = {}
+	if 'linear_units_lb' in parent.children:
+		p = parent.linear_units_lb.property('precision') or default_precision
+
 	# check for joint labels in ui
 	# these return 16 joints
 	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
@@ -591,10 +608,8 @@ def setup_status_labels(parent):
 				p = p if p is not None else default_precision
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	#override_items = ['feedrate',  'rapidrate',]
-	override_items = {'feedrate_lb': 'feedrate' , 'rapidrate_lb': 'rapidrate',
-		'rapid_override_lb': 'max_velocity'}
-	# label : status item rapid_override_lb
+	override_items = {'feedrate_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
+
 	parent.overrides = {}
 	for label, stat in override_items.items():
 		if label in parent.children:
@@ -636,7 +651,7 @@ def setup_status_labels(parent):
 			if 'start_line_lb' in parent.children:
 				parent.start_line_lb.setText('0')
 		else:
-			parent.file_lb.setText('No G code file loaded')
+			parent.file_lb.setText('N/A')
 			if 'start_line_lb' in parent.children:
 				parent.start_line_lb.setText('n/a')
 
@@ -661,8 +676,18 @@ def setup_status_labels(parent):
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.children:
+		# PROGRAM_PREFIX = ~/linuxcnc/nc_files
+		gcode_location = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
+		if gcode_location:
+			if gcode_location.startswith('./'):
+				parent.gcode_dir = os.path.join(parent.ini_path, gcode_location.lstrip('./'))
+			elif gcode_location.startswith('~'):
+				parent.gcode_dir = gcode_location.replace('~', parent.home_dir)
+		else:
+			parent.gcode_dir = os.path.join(parent.home_dir, 'linuxcnc', 'nc_files')
+		if os.path.exists(parent.gcode_dir):
+			utilities.read_dir(parent)
 		parent.file_lw.itemClicked.connect(partial(actions.file_selector, parent))
-		utilities.read_dir(parent)
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
@@ -682,6 +707,19 @@ def setup_check_boxes(parent):
 	else:
 		parent.print_states = False
 
+def setup_line_edits(parent):
+	print('setup_line_edits')
+
+def setup_spin_boxes(parent):
+	parent.touch_sb = []
+	for child in parent.findChildren(QAbstractSpinBox):
+		if child.property('input') == 'number': # enable the number pad
+			sb_child = child.findChild(QLineEdit)
+			sb_child.setObjectName(f'{child.objectName()}_child')
+			parent.touch_sb.append(sb_child.objectName())
+			sb_child.installEventFilter(parent)
+			#le.installEventFilter(parent)
+
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
@@ -698,28 +736,44 @@ def setup_mdi(parent):
 	# determine if mdi is possible from the gui
 	# parent.mdi_command is tested in status.py so it must exist
 	parent.mdi_command = ''
-	if 'mdi_command_le' in parent.children and 'run_mdi_pb' in parent.children:
-		if parent.mdi_command_le.property('mode') == 'touch':
-			parent.mdi_command_le.installEventFilter(parent)
-		else:
-			parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
-		parent.home_required.append('run_mdi_pb')
-		if 'mdi_history_lw' in parent.children:
-			path = os.path.dirname(parent.status.ini_filename)
-			mdi_file = os.path.join(path, 'mdi_history.txt')
-			if os.path.exists(mdi_file): # load mdi history
-				with open(mdi_file, 'r') as f:
-					history_list = f.readlines()
-					for item in history_list:
-						parent.mdi_history_lw.addItem(item.strip())
-			parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
+	mdi_entries = ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']
 
-	if 'run_mdi_pb' in parent.children and 'mdi_command_le' not in parent.children:
+	if len(list(set(mdi_entries) & set(parent.children))) > 1: # more than one
+		too_many = ', '.join(list(set(mdi_entries) & set(parent.children)))
+		msg = ('More than one MDI Entry widget found\n'
+			f'{too_many}\n'
+			'MDI will not be enabled until one is removed')
+		dialogs.critical_msg_ok(msg, 'Multiple Entry Widgets')
+		if 'run_mdi_pb' in parent.children:
 			parent.run_mdi_pb.setEnabled(False)
-			msg = ('Run MDI can not work without\n'
-				'the Line Edit mdi_command_le.\n'
-				'The Run MDI Button will be disabled')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
+		return
+
+	for item in mdi_entries: # figure out which line edit we have
+		if item in parent.children:
+			if 'run_mdi_pb' in parent.children:
+				if item == 'mdi_command_le':
+					parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+				elif item == 'mdi_command_gc_le':
+					parent.mdi_command_gc_le.installEventFilter(parent)
+				elif item == 'mdi_command_kb_le':
+					parent.mdi_command_kb_le.installEventFilter(parent)
+				parent.home_required.append('run_mdi_pb')
+			else: # run_mdi_pb not found
+				getattr(parent, item).setEnabled(False)
+				msg = ('Can not run a MDI Command\n'
+					'without the run_mdi_pb\n'
+					'The MDI Entry will be disabled')
+				dialogs.critical_msg_ok(msg, 'Required Item Missing')
+
+	if 'mdi_history_lw' in parent.children:
+		path = os.path.dirname(parent.status.ini_filename)
+		mdi_file = os.path.join(path, 'mdi_history.txt')
+		if os.path.exists(mdi_file): # load mdi history
+			with open(mdi_file, 'r') as f:
+				history_list = f.readlines()
+				for item in history_list:
+					parent.mdi_history_lw.addItem(item.strip())
+		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
 
 def setup_recent_files(parent):
 	menus = parent.findChildren(QMenu)
@@ -816,10 +870,16 @@ def setup_jog(parent):
 					for suffix in units:
 						if item.endswith(suffix):
 							distance = item.removesuffix(suffix).strip()
-							converted_distance = conv_units(distance, suffix, machine_units)
-							incr_list.append([item, converted_distance])
-							parent.jog_modes_cb.addItem(item, converted_distance)
-							break
+							if utilities.is_float(distance):
+								converted_distance = conv_units(distance, suffix, machine_units)
+								incr_list.append([item, converted_distance])
+								parent.jog_modes_cb.addItem(item, converted_distance)
+								break
+							else:
+								msg = ('Malformed INCREMENTS value\n'
+									f'{distance}\n'
+									'may be missing comma seperators?')
+								dialogs.warn_msg_ok(msg, 'Error')
 					else:
 						msg = ('INI section DISPLAY value INCREMENTS\n'
 							f'{item} is not a valid jog increment\n'
@@ -887,18 +947,28 @@ def setup_spindle(parent):
 	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-	#elif not parent.increment:
-	#	parent.increment = 100
 	parent.increment = int(increment) if increment else 100
 
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False 
-		parent.min_rpm = int(parent.min_rpm) if parent.min_rpm else 0
-		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
-		max_rpm = int(max_rpm) if max_rpm else 1000
+
+		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+		if parent.min_rpm and utilities.is_int(parent.min_rpm): # found in the ini and a valid int
+			parent.min_rpm = int(parent.min_rpm)
+		elif parent.min_rpm and utilities.is_float(parent.min_rpm): # see if it's a float if so convert to int
+			parent.min_rpm = utilities.string_to_int(parent.min_rpm)
+		else:
+			parent.min_rpm = 0
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
-		parent.spindle_speed_sb.setMaximum(max_rpm)
+
+		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+		if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
+			parent.spindle_speed_sb.setMaximum(int(max_rpm))
+		elif max_rpm and utilities.is_float(max_rpm): # see if it's a float if so convert to int
+			parent.spindle_speed_sb.setMaximum(utilities.string_to_int(max_rpm))
+		else:
+			parent.spindle_speed_sb.setMaximum(100)
+
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
 
@@ -949,14 +1019,15 @@ def setup_spindle(parent):
 
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
-	# FIXME add touchoff_le and tool_touchoff_le for touch screens
-	# self.lineEdit_passwort.mousePressEvent = self.on_lineEdit_passwort_clicked
-	# def on_lineEdit_passwort_clicked(self, *arg, **kwargs):
-	# 	print("lineEdit_passwort clicked!")
 	if 'touchoff_le' in parent.children:
 		parent.touchoff_le.setText('0')
-		if parent.touchoff_le.property('mode') == 'touch': # enable the number pad
+		if parent.touchoff_le.property('input') == 'number': # enable the number pad
 			parent.touchoff_le.installEventFilter(parent)
+
+	if 'tool_touchoff_le' in parent.children:
+		parent.tool_touchoff_le.setText('0')
+		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
+			parent.tool_touchoff_le.installEventFilter(parent)
 
 	# setup touch off buttons
 	for axis in AXES:
@@ -964,39 +1035,6 @@ def setup_touchoff(parent):
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 			parent.home_required.append(item)
-
-
-	'''
-	to_missing = False
-	tto_missing = False
-	touchoff = ['touchoff_le', 'touchoff_dsb']
-
-	for item in AXES:
-		if f'touchoff_pb_{item}' in parent.children:
-			#print(bool(set(touchoff) & set(parent.children)))
-			if bool(set(touchoff) & set(parent.children)):
-				break
-			else:
-				getattr(parent, f'touchoff_pb_{item}').setEnabled(False)
-				to_missing = True
-
-		if f'tool_touchoff_{item}' in parent.children:
-			if 'tool_touchoff_dsb' not in parent.children:
-				getattr(parent, f'tool_touchoff_{item}').setEnabled(False)
-				tto_missing = True
-
-	if to_missing: # FIXME delete 
-		msg = ('Touch Off Double Spin Box\n'
-			'touchoff_dsb not found.\n'
-			'Touch Off Buttons will be disabled')
-		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	if tto_missing: # FIXME delete 
-		msg = ('Touch Off Double Spin Box\n'
-			'tool_touchoff_dsb not found.\n'
-			'Tool Touch Off Buttons will be disabled')
-		dialogs.warn_msg_ok(msg, 'Required Item Missing')
-	'''
 
 def setup_tools(parent):
 	# tool change using a combo box
@@ -1042,30 +1080,6 @@ def setup_tools(parent):
 				'the Tool Offset Line Edit tool_touchoff_le')
 				dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
-	'''
-	# setup tool touch off buttons
-	for axis in AXES:
-		item = f'tool_touchoff_{axis}'
-		if item in parent.children:
-
-
-
-	# children = ['tool_touchoff_le', 'tool_change_cb']
-	if 'tool_change_pb' in parent.children:
-
-	if 'tool_change_cb' in parent.children:
-		else:
-			msg = ('Tool change Push Button\n'
-				'requires the tool_change_cb combo box.')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
-
-	if 'tool_touchoff_le' in parent.children:
-		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('mode') == 'touch': # enable the number pad
-			parent.tool_touchoff_le.installEventFilter(parent)
-
-
-	'''
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
@@ -1079,6 +1093,10 @@ def setup_sliders(parent):
 		parent.rapid_override_sl.setMaximum(100)
 		parent.rapid_override_sl.setValue(100)
 
+def setup_overrides(parent):
+	if 'override_limits_cb' in parent.children:
+		parent.override_limits_cb.setEnabled(False)
+
 def setup_defaults(parent):
 	if 'optional_stop_pb' in parent.children:
 		if parent.optional_stop_pb.isChecked():
@@ -1086,14 +1104,41 @@ def setup_defaults(parent):
 		else:
 			parent.command.set_optional_stop(False)
 
+def setup_probing(parent):
+	# any object name that starts with probe_ is disabled
+	parent.probing = False
+	parent.probe_controls = []
+	for child in parent.children:
+		if child.startswith('probe_'):
+			getattr(parent, child).setEnabled(False)
+			parent.probe_controls.append(child)
+	if len(parent.probe_controls) > 0: # make sure the probe enable is present
+		if 'probing_enable_pb' in parent.children:
+			parent.state_estop[f'probing_enable_pb'] = False
+			parent.probing_enable_pb.setCheckable(True)
+			parent.home_required.append('probing_enable_pb')
+			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
+		else:
+			parent.probe_controls = False
+			msg = ('The Probing Enable Push Button\n'
+				'was not found, all probe controls\n'
+				'will be disabled. Did you name it\n'
+				'probing_enable_pb?')
+			dialogs.warn_msg_ok(msg, 'Object Not Found!')
+
 def setup_mdi_buttons(parent):
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'mdi':
 			if button.property('command'):
+				button_name = button.objectName()
 				button.clicked.connect(partial(commands.mdi_button, parent, button))
-				parent.home_required.append(button.objectName())
-				parent.program_running[button.objectName()] = False
-				parent.state_estop[button.objectName()] = False
+				# probe buttons are taken care of in setup_probe function
+				if button_name.startswith('probe_'):
+					parent.probe_controls.append(button_name)
+				else:
+					parent.program_running[button_name] = False
+					parent.state_estop[button_name] = False
+					parent.home_required.append(button_name)
 			else:
 				msg = (f'MDI Button {button.text()}\n'
 				'Does not have a command\n'
@@ -1108,28 +1153,107 @@ def setup_hal_buttons(parent):
 			hal_buttons.append(button)
 			if button.property('required') == 'homed':
 				parent.home_required.append(button.objectName())
-				parent.state_estop[button.objectName()] = False
-	for n, button in enumerate(hal_buttons):
-		props = button.dynamicPropertyNames()
-		for prop in props:
-			prop = str(prop, 'utf-8')
-			if prop.startswith('pin_'): # we have a hal button
-				pin_settings = button.property(prop).split(',')
-				name = button.objectName()
-				pin_name = pin_settings[0]
-				pin_type = getattr(hal, f'{pin_settings[1].upper().strip()}')
-				pin_dir = getattr(hal, f'{pin_settings[2].upper().strip()}')
-				setattr(parent, f'{prop}', parent.halcomp.newpin(pin_name, pin_type, pin_dir))
-				pin = getattr(parent, f'{prop}')
+
+	if len(hal_buttons) > 0:
+		for button in hal_buttons:
+			button_name = button.objectName()
+			pin_name = button.property('pin_name')
+			if button_name == pin_name:
+				msg = (f'The object name {button_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+			hal_type = button.property('hal_type')
+			hal_dir = button.property('hal_dir')
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				#print('building')
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				pin = getattr(parent, f'{pin_name}')
+
 				if button.isCheckable():
 					button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+					# set the hal pin default
+					setattr(parent.halcomp, pin_name, button.isChecked())
 				else:
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
-				parent.state_estop[button.objectName()] = False
-				parent.state_estop_reset[button.objectName()] = False
-				parent.state_on[button.objectName()] = True
+
+				parent.state_estop[button_name] = False
+				parent.state_estop_reset[button_name] = False
+
+				if button.property('required') == 'homed':
+					parent.home_required.append(button_name)
+				else:
+					parent.state_on[button_name] = True
+
+	hal_spinbox = []
+	for item in parent.findChildren(QAbstractSpinBox):
+		if item.property('function') == 'hal_pin': # HAL spin box
+			hal_spinbox.append(item)
+
+	if len(hal_spinbox) > 0:
+		for spinbox in hal_spinbox:
+			spinbox_name = spinbox.objectName()
+			pin_name = spinbox.property('pin_name')
+			hal_type = spinbox.property('hal_type')
+			hal_dir = spinbox.property('hal_dir')
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				# set the default value of the spin box to the hal pin
+				setattr(parent.halcomp, pin_name, spinbox.value())
+				spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
+				parent.state_estop[spinbox_name] = False
+				parent.state_estop_reset[spinbox_name] = False
+				if parent.probe_controls: # make sure the probing_enable_pb is there
+					if spinbox_name.startswith('probe_'): # don't enable it when power is on
+						parent.probe_controls.append(spinbox_name)
+				elif spinbox.property('required') == 'homed':
+					parent.home_required.append(spinbox_name)
+				else:
+					parent.state_on[spinbox_name] = True
+
+	hal_slider = []
+	for item in parent.findChildren(QSlider):
+		if item.property('function') == 'hal_pin': # HAL spin box
+			hal_slider.append(item)
+
+	if len(hal_slider) > 0:
+		for slider in hal_slider:
+			print(slider)
+			slider_name = slider.objectName()
+			pin_name = slider.property('pin_name')
+			hal_type = slider.property('hal_type')
+			hal_dir = slider.property('hal_dir')
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				# set the default value of the spin box to the hal pin
+				setattr(parent.halcomp, pin_name, slider.value())
+				slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
+				parent.state_estop[slider_name] = False
+				parent.state_estop_reset[slider_name] = False
+				if parent.probe_controls: # make sure the probing_enable_pb is there
+					if slider_name.startswith('probe_'): # don't enable it when power is on
+						parent.probe_controls.append(slider_name)
+				elif slider.property('required') == 'homed':
+					parent.home_required.append(slider_name)
+				else:
+					parent.state_on[slider_name] = True
+
+
 	parent.halcomp.ready()
+	if 'hal_comp_name_lb' in parent.children:
+		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
@@ -1251,20 +1375,70 @@ def setup_plot(parent):
 					parent.plotter.set_current_view()
 				))
 
-def set_status(parent): # FIXME look close at this to make sure it catches all
+def setup_fsc(parent): # mill feed and speed calculator
+	if 'fsc_container' in parent.children:
+		from libflexgui import fsc
+		parent.fsc_calc = fsc.fs_calc()
+		layout = QVBoxLayout(parent.fsc_container)
+		layout.addWidget(parent.fsc_calc)
+		if parent.fsc_container.property('input') == 'number':
+			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
+			for item in fsc_items:
+				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
+
+def setup_dsf(parent): # drill speed and feed calculator
+	if 'dsf_container' in parent.children:
+		from libflexgui import dsf
+		parent.dsf_calc = dsf.dsf_calc()
+		layout = QVBoxLayout(parent.dsf_container)
+		layout.addWidget(parent.dsf_calc)
+		if parent.dsf_container.property('input') == 'number':
+			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
+			for item in dsf_items:
+				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
+
+def set_status(parent):
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
+		if parent.estop_open_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
+				parent.estop_pb.setStyleSheet(open_color)
+			if 'flex_E_Stop' in parent.children:
+				open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
+				parent.flex_E_Stop.setStyleSheet(open_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
+	# this state can only happen when runnning with a sim
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
-		#print('STATE_ESTOP_RESET')
 		for key, value in parent.state_estop_reset.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_reset_names.items():
 			getattr(parent, key).setText(value)
+		if parent.estop_closed_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(closed_color)
+			if 'flex_E_Stop' in parent.children:
+				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(closed_color)
+		if parent.power_off_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(off_color)
+			if 'flex_Power' in parent.children:
+				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(off_color)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		for key, value in parent.state_on.items():
@@ -1274,45 +1448,64 @@ def set_status(parent): # FIXME look close at this to make sure it catches all
 		if utilities.all_homed and parent.status.file:
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
+		if parent.estop_closed_color: # if False just don't bother
+			if 'estop_pb' in parent.children:
+				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(closed_color)
+			if 'flex_E_Stop' in parent.children:
+				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(closed_color)
+		if parent.power_on_color: # if False just don't bother
+			if 'power_pb' in parent.children:
+				on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
+				parent.power_pb.setStyleSheet(on_color)
+			if 'flex_Power' in parent.children:
+				on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
+				parent.flex_Power.setStyleSheet(on_color)
 		if utilities.all_homed(parent):
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
+		elif utilities.all_unhomed(parent):
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
 		else:
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(False)
+				print(item)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.home_controls: # enable/disable by joint
+				if item[-1].isnumeric():
+					joint = int(item[-1])
+					if parent.status.homed[joint] == 0: # not homed
+						getattr(parent, item).setEnabled(True)
+					elif parent.status.homed[joint] == 1: # homed
+						getattr(parent, item).setEnabled(False)
+			for item in parent.unhome_controls:
+				if item[-1].isnumeric():
+					joint = int(item[-1])
+					if parent.status.homed[joint] == 0: # not homed
+						getattr(parent, item).setEnabled(False)
+					elif parent.status.homed[joint] == 1: # homed
+						getattr(parent, item).setEnabled(True)
 
-def setup_fsc(parent):
-	if 'fsc_container' in parent.children:
-		if parent.fsc_container.property('mode') == 'touch':
-			touch = True
+	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
+	gcode_path = ''
+	if open_file and open_file != '""':
+		if open_file.startswith('./'):
+			gcode_path = os.path.join(parent.ini_path, open_file.lstrip('./'))
+		elif open_file.startswith('~'):
+			gcode_path = open_file.replace('~', parent.home_dir)
+		if os.path.exists(gcode_path):
+			actions.load_file(parent, gcode_path)
 		else:
-			touch = False
-		from libflexgui import fsc
-		parent.fsc_calc = fsc.fs_calc(touch)
-		layout = QVBoxLayout(parent.fsc_container)
-		layout.addWidget(parent.fsc_calc)
+			msg = (f'The G code file\n{open_file}\n'
+				'was not found.\n'
+				'Check the [DISPLAY] OPEN_FILE\n'
+				'setting in the ini file.')
 
-		if touch:
-			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
-			for item in fsc_items:
-				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
-
-def setup_dsf(parent):
-	if 'dsf_container' in parent.children:
-		if parent.dsf_container.property('mode') == 'touch':
-			touch = True
-		else:
-			touch = False
-		from libflexgui import dsf
-		parent.dsf_calc = dsf.dsf_calc(touch)
-		layout = QVBoxLayout(parent.dsf_container)
-		layout.addWidget(parent.dsf_calc)
-
+			dialogs.warn_msg_ok(msg, 'File Not Found')
 
 

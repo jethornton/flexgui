@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Flex Resources
+Comment=Build resource file
+Exec=flexqrc
+Icon=linuxcncicon
+Categories=Development;Engineering;X-CNC;
+Terminal=false
+StartupNotify=true
+StartupWMClass=flexqrc
+GenericName=Flex GUI
+
+Name[en_US]=Flex Resources

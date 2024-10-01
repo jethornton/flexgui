@@ -213,7 +213,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="gcode_tab">
      <attribute name="title">
@@ -1468,19 +1468,6 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="zero_x_pb">
-      <property name="geometry">
-       <rect>
-        <x>345</x>
-        <y>295</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Zero X</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -2329,8 +2316,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_0" stdset="0">
-        <string>test_mdi_pin0, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin0</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
       <widget class="QPushButton" name="g1_y_minus">
@@ -2348,8 +2341,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_1" stdset="0">
-        <string>test_mdi_pin1, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin1</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
       <widget class="QPushButton" name="g1_x_plus">
@@ -2367,8 +2366,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_2" stdset="0">
-        <string>test_mdi_pin2, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin2</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_19">
@@ -2418,8 +2423,14 @@
        <property name="function" stdset="0">
         <string>hal_pin</string>
        </property>
-       <property name="pin_3" stdset="0">
-        <string>test_mdi_pin3, HAL_BIT, HAL_OUT</string>
+       <property name="pin_name" stdset="0">
+        <string>test_mdi_pin3</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_OUT</string>
        </property>
       </widget>
      </widget>
@@ -2449,7 +2460,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="clear_error_history_pb">
+        <widget class="QPushButton" name="clear_errors_pb">
          <property name="text">
           <string>Clear Errors</string>
          </property>
@@ -3326,7 +3337,7 @@
   <tabstop>mdi_history_lw</tabstop>
   <tabstop>clear_mdi_history_pb</tabstop>
   <tabstop>copy_mdi_history_pb</tabstop>
-  <tabstop>clear_error_history_pb</tabstop>
+  <tabstop>clear_errors_pb</tabstop>
   <tabstop>optional_stop_pb</tabstop>
   <tabstop>estop_pb</tabstop>
   <tabstop>tabWidget</tabstop>

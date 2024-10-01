@@ -1,0 +1,24 @@
+o<p_angle_x_plus_m> sub
+	G21
+	#1009 = #<_hal[flexhal.probe_xy_travel_dist]>
+	#1010 = #<_hal[flexhal.probe_SEARCH_FEED]>
+	#1011 = #<_hal[flexhal.probe_FINE_FEED]>
+  	F #1010
+	#1001 = 2.54				; store side a length
+	G91 G38.2 X 12.7			; locate start point
+	G91 G1 X -2.54				; move to side a
+	G91 G38.3 Z-.000254			; trigger the first point read
+	#1002 = #5062				; store first Y point
+	G91 G38.3 F#1011 Y- #1009	; slow down for 2nd point
+	#1003 = #5062				; store 2nd Y point side b
+	G91 G1 X -2.54				; retract a bit
+	#1004 = [#1002 - #1003]
+	#1005 = ATAN[#1001]/[#1004]
+o100 if [#5070 NE 1]
+	(debug, INCREASE XY TRAVEL FOR ACUTE ANGLES )
+o100 endif
+o101 if [#5070 EQ 1]
+	(debug, #1005 deg)
+o101 endif
+o<p_angle_x_plus_m> endsub
+M2

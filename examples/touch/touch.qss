@@ -203,5 +203,16 @@ QSlider::sub-page:vertical {
     background: white;
 }
 
+/***** QComboBox *****/
+QComboBox {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 1px 18px 1px 3px;
+    min-height: 50px;
+}
+QComboBox QAbstractItemView {
+    min-height: 50px;
+    border: 2px solid darkgray;
+}
 
 
