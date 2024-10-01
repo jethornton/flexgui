@@ -35,7 +35,7 @@
     <item row="4" column="0" colspan="8">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="gcode_tab">
        <attribute name="title">
@@ -152,7 +152,7 @@
             <string>HAL_OUT</string>
            </property>
           </widget>
-          <widget class="QRadioButton" name="rb_on">
+          <widget class="QRadioButton" name="rb_on_rb">
            <property name="geometry">
             <rect>
              <x>160</x>
@@ -177,7 +177,7 @@
             <string>HAL_OUT</string>
            </property>
           </widget>
-          <widget class="QRadioButton" name="rb_off">
+          <widget class="QRadioButton" name="rb_off_rb">
            <property name="geometry">
             <rect>
              <x>220</x>
