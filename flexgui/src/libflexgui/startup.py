@@ -1146,15 +1146,24 @@ def setup_mdi_buttons(parent):
 				dialogs.warn_msg_ok(msg, 'Configuration Error')
 				button.setEnabled(False)
 
-def setup_hal_buttons(parent):
+def setup_hal(parent):
+	# FIXME get all the hal_pin objects then test the pin_name is not the same
+	# as the object name maybe...
+	hal_widgets = []
 	hal_buttons = []
-	for button in parent.findChildren(QAbstractButton):
-		if button.property('function') == 'hal_pin':
-			hal_buttons.append(button)
-			if button.property('required') == 'homed':
-				parent.home_required.append(button.objectName())
+	hal_spinboxes = []
+	hal_sliders = []
+	children = parent.findChildren(QWidget)
+	for child in children:
+		if child.property('function') == 'hal_pin':
+			if isinstance(child, QAbstractButton):
+				hal_buttons.append(child)
+			elif isinstance(child, QAbstractSpinBox):
+				hal_spinboxes.append(child)
+			elif isinstance(child, QSlider):
+				hal_sliders.append(child)
 
-	if len(hal_buttons) > 0:
+	if len(hal_buttons) > 0: # setup hal buttons and checkboxes
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
@@ -1191,13 +1200,8 @@ def setup_hal_buttons(parent):
 				else:
 					parent.state_on[button_name] = True
 
-	hal_spinbox = []
-	for item in parent.findChildren(QAbstractSpinBox):
-		if item.property('function') == 'hal_pin': # HAL spin box
-			hal_spinbox.append(item)
-
-	if len(hal_spinbox) > 0:
-		for spinbox in hal_spinbox:
+	if len(hal_spinboxes) > 0: # setup hal spinboxes
+		for spinbox in hal_spinboxes:
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 			hal_type = spinbox.property('hal_type')
@@ -1220,14 +1224,8 @@ def setup_hal_buttons(parent):
 				else:
 					parent.state_on[spinbox_name] = True
 
-	hal_slider = []
-	for item in parent.findChildren(QSlider):
-		if item.property('function') == 'hal_pin': # HAL spin box
-			hal_slider.append(item)
-
-	if len(hal_slider) > 0:
-		for slider in hal_slider:
-			print(slider)
+	if len(hal_sliders) > 0: # setup hal sliders
+		for slider in hal_sliders:
 			slider_name = slider.objectName()
 			pin_name = slider.property('pin_name')
 			hal_type = slider.property('hal_type')
@@ -1249,7 +1247,6 @@ def setup_hal_buttons(parent):
 					parent.home_required.append(slider_name)
 				else:
 					parent.state_on[slider_name] = True
-
 
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.children:
