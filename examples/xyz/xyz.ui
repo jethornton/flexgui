@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
+    <width>967</width>
     <height>674</height>
    </rect>
   </property>
@@ -1400,6 +1400,35 @@
         <string>Misc.</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_28">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Coolant</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_25">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="flood_pb">
+             <property name="text">
+              <string>Flood</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="mist_pb">
+             <property name="text">
+              <string>Mist</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="2">
          <widget class="QGroupBox" name="groupBox_10">
           <property name="title">
@@ -1429,72 +1458,6 @@
              </property>
              <property name="command" stdset="0">
               <string>G0 Z0</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="3">
-         <widget class="QCheckBox" name="print_states_cb">
-          <property name="text">
-           <string>Print States</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QGroupBox" name="groupBox_13">
-          <property name="title">
-           <string>Feed</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_27">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Feed Override &gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="feed_override_enabled_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QPushButton" name="feed_override_pb">
-             <property name="text">
-              <string>Feed Override Enable</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_11">
-          <property name="title">
-           <string>Coolant</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_25">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="flood_pb">
-             <property name="text">
-              <string>Flood</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="mist_pb">
-             <property name="text">
-              <string>Mist</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -1578,6 +1541,36 @@
             <widget class="QPushButton" name="pushButton_5">
              <property name="text">
               <string>More Hal</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QGroupBox" name="groupBox_13">
+          <property name="title">
+           <string>Feed</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_27">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Feed Override &gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="feed_override_enabled_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="feed_override_pb">
+             <property name="text">
+              <string>Feed Override Enable</string>
              </property>
             </widget>
            </item>
@@ -2427,8 +2420,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>850</width>
-     <height>24</height>
+     <width>967</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

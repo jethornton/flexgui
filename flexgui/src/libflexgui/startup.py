@@ -700,13 +700,6 @@ def setup_plain_text_edits(parent):
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
-def setup_check_boxes(parent):
-	if 'print_states_cb' in parent.children:
-		parent.print_states_cb.stateChanged.connect(partial(utilities.print_states, parent))
-		parent.print_states = parent.print_states_cb.isChecked()
-	else:
-		parent.print_states = False
-
 def setup_line_edits(parent):
 	print('setup_line_edits')
 
