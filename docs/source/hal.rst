@@ -35,6 +35,25 @@ type Dynamic Propertys as shown in the table.
 	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
 	hal_dir, HAL_OUT
 
+.. note:: A QSpinBox can only be HAL_S32 or HAL_U32 data type and the
+   QDoubleSpinBox can only be HAL_FLOAT data type.
+
+Slider
+------
+
+A QSlider can be a hal pin by adding four string
+type Dynamic Propertys as shown in the table.
+
+.. csv-table:: HAL Slider
+   :width: 80%
+   :align: center
+
+	Property Name, Pin Value
+	function, hal_pin
+	pin_name, any unique name
+	hal_type, HAL_S32 or HAL_U32
+	hal_dir, HAL_OUT
+
 Pin Types::
 
 	HAL_BIT
