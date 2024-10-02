@@ -132,6 +132,54 @@ QDoubleSpinBox, QSpinbox, QSlider, QLabel#spindle_actual_speed_lb {
 	background-color: rgba(0, 96, 192, 60%);
     padding: 1px 1px 1px 1px;
 	}
+/* ********** QDoublespinBox tool tips ********** */
+
+/* QDoubleSpinBox#probe_search_feed{
+	toolTip: 'Sets the Faster feedrate'
+}
+QDoubleSpinBox#probe_fine_feed{
+	toolTip: 'Set the Fine feedrate'
+}
+QDoubleSpinBox#probe_search_dist{
+	toolTip: 'Max XY search distance on some routines'
+}
+QDoubleSpinBox#probe_z_max_probe{
+	toolTip: 'Max Z probe search distance'
+}
+QDoubleSpinBox#probe_retract_dist{
+	toolTip: 'Retract Distance on edge probes'
+}
+QDoubleSpinBox#probe_xy_travel_dist{
+	toolTip: 'On long probe routines sets max XY travel'
+}
+QDoubleSpinBox#probe_angle_base_dist {
+	toolTip: 'Sets the angle base side length'
+}
+QDoubleSpinBox#probe_x_coord{
+	toolTip: 'X Coordinate for tool probe'
+}
+QDoubleSpinBox#probe_y_coord{
+	toolTip: 'Y Coordinate for tool probe'
+}
+QDoubleSpinBox#probe_z_start{
+	toolTip: 'Z start for tool probing'
+}
+QDoubleSpinBox#probe_max_hole_r{
+	toolTip: 'Set this a bit larger than the hold radius'
+}
+QDoubleSpinBox#probe_max_bar_r{
+	toolTip: 'Set this a bit larger than the bar radius'
+}
+QDoubleSpinBox#probe_tip_diam{
+	toolTip: 'Enter your probe tip diameter here'
+}
+*/
+
+
+
+
+/* ********** QDoublespinBox tool tips ********** */
+
 
 QStatusBar {
 	background-color: rgba(0, 96, 192, 60%); color: white;
