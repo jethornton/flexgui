@@ -4,6 +4,10 @@
     <file>images/angleX-.png</file>
     <file>images/angleY+.png</file>
     <file>images/angleY-.png</file>
+    <file>images/angleX+flip.png</file>
+    <file>images/angleX-flip.png</file>
+    <file>images/angleY+flip.png</file>
+    <file>images/angleY-flip.png</file>
     <file>images/inHole.png</file>
     <file>images/inX+.png</file>
     <file>images/inX-.png</file>
