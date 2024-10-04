@@ -425,7 +425,20 @@ QPushButton#probe_p_angle_y_plus {
 	background-image: url(":images/angleY+.png");
 }
 
-/* **************************************** */
+/* ************ flipped angles ************ */
+QPushButton#probe_p_angle_x_minus_flip {
+	background-image: url(":images/angleX-flip.png");
+}
+QPushButton#probe_p_angle_y_minus_flip {
+	background-image: url(":images/angleY-flip.png");
+}
+QPushButton#probe_p_angle_x_plus_flip {
+	background-image: url(":images/angleX+flip.png");
+}
+QPushButton#probe_p_angle_y_plus_flip {
+	background-image: url(":images/angleY+flip.png");
+}
+
 /* **************************************** */
 
 
