@@ -12,7 +12,7 @@ o<p_angle_y_minus> sub
 	G91 G38.2 Y -#1011				; locate 2nd X point for side A
 	#1002 = #5062					; store 2nd X point Side A
 	G91 G1 Y .1						; back out a fixed dist
-	#1003 = [[#1002 - #1001]*-1]	; #1001 should be less than #1002
+	#1003 = [#1002 - #1001]			; #1001 should be less than #1002
 	#1005 = ATAN[#1003]/[#1004]
 	(debug, #1005 deg)
 o<p_angle_y_minus> endsub
