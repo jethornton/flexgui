@@ -1,8 +1,11 @@
 
 /* QWidget  */
+/*QWidget#CentralContainer {
+	background-image: url(./images/FlexGUI-whitebg1.png)
+}*/
 QMenu, QLabel, QPlainTextEdit#gcode_pte {
 	background-color: #121212;
-	color: #ffffff;
+	color: white;
 	border-color: #051a39;
 	}
 QPlainTextEdit#gcode_pte {
@@ -13,26 +16,26 @@ QPlainTextEdit#gcode_pte {
 QPlainTextEdit#errors_pte {
 	background-color: rgba(0, 96, 192, 60%); color: white;
 /*	background-color: rgba(192, 0, 0, 40%); color: white; */
-	/*background-color: #121212; color: #ffffff; */
+	/*background-color: #121212; color: white; */
     border: 1px solid white;
 	}
 
 QListWidget, QLineEdit, QComboBox {
 	background-color: rgba(0, 96, 192, 60%);
 /*	background-color: #121212;*/
-	color: #ffffff;
+	color: white;
 	border-color: #051a39;
 	}
 
 QTabBar, QToolButton, QAbstractSpinBox {
 	background-color: #121212;
-	color: #ffffff;
+	color: white;
 	border-color: #051a39;
 	}
 
 QTabWidget, QTabBar, QMainWindow {
 	background-color: #121212;
-	color: #ffffff;
+	color: white;
 	border-color: #051a39;
 	}
 
@@ -365,6 +368,7 @@ QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected
 /*	background-color: black;*/
 /*	color: white;*/
 	color: black;
+/*	color: darkblue; */
 	}
 
 /* **************************************** */
