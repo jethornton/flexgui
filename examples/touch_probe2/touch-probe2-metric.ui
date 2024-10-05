@@ -817,6 +817,9 @@
       <height>26</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>A simulated probe trip button. </string>
+    </property>
     <property name="text">
      <string>Probe SET</string>
     </property>
@@ -1652,6 +1655,9 @@
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Enable for Probe routines - Disable this button to enable other MDI and run commands.</string>
+    </property>
     <property name="text">
      <string>Probe Enable</string>
     </property>
@@ -1893,6 +1899,9 @@
       <width>116</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Clear the error display.</string>
     </property>
     <property name="text">
      <string>CLEAR ERROR</string>
@@ -2327,6 +2336,9 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Zero X offset to the current position</string>
+     </property>
      <property name="text">
       <string>Set X</string>
      </property>
@@ -2345,6 +2357,9 @@
        <width>81</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Zero Y offset to the current position</string>
      </property>
      <property name="text">
       <string>Set Y</string>
@@ -2365,6 +2380,9 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Zero Z offset to the current position</string>
+     </property>
      <property name="text">
       <string>Set Z</string>
      </property>
@@ -2384,6 +2402,9 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Set coordinate offset angle after probing.</string>
+     </property>
      <property name="text">
       <string>Set Angle</string>
      </property>
@@ -2402,6 +2423,9 @@
        <width>91</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Return Coordinates to zero after angle offset.</string>
      </property>
      <property name="text">
       <string>Zero Angle</string>
