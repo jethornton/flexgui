@@ -481,7 +481,7 @@ def action_hal_scope(parent): # actionHal_Scope
 	subprocess.Popen('halscope', cwd=parent.ini_path)
 
 def action_about(parent): # actionAbout
-	print(parent.sender().objectName())
+	dialogs.about_dialog(parent)
 
 def action_quick_reference(parent): # actionQuick_Reference
 	print(parent.sender().objectName())

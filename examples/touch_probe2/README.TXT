@@ -17,4 +17,3 @@ probe_max_bar_r			= 1.25		30.0	( Max bar size to probe... a little larger than y
 probe_tip_diam 			= .07874	2		( probe tip is mm/in enter the conversion you choose )
 
 
-#<workoffset> = [#[5203 + #5220 * 20] + #5213 * #5210]
