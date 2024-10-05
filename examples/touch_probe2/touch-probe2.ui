@@ -420,9 +420,9 @@
    <widget class="QPushButton" name="clear_errors_pb">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>215</y>
-      <width>121</width>
+      <x>810</x>
+      <y>260</y>
+      <width>116</width>
       <height>26</height>
      </rect>
     </property>
@@ -649,7 +649,7 @@
    <widget class="QPushButton" name="view_clear_pb">
     <property name="geometry">
      <rect>
-      <x>285</x>
+      <x>270</x>
       <y>300</y>
       <width>76</width>
       <height>21</height>
@@ -763,10 +763,10 @@
    <widget class="QPushButton" name="run_mdi_pb">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>265</y>
-      <width>121</width>
-      <height>27</height>
+      <x>425</x>
+      <y>300</y>
+      <width>76</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -776,7 +776,7 @@
    <widget class="QPushButton" name="view_p_pb">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>195</x>
       <y>300</y>
       <width>71</width>
       <height>21</height>
@@ -789,7 +789,7 @@
    <widget class="QPushButton" name="view_z_pb">
     <property name="geometry">
      <rect>
-      <x>365</x>
+      <x>350</x>
       <y>300</y>
       <width>71</width>
       <height>21</height>
@@ -1547,7 +1547,7 @@
       <x>800</x>
       <y>15</y>
       <width>131</width>
-      <height>191</height>
+      <height>236</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -1632,6 +1632,25 @@
       <string>G10 L2 P0  R#1005</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="zero_angle">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>185</y>
+       <width>91</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Zero Angle</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>mdi</string>
+     </property>
+     <property name="command" stdset="0">
+      <string>G10 L2 P0  R0</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="probing_enable_pb">
     <property name="geometry">
@@ -1675,7 +1694,7 @@
    <widget class="QFrame" name="frame_5">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>510</x>
       <y>330</y>
       <width>141</width>
       <height>141</height>
@@ -1767,7 +1786,7 @@
    <widget class="QLabel" name="label_17">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>540</x>
       <y>305</y>
       <width>76</width>
       <height>19</height>
@@ -1783,7 +1802,7 @@
    <widget class="QFrame" name="frame_6">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>660</x>
       <y>330</y>
       <width>141</width>
       <height>141</height>
@@ -1875,7 +1894,7 @@
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>690</x>
       <y>305</y>
       <width>76</width>
       <height>19</height>
@@ -2290,7 +2309,7 @@
    <widget class="QFrame" name="frame_9">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>810</x>
       <y>330</y>
       <width>141</width>
       <height>141</height>
@@ -2382,7 +2401,7 @@
    <widget class="QLabel" name="label_21">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>840</x>
       <y>310</y>
       <width>76</width>
       <height>19</height>
