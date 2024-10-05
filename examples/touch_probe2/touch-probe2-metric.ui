@@ -1083,7 +1083,7 @@
       </rect>
      </property>
      <property name="toolTip">
-      <string>Max XY search distance on Outside / Inside routines</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max XY search distance on Outside / Inside and Angle routines&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="decimals">
       <number>3</number>
