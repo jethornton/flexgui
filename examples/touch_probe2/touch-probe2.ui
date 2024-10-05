@@ -426,6 +426,9 @@
       <height>26</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Clear the error display.</string>
+    </property>
     <property name="text">
      <string>CLEAR ERROR</string>
     </property>
@@ -714,6 +717,9 @@
       <width>91</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A simulated probe trip button. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>Probe SET</string>
@@ -1565,6 +1571,9 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Zero X offset to the current position</string>
+     </property>
      <property name="text">
       <string>Set X</string>
      </property>
@@ -1583,6 +1592,9 @@
        <width>81</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Zero Y offset to the current position</string>
      </property>
      <property name="text">
       <string>Set Y</string>
@@ -1603,6 +1615,9 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Zero Z offset to the current position</string>
+     </property>
      <property name="text">
       <string>Set Z</string>
      </property>
@@ -1621,6 +1636,9 @@
        <width>81</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Set coordinate offset angle after probing.</string>
      </property>
      <property name="text">
       <string>Set Angle</string>
@@ -1641,6 +1659,9 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Return Coordinates to zero after angle offset.</string>
+     </property>
      <property name="text">
       <string>Zero Angle</string>
      </property>
@@ -1660,6 +1681,9 @@
       <width>106</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable for Probe routines - Disable this button to enable other MDI and run commands.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>Probe Enable</string>
