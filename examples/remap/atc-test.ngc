@@ -1,0 +1,7 @@
+(Gcode test run for auto-tool-change)
+T1 M6 (1.1in end mill)
+G4 P3
+T2 M6 (1.2in end mill)
+G4 P3
+T3 M6 (1.3in end mill)
+M2
