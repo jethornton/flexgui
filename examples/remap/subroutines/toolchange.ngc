@@ -1,0 +1,22 @@
+o<toolchange> sub
+	M70	(Save modal state)
+ 	M5
+	M9	(Turn coolant off)
+	G17 G20 G40 G61 G80 G94 G97 G98 G49	(Baseline modal state, same as my machine)
+	G53 G0 Z0 (go machine home)
+  G53 G0 X1 Y1 (draw a clockwise square, 1in)
+  G53 G0 Y2
+  G53 G0 X2
+  G53 G0 Y1
+  G53 G0 X1
+	M61 Q0	(Set current tool to 0)
+  G53 G0 X2 (draw a counter-clockwise square, 1in)
+  G53 G0 Y2
+  G53 G0 X1
+  G53 G0 Y1
+	M61 Q#<_selected_tool>	(Set current tool)
+  G53 G0 X0 Y0 (return machine home)
+	M72	(Restore saved modal state)
+	G43
+o<toolchange> endsub
+M2
