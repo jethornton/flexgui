@@ -1,12 +1,13 @@
 Plotter
 =======
 
-To add a live plotter add a QWidget or QFrame and name it `plot_widget`
+To add a live GCODE plotter, add a QWidget or QFrame and name it `plot_widget`.
+
 
 Controls
 --------
 
-If you're using a touch screen add pan, zoom and rotate controls.
+If you're using a touch-screen, add pan, zoom, and rotate controls for the plotter:
 
 .. csv-table:: Display Controls
    :width: 80%
@@ -25,7 +26,8 @@ If you're using a touch screen add pan, zoom and rotate controls.
 	Zoom View In, QPushButton, view_zoom_in_pb
 	Zoom View Out, QPushButton, view_zoom_out_pb
 
-The following controls set predefined views
+
+The following controls set-predefined views:
 
 .. csv-table:: Display Views
    :width: 80%
@@ -40,7 +42,8 @@ The following controls set predefined views
 	View Z, QPushButton, view_z_pb
 	View Z2, QPushButton, view_z2_pb
 
-To clear the Live plot use:
+
+To clear the Live plot:
 
 .. csv-table:: Display Functions
    :width: 80%
@@ -50,11 +53,11 @@ To clear the Live plot use:
 	Control, Widget, Name
 	Clear Live Plot, QPushButton, view_clear_pb
 
+
 Display
 -------
 
-The DRO can be customized by turning on or off different parts using either a
-QCheckbox or a Menu.
+The DRO overlaid onto the plotter can be customized by turning on or off various features.  Use either a QCheckbox or a Menu to toggle these:
 
 .. csv-table:: Display Checkbox Options
    :width: 80%
@@ -76,14 +79,13 @@ QCheckbox or a Menu.
 	View Offsets, QCheckBox, view_offsets_cb
 	View Overlay, QCheckBox, view_overlay_cb
 
-.. note:: Don't set the checked property to checked in the Designer. That is
-   handled in the code. Once you check an option it is remembered.
+.. note:: Don't set the checked property to checked in Qt Designer as this is already handled in the code. Once you check an option it is remembered.
+
 
 Menu
 ----
 
-The following menu items can set display options. `Menu Name` is what you type
-when creating the Menu then press enter.
+The following menu items can set display options. `Menu Name` is what you type when creating the Menu, then press enter.
 
 .. csv-table:: Display Menu Options
    :width: 80%
@@ -105,11 +107,10 @@ when creating the Menu then press enter.
 	View Offsets, Offsets, actionOffsets
 	View Overlay, Overlay, actionOverlay
 
-.. note:: Once a view selection has been set Flex GUI remembers that the next
-   time you start the configuration.
+.. note:: Once a view selection has been set, Flex GUI remembers it.
+
 
 DRO
 ---
 
-The font size can be set in the ini file by adding in the [DISPLAY] section
-DRO_FONT_SIZE = n where n is an integer. The default size is 12.
+The font size can be set in the ini file by adding in the [DISPLAY] section DRO_FONT_SIZE = n where n is an integer. The default size is 12.
