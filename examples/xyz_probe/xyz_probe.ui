@@ -435,7 +435,7 @@
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QLabel" name="rapidrate_lb">
+          <widget class="QLabel" name="rapid_override_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -2645,7 +2645,7 @@
      <x>0</x>
      <y>0</y>
      <width>967</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -861,7 +861,7 @@
         <item row="2" column="2">
          <widget class="QLabel" name="label_54">
           <property name="text">
-           <string>rapidrate_lb</string>
+           <string>rapid_override_lb</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -961,7 +961,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QLabel" name="rapidrate_lb">
+         <widget class="QLabel" name="rapid_override_lb">
           <property name="text">
            <string>TextLabel</string>
           </property>
