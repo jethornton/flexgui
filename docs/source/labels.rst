@@ -53,7 +53,7 @@ Status Labels
 	block_delete_lb, input_timeout_lb, program_units_lb
 	call_level_lb, interp_state_lb, queue_lb
 	command_lb, interpreter_errcode_lb, queue_full_lb
-	current_line_lb, joints_lb, rapidrate_lb
+	current_line_lb, joints_lb, rapid_override_lb
 	current_vel_lb, kinematics_type_lb, read_line_lb
 	cycle_time_lb, linear_units_lb, rotation_xy_lb
 	debug_lb, lube_lb, settings_lb
