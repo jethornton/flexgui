@@ -3,8 +3,9 @@ o<p_angle_y_minus_m_flip> sub
 	#1004 = #<_hal[flexhal.probe_angle_base_dist]>	; Base length
 	#1010 = #<_hal[flexhal.probe_SEARCH_FEED]>
 	#1011 = #<_hal[flexhal.probe_xy_travel_dist]>
+	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>
    	F #1010
-	G91 G38.2 Y -12.7				; locate start point
+	G91 G38.2 Y -#1022				; locate start point
 	#1001 = #5062					; store the first X point side A
 	G91 G1 Y 2.54					; back out a fixed dist
 	G91 G1 X -#1004					; move to end of side B
