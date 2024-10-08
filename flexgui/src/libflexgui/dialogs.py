@@ -144,58 +144,58 @@ def about_dialog(parent):
 
 	titleLabel =  QLabel()
 	titleLabel.setText('FlexGUI')
-	titleLabel.setAlignment(Qt.AlignCenter)
+	titleLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(titleLabel)
 
 	imageLabel = QLabel()
-	imageLabel.setAlignment(Qt.AlignCenter)
+	imageLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
 	image_path = os.path.join(parent.lib_path, 'flexgui.jpg')
 	pixmap = QPixmap(image_path)
-	pixmap = pixmap.scaled(256, 256, Qt.KeepAspectRatio)
+	pixmap = pixmap.scaled(256, 256, Qt.AspectRatioMode.KeepAspectRatio)
 	imageLabel.setPixmap(pixmap)
 	layout.addWidget(imageLabel)
 
 	authorLabel =  QLabel()
 	authorLabel.setText('Author: John Thornton')
-	authorLabel.setAlignment(Qt.AlignCenter)
+	authorLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(authorLabel)
 
 	versionLabel =  QLabel()
-	versionLabel.setText(f'Version: {parent.version}')
-	versionLabel.setAlignment(Qt.AlignCenter)
+	versionLabel.setText(f'Version: {parent.flex_version}')
+	versionLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(versionLabel)
 
 	aboutLabel =  QLabel()
 	aboutLabel.setText('Flexible Graphical User Interface\nfor LinuxCNC')
-	aboutLabel.setAlignment(Qt.AlignCenter)
+	aboutLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(aboutLabel)
 
 	websiteLabel =  QLabel()
 	websiteLabel.setText("<a href='https://gnipsel.com/'>Authors Website</a>")
-	websiteLabel.setAlignment(Qt.AlignCenter)
+	websiteLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	websiteLabel.setOpenExternalLinks(True)
 	layout.addWidget(websiteLabel)
 
 	repoLabel =  QLabel()
 	repoLabel.setText("<a href='https://github.com/jethornton/flexgui'>Code Website</a>")
-	repoLabel.setAlignment(Qt.AlignCenter)
+	repoLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	repoLabel.setOpenExternalLinks(True)
 	layout.addWidget(repoLabel)
 
 	copyrightLabel =  QLabel()
 	copyrightLabel.setText('Copyright © 1953-2024 John Thornton')
-	copyrightLabel.setAlignment(Qt.AlignCenter)
+	copyrightLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(copyrightLabel)
 
 	layout.addStretch()
 
 	buttonBox = QDialogButtonBox()
-	buttonBox.setStandardButtons(QDialogButtonBox.Ok)
+	buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Ok)
 	buttonBox.setCenterButtons(True)
 	#buttonBox.addButton("Credits", QDialogButtonBox.ActionRole)
-	buttonBox.accepted.connect(dialogBox.close)
+	buttonBox.accepted.connect(dialog_box.close)
 	layout.addWidget(buttonBox)
 
-	dialogBox.exec()
+	dialog_box.exec()
 
