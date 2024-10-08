@@ -11,3 +11,13 @@ Flex GUI is a flexible GUI that can be customized to suit your needs.
 * You can create and use your own style sheet, changing fonts, colors, etc.
 * All Flex GUI configuration is done in the .ini file
 * Flex GUI remembers the size and position of your GUI
+
+Acronyms
+========
+
+The following acronyms will be found in this document
+
+* NC = `Numerical Control` code includes G, M and O codes
+* G = `Geometric` code is used for geometric movements
+* M = `Miscellaneous` code is used for non-movement functions
+* O = `Organizing` code is used in CNC programs to control flow
