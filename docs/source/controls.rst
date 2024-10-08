@@ -4,18 +4,18 @@ Controls
 Push Buttons
 ------------
 
-Controls are QPushButtons that can be placed anywhere you like. Use the Name
-from the list below for each control widget objectName. Replace the `(0-8)` with
-the joint number or axis index. More controls are in :doc:`tools`
+Controls are QPushButtons that can be placed anywhere you like. Use the Name 
+from the list below for each control widget objectName. Replace the `(0-8)` 
+with the joint number or axis index. More controls are in :doc:`tools`.
 
 .. csv-table:: Control Push Buttons
    :width: 80%
    :align: center
 
 	Control Function, Object Name
-	Open a G code File, open_pb
-	Edit a G code File, edit_pb
-	Reload a G code File, reload_pb
+	Open a G-code File, open_pb
+	Edit a G-code File, edit_pb
+	Reload a G-code File, reload_pb
 	Edit Tool Table, edit_tool_table_pb
 	Edit Ladder, edit_ladder_pb
 	Reload Tool Table, reload_tool_table_pb
@@ -23,7 +23,7 @@ the joint number or axis index. More controls are in :doc:`tools`
 	Quit the Program, quit_pb
 	E-Stop Toggle, estop_pb
 	Power Toggle, power_pb
-	Run a Loaded G code File, run_pb
+	Run a Loaded G-code File, run_pb
 	Run From Line, run_from_line_pb
 	Step one Logical Line, step_pb
 	Pause a Running Program, pause_pb
@@ -47,15 +47,18 @@ the joint number or axis index. More controls are in :doc:`tools`
 .. image:: /images/controls-01.png
    :align: center
 
-.. note:: Touch Off buttons require a Double Spin Box named `touchoff_dsb`
+.. note:: Touch-Off buttons require a Double Spin Box named `touchoff_dsb`
 
-.. note:: Tool Touch Off buttons require a Double Spin Box named `tool_touchoff_dsb`
+.. note:: Tool-Touch-Off buttons require a Double Spin Box named 
+`tool_touchoff_dsb`
+
 
 Options
 -------
 
-The QPushButton options are toggle type buttons press to turn on press again to
-turn off. They are normal push buttons but in code they are set to checkable.
+The QPushButton options are toggle-type buttons; press to turn on, press again 
+to turn off.  They are normal push buttons but Flex automatically makes them 
+`checkable`.
 
 .. csv-table:: Options
    :width: 100%
@@ -67,6 +70,7 @@ turn off. They are normal push buttons but in code they are set to checkable.
 	Optional Stop at M1, QPushButton, optional_stop_pb
 	Block Delete line that starts with /, QPushButton, block_delete_pb
 	Feed Override Enable/Disable, QPushButton, feed_override_pb
+
 
 Axis Index
 ----------
@@ -82,11 +86,12 @@ Axis Index
 	V 7
 	W 8
 
+
 Jog Controls
 ------------
 
-Jogging requires the Jog Velocity Slider and Jog Mode Selector. If either is not
-found any Jog Buttons will be disabled.
+Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`.  If either 
+is not found, Jog Buttons will be disabled.
 
 .. csv-table:: Jog Widgets
    :width: 100%
@@ -99,15 +104,16 @@ found any Jog Buttons will be disabled.
 	Jog Velocity Label, QLabel, jog_vel_lb
 	Jog Mode Selector, QComboBox, jog_modes_cb
 
-.. note:: Jog Plus/Minus buttons use the `Axis Index`_ Jog Y Plus is jog_plus_pb_1
+.. note:: Jog Plus/Minus buttons use the `Axis Index`_. So `Jog Y Plus` is 
+`jog_plus_pb_1`.
 
-.. note:: Jog Mode Selector reads the ini entry [DISPLAY] INCREMENTS and if not
-   found only Continuous will show up as an option.
+.. note:: `Jog Mode Selector` reads the ini entry [DISPLAY] INCREMENTS and if 
+not found, only `Continuous` will be an option.
 
-.. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be
-   ignored
+.. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be 
+ignored.  
 
-The following settings are from the DISPLAY section of the ini file if found.
+The following settings can be used in the DISPLAY section of the ini file:
 ::
 
 	Jog Velocity minimum              MIN_LINEAR_VELOCITY
@@ -118,8 +124,8 @@ The following settings are from the DISPLAY section of the ini file if found.
 Overrides
 ---------
 
-A QSlider is used to control the following functions and the corresponding label
-shows the value of the slider.
+A QSlider is used to control the following functions and the corresponding 
+label shows the value of the slider:
 
 .. csv-table:: Overrides
    :width: 100%
@@ -134,11 +140,12 @@ shows the value of the slider.
 	Spindle Override Percent, QLabel, spindle_override_0_lb
 	Override Limits, QCheckBox, override_limits_cb
 
-The following settings are from the DISPLAY section of the ini file if found.
+The following settings can be used in the DISPLAY section of the ini file:
 ::
 
 	Feed Override maximum             MAX_FEED_OVERRIDE
 	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
+
 
 Double Spin Boxes
 -----------------
@@ -147,6 +154,5 @@ Double Spin Boxes
 	Touch Off Value         touchoff_dsb
 	Tool Touch Off Value    tool_touchoff_dsb
 
-.. note:: You don't have to use all the controls, the ones found will be
-   connected to the correct code. Nothing is mandatory to use it's Flexible.
+.. note:: You don't have to use any of these controls; Flex GUI is flexible.
 
