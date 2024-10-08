@@ -106,16 +106,16 @@ class flexgui(QMainWindow):
 
 		results = subprocess.run(['dpkg-query', '-W', 'flexgui'], text=True, capture_output=True)
 		if results.stdout:
-			flex_version = results.stdout.split()[1]
+			self.flex_version = results.stdout.split()[1]
 		else:
-			flex_version = 'Unknown'
+			self.flex_version = 'Unknown'
 
 		loadUi(gui_path, self)
 		machine = self.inifile.find('EMC', 'MACHINE') or False
 		if machine:
-			self.setWindowTitle(f'{machine} Flex GUI V{flex_version}')
+			self.setWindowTitle(f'{machine} Flex GUI V{self.flex_version}')
 		else:
-			self.setWindowTitle(f'Flex GUI - Version: {flex_version} - Using {gui_file}')
+			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
 
 		# check for a resources.py file with images for the stylesheet
 		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
