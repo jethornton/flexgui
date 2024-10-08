@@ -33,6 +33,8 @@ Adding a menu item creates an action.  When you create File > Open menu, the `ac
   Stop                   actionStop
   Clear MDI History      actionClear_MDI_History
   Copy MDI History       actionCopy_MDI_History
+  Homing                 this creates a home menu item for each axis
+  Unhoming               this creates a unhome menu item for each axis
 
  Programs
   Show HAL               actionShow_HAL

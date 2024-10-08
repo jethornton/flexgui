@@ -435,6 +435,44 @@ def setup_actions(parent): # setup menu actions
 		if 'actionCopy_MDI_History' in parent.children:
 			parent.actionCopy_MDI_History.setEnabled(False)
 
+	# special check for Homing, Unhoming and Clear Offsets in the menu
+	menus = parent.findChildren(QMenu)
+	axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
+	axis_map = f'{parent.status.axis_mask:09b}'
+	for menu in menus: # menus is the top most menu like File Machine etc.
+		menu_list = menu.actions()
+		for index, action in enumerate(menu_list):
+			if action.objectName() == 'actionHoming': # add homing actions
+				print('actionHoming')
+				action.setMenu(QMenu('Homing', parent))
+				for i, a in enumerate(reversed(axis_map)):
+					if a == '1':
+						axis = axis_list[i]
+						setattr(parent, f'actionHome_{axis}', QAction(f'Home {axis}', parent))
+						getattr(parent, f'actionHome_{axis}').setObjectName(f'actionHome_{i}')
+						action.menu().addAction(getattr(parent, f'actionHome_{axis}'))
+						getattr(parent, f'actionHome_{axis}').triggered.connect(partial(commands.home, parent))
+						parent.state_estop[f'actionHome_{axis}'] = False
+						parent.state_estop_reset[f'actionHome_{axis}'] = False
+						parent.state_on[f'actionHome_{axis}'] = True
+			elif action.objectName() == 'actionUnhoming':
+				print('actionUnhoming')
+				action.setMenu(QMenu('Unhoming', parent))
+				axis_map = f'{parent.status.axis_mask:09b}'
+				for i, a in enumerate(reversed(axis_map)):
+					if a == '1':
+						axis = axis_list[i]
+						setattr(parent, f'actionUnhome_{axis}', QAction(f'Home {axis}', parent))
+						getattr(parent, f'actionUnhome_{axis}').setObjectName(f'actionUnhome_{i}')
+						action.menu().addAction(getattr(parent, f'actionUnhome_{axis}'))
+						getattr(parent, f'actionUnhome_{axis}').triggered.connect(partial(commands.unhome, parent))
+						parent.state_estop[f'actionUnhome_{axis}'] = False
+						parent.state_estop_reset[f'actionUnhome_{axis}'] = False
+						parent.state_on[f'actionUnhome_{axis}'] = True
+			elif action.objectName() == 'actionClear_Offsets':
+				print('actionClear_Offsets')
+
+
 def setup_status_labels(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
 	if units.lower() == 'inch':
