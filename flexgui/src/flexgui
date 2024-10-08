@@ -164,8 +164,6 @@ class flexgui(QMainWindow):
 				msg = (f'The Stylesheet {stylesheet}\n'
 					'was not found.')
 				dialogs.warn_msg_ok(msg, 'INI Error')
-		else:
-			print('No Stylesheet used')
 
 		startup.set_screen(self)
 		startup.find_children(self)

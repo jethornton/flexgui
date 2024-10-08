@@ -329,7 +329,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 					   self.from_internal_linear_unit(self.get_foam_w()))
 			self.calculate_gcode_properties(canon)
 		except Exception as e:
-			print (e)
+			#print (e)
 			self.gcode_properties = None
 		finally:
 			shutil.rmtree(td)
@@ -343,7 +343,8 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 	# monkey patched function from StatCanon class
 	def output_notify_message(self, message):
-		print("Preview Notify:", message)
+		pass
+		#print("Preview Notify:", message)
 
 	# monkey patched function from Progress class
 	def emit_percent(self, percent):
@@ -932,7 +933,8 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 				toolchange,
 				probe)
 		except Exception as e:
-			print('GcodeGraphics: set_color:',e)
+			pass
+			#print('GcodeGraphics: set_color:',e)
 
 	####################################
 	# view controls
