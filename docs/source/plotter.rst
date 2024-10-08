@@ -1,13 +1,14 @@
 Plotter
 =======
 
-To add a live GCODE plotter, add a QWidget or QFrame and name it `plot_widget`.
+To add a live G-code plotter, add a QWidget or QFrame and name it `plot_widget`.
 
 
 Controls
 --------
 
-If you're using a touch-screen, add pan, zoom, and rotate controls for the plotter:
+If you're using a touch-screen, add pan, zoom, and rotate controls for the 
+plotter:
 
 .. csv-table:: Display Controls
    :width: 80%
@@ -57,7 +58,8 @@ To clear the Live plot:
 Display
 -------
 
-The DRO overlaid onto the plotter can be customized by turning on or off various features.  Use either a QCheckbox or a Menu to toggle these:
+The DRO overlaid onto the plotter can be customized by turning on or off 
+various features.  Use either a QCheckbox or a Menu to toggle these:
 
 .. csv-table:: Display Checkbox Options
    :width: 80%
@@ -79,13 +81,15 @@ The DRO overlaid onto the plotter can be customized by turning on or off various
 	View Offsets, QCheckBox, view_offsets_cb
 	View Overlay, QCheckBox, view_overlay_cb
 
-.. note:: Don't set the checked property to checked in Qt Designer as this is already handled in the code. Once you check an option it is remembered.
+.. note:: Don't set the checked property to checked in Qt Designer as this is 
+already handled in the code. Once you check an option it is remembered.
 
 
 Menu
 ----
 
-The following menu items can set display options. `Menu Name` is what you type when creating the Menu, then press enter.
+The following menu items can set display options. `Menu Name` is what you 
+type when creating the Menu, then press enter.
 
 .. csv-table:: Display Menu Options
    :width: 80%
@@ -113,4 +117,5 @@ The following menu items can set display options. `Menu Name` is what you type w
 DRO
 ---
 
-The font size can be set in the ini file by adding in the [DISPLAY] section DRO_FONT_SIZE = n where n is an integer. The default size is 12.
+The font size can be set in the ini file by adding in the [DISPLAY] section 
+DRO_FONT_SIZE = n where n is an integer. The default size is 12.
