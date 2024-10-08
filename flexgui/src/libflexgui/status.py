@@ -100,8 +100,9 @@ def update(parent):
 			#print('status update TRAJ_MODE_TELEOP')
 			# all joints are homed
 			#print('All Homed')
-			for item in parent.home_required:
-				getattr(parent, item).setEnabled(True)
+			if not parent.probing:
+				for item in parent.home_required:
+					getattr(parent, item).setEnabled(True)
 			if parent.status.file and not parent.probing:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
@@ -175,6 +176,7 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				if parent.status.interp_state == emc.INTERP_IDLE:
 					if parent.probing:
+						#print(f'parent.probing {parent.probing}')
 						for item in parent.probe_controls:
 							getattr(parent, item).setEnabled(True)
 					else:
