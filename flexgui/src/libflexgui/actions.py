@@ -89,7 +89,6 @@ def action_open(parent): # actionOpen
 		extensions = ' '.join(extensions).strip()
 		ext_filter = f'G code Files ({extensions});;All Files (*)'
 	else:
-		print(f'False {extensions}')
 		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')

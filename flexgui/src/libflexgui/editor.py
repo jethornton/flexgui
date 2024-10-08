@@ -3,7 +3,7 @@ from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette
 ######## I don't think any of this is used any more it's in utilities or should be
 
 def show_line(parent):
-	print('show_line')
+	#print('show_line')
 	#background = parent.gcode_pte.palette().color(QPalette.ColorRole.Window).name()
 	#print(background)
 	# QColor background = your_label.palette().color(QPalette::Window);
@@ -28,7 +28,6 @@ def show_line(parent):
 	#parent.gcode_pte.setTextCursor(cursor)
 
 def select_line(parent, event): # not used anywhere
-	print('select_line')
 	editor = QtGui.QPlainTextEdit()
 
 	fmt = QtGui.QTextCharFormat()
@@ -44,7 +43,6 @@ def select_line(parent, event): # not used anywhere
 	cursor.setCharFormat(fmt)
 
 def highlight_line(parent): # update highlighted line when program is running
-	print('highlight_line')
 	""" Sets the highlighting of a given line number in the QTextEdit"""
 	format_normal = QTextBlockFormat()
 	format_normal.setBackground(QColor('black'))
@@ -61,7 +59,6 @@ def highlight_line(parent): # update highlighted line when program is running
 	parent.gcode_pte.setTextCursor(cursor)
 
 def move_cursor(parent): # not used anywhere
-	print('move_cursor')
 	format_normal = QTextBlockFormat()
 	format_normal.setBackground(QColor('white'))
 	highlight_format = QTextBlockFormat()
@@ -77,7 +74,6 @@ def move_cursor(parent): # not used anywhere
 	cursor.setBlockFormat(highlight_format)
 
 def clear_highlight(parent): # not used anywhere
-	print('clear_highlight')
 	format_normal = QTextBlockFormat()
 	format_normal.setBackground(QColor('white'))
 	cursor = parent.gcode_pte.textCursor()
