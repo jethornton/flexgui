@@ -444,6 +444,8 @@ def setup_actions(parent): # setup menu actions
 		for index, action in enumerate(menu_list):
 			if action.objectName() == 'actionHoming': # add homing actions
 				print('actionHoming')
+				# FIXME add Home All
+				# FIXME disable home menus when homed
 				action.setMenu(QMenu('Homing', parent))
 				for i, a in enumerate(reversed(axis_map)):
 					if a == '1':
@@ -455,8 +457,12 @@ def setup_actions(parent): # setup menu actions
 						parent.state_estop[f'actionHome_{axis}'] = False
 						parent.state_estop_reset[f'actionHome_{axis}'] = False
 						parent.state_on[f'actionHome_{axis}'] = True
+						parent.program_running[f'actionHome_{axis}'] = False
+						parent.program_paused[f'actionHome_{axis}'] = False
 			elif action.objectName() == 'actionUnhoming':
 				print('actionUnhoming')
+				# FIXME add Unhome All
+				# FIXME disable unhome menus when unhomed
 				action.setMenu(QMenu('Unhoming', parent))
 				axis_map = f'{parent.status.axis_mask:09b}'
 				for i, a in enumerate(reversed(axis_map)):
@@ -469,6 +475,8 @@ def setup_actions(parent): # setup menu actions
 						parent.state_estop[f'actionUnhome_{axis}'] = False
 						parent.state_estop_reset[f'actionUnhome_{axis}'] = False
 						parent.state_on[f'actionUnhome_{axis}'] = True
+						parent.program_running[f'actionUnhome_{axis}'] = False
+						parent.program_paused[f'actionUnhome_{axis}'] = False
 			elif action.objectName() == 'actionClear_Offsets':
 				print('actionClear_Offsets')
 
