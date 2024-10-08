@@ -20,7 +20,7 @@ editors are included to enter MDI commands: the mini-Flex `Keyboard`, a
 
 G-code popup window:
 
-.. image:: /images/G-code-popup.png
+.. image:: /images/gcode-popup.png
    :align: center
 
 Keyboard popup window:
@@ -62,7 +62,7 @@ created by adding two dynamic properties called `function` and `command` to a
 QPushButton.
 
 .. note:: If the `command` property is not found, the button will not be 
-enabled!
+   enabled!
 
 Select the button then create a dynamic property by pressing the green plus 
 sign in the Property Editor:

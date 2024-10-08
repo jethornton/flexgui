@@ -20,7 +20,7 @@ G-code Viewer
 
 To add a G-code viewer, add a Plain Text Edit from Input Widgets and name it `G-code_pte`:
 
-.. image:: /images/G-code-viewer-01.png
+.. image:: /images/gcode-viewer-01.png
    :align: center
 
 
