@@ -26,7 +26,6 @@ plotter
 	Zoom View In, QPushButton, view_zoom_in_pb
 	Zoom View Out, QPushButton, view_zoom_out_pb
 
-
 The following controls set-predefined views
 
 .. csv-table:: Display Views
@@ -42,7 +41,6 @@ The following controls set-predefined views
 	View Z, QPushButton, view_z_pb
 	View Z2, QPushButton, view_z2_pb
 
-
 To clear the Live plot
 
 .. csv-table:: Display Functions
@@ -52,7 +50,6 @@ To clear the Live plot
 
 	Control, Widget, Name
 	Clear Live Plot, QPushButton, view_clear_pb
-
 
 Display
 -------
@@ -83,7 +80,6 @@ various features. Use either a QCheckbox or a Menu to toggle these
 .. note:: Don't set the checked property to checked in Qt Designer as this is
    already handled in the code. Once you check an option it is remembered.
 
-
 Menu
 ----
 
@@ -111,7 +107,6 @@ type when creating the Menu, then press enter.
 	View Overlay, Overlay, actionOverlay
 
 .. note:: Once a view selection has been set, Flex GUI remembers it.
-
 
 DRO
 ---
