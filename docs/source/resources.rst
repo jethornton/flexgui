@@ -1,14 +1,15 @@
 Resources
 =========
 
-To create a resources.py file with images to use with the .qss stylesheet, start by placing all the images in one directory.
+To create a resources.py file with images to use with the .qss stylesheet, start
+by placing all the images in one directory.
 
-Add the following library if not installed:
+Add the following library if not installed
 ::
 
 	sudo apt install qtbase5-dev-tools
 
-Open up the Qt Designer and select the Resource Browser then Edit Resources:
+Open up the Qt Designer and select the Resource Browser then Edit Resources
 
 .. image:: /images/resources-01.png
    :align: center
@@ -28,7 +29,8 @@ Add the image files:
 .. image:: /images/resources-04.png
    :align: center
 
-Click on the first image, then use shift and click on the last image to select all the image files:
+Click on the first image, then use shift and click on the last image to select
+all the image files
 
 .. image:: /images/resources-05.png
    :align: center
@@ -39,7 +41,8 @@ Click on OK and you can close the Qt Designer:
    :align: center
 
 
-A second option is to just create a text file, name it `resources.qrc`, and add the following with a line for each file:
+A second option is to just create a text file, name it `resources.qrc`, and add
+the following with a line for each file
 ::
 
 	<RCC>
@@ -50,7 +53,8 @@ A second option is to just create a text file, name it `resources.qrc`, and add 
 	  </qresource>
 	</RCC>
 
-.. note:: The name of the file between <file> and </file> must match exactly in the .qss file, plus a leading colon there to use the internal resources.py.
+.. note:: The name of the file between <file> and </file> must match exactly in
+   the .qss file, plus a leading colon there to use the internal resources.py.
 
 Example:
 ::
@@ -58,12 +62,14 @@ Example:
 	# resources.qrc file
 	<file>inX+.png</file>
 
-	/* your qss file */
+	/* your qss file * /
 	background-image: url(:inX+.png);
 
 .. note:: The file name must start with : to use the internal resources.
 
-Open a terminal in the directory where the images and the resourses.qrc file are and use the following command to create the resourses.py file that is needed by the GUI:
+Open a terminal in the directory where the images and the resourses.qrc file are
+and use the following command to create the resourses.py file that is needed by
+the GUI:
 ::
 
 	rcc -g python -o resources.py resources.qrc
@@ -78,9 +84,11 @@ with
 
 	from PyQt6 import QtCore
 
-.. warning:: The resources file must be named resources.py in order to be imported
+.. warning:: The resources file must be named resources.py in order to be
+   imported
 
-Now place the resources.py file in the configuration directory and edit the .ini file and add
+Now place the resources.py file in the configuration directory and edit the .ini
+file and add
 ::
 
 	RESOURCES = resources.py
