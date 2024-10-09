@@ -24,7 +24,7 @@ with its `filename`:
 Stylesheets
 -----------
 
-To use a built-in input stylesheet, add either:
+To use a built-in input stylesheet, add either
 ::
 
 	INPUT = TOUCH
@@ -45,7 +45,7 @@ Startup File
 ------------
 
 To automatically open a NC file on startup, add the OPEN_FILE key with any
-valid path:
+valid path
 ::
 
 	OPEN_FILE = /home/john/linuxcnc/configs/myconfig/welcome.ngc
@@ -59,7 +59,7 @@ File Location
 -------------
 
 Likewise, to specify a default loction for NC files, add the
-PROGRAM_PREFIX item:
+PROGRAM_PREFIX item
 ::
 
 	PROGRAM_PREFIX = /home/john/linuxcnc/configs/myconfig
@@ -103,7 +103,7 @@ To control the initial size of the screen, add either:
 
 .. warning:: Full size screen does not have any window controls. Make sure
    there is a way to close the GUI like an Exit button or you may not be able to
-   close the application.  As a last-resort, pressing ALT-F4 should close it.
+   close the application. As a last-resort, pressing ALT-F4 should close it.
 
 
 Colors
@@ -124,4 +124,4 @@ specification; it's suggested to use RGB or Hex colors:
 	POWER_ON = #00FF00
 
 Another way to achieve this is is via adding and editing a .qss stylesheet
-file.  See the :doc:`style` section for more info.
+file. See the :doc:`style` section for more info.
