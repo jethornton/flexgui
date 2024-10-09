@@ -1207,10 +1207,12 @@ def setup_hal(parent):
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
 			if button_name == pin_name:
+				button.setEnabled(False)
 				msg = (f'The object name {button_name}\n'
 					'can not be the same as the\n'
 					f'pin name {pin_name}.\n'
-					'The HAL object will not be created.')
+					'The HAL object will not be created\n'
+					'and the button will be disabled.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error!')
 				continue
 			hal_type = button.property('hal_type')
@@ -1243,6 +1245,16 @@ def setup_hal(parent):
 		for spinbox in hal_spinboxes:
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
+			if spinbox_name == pin_name:
+				spinbox.setEnabled(False)
+				msg = (f'The object name {spinbox_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the spinbox will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
 			hal_type = spinbox.property('hal_type')
 			hal_dir = spinbox.property('hal_dir')
 
@@ -1267,6 +1279,16 @@ def setup_hal(parent):
 		for slider in hal_sliders:
 			slider_name = slider.objectName()
 			pin_name = slider.property('pin_name')
+			if slider_name == pin_name:
+				slider.setEnabled(False)
+				msg = (f'The object name {slider_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the slider will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
 			hal_type = slider.property('hal_type')
 			hal_dir = slider.property('hal_dir')
 
