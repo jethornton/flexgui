@@ -51,7 +51,7 @@ Status Labels
    :widths: 40 40 40
 
 	acceleration_lb, flood_lb, pocket_prepped_lb
-	active_queue_lb, G-codes_lb, probe_tripped_lb
+	active_queue_lb, gcodes_lb, probe_tripped_lb
 	adaptive_feed_enabled_lb, g5x_index_lb, probe_val_lb
 	angular_units_lb, ini_filename_lb, probed_position_lb
 	axis_mask_lb, inpos_lb, probing_lb
@@ -72,9 +72,7 @@ Status Labels
 	motion_type_lb, tool_offset_lb, feedrate_lb
 	optional_stop_lb, file_lb, paused_lb
 
-.. note:: You don't have to use all the labels; use only as many as you need.  
-Fewer also has the benefit of running faster.
-
+.. note:: You don't have to use all the labels; use only as many as you need.
 
 Axis Status
 -----------
@@ -91,8 +89,8 @@ float:
 	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb
 	axis_n_velocity_lb, axis_n_vel_per_min_lb
 
-.. note:: The Axis velocity label only reports back `jogging` speed; use the 
-joint velocity label for `linear` speed.
+.. note:: The Axis velocity label only reports back `jogging` speed; use the
+   joint velocity label for `linear` speed.
 
 
 Joint Status
@@ -240,8 +238,8 @@ with the number of the spindle.  Spindle numbers start at 0 and go through 8.
 	spindle_homed_n_lb, spindle_orient_state_n_lb
 	spindle_orient_fault_n_lb, spindle_actual_speed_lb
 
-.. note:: Spindle speed is the commanded speed, not the actual speed (if an 
-override is in effect.)
+.. note:: Spindle speed is the commanded speed, not the actual speed if anything
+   has changed the actual speed.
 
 Spindle speed setting label `spindle_speed_lb` shows the current spindle speed 
 setting even if the spindle is not running; this is normal.
