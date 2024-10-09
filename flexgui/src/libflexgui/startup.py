@@ -1186,8 +1186,6 @@ def setup_mdi_buttons(parent):
 				button.setEnabled(False)
 
 def setup_hal(parent):
-	# FIXME get all the hal_pin objects then test the pin_name is not the same
-	# as the object name maybe...
 	hal_widgets = []
 	hal_buttons = []
 	hal_spinboxes = []
