@@ -2,7 +2,7 @@ INI Settings
 ============
 
 .. note:: The following Flex GUI settings are all located in the [DISPLAY] 
-section of your LinuxCNC .ini file.
+   section of your LinuxCNC .ini file.
 
 To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to:
 ::
@@ -12,7 +12,7 @@ To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to:
 If no GUI is specificed then the default GUI will be used.
 
 .. note:: Any Flex GUI .ui and .qss files must be in the same LinuxCNC 
-configuration directory as the .ini file.
+   configuration directory as the .ini file.
 
 To use your .ui file (created with Qt Designer), add a GUI key to the .ini 
 with its `filename`:
@@ -44,7 +44,7 @@ To use a custom .qss style sheet you created named `lightflex.qss`:
 Startup File
 ------------
 
-To automatically open a G-code file on startup, add the OPEN_FILE key with any 
+To automatically open a NC file on startup, add the OPEN_FILE key with any 
 valid path:
 ::
 
@@ -58,7 +58,7 @@ valid path:
 File Location
 -------------
 
-Likewise, to specify a default loction for G-code files, add the 
+Likewise, to specify a default loction for NC files, add the 
 PROGRAM_PREFIX item:
 ::
 
@@ -86,7 +86,7 @@ File Extensions
 ---------------
 
 The keyboard file dialog defaults to `*.ngc` and this ignores case.  To 
-specify the G-code extensions you want the file dialog to show, add an 
+specify the file extensions you want the file dialog to show, add an 
 EXTENSIONS key with the desired extensions seperated by a comma. The 
 extensions must be in the format `*.ext` with the asterisk and dot:
 ::
@@ -101,9 +101,9 @@ To control the initial size of the screen, add either:
 	SIZE = maximized
 	SIZE = full
 
-.. warning:: Full size screen does not have any window controls. Make sure 
-there is a way to close the GUI like an Exit button or you may not be able to 
-close the application.  As a last-resort, pressing ALT-F4 should close it.
+.. warning:: Full size screen does not have any window controls. Make sure
+   there is a way to close the GUI like an Exit button or you may not be able to 
+   close the application.  As a last-resort, pressing ALT-F4 should close it.
 
 
 Colors
