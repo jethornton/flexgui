@@ -10,7 +10,7 @@ and the `Style Sheet Syntax <https://doc.qt.io/qt-6/stylesheet-syntax.html>`_
 are good references to use when creating your own stylesheets.
 
 .. note:: If there is an error in the stylesheet syntax, no warning is issued,
-   it is just ignored.  So don't forget the ; at the end of each setting. And do 
+   it is just ignored.  So don't forget the ; at the end of each setting. And do
    not accidentally use any backslashes it will break the whole file.
 
 .. warning:: If you only set a background-color on a QPushButton, the background
