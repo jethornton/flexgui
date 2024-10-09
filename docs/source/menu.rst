@@ -4,14 +4,14 @@ Menu
 .. note:: Every menu item has a command button, so you don't need to use any
    menu items if you don't want to.
 
-Adding a menu item creates an action.  When you create File > Open menu, the
+Adding a menu item creates an action. When you create File > Open menu, the
 `actionOpen` action is created.
 
 .. image:: /images/menu-01.png
    :align: center
 
 .. warning:: If you use the full-screen option, you will not be able to exit the
-   application if you don't have the Exit action or an Exit Push Button.  Press
+   application if you don't have the Exit action or an Exit Push Button. Press
    ALT-F4 to forcibly close it.
 
 .. code-block:: text
@@ -92,7 +92,7 @@ in the Tool Bar:
    :align: center
 
 To set the style of a Tool Bar Button, use the action name and replace action
-with `flex_` for example the actionQuit would be `flex_Quit`.  See `Tool Bar
+with `flex_` for example the actionQuit would be `flex_Quit`. See `Tool Bar
 Buttons` in the stylesheet examples.
 
 

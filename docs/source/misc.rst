@@ -84,7 +84,7 @@ the Object Name to `fsc_container`
    :align: center
 
 To make the entry boxes touch-screen aware, add a Dynamic Property called 
-`mode` and set the value to `touch`.  Then when you touch an entry field, a 
+`mode` and set the value to `touch`. Then when you touch an entry field, a 
 numeric popup will show up to allow you to enter the value without a keyboard.
 
 .. image:: /images/fsc-01.png
@@ -95,7 +95,7 @@ To add a Drill Feed and Speed calculator, add a QFrame or QWidget and set the
 Object Name to `dsf_container`.
 
 To make the entry boxes touch-screen aware, add a Dynamic Property called 
-`mode` and set the value to `touch`.  Then when you touch it, a numeric popup 
+`mode` and set the value to `touch`. Then when you touch it, a numeric popup 
 will appear, allowing you to enter the numbers
 
 .. image:: /images/dsc-01.png
