@@ -57,7 +57,7 @@ directory.
 MDI Button
 ----------
 
-MDI buttons execute a MDI command when the button is pressed.  These are
+MDI buttons execute a MDI command when the button is pressed. These are
 created by adding two dynamic properties called `function` and `command` to a
 QPushButton.
 

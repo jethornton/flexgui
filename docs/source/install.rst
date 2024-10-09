@@ -23,10 +23,10 @@ terminal and run this command to install it:
 An alternative is to install from the terminal outright using `dpkg`:
 ::
 
-    sudo dpkg -i flexgui_1.0.0_amd64.deb
+	sudo dpkg -i flexgui_1.0.0_amd64.deb
 
 After installing Flex GUI, a menu item `Copy Flex Examples` is added to the
-`CNC` menu.  This will copy the Flex GUI example files to
+`CNC` menu. This will copy the Flex GUI example files to
 ~/linuxcnc/configs/`flex_examples`.
 
 .. note:: After updating the Flex GUI some examples may have changed. To get a

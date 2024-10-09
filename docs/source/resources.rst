@@ -46,11 +46,11 @@ the following with a line for each file
 ::
 
 	<RCC>
-	  <qresource prefix="/">
-	    <file>name_of_image.png</file>
-	    <file>inX+.png</file>
+		<qresource prefix="/">
+			<file>name_of_image.png</file>
+			<file>inX+.png</file>
 		<file>foo.png</file>
-	  </qresource>
+		</qresource>
 	</RCC>
 
 .. note:: The name of the file between <file> and </file> must match exactly in

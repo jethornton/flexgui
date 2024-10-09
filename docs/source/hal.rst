@@ -35,7 +35,7 @@ type Dynamic Properties as shown here
 	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
 	hal_dir, HAL_OUT
 
-.. note:: A QSpinBox can only be HAL_S32 or HAL_U32 data type.  A QDoubleSpinBox
+.. note:: A QSpinBox can only be HAL_S32 or HAL_U32 data type. A QDoubleSpinBox
    can only be HAL_FLOAT data type.
 
 Slider

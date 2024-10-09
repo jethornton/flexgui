@@ -71,7 +71,7 @@ Touch-Off:
 Tool Touch-Off
 --------------
 
-The Tool Touch-Off offset is a QLineEdit named `tool_touchoff_le`.  To enable
+The Tool Touch-Off offset is a QLineEdit named `tool_touchoff_le`. To enable
 the number pad popup for the offset entry, add a Dynamic Property named
 `input` and set the value to `number`.
 

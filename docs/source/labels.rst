@@ -2,11 +2,11 @@ Status Labels
 =============
 
 Status labels are created using a QLabel and setting the `Object Name`. Status
-labels come in two forms.  A single-status-label like `Machine Status` only
+labels come in two forms. A single-status-label like `Machine Status` only
 contains one piece of information, such as `OFF`, `RUN`, etc.
 
 A multiple-status-label like the `axis` or `joint` dictionaries have multiple
-items and displays for all joints.  Multiple-status-labels use a number
+items and displays for all joints. Multiple-status-labels use a number
 identifier to select the axis, joint, or spindle information wanted.
 
 When creating a status label, set the `objectName` to the status you want to
@@ -76,8 +76,8 @@ Status Labels
 Axis Status
 -----------
 
-The Axis status contains status items for all 9 axes.  Replace the `n` with
-the number of the axis.  Axis numbers start at 0 and go through 8. Returns a
+The Axis status contains status items for all 9 axes. Replace the `n` with
+the number of the axis. Axis numbers start at 0 and go through 8. Returns a
 float
 
 .. csv-table:: Axis Status Labels
@@ -94,7 +94,7 @@ float
 Joint Status
 ------------
 
-The Joint status contains status items for 16 joints.  Replace the `n` with
+The Joint status contains status items for 16 joints. Replace the `n` with
 the number of the joint. Joint numbers start at 0 and go through 15
 
 .. csv-table:: Joint Status Labels
@@ -120,7 +120,7 @@ Special Labels
 
 Run from line label `start_line_lb`
 
-Axis machine position labels (no offsets.)  Returns a float
+Axis machine position labels (no offsets.) Returns a float
 
 .. csv-table:: Machine (Absolute) Position Status Labels
    :width: 80%
@@ -211,7 +211,7 @@ Spindle Status
 --------------
 
 The Spindle status contains status items for up to 9 spindles. Replace the `n`
-with the number of the spindle.  Spindle numbers start at 0 and go through 8.
+with the number of the spindle. Spindle numbers start at 0 and go through 8.
 
 .. csv-table:: Spindle Status Labels
    :width: 80%
@@ -233,8 +233,8 @@ setting even if the spindle is not running; this is normal.
 I/O Status
 ----------
 
-The I/O status contains status items for 64 I/O's.  Replace the `n` with the
-number of the I/O.  I/O numbers start at 0 and go through 63.  Analog I/O
+The I/O status contains status items for 64 I/O's. Replace the `n` with the
+number of the I/O. I/O numbers start at 0 and go through 63. Analog I/O
 returns a float. For example a QLabel with an object name of din_5_lb will
 show the status of the `motion.digital-in-05` HAL pin
 
