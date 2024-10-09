@@ -63,14 +63,16 @@ the Object Inspector and set the lay out to `grid`
 After dragging a widget into the window, make sure you use the correct
 objectName for that widget. For example the E-Stop button is called estop_pb.
 
-.. note:: Each object name must be unique; designer will not allow duplicate names.
+.. note:: Each object name must be unique; designer will not allow duplicate
+   names.
 
 Save the GUI in the configuration directory alongside your .ini file.
 
 You can start Qt5 Designer from a terminal with `designer &` which spawns a new
 process (gives you back the terminal prompt.)
 
-.. note:: There is an documented issue with Qt5 Designer and bold fonts not appearing properly.
+.. note:: There is an documented issue with Qt5 Designer and bold fonts not
+   appearing properly.
 
 
 Qt6 Designer

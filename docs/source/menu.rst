@@ -1,14 +1,18 @@
 Menu
 ====
 
-.. note:: Every menu item has a command button, so you don't need to use any menu items if you don't want to.
+.. note:: Every menu item has a command button, so you don't need to use any
+   menu items if you don't want to.
 
-Adding a menu item creates an action.  When you create File > Open menu, the `actionOpen` action is created.
+Adding a menu item creates an action.  When you create File > Open menu, the
+`actionOpen` action is created.
 
 .. image:: /images/menu-01.png
    :align: center
 
-.. warning:: If you use the full-screen option, you will not be able to exit the application if you don't have the Exit action or an Exit Push Button.  Press ALT-F4 to forcibly close it.
+.. warning:: If you use the full-screen option, you will not be able to exit the
+   application if you don't have the Exit action or an Exit Push Button.  Press
+   ALT-F4 to forcibly close it.
 
 .. code-block:: text
 
@@ -51,9 +55,11 @@ Adding a menu item creates an action.  When you create File > Open menu, the `ac
 Action Names
 ------------
 
-When you add a menu item, it creates an action and the Object Name is created from the menu name automatically.
+When you add a menu item, it creates an action and the Object Name is created
+from the menu name automatically.
 
-The Object Name must match the above items `exactly` in order to be discovered by Flex GUI:
+The Object Name must match the above items `exactly` in order to be discovered
+by Flex GUI:
 
 .. image:: /images/actions-01.png
    :align: center
@@ -62,7 +68,8 @@ The Object Name must match the above items `exactly` in order to be discovered b
 Recent Files
 ------------
 
-.. note:: The Recent menu item is added after the Open menu. There must be at least one menu item after Open for the Recent menu to be added.
+.. note:: The Recent menu item is added after the Open menu. There must be at
+   least one menu item after Open for the Recent menu to be added.
 
 Location of the Recent menu after the Open menu:
 
@@ -78,18 +85,23 @@ If you right-click on the main window, you can add a Tool Bar:
 .. image:: /images/tool-bar-01.png
    :align: center
 
-To add actions to the Tool Bar, drag them from the Action Editor and drop them in the Tool Bar:
+To add actions to the Tool Bar, drag them from the Action Editor and drop them
+in the Tool Bar:
 
 .. image:: /images/tool-bar-02.png
    :align: center
 
-To set the style of a Tool Bar Button, use the action name and replace action with `flex_` for example the actionQuit would be `flex_Quit`.  See `Tool Bar Buttons` in the stylesheet examples.
+To set the style of a Tool Bar Button, use the action name and replace action
+with `flex_` for example the actionQuit would be `flex_Quit`.  See `Tool Bar
+Buttons` in the stylesheet examples.
 
 
 Shortcut Keys
 -------------
 
-Shortcut keys can be added in the Property Editor by clicking in the shortcut Value box and pressing the key or key combination you want to use.  You can change text, icon Text, or tool Tip also.
+Shortcut keys can be added in the Property Editor by clicking in the shortcut
+Value box and pressing the key or key combination you want to use. You can
+change text, icon Text, or tool Tip also.
 
 .. image:: /images/actions-02.png
    :align: center
