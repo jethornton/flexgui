@@ -1,20 +1,20 @@
 INI Settings
 ============
 
-.. note:: The following Flex GUI settings are all located in the [DISPLAY] 
+.. note:: The following Flex GUI settings are all located in the [DISPLAY]
    section of your LinuxCNC .ini file.
 
-To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to:
+To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to
 ::
 
 	DISPLAY = flexgui
 
 If no GUI is specificed then the default GUI will be used.
 
-.. note:: Any Flex GUI .ui and .qss files must be in the same LinuxCNC 
+.. note:: Any Flex GUI .ui and .qss files must be in the same LinuxCNC
    configuration directory as the .ini file.
 
-To use your .ui file (created with Qt Designer), add a GUI key to the .ini 
+To use your .ui file (created with Qt Designer), add a GUI key to the .ini
 with its `filename`:
 ::
 
@@ -33,7 +33,7 @@ To use a built-in input stylesheet, add either:
 
 .. note:: If no INPUT nor QSS is specified, then no stylesheet will be used.
 
-To use a custom .qss style sheet you created named `lightflex.qss`:
+To use a custom .qss style sheet you created named `lightflex.qss`
 ::
 
 	QSS = lightflex.qss
@@ -44,7 +44,7 @@ To use a custom .qss style sheet you created named `lightflex.qss`:
 Startup File
 ------------
 
-To automatically open a NC file on startup, add the OPEN_FILE key with any 
+To automatically open a NC file on startup, add the OPEN_FILE key with any
 valid path:
 ::
 
@@ -58,7 +58,7 @@ valid path:
 File Location
 -------------
 
-Likewise, to specify a default loction for NC files, add the 
+Likewise, to specify a default loction for NC files, add the
 PROGRAM_PREFIX item:
 ::
 
@@ -72,9 +72,9 @@ PROGRAM_PREFIX item:
 Resource File
 -------------
 
-To use a .py resource file (to add images to buttons with your qss stylesheet) 
-place the .py resource file in the configuration directory and add the 
-following line to the .ini file:
+To use a .py resource file (to add images to buttons with your qss stylesheet)
+place the .py resource file in the configuration directory and add the
+following line to the .ini file
 ::
 
 	RESOURCES = resources.py
@@ -85,10 +85,10 @@ See the section on Resources for more info.
 File Extensions
 ---------------
 
-The keyboard file dialog defaults to `*.ngc` and this ignores case.  To 
-specify the file extensions you want the file dialog to show, add an 
-EXTENSIONS key with the desired extensions seperated by a comma. The 
-extensions must be in the format `*.ext` with the asterisk and dot:
+The keyboard file dialog defaults to `*.ngc` and this ignores case. To
+specify the file extensions you want the file dialog to show, add an
+EXTENSIONS key with the desired extensions seperated by a comma. The
+extensions must be in the format `*.ext` with the asterisk and dot
 ::
 
 	EXTENSIONS = *.nc, *.G-code, *.ngc, *.txt
@@ -102,15 +102,15 @@ To control the initial size of the screen, add either:
 	SIZE = full
 
 .. warning:: Full size screen does not have any window controls. Make sure
-   there is a way to close the GUI like an Exit button or you may not be able to 
+   there is a way to close the GUI like an Exit button or you may not be able to
    close the application.  As a last-resort, pressing ALT-F4 should close it.
 
 
 Colors
 ------
 
-The E-Stop and Power Buttons can have a static color for Open / Closed.  The 
-Power Button can have a static color for Off / On.
+The E-Stop and Power Buttons can have a static color for Open and Closed. The
+Power Button can have a static color for Off and On.
 
 Create a key in the ini file called FLEX_COLORS and use the following to 
 control the static color of these items. The value can be any valid color 
@@ -123,5 +123,5 @@ specification; it's suggested to use RGB or Hex colors:
 	POWER_OFF = rgb(255, 128, 128)
 	POWER_ON = #00FF00
 
-Another way to achieve this is is via adding and editing a .qss stylesheet 
+Another way to achieve this is is via adding and editing a .qss stylesheet
 file.  See the :doc:`style` section for more info.
