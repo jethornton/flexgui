@@ -1554,6 +1554,8 @@ def set_status(parent):
 			gcode_path = os.path.join(parent.ini_path, open_file.lstrip('./'))
 		elif open_file.startswith('~'):
 			gcode_path = open_file.replace('~', parent.home_dir)
+		else: # full path
+			gcode_path = open_file
 		if os.path.exists(gcode_path):
 			actions.load_file(parent, gcode_path)
 		else:
