@@ -4,8 +4,8 @@ Controls
 Push Buttons
 ------------
 
-Controls are QPushButtons that can be placed anywhere you like. Use the Name 
-from the list below for each control widget objectName. Replace the `(0-8)` 
+Controls are QPushButtons that can be placed anywhere you like. Use the Name
+from the list below for each control widget objectName. Replace the `(0-8)`
 with the joint number or axis index. More controls are in :doc:`tools`.
 
 .. csv-table:: Control Push Buttons
@@ -49,15 +49,15 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 
 .. note:: Touch-Off buttons require a Double Spin Box named `touchoff_dsb`
 
-.. note:: Tool-Touch-Off buttons require a Double Spin Box named 
-`tool_touchoff_dsb`
+.. note:: Tool-Touch-Off buttons require a Double Spin Box named
+   `tool_touchoff_dsb`
 
 
 Options
 -------
 
-The QPushButton options are toggle-type buttons; press to turn on, press again 
-to turn off.  They are normal push buttons but Flex automatically makes them 
+The QPushButton options are toggle-type buttons; press to turn on, press again
+to turn off. They are normal push buttons but Flex automatically makes them
 `checkable`.
 
 .. csv-table:: Options
@@ -90,7 +90,7 @@ Axis Index
 Jog Controls
 ------------
 
-Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`.  If either 
+Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`. If either
 is not found, Jog Buttons will be disabled.
 
 .. csv-table:: Jog Widgets
@@ -104,14 +104,14 @@ is not found, Jog Buttons will be disabled.
 	Jog Velocity Label, QLabel, jog_vel_lb
 	Jog Mode Selector, QComboBox, jog_modes_cb
 
-.. note:: Jog Plus/Minus buttons use the `Axis Index`_. So `Jog Y Plus` is 
-`jog_plus_pb_1`.
+.. note:: Jog Plus/Minus buttons use the `Axis Index`_. So `Jog Y Plus` is
+   `jog_plus_pb_1`.
 
-.. note:: `Jog Mode Selector` reads the ini entry [DISPLAY] INCREMENTS and if 
-not found, only `Continuous` will be an option.
+.. note:: `Jog Mode Selector` reads the ini entry [DISPLAY] INCREMENTS and if
+   not found, only `Continuous` will be an option.
 
-.. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be 
-ignored.  
+.. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be
+   ignored.
 
 The following settings can be used in the DISPLAY section of the ini file:
 ::
