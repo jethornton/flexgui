@@ -3,12 +3,11 @@ Plotter
 
 To add a live G-code plotter, add a QWidget or QFrame and name it `plot_widget`.
 
-
 Controls
 --------
 
 If you're using a touch-screen, add pan, zoom, and rotate controls for the 
-plotter:
+plotter
 
 .. csv-table:: Display Controls
    :width: 80%
@@ -28,7 +27,7 @@ plotter:
 	Zoom View Out, QPushButton, view_zoom_out_pb
 
 
-The following controls set-predefined views:
+The following controls set-predefined views
 
 .. csv-table:: Display Views
    :width: 80%
@@ -44,7 +43,7 @@ The following controls set-predefined views:
 	View Z2, QPushButton, view_z2_pb
 
 
-To clear the Live plot:
+To clear the Live plot
 
 .. csv-table:: Display Functions
    :width: 80%
@@ -58,8 +57,8 @@ To clear the Live plot:
 Display
 -------
 
-The DRO overlaid onto the plotter can be customized by turning on or off 
-various features.  Use either a QCheckbox or a Menu to toggle these:
+The DRO overlaid onto the plotter can be customized by turning on or off
+various features. Use either a QCheckbox or a Menu to toggle these
 
 .. csv-table:: Display Checkbox Options
    :width: 80%
@@ -81,14 +80,14 @@ various features.  Use either a QCheckbox or a Menu to toggle these:
 	View Offsets, QCheckBox, view_offsets_cb
 	View Overlay, QCheckBox, view_overlay_cb
 
-.. note:: Don't set the checked property to checked in Qt Designer as this is 
-already handled in the code. Once you check an option it is remembered.
+.. note:: Don't set the checked property to checked in Qt Designer as this is
+   already handled in the code. Once you check an option it is remembered.
 
 
 Menu
 ----
 
-The following menu items can set display options. `Menu Name` is what you 
+The following menu items can set display options. `Menu Name` is what you
 type when creating the Menu, then press enter.
 
 .. csv-table:: Display Menu Options
