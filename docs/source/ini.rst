@@ -45,7 +45,8 @@ Startup File
 ------------
 
 To automatically open a NC file on startup, add the OPEN_FILE key with any
-valid path
+valid path. Use ~/ as a shortcut to the users home directory. Use ./ to indicate
+that the file is in the configuration directory
 ::
 
 	OPEN_FILE = /home/john/linuxcnc/configs/myconfig/welcome.ngc
@@ -58,8 +59,8 @@ valid path
 File Location
 -------------
 
-Likewise, to specify a default loction for NC files, add the
-PROGRAM_PREFIX item
+Likewise, to specify a default loction for NC files, add the PROGRAM_PREFIX
+item.
 ::
 
 	PROGRAM_PREFIX = /home/john/linuxcnc/configs/myconfig
