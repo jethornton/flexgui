@@ -183,6 +183,13 @@ def about_dialog(parent):
 	repoLabel.setOpenExternalLinks(True)
 	layout.addWidget(repoLabel)
 
+	videoLabel =  QLabel()
+	videoLabel.setText("<a href='https://www.youtube.com/@Gnipsel/videos'>Youtube Videos</a>")
+	videoLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+	videoLabel.setOpenExternalLinks(True)
+	layout.addWidget(videoLabel)
+
+
 	copyrightLabel =  QLabel()
 	copyrightLabel.setText('Copyright © 1953-2024 John Thornton')
 	copyrightLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
