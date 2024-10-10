@@ -74,7 +74,7 @@ QPushButton#probe_inYminus {
 /*QPushButton#probe_inXplusYminus {
 	background-image: url(":images/inX+Y-.png");
 }*/
-/* **************************************** */
+
 /* ******* Distance *********************** */
 
 QPushButton#probe_p_lx_in {
@@ -117,7 +117,6 @@ QPushButton#probe_p_angle_x_plus_flip {
 QPushButton#probe_p_angle_y_plus_flip {
 	background-image: url(":images/angleY+flip.png");
 }
-
 /*QPushButton#probe_XminusYplus {
 	background-image: url(":images/X-Y+.png");
 }*/
@@ -164,11 +163,6 @@ QPushButton#probe_angleYminus {
 	background-image: url(":images/angleY-.png");
 }*/	
 
-
-/* **************************************** */
-
-
-/* **************************************** */
 /* **************************************** */
 
 /* **** TOOL BAR BUTTONS **** */
