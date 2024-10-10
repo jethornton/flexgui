@@ -1,0 +1,19 @@
+QPushButton[objectName*="button"] {
+	min-height: 80px;
+	min-width: 80px;
+	background-position: center;
+	background-origin: content;
+	background-clip: content;
+	background-repeat: no-repeat;
+	border: 2px solid black;
+	border-radius: 6px;
+}
+
+QPushButton#button_1 {
+	background-image: url(:inX+.png);
+}
+
+QPushButton#button_2 {
+	background-image: url(:inX-.png);
+}
+
