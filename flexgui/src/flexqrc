@@ -41,8 +41,12 @@ class flexqrc(QMainWindow):
 		check_rcc = subprocess.run(["which", "rcc"], capture_output=True, text=True)
 		if check_rcc.returncode == 0:
 			rcc_version = subprocess.run(['rcc', '-v'], capture_output=True, text=True)
-			self.rcc_version_lb.setText(f'{rcc_version.stdout.strip()}')
-			self.rcc = True
+			if rcc_version.returncode == 0:
+				self.rcc_version_lb.setText(f'{rcc_version.stdout.strip()}')
+				self.rcc = True
+			else:
+				self.rcc_version_lb.setText('rcc was not found')
+				self.rcc = False
 		else:
 			self.rcc_version_lb.setText('rcc was not found')
 			self.rcc = False
@@ -104,6 +108,13 @@ class flexqrc(QMainWindow):
 				self.build_resources_pb.setEnabled(True)
 			else:
 				self.build_resources_lb.setText('install rcc')
+				self.images_lw.clear()
+				self.images_lw.addItem('The rcc program was not found, this could be')
+				self.images_lw.addItem('due to qtbase5-dev-tools not installed')
+				self.images_lw.addItem('and/or qt6-base-dev-tools is installed')
+				self.images_lw.addItem('but Qt has an issue with paths for the latter')
+				self.images_lw.addItem('Install qtbase5-dev-tools with')
+				self.images_lw.addItem('sudo apt install qtbase5-dev-tools')
 
 	def build_resources(self):
 		os.chdir(self.images_directory)
