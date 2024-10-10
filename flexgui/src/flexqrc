@@ -47,6 +47,17 @@ class flexqrc(QMainWindow):
 			else:
 				self.rcc_version_lb.setText('rcc was not found')
 				self.rcc = False
+				self.build_resources_lb.setText('install rcc')
+				self.images_lw.clear()
+				self.images_lw.addItem('The rcc program was not found, this could be')
+				self.images_lw.addItem('due to qtbase5-dev-tools not installed')
+				self.images_lw.addItem('and/or qt6-base-dev-tools is installed')
+				self.images_lw.addItem('but Qt has an issue with paths for the latter')
+				self.images_lw.addItem('due to qtchooser is deprecated, unmaintained and should not be used for Qt 6.')
+				self.images_lw.addItem('and if you have qt5 installed then qtchooser is installed so a catch 22')
+				self.images_lw.addItem('Install qtbase5-dev-tools with')
+				self.images_lw.addItem('sudo apt install qtbase5-dev-tools')
+
 		else:
 			self.rcc_version_lb.setText('rcc was not found')
 			self.rcc = False
@@ -86,8 +97,9 @@ class flexqrc(QMainWindow):
 		contents.append('</RCC>')
 		with open(self.qrc_file, 'w') as f:
 			f.writelines(contents)
-		self.get_config_dir_pb.setEnabled(True)
 		self.build_qrc_lb.setText('Build QRC Done')
+		if self.rcc:
+			self.get_config_dir_pb.setEnabled(True)
 
 	def get_config_dir(self):
 		if os.path.isdir(os.path.expanduser('~/linuxcnc/configs')):
@@ -106,15 +118,7 @@ class flexqrc(QMainWindow):
 			self.config_dir_lb.setText(result)
 			if self.rcc:
 				self.build_resources_pb.setEnabled(True)
-			else:
-				self.build_resources_lb.setText('install rcc')
-				self.images_lw.clear()
-				self.images_lw.addItem('The rcc program was not found, this could be')
-				self.images_lw.addItem('due to qtbase5-dev-tools not installed')
-				self.images_lw.addItem('and/or qt6-base-dev-tools is installed')
-				self.images_lw.addItem('but Qt has an issue with paths for the latter')
-				self.images_lw.addItem('Install qtbase5-dev-tools with')
-				self.images_lw.addItem('sudo apt install qtbase5-dev-tools')
+
 
 	def build_resources(self):
 		os.chdir(self.images_directory)
