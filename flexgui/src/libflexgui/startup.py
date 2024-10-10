@@ -1548,16 +1548,15 @@ def set_status(parent):
 						getattr(parent, item).setEnabled(True)
 
 	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
-	gcode_path = ''
 	if open_file and open_file != '""':
 		if open_file.startswith('./'):
-			gcode_path = os.path.join(parent.ini_path, open_file.lstrip('./'))
+			open_file = os.path.join(parent.ini_path, open_file.lstrip('./'))
 		elif open_file.startswith('~'):
-			gcode_path = open_file.replace('~', parent.home_dir)
+			open_file = open_file.replace('~', parent.home_dir)
 		else: # full path
-			gcode_path = open_file
-		if os.path.exists(gcode_path):
-			actions.load_file(parent, gcode_path)
+			open_file = open_file
+		if os.path.exists(open_file):
+			actions.load_file(parent, open_file)
 		else:
 			msg = (f'The G code file\n{open_file}\n'
 				'was not found.\n'
