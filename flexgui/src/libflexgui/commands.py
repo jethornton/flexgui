@@ -33,21 +33,21 @@ def home(parent):
 
 		if f'actionHome_{joint}' in parent.home_controls:
 			getattr(parent, f'actionHome_{joint}').setEnabled(False)
-			print(f'actionHome_{joint}')
 
 		if f'home_pb_{joint}' in parent.home_controls:
 			getattr(parent, f'home_pb_{joint}').setEnabled(False)
 
-		if f'unhome_pb_{joint}' in parent.children:
+		if f'actionHome_{joint}' in parent.home_controls:
+			getattr(parent, f'actionUnhome_{joint}').setEnabled(True)
+
+		if f'unhome_pb_{joint}' in parent.unhome_controls:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
 
 		if utilities.all_homed(parent): # all homed
-			if 'unhome_all_pb' in parent.children:
-				parent.unhome_all_pb.setEnabled(True)
-			if 'home_all_pb' in parent.children:
-				parent.home_all_pb.setEnabled(False)
-			if 'actionHome_all' in parent.children: # FIXME this may not be in parent.children
-				parent.actionHome_all.setEnabled(False)
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.home_controls:
+				getattr(parent, item).setEnabled(False)
 
 def home_all(parent):
 	parent.status.poll()

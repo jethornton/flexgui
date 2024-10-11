@@ -475,8 +475,6 @@ def setup_actions(parent): # setup menu actions
 						parent.program_paused[f'actionHome_{i}'] = False
 
 			elif action.objectName() == 'actionUnhoming':
-				print('actionUnhoming')
-				# FIXME add Unhome All
 				# FIXME disable unhome menus when unhomed
 				action.setMenu(QMenu('Unhoming', parent))
 				axis_map = f'{parent.status.axis_mask:09b}'
@@ -484,7 +482,8 @@ def setup_actions(parent): # setup menu actions
 				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
 				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
 				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
-				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.home_all, parent))
+				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
+				parent.unhome_controls.append('actionUnhome_All')
 				parent.state_estop['actionUnhome_All'] = False
 				parent.state_estop_reset['actionUnhome_All'] = False
 				parent.state_on['actionUnhome_All'] = True
@@ -494,15 +493,17 @@ def setup_actions(parent): # setup menu actions
 				for i, a in enumerate(reversed(axis_map)):
 					if a == '1':
 						axis = axis_list[i]
-						setattr(parent, f'actionUnhome_{axis}', QAction(f'Home {axis}', parent))
-						getattr(parent, f'actionUnhome_{axis}').setObjectName(f'actionUnhome_{i}')
-						action.menu().addAction(getattr(parent, f'actionUnhome_{axis}'))
-						getattr(parent, f'actionUnhome_{axis}').triggered.connect(partial(commands.unhome, parent))
-						parent.state_estop[f'actionUnhome_{axis}'] = False
-						parent.state_estop_reset[f'actionUnhome_{axis}'] = False
-						parent.state_on[f'actionUnhome_{axis}'] = True
-						parent.program_running[f'actionUnhome_{axis}'] = False
-						parent.program_paused[f'actionUnhome_{axis}'] = False
+						setattr(parent, f'actionUnhome_{i}', QAction(f'Home {axis}', parent))
+						getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
+						action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
+						getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
+						parent.unhome_controls.append(f'actionUnhome_{i}')
+
+						parent.state_estop[f'actionUnhome_{i}'] = False
+						parent.state_estop_reset[f'actionUnhome_{i}'] = False
+						parent.state_on[f'actionUnhome_{i}'] = True
+						parent.program_running[f'actionUnhome_{i}'] = False
+						parent.program_paused[f'actionUnhome_{i}'] = False
 			elif action.objectName() == 'actionClear_Offsets':
 				print('actionClear_Offsets')
 
