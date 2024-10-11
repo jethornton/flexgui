@@ -493,7 +493,7 @@ def setup_actions(parent): # setup menu actions
 				for i, a in enumerate(reversed(axis_map)):
 					if a == '1':
 						axis = axis_list[i]
-						setattr(parent, f'actionUnhome_{i}', QAction(f'Home {axis}', parent))
+						setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
 						getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
 						action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
 						getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
