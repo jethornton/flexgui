@@ -93,8 +93,6 @@ QPlainTextEdit#errors_pte {
     border: 1px solid white;
 	}
 	
-	
-	
 /* **************************************** */
 /*QPushButton#probe_inXminusYplus {
 	background-image: url(":images/inX-Y+.png");
@@ -124,7 +122,48 @@ QPushButton#probe_inYminus {
 	background-image: url(":images/inX+Y-.png");
 }*/
 
-/* **************************************** */
+/* ******* Distance *********************** */
+
+QPushButton#probe_p_lx_in {
+	background-image: url(":images/Lx_in.png");
+}
+QPushButton#probe_p_lx_out {
+	background-image: url(":images/Lx_out.png");
+}
+QPushButton#probe_p_ly_in {
+	background-image: url(":images/Ly_in.png");
+}
+QPushButton#probe_p_ly_out {
+	background-image: url(":images/Ly_out.png");
+}
+
+/* *********** Angle ********************* */
+QPushButton#probe_p_angle_x_minus {
+	background-image: url(":images/angleX-.png");
+}
+QPushButton#probe_p_angle_y_minus {
+	background-image: url(":images/angleY-.png");
+}
+QPushButton#probe_p_angle_x_plus {
+	background-image: url(":images/angleX+.png");
+}
+QPushButton#probe_p_angle_y_plus {
+	background-image: url(":images/angleY+.png");
+}
+
+/* ************ flipped angles ************ */
+QPushButton#probe_p_angle_x_minus_flip {
+	background-image: url(":images/angleX-flip.png");
+}
+QPushButton#probe_p_angle_y_minus_flip {
+	background-image: url(":images/angleY-flip.png");
+}
+QPushButton#probe_p_angle_x_plus_flip {
+	background-image: url(":images/angleX+flip.png");
+}
+QPushButton#probe_p_angle_y_plus_flip {
+	background-image: url(":images/angleY+flip.png");
+}
 
 /*QPushButton#probe_XminusYplus {
 	background-image: url(":images/X-Y+.png");
@@ -172,8 +211,6 @@ QPushButton#probe_angleYminus {
 	background-image: url(":images/angleY-.png");
 }*/	
 
-
-/* **************************************** */
 /* **************************************** */
 
 /* **** TOOL BAR BUTTONS **** */
