@@ -33,13 +33,10 @@ def home(parent):
 
 		if f'actionHome_{joint}' in parent.home_controls:
 			getattr(parent, f'actionHome_{joint}').setEnabled(False)
-
 		if f'home_pb_{joint}' in parent.home_controls:
 			getattr(parent, f'home_pb_{joint}').setEnabled(False)
-
-		if f'actionHome_{joint}' in parent.home_controls:
+		if f'actionUnhome_{joint}' in parent.unhome_controls:
 			getattr(parent, f'actionUnhome_{joint}').setEnabled(True)
-
 		if f'unhome_pb_{joint}' in parent.unhome_controls:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
 
@@ -71,15 +68,20 @@ def unhome(parent):
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
 		parent.command.unhome(joint)
-		getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
-		if f'home_pb_{joint}' in parent.children:
+		if f'actionHome_{joint}' in parent.home_controls:
+			getattr(parent, f'actionHome_{joint}').setEnabled(True)
+		if f'home_pb_{joint}' in parent.home_controls:
 			getattr(parent, f'home_pb_{joint}').setEnabled(True)
+		if f'actionUnhome_{joint}' in parent.unhome_controls:
+			getattr(parent, f'actionUnhome_{joint}').setEnabled(False)
+		if f'unhome_pb_{joint}' in parent.unhome_controls:
+			getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
+
 		if utilities.all_unhomed(parent):
-			if 'unhome_all_pb' in parent.children:
-				parent.unhome_all_pb.setEnabled(False)
-		if utilities.home_all_check(parent):
-			if 'home_all_pb' in parent.children:
-				parent.home_all_pb.setEnabled(True)
+			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.home_controls:
+				getattr(parent, item).setEnabled(True)
 
 def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
