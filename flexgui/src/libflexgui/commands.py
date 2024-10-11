@@ -25,12 +25,11 @@ def set_mode(parent, mode=None):
 def home(parent):
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 0:
+	if parent.status.homed[joint] == 0: # not homed
 		if parent.status.task_mode != emc.MODE_MANUAL:
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 		parent.command.home(joint)
-		parent.command.wait_complete()
 		getattr(parent, f'home_pb_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.children:
 			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
