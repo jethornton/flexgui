@@ -448,11 +448,11 @@ def setup_actions(parent): # setup menu actions
 
 				# add Home All if the home sequence is set for all axes
 				if utilities.home_all_check(parent):
-					print('home_all_check')
 					setattr(parent, 'actionHome_All', QAction('Home All', parent))
 					getattr(parent, 'actionHome_All').setObjectName('actionHome_all')
 					action.menu().addAction(getattr(parent, 'actionHome_All'))
 					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
+					parent.home_controls.append('actionHome_All')
 					parent.state_estop['actionHome_All'] = False
 					parent.state_estop_reset['actionHome_All'] = False
 					parent.state_on['actionHome_All'] = True
@@ -463,15 +463,16 @@ def setup_actions(parent): # setup menu actions
 				for i, a in enumerate(reversed(axis_map)):
 					if a == '1':
 						axis = axis_list[i]
-						setattr(parent, f'actionHome_{axis}', QAction(f'Home {axis}', parent))
-						getattr(parent, f'actionHome_{axis}').setObjectName(f'actionHome_{i}')
-						action.menu().addAction(getattr(parent, f'actionHome_{axis}'))
-						getattr(parent, f'actionHome_{axis}').triggered.connect(partial(commands.home, parent))
-						parent.state_estop[f'actionHome_{axis}'] = False
-						parent.state_estop_reset[f'actionHome_{axis}'] = False
-						parent.state_on[f'actionHome_{axis}'] = True
-						parent.program_running[f'actionHome_{axis}'] = False
-						parent.program_paused[f'actionHome_{axis}'] = False
+						setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
+						getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
+						action.menu().addAction(getattr(parent, f'actionHome_{i}'))
+						getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
+						parent.home_controls.append(f'actionHome_{i}')
+						parent.state_estop[f'actionHome_{i}'] = False
+						parent.state_estop_reset[f'actionHome_{i}'] = False
+						parent.state_on[f'actionHome_{i}'] = True
+						parent.program_running[f'actionHome_{i}'] = False
+						parent.program_paused[f'actionHome_{i}'] = False
 
 			elif action.objectName() == 'actionUnhoming':
 				print('actionUnhoming')
@@ -479,6 +480,17 @@ def setup_actions(parent): # setup menu actions
 				# FIXME disable unhome menus when unhomed
 				action.setMenu(QMenu('Unhoming', parent))
 				axis_map = f'{parent.status.axis_mask:09b}'
+
+				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
+				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
+				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
+				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.home_all, parent))
+				parent.state_estop['actionUnhome_All'] = False
+				parent.state_estop_reset['actionUnhome_All'] = False
+				parent.state_on['actionUnhome_All'] = True
+				parent.program_running['actionUnhome_All'] = False
+				parent.program_paused['actionUnhome_All'] = False
+
 				for i, a in enumerate(reversed(axis_map)):
 					if a == '1':
 						axis = axis_list[i]
@@ -493,7 +505,6 @@ def setup_actions(parent): # setup menu actions
 						parent.program_paused[f'actionUnhome_{axis}'] = False
 			elif action.objectName() == 'actionClear_Offsets':
 				print('actionClear_Offsets')
-
 
 def setup_status_labels(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
