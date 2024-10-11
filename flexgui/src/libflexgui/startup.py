@@ -443,7 +443,6 @@ def setup_actions(parent): # setup menu actions
 		menu_list = menu.actions()
 		for index, action in enumerate(menu_list):
 			if action.objectName() == 'actionHoming': # add homing actions
-				# FIXME disable home menus when homed
 				action.setMenu(QMenu('Homing', parent))
 
 				# add Home All if the home sequence is set for all axes
@@ -475,7 +474,6 @@ def setup_actions(parent): # setup menu actions
 						parent.program_paused[f'actionHome_{i}'] = False
 
 			elif action.objectName() == 'actionUnhoming':
-				# FIXME disable unhome menus when unhomed
 				action.setMenu(QMenu('Unhoming', parent))
 				axis_map = f'{parent.status.axis_mask:09b}'
 
