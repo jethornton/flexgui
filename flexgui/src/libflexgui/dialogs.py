@@ -177,6 +177,12 @@ def about_dialog(parent):
 	websiteLabel.setOpenExternalLinks(True)
 	layout.addWidget(websiteLabel)
 
+	docsLabel =  QLabel()
+	docsLabel.setText("<a href='https://gnipsel.com/linuxcnc/flexgui/index.html'>Documents</a>")
+	docsLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+	docsLabel.setOpenExternalLinks(True)
+	layout.addWidget(docsLabel)
+
 	repoLabel =  QLabel()
 	repoLabel.setText("<a href='https://github.com/jethornton/flexgui'>Code Website</a>")
 	repoLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
