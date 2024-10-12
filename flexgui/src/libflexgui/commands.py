@@ -201,6 +201,17 @@ def change_cs(parent):
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
+def clear_cs(parent):
+	cs = parent.sender().objectName().split("_")[1]
+	axes = ''
+	for axis in parent.axes:
+		axes += f'{axis}0 '
+	if int(cs) < 10:
+		cmd = f'G10 L2 P{cs} {axes}'
+	else:
+		cmd = f'G92.1'
+	run_mdi(parent, cmd)
+
 def tool_change(parent):
 	parent.status.poll()
 	tool_len = len(parent.status.tool_table)
