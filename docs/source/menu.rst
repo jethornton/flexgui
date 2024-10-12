@@ -14,43 +14,58 @@ Adding a menu item creates an action. When you create File > Open menu, the
    application if you don't have the Exit action or an Exit Push Button. Press
    ALT-F4 to forcibly close it.
 
-.. code-block:: text
+.. csv-table:: Menu Items
+   :width: 80%
+   :align: center
 
- File                    Action Name
-  Open                   actionOpen
-  Edit                   actionEdit
-  Reload                 actionReload
-  Save As                actionSave_As
-  Edit Tool Table        actionEdit_Tool_Table
-  Reload Tool Table      actionReload_Tool_Table
-  Ladder Editor          actionLadder_Editor
-  Quit                   actionQuit
+	File, Action Name
+	Open, actionOpen
+	Edit, actionEdit
+	Reload, actionReload
+	Save As, actionSave_As
+	Edit Tool Table, actionEdit_Tool_Table
+	Reload Tool Table, actionReload_Tool_Table
+	Ladder Editor, actionLadder_Editor
+	Quit, actionQuit
 
- Machine
-  E Stop                 actionE_Stop
-  Power                  action_Power
-  Run                    actionRun
-  Run From Line          actionRun_From_Line
-  Step                   actionStep
-  Pause                  actionPause
-  Resume                 actionResume
-  Stop                   actionStop
-  Clear MDI History      actionClear_MDI_History
-  Copy MDI History       actionCopy_MDI_History
-  Homing                 this creates a home menu item for each axis
-  Unhoming               this creates a unhome menu item for each axis
+	Machine, Action Name
+	E Stop, actionE_Stop
+	Power, action_Power
+	Run, actionRun
+	Run From Line, actionRun_From_Line
+	Step, actionStep
+	Pause, actionPause
+	Resume, actionResume
+	Stop, actionStop
+	Clear MDI History, actionClear_MDI_History
+	Copy MDI History, actionCopy_MDI_History
+	Homing, this creates a home menu item for each axis
+	Unhoming, this creates a unhome menu item for each axis
+	Clear Offsets, this creates a clear offsets for each coordinate system
 
- Programs
-  Show HAL               actionShow_HAL
-  HAL Meter              actionHAL_Meter
-  HAL Scope              actionHAL_Scope
+	Programs, Action Name
+	Show HAL, actionShow_HAL
+	HAL Meter, actionHAL_Meter
+	HAL Scope, actionHAL_Scope
 
- View
+	View, Action Name
+	DRO, actionDRO
+	Limits, actionLimits
+	Extents Option, actionExtents_Option
+	Live Plot, actionLive_Plot
+	Velocity, actionVelocity
+	Metric Units, actionMetric_Units
+	Program, actionProgram
+	Rapids, actionRapids
+	Tool, actionTool
+	Lathe Radius, actionLathe_Radius
+	DTG, actionDTG
+	Offsets, actionOffsets
+	Overlay, actionOverlay
 
- Help
-  About                 actionAbout
-  Quick Reference       actionQuick_Reference
-
+	Help, Action Name
+	About, actionAbout
+	Quick Reference, actionQuick_Reference
 
 Action Names
 ------------
