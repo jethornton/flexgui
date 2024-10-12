@@ -437,8 +437,6 @@ def setup_actions(parent): # setup menu actions
 
 	# special check for Homing, Unhoming and Clear Offsets in the menu
 	menus = parent.findChildren(QMenu)
-	axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
-	axis_map = f'{parent.status.axis_mask:09b}'
 	for menu in menus: # menus is the top most menu like File Machine etc.
 		menu_list = menu.actions()
 		for index, action in enumerate(menu_list):
@@ -459,19 +457,17 @@ def setup_actions(parent): # setup menu actions
 					parent.program_paused['actionHome_All'] = False
 
 				# add Home menu item for each axis
-				for i, a in enumerate(reversed(axis_map)):
-					if a == '1':
-						axis = axis_list[i]
-						setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
-						getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
-						action.menu().addAction(getattr(parent, f'actionHome_{i}'))
-						getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
-						parent.home_controls.append(f'actionHome_{i}')
-						parent.state_estop[f'actionHome_{i}'] = False
-						parent.state_estop_reset[f'actionHome_{i}'] = False
-						parent.state_on[f'actionHome_{i}'] = True
-						parent.program_running[f'actionHome_{i}'] = False
-						parent.program_paused[f'actionHome_{i}'] = False
+				for i, axis in enumerate(parent.axes):
+					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
+					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
+					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
+					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
+					parent.home_controls.append(f'actionHome_{i}')
+					parent.state_estop[f'actionHome_{i}'] = False
+					parent.state_estop_reset[f'actionHome_{i}'] = False
+					parent.state_on[f'actionHome_{i}'] = True
+					parent.program_running[f'actionHome_{i}'] = False
+					parent.program_paused[f'actionHome_{i}'] = False
 
 			elif action.objectName() == 'actionUnhoming':
 				action.setMenu(QMenu('Unhoming', parent))
@@ -488,22 +484,33 @@ def setup_actions(parent): # setup menu actions
 				parent.program_running['actionUnhome_All'] = False
 				parent.program_paused['actionUnhome_All'] = False
 
-				for i, a in enumerate(reversed(axis_map)):
-					if a == '1':
-						axis = axis_list[i]
-						setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
-						getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
-						action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
-						getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
-						parent.unhome_controls.append(f'actionUnhome_{i}')
+				for i, axis in enumerate(parent.axes):
+					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
+					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
+					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
+					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
+					parent.unhome_controls.append(f'actionUnhome_{i}')
 
-						parent.state_estop[f'actionUnhome_{i}'] = False
-						parent.state_estop_reset[f'actionUnhome_{i}'] = False
-						parent.state_on[f'actionUnhome_{i}'] = True
-						parent.program_running[f'actionUnhome_{i}'] = False
-						parent.program_paused[f'actionUnhome_{i}'] = False
+					parent.state_estop[f'actionUnhome_{i}'] = False
+					parent.state_estop_reset[f'actionUnhome_{i}'] = False
+					parent.state_on[f'actionUnhome_{i}'] = True
+					parent.program_running[f'actionUnhome_{i}'] = False
+					parent.program_paused[f'actionUnhome_{i}'] = False
 			elif action.objectName() == 'actionClear_Offsets':
+				action.setMenu(QMenu('Clear Offsets', parent))
+
+				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1', 'G59.2', 'G59.3', 'G92']
+				for i, item in enumerate(cs):
+					setattr(parent, f'actionClear_{i}', QAction(f'Clear {item}', parent))
+					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
+					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
+					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
+
+
+
 				print('actionClear_Offsets')
+
+
 
 def setup_status_labels(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch

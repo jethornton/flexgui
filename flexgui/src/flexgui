@@ -164,6 +164,14 @@ class flexgui(QMainWindow):
 					'was not found.')
 				dialogs.warn_msg_ok(msg, 'INI Error')
 
+		# get a list of axes in the configuration
+		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
+		axis_map = f'{self.status.axis_mask:09b}'
+		self.axes = []
+		for i, a in enumerate(reversed(axis_map)):
+			if a == '1':
+				self.axes.append(axis_list[i])
+
 		startup.set_screen(self)
 		startup.find_children(self)
 		startup.setup_recent_files(self)
