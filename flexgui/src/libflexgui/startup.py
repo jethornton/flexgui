@@ -506,12 +506,6 @@ def setup_actions(parent): # setup menu actions
 					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
 					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
 
-
-
-				print('actionClear_Offsets')
-
-
-
 def setup_status_labels(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
 	if units.lower() == 'inch':
