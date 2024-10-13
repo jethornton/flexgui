@@ -89,12 +89,6 @@
      <property name="text">
       <string/>
      </property>
-     <property name="function" stdset="0">
-      <string>mdi</string>
-     </property>
-     <property name="command" stdset="0">
-      <string>o&lt;p_tool_m&gt; call</string>
-     </property>
     </widget>
     <widget class="QPushButton" name="probe_workpiece_height">
      <property name="geometry">
