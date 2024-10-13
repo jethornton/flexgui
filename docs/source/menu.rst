@@ -25,7 +25,7 @@ name that is created by the Qt Designer. Menu catagories like `File` don't
 create an action name.
 
 .. csv-table:: Menu Items
-   :width: 80%
+   :width: 100%
    :align: center
 
 	**File**, **Action Name**

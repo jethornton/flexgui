@@ -45,7 +45,7 @@ Status Labels
 -------------
 
 .. csv-table:: Single Status Label Object Names
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -81,7 +81,7 @@ the number of the axis. Axis numbers start at 0 and go through 8. Returns a
 float
 
 .. csv-table:: Axis Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 60 60
 
@@ -98,7 +98,7 @@ The Joint status contains status items for 16 joints. Replace the `n` with
 the number of the joint. Joint numbers start at 0 and go through 15
 
 .. csv-table:: Joint Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 60 60
 
@@ -123,7 +123,7 @@ Run from line label `start_line_lb`
 Axis machine position labels (no offsets.) Returns a float
 
 .. csv-table:: Machine (Absolute) Position Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -134,7 +134,7 @@ Axis machine position labels (no offsets.) Returns a float
 Axis position labels `including` all offsets. Returns a float
 
 .. csv-table:: DRO (Relative) Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -145,7 +145,7 @@ Axis position labels `including` all offsets. Returns a float
 Axis-is-homed labels
 
 .. csv-table:: Axis Homed Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -156,7 +156,7 @@ Axis-is-homed labels
 Offsets for the currently active G5x coordinate system. Returns a float
 
 .. csv-table:: G5x Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -167,7 +167,7 @@ Offsets for the currently active G5x coordinate system. Returns a float
 Offsets for G92. Returns a float
 
 .. csv-table:: G92 Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -214,7 +214,7 @@ The Spindle status contains status items for up to 9 spindles. Replace the `n`
 with the number of the spindle. Spindle numbers start at 0 and go through 8.
 
 .. csv-table:: Spindle Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 60 60
 
@@ -239,7 +239,7 @@ returns a float. For example a QLabel with an object name of din_5_lb will
 show the status of the `motion.digital-in-05` HAL pin
 
 .. csv-table:: I/O Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40
 
@@ -255,7 +255,7 @@ Current Tool Status
 Current Tool status of the tool loaded in the spindle
 
 .. csv-table:: Tool Table Status Labels
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 

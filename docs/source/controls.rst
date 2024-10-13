@@ -9,7 +9,7 @@ from the list below for each control widget objectName. Replace the `(0-8)`
 with the joint number or axis index. More controls are in :doc:`tools`.
 
 .. csv-table:: Control Push Buttons
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Control Function, Object Name

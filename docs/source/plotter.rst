@@ -10,7 +10,7 @@ If you're using a touch-screen, add pan, zoom, and rotate controls for the
 plotter
 
 .. csv-table:: Display Controls
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -29,7 +29,7 @@ plotter
 The following controls set-predefined views
 
 .. csv-table:: Display Views
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -44,7 +44,7 @@ The following controls set-predefined views
 To clear the Live plot
 
 .. csv-table:: Display Functions
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -58,7 +58,7 @@ The DRO overlaid onto the plotter can be customized by turning on or off
 various features. Use either a QCheckbox or a Menu to toggle these
 
 .. csv-table:: Display Checkbox Options
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 
@@ -87,7 +87,7 @@ The following menu items can set display options. `Menu Name` is what you
 type when creating the Menu, then press enter.
 
 .. csv-table:: Display Menu Options
-   :width: 80%
+   :width: 100%
    :align: center
    :widths: 40 40 40
 

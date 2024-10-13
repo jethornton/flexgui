@@ -10,7 +10,7 @@ type in commands. The `NC Popup` is a touch screen that has G and M words and a
 number keypad. The `Keyboard Popup` has a full keyboard for touch screens.
 
 .. csv-table:: MDI Command Entry
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Function, Input, Widget, Name
@@ -41,7 +41,7 @@ The following QPushButtons can be used to execute, copy, and clear MDI command
 history
 
 .. csv-table:: MDI Push Buttons
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Run MDI Command,run_mdi_pb
