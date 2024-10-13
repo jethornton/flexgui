@@ -13,7 +13,7 @@ Flex GUI is a flexible GUI that can be customized to suit your needs.
 * Flex GUI remembers the size and position of your GUI
 
 Acronyms
-========
+--------
 
 The following acronyms will be found in this document
 
