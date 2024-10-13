@@ -11,14 +11,24 @@ Adding a menu item creates an action. When you create File > Open menu, the
    :align: center
 
 .. warning:: If you use the full-screen option, you will not be able to exit the
-   application if you don't have the Exit action or an Exit Push Button. Press
-   ALT-F4 to forcibly close it.
+   application if you don't have the Exit action or an Exit Push Button or Press
+   ALT-F4 to close the GUI.
+
+This shows the typical menu catagories which are the first items in each menu.
+The image is from the Qt Designer.
+
+.. image:: /images/menu-02.png
+   :align: center
+
+The following table shows the menu name you type into Qt Designer and the action
+name that is created by the Qt Designer. Menu catagories like `File` don't
+create an action name.
 
 .. csv-table:: Menu Items
    :width: 80%
    :align: center
 
-	File, Action Name
+	**File**, **Action Name**
 	Open, actionOpen
 	Edit, actionEdit
 	Reload, actionReload
@@ -28,7 +38,7 @@ Adding a menu item creates an action. When you create File > Open menu, the
 	Ladder Editor, actionLadder_Editor
 	Quit, actionQuit
 
-	Machine, Action Name
+	**Machine**, **Action Name**
 	E Stop, actionE_Stop
 	Power, action_Power
 	Run, actionRun
@@ -43,12 +53,12 @@ Adding a menu item creates an action. When you create File > Open menu, the
 	Unhoming, this creates a unhome menu item for each axis
 	Clear Offsets, this creates a clear offsets for each coordinate system
 
-	Programs, Action Name
+	**Programs**, **Action Name**
 	Show HAL, actionShow_HAL
 	HAL Meter, actionHAL_Meter
 	HAL Scope, actionHAL_Scope
 
-	View, Action Name
+	**View**, **Action Name**
 	DRO, actionDRO
 	Limits, actionLimits
 	Extents Option, actionExtents_Option
@@ -63,7 +73,7 @@ Adding a menu item creates an action. When you create File > Open menu, the
 	Offsets, actionOffsets
 	Overlay, actionOverlay
 
-	Help, Action Name
+	**Help**, **Action Name**
 	About, actionAbout
 	Quick Reference, actionQuick_Reference
 
@@ -88,7 +98,7 @@ Recent Files
 
 Location of the Recent menu after the Open menu:
 
-.. image:: /images/menu-02.png
+.. image:: /images/menu-03.png
    :align: center
 
 
