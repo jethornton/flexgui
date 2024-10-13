@@ -41,13 +41,19 @@ for the full keyboard popup
 
 The G codes dialog will appear when you touch the MDI entry box
 
+.. image:: /images/touch-01.png
+   :align: center
+
+The arrow buttons change the letters section to different letters
+
 .. image:: /images/touch-02.png
    :align: center
 
-The Arrow Buttons change the bottom section to different letters
+The full keyboard
 
 .. image:: /images/touch-03.png
    :align: center
+
 
 Touch Off
 ---------
