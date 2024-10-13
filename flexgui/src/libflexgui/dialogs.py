@@ -195,9 +195,10 @@ def about_dialog(parent):
 	videoLabel.setOpenExternalLinks(True)
 	layout.addWidget(videoLabel)
 
-
+	from datetime import datetime
+	year = datetime.today().year
 	copyrightLabel =  QLabel()
-	copyrightLabel.setText('Copyright © 1953-2024 John Thornton')
+	copyrightLabel.setText(f'Copyright © 1953-{year} John Thornton')
 	copyrightLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(copyrightLabel)
 
