@@ -35,14 +35,11 @@ has a QPushButton as well that executes the same function.
 MDI
 ---
 
-To enable the G-code popup for the MDI entry, the QLineEdit object name must
-be either `mdi_command_gc_le` for the G-code popup or `mdi_command_kb_le` for
-the keyboard popup
+To enable the popup entry dialogs for the MDI entry, the QLineEdit object name
+must be either `mdi_command_gc_le` for the G codes popup or `mdi_command_kb_le`
+for the full keyboard popup
 
-.. image:: /images/touch-01.png
-   :align: center
-
-The G-code Dialog will appear when you touch the MDI entry box
+The G codes dialog will appear when you touch the MDI entry box
 
 .. image:: /images/touch-02.png
    :align: center
