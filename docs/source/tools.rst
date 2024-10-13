@@ -40,7 +40,7 @@ Coordinate System Touchoff
 To touch-off an axis, use a QPushButton and QLineEdit to set the touch-off value
 
 .. csv-table:: Touch Off Controls
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Function, Widget, Object Name

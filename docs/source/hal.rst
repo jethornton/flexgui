@@ -8,7 +8,7 @@ Any QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
 adding four string type Dynamic Properties as shown in this table
 
 .. csv-table:: HAL Push Button
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Property Name, Pin Value
@@ -26,7 +26,7 @@ Any QSpinBox or QDoubleSpinBox can be a HAL `number` pin by adding four string
 type Dynamic Properties as shown here
 
 .. csv-table:: HAL Spin Box
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Property Name, Pin Value
@@ -44,7 +44,7 @@ Slider
 A QSlider can be a HAL pin by adding these four string type Dynamic Properties
 
 .. csv-table:: HAL Slider
-   :width: 80%
+   :width: 100%
    :align: center
 
 	Property Name, Pin Value
