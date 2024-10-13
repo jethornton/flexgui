@@ -72,7 +72,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -435,7 +435,7 @@
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QLabel" name="rapid_override_lb">
+          <widget class="QLabel" name="rapidrate_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -1164,13 +1164,6 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="tool_zoffset_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="1">
             <widget class="QLabel" name="tool_aoffset_lb">
              <property name="text">
@@ -1185,13 +1178,6 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="3">
-            <widget class="QLabel" name="tool_coffset_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="1">
             <widget class="QLabel" name="tool_uoffset_lb">
              <property name="text">
@@ -1201,13 +1187,6 @@
            </item>
            <item row="3" column="2">
             <widget class="QLabel" name="tool_voffset_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3">
-            <widget class="QLabel" name="tool_woffset_lb">
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -1234,13 +1213,6 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="3">
-            <widget class="QLabel" name="tool_orientation_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_41">
              <property name="text">
@@ -1259,6 +1231,41 @@
             <widget class="QLabel" name="label_43">
              <property name="text">
               <string>Tool</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="tool_zoffset_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLabel" name="tool_coffset_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLabel" name="tool_woffset_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLabel" name="tool_orientation_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="3">
+            <widget class="QLabel" name="tool_comment_lb">
+             <property name="text">
+              <string>TextLabel</string>
              </property>
             </widget>
            </item>
@@ -2454,6 +2461,9 @@
     <addaction name="separator"/>
     <addaction name="actionClear_MDI_History"/>
     <addaction name="actionCopy_MDI_History"/>
+    <addaction name="actionHoming"/>
+    <addaction name="actionUnhoming"/>
+    <addaction name="actionClear_Offsets"/>
    </widget>
    <widget class="QMenu" name="menuProgams">
     <property name="title">
@@ -2697,6 +2707,21 @@
   <action name="actionOverlay">
    <property name="text">
     <string>Overlay</string>
+   </property>
+  </action>
+  <action name="actionHoming">
+   <property name="text">
+    <string>Homing</string>
+   </property>
+  </action>
+  <action name="actionUnhoming">
+   <property name="text">
+    <string>Unhoming</string>
+   </property>
+  </action>
+  <action name="actionClear_Offsets">
+   <property name="text">
+    <string>Clear Offsets</string>
    </property>
   </action>
  </widget>
