@@ -14,7 +14,7 @@ plotter
    :align: center
    :widths: 40 40 40
 
-	Control, Widget, Object Name
+	**Control**, **Widget**, **Object Name**
 	Rotate View Up, QPushButton, view_rotate_up_pb
 	Rotate View Down, QPushButton, view_rotate_down_pb
 	Rotate View Left, QPushButton, view_rotate_left_pb
@@ -33,7 +33,7 @@ The following controls set-predefined views
    :align: center
    :widths: 40 40 40
 
-	Control, Widget, Object Name
+	**Control**, **Widget**, **Object Name**
 	View Perspetive, QPushButton, view_p_pb
 	View X, QPushButton, view_x_pb
 	View Y, QPushButton, view_y_pb
@@ -62,7 +62,7 @@ various features. Use either a QCheckbox or a Menu to toggle these
    :align: center
    :widths: 40 40 40
 
-	Function, Widget, Object Name
+	**Function**, **Widget**, **Object Name**
 	View DRO, QCheckBox, view_dro_cb
 	View Machine Limits, QCheckBox, view_limits_cb
 	View Extents Option, QCheckBox, view_extents_option_cb
@@ -91,7 +91,7 @@ type when creating the Menu, then press enter.
    :align: center
    :widths: 40 40 40
 
-	Function, Menu Name, Object Name
+	**Function**, **Menu Name**, **Object Name**
 	View DRO, DRO, actionDRO
 	View Machine Limits, Limits, actionLimits
 	View Extents Option, Extents Option, actionExtents_Option

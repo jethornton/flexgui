@@ -20,7 +20,6 @@ with its `filename`:
 
 	GUI = my-file-name.ui
 
-
 Stylesheets
 -----------
 
@@ -40,7 +39,6 @@ To use a custom .qss style sheet you created named `lightflex.qss`
 
 .. note:: If a QSS file is specified, `INPUT` and `THEME` are ignored.
 
-
 Startup File
 ------------
 
@@ -55,7 +53,6 @@ that the file is in the configuration directory
 	or
 	OPEN_FILE = ./welcome.ngc
 
-
 File Location
 -------------
 
@@ -68,7 +65,6 @@ item.
 	PROGRAM_PREFIX = ~/linuxcnc/configs/flex_examples/probe_sim
 	or
 	PROGRAM_PREFIX = ./
-
 
 Resource File
 -------------
@@ -105,7 +101,6 @@ To control the initial size of the screen, add either:
 .. warning:: Full size screen does not have any window controls. Make sure
    there is a way to close the GUI like an Exit button or you may not be able to
    close the application. As a last-resort, pressing ALT-F4 should close it.
-
 
 Colors
 ------

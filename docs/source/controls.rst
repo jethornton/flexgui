@@ -12,7 +12,7 @@ with the joint number or axis index. More controls are in :doc:`tools`.
    :width: 100%
    :align: center
 
-	Control Function, Object Name
+	**Control Function**, **Object Name**
 	Open a G-code File, open_pb
 	Edit a G-code File, edit_pb
 	Reload a G-code File, reload_pb
@@ -52,7 +52,6 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 .. note:: Tool-Touch-Off buttons require a Double Spin Box named
    `tool_touchoff_dsb`
 
-
 Options
 -------
 
@@ -64,13 +63,12 @@ to turn off. They are normal push buttons but Flex automatically makes them
    :width: 100%
    :align: left
 
-	Function, Widget, Name
+	**Function**, **Widget**, **Name**
 	Flood Toggle, QPushButton, flood_pb
 	Mist Toggle, QPushButton, mist_pb
 	Optional Stop at M1, QPushButton, optional_stop_pb
 	Block Delete line that starts with /, QPushButton, block_delete_pb
 	Feed Override Enable/Disable, QPushButton, feed_override_pb
-
 
 Axis Index
 ----------
@@ -86,7 +84,6 @@ Axis Index
 	V 7
 	W 8
 
-
 Jog Controls
 ------------
 
@@ -97,7 +94,7 @@ is not found, Jog Buttons will be disabled.
    :width: 100%
    :align: left
 
-	Function, Widget, Name
+	**Function**, **Widget**, **Name**
 	Jog Plus Axis (0-8), QPushButton,jog_plus_pb_(0-8)
 	Jog Minus Axis (0-8), QPushButton, jog_minus_pb_(0-8)
 	Jog Velocity Slider, QSlider, jog_vel_sl
@@ -131,7 +128,7 @@ label shows the value of the slider:
    :width: 100%
    :align: left
 
-	Function, Widget, Object Name
+	**Function**, **Widget**, **Object Name**
 	Feed Override Slider, QSlider, feed_override_sl
 	Feed Override Percent, QLabel, feedrate_lb
 	Rapid Override Slider, QSlider, rapid_override_sl

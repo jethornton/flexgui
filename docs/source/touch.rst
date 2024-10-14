@@ -70,7 +70,6 @@ Touch-Off:
 .. image:: /images/touch-05.png
    :align: center
 
-
 Tool Touch-Off
 --------------
 
@@ -78,14 +77,12 @@ The Tool Touch-Off offset is a QLineEdit named `tool_touchoff_le`. To enable
 the number pad popup for the offset entry, add a Dynamic Property named
 `input` and set the value to `number`.
 
-
 Spin Boxes
 ----------
 
 QDoubleSpinBox and QSpinBox can use the popup numbers keypad by adding a
 Dynamic Property named `input` and seting the value to `number`. If you enter
 a float value for a QSpinBox the value will get converted to an integer
-
 
 Line Edits
 ----------

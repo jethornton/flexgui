@@ -17,7 +17,6 @@ are good references to use when creating your own stylesheets.
    may not appear unless you set the border property to some value, even if
    border is set to none.
 
-
 Colors
 ------
 
@@ -28,7 +27,6 @@ Red, Green, Blue and A means Alpha or transparency.
 
 	rgb(0, 0, 255) Blue
 	rgba(0, 0, 255, 25%) Light Blue
-
 
 Examples
 --------
@@ -64,7 +62,6 @@ Examples
 		background: lightgray;
 	}
 
-
 Tool Bar Buttons
 ----------------
 
@@ -85,7 +82,7 @@ for that action. The tool bar button must exist in the tool bar.
    :width: 100%
    :align: left
 
-	Menu Item, Action Name, Widget Name
+	**Menu Item**, **Action Name**, **Widget Name**
 	Open, actionOpen, flex_Open
 	Edit, actionEdit, flex_Edit
 	Reload, actionReload, flex_Reload
