@@ -25,7 +25,7 @@ def spinbox_numbers(parent, obj):
 			else:
 				obj.setValue(number)
 
-def line_edit_numbers(parent, obj):
+def numbers(parent, obj):
 	np = number_pad.number_pad()
 	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
@@ -34,16 +34,16 @@ def line_edit_numbers(parent, obj):
 	if result:
 		obj.setText(np.retval())
 
-def gcode(self, obj):
+def gcode(parent, obj):
 	gp = gcode_pad.gcode_pad()
-	stylesheet = os.path.join(self.lib_path, 'touch.qss')
+	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
 		gp.setStyleSheet(fh.read())
 	result = gp.exec()
 	if result:
 		obj.setText(gp.retval())
 
-def keyboard(self, obj):
+def keyboard(parent, obj):
 	kb = keyboard_pad.keyboard_pad()
 	result = kb.exec()
 	if result:
