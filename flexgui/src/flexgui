@@ -183,7 +183,7 @@ class flexgui(QMainWindow):
 		startup.setup_list_widgets(self)
 		startup.setup_plain_text_edits(self)
 		startup.setup_spin_boxes(self)
-		#startup.setup_line_edits(self)
+		startup.setup_line_edits(self)
 		startup.setup_spindle(self)
 		startup.setup_jog(self)
 		startup.setup_probing(self)
@@ -230,28 +230,21 @@ class flexgui(QMainWindow):
 		return module
 
 	def eventFilter(self, obj, event):
-		if obj.objectName() == 'touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.line_edit_numbers(self, obj)
 
-		if obj.objectName() == 'tool_touchoff_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.line_edit_numbers(self, obj)
+		if obj.objectName() in self.number_le and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.numbers(self, obj)
+		elif obj.objectName() in self.gcode_le and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.gcode(self, obj)
+		elif obj.objectName() in self.keyboard_le and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.keyboard(self, obj)
+		elif obj.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.spinbox_numbers(self, obj.parent())
 
 		if obj.objectName() == 'mdi_command_gc_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.gcode(self, obj)
 
 		if obj.objectName() == 'mdi_command_kb_le' and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.keyboard(self, obj)
-
-		fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
-		if obj.objectName() in fsc_items and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.line_edit_numbers(self, obj)
-
-		dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
-		if obj.objectName() in dsf_items and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.line_edit_numbers(self, obj)
-
-		if obj.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.spinbox_numbers(self, obj.parent())
 
 		return super(flexgui, self).eventFilter(obj, event)
 

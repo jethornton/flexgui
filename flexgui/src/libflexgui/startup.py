@@ -767,11 +767,22 @@ def setup_plain_text_edits(parent):
 		parent.gcode_pte.ensureCursorVisible()
 		parent.gcode_pte.viewport().installEventFilter(parent)
 		parent.gcode_pte.cursorPositionChanged.connect(partial(utilities.update_qcode_pte, parent))
-
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
 def setup_line_edits(parent):
+	parent.number_le = []
+	parent.gcode_le = []
+	parent.keyboard_le = []
+	for child in parent.findChildren(QLineEdit):
+		if child.property('input') == 'number': # enable the number pad
+			print(child.objectName())
+		elif child.property('input') == 'gcode': # enable the gcode pad
+			print(child.objectName())
+		elif child.property('input') == 'keyboard': # enable the keyboard pad
+			print(child.objectName())
+
+
 	print('setup_line_edits')
 
 def setup_spin_boxes(parent):
@@ -1087,11 +1098,13 @@ def setup_touchoff(parent):
 		parent.touchoff_le.setText('0')
 		if parent.touchoff_le.property('input') == 'number': # enable the number pad
 			parent.touchoff_le.installEventFilter(parent)
+			parent.number_le.append('touchoff_le')
 
 	if 'tool_touchoff_le' in parent.children:
 		parent.tool_touchoff_le.setText('0')
 		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
 			parent.tool_touchoff_le.installEventFilter(parent)
+			parent.number_le.append('tool_touchoff_le')
 
 	# setup touch off buttons
 	for axis in AXES:
@@ -1466,6 +1479,7 @@ def setup_fsc(parent): # mill feed and speed calculator
 			fsc_items = ['fsc_diameter_le', 'fsc_rpm_le', 'fsc_flutes_le', 'fsc_feed_le', 'fsc_chip_load_le']
 			for item in fsc_items:
 				getattr(parent.fsc_calc, f'{item}').installEventFilter(parent)
+				parent.number_le.append(item)
 
 def setup_dsf(parent): # drill speed and feed calculator
 	if 'dsf_container' in parent.children:
@@ -1477,6 +1491,7 @@ def setup_dsf(parent): # drill speed and feed calculator
 			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
 			for item in dsf_items:
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
+				parent.number_le.append(item)
 
 def set_status(parent):
 	parent.status.poll()
