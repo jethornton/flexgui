@@ -13,7 +13,7 @@ number keypad. The `Keyboard Popup` has a full keyboard for touch screens.
    :width: 100%
    :align: center
 
-	Function, Input, Widget, Name
+	**Function**, **Input**, **Widget**, **Name**
 	Enter MDI, Keyboard, QLineEdit, mdi_command_le
 	Enter MDI, NC Popup, QLineEdit, mdi_command_gc_le
 	Enter MDI, Keyboard Popup, QLineEdit, mdi_command_kb_le

@@ -24,7 +24,6 @@ If not found, the maximum setting will be 1000.
 `INCREMENT` will also set the QSpinBox single step when using the up/down
 arrows.
 
-
 Spindle Controls
 ----------------
 

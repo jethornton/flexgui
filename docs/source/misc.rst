@@ -1,7 +1,6 @@
 Miscellaneous Items
 ===================
 
-
 File Selector
 -------------
 
@@ -20,7 +19,6 @@ If you use the touch input, the selector looks like this
 .. note:: Make sure you use a QListWidget and not a QListView for the file
    selector.
 
-
 G-code Viewer
 -------------
 
@@ -29,7 +27,6 @@ To add a G-code viewer, add a Plain Text Edit from Input Widgets and name it
 
 .. image:: /images/gcode-viewer-01.png
    :align: center
-
 
 MDI Viewer
 ----------
@@ -41,7 +38,6 @@ To add a MDI viewer, add a List Widget from Item Widgets and name it
    :align: center
 
 To enter MDI commands, add a Line Edit and name it `mdi_command_le`.
-
 
 Error Viewer
 ------------
@@ -72,7 +68,6 @@ messages will show up in the Error Viewer.
 To clear the information viewer, add a QPushButton and name it `clear_info_pb`.
 
 .. warning:: The information viewer must be a QPlainTextEdit not a QTextEdit.
-
 
 Speed & Feed Calculators
 ------------------------
