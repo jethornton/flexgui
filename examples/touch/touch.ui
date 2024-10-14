@@ -825,7 +825,7 @@ Info</string>
          <widget class="QListWidget" name="mdi_history_lw"/>
         </item>
         <item row="3" column="0">
-         <widget class="QLineEdit" name="mdi_command_gc_le"/>
+         <widget class="QLineEdit" name="mdi_command_le"/>
         </item>
         <item row="0" column="1" rowspan="4">
          <widget class="QFrame" name="frame_4">
