@@ -36,8 +36,8 @@ MDI
 ---
 
 To enable the popup entry dialogs for the MDI entry, the QLineEdit object name
-must be either `mdi_command_gc_le` for the G codes popup or `mdi_command_kb_le`
-for the full keyboard popup
+must be `mdi_command_le` and the Dynamic Property `input` must be `gcode` for
+the NC codes popup or `keyboard` for a full keyboard popup.
 
 The G codes dialog will appear when you touch the MDI entry box
 
