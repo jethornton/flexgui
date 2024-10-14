@@ -821,6 +821,7 @@ def setup_mdi(parent):
 			 parent.mdi_command_le.installEventFilter(parent)
 			else: # keyboard and mouse
 				parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+			parent.home_required.append('run_mdi_pb')
 		else: # missing mdi_command_le
 			parent.run_mdi_pb.setEnabled(False)
 
