@@ -87,9 +87,9 @@ a float value for a QSpinBox the value will get converted to an integer
 Line Edits
 ----------
 
-A QLineEdit can have a popup entry for numbers, G-code, or a full keyboard.
+A QLineEdit can have a popup entry for numbers, G codes, or a full keyboard.
 Add a Dynamic Property named `input` and set the value to one of these
-`number`, `G-code`, or `keyboard`.
+`number`, `gcode`, or `keyboard`.
 
 File Navigator
 --------------
