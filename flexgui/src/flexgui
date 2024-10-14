@@ -230,7 +230,6 @@ class flexgui(QMainWindow):
 		return module
 
 	def eventFilter(self, obj, event):
-
 		if obj.objectName() in self.number_le and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
 		elif obj.objectName() in self.gcode_le and event.type() == QEvent.Type.MouseButtonRelease:
@@ -239,13 +238,6 @@ class flexgui(QMainWindow):
 			dialogs.keyboard(self, obj)
 		elif obj.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.spinbox_numbers(self, obj.parent())
-
-		if obj.objectName() == 'mdi_command_gc_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.gcode(self, obj)
-
-		if obj.objectName() == 'mdi_command_kb_le' and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.keyboard(self, obj)
-
 		return super(flexgui, self).eventFilter(obj, event)
 
 	def closeEvent(self, event):
