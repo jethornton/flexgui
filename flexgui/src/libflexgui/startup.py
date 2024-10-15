@@ -4,6 +4,7 @@ from functools import partial
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QAbstractSpinBox
+from PyQt6.QtWidgets import QLabel
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -1168,7 +1169,7 @@ def setup_probing(parent):
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.children:
-		if child.startswith('probe_') and type(child) == QAbstractButton:
+		if child.startswith('probe_') and not isinstance(child, QLabel):
 			getattr(parent, child).setEnabled(False)
 			parent.probe_controls.append(child)
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
