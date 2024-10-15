@@ -100,7 +100,7 @@ To control the initial size of the screen, add either:
 
 .. warning:: Full size screen does not have any window controls. Make sure
    there is a way to close the GUI like an Exit button or you may not be able to
-   close the application. As a last-resort, pressing ALT-F4 should close it.
+   close the application. As a last-resort, pressing ALT-F4 will close it.
 
 Colors
 ------
