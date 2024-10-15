@@ -777,7 +777,7 @@ def setup_line_edits(parent):
 	for child in parent.findChildren(QLineEdit):
 		if child.property('input') == 'number': # enable the number pad
 			print(child.objectName())
-		elif child.property('input') == 'gcode': # enable the gcode pad
+		elif child.property('input') == 'nccode': # enable the nc code pad
 			print(child.objectName())
 		elif child.property('input') == 'keyboard': # enable the keyboard pad
 			print(child.objectName())
@@ -813,7 +813,7 @@ def setup_mdi(parent):
 
 	if 'run_mdi_pb' in parent.children:
 		if 'mdi_command_le' in parent.children: # we are good to go
-			if parent.mdi_command_le.property('input') == 'gcode':
+			if parent.mdi_command_le.property('input') == 'nccode':
 			 parent.gcode_le.append('mdi_command_le')
 			 parent.mdi_command_le.installEventFilter(parent)
 			elif parent.mdi_command_le.property('input') == 'keyboard':

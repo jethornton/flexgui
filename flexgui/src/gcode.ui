@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>G code Input</string>
+   <string>NC code</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QPushButton{
