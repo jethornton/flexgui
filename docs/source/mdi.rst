@@ -4,35 +4,38 @@ Manual Data Input (MDI)
 MDI Interface
 -------------
 
-The MDI Interface uses a QLineEdit to enter commands. There are 3 possible ways
-to enter MDI commands. The `Keyboard` QLineEdit is used with the keyboard to
-type in commands. The `NC Popup` is a touch screen that has G and M words and a
-number keypad. The `Keyboard Popup` has a full keyboard for touch screens.
+The MDI Interface uses a QLineEdit named `mdi_command_le` to enter commands.
 
-.. csv-table:: MDI Command Entry
-   :width: 100%
+For touch screens there are two options a `NC Popup` is a touch screen that has
+G and M words and a number keypad or a `Keyboard Popup` has a full keyboard.
+
+To enable a popup add a Dynamic string type Property to the `mdi_command_le`
+QLineEdit and name it `input` and set the value to either `nccode` or
+`keyboard`.
+
+Dynamic Property
+
+.. image:: /images/dynamic-property-01.png
    :align: center
 
-	**Function**, **Input**, **Widget**, **Name**
-	Enter MDI, Keyboard, QLineEdit, mdi_command_le
-	Enter MDI, NC Popup, QLineEdit, mdi_command_gc_le
-	Enter MDI, Keyboard Popup, QLineEdit, mdi_command_kb_le
+Setting the value
 
-NC popup window:
-
-.. image:: /images/gcode-popup.png
+.. image:: /images/dynamic-property-02.png
    :align: center
 
-Keyboard popup window:
+NC code popup window
+
+.. image:: /images/nccode-popup.png
+   :align: center
+
+Keyboard popup window
 
 .. image:: /images/keyboard-popup.png
    :align: center
 
-
 MDI history uses a QListWidget named `mdi_history_lw` to display the MDI
 history. You can click on a line in the history display to copy the command to
 the MDI Interface, ready for running.
-
 
 MDI Controls
 ------------
@@ -50,7 +53,6 @@ history
 
 The MDI history is kept in a file named `mdi_history.txt` in the configuration
 directory.
-
 
 .. _MdiButtonTag:
 
