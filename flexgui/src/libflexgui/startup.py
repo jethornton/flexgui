@@ -782,9 +782,6 @@ def setup_line_edits(parent):
 		elif child.property('input') == 'keyboard': # enable the keyboard pad
 			print(child.objectName())
 
-
-	print('setup_line_edits')
-
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
 	for child in parent.findChildren(QAbstractSpinBox):
