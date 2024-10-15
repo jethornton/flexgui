@@ -6,7 +6,7 @@ QPushButton {
 	border-style: outset;
 	border-width: 3px;
 	border-radius: 6px;
-	margin-bottom: 1px;
+	padding: 2px;
 }
 QPushButton:hover {
 	background-color: rgba(192, 192, 192, 75%);
