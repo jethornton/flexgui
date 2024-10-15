@@ -1168,7 +1168,7 @@ def setup_probing(parent):
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.children:
-		if child.startswith('probe_'):
+		if child.startswith('probe_') and type(child) == QAbstractButton:
 			getattr(parent, child).setEnabled(False)
 			parent.probe_controls.append(child)
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
