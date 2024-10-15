@@ -829,9 +829,9 @@
      <widget class="QPushButton" name="estop_pb">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>1</x>
         <y>290</y>
-        <width>87</width>
+        <width>116</width>
         <height>46</height>
        </rect>
       </property>
@@ -845,7 +845,7 @@
      <widget class="QPushButton" name="run_pb">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>230</x>
         <y>290</y>
         <width>87</width>
         <height>46</height>
@@ -858,9 +858,9 @@
      <widget class="QPushButton" name="power_pb">
       <property name="geometry">
        <rect>
-        <x>115</x>
+        <x>126</x>
         <y>290</y>
-        <width>87</width>
+        <width>96</width>
         <height>46</height>
        </rect>
       </property>
@@ -871,7 +871,7 @@
      <widget class="QPushButton" name="run_from_line_pb">
       <property name="geometry">
        <rect>
-        <x>305</x>
+        <x>325</x>
         <y>290</y>
         <width>87</width>
         <height>46</height>
@@ -884,7 +884,7 @@
      <widget class="QPushButton" name="step_pb">
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>420</x>
         <y>290</y>
         <width>87</width>
         <height>46</height>
@@ -897,7 +897,7 @@
      <widget class="QPushButton" name="pause_pb">
       <property name="geometry">
        <rect>
-        <x>495</x>
+        <x>515</x>
         <y>290</y>
         <width>87</width>
         <height>46</height>
@@ -910,7 +910,7 @@
      <widget class="QPushButton" name="resume_pb">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>610</x>
         <y>290</y>
         <width>87</width>
         <height>46</height>
@@ -923,7 +923,7 @@
      <widget class="QPushButton" name="stop_pb">
       <property name="geometry">
        <rect>
-        <x>685</x>
+        <x>705</x>
         <y>290</y>
         <width>87</width>
         <height>46</height>

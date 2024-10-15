@@ -1727,9 +1727,9 @@
    <widget class="QPushButton" name="estop_pb">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>5</x>
       <y>355</y>
-      <width>76</width>
+      <width>106</width>
       <height>27</height>
      </rect>
     </property>
@@ -1740,9 +1740,9 @@
    <widget class="QPushButton" name="power_pb">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>115</x>
       <y>355</y>
-      <width>76</width>
+      <width>86</width>
       <height>27</height>
      </rect>
     </property>
