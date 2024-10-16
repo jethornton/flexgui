@@ -8,11 +8,11 @@ Flex GUI
    description
    install
    designer
+   menu
    touch
    layout
    tips
    ini
-   menu
    controls
    plotter
    mdi
