@@ -3064,7 +3064,7 @@ ENABLE</string>
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>600</y>
+      <y>605</y>
       <width>121</width>
       <height>96</height>
      </rect>
@@ -3606,6 +3606,22 @@ ENABLE</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+   </widget>
+   <widget class="QFrame" name="logo">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>480</y>
+      <width>117</width>
+      <height>117</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

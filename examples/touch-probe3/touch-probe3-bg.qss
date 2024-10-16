@@ -1,9 +1,9 @@
 
 /* QWidget  */
-QWidget {
+/*QWidget { */
 /*	background-color: rgba(0, 96, 192, 40%); color: white; */
 /*	background-color: darkgrey; */
-	}
+/*	} */
 QMenu, QLabel, QPlainTextEdit#gcode_pte {
 	background-color: #121212;
 	color: white;
@@ -40,8 +40,8 @@ QToolBar {
 
 }
 
-QTabWidget, QMainWindow {
-	background-color: black; 
+QMainWindow {
+	background-color: black;
 	color: white;
 	border-color: grey;
 	}
@@ -508,6 +508,13 @@ QPushButton#probe_angleYplus {
 QPushButton#probe_angleYminus {
 	background-image: url(":images/angleY-.png");
 	}*/	
+
+QFrame#logo {
+    border: 1px grey;
+    border-radius: 2px;
+    padding: 2px;
+    background-image: url(:images/Flex-probe117.png);
+}
 
 /* ********** NOTES ********** */
 /*  QMainWindow{
