@@ -2637,8 +2637,8 @@ SET</string>
    <widget class="QPushButton" name="clear_errors_pb">
     <property name="geometry">
      <rect>
-      <x>605</x>
-      <y>600</y>
+      <x>835</x>
+      <y>130</y>
       <width>71</width>
       <height>46</height>
      </rect>
@@ -3004,24 +3004,11 @@ ERROR</string>
      <string>Resume</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="quit_pb">
-    <property name="geometry">
-     <rect>
-      <x>605</x>
-      <y>655</y>
-      <width>71</width>
-      <height>46</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Quit</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="probing_enable_pb">
     <property name="geometry">
      <rect>
       <x>605</x>
-      <y>545</y>
+      <y>430</y>
       <width>71</width>
       <height>46</height>
      </rect>
@@ -3077,7 +3064,7 @@ ENABLE</string>
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>425</y>
+      <y>600</y>
       <width>121</width>
       <height>96</height>
      </rect>
