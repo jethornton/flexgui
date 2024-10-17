@@ -3,6 +3,7 @@ from math import sqrt
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 
 import linuxcnc as emc
+import hal
 
 from libflexgui import utilities
 
@@ -269,6 +270,11 @@ def update(parent):
 			cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
 			parent.gcode_pte.setTextCursor(cursor)
 			parent.last_line = motion_line
+
+	# update hal labels
+	for key, value in parent.hal_readers.items():
+		value = hal.get_value(f'flexhal.{value}')
+		getattr(parent, key).setText(f'{value}')
 
 	# homed status
 	for item in parent.home_status:
