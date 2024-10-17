@@ -4,10 +4,20 @@
 loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
 loadrt sim_parport names=parport.0
+
+#  load for Cycle Timer 
+loadrt time count=2
+loadrt not
+
+
 setp parport.0.reset-time 5000
 loadrt stepgen step_type=0,0,0
 loadrt pwmgen output_type=1
 
+#  Cycle Timer
+addf time.0 servo-thread
+addf time.1 servo-thread
+addf not.0 servo-thread
 
 addf parport.0.read base-thread
 source sim_hardware.hal
@@ -22,6 +32,12 @@ addf motion-command-handler servo-thread
 addf motion-controller servo-thread
 addf stepgen.update-freq servo-thread
 addf pwmgen.update servo-thread
+
+#  Cycle Timer
+net prog-running <= halui.program.is-idle
+net prog-running => not.0.in
+net run-status	<= halui.program.is-running
+
 
 net spindle-cmd-rpm => pwmgen.0.value
 net spindle-on <= spindle.0.on => pwmgen.0.enable

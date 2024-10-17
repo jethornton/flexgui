@@ -142,7 +142,7 @@
     <property name="geometry">
      <rect>
       <x>685</x>
-      <y>190</y>
+      <y>195</y>
       <width>511</width>
       <height>511</height>
      </rect>
@@ -2637,8 +2637,8 @@ SET</string>
    <widget class="QPushButton" name="clear_errors_pb">
     <property name="geometry">
      <rect>
-      <x>835</x>
-      <y>130</y>
+      <x>1050</x>
+      <y>175</y>
       <width>71</width>
       <height>46</height>
      </rect>
@@ -2655,7 +2655,7 @@ ERROR</string>
     <property name="geometry">
      <rect>
       <x>465</x>
-      <y>240</y>
+      <y>230</y>
       <width>201</width>
       <height>156</height>
      </rect>
@@ -2831,7 +2831,7 @@ ERROR</string>
    <widget class="QLabel" name="start_line_lb">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>590</x>
       <y>1</y>
       <width>50</width>
       <height>21</height>
@@ -2864,7 +2864,7 @@ ERROR</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>625</x>
+      <x>505</x>
       <y>5</y>
       <width>81</width>
       <height>21</height>
@@ -2880,7 +2880,7 @@ ERROR</string>
    <widget class="QLabel" name="motion_line_lb">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>750</x>
       <y>0</y>
       <width>50</width>
       <height>21</height>
@@ -2913,7 +2913,7 @@ ERROR</string>
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>775</x>
+      <x>655</x>
       <y>5</y>
       <width>91</width>
       <height>16</height>
@@ -3008,7 +3008,7 @@ ERROR</string>
     <property name="geometry">
      <rect>
       <x>605</x>
-      <y>430</y>
+      <y>390</y>
       <width>71</width>
       <height>46</height>
      </rect>
@@ -3024,8 +3024,8 @@ ENABLE</string>
    <widget class="QLabel" name="label_32">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>5</y>
+      <x>540</x>
+      <y>190</y>
       <width>41</width>
       <height>19</height>
      </rect>
@@ -3045,15 +3045,15 @@ ENABLE</string>
    <widget class="QLabel" name="tool_in_spindle_lb">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>5</y>
-      <width>36</width>
+      <x>590</x>
+      <y>190</y>
+      <width>46</width>
       <height>19</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
@@ -3241,7 +3241,7 @@ ENABLE</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1135</x>
+      <x>1145</x>
       <y>180</y>
       <width>46</width>
       <height>19</height>
@@ -3254,20 +3254,20 @@ ENABLE</string>
    <widget class="QPlainTextEdit" name="errors_pte">
     <property name="geometry">
      <rect>
-      <x>915</x>
-      <y>45</y>
+      <x>925</x>
+      <y>30</y>
       <width>266</width>
-      <height>136</height>
+      <height>141</height>
      </rect>
     </property>
    </widget>
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>525</x>
-      <y>40</y>
+      <x>505</x>
+      <y>30</y>
       <width>271</width>
-      <height>136</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -3280,7 +3280,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>101</x>
-       <y>14</y>
+       <y>5</y>
        <width>73</width>
        <height>21</height>
       </rect>
@@ -3302,7 +3302,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>101</x>
-       <y>41</y>
+       <y>32</y>
        <width>73</width>
        <height>23</height>
       </rect>
@@ -3330,7 +3330,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>101</x>
-       <y>99</y>
+       <y>90</y>
        <width>73</width>
        <height>23</height>
       </rect>
@@ -3358,7 +3358,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>99</y>
+       <y>90</y>
        <width>72</width>
        <height>23</height>
       </rect>
@@ -3386,7 +3386,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>70</y>
+       <y>61</y>
        <width>72</width>
        <height>23</height>
       </rect>
@@ -3414,7 +3414,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>14</y>
+       <y>5</y>
        <width>72</width>
        <height>21</height>
       </rect>
@@ -3436,7 +3436,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>41</y>
+       <y>32</y>
        <width>72</width>
        <height>23</height>
       </rect>
@@ -3464,7 +3464,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>101</x>
-       <y>70</y>
+       <y>61</y>
        <width>73</width>
        <height>23</height>
       </rect>
@@ -3492,7 +3492,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>26</x>
-       <y>70</y>
+       <y>61</y>
        <width>20</width>
        <height>19</height>
       </rect>
@@ -3511,7 +3511,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>100</y>
+       <y>91</y>
        <width>21</width>
        <height>19</height>
       </rect>
@@ -3530,7 +3530,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>45</y>
+       <y>36</y>
        <width>21</width>
        <height>19</height>
       </rect>
@@ -3549,7 +3549,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>15</y>
+       <y>6</y>
        <width>51</width>
        <height>19</height>
       </rect>
@@ -3562,7 +3562,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>75</x>
-       <y>40</y>
+       <y>31</y>
        <width>16</width>
        <height>19</height>
       </rect>
@@ -3578,7 +3578,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>75</x>
-       <y>95</y>
+       <y>86</y>
        <width>16</width>
        <height>19</height>
       </rect>
@@ -3594,7 +3594,7 @@ ENABLE</string>
      <property name="geometry">
       <rect>
        <x>75</x>
-       <y>70</y>
+       <y>61</y>
        <width>16</width>
        <height>19</height>
       </rect>
@@ -3610,8 +3610,8 @@ ENABLE</string>
    <widget class="QFrame" name="logo">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>480</y>
+      <x>545</x>
+      <y>460</y>
       <width>117</width>
       <height>117</height>
      </rect>
@@ -3622,6 +3622,221 @@ ENABLE</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame_4">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>30</y>
+      <width>141</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="timerhrs">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>21</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>hrs</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>timer0_hrs</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_U32</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_IN</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_42">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>30</y>
+       <width>11</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_45">
+     <property name="geometry">
+      <rect>
+       <x>75</x>
+       <y>30</y>
+       <width>11</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="timermin">
+     <property name="geometry">
+      <rect>
+       <x>55</x>
+       <y>30</y>
+       <width>21</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>min</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>timer0_min</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_U32</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_IN</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="timersec">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>21</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>sec</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>timer0_sec</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_U32</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_IN</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_34">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>5</y>
+       <width>106</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Cycle Timer</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_39">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>70</y>
+       <width>91</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Spindle RPM</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="spindlespeed">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>105</y>
+       <width>76</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+     <property name="function" stdset="0">
+      <string>hal_pin</string>
+     </property>
+     <property name="pin_name" stdset="0">
+      <string>spindle_rpm</string>
+     </property>
+     <property name="hal_type" stdset="0">
+      <string>HAL_FLOAT</string>
+     </property>
+     <property name="hal_dir" stdset="0">
+      <string>HAL_IN</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>55</y>
+       <width>141</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
