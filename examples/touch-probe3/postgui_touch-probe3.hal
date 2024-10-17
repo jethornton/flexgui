@@ -6,29 +6,9 @@ net touch-probe flexhal.probe_trigger_pin => motion.probe-input
 
 # Cycle Timer
 net run-status => 	time.0.start
-net cycle-timer 	time.1.start <= not.0.out
 net cycle-seconds 	flexhal.timer0_sec <= time.0.seconds
 net cycle-minutes 	flexhal.timer0_min <= time.0.minutes
 net cycle-hours 	flexhal.timer0_hrs <= time.0.hours
 
-#net full-cycle-seconds flexhal.timer1_sec <= time.1.seconds
-#net full-cycle-minutes flexhal.timer1_min <= time.1.minutes
-#net full-cycle-hours flexhal.timer1_hrs <= time.1.hours
-
 net spindle-cmd-rpm-abs => flexhal.spindle_rpm
-
-
-# an alternate method using mdi
-#net but-Yminus   flexhal.Yminus_pin   => halui.mdi-command-00
-#net but-inYminus flexhal.inYminus_pin => halui.mdi-command-01
-#net but-Yplus    flexhal.Yplus_pin    => halui.mdi-command-02
-#net but-inYplus  flexhal.inYplus_pin  => halui.mdi-command-03
-#net but-Xminus   flexhal.Xminus_pin   => halui.mdi-command-04
-#net but-inXminus flexhal.inXminus_pin => halui.mdi-command-05
-#net but-Xplus    flexhal.Xplus_pin    => halui.mdi-command-06
-#net but-inXplus  flexhal.inXplus_pin  => halui.mdi-command-07
-#net but-inhole   flexhal.inhole_pin   => halui.mdi-command-08
-#net but-material flexhal.material_pin => halui.mdi-command-09
-#net but-p_tool   flexhal.p_tool_pin   => halui.mdi-command-10
-
 
