@@ -1207,7 +1207,7 @@ def setup_mdi_buttons(parent):
 				button.setEnabled(False)
 
 def setup_hal(parent):
-	hal_widgets = []
+	hal_labels = []
 	hal_buttons = []
 	hal_spinboxes = []
 	hal_sliders = []
@@ -1220,6 +1220,33 @@ def setup_hal(parent):
 				hal_spinboxes.append(child)
 			elif isinstance(child, QSlider):
 				hal_sliders.append(child)
+			elif isinstance(child, QLabel):
+				hal_labels.append(child)
+
+	if len(hal_labels) > 0: # setup hal labels
+		parent.hal_readers = {}
+		for label in hal_labels:
+			label_name = label.objectName()
+			pin_name = label.property('pin_name')
+			hal_type = label.property('hal_type')
+			hal_dir = label.property('hal_dir')
+			if label_name == pin_name:
+				label.setEnabled(False)
+				msg = (f'The object name {label_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				pin = getattr(parent, f'{pin_name}')
+				parent.hal_readers[label_name] = pin_name
+
 
 	if len(hal_buttons) > 0: # setup hal buttons and checkboxes
 		for button in hal_buttons:
@@ -1238,7 +1265,6 @@ def setup_hal(parent):
 			hal_dir = button.property('hal_dir')
 
 			if None not in [pin_name, hal_type, hal_dir]:
-				#print('building')
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
