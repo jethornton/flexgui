@@ -56,7 +56,7 @@ A QSlider can be a HAL pin by adding these four string type Dynamic Properties
 Label
 -----
 
-A QLable can be used to monitor HAL pins. HAL connections must be made in the
+A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file.
 
 .. csv-table:: HAL Label
@@ -66,7 +66,7 @@ post gui HAL file.
 	Property Name, Pin Value
 	function, hal_pin
 	pin_name, any unique name
-	hal_type, HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32
+	hal_type, HAL_BIT HAL_FLOAT HAL_S32 HAL_U32
 	hal_dir, HAL_IN
 
 
