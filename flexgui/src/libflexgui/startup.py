@@ -1211,6 +1211,7 @@ def setup_hal(parent):
 	hal_buttons = []
 	hal_spinboxes = []
 	hal_sliders = []
+	parent.hal_readers = {}
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.property('function') == 'hal_pin':
@@ -1224,7 +1225,6 @@ def setup_hal(parent):
 				hal_labels.append(child)
 
 	if len(hal_labels) > 0: # setup hal labels
-		parent.hal_readers = {}
 		for label in hal_labels:
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')
