@@ -5,7 +5,9 @@ Button
 ------
 
 Any QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
-adding four string type Dynamic Properties as shown in this table
+adding four string type Dynamic Properties.  The pin_name used will create a HAL
+pin prefixed with `flexhal.` A pin_name of my-button would be in HAL
+`flexhal.my-button`.
 
 .. csv-table:: HAL Push Button
    :width: 100%
@@ -23,7 +25,9 @@ Spinbox
 -------
 
 Any QSpinBox or QDoubleSpinBox can be a HAL `number` pin by adding four string
-type Dynamic Properties as shown here
+type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-spinbox would be in HAL `flexhal.my-spinbox`.
+
 
 .. csv-table:: HAL Spin Box
    :width: 100%
@@ -41,7 +45,9 @@ type Dynamic Properties as shown here
 Slider
 ------
 
-A QSlider can be a HAL pin by adding these four string type Dynamic Properties
+A QSlider can be a HAL pin by adding these four string type Dynamic Properties.
+The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
+my-slider would be in HAL `flexhal.my-slider`.
 
 .. csv-table:: HAL Slider
    :width: 100%
@@ -57,7 +63,8 @@ Label
 -----
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
-post gui HAL file.
+post gui HAL file. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -66,7 +73,7 @@ post gui HAL file.
 	Property Name, Pin Value
 	function, hal_pin
 	pin_name, any unique name
-	hal_type, HAL_BIT HAL_FLOAT HAL_S32 HAL_U32
+	hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
 	hal_dir, HAL_IN
 
 
