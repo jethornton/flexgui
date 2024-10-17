@@ -1,0 +1,6 @@
+
+setp flexhal.test-reader-u32 24
+setp flexhal.test-reader-s32 -36
+setp flexhal.test-reader-float 123.456
+setp flexhal.test-reader-bit True
+
