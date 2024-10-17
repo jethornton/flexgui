@@ -3024,8 +3024,8 @@ ENABLE</string>
    <widget class="QLabel" name="label_32">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>575</y>
+      <x>540</x>
+      <y>190</y>
       <width>41</width>
       <height>19</height>
      </rect>
@@ -3045,15 +3045,15 @@ ENABLE</string>
    <widget class="QLabel" name="tool_in_spindle_lb">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>575</y>
-      <width>36</width>
+      <x>590</x>
+      <y>190</y>
+      <width>46</width>
       <height>19</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
@@ -3611,7 +3611,7 @@ ENABLE</string>
     <property name="geometry">
      <rect>
       <x>545</x>
-      <y>450</y>
+      <y>460</y>
       <width>117</width>
       <height>117</height>
      </rect>
