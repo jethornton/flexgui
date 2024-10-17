@@ -1,6 +1,10 @@
 HAL Pins
 ========
 
+.. note:: Dynamic Property names are case sensitive and must be all lower case.
+   Hal types and directions are case sensitive and must be all caps. The
+   function value must be lower case.
+
 Button
 ------
 
