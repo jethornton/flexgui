@@ -1529,11 +1529,17 @@
              <property name="function" stdset="0">
               <string>hal_pin</string>
              </property>
-             <property name="pin_0" stdset="0">
-              <string>hal-mdi-01, HAL_BIT, HAL_OUT</string>
-             </property>
              <property name="required" stdset="0">
               <string>homed</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-btn-1</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
              </property>
             </widget>
            </item>
@@ -1542,12 +1548,55 @@
              <property name="text">
               <string>Just HAL</string>
              </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>just-hal-btn</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
             </widget>
            </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="pushButton_5">
              <property name="text">
               <string>More Hal</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>more-hal-btn</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>test-reader</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
              </property>
             </widget>
            </item>
