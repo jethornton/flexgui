@@ -3616,6 +3616,9 @@ ENABLE</string>
       <height>117</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Hello, I am chips your friendly mascot</string>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
