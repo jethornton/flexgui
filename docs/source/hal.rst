@@ -5,6 +5,8 @@ HAL Pins
    Hal types and directions are case sensitive and must be all caps. The
    function value must be lower case.
 
+.. note:: Hal pin names can containe a-z, A-Z, 0-9, underscore _, or dash -.
+
 Button
 ------
 
