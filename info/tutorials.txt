@@ -4,7 +4,20 @@ Menus
 Tool Bars and Menu Buttons
 Run Controls
 Basic Layout
+Error and Info Screen
+Home Controls
 Status Labels
 Jog Controls
 Plotter
+File Controls
+Overrides
+Coordinate Systems
+Tools
+Spindle
+MDI Entry
+MDI Button
+HAL Button
+HAL Spinbox Slider
+HAL Label
+Calculators
 
