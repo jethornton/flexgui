@@ -1228,6 +1228,13 @@ def setup_hal(parent):
 		for label in hal_labels:
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
 			hal_type = label.property('hal_type')
 			hal_dir = label.property('hal_dir')
 			if label_name == pin_name:
@@ -1252,6 +1259,13 @@ def setup_hal(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL Button {button_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
 			if button_name == pin_name:
 				button.setEnabled(False)
 				msg = (f'The object name {button_name}\n'
@@ -1290,6 +1304,13 @@ def setup_hal(parent):
 		for spinbox in hal_spinboxes:
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL Spinbox {spinbox_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
 			if spinbox_name == pin_name:
 				spinbox.setEnabled(False)
 				msg = (f'The object name {spinbox_name}\n'
@@ -1324,6 +1345,13 @@ def setup_hal(parent):
 		for slider in hal_sliders:
 			slider_name = slider.objectName()
 			pin_name = slider.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL Slider {slider_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
 			if slider_name == pin_name:
 				slider.setEnabled(False)
 				msg = (f'The object name {slider_name}\n'
