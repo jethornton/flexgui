@@ -2,8 +2,9 @@ Installing Flex and Designer
 Start a Project
 Menus
 Tool Bars and Menu Buttons
-Basic Layout
 Run Controls
+Basic Layout
 Status Labels
+Jog Controls
 Plotter
 
