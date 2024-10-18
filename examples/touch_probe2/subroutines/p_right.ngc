@@ -11,7 +11,7 @@ o<p_right> sub
 ;	(debug, Raise Z, move to X#1017)
 ;	(debug, Press Set X)
 	G90 G0 X[[#5061 + 0.2] - #1020]
-	(debug,1st Spindle center is X +0.2 from the edge)
+	(debug,Spindle center is X +0.2 from the edge)
 o<p_right> endsub
 
 M2
