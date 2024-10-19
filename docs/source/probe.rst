@@ -4,7 +4,7 @@ Probing
 Add a QPushButton named `probing_enable_pb` and if it is found it will be set as
 a toggle button. The button will only be enabled when the machine is homed and
 not running a program. The button is set to checkable in code so it can be
-styled with :checked and :unchecked pseudo-states.
+styled with :checked and :enabled pseudo-states among others.
 
 .. code-block:: css
 
@@ -20,6 +20,8 @@ styled with :checked and :unchecked pseudo-states.
 
 .. note:: A QPushButton with checkable set to true does not have an unchecked
    pseudo-state
+
+For more style sheet options see the :doc:`style` section
 
 When the `probing_enable_pb` is toggled `OFF`, any widget with an object name
 that starts with `probe_` will be disabled.
