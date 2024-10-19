@@ -1179,7 +1179,6 @@ def setup_probing(parent):
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
 		else:
-			parent.probe_controls = False
 			msg = ('The Probing Enable Push Button\n'
 				'was not found, all probe controls\n'
 				'will be disabled. Did you name it\n'
