@@ -4,9 +4,10 @@ Menus
 Tool Bars and Menu Buttons
 Run Controls
 Basic Layout
+INI Settings
+Status Labels
 Error and Info Screen
 Home Controls
-Status Labels
 Jog Controls
 Plotter
 File Controls
