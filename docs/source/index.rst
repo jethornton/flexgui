@@ -9,6 +9,7 @@ Flex GUI
    install
    designer
    ini
+   labels
    menu
    touch
    layout
@@ -16,7 +17,6 @@ Flex GUI
    controls
    plotter
    mdi
-   labels
    spindle
    probe
    tools
