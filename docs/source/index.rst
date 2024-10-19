@@ -8,11 +8,11 @@ Flex GUI
    description
    install
    designer
+   ini
    menu
    touch
    layout
    tips
-   ini
    controls
    plotter
    mdi
