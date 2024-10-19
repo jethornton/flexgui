@@ -545,7 +545,7 @@ def setup_status_labels(parent):
 	'adaptive_feed_enabled', 'angular_units', 'axes', 'axis',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
 	'current_vel', 'cycle_time', 'debug', 'delay_left', 'distance_to_go',
-	'echo_serial_number', 'enabled', 'estop', 'exec_state',
+	'echo_serial_number', 'enabled', 'estop', 'exec_state', 'feed_hold_enabled',
 	'feed_override_enabled', 'flood', 'g5x_index', 'ini_filename', 'inpos',
 	'input_timeout', 'interp_state', 'interpreter_errcode', 'joint', 'joints',
 	'kinematics_type', 'lube', 'lube_level', 'max_acceleration',
