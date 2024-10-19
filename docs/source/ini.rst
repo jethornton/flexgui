@@ -26,9 +26,9 @@ Stylesheets
 To use a built-in input stylesheet, add either
 ::
 
-	INPUT = TOUCH
+	INPUT = touch
 	or
-	INPUT = KEYBOARD
+	INPUT = keyboard
 
 .. note:: If no INPUT nor QSS is specified, then no stylesheet will be used.
 
