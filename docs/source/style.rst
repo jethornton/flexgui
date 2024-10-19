@@ -23,7 +23,7 @@ Colors
 Most colors can be specified using either the RGB or RGBA color model. RGB is
 Red, Green, Blue and A means Alpha or transparency.
 
-.. code-block:: html
+.. code-block:: css
 
 	rgb(0, 0, 255) Blue
 	rgba(0, 0, 255, 25%) Light Blue
@@ -31,10 +31,9 @@ Red, Green, Blue and A means Alpha or transparency.
 Examples
 --------
 
-.. code-block:: html
+.. code-block:: css
 
 	/* Set the background color for all QPushButtons, border is required * /
-
 	QPushButton {
 		background-color: rgba(224, 224, 224, 50%);
 		border: 1px;
@@ -48,8 +47,8 @@ Examples
 
 	/* Set settings for a QPushButton named exit_pb * /
 	QPushButton#exit_pb {
-	border: none;
-	background-color: rgba(0, 0, 0, 0);
+		border: none;
+		background-color: rgba(0, 0, 0, 0);
 	}
 
 	/* Using sub controls * /
@@ -67,7 +66,8 @@ Tool Bar Buttons
 
 A tool bar button created from a menu action can be styled by using the 
 QToolButton` selector:
-::
+
+.. code-block:: css
 
 	QToolButton:hover {
 		background-color: rgba(255, 0, 0, 75%);
@@ -109,7 +109,7 @@ for that action. The tool bar button must exist in the tool bar.
 
 The syntax to select a tool bar button by name (here the flex_Quit button) is:
 
-.. code-block:: html
+.. code-block:: css
 
 	QToolButton#flex_Quit:hover {
 		background-color: rgba(255, 0, 0, 75%);
