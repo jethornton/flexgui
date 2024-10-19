@@ -516,6 +516,21 @@ QFrame#logo {
     background-image: url(:images/Flex-probe117.png);
 }
 
+QPushButton#probing_enable_pb:enabled:checked {
+	color: white;
+/*	background-color: rgba(192, 0, 0, 80%); */
+	background-color: rgba(0, 192, 0, 80%);
+}
+
+QPushButton#probing_enable_pb:enabled {
+	color: lightgreen;
+	background-color: rgba(0, 96, 192, 60%);
+	/*yellow;*/
+}
+QPushButton#probing_enable_pb:enabled:hover {
+        color: white;
+}
+
 /* ********** NOTES ********** */
 /*  QMainWindow{
 	background-color: rgba(0, 0, 192, 20%);
