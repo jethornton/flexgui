@@ -1739,7 +1739,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QPushButton" name="spindle_block_pb">
+            <widget class="QPushButton" name="probing_enable_pb">
              <property name="text">
               <string>Enable</string>
              </property>
@@ -2924,8 +2924,5 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
  <connections/>
 </ui>
