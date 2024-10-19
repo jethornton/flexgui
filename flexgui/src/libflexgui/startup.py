@@ -641,6 +641,7 @@ def setup_status_labels(parent):
 	parent.status_units = {}
 	if 'linear_units_lb' in parent.children:
 		p = parent.linear_units_lb.property('precision') or default_precision
+		parent.status_units['linear_units_lb'] = ['linear_units', p]
 
 	# check for joint labels in ui
 	# these return 16 joints
