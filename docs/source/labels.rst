@@ -122,7 +122,7 @@ Run from line label `start_line_lb`
 
 Axis machine position labels (no offsets.) Returns a float
 
-.. csv-table:: Machine (Absolute) Position Status Labels
+.. csv-table:: Machine Absolute Position Status Labels
    :width: 100%
    :align: center
    :widths: 40 40 40
@@ -133,7 +133,7 @@ Axis machine position labels (no offsets.) Returns a float
 
 Axis position labels `including` all offsets. Returns a float
 
-.. csv-table:: DRO (Relative) Status Labels
+.. csv-table:: DRO Relative Status Labels
    :width: 100%
    :align: center
    :widths: 40 40 40
