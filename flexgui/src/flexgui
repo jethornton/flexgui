@@ -83,6 +83,14 @@ class flexgui(QMainWindow):
 		machine_name = self.inifile.find("EMC", "MACHINE") or "unknown"
 		self.settings = QSettings('Flex', machine_name)
 
+		units = self.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
+		if units.lower() == 'inch':
+			self.default_precision = 4
+		elif units.lower() == 'mm':
+			self.default_precision = 3
+		else:
+			self.default_precision = 4
+
 		gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False

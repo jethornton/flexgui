@@ -82,6 +82,8 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
 	hal_dir, HAL_IN
 
+..note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
+   `precision` with a value of the number of decimal digits.
 
 Pin Types::
 
