@@ -276,6 +276,11 @@ def update(parent):
 		value = hal.get_value(f'flexhal.{value}')
 		getattr(parent, key).setText(f'{value}')
 
+	for key, value in parent.hal_floats.items():
+		# label [status item, precision]
+		hal_value = hal.get_value(f'flexhal.{value[0]}')
+		getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
+
 	# homed status
 	for item in parent.home_status:
 		if parent.status.homed[int(item[-1])]:

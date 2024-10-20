@@ -508,12 +508,6 @@ def setup_actions(parent): # setup menu actions
 					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
 
 def setup_status_labels(parent):
-	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
-	if units.lower() == 'inch':
-		default_precision = 4
-	elif units.lower() == 'mm':
-		default_precision = 3
-
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
@@ -567,7 +561,7 @@ def setup_status_labels(parent):
 		label = f'actual_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
 	parent.status_dro = {} # create an empty dictionary
@@ -575,7 +569,7 @@ def setup_status_labels(parent):
 		label = f'dro_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.status_dro[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_g5x = {} # create an empty dictionary
@@ -583,7 +577,7 @@ def setup_status_labels(parent):
 		label = f'g5x_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.status_g5x[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_g92 = {} # create an empty dictionary
@@ -591,7 +585,7 @@ def setup_status_labels(parent):
 		label = f'g92_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.status_g92[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	# check for axis labels in the ui
@@ -606,7 +600,7 @@ def setup_status_labels(parent):
 			label = f'axis_{i}_{item}_lb'
 			if label in parent.children:
 				p = getattr(parent, label).property('precision')
-				p = p if p is not None else default_precision
+				p = p if p is not None else parent.default_precision
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
 	parent.status_axes_vel_min = {}
@@ -614,7 +608,7 @@ def setup_status_labels(parent):
 		label = f'axis_{i}_vel_per_min_lb'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.status_axes_vel_min[label] = [i, 'velocity', p] # axis, item, precision
 
 	# two joint velocity
@@ -623,7 +617,7 @@ def setup_status_labels(parent):
 		joint_0 = parent.two_vel_lb.property('joint_0')
 		joint_1 = parent.two_vel_lb.property('joint_1')
 		p = getattr(parent, f'two_vel_lb').property('precision')
-		p = p if p is not None else default_precision
+		p = p if p is not None else parent.default_precision
 		if None not in (joint_0, joint_1): # check for None or False
 			parent.two_vel['two_vel_lb'] = [joint_0, joint_1, p]
 
@@ -634,13 +628,13 @@ def setup_status_labels(parent):
 		joint_1 = parent.three_vel_lb.property('joint_1')
 		joint_2 = parent.three_vel_lb.property('joint_2')
 		p = getattr(parent, f'three_vel_lb').property('precision')
-		p = p if p is not None else default_precision
+		p = p if p is not None else parent.default_precision
 		if None not in (joint_0, joint_1, joint_2): # check for None or False
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
 
 	parent.status_units = {}
 	if 'linear_units_lb' in parent.children:
-		p = parent.linear_units_lb.property('precision') or default_precision
+		p = parent.linear_units_lb.property('precision') or parent.default_precision
 		parent.status_units['linear_units_lb'] = ['linear_units', p]
 
 	# check for joint labels in ui
@@ -662,14 +656,14 @@ def setup_status_labels(parent):
 	for i in range(parent.status.joints):
 		if f'joint_vel_sec_{i}_lb' in parent.children: # if the label is found
 			p = getattr(parent, f'joint_vel_sec_{i}_lb').property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.joint_vel_sec[f'joint_vel_sec_{i}_lb'] = [i, p] # add the label, tuple position & precision
 
 	parent.joint_vel_min = {}
 	for i in range(parent.status.joints):
 		if f'joint_vel_min_{i}_lb' in parent.children: # if the label is found
 			p = getattr(parent, f'joint_vel_min_{i}_lb').property('precision')
-			p = p if p is not None else default_precision
+			p = p if p is not None else parent.default_precision
 			parent.joint_vel_min[f'joint_vel_min_{i}_lb'] = [i, p] # add the label, tuple position & precision
 
 	joint_number_items = ['units', 'velocity']
@@ -678,7 +672,7 @@ def setup_status_labels(parent):
 		for item in joint_number_items:
 			if f'joint_{item}_{i}_lb' in parent.children: # if the label is found
 				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
-				p = p if p is not None else default_precision
+				p = p if p is not None else parent.default_precision
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
 	override_items = {'feedrate_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
@@ -704,7 +698,7 @@ def setup_status_labels(parent):
 			label = f'{item}_{i}_lb'
 			if label in parent.children:
 				p = getattr(parent, f'{item}_{i}_lb').property('precision')
-				p = p if p is not None else default_precision
+				p = p if p is not None else parent.default_precision
 				parent.status_aio[label] = [item, i, p] # add label, stat and precision
 
 	# check for tool table labels in the ui , 'comment'
@@ -1213,6 +1207,7 @@ def setup_hal(parent):
 	hal_spinboxes = []
 	hal_sliders = []
 	parent.hal_readers = {}
+	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.property('function') == 'hal_pin':
@@ -1249,12 +1244,25 @@ def setup_hal(parent):
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
+				#print(f'{hal_type} = {getattr(hal, hal_type)}')
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				pin = getattr(parent, f'{pin_name}')
-				parent.hal_readers[label_name] = pin_name
+				# if hal type is float add it to hal_float with precision
+				if hal_type == 2: # HAL_FLOAT
+					p = label.property('precision')
+					p = p if p is not None else parent.default_precision
+					parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
+				else:
+					parent.hal_readers[label_name] = pin_name
 
+	'''
+	HAL_U32 = 4
+	HAL_S32 = 3
+	HAL_FLOAT = 2
+	HAL_BIT = 1
+	'''
 
 	if len(hal_buttons) > 0: # setup hal buttons and checkboxes
 		for button in hal_buttons:
