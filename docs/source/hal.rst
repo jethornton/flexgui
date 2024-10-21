@@ -84,6 +84,26 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 
 ..note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
+	 
+LCD
+-----
+
+A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in the
+post gui HAL file. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+
+.. csv-table:: HAL LCD
+   :width: 100%
+   :align: center
+
+	Property Name, Pin Value
+	function, hal_pin
+	pin_name, any unique name
+	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	hal_dir, HAL_IN
+
+..note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
+   `precision` with a value of the number of decimal digits.
 
 Pin Types::
 
