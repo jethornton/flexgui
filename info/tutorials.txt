@@ -5,8 +5,7 @@ Tool Bars and Menu Buttons
 Basic Layout
 INI Settings
 Status Labels
-Run Controls
-Error and Info Screen
+Error, Info Screen, Code Viewer
 Home Controls
 Jog Controls
 Plotter
