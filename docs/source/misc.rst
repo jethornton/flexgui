@@ -19,11 +19,11 @@ If you use the touch input, the selector looks like this
 .. note:: Make sure you use a QListWidget and not a QListView for the file
    selector.
 
-G-code Viewer
--------------
+Code Viewer
+-----------
 
-To add a G-code viewer, add a Plain Text Edit from Input Widgets and name it
-`G-code_pte`
+To add a Code viewer, add a Plain Text Edit from Input Widgets and name it
+`gcode_pte`
 
 .. image:: /images/gcode-viewer-01.png
    :align: center
