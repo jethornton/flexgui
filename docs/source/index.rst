@@ -11,9 +11,6 @@ Flex GUI
    ini
    labels
    menu
-   touch
-   layout
-   tips
    controls
    plotter
    mdi
@@ -22,5 +19,8 @@ Flex GUI
    tools
    misc
    hal
+   touch
+   layout
+   tips
    style
    resources
