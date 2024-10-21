@@ -98,7 +98,6 @@ def action_open(parent): # actionOpen
 
 	# PROGRAM_PREFIX =   ../nc_files/
 	directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
-	print(directory)
 	if directory:
 		if directory.startswith('./'): # in this directory
 			gcode_dir = os.path.join(parent.ini_path, directory[2:])
