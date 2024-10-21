@@ -47,11 +47,14 @@ valid path. Use ~/ as a shortcut to the users home directory. Use ./ to indicate
 that the file is in the configuration directory
 ::
 
+	Full Path to the file
 	OPEN_FILE = /home/john/linuxcnc/configs/myconfig/welcome.ngc
-	or
+	or use the ~ for the users home directory
 	OPEN_FILE = ~/linuxcnc/configs/flex_examples/probe_sim/square.ngc
-	or
+	or use the ./ to use the current configuration directory
 	OPEN_FILE = ./welcome.ngc
+	or ust the ../ to use the parent directory of the configuration
+	OPEN_FILE = ../welcome.ngc
 
 File Location
 -------------
@@ -65,6 +68,8 @@ item.
 	PROGRAM_PREFIX = ~/linuxcnc/configs/flex_examples/probe_sim
 	or
 	PROGRAM_PREFIX = ./
+	or
+	PROGRAM_PREFIX = ../
 
 Resource File
 -------------
