@@ -96,6 +96,7 @@ def action_open(parent): # actionOpen
 	else:
 		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 
+	# PROGRAM_PREFIX =   ../nc_files/
 	directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
 	if directory:
 		if directory.startswith('./'):
