@@ -19,11 +19,11 @@ If you use the touch input, the selector looks like this
 .. note:: Make sure you use a QListWidget and not a QListView for the file
    selector.
 
-G-code Viewer
--------------
+Code Viewer
+-----------
 
-To add a G-code viewer, add a Plain Text Edit from Input Widgets and name it
-`G-code_pte`
+To add a code viewer, add a `QPlainTextEdit` from Input Widgets and name it
+`gcode_pte`
 
 .. image:: /images/gcode-viewer-01.png
    :align: center
@@ -31,7 +31,7 @@ To add a G-code viewer, add a Plain Text Edit from Input Widgets and name it
 MDI Viewer
 ----------
 
-To add a MDI viewer, add a List Widget from Item Widgets and name it
+To add a MDI viewer, add a `QListWidget` from Item Widgets and name it
 `mdi_history_lw`
 
 .. image:: /images/mdi-viewer-01.png
@@ -72,8 +72,8 @@ To clear the information viewer, add a QPushButton and name it `clear_info_pb`.
 Speed & Feed Calculators
 ------------------------
 
-To add a milling Speeds and Feeds Calculator, add a QFrame or QWidget and set 
-the Object Name to `fsc_container`
+To add a milling Speeds and Feeds Calculator, add a `QFrame` or `QWidget` and
+set the Object Name to `fsc_container`
 
 .. image:: /images/fsc-02.png
    :align: center
@@ -86,8 +86,8 @@ numeric popup will show up to allow you to enter the value without a keyboard.
    :align: center
 
 
-To add a Drill Feed and Speed calculator, add a QFrame or QWidget and set the 
-Object Name to `dsf_container`.
+To add a Drill Feed and Speed calculator, add a `QFrame` or `QWidget` and set
+the Object Name to `dsf_container`.
 
 To make the entry boxes touch-screen aware, add a Dynamic Property called 
 `mode` and set the value to `touch`. Then when you touch it, a numeric popup 
