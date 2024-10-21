@@ -1,6 +1,7 @@
 from math import sqrt
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
+from PyQt6.QtWidgets import QLCDNumber
 
 import linuxcnc as emc
 import hal
@@ -274,12 +275,18 @@ def update(parent):
 	# update hal labels
 	for key, value in parent.hal_readers.items():
 		value = hal.get_value(f'flexhal.{value}')
-		getattr(parent, key).setText(f'{value}')
+		if isinstance(getattr(parent, key), QLCDNumber):
+			getattr(parent, key).display(f'{value}')
+		else:
+			getattr(parent, key).setText(f'{value}')
 
 	for key, value in parent.hal_floats.items():
 		# label [status item, precision]
 		hal_value = hal.get_value(f'flexhal.{value[0]}')
-		getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
+		if isinstance(getattr(parent, key), QLCDNumber):
+			getattr(parent, key).display(f'{hal_value:.{value[1]}f}')
+		else:
+			getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
 
 	# homed status
 	for item in parent.home_status:
