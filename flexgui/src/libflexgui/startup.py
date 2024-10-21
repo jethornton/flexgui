@@ -1219,6 +1219,61 @@ def setup_hal(parent):
 				hal_sliders.append(child)
 			elif isinstance(child, QLabel):
 				hal_labels.append(child)
+			elif isinstance(child, QLCDNumber):
+				hal_lcd.append(child)
+
+	if len(hal_lcd) > 0: # setup hal labels
+		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
+		for lcd in hal_lcd:
+			lcd_name = lcd.objectName()
+			pin_name = lcd.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL LCD {lcd_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
+			hal_type = lcd.property('hal_type')
+			if hal_type not in valid_types: # disable HAL_BIT
+				lcd.setEnabled(False)
+				msg = (f'{hal_type} is not valid\n'
+				'for a HAL LCD, only\n'
+				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
+				f'can be used. The {lcd_name} will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+			hal_dir = lcd.property('hal_dir')
+			if lcd_name == pin_name:
+				lcd.setEnabled(False)
+				msg = (f'The object name {lcd_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the LCD will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				#print(f'{hal_type} = {getattr(hal, hal_type)}')
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				pin = getattr(parent, f'{pin_name}')
+				# if hal type is float add it to hal_float with precision
+				if hal_type == 2: # HAL_FLOAT
+					p = lcd.property('precision')
+					p = p if p is not None else parent.default_precision
+					parent.hal_floats[f'{lcd_name}'] = [pin_name, p] # lcd ,status item, precision
+				else:
+					parent.hal_readers[lcd_name] = pin_name
+
+	'''
+	HAL_U32 = 4
+	HAL_S32 = 3
+	HAL_FLOAT = 2
+	HAL_BIT = 1
+	'''
 
 	if len(hal_labels) > 0: # setup hal labels
 		for label in hal_labels:
