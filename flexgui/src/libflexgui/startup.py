@@ -1235,6 +1235,15 @@ def setup_hal(parent):
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
 			hal_type = lcd.property('hal_type')
+			if hal_type == "HAL_BIT": # disable HAL_BIT
+				lcd.setEnabled(False)
+				msg = (f'The hal_type {hal_type}\n'
+					'can not be used.\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the LCD will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
 			hal_dir = lcd.property('hal_dir')
 			if lcd_name == pin_name:
 				lcd.setEnabled(False)
