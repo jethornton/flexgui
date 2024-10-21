@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-# **** notice there are hard coded directories that only work on my pc ****
+'''
+**** notice there are hard coded directories that only work on my pc ****
+after changing the paths to match your paths and putting your password in
+put this in your local bin directory and make sure it's on your path
+'''
 
 import os, subprocess, time
 from subprocess import Popen, PIPE
