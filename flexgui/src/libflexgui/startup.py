@@ -1310,6 +1310,7 @@ def setup_hal(parent):
 					parent.state_on[button_name] = True
 
 	if len(hal_spinboxes) > 0: # setup hal spinboxes
+		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for spinbox in hal_spinboxes:
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
@@ -1331,6 +1332,15 @@ def setup_hal(parent):
 				continue
 
 			hal_type = spinbox.property('hal_type')
+			if hal_type not in valid_types:
+				msg = (f'{hal_type} is not valid\n'
+				'for a HAL spinbox, only\n'
+				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
+				f'can be used. The {spinbox_name} will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				spinbox.setEnabled(False)
+				continue
+
 			hal_dir = spinbox.property('hal_dir')
 
 			if None not in [pin_name, hal_type, hal_dir]:
