@@ -1224,6 +1224,7 @@ def setup_hal(parent):
 				hal_lcd.append(child)
 
 	if len(hal_lcd) > 0: # setup hal labels
+		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for lcd in hal_lcd:
 			lcd_name = lcd.objectName()
 			pin_name = lcd.property('pin_name')
@@ -1235,13 +1236,12 @@ def setup_hal(parent):
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
 			hal_type = lcd.property('hal_type')
-			if hal_type == "HAL_BIT": # disable HAL_BIT
+			if hal_type not in valid_types: # disable HAL_BIT
 				lcd.setEnabled(False)
-				msg = (f'The hal_type {hal_type}\n'
-					'can not be used.\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the LCD will be disabled.')
+				msg = (f'{hal_type} is not valid\n'
+				'for a HAL LCD, only\n'
+				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
+				f'can be used. The {lcd_name} will be disabled.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error!')
 				continue
 			hal_dir = lcd.property('hal_dir')
