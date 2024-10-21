@@ -1234,8 +1234,8 @@ def setup_hal(parent):
 				'The HAL pin can not be created.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
-			hal_type = label.property('hal_type')
-			hal_dir = label.property('hal_dir')
+			hal_type = lcd.property('hal_type')
+			hal_dir = lcd.property('hal_dir')
 			if lcd_name == pin_name:
 				lcd.setEnabled(False)
 				msg = (f'The object name {lcd_name}\n'
