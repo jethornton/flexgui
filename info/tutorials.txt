@@ -2,11 +2,10 @@ Installing Flex and Designer
 Start a Project
 Menus
 Tool Bars and Menu Buttons
-Run Controls
 Basic Layout
 INI Settings
 Status Labels
-Error and Info Screen
+Error, Info Screen, Code Viewer
 Home Controls
 Jog Controls
 Plotter

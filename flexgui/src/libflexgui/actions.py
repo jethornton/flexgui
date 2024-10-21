@@ -96,14 +96,19 @@ def action_open(parent): # actionOpen
 	else:
 		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 
+	# PROGRAM_PREFIX =   ../nc_files/
 	directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
 	if directory:
-		if directory.startswith('./'):
+		if directory.startswith('./'): # in this directory
 			gcode_dir = os.path.join(parent.ini_path, directory[2:])
-		elif directory.startswith('~'):
+		elif directory.startswith('../'): # up one directory
+			gcode_dir = os.path.dirname(parent.ini_path)
+		elif directory.startswith('~'): # users home directory
 			gcode_dir = os.path.expanduser(directory)
 		elif os.path.isdir(directory):
 			gcode_dir = directory
+		else:
+			gcode_dir = os.path.expanduser('~/')
 	elif os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
