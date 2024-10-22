@@ -1333,8 +1333,26 @@ def setup_hal(parent):
 					'and the button will be disabled.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error!')
 				continue
+
 			hal_type = button.property('hal_type')
+			if hal_type != 'HAL_BIT':
+				button.setEnabled(False)
+				msg = (f'{hal_type} is not a valid\n'
+				'hal_type for a HAL Button,\n'
+				'only HAL_BIT can be used for hal_type.\n'
+				f'The {button_name} will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
 			hal_dir = button.property('hal_dir')
+			if hal_dir != 'HAL_OUT':
+				button.setEnabled(False)
+				msg = (f'{hal_dir} is not a valid\n'
+				'hal_dir for a HAL Button,\n'
+				'only HAL_OUT can be used for hal_dir.\n'
+				f'The {button_name} will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
 				hal_type = getattr(hal, f'{hal_type}')
