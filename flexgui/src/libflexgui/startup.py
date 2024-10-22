@@ -1206,6 +1206,7 @@ def setup_hal(parent):
 	hal_buttons = []
 	hal_spinboxes = []
 	hal_sliders = []
+	hal_lcd = []
 	parent.hal_readers = {}
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
