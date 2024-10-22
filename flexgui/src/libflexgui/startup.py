@@ -1343,7 +1343,7 @@ def setup_hal(parent):
 				msg = (f'HAL Button {button_name}\n'
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.')
+				'The HAL pin can not be created.'
 				f'The {button_name} button will be disabled.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
@@ -1410,7 +1410,7 @@ def setup_hal(parent):
 				msg = (f'HAL Spinbox {spinbox_name}\n'
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.')
+				'The HAL pin can not be created.'
 				f'The {spinbox_name} spinbox will be disabled.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
@@ -1473,7 +1473,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				f'The {slider_name} slider will be disabled.')
+				f'The {slider_name} slider will be disabled.'
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
 
