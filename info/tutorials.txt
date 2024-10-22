@@ -5,11 +5,10 @@ Tool Bars and Menu Buttons
 Basic Layout
 INI Settings
 Status Labels
-Error, Info Screen, Code Viewer
+Error, Info Screen, Code Viewer, File Controls
 Home Controls
 Jog Controls
 Plotter
-File Controls
 Overrides
 Coordinate Systems
 Tools
