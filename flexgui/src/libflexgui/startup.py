@@ -1235,8 +1235,8 @@ def setup_hal(parent):
 				'The HAL pin can not be created.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
-			hal_type = lcd.property('hal_type')
 
+			hal_type = lcd.property('hal_type')
 			if hal_type not in valid_types:
 				lcd.setEnabled(False)
 				msg = (f'{hal_type} is not valid\n'
@@ -1281,6 +1281,7 @@ def setup_hal(parent):
 					parent.hal_readers[lcd_name] = pin_name
 
 	if len(hal_labels) > 0: # setup hal labels
+		valid_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for label in hal_labels:
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')
@@ -1291,7 +1292,15 @@ def setup_hal(parent):
 				'The HAL pin can not be created.')
 				dialogs.critical_msg_ok(msg, 'Configuration Error')
 				continue
+
 			hal_type = label.property('hal_type')
+			if hal_type not in valid_types:
+				label.setEnabled(False)
+				msg = (f'{hal_type} is not valid for a HAL Label\n'
+				', only HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32\n'
+				f'can be used. The {label_name} label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
 
 			hal_dir = label.property('hal_dir')
 			if hal_dir != 'HAL_IN':
@@ -1437,7 +1446,7 @@ def setup_hal(parent):
 
 			hal_dir = spinbox.property('hal_dir')
 			if hal_dir != 'HAL_OUT':
-				button.setEnabled(False)
+				spinbox.setEnabled(False)
 				msg = (f'{hal_dir} is not a valid\n'
 				'hal_dir for a HAL Spinbox,\n'
 				'only HAL_OUT can be used for hal_dir.\n'
