@@ -1269,13 +1269,6 @@ def setup_hal(parent):
 				else:
 					parent.hal_readers[lcd_name] = pin_name
 
-	'''
-	HAL_U32 = 4
-	HAL_S32 = 3
-	HAL_FLOAT = 2
-	HAL_BIT = 1
-	'''
-
 	if len(hal_labels) > 0: # setup hal labels
 		for label in hal_labels:
 			label_name = label.objectName()
