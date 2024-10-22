@@ -1248,7 +1248,7 @@ def setup_hal(parent):
 
 			hal_dir = lcd.property('hal_dir')
 			if hal_dir != 'HAL_IN':
-				button.setEnabled(False)
+				lcd.setEnabled(False)
 				msg = (f'{hal_dir} is not a valid\n'
 				'hal_dir for a HAL LCD Display,\n'
 				'only HAL_IN can be used for hal_dir.\n'
