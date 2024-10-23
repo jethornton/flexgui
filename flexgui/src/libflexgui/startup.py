@@ -90,8 +90,6 @@ def setup_enables(parent):
 	for i in range(9):
 		parent.state_estop[f'home_pb_{i}'] = False
 		parent.state_estop[f'unhome_pb_{i}'] = False
-		parent.state_estop[f'jog_plus_pb_{i}'] = False
-		parent.state_estop[f'jog_minus_pb_{i}'] = False
 	for axis in AXES:
 		parent.state_estop[f'touchoff_pb_{axis}'] = False
 		parent.state_estop[f'tool_touchoff_{axis}'] = False
@@ -134,8 +132,6 @@ def setup_enables(parent):
 	for i in range(9):
 		parent.state_estop_reset[f'home_pb_{i}'] = False
 		parent.state_estop_reset[f'unhome_pb_{i}'] = False
-		parent.state_estop_reset[f'jog_plus_pb_{i}'] = False
-		parent.state_estop_reset[f'jog_minus_pb_{i}'] = False
 	for item in AXES:
 		parent.state_estop_reset[f'touchoff_pb_{item}'] = False
 		parent.state_estop_reset[f'tool_touchoff_{item}'] = False
@@ -172,10 +168,6 @@ def setup_enables(parent):
 		'actionRun_From_Line': False, 'actionStep': False,
 		'actionPause': False, 'actionResume': False
 		}
-
-	for i in range(9):
-		parent.state_on[f'jog_plus_pb_{i}'] = True
-		parent.state_on[f'jog_minus_pb_{i}'] = True
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on):
@@ -240,8 +232,6 @@ def setup_enables(parent):
 			}
 
 	for i in range(9):
-		parent.program_running[f'jog_plus_pb_{i}'] = False
-		parent.program_running[f'jog_minus_pb_{i}'] = False
 		parent.program_running[f'home_pb_{i}'] = False
 		parent.program_running[f'unhome_pb_{i}'] = False
 
@@ -853,92 +843,97 @@ def setup_jog(parent):
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	jog_buttons = []
 	for i in range(16):
-		jog_buttons.append(f'jog_plus_pb_{i}')
-		jog_buttons.append(f'jog_minus_pb_{i}')
-	jog_items_found = []
-	for item in jog_buttons:
-		if item in parent.children: # check for jog required items before connecting
-			jog_items_found.append(item)
-	if len(jog_items_found) > 0:
+		if f'jog_plus_pb_{i}' in parent.children:
+			jog_buttons.append(f'jog_plus_pb_{i}')
+		if f'jog_minus_pb_{i}' in parent.children:
+			jog_buttons.append(f'jog_minus_pb_{i}')
+
+	if len(jog_buttons) > 0:
 		for item in required_jog_items:
 			# don't make the connection if all required widgets are not present
 			if item not in parent.children:
 				msg = (f'{item} is required to jog\n but was not found.\n'
 					'Jog Buttons will be disabled.')
 				dialogs.warn_msg_ok(msg, 'Missing Item')
-				for item in jog_items_found:
+				for item in jog_buttons:
 					getattr(parent, item).setEnabled(False)
+				print('by by')
 				return
-		# ok to connect if we get this far
-		for item in jog_items_found: # connect jog buttons
-			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
-			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
 
-		min_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
-		if min_vel:
-			parent.jog_vel_sl.setMinimum(int(float(min_vel) * 60))
+	# ok to connect if we get this far
+	for item in jog_buttons: # connect jog buttons
+		getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
+		getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
+		parent.state_estop[item] = False
+		parent.state_estop_reset[item] = False
+		parent.state_on[item] = True
+		parent.program_running[item] = False
 
-		max_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
-		if max_vel:
-			parent.jog_vel_sl.setMaximum(int(float(max_vel) * 60))
+	min_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
+	if min_vel:
+		parent.jog_vel_sl.setMinimum(int(float(min_vel) * 60))
 
-		default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
-		if default_vel:
-			parent.jog_vel_sl.setValue(int(float(default_vel) * 60))
+	max_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
+	if max_vel:
+		parent.jog_vel_sl.setMaximum(int(float(max_vel) * 60))
 
-		if 'jog_vel_lb' in parent.children:
-			parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
-			parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()}')
-			utilities.update_jog_lb(parent)
+	default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
+	if default_vel:
+		parent.jog_vel_sl.setValue(int(float(default_vel) * 60))
 
-		# machine units are inch
-		# do not convert in or inch
-		# convert mil to inch mil * 0.001 = inch
-		# convert cm to inch divide the value by 2.54
-		# convert mm to inch divide the value by 25.4
-		# convert um to inch divide the value by 25400
+	if 'jog_vel_lb' in parent.children:
+		parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
+		parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()}')
+		utilities.update_jog_lb(parent)
 
-		# machine units are mm
-		# convert inches to mm multiply the value by 25.4
-		# convert mil to mm mil * 0.001 = inch multiply the value by 25.4
-		# convert cm to mm multiply the length value by 10
-		# no conversion for mm
-		# convert um to mm divide the length value by 1000
+	# machine units are inch
+	# do not convert in or inch
+	# convert mil to inch mil * 0.001 = inch
+	# convert cm to inch divide the value by 2.54
+	# convert mm to inch divide the value by 25.4
+	# convert um to inch divide the value by 25400
 
-		parent.jog_modes_cb.addItem('Continuous', False)
-		machine_units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
-		units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
-		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
+	# machine units are mm
+	# convert inches to mm multiply the value by 25.4
+	# convert mil to mm mil * 0.001 = inch multiply the value by 25.4
+	# convert cm to mm multiply the length value by 10
+	# no conversion for mm
+	# convert um to mm divide the length value by 1000
 
-		if increments:
-			incr_list = []
-			values = increments.split(',')
-			for item in values:
-				item = item.strip()
-				if item[-1].isdigit():
-					distance = conv_to_decimal(item) # if it's a fraction convert to decimal
-					incr_list.append([item, distance])
-					parent.jog_modes_cb.addItem(item, distance)
+	parent.jog_modes_cb.addItem('Continuous', False)
+	machine_units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
+	units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
+	increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
+
+	if increments:
+		incr_list = []
+		values = increments.split(',')
+		for item in values:
+			item = item.strip()
+			if item[-1].isdigit():
+				distance = conv_to_decimal(item) # if it's a fraction convert to decimal
+				incr_list.append([item, distance])
+				parent.jog_modes_cb.addItem(item, distance)
+			else:
+				for suffix in units:
+					if item.endswith(suffix):
+						distance = item.removesuffix(suffix).strip()
+						if utilities.is_float(distance):
+							converted_distance = conv_units(distance, suffix, machine_units)
+							incr_list.append([item, converted_distance])
+							parent.jog_modes_cb.addItem(item, converted_distance)
+							break
+						else:
+							msg = ('Malformed INCREMENTS value\n'
+								f'{distance}\n'
+								'may be missing comma seperators?')
+							dialogs.warn_msg_ok(msg, 'Error')
 				else:
-					for suffix in units:
-						if item.endswith(suffix):
-							distance = item.removesuffix(suffix).strip()
-							if utilities.is_float(distance):
-								converted_distance = conv_units(distance, suffix, machine_units)
-								incr_list.append([item, converted_distance])
-								parent.jog_modes_cb.addItem(item, converted_distance)
-								break
-							else:
-								msg = ('Malformed INCREMENTS value\n'
-									f'{distance}\n'
-									'may be missing comma seperators?')
-								dialogs.warn_msg_ok(msg, 'Error')
-					else:
-						msg = ('INI section DISPLAY value INCREMENTS\n'
-							f'{item} is not a valid jog increment\n'
-							'and will not be added to the jog options.')
-						dialogs.warn_msg_ok(msg, 'Configuration Error')
-						print(f'{item} not valid')
+					msg = ('INI section DISPLAY value INCREMENTS\n'
+						f'{item} is not a valid jog increment\n'
+						'and will not be added to the jog options.')
+					dialogs.warn_msg_ok(msg, 'Configuration Error')
+					print(f'{item} not valid')
 
 def conv_units(value, suffix, machine_units):
 	if machine_units == 'inch':
