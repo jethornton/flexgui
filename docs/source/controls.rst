@@ -113,9 +113,10 @@ is not found, Jog Buttons will be disabled.
 The following settings can be used in the DISPLAY section of the ini file:
 ::
 
-	Jog Velocity minimum              MIN_LINEAR_VELOCITY
-	Jog Velocity maximum              MAX_LINEAR_VELOCITY
-	Jog Velocity default              DEFAULT_LINEAR_VELOCITY
+	Jog Increments                    INCREMENTS = 0.100, 0.010, 0.001
+	Jog Velocity minimum              MIN_LINEAR_VELOCITY = 0.1
+	Jog Velocity maximum              MAX_LINEAR_VELOCITY = 1.0
+	Jog Velocity default              DEFAULT_LINEAR_VELOCITY = 0.2
 
 
 Overrides
