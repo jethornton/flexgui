@@ -965,7 +965,7 @@ def conv_to_decimal(data):
 		p, q = data.split("/")
 		return (float(p) / float(q))
 	else:
-		return data
+		return float(data)
 
 def setup_spindle(parent):
 	# spindle defaults
