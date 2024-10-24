@@ -153,13 +153,15 @@ def action_reload(parent): # actionReload
 	parent.status.poll()
 	gcode_file = parent.status.file or False
 	if gcode_file:
-		print(gcode_file)
 		if parent.status.task_mode != emc.MODE_MANUAL:
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 		parent.command.program_open(gcode_file)
 		if 'plot_widget' in parent.children:
 			parent.plotter.clear_live_plotter()
+			parent.plotter.update()
+			parent.plotter.load(gcode_file)
+
 		if 'gcode_pte' in parent.children:
 			with open(gcode_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
