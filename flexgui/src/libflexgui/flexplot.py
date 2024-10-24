@@ -115,8 +115,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		# requires linuxcnc running before loading this widget
 		inifile = os.environ.get('INI_FILE_NAME', '/dev/null')
 
-		# if status is not available then we are probably
-		# displaying in designer so fake it
 		stat = linuxcnc.stat()
 		stat.poll()
 
