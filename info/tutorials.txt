@@ -9,12 +9,12 @@ Error, Info Screen, Code Viewer, File Controls
 Home Controls
 Jog Controls
 Plotter
+MDI Entry
+MDI Button
 Overrides
 Coordinate Systems
 Tools
 Spindle
-MDI Entry
-MDI Button
 HAL Button
 HAL Spinbox Slider
 HAL Label
