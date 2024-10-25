@@ -33,9 +33,19 @@ Keyboard popup window
 .. image:: /images/keyboard-popup.png
    :align: center
 
+MDI History
+-----------
+
 MDI history uses a QListWidget named `mdi_history_lw` to display the MDI
 history. You can click on a line in the history display to copy the command to
 the MDI Interface, ready for running.
+
+.. image:: /images/mdi-history.png
+   :align: center
+
+
+The MDI history is kept in a file named `mdi_history.txt` in the configuration
+directory.
 
 MDI Controls
 ------------
@@ -50,9 +60,6 @@ history
 	Run MDI Command,run_mdi_pb
 	Copy the MDI History to the Clipboard,copy_mdi_history_pb
 	Clear the MDI History,clear_mdi_history_pb
-
-The MDI history is kept in a file named `mdi_history.txt` in the configuration
-directory.
 
 .. _MdiButtonTag:
 
