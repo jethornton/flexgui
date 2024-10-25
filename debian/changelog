@@ -1,3 +1,9 @@
+flexgui (1.0.2) unstable; urgency=medium
+
+  * Add HAL readers
+
+ -- John Thornton <dev@gnipsel.com>  Fri, 25 Oct 2024 07:05:45 -0500
+
 flexgui (1.0.1) unstable; urgency=medium
 
   * Many additions
