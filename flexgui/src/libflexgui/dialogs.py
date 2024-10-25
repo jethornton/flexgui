@@ -213,3 +213,34 @@ def about_dialog(parent):
 
 	dialog_box.exec()
 
+def quick_reference_dialog(parent):
+	dialog_box = QDialog()
+	dialog_box.setMinimumSize(300, 300)
+	dialog_box.setWindowTitle('Keyboard Shortcuts')
+
+	layout = QVBoxLayout(dialog_box)
+
+	titleLabel =  QLabel()
+	titleLabel.setText('FlexGUI')
+	titleLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+	layout.addWidget(titleLabel)
+
+	shortcutsLabel =  QLabel()
+	if len(parent.shortcuts) > 0:
+		shortcutsLabel.setText('  \n'.join(parent.shortcuts))
+	else:
+		shortcutsLabel.setText('No Keyboard Shortcuts Found')
+	#shortcutsLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+	layout.addWidget(shortcutsLabel)
+
+	layout.addStretch()
+
+	buttonBox = QDialogButtonBox()
+	buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Ok)
+	buttonBox.setCenterButtons(True)
+	buttonBox.accepted.connect(dialog_box.close)
+	layout.addWidget(buttonBox)
+
+	dialog_box.exec()
+
+
