@@ -818,8 +818,9 @@ def setup_mdi(parent):
 					parent.mdi_history_lw.addItem(item.strip())
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
 
-def setup_recent_files(parent):
+def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
+	parent.shortcuts = []
 	for menu in menus:
 		menu_list = menu.actions()
 		for index, action in enumerate(menu_list):
@@ -837,6 +838,8 @@ def setup_recent_files(parent):
 							name = os.path.basename(path)
 							a = parent.menuRecent.addAction(name)
 							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+			if len(action.shortcut().toString()) > 0:
+				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
 
 def setup_jog(parent):
 	jog_buttons = {}

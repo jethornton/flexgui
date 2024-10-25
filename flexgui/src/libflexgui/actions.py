@@ -504,6 +504,6 @@ def action_about(parent): # actionAbout
 	dialogs.about_dialog(parent)
 
 def action_quick_reference(parent): # actionQuick_Reference
-	print(parent.sender().objectName())
+	dialogs.quick_reference_dialog(parent)
 
 
