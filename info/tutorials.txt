@@ -9,10 +9,8 @@ Error, Info Screen, Code Viewer, File Controls
 Home Controls
 Jog Controls
 Plotter
-MDI Entry
-MDI Button
-Overrides
-Coordinate Systems
+MDI Entry MDI Button
+Overrides Coordinate Systems
 Tools
 Spindle
 HAL Button
