@@ -10,11 +10,9 @@ Home Controls
 Jog Controls
 Plotter
 MDI Entry MDI Button
+HAL Button, Spinbox, Slider and Label
 Overrides Coordinate Systems
 Tools
 Spindle
-HAL Button
-HAL Spinbox Slider
-HAL Label
 Calculators
 
