@@ -58,8 +58,9 @@ history
    :align: center
 
 	Run MDI Command,run_mdi_pb
-	Copy the MDI History to the Clipboard,copy_mdi_history_pb
-	Clear the MDI History,clear_mdi_history_pb
+	Copy the MDI History to the Clipboard, copy_mdi_history_pb
+	Save the MDI History to a file, save_mdi_history_pb
+	Clear the MDI History, clear_mdi_history_pb
 
 .. _MdiButtonTag:
 
