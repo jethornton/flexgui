@@ -1,6 +1,8 @@
 Menu
 ====
 
+`Video Tutorial <https://youtu.be/ukwunHGCglk>`_
+
 .. note:: Every menu item has a command button, so you don't need to use any
    menu items if you don't want to.
 
