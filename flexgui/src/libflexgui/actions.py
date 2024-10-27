@@ -88,6 +88,8 @@ def file_selector(parent):
 		load_file(parent, os.path.join(parent.gcode_dir, item))
 
 def action_open(parent): # actionOpen
+
+	# FIXME move this to ini read and make it global
 	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
 	if extensions:
 		extensions = extensions.split(',')
@@ -113,6 +115,7 @@ def action_open(parent): # actionOpen
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
 		gcode_dir = os.path.expanduser('~/')
+
 	gcode_file, file_type = QFileDialog.getOpenFileName(None,
 	caption="Select G code File", directory=gcode_dir,
 	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
@@ -321,6 +324,27 @@ def action_copy_mdi(parent): # actionCopy_MDI
 		mdi_list.append(item.text())
 	qclip = QApplication.clipboard()
 	qclip.setText('\n'.join(mdi_list))
+
+def action_save_mdi(parent): # actionSave_MDI
+	directory = os.path.expanduser('~/linuxcnc/nc_files')
+	file_path = utilities.file_chooser(parent, 'Caption', directory)
+	if file_path:
+		print(file_path)
+		mdi_history_file = os.path.join(parent.ini_path, 'mdi_history.txt')
+
+		if os.path.isfile(mdi_history_file):
+			# better check to see if they want to overrite the file
+			if os.path.isfile(file_path):
+				msg = ('Do you want to over write the\n'
+				f'{os.path.basename(file_path)} file?')
+				response = dialogs.warn_msg_yes_no(msg , 'File Exists')
+				if response:
+					shutil.copyfile(mdi_history_file, file_path)
+			else:
+				shutil.copyfile(mdi_history_file, file_path)
+		else:
+			msg = ('No MDI history file was found!')
+			dialogs.info_msg_ok(msg , 'No MDI History')
 
 def action_toggle_dro(parent):
 	if parent.sender().isChecked():

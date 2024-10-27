@@ -107,6 +107,7 @@ def warn_msg_yes_no(text, title=None):
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Yes:
 		return True
+		print('true')
 	else:
 		return False
 

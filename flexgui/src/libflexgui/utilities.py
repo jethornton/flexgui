@@ -1,10 +1,12 @@
-import os
+import os, shutil
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtWidgets import QApplication, QTextEdit
+from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog
 
 import linuxcnc as emc
+
+from libflexgui import dialogs
 
 def is_float(string):
 	try:
@@ -37,6 +39,55 @@ def convert_string_to_number(string):
 		return number
 	except ValueError:
 		return False
+
+def file_chooser(parent, caption, directory):
+	# FIXME move this to ini read and make it global
+	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
+	if extensions:
+		extensions = extensions.split(',')
+		extensions = ' '.join(extensions).strip()
+		ext_filter = f'G code Files ({extensions});;All Files (*)'
+	else:
+		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
+
+	# file_type is just the type selector from the QFileDialog
+	file_path, file_type = QFileDialog.getSaveFileName(parent,
+	caption="Select G code File", directory=directory,
+	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
+	if file_path:
+		return file_path
+	else:
+		return False
+
+
+
+
+	'''
+	gcode_file, file_type = QFileDialog.getOpenFileName(None,
+	caption="Select G code File", directory=gcode_dir,
+	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
+	if gcode_file: load_file(parent, gcode_file)
+
+	QString QFileDialog::getOpenFileName(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = Options())
+
+This is a convenience static function that returns an existing file selected by the user. If the user presses Cancel, it returns a null string.
+
+	QStringList QFileDialog::getOpenFileNames(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = Options())
+
+	This is a convenience static function that returns one or more existing files selected by the user.
+
+	QString QFileDialog::getSaveFileName(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = Options())
+
+	This is a convenience static function that returns a file name selected by the user. The file does not have to exist.
+
+	It creates a modal file dialog with the given parent widget. If parent is not nullptr, the dialog will be shown centered over the parent widget.
+
+	QString QFileDialog::getExistingDirectory(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), QFileDialog::Options options = ShowDirsOnly)
+
+	This is a convenience static function that returns an existing directory selected by the user.
+
+	'''
+
 
 def all_homed(parent):
 	parent.status.poll()

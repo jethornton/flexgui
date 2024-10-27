@@ -322,6 +322,7 @@ def setup_buttons(parent): # connect buttons to functions
 	'quit_pb': 'action_quit',
 	'clear_mdi_history_pb': 'action_clear_mdi',
 	'copy_mdi_history_pb': 'action_copy_mdi',
+	'save_mdi_history_pb': 'action_save_mdi',
 	'show_hal_pb': 'action_show_hal',
 	'hal_meter_pb': 'action_hal_meter',
 	'hal_scope_pb': 'action_hal_scope'
