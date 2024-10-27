@@ -11,10 +11,11 @@ from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.uic import loadUi
-from PyQt6.QtCore import Qt, QTimer, QEvent, QSettings
+from PyQt6.QtCore import Qt, QTimer, QEvent
 
 import linuxcnc, hal
 
+from libflexgui import read_ini
 from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
@@ -63,6 +64,8 @@ class flexgui(QMainWindow):
 		self.mist_state = self.status.mist
 		self.status_speed_setting = self.status.settings[2]
 
+		self.home_dir = os.path.expanduser('~')
+
 		if self.installed:
 			self.halcomp = hal.component('flexhal')
 		else: # use a random name for the hal component if not installed
@@ -80,36 +83,21 @@ class flexgui(QMainWindow):
 			self.ini_path = os.path.split(self.status.ini_filename)[0]
 
 		# get ini values if any
-		machine_name = self.inifile.find("EMC", "MACHINE") or "unknown"
-		self.settings = QSettings('Flex', machine_name)
+		read_ini.read(self)
 
-		units = self.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
-		if units.lower() == 'inch':
-			self.default_precision = 4
-		elif units.lower() == 'mm':
-			self.default_precision = 3
-		else:
-			self.default_precision = 4
-
-		gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
-		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
+		#gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
-		self.extensions = ['.ngc']
-		ini_extensions = self.inifile.find('DISPLAY', 'EXTENSIONS') or False
-		if ini_extensions: # add any extensions from the ini to ngc
-			for ext in ini_extensions.split(','):
-				self.extensions.append(ext.strip())
-		self.home_dir = os.path.expanduser('~')
 
 		# find and load the gui
+		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		if gui_file: # gui is in the ini file
 			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
 			if not os.path.isfile(gui_path): # gui not found
-				gui_path = os.path.join(self.gui_path, 'flex.ui')
-				gui_file = 'flex.ui'
+				gui_path = os.path.join(self.gui_path, 'flex_default.ui')
+				gui_file = 'flex_default.ui'
 		else: # no gui specified
-			gui_path = os.path.join(self.gui_path, 'flex.ui')
-			gui_file = 'flex.ui'
+			gui_path = os.path.join(self.gui_path, 'flex_default.ui')
+			gui_file = 'flex_default.ui'
 
 		results = subprocess.run(['dpkg-query', '-W', 'flexgui'], text=True, capture_output=True)
 		if results.stdout:
@@ -207,7 +195,7 @@ class flexgui(QMainWindow):
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
 		# loading the post gui files can only happen once
-		if gui.lower() == 'flexgui':
+		if self.installed and gui_file != 'flex_default.ui':
 			startup.load_postgui(self)
 
 		startup.set_status(self)
