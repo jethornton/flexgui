@@ -2666,7 +2666,7 @@ ERROR</string>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
-    <widget class="QLabel" name="feedrate_lb">
+    <widget class="QLabel" name="feed_override_lb">
      <property name="geometry">
       <rect>
        <x>150</x>
