@@ -563,13 +563,13 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_dro[f'{label}'] = [i, p] # add the label, tuple position & precision
 
-	parent.status_g5x = {} # create an empty dictionary
+	parent.status_g5x_offset = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'g5x_lb_{axis}'
 		if label in parent.children:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
-			parent.status_g5x[f'{label}'] = [i, p] # add the label, tuple position & precision
+			parent.status_g5x_offset[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_g92 = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
@@ -593,14 +593,6 @@ def setup_status_labels(parent):
 				p = getattr(parent, label).property('precision')
 				p = p if p is not None else parent.default_precision
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
-
-	parent.status_axes_vel_min = {}
-	for i in range(axes):
-		label = f'axis_{i}_vel_per_min_lb'
-		if label in parent.children:
-			p = getattr(parent, label).property('precision')
-			p = p if p is not None else parent.default_precision
-			parent.status_axes_vel_min[label] = [i, 'velocity', p] # axis, item, precision
 
 	# two joint velocity
 	parent.two_vel = {}
@@ -666,7 +658,7 @@ def setup_status_labels(parent):
 				p = p if p is not None else parent.default_precision
 				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
-	override_items = {'feedrate_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
+	override_items = {'feed_override_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
 
 	parent.overrides = {}
 	for label, stat in override_items.items():

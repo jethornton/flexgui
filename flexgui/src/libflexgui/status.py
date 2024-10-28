@@ -309,7 +309,7 @@ def update(parent):
 		getattr(parent, f'{key}').setText(f'{relative_position:.{value[1]}f}')
 
 	# axis g5x offset
-	for key, value in parent.status_g5x.items(): # key is label value tuple position & precision
+	for key, value in parent.status_g5x_offset.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").g5x_offset[value[0]]:.{value[1]}f}')
 
 	# axis g92 offset
