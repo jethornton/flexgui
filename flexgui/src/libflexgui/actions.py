@@ -116,7 +116,7 @@ def action_open(parent): # actionOpen
 	else:
 		gcode_dir = os.path.expanduser('~/')
 
-	gcode_file, file_type = QFileDialog.getOpenFileName(None,
+	gcode_file, file_type = QFileDialog.getOpenFileName(parent,
 	caption="Select G code File", directory=gcode_dir,
 	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
 	if gcode_file: load_file(parent, gcode_file)
