@@ -136,7 +136,7 @@ label shows the value of the slider:
 
 	**Function**, **Widget**, **Object Name**
 	Feed Override Slider, QSlider, feed_override_sl
-	Feed Override Percent, QLabel, feedrate_lb
+	Feed Override Percent, QLabel, feed_override_lb
 	Rapid Override Slider, QSlider, rapid_override_sl
 	Rapid Override Percent, QLabel, rapid_override_lb
 	Spindle Override Slider, QSlider, spindle_override_sl
