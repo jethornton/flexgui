@@ -170,6 +170,7 @@ class flexgui(QMainWindow):
 
 		startup.set_screen(self)
 		startup.find_children(self)
+		startup.update_check(self)
 		startup.setup_menus(self)
 		startup.get_ini_values(self)
 		startup.setup_enables(self)
