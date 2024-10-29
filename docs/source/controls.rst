@@ -113,7 +113,6 @@ is not found, Jog Buttons will be disabled.
 The following settings can be used in the DISPLAY section of the ini file:
 ::
 
-
 	Jog Increments                INCREMENTS = 0.100, 0.010, 0.001
 	Jog Increments                INCREMENTS = 1 inch, 0.5 in, 1 cm, 1 mm
 	Jog Velocity minimum          MIN_LINEAR_VELOCITY = 0.1
