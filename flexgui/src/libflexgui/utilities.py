@@ -40,8 +40,7 @@ def convert_string_to_number(string):
 	except ValueError:
 		return False
 
-def file_chooser(parent, caption, directory):
-	# FIXME move this to ini read and make it global
+def file_chooser(parent, caption, dialog, nc_code_dir=None):
 	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
 	if extensions:
 		extensions = extensions.split(',')
@@ -50,44 +49,43 @@ def file_chooser(parent, caption, directory):
 	else:
 		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 
-	# file_type is just the type selector from the QFileDialog
-	file_path, file_type = QFileDialog.getSaveFileName(parent,
-	caption="Select G code File", directory=directory,
-	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
+	# PROGRAM_PREFIX =   ../nc_files/
+	if nc_code_dir is None:
+		directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
+		if directory:
+			if directory.startswith('./'): # in this directory
+				nc_code_dir = os.path.join(parent.ini_path, directory[2:])
+			elif directory.startswith('../'): # up one directory
+				nc_code_dir = os.path.dirname(parent.ini_path)
+			elif directory.startswith('~'): # users home directory
+				nc_code_dir = os.path.expanduser(directory)
+			elif os.path.isdir(directory):
+				nc_code_dir = directory
+			else:
+				nc_code_dir = os.path.expanduser('~/')
+		elif os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
+			nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
+		else:
+			nc_code_dir = os.path.expanduser('~/')
+
+	options = QFileDialog.Option.DontUseNativeDialog
+
+	if dialog == 'open':
+		# file_type is just the type selector from the QFileDialog
+		file_path, file_type = QFileDialog.getOpenFileName(parent,
+		caption=caption, directory=nc_code_dir,
+		filter=ext_filter, options=options)
+
+	elif dialog == 'save':
+		# file_type is just the type selector from the QFileDialog
+		file_path, file_type = QFileDialog.getSaveFileName(parent,
+		caption=caption, directory=nc_code_dir,
+		filter=ext_filter, options=options)
+
 	if file_path:
 		return file_path
 	else:
 		return False
-
-
-
-
-	'''
-	gcode_file, file_type = QFileDialog.getOpenFileName(None,
-	caption="Select G code File", directory=gcode_dir,
-	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
-	if gcode_file: load_file(parent, gcode_file)
-
-	QString QFileDialog::getOpenFileName(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = Options())
-
-This is a convenience static function that returns an existing file selected by the user. If the user presses Cancel, it returns a null string.
-
-	QStringList QFileDialog::getOpenFileNames(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = Options())
-
-	This is a convenience static function that returns one or more existing files selected by the user.
-
-	QString QFileDialog::getSaveFileName(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = Options())
-
-	This is a convenience static function that returns a file name selected by the user. The file does not have to exist.
-
-	It creates a modal file dialog with the given parent widget. If parent is not nullptr, the dialog will be shown centered over the parent widget.
-
-	QString QFileDialog::getExistingDirectory(QWidget *parent = nullptr, const QString &caption = QString(), const QString &dir = QString(), QFileDialog::Options options = ShowDirsOnly)
-
-	This is a convenience static function that returns an existing directory selected by the user.
-
-	'''
-
 
 def all_homed(parent):
 	parent.status.poll()
