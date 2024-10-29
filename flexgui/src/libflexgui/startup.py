@@ -52,6 +52,15 @@ def find_children(parent): # get the object names of all widgets
 		if menu.objectName():
 			parent.children.append(menu.objectName())
 
+def update_check(parent):
+	if 'feedrate_lb' in parent.children:
+		msg = ('The Feed Override Percent Label object name\n'
+		'feedrate_lb has been changed to feed_override_lb.\n'
+		'Change the name in the ui file.\n'
+		'The label will be disabled and will not function.')
+		dialogs.critical_msg_ok(msg, 'Object Name Changed')
+		parent.feedrate_lb.setEnabled(False)
+
 def get_ini_values(parent):
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	if units == 'inch':
