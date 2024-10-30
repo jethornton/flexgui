@@ -73,57 +73,21 @@ def load_file(parent, gcode_file):
 		'was not found. Loading aborted!')
 		dialogs.warn_msg_ok(msg, 'File Missing')
 
-def file_selector(parent):
+def file_selector(parent): # touch screen file selector
 	item = parent.file_lw.currentItem().text()
 
 	if item == 'Parent Directory': # move up one directory
-		parent.gcode_dir = os.path.abspath(os.path.join(parent.gcode_dir, os.pardir))
+		parent.nc_code_dir = os.path.abspath(os.path.join(parent.nc_code_dir, os.pardir))
 		utilities.read_dir(parent)
-
 	elif item.endswith('...'): # a subdirectory
-		parent.gcode_dir = os.path.join(parent.gcode_dir, item.replace(' ...', ''))
+		parent.nc_code_dir = os.path.join(parent.nc_code_dir, item.replace(' ...', ''))
 		utilities.read_dir(parent)
-
 	else: # must be a file name
-		load_file(parent, os.path.join(parent.gcode_dir, item))
+		load_file(parent, os.path.join(parent.nc_code_dir, item))
 
 def action_open(parent): # actionOpen
 	nc_code_file = utilities.file_chooser(parent, 'Open File', 'open')
 	if nc_code_file: load_file(parent, nc_code_file)
-
-	'''
-	# FIXME move this to ini read and make it global
-	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
-	if extensions:
-		extensions = extensions.split(',')
-		extensions = ' '.join(extensions).strip()
-		ext_filter = f'G code Files ({extensions});;All Files (*)'
-	else:
-		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
-
-	# PROGRAM_PREFIX =   ../nc_files/
-	directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
-	if directory:
-		if directory.startswith('./'): # in this directory
-			gcode_dir = os.path.join(parent.ini_path, directory[2:])
-		elif directory.startswith('../'): # up one directory
-			gcode_dir = os.path.dirname(parent.ini_path)
-		elif directory.startswith('~'): # users home directory
-			gcode_dir = os.path.expanduser(directory)
-		elif os.path.isdir(directory):
-			gcode_dir = directory
-		else:
-			gcode_dir = os.path.expanduser('~/')
-	elif os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
-		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
-	else:
-		gcode_dir = os.path.expanduser('~/')
-
-	gcode_file, file_type = QFileDialog.getOpenFileName(parent,
-	caption="Select G code File", directory=gcode_dir,
-	filter=ext_filter, options=QFileDialog.Option.DontUseNativeDialog)
-
-	'''
 
 def action_edit(parent): # actionEdit
 	parent.status.poll

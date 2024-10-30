@@ -62,7 +62,7 @@ class flexgui(QMainWindow):
 		self.error = linuxcnc.error_channel()
 		self.flood_state = self.status.flood
 		self.mist_state = self.status.mist
-		self.status_speed_setting = self.status.settings[2]
+		self.status_speed_setting = self.status.settings[2] # spindle speed
 
 		self.home_dir = os.path.expanduser('~')
 
@@ -172,7 +172,6 @@ class flexgui(QMainWindow):
 		startup.find_children(self)
 		startup.update_check(self)
 		startup.setup_menus(self)
-		startup.get_ini_values(self)
 		startup.setup_enables(self)
 		startup.setup_buttons(self)
 		startup.setup_actions(self)
