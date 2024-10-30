@@ -61,17 +61,6 @@ def update_check(parent):
 		dialogs.critical_msg_ok(msg, 'Object Name Changed')
 		parent.feedrate_lb.setEnabled(False)
 
-def get_ini_values(parent):
-	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
-	if units == 'inch':
-		parent.units = 'in'
-	else:
-		parent.units = 'mm'
-	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or False
-	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or False
-	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or False
-	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or False
-
 def setup_enables(parent):
 	parent.home_required = [] # different functions add to this
 	# disable home all if home sequence is not found
@@ -735,17 +724,8 @@ def setup_status_labels(parent):
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.children:
-		# PROGRAM_PREFIX = ~/linuxcnc/nc_files
-		gcode_location = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
-		if gcode_location:
-			if gcode_location.startswith('./'):
-				parent.gcode_dir = os.path.join(parent.ini_path, gcode_location.lstrip('./'))
-			elif gcode_location.startswith('~'):
-				parent.gcode_dir = gcode_location.replace('~', parent.home_dir)
-		else:
-			parent.gcode_dir = os.path.join(parent.home_dir, 'linuxcnc', 'nc_files')
-		if os.path.exists(parent.gcode_dir):
-			utilities.read_dir(parent)
+		if os.path.exists(parent.nc_code_dir):
+			utilities.read_dir(parent) # this is called from actions as well
 		parent.file_lw.itemClicked.connect(partial(actions.file_selector, parent))
 
 def setup_plain_text_edits(parent):

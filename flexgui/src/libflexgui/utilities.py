@@ -41,46 +41,19 @@ def convert_string_to_number(string):
 		return False
 
 def file_chooser(parent, caption, dialog, nc_code_dir=None):
-	extensions = parent.inifile.find("DISPLAY", "EXTENSIONS") or False
-	if extensions:
-		extensions = extensions.split(',')
-		extensions = ' '.join(extensions).strip()
-		ext_filter = f'G code Files ({extensions});;All Files (*)'
-	else:
-		ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
-
-	# PROGRAM_PREFIX =   ../nc_files/
-	if nc_code_dir is None:
-		directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
-		if directory:
-			if directory.startswith('./'): # in this directory
-				nc_code_dir = os.path.join(parent.ini_path, directory[2:])
-			elif directory.startswith('../'): # up one directory
-				nc_code_dir = os.path.dirname(parent.ini_path)
-			elif directory.startswith('~'): # users home directory
-				nc_code_dir = os.path.expanduser(directory)
-			elif os.path.isdir(directory):
-				nc_code_dir = directory
-			else:
-				nc_code_dir = os.path.expanduser('~/')
-		elif os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
-			nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
-		else:
-			nc_code_dir = os.path.expanduser('~/')
-
 	options = QFileDialog.Option.DontUseNativeDialog
 
 	if dialog == 'open':
 		# file_type is just the type selector from the QFileDialog
 		file_path, file_type = QFileDialog.getOpenFileName(parent,
-		caption=caption, directory=nc_code_dir,
-		filter=ext_filter, options=options)
+		caption=caption, directory=parent.nc_code_dir,
+		filter=parent.ext_filter, options=options)
 
 	elif dialog == 'save':
 		# file_type is just the type selector from the QFileDialog
 		file_path, file_type = QFileDialog.getSaveFileName(parent,
-		caption=caption, directory=nc_code_dir,
-		filter=ext_filter, options=options)
+		caption=caption, directory=parent.nc_code_dir,
+		filter=parent.ext_filter, options=options)
 
 	if file_path:
 		return file_path
@@ -186,15 +159,15 @@ def update_qcode_pte(parent):
 		parent.start_line_lb.setText(f'{selected_block}')
 
 def read_dir(parent):
-	if os.path.isdir(parent.gcode_dir):
+	if os.path.isdir(parent.nc_code_dir):
 		file_list = []
 		# get directories
-		for item in sorted(os.listdir(parent.gcode_dir)):
-			path = os.path.join(parent.gcode_dir, item)
+		for item in sorted(os.listdir(parent.nc_code_dir)):
+			path = os.path.join(parent.nc_code_dir, item)
 			if os.path.isdir(path):
 				file_list.append(f'{item} ...')
-		# get gcode files
-		for item in sorted(os.listdir(parent.gcode_dir)):
+		# get nc_code files
+		for item in sorted(os.listdir(parent.nc_code_dir)):
 			if os.path.splitext(item)[1].lower() in parent.extensions:
 				file_list.append(item)
 		parent.file_lw.clear()
