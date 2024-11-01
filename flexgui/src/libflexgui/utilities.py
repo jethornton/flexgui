@@ -40,21 +40,25 @@ def convert_string_to_number(string):
 	except ValueError:
 		return False
 
-def file_chooser(parent, caption, dialog, nc_code_dir=None):
+def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
+	if nc_code_dir is None:
+		nc_code_dir = parent.nc_code_dir
 	options = QFileDialog.Option.DontUseNativeDialog
-
-	if dialog == 'open':
-		# file_type is just the type selector from the QFileDialog
-		file_path, file_type = QFileDialog.getOpenFileName(parent,
+	file_path = False
+	file_dialog = QFileDialog()
+	file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+	file_dialog.setOptions(QFileDialog.Option.DontUseNativeDialog)
+	file_dialog.setWindowTitle('Open File')
+	file_dialog.setStyleSheet('') # this does  nothing
+	file_dialog.setGeometry(10, 10, 800, 600) # this does  nothing
+	if dialog_type == 'open':
+		file_path, file_type = file_dialog.getOpenFileName(None,
 		caption=caption, directory=parent.nc_code_dir,
 		filter=parent.ext_filter, options=options)
-
 	elif dialog == 'save':
-		# file_type is just the type selector from the QFileDialog
-		file_path, file_type = QFileDialog.getSaveFileName(parent,
+		file_path, file_type = file_dialog.getSaveFileName(None,
 		caption=caption, directory=parent.nc_code_dir,
 		filter=parent.ext_filter, options=options)
-
 	if file_path:
 		return file_path
 	else:
