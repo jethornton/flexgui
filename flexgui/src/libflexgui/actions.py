@@ -164,6 +164,17 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 		tool_editor = 'tooledit'
 	tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 	tool_file = os.path.join(ini_path, tool_table)
+	if os.path.isfile(tool_file):
+		file_size = os.path.getsize(tool_file)
+		if file_size == 0:
+			msg = ('Can not edit an empty tool file.\n'
+			'The tool file must have at least one entry.\n'
+			'the first line must be just a semicolon\n'
+			'the minimum second line has a tool and pocket\n'
+			';\n'
+			'T1 P1')
+			dialogs.critical_msg_ok(msg, 'Empty File')
+			return
 	cmd = tool_editor.split()
 	cmd.append(tool_file)
 	subprocess.Popen(cmd, cwd=parent.ini_path)
