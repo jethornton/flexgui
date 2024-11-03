@@ -20,6 +20,16 @@ all the tools found in the tool table.
 	Tool Change, QPushButton, tool_change_pb
 	Tool Selector, QComboBox, tool_change_cb
 
+Manual Tool Change requires at least the following HAL code in the main hal
+file if the hal connections are not done in another manner.
+::
+	# manual tool change
+	loadusr -W hal_manualtoolchange
+	net tool-change iocontrol.0.tool-change => hal_manualtoolchange.change
+	net tool-changed iocontrol.0.tool-changed <= hal_manualtoolchange.changed
+	net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
+	net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+
 Tool Change Button
 ------------------
 
