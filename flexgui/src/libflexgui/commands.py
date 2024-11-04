@@ -205,7 +205,7 @@ def clear_cs(parent):
 	cs = parent.sender().objectName().split("_")[-1]
 	print(cs)
 	axes = ''
-	for axis in parent.axes:
+	for axis in parent.axis_letters:
 		axes += f'{axis}0 '
 	if int(cs) < 10:
 		cmd = f'G10 L2 P{cs} {axes}'
