@@ -57,3 +57,9 @@ def read(parent):
 	else:
 		parent.nc_code_dir = os.path.expanduser('~/')
 
+
+	parent.tool_editor_columns = parent.inifile.find("DISPLAY", "TOOL_EDITOR_COLUMNS") or False
+
+
+
+
