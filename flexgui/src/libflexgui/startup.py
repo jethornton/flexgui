@@ -297,6 +297,9 @@ def setup_buttons(parent): # connect buttons to functions
 	'run_mdi_pb': 'run_mdi',
 	}
 
+	for i in range(11):
+		command_buttons[f'clear_coord_{i}'] = 'clear_cs'
+
 	for key, value in command_buttons.items():
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
