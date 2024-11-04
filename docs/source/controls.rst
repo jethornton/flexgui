@@ -52,6 +52,22 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 .. note:: Tool-Touch-Off buttons require a Double Spin Box named
    `tool_touchoff_dsb`
 
+Coordinate System Controls
+--------------------------
+
+A QPushButton can be used to clear the curren cooridnate system (0) or any one
+of the 9 coordinate systems with (1-9). To clear the G92 coordinate system use
+(10) as the index.
+
+.. csv-table:: Coordinate System Buttons
+   :width: 100%
+   :align: center
+
+	**Control Function**, **Object Name**
+	Clear Current G5x, clear_coord_(0)
+	Clear G5x Coordinate System, clear_coord_(1-9)
+	Clear G92 Coordinate System, clear_coord_(10)
+
 Options
 -------
 
