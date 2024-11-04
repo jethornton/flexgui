@@ -202,7 +202,8 @@ def change_cs(parent):
 		parent.command.wait_complete()
 
 def clear_cs(parent):
-	cs = parent.sender().objectName().split("_")[1]
+	cs = parent.sender().objectName().split("_")[-1]
+	print(cs)
 	axes = ''
 	for axis in parent.axes:
 		axes += f'{axis}0 '
