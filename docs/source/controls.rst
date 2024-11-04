@@ -55,18 +55,19 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 Coordinate System Controls
 --------------------------
 
-A QPushButton can be used to clear the curren cooridnate system (0) or any one
-of the 9 coordinate systems with (1-9). To clear the G92 coordinate system use
-(10) as the index.
+A QPushButton can be used to clear the curren cooridnate system by using 0 as
+the index or any one of the 9 coordinate systems with (1-9).
+
+To clear the G92 coordinate system use 10 as the index.
 
 .. csv-table:: Coordinate System Buttons
    :width: 100%
    :align: center
 
 	**Control Function**, **Object Name**
-	Clear Current G5x, clear_coord_(0)
+	Clear Current G5x, clear_coord_0
 	Clear G5x Coordinate System, clear_coord_(1-9)
-	Clear G92 Coordinate System, clear_coord_(10)
+	Clear G92 Coordinate System, clear_coord_10
 
 Options
 -------
