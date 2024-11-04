@@ -379,6 +379,100 @@ def setup_buttons(parent): # connect buttons to functions
 			button.clicked.connect(partial(commands.zero_axis, parent, axis.upper()))
 			parent.home_required.append(name)
 
+def setup_menus(parent):
+	menus = parent.findChildren(QMenu)
+	parent.shortcuts = []
+	for menu in menus:
+		menu_list = menu.actions()
+		for index, action in enumerate(menu_list):
+			if action.objectName() == 'actionOpen':
+				if index + 1 < len(menu_list):
+					parent.menuRecent = QMenu('Recent', parent)
+					parent.menuRecent.setObjectName('menuRecent')
+					parent.children.append('menuRecent')
+					parent.menuFile.insertMenu(menu_list[index + 1], parent.menuRecent)
+					# if any files have been opened add them
+					keys = parent.settings.allKeys()
+					for key in keys:
+						if key.startswith('recent_files'):
+							path = parent.settings.value(key)
+							name = os.path.basename(path)
+							a = parent.menuRecent.addAction(name)
+							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+			if action.objectName() == 'actionHoming': # add homing actions
+				action.setMenu(QMenu('Homing', parent))
+
+				# add Home All if the home sequence is set for all axes
+				if utilities.home_all_check(parent):
+					setattr(parent, 'actionHome_All', QAction('Home All', parent))
+					getattr(parent, 'actionHome_All').setObjectName('actionHome_all')
+					action.menu().addAction(getattr(parent, 'actionHome_All'))
+					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
+					parent.home_controls.append('actionHome_All')
+					parent.state_estop['actionHome_All'] = False
+					parent.state_estop_reset['actionHome_All'] = False
+					parent.state_on['actionHome_All'] = True
+					parent.program_running['actionHome_All'] = False
+					parent.program_paused['actionHome_All'] = False
+
+				# add Home menu item for each axis
+				for i, axis in enumerate(parent.axes):
+					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
+					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
+					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
+					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
+					parent.home_controls.append(f'actionHome_{i}')
+					parent.state_estop[f'actionHome_{i}'] = False
+					parent.state_estop_reset[f'actionHome_{i}'] = False
+					parent.state_on[f'actionHome_{i}'] = True
+					parent.program_running[f'actionHome_{i}'] = False
+					parent.program_paused[f'actionHome_{i}'] = False
+
+			elif action.objectName() == 'actionUnhoming':
+				action.setMenu(QMenu('Unhoming', parent))
+				axis_map = f'{parent.status.axis_mask:09b}'
+				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
+				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
+				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
+				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
+				parent.unhome_controls.append('actionUnhome_All')
+				parent.state_estop['actionUnhome_All'] = False
+				parent.state_estop_reset['actionUnhome_All'] = False
+				parent.state_on['actionUnhome_All'] = True
+				parent.program_running['actionUnhome_All'] = False
+				parent.program_paused['actionUnhome_All'] = False
+
+				for i, axis in enumerate(parent.axes):
+					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
+					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
+					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
+					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
+					parent.unhome_controls.append(f'actionUnhome_{i}')
+					parent.state_estop[f'actionUnhome_{i}'] = False
+					parent.state_estop_reset[f'actionUnhome_{i}'] = False
+					parent.state_on[f'actionUnhome_{i}'] = True
+					parent.program_running[f'actionUnhome_{i}'] = False
+					parent.program_paused[f'actionUnhome_{i}'] = False
+			elif action.objectName() == 'actionClear_Offsets':
+				action.setMenu(QMenu('Clear Offsets', parent))
+				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1', 'G59.2', 'G59.3', 'G92']
+				for i, item in enumerate(cs):
+					setattr(parent, f'actionClear_{i}', QAction(f'Clear {item}', parent))
+					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
+					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
+					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
+
+			if len(action.shortcut().toString()) > 0: # collect shortcuts for quick reference
+				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
+	'''
+	# special check for Homing, Unhoming and Clear Offsets in the menu
+	menus = parent.findChildren(QMenu)
+	for menu in menus: # menus is the top most menu like File Machine etc.
+		menu_list = menu.actions()
+		for index, action in enumerate(menu_list):
+	'''
+
+
 def setup_actions(parent): # setup menu actions
 	actions_dict = {
 		'actionOpen': 'action_open',
@@ -425,76 +519,6 @@ def setup_actions(parent): # setup menu actions
 		if 'actionCopy_MDI_History' in parent.children:
 			parent.actionCopy_MDI_History.setEnabled(False)
 
-	# special check for Homing, Unhoming and Clear Offsets in the menu
-	menus = parent.findChildren(QMenu)
-	for menu in menus: # menus is the top most menu like File Machine etc.
-		menu_list = menu.actions()
-		for index, action in enumerate(menu_list):
-			if action.objectName() == 'actionHoming': # add homing actions
-				action.setMenu(QMenu('Homing', parent))
-
-				# add Home All if the home sequence is set for all axes
-				if utilities.home_all_check(parent):
-					setattr(parent, 'actionHome_All', QAction('Home All', parent))
-					getattr(parent, 'actionHome_All').setObjectName('actionHome_all')
-					action.menu().addAction(getattr(parent, 'actionHome_All'))
-					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
-					parent.home_controls.append('actionHome_All')
-					parent.state_estop['actionHome_All'] = False
-					parent.state_estop_reset['actionHome_All'] = False
-					parent.state_on['actionHome_All'] = True
-					parent.program_running['actionHome_All'] = False
-					parent.program_paused['actionHome_All'] = False
-
-				# add Home menu item for each axis
-				for i, axis in enumerate(parent.axes):
-					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
-					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
-					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
-					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
-					parent.home_controls.append(f'actionHome_{i}')
-					parent.state_estop[f'actionHome_{i}'] = False
-					parent.state_estop_reset[f'actionHome_{i}'] = False
-					parent.state_on[f'actionHome_{i}'] = True
-					parent.program_running[f'actionHome_{i}'] = False
-					parent.program_paused[f'actionHome_{i}'] = False
-
-			elif action.objectName() == 'actionUnhoming':
-				action.setMenu(QMenu('Unhoming', parent))
-				axis_map = f'{parent.status.axis_mask:09b}'
-
-				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
-				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
-				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
-				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
-				parent.unhome_controls.append('actionUnhome_All')
-				parent.state_estop['actionUnhome_All'] = False
-				parent.state_estop_reset['actionUnhome_All'] = False
-				parent.state_on['actionUnhome_All'] = True
-				parent.program_running['actionUnhome_All'] = False
-				parent.program_paused['actionUnhome_All'] = False
-
-				for i, axis in enumerate(parent.axes):
-					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
-					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
-					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
-					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
-					parent.unhome_controls.append(f'actionUnhome_{i}')
-
-					parent.state_estop[f'actionUnhome_{i}'] = False
-					parent.state_estop_reset[f'actionUnhome_{i}'] = False
-					parent.state_on[f'actionUnhome_{i}'] = True
-					parent.program_running[f'actionUnhome_{i}'] = False
-					parent.program_paused[f'actionUnhome_{i}'] = False
-			elif action.objectName() == 'actionClear_Offsets':
-				action.setMenu(QMenu('Clear Offsets', parent))
-
-				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1', 'G59.2', 'G59.3', 'G92']
-				for i, item in enumerate(cs):
-					setattr(parent, f'actionClear_{i}', QAction(f'Clear {item}', parent))
-					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
-					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
-					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
 
 def setup_status_labels(parent):
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
@@ -799,29 +823,6 @@ def setup_mdi(parent):
 				for item in history_list:
 					parent.mdi_history_lw.addItem(item.strip())
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
-
-def setup_menus(parent):
-	menus = parent.findChildren(QMenu)
-	parent.shortcuts = []
-	for menu in menus:
-		menu_list = menu.actions()
-		for index, action in enumerate(menu_list):
-			if action.objectName() == 'actionOpen':
-				if index + 1 < len(menu_list):
-					parent.menuRecent = QMenu('Recent', parent)
-					parent.menuRecent.setObjectName('menuRecent')
-					parent.children.append('menuRecent')
-					parent.menuFile.insertMenu(menu_list[index + 1], parent.menuRecent)
-					# if any files have been opened add them
-					keys = parent.settings.allKeys()
-					for key in keys:
-						if key.startswith('recent_files'):
-							path = parent.settings.value(key)
-							name = os.path.basename(path)
-							a = parent.menuRecent.addAction(name)
-							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
-			if len(action.shortcut().toString()) > 0:
-				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
 
 def setup_jog(parent):
 	jog_buttons = {}
