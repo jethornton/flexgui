@@ -160,13 +160,15 @@ class flexgui(QMainWindow):
 					'was not found.')
 				dialogs.warn_msg_ok(msg, 'INI Error')
 
-		# get a list of axes in the configuration
+		# get a list of axis letters in the configuration
 		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
 		axis_map = f'{self.status.axis_mask:09b}'
-		self.axes = []
+		self.axis_letters = []
 		for i, a in enumerate(reversed(axis_map)):
 			if a == '1':
-				self.axes.append(axis_list[i])
+				self.axis_letters.append(axis_list[i])
+
+		self.axis_count = self.status.axis_mask.bit_count()
 
 		startup.set_screen(self)
 		startup.find_children(self)

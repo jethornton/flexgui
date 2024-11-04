@@ -176,6 +176,8 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			dialogs.critical_msg_ok(msg, 'Empty File')
 			return
 	cmd = tool_editor.split()
+	for axis in parent.axis_letters:
+		cmd.append(axis)
 	cmd.append(tool_file)
 	subprocess.Popen(cmd, cwd=parent.ini_path)
 

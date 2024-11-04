@@ -419,7 +419,7 @@ def setup_menus(parent):
 					parent.program_paused['actionHome_All'] = False
 
 				# add Home menu item for each axis
-				for i, axis in enumerate(parent.axes):
+				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
 					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
 					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
@@ -433,7 +433,6 @@ def setup_menus(parent):
 
 			elif action.objectName() == 'actionUnhoming':
 				action.setMenu(QMenu('Unhoming', parent))
-				axis_map = f'{parent.status.axis_mask:09b}'
 				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
 				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
 				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
@@ -445,7 +444,7 @@ def setup_menus(parent):
 				parent.program_running['actionUnhome_All'] = False
 				parent.program_paused['actionUnhome_All'] = False
 
-				for i, axis in enumerate(parent.axes):
+				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
 					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
 					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
@@ -608,10 +607,9 @@ def setup_status_labels(parent):
 	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
 	# label axis_n_velocity_lb
 	parent.status.poll()
-	axes = parent.status.axis_mask.bit_count()
 
 	parent.status_axes = {} # create an empty dictionary
-	for i in range(axes):
+	for i in range(parent.axis_count):
 		for item in ['max_position_limit', 'min_position_limit', 'velocity']:
 			label = f'axis_{i}_{item}_lb'
 			if label in parent.children:
