@@ -176,19 +176,15 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			dialogs.critical_msg_ok(msg, 'Empty File')
 			return
 	cmd = tool_editor.split()
-	for axis in parent.axis_letters:
-		cmd.append(axis)
-	cmd.append('diam')
+	if parent.tool_editor_columns:
+		for column in parent.tool_editor_columns.split():
+			cmd.append(column)
+	else:
+		for axis in parent.axis_letters:
+			cmd.append(axis)
+		cmd.append('diam')
 	cmd.append(tool_file)
 	subprocess.Popen(cmd, cwd=parent.ini_path)
-
-	'''
-	tooledit
-	Usage:
-		     tooledit filename
-		     tooledit [column_1 ... column_n] filename
-	Valid column names are: x y z a b c u v w diam front back orien
-	'''
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
