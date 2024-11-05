@@ -72,7 +72,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -784,42 +784,6 @@
            <string>Spindle Speed</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_16">
-           <item row="1" column="0">
-            <widget class="QSpinBox" name="spindle_speed_sb">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="settings_speed_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="spindle_speed_lb">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_26">
              <property name="text">
@@ -827,6 +791,16 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="spindle_speed_sb">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>0</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -840,10 +814,10 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_45">
+           <item row="1" column="1">
+            <widget class="QLabel" name="settings_speed_lb">
              <property name="text">
-              <string>Spindle RPM</string>
+              <string>TextLabel</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>

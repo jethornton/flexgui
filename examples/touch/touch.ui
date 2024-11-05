@@ -171,7 +171,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_14">
            <item row="1" column="3">
-            <widget class="QLabel" name="spindle_speed_lb">
+            <widget class="QLabel" name="spindle_speed_0_lb">
              <property name="text">
               <string>Spindle Speed</string>
              </property>

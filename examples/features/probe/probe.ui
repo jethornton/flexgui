@@ -389,7 +389,7 @@ HAL</string>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="spindle_speed_lb">
+        <widget class="QLabel" name="spindle_speed_0_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
