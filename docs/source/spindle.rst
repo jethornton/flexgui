@@ -67,5 +67,13 @@ The following QPushButtons control the spindle on/off direction and speed
 Spindle Overrides
 -----------------
 
+The spindle speed override is set using a QSlider. See the Status Labels above
+for spindle override status labels.
 
+.. csv-table:: Spindle Override
+   :width: 100%
+   :align: center
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Override, QSlider, spindle_override_sl
 
