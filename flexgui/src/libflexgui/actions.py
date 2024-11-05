@@ -158,14 +158,9 @@ def action_save_as(parent): # actionSave_As
 		load_file(parent, new_gcode_file)
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
-	ini_path = parent.ini_path
-	tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
-	if not tool_editor:
-		tool_editor = 'tooledit'
-	tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
-	tool_file = os.path.join(ini_path, tool_table)
-	if os.path.isfile(tool_file):
-		file_size = os.path.getsize(tool_file)
+	tool_table_file = os.path.join(parent.ini_path, parent.tool_table)
+	if os.path.isfile(tool_table_file):
+		file_size = os.path.getsize(tool_table_file)
 		if file_size == 0:
 			msg = ('Can not edit an empty tool file.\n'
 			'The tool file must have at least one entry.\n'
@@ -175,16 +170,18 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			'T1 P1')
 			dialogs.critical_msg_ok(msg, 'Empty File')
 			return
-	cmd = tool_editor.split()
-	if parent.tool_editor_columns:
-		for column in parent.tool_editor_columns.split():
-			cmd.append(column)
-	else:
-		for axis in parent.axis_letters:
-			cmd.append(axis)
-		cmd.append('diam')
-	cmd.append(tool_file)
-	subprocess.Popen(cmd, cwd=parent.ini_path)
+
+		cmd = []
+		if parent.tool_editor:
+			for item in parent.tool_editor.split():
+				cmd.append(item)
+		else:
+			cmd.append('tooledit')
+			for axis in parent.axis_letters:
+				cmd.append(axis)
+			cmd.append('diam')
+		cmd.append(parent.tool_table)
+		subprocess.Popen(cmd, cwd=parent.ini_path)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()

@@ -58,7 +58,8 @@ def read(parent):
 		parent.nc_code_dir = os.path.expanduser('~/')
 
 
-	parent.tool_editor_columns = parent.inifile.find("DISPLAY", "TOOL_EDITOR_COLUMNS") or False
+	parent.tool_editor = parent.inifile.find("DISPLAY", "TOOL_EDITOR") or False
+	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 
 
 
