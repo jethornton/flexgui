@@ -1,15 +1,37 @@
 Spindle
 =======
 
-A QSpinBox with the object name `spindle_speed_sb` sets the spindle speed.
+Spindle Status
+--------------
+
+Spindle status labels show the current status of the item.
+
+.. csv-table:: Spindle Status Labels
+   :width: 100%
+   :align: center
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Brake, QLabel, spindle_brake_0_lb
+	Spindle Direction, QLabel, spindle_direction_0_lb
+	Spindle Enabled, QLabel, spindle_enabled_0_lb
+	Spindle Override Enabled, QLabel, spindle_override_enabled_0_lb
+	Spindle Commanded Speed, QLabel, spindle_speed_0_lb
+	Spindle Speed LCD, QLCDNumber, spindle_speed_0_lcd
+	Spindle Override Percent, QLabel, spindle_override_0_lb
+	Spindle Homed, QLabel, spindle_homed_0_lb
+	Spindle Orient State, QLabel, spindle_orient_state_0_lb
+	Spindle Orient Fault, QLabel, spindle_orient_fault_0_lb
+
+	spindle_actual_speed_lb
+
+.. note:: Spindle speed is the commanded speed, not the actual speed if an
+   override has changed the actual speed.
+
+.. note:: The digitCount property of the LCD must be large enough to display the
+   whole number.
 
 On start-up, Flex will check for the following items in the [SPINDLE_0] section
 of the .ini file
-::
-
-	INCREMENT
-	MIN_FORWARD_VELOCITY
-	MAX_FORWARD_VELOCITY
 
 If `INCREMENT` is not found, Flex will look in the .ini [DISPLAY] section for
 `SPINDLE_INCREMENT` and if not there will default the increment to 100 for
@@ -28,19 +50,22 @@ Spindle Controls
 ----------------
 
 The following QPushButtons control the spindle on/off direction and speed
-::
 
-	Description       Object Name
-	Spindle Forward   spindle_fwd_pb
-	Spindle Reverse   spindle_rev_pb
-	Spindle Stop      spindle_stop_pb
-	Spindle Faster    spindle_plus_pb
-	Spindle Slower    spindle_minus_pb
+.. csv-table:: Spindle Status Labels
+   :width: 100%
+   :align: center
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Forward, QPushButton, spindle_fwd_pb
+	Spindle Reverse, QPushButton, spindle_rev_pb
+	Spindle Stop, QPushButton, spindle_stop_pb
+	Spindle Faster, QPushButton, spindle_plus_pb
+	Spindle Slower, QPushButton, spindle_minus_pb
 
 .. note:: The spindle can not be started with a spindle speed of zero.
 
-If a QLCDNumber named `spindle_speed_0_lcd` is found, it will display the
-commanded spindle speed without any offsets.
+Spindle Overrides
+-----------------
 
-.. note:: The digitCount property must be large enough to display the whole
-   number.
+
+
