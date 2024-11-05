@@ -363,6 +363,7 @@ def update(parent):
 	for key, value in parent.status_spindles.items():
 		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
 
+	# spindle speed
 	for key, value in parent.status_spindle_speed.items():
 		getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value])}')
 
