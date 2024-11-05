@@ -1023,6 +1023,7 @@ def setup_spindle(parent):
 	parent.status_spindle_overrides = {}
 	parent.status_spindle_lcd = {}
 	parent.status.poll()
+
 	 # only look for the num of spindles configured
 	for i in range(parent.status.spindles):
 		for item in spindle_items:
@@ -1044,11 +1045,11 @@ def setup_spindle(parent):
 
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
-		#parent.spindle_speed_0_lcd.display(123.5)
 
 	# special spindle labels
 	parent.spindle_actual_speed = []
-	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_0_lb']
+	# only add the actual speed if the override slider is there
+	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_sl']
 	if all(x in parent.children for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 

@@ -314,6 +314,7 @@ def spindle(parent, value=0):
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(value))
 		if parent.status.spindle[0]['speed'] < 0:
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(value))
+
 	elif sender_name == 'spindle_fwd_pb':
 		if parent.spindle_speed == 0:
 			msg = ('Can not start spindle\n'
@@ -324,6 +325,7 @@ def spindle(parent, value=0):
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
 			if 'spindle_rev_pb' in parent.children:
 				parent.spindle_rev_pb.setChecked(False)
+
 	elif sender_name == 'spindle_rev_pb':
 		if parent.spindle_speed == 0:
 			msg = ('Can not start spindle\n'
@@ -334,12 +336,14 @@ def spindle(parent, value=0):
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
 			if 'spindle_fwd_pb' in parent.children:
 				parent.spindle_fwd_pb.setChecked(False)
+
 	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
 		if 'spindle_fwd_pb' in parent.children:
 			parent.spindle_fwd_pb.setChecked(False)
 		if 'spindle_rev_pb' in parent.children:
 			parent.spindle_rev_pb.setChecked(False)
+
 	elif sender_name == 'spindle_plus_pb':
 		parent.command.spindle(emc.SPINDLE_INCREASE)
 		parent.spindle_speed += parent.increment
@@ -347,6 +351,7 @@ def spindle(parent, value=0):
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		if 'spindle_speed_lb' in parent.children:
 			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+
 	elif sender_name == 'spindle_minus_pb':
 		if (parent.spindle_speed - parent.increment) > 0: # it's ok
 			parent.command.spindle(emc.SPINDLE_DECREASE)
@@ -358,6 +363,7 @@ def spindle(parent, value=0):
 			if 'spindle_rev_pb' in parent.children:
 				parent.spindle_rev_pb.setChecked(False)
 				parent.command.spindle(emc.SPINDLE_OFF)
+
 	elif  sender_name == 'mdi_s_pb':
 		run_mdi(parent, f'S{parent.spindle_speed}')
 
