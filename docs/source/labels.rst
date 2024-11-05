@@ -207,29 +207,6 @@ Name the label `three_vel_lb` and add three int type Dynamic Properties called
 joint numbers you want to calculate. Typically this would be for the X, Y and
 Z axes.
 
-Spindle Status
---------------
-
-The Spindle status contains status items for up to 9 spindles. Replace the `n`
-with the number of the spindle. Spindle numbers start at 0 and go through 8.
-
-.. csv-table:: Spindle Status Labels
-   :width: 100%
-   :align: center
-   :widths: 60 60
-
-	spindle_brake_n_lb, spindle_direction_n_lb
-	spindle_enabled_n_lb, spindle_override_enabled_n_lb
-	spindle_speed_n_lb, spindle_override_n_lb
-	spindle_homed_n_lb, spindle_orient_state_n_lb
-	spindle_orient_fault_n_lb, spindle_actual_speed_lb
-
-.. note:: Spindle speed is the commanded speed, not the actual speed if anything
-   has changed the actual speed.
-
-Spindle speed setting label `spindle_speed_lb` shows the current spindle speed
-setting even if the spindle is not running; this is normal.
-
 I/O Status
 ----------
 
