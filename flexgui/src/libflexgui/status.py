@@ -228,8 +228,6 @@ def update(parent):
 		parent.spindle_speed = int(parent.status.settings[2])
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
-		if 'spindle_speed_lb' in parent.children: # FIXME not used anymore
-			parent.spindle_speed_lb.setText(str(parent.spindle_speed))
 		if 'spindle_speed_lcd' in parent.children:
 			parent.spindle_speed_lcd.setText(str(parent.spindle_speed))
 		if 'settings_speed_lb' in parent.children:
