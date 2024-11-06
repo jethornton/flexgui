@@ -34,8 +34,8 @@ On start-up, Flex will check for the following items in the [SPINDLE_0] section
 of the .ini file
 
 If `INCREMENT` is not found, Flex will look in the .ini [DISPLAY] section for
-`SPINDLE_INCREMENT` and if not there will default the increment to 100 for
-spindle faster/slower control buttons.
+`SPINDLE_INCREMENT` and if not there will default the increment to 10 for
+spindle faster/slower control buttons and sindle step for the QSpinBox.
 
 If `MIN_FORWARD_VELOCITY` is found, it will be used to set the QSpinBox minimum
 setting. If not found, the minimum setting will be 0.
@@ -49,7 +49,7 @@ arrows.
 Spindle Controls
 ----------------
 
-The following QPushButtons control the spindle on/off direction and speed
+The following items control the spindle on/off direction and speed
 
 .. csv-table:: Spindle Status Labels
    :width: 100%
@@ -61,6 +61,7 @@ The following QPushButtons control the spindle on/off direction and speed
 	Spindle Stop, QPushButton, spindle_stop_pb
 	Spindle Faster, QPushButton, spindle_plus_pb
 	Spindle Slower, QPushButton, spindle_minus_pb
+	Spindle Speed, QSpinBox, spindle_speed_sb
 
 .. note:: The spindle can not be started with a spindle speed of zero.
 
