@@ -963,7 +963,6 @@ def setup_spindle(parent):
 		parent.spindle_speed = 0
 	if 'spindle_speed_lb' in parent.children:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
-	parent.increment = 100
 	parent.min_rpm = 0
 
 	spindle_buttons = {
@@ -982,7 +981,7 @@ def setup_spindle(parent):
 	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-	parent.increment = int(increment) if increment else 100
+	parent.increment = int(increment) if increment else 10
 
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
@@ -998,11 +997,14 @@ def setup_spindle(parent):
 
 		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 		if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
-			parent.spindle_speed_sb.setMaximum(int(max_rpm))
+			parent.max_rpm = int(max_rpm)
+			parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 		elif max_rpm and utilities.is_float(max_rpm): # see if it's a float if so convert to int
-			parent.spindle_speed_sb.setMaximum(utilities.string_to_int(max_rpm))
+			parent.max_rpm = utilities.string_to_int(max_rpm)
+			parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 		else:
-			parent.spindle_speed_sb.setMaximum(100)
+			parent.max_rpm = 1000
+			parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
