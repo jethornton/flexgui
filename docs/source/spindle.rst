@@ -21,11 +21,11 @@ Spindle status labels show the current status of the item.
 	Spindle Homed, QLabel, spindle_homed_0_lb
 	Spindle Orient State, QLabel, spindle_orient_state_0_lb
 	Spindle Orient Fault, QLabel, spindle_orient_fault_0_lb
+	Current S word Setting, QLabel, settings_speed_lb
+	Spindle Actual Speed, QLabel, spindle_actual_speed_lb
 
-	spindle_actual_speed_lb
-
-.. note:: Spindle speed is the commanded speed, not the actual speed if an
-   override has changed the actual speed.
+.. note:: Spindle Commanded Speed does not show override. Spindle Actual Speed
+   is actual speed including override.
 
 .. note:: The digitCount property of the LCD must be large enough to display the
    whole number.
