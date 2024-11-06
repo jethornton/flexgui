@@ -228,7 +228,7 @@ def update(parent):
 		parent.spindle_speed = int(parent.status.settings[2])
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
-		if 'spindle_speed_lb' in parent.children:
+		if 'spindle_speed_lb' in parent.children: # FIXME not used anymore
 			parent.spindle_speed_lb.setText(str(parent.spindle_speed))
 		if 'spindle_speed_lcd' in parent.children:
 			parent.spindle_speed_lcd.setText(str(parent.spindle_speed))
@@ -365,11 +365,11 @@ def update(parent):
 
 	# spindle speed
 	for key, value in parent.status_spindle_speed.items():
-		getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value])}')
+		getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value]):.0f}')
 
 	# spindle lcd
 	for key, value in parent.status_spindle_lcd.items():
-		getattr(parent, key).display(f'{getattr(parent, "status").spindle[0][value]}')
+		getattr(parent, key).display(f'{getattr(parent, "status").spindle[0][value]:.0f}')
 
 	# spindle override parent.spindle[0]['override']
 	for key, value in parent.status_spindle_overrides.items():
@@ -391,11 +391,11 @@ def update(parent):
 		commanded_rpm = abs(parent.status.spindle[0]['speed'])
 		override_rpm = commanded_rpm * override
 		if override_rpm >= parent.min_rpm:
-			getattr(parent, item).setText(f'{override_rpm:.1f}')
+			getattr(parent, item).setText(f'{override_rpm:.0f}')
 		elif override_rpm > 0:
-			getattr(parent, item).setText(f'{parent.min_rpm:.1f}')
+			getattr(parent, item).setText(f'{parent.min_rpm:.0f}')
 		else:
-			getattr(parent, item).setText('0.0')
+			getattr(parent, item).setText('0')
 
 	# current tool information
 	for key, value in parent.current_tool.items():
