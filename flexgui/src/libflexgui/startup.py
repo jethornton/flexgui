@@ -960,7 +960,7 @@ def setup_spindle(parent):
 	if default_rpm:
 		parent.spindle_speed = int(default_rpm)
 	else:
-		parent.spindle_speed = 100
+		parent.spindle_speed = 0
 	if 'spindle_speed_lb' in parent.children:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	parent.increment = 100
