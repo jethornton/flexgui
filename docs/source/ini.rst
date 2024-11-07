@@ -1,6 +1,8 @@
 INI Settings
 ============
 
+`Video Tutorial <https://youtu.be/JQXG9I7fwSo>`_
+
 .. note:: The following Flex GUI settings are all located in the [DISPLAY]
    section of your LinuxCNC .ini file.
 

@@ -1,6 +1,6 @@
 Controls
 ========
-
+`Command Buttons Tutorial <https://youtu.be/X_SMoJ9sYbI>`_
 `Home Controls Tutorial <https://youtu.be/R8Z_oCdaAXM>`_
 
 Push Buttons

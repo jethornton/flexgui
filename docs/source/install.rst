@@ -1,5 +1,6 @@
 Installing
 ==========
+`Installing Flex GUI Tutorial <https://youtu.be/F8mCt7JJDDM>`_
 
 Download the latest deb file from
 `>HERE< <https://github.com/jethornton/flexgui/releases>`_.
