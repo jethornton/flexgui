@@ -1,7 +1,8 @@
 Menu
 ====
 
-`Video Tutorial <https://youtu.be/ukwunHGCglk>`_
+`Adding Menu Items Tutorial <https://youtu.be/ukwunHGCglk>`_
+`Tool Bar Buttons Tutorial <https://youtu.be/X_SMoJ9sYbI>`_
 
 .. note:: Every menu item has a command button, so you don't need to use any
    menu items if you don't want to.
