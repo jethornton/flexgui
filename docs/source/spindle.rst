@@ -1,6 +1,8 @@
 Spindle
 =======
 
+`Video Tutorial <https://youtu.be/37Sh-lieq9Y>`_
+
 Spindle Status
 --------------
 

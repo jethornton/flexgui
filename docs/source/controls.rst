@@ -142,6 +142,7 @@ The following settings can be used in the DISPLAY section of the ini file:
 
 Overrides
 ---------
+`Overrides Tutorial <https://youtu.be/taAtYf3ebDE>`_
 
 A QSlider is used to control the following functions and the corresponding 
 label shows the value of the slider:

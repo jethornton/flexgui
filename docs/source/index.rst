@@ -17,6 +17,7 @@ Flex GUI
    spindle
    probe
    tools
+   coordinates
    misc
    hal
    touch

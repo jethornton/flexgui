@@ -1,6 +1,49 @@
 Miscellaneous Items
 ===================
 
+Import Python
+-------------
+
+`Python Import Tutorial <https://youtu.be/QC4K_8VMc6Y>`_
+
+To import a python module add the following to the INI [FLEX] section using the
+name of the python file without the.py extension. The file name must be unique
+and can not be any python module name.
+::
+
+	[FLEX]
+	IMPORT = testpy
+
+.. note:: The module requires the .py extension to be able to import so the
+   above module would be named testpy.py.
+
+In the python file you import you must have a `startup` function where you make
+any connections from objects in the ui file to code in your module. The parent
+is passed to the startup function to give you access to all the objects in the
+GUI.
+::
+
+	from functools import partial
+
+	def startup(parent):
+		# connect a pushbutton without passing parent
+		parent.my_test_pb.clicked.connect(test_1)
+		parent.get_names_pb.clicked.connect(partial(get_names, parent))
+
+		# connect a pushbutton and pass parent to fhe function
+		parent.another_test_pb.clicked.connect(partial(test_2, parent))
+
+	def test_1():
+		print('test 1')
+
+	def test_2(parent):
+		# in this function you have access to all the objects in parent
+		print(f'test 2 {parent.another_test_pb.text()}')
+
+	def get_names(parent):
+		# get all the object names from the parent
+		print(dir(parent))
+
 File Selector
 -------------
 

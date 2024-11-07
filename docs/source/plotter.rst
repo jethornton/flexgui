@@ -1,5 +1,6 @@
 Plotter
 =======
+`Plotter Tutorial <https://youtu.be/_f9sQWPe_XI>`_
 
 To add a live G-code plotter, add a QWidget or QFrame and name it `plot_widget`.
 

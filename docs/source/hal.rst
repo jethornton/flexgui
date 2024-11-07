@@ -1,5 +1,7 @@
 HAL Pins
 ========
+`HAL Tutorial <https://youtu.be/LU4914GyGXI>`_
+
 
 .. note:: Dynamic Property names are case sensitive and must be all lower case.
    Hal types and directions are case sensitive and must be all caps. The
