@@ -1,5 +1,6 @@
 Manual Data Input (MDI)
 =======================
+`MDI Tutorial <https://youtu.be/fHkyWxfZiKs>`_
 
 MDI Interface
 -------------
