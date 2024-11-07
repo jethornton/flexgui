@@ -1667,7 +1667,7 @@ def setup_dsf(parent): # drill speed and feed calculator
 				parent.number_le.append(item)
 
 def setup_import(parent):
-	module_name = parent.inifile.find('DISPLAY', 'IMPORT') or False
+	module_name = parent.inifile.find('FLEX', 'IMPORT') or False
 	if module_name: # import the module
 		try:
 			sys.path.append(parent.ini_path)
