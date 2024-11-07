@@ -1,6 +1,8 @@
 Controls
 ========
 
+`Home Controls Tutorial <https://youtu.be/R8Z_oCdaAXM>`_
+
 Push Buttons
 ------------
 
@@ -103,6 +105,7 @@ Axis Index
 
 Jog Controls
 ------------
+`Jog Controls Tutorial <https://youtu.be/ReVeEB5tEYM>`_
 
 Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`. If either
 is not found, Jog Buttons will be disabled.
