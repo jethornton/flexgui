@@ -1,5 +1,6 @@
 Status Labels
 =============
+`Status Labels Tutorial <https://youtu.be/wwT9fDTUa0c>`_
 
 Status labels are created using a QLabel and setting the `Object Name`. Status
 labels come in two forms. A single-status-label like `Machine Status` only
