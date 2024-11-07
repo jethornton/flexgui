@@ -1,4 +1,4 @@
-import os, shutil, re
+import os, sys, shutil, re, importlib
 from functools import partial
 
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
@@ -1666,7 +1666,21 @@ def setup_dsf(parent): # drill speed and feed calculator
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
 				parent.number_le.append(item)
 
-def set_status(parent):
+def setup_import(parent):
+	module_name = parent.inifile.find('DISPLAY', 'IMPORT') or False
+	if module_name: # import the module
+		try:
+			sys.path.append(parent.ini_path)
+			module = importlib.import_module(module_name)
+			module.startup(parent)
+		except:
+			msg = (f'The file {module_name} was\n'
+				'not found, check for file name\n'
+				'or there was an error in the imported\n'
+				'module code.')
+			dialogs.warn_msg_ok(msg, 'Import Failed')
+
+def set_status(parent): # this is only used if running from a terminal
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
