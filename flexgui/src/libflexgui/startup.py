@@ -762,6 +762,18 @@ def setup_plain_text_edits(parent):
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
+def setup_line_edits(parent):
+	parent.number_le = []
+	parent.gcode_le = []
+	parent.keyboard_le = []
+	for child in parent.findChildren(QLineEdit):
+		if child.property('input') == 'number': # enable the number pad
+			print(child.objectName())
+		elif child.property('input') == 'nccode': # enable the nc code pad
+			print(child.objectName())
+		elif child.property('input') == 'keyboard': # enable the keyboard pad
+			print(child.objectName())
+
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
 	for child in parent.findChildren(QAbstractSpinBox):
@@ -906,7 +918,6 @@ def setup_jog(parent):
 							f'{item} is not a valid jog increment\n'
 							'and will not be added to the jog options.')
 						dialogs.warn_msg_ok(msg, 'Configuration Error')
-						print(f'{item} not valid')
 
 def conv_units(value, suffix, machine_units):
 	if machine_units == 'inch':
@@ -1243,6 +1254,7 @@ def setup_hal(parent):
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
+				#print(f'{hal_type} = {getattr(hal, hal_type)}')
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -1298,6 +1310,7 @@ def setup_hal(parent):
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
+				#print(f'{hal_type} = {getattr(hal, hal_type)}')
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
