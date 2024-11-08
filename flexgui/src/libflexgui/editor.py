@@ -3,14 +3,11 @@ from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette
 ######## I don't think any of this is used any more it's in utilities or should be
 
 def show_line(parent):
-	#print('show_line')
 	#background = parent.gcode_pte.palette().color(QPalette.ColorRole.Window).name()
-	#print(background)
 	# QColor background = your_label.palette().color(QPalette::Window);
 	# get a copy of the QTextCursor that represents the currently visible cursor
 	#cursor = parent.gcode_pte.textCursor()
 	#selected_block = cursor.blockNumber() # get current block number
-	#print(selected_block)
 	#self.lbl.setText(f'Current line number: {selected_block}')
 	#if 'start_line_lb' in parent.children:
 	#	parent.start_line_lb.setText(f'{selected_block}')

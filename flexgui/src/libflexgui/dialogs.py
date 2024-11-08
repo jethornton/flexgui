@@ -12,7 +12,6 @@ from libflexgui import utilities
 
 def spinbox_numbers(parent, obj):
 	np = number_pad.number_pad()
-	print(type(obj))
 	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
 		np.setStyleSheet(fh.read())
@@ -107,7 +106,6 @@ def warn_msg_yes_no(text, title=None):
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Yes:
 		return True
-		print('true')
 	else:
 		return False
 
