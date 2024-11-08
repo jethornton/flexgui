@@ -231,7 +231,7 @@ class flexgui(QMainWindow):
 	def eventFilter(self, obj, event):
 		if obj.objectName() in self.number_le and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
-		elif obj.objectName() in self.gcode_le and event.type() == QEvent.Type.MouseButtonRelease:
+		elif obj.objectName() in self.nccode_le and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.gcode(self, obj)
 		elif obj.objectName() in self.keyboard_le and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.keyboard(self, obj)
