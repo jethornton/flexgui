@@ -762,7 +762,7 @@ def setup_plain_text_edits(parent):
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
-def setup_line_edits(parent): # FIXME finish adding this
+def setup_line_edits(parent):
 	parent.number_le = []
 	parent.nccode_le = []
 	parent.keyboard_le = []
@@ -1192,6 +1192,7 @@ def setup_hal(parent):
 	hal_spinboxes = []
 	hal_sliders = []
 	hal_lcd = []
+	parent.hal_io = {}
 	parent.hal_readers = {}
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
@@ -1199,6 +1200,15 @@ def setup_hal(parent):
 	for child in children:
 		if child.property('function') == 'hal_io':
 			print(child.objectName())
+			child_name = child.objectName()
+			pin_name = child.property('pin_name')
+			hal_type = child.property('hal_type')
+			hal_dir = child.property('hal_dir')
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, f'{hal_dir}')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+			parent.hal_io[child_name] = pin_name
 
 	for child in children:
 		if child.property('function') == 'hal_pin':
