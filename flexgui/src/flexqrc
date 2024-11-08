@@ -106,9 +106,6 @@ class flexqrc(QMainWindow):
 			configsDir = os.path.expanduser('~/linuxcnc/configs')
 		else:
 			configsDir = os.path.expanduser('~/')
-		#QFileDialog::QFileDialog(QWidget *parent = nullptr,
-		# const QString &caption = QString(), const QString &directory = QString(),
-		# const QString &filter = QString())
 		options = QFileDialog.Option.ShowDirsOnly
 		options |= QFileDialog.Option.DontUseNativeDialog
 		result = QFileDialog.getExistingDirectory(self, 'Select Configuration Directory',
@@ -119,7 +116,6 @@ class flexqrc(QMainWindow):
 			if self.rcc:
 				self.build_resources_pb.setEnabled(True)
 
-
 	def build_resources(self):
 		os.chdir(self.images_directory)
 		result = subprocess.run(['rcc', '-g', 'python', '-o', 'resources.py',
@@ -127,29 +123,18 @@ class flexqrc(QMainWindow):
 		if result.returncode == 0: # success
 			resource_file = os.path.join(self.images_directory, 'resources.py')
 			self.build_resources_lb.setText('Build Success')
-			# fix the file first lol
+
 			# Read in the file
 			with open(resource_file, 'r') as file:
 				filedata = file.read()
+
 			# Replace the target string
 				filedata = filedata.replace('PySide2', 'PyQt6')
-			# Write the file out again
 
+			# Write the file out again
 			with open(resource_file, 'w') as file:
 				file.write(filedata)
 			shutil.copy2(resource_file, self.config_directory)
-
-		#print('build')
-		#print(os.getcwd())
-		#shutil.copy2(self.qrc_file, self.config_directory)
-		#os.chdir(self.config_directory)
-		#print(os.getcwd())
-		#result = subprocess.run(['rcc', '-g', 'python', '-o', 'resources.py',
-		#	'resources.qrc'], capture_output=True, text=True)
-		#print(result)
-
-
-		# rcc -g python -o resources.py resources.qrc
 
 app = QApplication(sys.argv)
 gui = flexqrc()

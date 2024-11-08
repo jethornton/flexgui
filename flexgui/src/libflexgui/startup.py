@@ -45,7 +45,6 @@ def find_children(parent): # get the object names of all widgets
 				if parent.toolBar.widgetForAction(action) is not None:
 					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
 					setattr(parent, widget_name, parent.toolBar.widgetForAction(action))
-					#print(parent.toolBar.widgetForAction(action).objectName())
 					parent.children.append(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
@@ -763,18 +762,6 @@ def setup_plain_text_edits(parent):
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
-def setup_line_edits(parent):
-	parent.number_le = []
-	parent.gcode_le = []
-	parent.keyboard_le = []
-	for child in parent.findChildren(QLineEdit):
-		if child.property('input') == 'number': # enable the number pad
-			print(child.objectName())
-		elif child.property('input') == 'nccode': # enable the nc code pad
-			print(child.objectName())
-		elif child.property('input') == 'keyboard': # enable the keyboard pad
-			print(child.objectName())
-
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
 	for child in parent.findChildren(QAbstractSpinBox):
@@ -844,7 +831,6 @@ def setup_jog(parent):
 				dialogs.warn_msg_ok(msg, 'Missing Item')
 				for item in jog_buttons:
 					getattr(parent, item).setEnabled(False)
-				print('by by')
 				return
 
 		# ok to connect if we get this far
@@ -1195,6 +1181,11 @@ def setup_hal(parent):
 	parent.hal_readers = {}
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
+
+	for child in children:
+		if child.property('function') == 'hal_io':
+			print(child.objectName())
+
 	for child in children:
 		if child.property('function') == 'hal_pin':
 			if isinstance(child, QAbstractButton):
@@ -1252,7 +1243,6 @@ def setup_hal(parent):
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
-				#print(f'{hal_type} = {getattr(hal, hal_type)}')
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -1308,7 +1298,6 @@ def setup_hal(parent):
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
-				#print(f'{hal_type} = {getattr(hal, hal_type)}')
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -1322,10 +1311,15 @@ def setup_hal(parent):
 					parent.hal_readers[label_name] = pin_name
 
 	'''
-	HAL_U32 = 4
-	HAL_S32 = 3
-	HAL_FLOAT = 2
 	HAL_BIT = 1
+	HAL_FLOAT = 2
+	HAL_S32 = 3
+	HAL_U32 = 4
+	HAL_IN = 16
+	HAL_OUT = 32
+	HAL_IO = 48
+	HAL_RO = 64
+	HAL_RW = 192
 	'''
 
 	if len(hal_buttons) > 0: # setup hal buttons and checkboxes
@@ -1756,7 +1750,6 @@ def set_status(parent): # this is only used if running from a terminal
 		else:
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
-				print(item)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.home_controls: # enable/disable by joint
