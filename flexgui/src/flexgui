@@ -181,6 +181,7 @@ class flexgui(QMainWindow):
 		startup.setup_list_widgets(self)
 		startup.setup_plain_text_edits(self)
 		startup.setup_spin_boxes(self)
+		startup.setup_line_edits(self)
 		startup.setup_spindle(self)
 		startup.setup_jog(self)
 		startup.setup_probing(self)
