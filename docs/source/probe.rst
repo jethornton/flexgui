@@ -1,6 +1,30 @@
 Probing
 =======
 
+Variables
+---------
+
+To set and get user variables in the var file with a QDoubleSpinBox add a couple
+of string type Dynamic Properties. The variables 31 - 5000 are avaliable for use
+in NC code programs. Replace `nnnn` with the variable number.
+::
+
+	function get_var
+	variable `nnnn`
+
+The user variable must be in the var file. On startup Flex reads the var file
+and sets the value of the QDoubleSpinBox to that value. When you change the
+value of the QDoubleSpinBox the var file is updated with the new value. There is
+a 2 second timeout before the var file is updated.
+
+The configuration must be out of E-Stop, Power On and Homed before the
+QDoubleSpinBox is enabled.
+
+.. note:: The QDoubleSpinBox get and set variables can be used for any poupose.
+
+Controls
+--------
+
 Add a QPushButton named `probing_enable_pb` and if it is found it will be set as
 a toggle button. The button will only be enabled when the machine is homed and
 not running a program. The button is set to checkable in code so it can be
