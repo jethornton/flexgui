@@ -44,6 +44,19 @@ GUI.
 		# get all the object names from the parent
 		print(dir(parent))
 
+Get Variables
+-------------
+
+To load a user variable (31-5000) from the var file at startup into a
+QDoubleSpinBox add two Dynamic Properties
+::
+
+	function get_var
+	variable number of variable
+
+.. image:: /images/get-variable-01.png
+   :align: center
+
 File Selector
 -------------
 
