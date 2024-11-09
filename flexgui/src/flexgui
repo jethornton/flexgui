@@ -215,6 +215,12 @@ class flexgui(QMainWindow):
 		self.var_timer.setSingleShot(True)
 		self.var_timer.timeout.connect(partial(utilities.sync_var_file, self))
 
+		# setup the var file watch timer
+		self.var_watch_timer = QTimer(self)
+		self.var_watch_timer.timeout.connect(partial(utilities.var_file_watch, self))
+		self.var_mod_time = os.stat(os.path.join(self.ini_path, self.var_file)).st_mtime
+		self.var_watch_timer.start(100) # milliseconds
+
 		# set the inital screen size
 		if screen_size:
 			if screen_size.lower() == 'minimized':
