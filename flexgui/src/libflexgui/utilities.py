@@ -189,13 +189,11 @@ def sync_checkboxes(parent, sender, receiver):
 def sync_var_file(parent, value):
 	variable = parent.sender().property('variable')
 	cmd = f'#{variable}={value}'
-	print(cmd)
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(cmd)
-		print('done')
 
 def update_hal_io(parent, value):
 	print(value)
