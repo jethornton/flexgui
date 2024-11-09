@@ -1195,14 +1195,13 @@ def setup_get_var(parent):
 	for child in parent.findChildren(QDoubleSpinBox):
 		if child.property('function') == 'get_var':
 			var = child.property('variable')
-			print(var)
 			found = False
 			if var is not None:
 				for line in var_list:
 					if line.startswith(var):
 						child.setValue(float(line.split()[1]))
 						found = True
-						child.valueChanged.connect(partial(utilities.sync_var_file, parent))
+						child.valueChanged.connect(partial(utilities.var_value_changed, parent))
 						child.setEnabled(False)
 						parent.home_required.append(child.objectName())
 						break
