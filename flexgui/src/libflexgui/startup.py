@@ -1219,6 +1219,10 @@ def setup_hal(parent):
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
 
+	var_file = os.path.join(parent.ini_path, parent.var_file)
+	with open(var_file, 'r') as f:
+		var_list = f.readlines()
+
 	for child in children:
 		if child.property('function') == 'hal_io':
 			print(child.objectName())
@@ -1231,6 +1235,21 @@ def setup_hal(parent):
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			child.valueChanged.connect(partial(utilities.update_hal_io, parent))
 			parent.hal_io[child_name] = pin_name
+			if child.property('variable') is not None:
+				var = child.property('variable')
+				found = False
+				for line in var_list:
+					if line.startswith(var):
+						child.setValue(float(line.split()[1]))
+						found = True
+						break
+				if not found:
+					msg = (f'The variable {var} was not found\n'
+					f'in the variables file {parent.var_file}\n'
+					f'the QDoubleSpinBox {item.objectName()}\n'
+					'will not contain any value.')
+					dialogs.warn_msg_ok(msg, 'Error')
+
 
 	for child in children:
 		if child.property('function') == 'hal_pin':
