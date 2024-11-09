@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog
 import linuxcnc as emc
 
 from libflexgui import dialogs
+from libflexgui import commands
 
 def is_float(string):
 	try:
@@ -185,7 +186,19 @@ def sync_checkboxes(parent, sender, receiver):
 		getattr(parent, receiver).setChecked(getattr(parent, sender).isChecked())
 		parent.settings.setValue(f'PLOT/{receiver}', getattr(parent, sender).isChecked())
 
+def sync_var_file(parent, value):
+	variable = parent.sender().property('variable')
+	cmd = f'#{variable}={value}'
+	print(cmd)
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(cmd)
+		print('done')
+
 def update_hal_io(parent, value):
+	print(value)
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 def update_hal_spinbox(parent, value):

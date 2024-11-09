@@ -173,6 +173,9 @@ def update(parent):
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				if parent.mdi_command:
 					utilities.update_mdi(parent)
+				else:
+					parent.command.mode(emc.MODE_MANUAL)
+					parent.command.wait_complete()
 
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
