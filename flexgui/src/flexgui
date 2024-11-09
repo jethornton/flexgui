@@ -187,7 +187,7 @@ class flexgui(QMainWindow):
 		startup.setup_probing(self)
 		startup.setup_mdi(self)
 		startup.setup_mdi_buttons(self)
-		#startup.setup_get_var(self)
+		startup.setup_get_var(self)
 		startup.setup_hal(self)
 		startup.setup_touchoff(self)
 		startup.setup_tools(self)

@@ -1192,19 +1192,22 @@ def setup_get_var(parent):
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
-	for item in parent.findChildren(QDoubleSpinBox):
-		if item.property('function') == 'get_var':
-			var = item.property('variable')
+	for child in parent.findChildren(QDoubleSpinBox):
+		if child.property('function') == 'get_var':
+			var = child.property('variable')
 			found = False
 			for line in var_list:
 				if line.startswith(var):
-					item.setValue(float(line.split()[1]))
+					child.setValue(float(line.split()[1]))
 					found = True
+					child.valueChanged.connect(partial(utilities.sync_var_file, parent))
+					child.setEnabled(False)
+					parent.home_required.append(child.objectName())
 					break
 			if not found:
 				msg = (f'The variable {var} was not found\n'
 				f'in the variables file {parent.var_file}\n'
-				f'the QDoubleSpinBox {item.objectName()}\n'
+				f'the QDoubleSpinBox {child.objectName()}\n'
 				'will not contain any value.')
 				dialogs.warn_msg_ok(msg, 'Error')
 
@@ -1225,7 +1228,6 @@ def setup_hal(parent):
 
 	for child in children:
 		if child.property('function') == 'hal_io':
-			print(child.objectName())
 			child_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type = child.property('hal_type')
