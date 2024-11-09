@@ -1,6 +1,7 @@
 import os, shutil
+from functools import partial
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
 from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog
 
@@ -186,17 +187,20 @@ def sync_checkboxes(parent, sender, receiver):
 		getattr(parent, receiver).setChecked(getattr(parent, sender).isChecked())
 		parent.settings.setValue(f'PLOT/{receiver}', getattr(parent, sender).isChecked())
 
-def sync_var_file(parent, value):
+def var_value_changed(parent, value):
+	parent.var_timer.stop()
 	variable = parent.sender().property('variable')
-	cmd = f'#{variable}={value}'
+	parent.cmd = f'#{variable}={value}'
+	parent.var_timer.start(2000)  # Timeout after 2 seconds
+
+def sync_var_file(parent):
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
-		parent.command.mdi(cmd)
+		parent.command.mdi(parent.cmd)
 
 def update_hal_io(parent, value):
-	print(value)
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 def update_hal_spinbox(parent, value):

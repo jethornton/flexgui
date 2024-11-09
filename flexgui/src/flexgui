@@ -19,6 +19,7 @@ from libflexgui import read_ini
 from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
+from libflexgui import utilities
 from libflexgui import shutdown
 
 class flexgui(QMainWindow):
@@ -208,6 +209,11 @@ class flexgui(QMainWindow):
 		self.timer = QTimer()
 		self.timer.timeout.connect(partial(status.update, self))
 		self.timer.start(10) # milliseconds
+
+		# var update timer
+		self.var_timer = QTimer(self)
+		self.var_timer.setSingleShot(True)
+		self.var_timer.timeout.connect(partial(utilities.sync_var_file, self))
 
 		# set the inital screen size
 		if screen_size:
