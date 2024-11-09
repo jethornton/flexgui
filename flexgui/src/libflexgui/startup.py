@@ -4,7 +4,7 @@ from functools import partial
 from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QAbstractSpinBox
-from PyQt6.QtWidgets import QLabel, QLCDNumber
+from PyQt6.QtWidgets import QLabel, QLCDNumber, QDoubleSpinBox
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -1185,6 +1185,28 @@ def setup_mdi_buttons(parent):
 				f'{button.text()} will not be functional.')
 				dialogs.warn_msg_ok(msg, 'Configuration Error')
 				button.setEnabled(False)
+
+def setup_get_var(parent):
+	# variables are floats so only put them in a QDoubleSpinBox
+	var_file = os.path.join(parent.ini_path, parent.var_file)
+	with open(var_file, 'r') as f:
+		var_list = f.readlines()
+
+	for item in parent.findChildren(QDoubleSpinBox):
+		if item.property('function') == 'get_var':
+			var = item.property('variable')
+			found = False
+			for line in var_list:
+				if line.startswith(var):
+					item.setValue(float(line.split()[1]))
+					found = True
+					break
+			if not found:
+				msg = (f'The variable {var} was not found\n'
+				f'in the variables file {parent.var_file}\n'
+				f'the QDoubleSpinBox {item.objectName()}\n'
+				'will not contain any value.')
+				dialogs.warn_msg_ok(msg, 'Error')
 
 def setup_hal(parent):
 	hal_labels = []

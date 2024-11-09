@@ -3,7 +3,7 @@ import os
 from PyQt6.QtCore import QSettings
 
 def read(parent):
-	machine_name = parent.inifile.find("EMC", "MACHINE") or False
+	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
 		parent.settings = QSettings('Flex', machine_name)
 	else:
@@ -40,7 +40,7 @@ def read(parent):
 	else:
 		parent.units = 'mm'
 
-	directory = parent.inifile.find("DISPLAY", "PROGRAM_PREFIX") or False
+	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
 	if directory:
 		if directory.startswith('./'): # in this directory
 			parent.nc_code_dir = os.path.join(parent.ini_path, directory[2:])
@@ -58,8 +58,9 @@ def read(parent):
 		parent.nc_code_dir = os.path.expanduser('~/')
 
 
-	parent.tool_editor = parent.inifile.find("DISPLAY", "TOOL_EDITOR") or False
+	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
+	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
 
 
 
