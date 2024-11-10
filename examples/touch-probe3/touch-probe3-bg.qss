@@ -531,6 +531,101 @@ QPushButton#probing_enable_pb:enabled:hover {
         color: white;
 }
 
+/* ******************** LCD ******************** */
+QLCDNumber#spindlespeedlcd{ 
+	background-color: rgb(0, 0, 0);
+	border: 1px solid rgb(113, 113, 113);
+	border-width: 1px;
+	border-radius: 2px;
+	color: rgba(0, 255, 0, 100%);
+}
+QLCDNumber#timehrslcd, QLCDNumber#timeminlcd, QLCDNumber#timeseclcd{
+	background-color: rgb(0, 0, 0);
+	border: 1px solid rgb(113, 113, 113);
+	border-width: 1px;
+	border-radius: 2px;
+	color: rgba(255, 255, 0, 100%);}
+
+/*  spindlespeedlcd
+QLCDNumber{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 255);
+}
+QLCDNumber#spindle_speed_0_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 0, 0);
+}
+QLCDNumber#Spindle_Temp_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Spindle_Actual_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 0, 0);
+}
+QLCDNumber#Spindle_HP_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(0, 255, 0);
+}
+QLCDNumber#Spindle_Load_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(0, 255, 0);
+}
+QLCDNumber#Cycle_Hrs_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Cycle_Min_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Cycle_Sec_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Tool_PSI_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Comp_PSI_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+*/
+/* ******************** LCD ******************** */
 /* ********** NOTES ********** */
 /*  QMainWindow{
 	background-color: rgba(0, 0, 192, 20%);
