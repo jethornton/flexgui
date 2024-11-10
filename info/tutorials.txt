@@ -16,5 +16,6 @@ Coordinate Systems
 Tools
 Spindle
 Import Python Module
+Probing Setup
 Calculators
 
