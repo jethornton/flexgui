@@ -148,7 +148,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -769,7 +769,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_right&gt; call</string>
+        <string>o&lt;p_right_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_Yminus">
@@ -788,7 +788,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_back&gt; call</string>
+        <string>o&lt;p_back_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_wk_center">
@@ -807,7 +807,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_bar&gt; call</string>
+        <string>o&lt;p_bar_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_XplusYminus">
@@ -852,7 +852,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_front&gt; call</string>
+        <string>o&lt;p_front_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_Xplus">
@@ -871,7 +871,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_left&gt;  call</string>
+        <string>o&lt;p_left_m&gt;  call</string>
        </property>
       </widget>
      </widget>
@@ -932,7 +932,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_right&gt; call</string>
+        <string>o&lt;p_right_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_inYminus">
@@ -951,7 +951,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_back&gt;  call</string>
+        <string>o&lt;p_back_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_inhole">
@@ -970,7 +970,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_hole&gt;  call</string>
+        <string>o&lt;p_hole_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_inYplus">
@@ -989,7 +989,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_front&gt; call</string>
+        <string>o&lt;p_front_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_inXplus">
@@ -1008,7 +1008,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_left&gt;  call</string>
+        <string>o&lt;p_left_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_inXplusYminus">
@@ -1117,7 +1117,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_x_plus&gt; call</string>
+        <string>o&lt;p_angle_x_plus_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_angle_x_minus">
@@ -1136,7 +1136,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_x_minus&gt;  call</string>
+        <string>o&lt;p_angle_x_minus_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_angle_y_plus">
@@ -1155,7 +1155,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_y_plus&gt;  call</string>
+        <string>o&lt;p_angle_y_plus_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_angle_y_minus">
@@ -1174,7 +1174,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_y_minus&gt; call</string>
+        <string>o&lt;p_angle_y_minus_m&gt; call</string>
        </property>
       </widget>
      </widget>
@@ -1209,7 +1209,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_lx_in&gt; call</string>
+        <string>o&lt;p_lx_in_m&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_ly_out">
@@ -1228,7 +1228,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_ly_out&gt;  call</string>
+        <string>o&lt;p_ly_out_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_ly_in">
@@ -1247,7 +1247,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_ly_in&gt;  call</string>
+        <string>o&lt;p_ly_in_m&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_lx_out">
@@ -1266,7 +1266,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_lx_out&gt; call</string>
+        <string>o&lt;p_lx_out_m&gt; call</string>
        </property>
       </widget>
      </widget>
@@ -1301,7 +1301,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_y_minus_flip&gt; call</string>
+        <string>o&lt;p_angle_y_minus_m_flip&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_angle_y_plus_flip">
@@ -1320,7 +1320,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_y_plus_flip&gt;  call</string>
+        <string>o&lt;p_angle_y_plus_m_flip&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_angle_x_minus_flip">
@@ -1339,7 +1339,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_x_minus_flip&gt;  call</string>
+        <string>o&lt;p_angle_x_minus_m_flip&gt;  call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_p_angle_x_plus_flip">
@@ -1358,7 +1358,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_angle_x_plus_flip&gt; call</string>
+        <string>o&lt;p_angle_x_plus_m_flip&gt; call</string>
        </property>
       </widget>
      </widget>
@@ -1580,7 +1580,7 @@
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>o&lt;p_top&gt; call</string>
+        <string>o&lt;p_top_m&gt; call</string>
        </property>
       </widget>
      </widget>
