@@ -1,16 +1,14 @@
 o<p_right_m> sub
 	G21
-	#1020 = [#<_hal[flexhal.probe_TIP_DIAM]>/2]
-	#1021 = #<_hal[flexhal.probe_RETRACT_DIST]>
-	#1022 = #<_hal[flexhal.probe_SEARCH_DIST]>
-	G91 G38.2 F#<_hal[flexhal.probe_SEARCH_FEED]> X-#1022
-	G90 G0 X[#5061 + #1021]
-	G91 G38.2 F#<_hal[flexhal.probe_FINE_FEED]> X-[#1021 + 0.50]
-	#1019 = [#5061 - # 1020]
-	(debug, X Center: #1019)
-;	(debug, Raise Z, move to X#1019)
+	#2012 = [#2015/2]
+	G91 G38.2 F #2000 X-#2002
+	G90 G0 X[#5061 + #2003]
+	G91 G38.2 F #2001 X-[#2003 + 0.50]
+	#2026 = [#5061 - #2012]
+	(debug, X Center: #2026)
+;	(debug, Raise Z, move to X#2026)
 ;	(debug, Press Set X)
-	G90 G0 X[#5061 + 5.0 - #1020]
+	G90 G0 X[#5061 + 5.0 - #2012]
 	(debug,Spindle center is X +5mm from the edge)
 o<p_right_m> endsub
 
