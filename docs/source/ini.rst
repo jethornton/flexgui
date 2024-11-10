@@ -113,7 +113,7 @@ EXTENSIONS key with the desired extensions seperated by a comma. The
 extensions must be in the format `*.ext` with the asterisk and dot
 ::
 
-	EXTENSIONS = *.nc, *.G-code, *.ngc, *.txt
+	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
 
 To control the initial size of the screen, add either:
 ::
@@ -126,6 +126,18 @@ To control the initial size of the screen, add either:
 .. warning:: Full size screen does not have any window controls. Make sure
    there is a way to close the GUI like an Exit button or you may not be able to
    close the application. As a last-resort, pressing ALT-F4 will close it.
+
+Plotter
+-------
+
+The plotter background color can be set in the [FLEX] section of the ini. The
+value is the Red,Greed,Blue color numbers from 0 to 1 with no space. So an entry
+of 0.0,0.0,0.0 is black and 1.0,1.0,1.0 is white. Use a RGB 0-1 Color Picker to
+select the RGB values.
+::
+
+	[FLEX]
+	PLOT_BACKGROUND_COLOR = 0.0,0.0,0.0
 
 Colors
 ------
