@@ -62,6 +62,11 @@ def read(parent):
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
 
-
+	parent.plot_background_color = parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR') or False
+	#print(type(background_color))
+	#print(background_color)
+	if parent.plot_background_color:
+		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
+	print(parent.plot_background_color)
 
 

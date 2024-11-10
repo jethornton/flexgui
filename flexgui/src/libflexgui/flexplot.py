@@ -158,12 +158,15 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.use_joints_mode = True
 		self.use_commanded = True
 
+		self.background_color = (0.0,0.0,0.0)
+
 		self.enable_dro = True
 		self.show_limits = True
 		self.show_extents_option = True
 		self.show_live_plot = True
 		self.show_velocity = True
 		self.metric_units = False
+
 		self.show_program = True
 		self.show_rapids = True
 		self.show_tool = True
@@ -775,7 +778,10 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		else:
 			# Clear the background and depth buffer.
-			GL.glClearColor(*(self.colors['back'] + (0,)))
+			#GL.glClearColor(*(self.colors['back'] + (0,)))
+			#GL.glClearColor(*((0,0,255) + (0,)))
+			GL.glClearColor(*((self.background_color) + (0,)))
+
 			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
 
 		GL.glMatrixMode(GL.GL_PROJECTION)
@@ -832,7 +838,9 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		else:
 			# Clear the background and depth buffer.
-			GL.glClearColor(*(self.colors['back'] + (0,)))
+			#GL.glClearColor(*(self.colors['back'] + (0,)))
+			#GL.glClearColor(*((0,0,255) + (0,)))
+			GL.glClearColor(*((self.background_color) + (0,)))
 			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
 
 		GL.glMatrixMode(GL.GL_PROJECTION)
