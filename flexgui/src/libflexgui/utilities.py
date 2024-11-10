@@ -203,9 +203,14 @@ def sync_var_file(parent):
 def var_file_watch(parent):
 	var_current_time = os.stat(os.path.join(parent.ini_path, parent.var_file)).st_mtime
 	if parent.var_mod_time != var_current_time:
-		print('var file changed on disk')
+		var_file = os.path.join(parent.ini_path, parent.var_file)
+		with open(var_file, 'r') as f:
+			var_list = f.readlines()
+		for key, value in parent.watch_var.items():
+			for line in var_list:
+				if line.startswith(value):
+					getattr(parent, key).setText(line.split()[1])
 		parent.var_mod_time = var_current_time
-
 
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)

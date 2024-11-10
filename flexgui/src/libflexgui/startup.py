@@ -1212,6 +1212,14 @@ def setup_get_var(parent):
 					'will not contain any value.')
 					dialogs.warn_msg_ok(msg, 'Error')
 
+def setup_watch_var(parent):
+	parent.watch_var = {}
+	for child in parent.findChildren(QLabel):
+		if child.property('function') == 'watch_var':
+			var = child.property('variable')
+			name = child.objectName()
+			parent.watch_var[name] = var
+
 def setup_hal(parent):
 	hal_labels = []
 	hal_buttons = []
@@ -1594,6 +1602,9 @@ def setup_plot(parent):
 
 		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
 		parent.plotter._font = f'monospace bold {dro_font}'
+
+		if parent.plot_background_color:
+			parent.plotter.background_color = parent.plot_background_color
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
