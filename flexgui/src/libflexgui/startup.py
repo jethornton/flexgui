@@ -11,6 +11,8 @@ from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 
 import linuxcnc, hal
 
+import traceback
+
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
@@ -1747,7 +1749,7 @@ def setup_import(parent):
 			module = importlib.import_module(module_name)
 			module.startup(parent)
 		except Exception as e:
-			print(e)
+			print(traceback.format_exc())
 			msg = (f'The file {module_name} was\n'
 				'not found, check for file name\n'
 				'or there was an error in the imported\n'
