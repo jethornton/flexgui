@@ -80,13 +80,13 @@ To specify a differnent tool table editor add an entry to the [DISPLAY] section.
 If no entry is found then the default tool editor is used
 ::
 
-	TOOL_EDITOR = tool_edit
+	TOOL_EDITOR = tooledit
 
 To control the columns displayed by the default tool editor add any of the valid
 column specifiers seperated by a space. 
 ::
 
-	TOOL_EDITOR = tool_edit x y z a b c u v w diam front back orien
+	TOOL_EDITOR = tooledit x y z a b c u v w diam front back orien
 
 If no entry is found then the axes in the configuration and diameter are shown.
 Tool, Pocket and Comment are always shown.
