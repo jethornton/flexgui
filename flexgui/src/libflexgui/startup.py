@@ -1746,7 +1746,8 @@ def setup_import(parent):
 			sys.path.append(parent.ini_path)
 			module = importlib.import_module(module_name)
 			module.startup(parent)
-		except:
+		except Exception as e:
+			print(e)
 			msg = (f'The file {module_name} was\n'
 				'not found, check for file name\n'
 				'or there was an error in the imported\n'
