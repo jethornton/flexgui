@@ -44,6 +44,8 @@ class flexqrc(QMainWindow):
 			if rcc_version.returncode == 0:
 				self.rcc_version_lb.setText(f'{rcc_version.stdout.strip()}')
 				self.rcc = True
+				self.images_lw.clear()
+				self.images_lw.addItem('Image size should be around 80 x 80 pixels in size.')
 			else:
 				self.rcc_version_lb.setText('rcc was not found')
 				self.rcc = False
@@ -80,6 +82,7 @@ class flexqrc(QMainWindow):
 			files, filter = QFileDialog.getOpenFileNames(self,'Select Images',
 			self.images_directory, "All Files (*);;Python Files (*.py)", options=options)
 			if files:
+				self.images_lw.clear()
 				self.images_lw.addItems(files)
 				for file in files:
 					self.files.append(file)
@@ -113,6 +116,9 @@ class flexqrc(QMainWindow):
 		if result:
 			self.config_directory = result
 			self.config_dir_lb.setText(result)
+			if self.images_directory == self.config_directory:
+				self.config_dir_lb.setText('The config dir must be different than the images dir')
+				return
 			if self.rcc:
 				self.build_resources_pb.setEnabled(True)
 
