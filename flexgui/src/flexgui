@@ -115,6 +115,8 @@ class flexgui(QMainWindow):
 
 		# check for a resources.py file with images for the stylesheet
 		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
+		if not resources_file:
+			resources_file = self.inifile.find('FLEX', 'RESOURCES') or False
 		if resources_file: # import the resources file
 			try:
 				sys.path.append(self.ini_path)
