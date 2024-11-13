@@ -19,9 +19,9 @@ Some are used in the UI file and some are workspace variables.
 #2002	SEARCH_DIST
 #2003	RETRACT_DIST
 #2004	XY_travel_dist
-#2005	setter X coord
-#2006	setter Y coord
-#2007	setter z coord unused
+#2005	offset dist to begin corner probing  			    
+#2006	X start point for corners   			
+#2007	Y start point for corners
 #2008	Z max for bar & tool
 #2009	tool Z Start dist
 #2010	max hole radius
@@ -47,10 +47,10 @@ Some are used in the UI file and some are workspace variables.
 #2030	var in p_hole
 #2031	var in p_hole
 #2032	angle XY search dist
-#2033	reserved
-#2034	reserved
-#2035	reserved
-#2036	reserved
+#2033	setter X coord reserved
+#2034	setter Y coord reserved
+#2035	setter Z coord reserved
+#2036	Z-safe for edge probe routines
 #2037	reserved
 #2038	reserved
 #2039	reserved
