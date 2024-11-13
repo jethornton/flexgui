@@ -4867,6 +4867,8 @@ ENABLE</string>
     <addaction name="actionResume"/>
     <addaction name="actionStop"/>
     <addaction name="separator"/>
+    <addaction name="actionClear_Offsets"/>
+    <addaction name="separator"/>
     <addaction name="actionClear_MDI_History"/>
     <addaction name="actionCopy_MDI_History"/>
    </widget>
@@ -5075,6 +5077,11 @@ ENABLE</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
+   </property>
+  </action>
+  <action name="actionClear_Offsets">
+   <property name="text">
+    <string>Clear Offsets</string>
    </property>
   </action>
  </widget>
