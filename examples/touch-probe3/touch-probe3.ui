@@ -739,6 +739,12 @@
        <property name="text">
         <string/>
        </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_right_front_out&gt; call</string>
+       </property>
       </widget>
       <widget class="QPushButton" name="probe_XminusYminus">
        <property name="geometry">
@@ -751,6 +757,12 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_right_back_out&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_Xminus">
@@ -822,6 +834,12 @@
        <property name="text">
         <string/>
        </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_left_back_out&gt; call</string>
+       </property>
       </widget>
       <widget class="QPushButton" name="probe_XplusYplus">
        <property name="geometry">
@@ -834,6 +852,12 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_left_front_out&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_Yplus">
@@ -902,6 +926,12 @@
        <property name="text">
         <string/>
        </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_right_front_in&gt; call</string>
+       </property>
       </widget>
       <widget class="QPushButton" name="probe_inXminusYminus">
        <property name="geometry">
@@ -914,6 +944,12 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_right_back_in&gt; call</string>
        </property>
       </widget>
       <widget class="QPushButton" name="probe_inXminus">
@@ -1023,6 +1059,12 @@
        <property name="text">
         <string/>
        </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_left_back_in&gt; call</string>
+       </property>
       </widget>
       <widget class="QPushButton" name="probe_inXplusYplus">
        <property name="geometry">
@@ -1035,6 +1077,12 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="function" stdset="0">
+        <string>mdi</string>
+       </property>
+       <property name="command" stdset="0">
+        <string>o&lt;c_left_front_in&gt; call</string>
        </property>
       </widget>
      </widget>
@@ -1668,56 +1716,6 @@ SET</string>
          <string>2009</string>
         </property>
        </widget>
-       <widget class="QDoubleSpinBox" name="pbe_x_coord1">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>270</y>
-          <width>91</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="toolTip">
-         <string>X Coordinate for tool probe.</string>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="minimum">
-         <double>-500.000000000000000</double>
-        </property>
-        <property name="maximum">
-         <double>500.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.001000000000000</double>
-        </property>
-        <property name="value">
-         <double>-10.000000000000000</double>
-        </property>
-        <property name="function" stdset="0">
-         <string>get_var</string>
-        </property>
-        <property name="variable" stdset="0">
-         <string>2005</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_33">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>380</y>
-          <width>156</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string> ABS Z TOOL SETTER</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
        <widget class="QDoubleSpinBox" name="pbe_retract_dist1">
         <property name="geometry">
          <rect>
@@ -1747,40 +1745,6 @@ SET</string>
         </property>
         <property name="variable" stdset="0">
          <string>2003</string>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="pbe_z_coord1">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>370</y>
-          <width>91</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="toolTip">
-         <string>Z Coordinate for tool probe.</string>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="minimum">
-         <double>-500.000000000000000</double>
-        </property>
-        <property name="maximum">
-         <double>500.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.001000000000000</double>
-        </property>
-        <property name="value">
-         <double>-2.000000000000000</double>
-        </property>
-        <property name="function" stdset="0">
-         <string>get_var</string>
-        </property>
-        <property name="variable" stdset="0">
-         <string>2007</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_27">
@@ -1813,40 +1777,6 @@ SET</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="pbe_y_coord1">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>320</y>
-          <width>91</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="toolTip">
-         <string>Y Coordinate for tool probe.</string>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="minimum">
-         <double>-500.000000000000000</double>
-        </property>
-        <property name="maximum">
-         <double>500.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.001000000000000</double>
-        </property>
-        <property name="value">
-         <double>-6.000000000000000</double>
-        </property>
-        <property name="function" stdset="0">
-         <string>get_var</string>
-        </property>
-        <property name="variable" stdset="0">
-         <string>2006</string>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="pbe_angle_base_dist1">
@@ -1981,22 +1911,6 @@ SET</string>
         </property>
         <property name="variable" stdset="0">
          <string>2002</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>330</y>
-          <width>146</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string> ABS Y TOOL SETTER</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="pbe_z_max_probe1">
@@ -2189,22 +2103,6 @@ SET</string>
          <string>2011</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_15">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>280</y>
-          <width>146</width>
-          <height>19</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string> ABS X  TOOL SETTER</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_6">
         <property name="geometry">
          <rect>
@@ -2367,6 +2265,112 @@ SET</string>
         </property>
         <property name="variable" stdset="0">
          <string>2032</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_46">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>280</y>
+          <width>156</width>
+          <height>19</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>CORNER OFFSET DIST</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="pbe_corner_offset">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>270</y>
+          <width>91</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance to move on corner probing to begin X &amp;amp; Y probe moves.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="toolTipDuration">
+         <number>-1</number>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>999.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.300000000000000</double>
+        </property>
+        <property name="function" stdset="0">
+         <string>get_var</string>
+        </property>
+        <property name="variable" stdset="0">
+         <string>2005</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_47">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>330</y>
+          <width>151</width>
+          <height>19</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string> EDGE Z SAFE HEIGHT</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="pbe_z_safe">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>320</y>
+          <width>91</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance to move on corner probing to begin X &amp;amp; Y probe moves.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="toolTipDuration">
+         <number>-1</number>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>-999.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>0.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>-0.100000000000000</double>
+        </property>
+        <property name="function" stdset="0">
+         <string>get_var</string>
+        </property>
+        <property name="variable" stdset="0">
+         <string>2036</string>
         </property>
        </widget>
       </widget>
