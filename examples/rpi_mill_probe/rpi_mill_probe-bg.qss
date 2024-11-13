@@ -4,12 +4,12 @@
 /*	background-color: rgba(0, 96, 192, 40%); color: white; */
 /*	background-color: darkgrey; */
 /*	} */
-QMenu, QLabel, QPlainTextEdit#gcode_pte, QPlainTextEdit#info_pte {
+QMenu, QLabel, QPlainTextEdit#gcode_pte {
 	background-color: #121212;
 	color: white;
 	border-color: #051a39;
 	}
-QPlainTextEdit#gcode_pte, QPlainTextEdit#info_pte {
+QPlainTextEdit#gcode_pte {
     border: 1px solid white;
 	background-color: rgba(0, 96, 192, 60%);
 	color: lightgreen;
@@ -141,6 +141,9 @@ QDoubleSpinBox, QSpinbox, QSlider, QLabel#spindle_actual_speed_lb {
 QDoubleSpinBox:hover  {
 	color: white;
 	}
+/*QDoubleSpinBox  {
+	min-height: 25px;
+	}*/
 
 /* ********** QDoublespinBox tool tips ********** */
 /* done in UI file for now */
@@ -390,15 +393,15 @@ QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected
 	}
 
 /* **************************************** */
-/*QPushButton#probe_inXminusYplus {
+QPushButton#probe_inXminusYplus {
 	background-image: url(":images/inX-Y+.png");
-	}*/
+	}
 QPushButton#probe_inYplus { 
 	background-image: url(":images/inY+.png");
 	}
-/*QPushButton#probe_inXplusYplus {
+QPushButton#probe_inXplusYplus {
 	background-image: url(":images/inX+Y+.png");
-	}*/
+	}
 QPushButton#probe_inXminus{
 	background-image: url(":images/inX-.png");
 	}
@@ -408,15 +411,15 @@ QPushButton#probe_inhole{
 QPushButton#probe_inXplus {
 	background-image: url(":images/inX+.png");
 	}
-/*QPushButton#probe_inXminusYminus {
+QPushButton#probe_inXminusYminus {
 	background-image: url(":images/inX-Y-.png");
-	}*/
+	}
 QPushButton#probe_inYminus {
 	background-image: url(":images/inY-.png");
 	}
-/*QPushButton#probe_inXplusYminus {
+QPushButton#probe_inXplusYminus {
 	background-image: url(":images/inX+Y-.png");
-	}*/
+	}
 
 /* ************** Distance **************** */
 
@@ -463,15 +466,15 @@ QPushButton#probe_p_angle_y_plus_flip {
 
 /* **************************************** */
 
-/*QPushButton#probe_XminusYplus {
+QPushButton#probe_XminusYplus {
 	background-image: url(":images/X-Y+.png");
-	}*/
+	}
 QPushButton#probe_Yplus {
 	background-image: url(":images/Y+.png");
 	}
-/*QPushButton#probe_XplusYplus {
+QPushButton#probe_XplusYplus {
 	background-image: url(":images/X+Y+.png");
-	}*/
+	}
 QPushButton#probe_Xminus{
 	background-image: url(":images/X-.png");
 	}
@@ -481,21 +484,21 @@ QPushButton#probe_wk_center{
 QPushButton#probe_Xplus {
 	background-image: url(":images/X+.png");
 	}
-/*QPushButton#probe_XminusYminus {
+QPushButton#probe_XminusYminus {
 	background-image: url(":images/X-Y-.png");
-	}*/
+	}
 QPushButton#probe_Yminus {
 	background-image: url(":images/Y-.png");
 	}
-/*QPushButton#probe_XplusYminus {
+QPushButton#probe_XplusYminus {
 	background-image: url(":images/X+Y-.png");
-	}*/	
+	}	
 QPushButton#probe_workpiece_height {
 	background-image: url(":images/workpiece_height.png");
 	}	
-QPushButton#probe_ts_height {
+/*QPushButton#probe_ts_height {
 	background-image: url(":images/ts_height.png");
-	}	
+	}*/	
 /*QPushButton#probe_angleXplus {
 	background-image: url(":images/angleX+.png");
 	}	
@@ -531,6 +534,101 @@ QPushButton#probing_enable_pb:enabled:hover {
         color: white;
 }
 
+/* ******************** LCD ******************** */
+QLCDNumber#spindlespeedlcd{ 
+	background-color: rgb(0, 0, 0);
+	border: 1px solid rgb(113, 113, 113);
+	border-width: 1px;
+	border-radius: 2px;
+	color: rgba(0, 255, 0, 100%);
+}
+QLCDNumber#timehrslcd, QLCDNumber#timeminlcd, QLCDNumber#timeseclcd{
+	background-color: rgb(0, 0, 0);
+	border: 1px solid rgb(113, 113, 113);
+	border-width: 1px;
+	border-radius: 2px;
+	color: rgba(255, 255, 0, 100%);}
+
+/*  spindlespeedlcd
+QLCDNumber{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 255);
+}
+QLCDNumber#spindle_speed_0_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 0, 0);
+}
+QLCDNumber#Spindle_Temp_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Spindle_Actual_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 0, 0);
+}
+QLCDNumber#Spindle_HP_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(0, 255, 0);
+}
+QLCDNumber#Spindle_Load_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(0, 255, 0);
+}
+QLCDNumber#Cycle_Hrs_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Cycle_Min_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Cycle_Sec_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Tool_PSI_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+QLCDNumber#Comp_PSI_lcd{
+	background-color: rgb(0, 0, 0);
+	border: 2px solid rgb(113, 113, 113);
+	border-width: 2px;
+	border-radius: 10px;
+	color: rgb(255, 255, 0);
+}
+*/
+/* ******************** LCD ******************** */
 /* ********** NOTES ********** */
 /*  QMainWindow{
 	background-color: rgba(0, 0, 192, 20%);
