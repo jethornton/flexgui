@@ -35,7 +35,7 @@ The following controls set-predefined views
    :widths: 40 40 40
 
 	**Control**, **Widget**, **Object Name**
-	View Perspetive, QPushButton, view_p_pb
+	View Perspective, QPushButton, view_p_pb
 	View X, QPushButton, view_x_pb
 	View Y, QPushButton, view_y_pb
 	View Y2, QPushButton, view_y2_pb
