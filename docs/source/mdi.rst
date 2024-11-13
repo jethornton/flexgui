@@ -58,10 +58,11 @@ history
    :width: 100%
    :align: center
 
-	Run MDI Command,run_mdi_pb
-	Copy the MDI History to the Clipboard, copy_mdi_history_pb
-	Save the MDI History to a file, save_mdi_history_pb
-	Clear the MDI History, clear_mdi_history_pb
+	**Function**, **Widget**, **Object Name**
+	Run MDI Command, QPushButton, run_mdi_pb
+	Copy the MDI History to the Clipboard, QPushButton, copy_mdi_history_pb
+	Save the MDI History to a file, QPushButton, save_mdi_history_pb
+	Clear the MDI History, QPushButton, clear_mdi_history_pb
 
 .. _MdiButtonTag:
 
