@@ -1,3 +1,9 @@
+flexgui (1.0.3) unstable; urgency=medium
+
+  * Add a lot of new features
+
+ -- John Thornton <dev@gnipsel.com>  Wed, 13 Nov 2024 07:57:11 -0600
+
 flexgui (1.0.2) unstable; urgency=medium
 
   * Add HAL readers
