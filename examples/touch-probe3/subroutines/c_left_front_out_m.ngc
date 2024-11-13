@@ -7,10 +7,10 @@ o<c_left_front_out_m> sub
 	#2006 = #5061				; store X start point
 	#2007 = #5062				; store Y start point
 	G91 G1 X#2005				; move to first edge
-	o<c_front>  call
+	o<c_front_m>  call
 	G90 G1 X#2006 Y#2007		; move back to start point
 	G91 G1 Y#2005				; move to second edge
-	o<c_left>  call
+	o<c_left_m>  call
 	G90 G1 X#2006 Y#2007		; move back to start point
 	G53 G0 Z #2036
 	G90 G1 X#2024 Y#2025
