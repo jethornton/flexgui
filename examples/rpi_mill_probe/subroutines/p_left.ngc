@@ -8,8 +8,10 @@ o<p_left> sub
 	(debug, X Center: #2024)
 ;	(debug, Raise Z, move to X#2024)
 ;	(debug, Press Set X)
-	G90 G0 X[#5061 - 0.2 + #2012]
-	(debug,Spindle center is X -0.2 from the edge)
+	G90 G0 X[#5061 - 0.2 + #2012] F #2000
+	G53 G0 Z #2036
+	G90 G1 X #2024
+	;(debug,Spindle center is X -0.2 from the edge)
 o<p_left> endsub
 
 M2
