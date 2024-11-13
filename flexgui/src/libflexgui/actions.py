@@ -487,6 +487,9 @@ def action_toggle_overlay(parent):
 	elif name == 'actionOverlay':
 		utilities.sync_checkboxes(parent, 'actionOverlay', 'view_overlay_cb')
 
+def action_clear_live_plot(parent):
+	parent.plotter.clear_live_plotter()
+
 def action_show_hal(parent): # actionShow_HAL
 	subprocess.Popen('halshow', cwd=parent.ini_path)
 
