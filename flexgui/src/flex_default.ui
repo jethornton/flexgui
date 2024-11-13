@@ -25,6 +25,16 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Documents https://gnipsel.com/linuxcnc/flexgui/index.html</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -40,7 +50,7 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
+    <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -55,11 +65,11 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionOpen"/>
+   <addaction name="actionQuit"/>
   </widget>
-  <action name="actionOpen">
+  <action name="actionQuit">
    <property name="text">
-    <string>Open</string>
+    <string>Quit</string>
    </property>
   </action>
  </widget>
