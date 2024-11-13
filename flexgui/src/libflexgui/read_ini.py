@@ -67,6 +67,6 @@ def read(parent):
 	#print(background_color)
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
-	print(parent.plot_background_color)
+
 
 
