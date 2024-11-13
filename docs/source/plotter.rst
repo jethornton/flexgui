@@ -85,7 +85,8 @@ Menu
 ----
 
 The following menu items can set display options. `Menu Name` is what you
-type when creating the Menu, then press enter.
+type when creating the Menu, then press enter. All the items are checkbox type
+menu items that stay coordinated with the checkbox of the same option.
 
 .. csv-table:: Display Menu Options
    :width: 100%
@@ -108,6 +109,16 @@ type when creating the Menu, then press enter.
 	View Overlay, Overlay, actionOverlay
 
 .. note:: Once a view selection has been set, Flex GUI remembers it.
+
+The live plot can be cleared from the menu with
+
+.. csv-table:: Plot Menu
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	**Function**, **Menu Name**, **Object Name**
+	Clear Live Plot, Clear Live Plot, actionClear_Live_Plot
 
 DRO
 ---

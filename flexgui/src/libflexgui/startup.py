@@ -475,7 +475,6 @@ def setup_menus(parent):
 		for index, action in enumerate(menu_list):
 	'''
 
-
 def setup_actions(parent): # setup menu actions
 	actions_dict = {
 		'actionOpen': 'action_open',
@@ -501,7 +500,8 @@ def setup_actions(parent): # setup menu actions
 		'actionHAL_Meter': 'action_hal_meter',
 		'actionHAL_Scope': 'action_hal_scope',
 		'actionAbout': 'action_about',
-		'actionQuick_Reference': 'action_quick_reference'}
+		'actionQuick_Reference': 'action_quick_reference',
+		'actionClear_Live_Plot': 'action_clear_live_plot'}
 
 	# if an action is found connect it to the function
 	for key, value in actions_dict.items():
