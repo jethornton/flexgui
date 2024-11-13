@@ -3,7 +3,7 @@ o<p_tool> sub
 
 	F #2000
 	G90 G53 G1 Z[#<_ini[AXIS_Z]MAX_LIMIT>-.0001]
-	G53 G0 X #2005 Y #2006
+	G53 G0 X #2033 Y #2034
 	G53 G1 Z #2009
 	G4 P0.5
 	G91
