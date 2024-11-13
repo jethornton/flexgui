@@ -3853,6 +3853,8 @@ ENABLE</string>
     <addaction name="separator"/>
     <addaction name="actionHoming"/>
     <addaction name="separator"/>
+    <addaction name="actionClear_Offsets"/>
+    <addaction name="separator"/>
     <addaction name="actionClear_MDI_History"/>
     <addaction name="actionCopy_MDI_History"/>
    </widget>
@@ -4067,6 +4069,11 @@ ENABLE</string>
   <action name="actionHoming">
    <property name="text">
     <string>Homing</string>
+   </property>
+  </action>
+  <action name="actionClear_Offsets">
+   <property name="text">
+    <string>Clear Offsets</string>
    </property>
   </action>
  </widget>
