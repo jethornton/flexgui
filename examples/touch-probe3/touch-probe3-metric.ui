@@ -2616,7 +2616,7 @@ SET</string>
         <x>25</x>
         <y>30</y>
         <width>431</width>
-        <height>276</height>
+        <height>316</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -3052,8 +3052,8 @@ SET</string>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
-         <x>320</x>
-         <y>205</y>
+         <x>160</x>
+         <y>260</y>
          <width>87</width>
          <height>27</height>
         </rect>
@@ -3119,6 +3119,59 @@ SET</string>
        </property>
        <property name="variable" stdset="0">
         <string>2045</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="ops_speed">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>205</y>
+         <width>91</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter Spindle speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>-1</number>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>9999.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>500.000000000000000</double>
+       </property>
+       <property name="function" stdset="0">
+        <string>get_var</string>
+       </property>
+       <property name="variable" stdset="0">
+        <string>2046</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_57">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>215</y>
+         <width>76</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SPEED</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </widget>
