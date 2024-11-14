@@ -14,6 +14,8 @@ o<bolt_hole_pattern> endsub
 M2
 
 ;	Parameters
+;	#2006	X start point  			
+;	#2007	Y start point
 ;	#2037	diameter
 ;	#2038	hole count
 ;	#2039	start angle
