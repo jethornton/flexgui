@@ -13,5 +13,15 @@ o<bolt_hole_pattern_m> sub
 o<bolt_hole_pattern_m> endsub
 M2
 
+;	Parameters
+;	#2037	diameter
+;	#2038	hole count
+;	#2039	start angle
+;	#2040	angle increment
+;	#2041	start
+;	#2042	Z depth
+;	#2043	Radius
+;	#2044 	Feedrate
+;	#2045 	Clear Return point
 
 
