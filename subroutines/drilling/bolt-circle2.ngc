@@ -1,0 +1,23 @@
+G0 X2 Y2
+
+(#1000 number of holes)
+(#1001 radius of bolt circle)
+
+#100 = 0 (assign parameter #100 the value of 0)
+#102 = [360 / #1000] (angle of each rotation)
+
+G92 X0 Y0
+
+F100
+G1 Y#1001
+G91
+
+
+o101 while [#100 LT #101]
+	^#102
+	#100 = [#100 + 1] (increment the counter)
+o101 endwhile
+G90
+G0 X0 Y0
+G92.1
+M2
