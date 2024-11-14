@@ -1,0 +1,17 @@
+o<bolt_hole_pattern_m> sub
+	G21
+	#2043 = [#2037 / 2]				; Pattern Radius
+	#2040 = [360 / #2038]			; Circle / number of holes
+	G0 G90 X#2006 Y #2007			; Find center
+	G92 X0 Y0						; Shift the work offset
+	G0 G90 X 0 Y 0					; Find new center
+	G0 @[0 + #2043] ^#2039 Z0		; Position over first hole establishing radius
+	G1 Z #2041 F #2044				; Move to Z start depth
+	G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044
+	G92.1							; turn offset off
+	G90 G0 X0 Y0					; move back to original center
+o<bolt_hole_pattern_m> endsub
+M2
+
+
+
