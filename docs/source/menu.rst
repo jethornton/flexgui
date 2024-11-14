@@ -75,6 +75,7 @@ create an action name.
 	DTG, actionDTG
 	Offsets, actionOffsets
 	Overlay, actionOverlay
+	Clear Live Plot, actionClear_Live_Plot
 
 	**Help**, **Action Name**
 	About, actionAbout
