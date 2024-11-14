@@ -1,0 +1,31 @@
+o<bolt_circle> sub
+	G20 S#1111
+	#1108 = [#1102 / 2] ; Pattern Radius
+	#1105 = [360 / #1103] ; Circle / number of holes
+	G0 G90 X#1100 Y #1101 ; Find center
+	G92 X0 Y0 ; Shift the work offset
+	G0 G90 X 0 Y 0 ; Find new center
+	M3
+	G0 @[0 + #1108] ^#1104 Z0 ; Position over first hole establishing radius
+	G1 Z #1106 F #1109 ; Move to Z start depth
+	G91 G98 G81 R#1110 Z#1107 ^#1105 L#1103 F#1109
+	M5
+	G92.1 ; turn offset off
+	G90 G0 X0 Y0 ; move back to original center
+o<bolt_circle> endsub
+M2
+
+;	Parameters
+;	#1100 X start point
+;	#1101 Y start point
+;	#1102 diameter
+;	#1103 hole count
+;	#1104 start angle
+;	#1105 angle increment
+;	#1106 Z start
+;	#1107 Z depth
+;	#1108 Radius
+;	#1109 Feedrate
+;	#1110 Z Clear Return point
+; #1111 RPM
+
