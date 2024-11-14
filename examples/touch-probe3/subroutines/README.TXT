@@ -7,7 +7,7 @@ To make user variables persistent create an entry in the .var file for each one 
 2000	0.000000
 2001	0.000000
 . . . .
-2039	0.000000
+2045	0.000000
 
 The values entered from the UI will be saved to the .var file loaded upon startup and 
 updated as changes are made. The following user number variables are used or reserved
@@ -20,8 +20,8 @@ Some are used in the UI file and some are workspace variables.
 #2003	RETRACT_DIST
 #2004	XY_travel_dist
 #2005	offset dist to begin corner probing  			    
-#2006	X start point for corners   			
-#2007	Y start point for corners
+#2006	X start point for corners & bolt pattern center  			
+#2007	Y start point for corners & bolt pattern center
 #2008	Z max for bar & tool
 #2009	tool Z Start dist
 #2010	max hole radius
@@ -51,6 +51,22 @@ Some are used in the UI file and some are workspace variables.
 #2034	setter Y coord reserved
 #2035	setter Z coord reserved
 #2036	Z-safe for edge probe routines
-#2037	reserved
-#2038	reserved
-#2039	reserved
+#2037	bolt pattern diameter
+#2038	bolt pattern hole count
+#2039	bolt pattern start angle
+#2040	bolt pattern angle increment
+#2041	bolt pattern start
+#2042	bolt pattern Z depth
+#2043	bolt pattern Radius
+#2044 	bolt pattern Feedrate
+#2045 	bolt pattern Clear Return point
+#2046	reserved
+#2047	reserved
+#2048	reserved
+#2049	reserved
+#2050	reserved
+
+
+
+
+
