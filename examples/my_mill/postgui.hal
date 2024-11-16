@@ -1,0 +1,2 @@
+net some_signal_name flexhal.hal_label <= flexhal.hal_slider
+net some_signal_name flexhal.hal_lcd

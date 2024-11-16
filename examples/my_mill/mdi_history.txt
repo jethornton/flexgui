@@ -1,0 +1,18 @@
+o<pxplus> call
+o<pxplus> call
+o<pxplus> call
+o<pxplus> call
+o<pxplus> call
+G0 X2 Y2
+G90
+G0 X1 Y1
+G0 X1 Y1
+G0 X2 Y2
+G0 X2 Y2
+G0 X0 Y0
+G10 L2 P0 X0 Y0 Z0
+G0 X2Y2
+G10 L2 P0 X0 Y0 Z0
+G0 X2Y2
+G10 L2 P0 X0 Y0 Z0
+G0 X2Y2
