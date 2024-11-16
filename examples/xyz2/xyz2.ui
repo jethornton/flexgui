@@ -71,7 +71,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -165,7 +165,11 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="1" column="0">
-            <widget class="QLineEdit" name="mdi_command_le"/>
+            <widget class="QPushButton" name="zero_x_pb">
+             <property name="text">
+              <string>Set X 0</string>
+             </property>
+            </widget>
            </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="home_all_pb">
@@ -174,12 +178,22 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QPushButton" name="run_mdi_pb">
              <property name="text">
               <string>Run MDI</string>
              </property>
             </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="zero_y_pb">
+             <property name="text">
+              <string>Set Y 0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QLineEdit" name="mdi_command_le"/>
            </item>
           </layout>
          </widget>
@@ -330,7 +344,7 @@
             <number>-1</number>
            </property>
            <property name="decimals">
-            <number>3</number>
+            <number>1</number>
            </property>
            <property name="minimum">
             <double>0.000000000000000</double>
@@ -342,13 +356,13 @@
             <double>0.001000000000000</double>
            </property>
            <property name="value">
-            <double>10.000000000000000</double>
+            <double>0.000000000000000</double>
            </property>
            <property name="function" stdset="0">
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1109</string>
+            <string>1008</string>
            </property>
           </widget>
          </item>
@@ -379,7 +393,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1103</string>
+            <string>1003</string>
            </property>
           </widget>
          </item>
@@ -420,7 +434,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1101</string>
+            <string>1001</string>
            </property>
           </widget>
          </item>
@@ -456,22 +470,22 @@
             <number>3</number>
            </property>
            <property name="minimum">
-            <double>0.001000000000000</double>
+            <double>0.000000000000000</double>
            </property>
            <property name="maximum">
             <double>999.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>0.001000000000000</double>
+            <double>1.000000000000000</double>
            </property>
            <property name="value">
-            <double>1.000000000000000</double>
+            <double>0.000000000000000</double>
            </property>
            <property name="function" stdset="0">
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1102</string>
+            <string>1002</string>
            </property>
           </widget>
          </item>
@@ -502,7 +516,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1100</string>
+            <string>1000</string>
            </property>
           </widget>
          </item>
@@ -527,13 +541,13 @@
             <double>0.001000000000000</double>
            </property>
            <property name="value">
-            <double>-0.500000000000000</double>
+            <double>0.000000000000000</double>
            </property>
            <property name="function" stdset="0">
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1107</string>
+            <string>1006</string>
            </property>
           </widget>
          </item>
@@ -564,7 +578,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1106</string>
+            <string>1005</string>
            </property>
           </widget>
          </item>
@@ -595,7 +609,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1110</string>
+            <string>1007</string>
            </property>
           </widget>
          </item>
@@ -638,7 +652,7 @@
             <number>-1</number>
            </property>
            <property name="decimals">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="minimum">
             <double>0.000000000000000</double>
@@ -656,7 +670,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1104</string>
+            <string>1004</string>
            </property>
           </widget>
          </item>
@@ -682,7 +696,7 @@
             <number>-1</number>
            </property>
            <property name="decimals">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="minimum">
             <double>0.000000000000000</double>
@@ -700,7 +714,7 @@
             <string>get_var</string>
            </property>
            <property name="variable" stdset="0">
-            <string>1111</string>
+            <string>1009</string>
            </property>
           </widget>
          </item>
