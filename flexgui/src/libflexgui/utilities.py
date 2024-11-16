@@ -191,7 +191,7 @@ def var_value_changed(parent, value):
 	parent.var_timer.stop()
 	variable = parent.sender().property('variable')
 	parent.cmd = f'#{variable}={value}'
-	parent.var_timer.start(2000)  # Timeout after 2 seconds
+	parent.var_timer.start(500)  # Timeout after 0.5 seconds
 
 def sync_var_file(parent):
 	if parent.status.task_state == emc.STATE_ON:
