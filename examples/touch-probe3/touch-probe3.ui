@@ -2645,7 +2645,7 @@ SET</string>
           <x>10</x>
           <y>40</y>
           <width>431</width>
-          <height>316</height>
+          <height>391</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -3081,14 +3081,14 @@ SET</string>
         <widget class="QPushButton" name="pushButton">
          <property name="geometry">
           <rect>
-           <x>160</x>
-           <y>260</y>
-           <width>87</width>
+           <x>35</x>
+           <y>335</y>
+           <width>156</width>
            <height>27</height>
           </rect>
          </property>
          <property name="text">
-          <string>RUN</string>
+          <string>RUN HOLE PATTERN</string>
          </property>
          <property name="function" stdset="0">
           <string>mdi</string>
@@ -3203,11 +3203,96 @@ SET</string>
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>335</y>
+           <width>161</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>RUN COUNTERSINK</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>mdi</string>
+         </property>
+         <property name="command" stdset="0">
+          <string>o&lt;bolt_hole_countersink_pattern&gt; call</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_63">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>310</y>
+           <width>301</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Set Countersink Parameters in Hole Mill Tab</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_Qword">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>255</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start angle for first hole.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>50.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2059</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_68">
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>265</y>
+           <width>281</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Q WORD FOR PECK 0-normal &gt;0 peck </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
-        <string>Help</string>
+        <string>Pattern Help</string>
        </attribute>
        <widget class="QLabel" name="label_15">
         <property name="geometry">
@@ -3215,11 +3300,509 @@ SET</string>
           <x>5</x>
           <y>10</y>
           <width>496</width>
-          <height>381</height>
+          <height>426</height>
          </rect>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To start over the active offset X0 Y0, leave &lt;span style=&quot; font-weight:600;&quot;&gt;Center X Center Y &lt;/span&gt;set to 0&lt;/p&gt;&lt;p&gt;and jog to X0 Y0 before beginning. Enter a value here to run the op&lt;/p&gt;&lt;p&gt;at an offset from X0 Y0 using G92. This will be the &lt;span style=&quot; font-weight:600;&quot;&gt;Diameter&lt;/span&gt; center.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Diameter&lt;/span&gt; is the diameter for the hole centers.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Holes &lt;/span&gt;is the hole count in the circular array.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Start Angle&lt;/span&gt; set to 0 starts at 0 deg starting on the right side going CCW.&lt;/p&gt;&lt;p&gt;To have an offset angle for the starting hole enter the angle here.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zstart&lt;/span&gt; - moves to this depth before starting the drill cycle and&lt;/p&gt;&lt;p&gt;should be at or below Z0 for the tool (negative). &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zdepth&lt;/span&gt; - final depth of the hole including ZClear.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ZClear&lt;/span&gt; - Z safe height above Z Start.&lt;/p&gt;&lt;p&gt;Enter proper &lt;span style=&quot; font-weight:600;&quot;&gt;Speed&lt;/span&gt; &amp;amp; &lt;span style=&quot; font-weight:600;&quot;&gt;Feed&lt;/span&gt; for your drill.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To start over the active offset X0 Y0, leave &lt;span style=&quot; font-weight:600;&quot;&gt;Center X Center Y &lt;/span&gt;set to 0&lt;/p&gt;&lt;p&gt;and jog to X0 Y0 before beginning. Enter a value here to run the op&lt;/p&gt;&lt;p&gt;at an offset from X0 Y0 using G92. This will be the &lt;span style=&quot; font-weight:600;&quot;&gt;Diameter&lt;/span&gt; center.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Diameter&lt;/span&gt; is the diameter for the hole centers.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Holes &lt;/span&gt;is the hole count in the circular array.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Start Angle&lt;/span&gt; set to 0 starts at 0 deg starting on the right side going CCW.&lt;/p&gt;&lt;p&gt;To have an offset angle for the starting hole enter the angle here.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zstart&lt;/span&gt; - moves to this depth before starting the drill cycle and&lt;/p&gt;&lt;p&gt;should be at or below Z0 for the tool (negative). &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zdepth&lt;/span&gt; - final depth of the hole including ZClear.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ZClear&lt;/span&gt; - Z safe height above Z Start.&lt;/p&gt;&lt;p&gt;Enter proper &lt;span style=&quot; font-weight:600;&quot;&gt;Speed&lt;/span&gt; &amp;amp; &lt;span style=&quot; font-weight:600;&quot;&gt;Feed&lt;/span&gt; for your drill. &lt;/p&gt;&lt;p&gt;For peck cycle &lt;span style=&quot; font-weight:600;&quot;&gt;G83 &lt;/span&gt;enter a Q word value. A zero Q word value selects&lt;/p&gt;&lt;p&gt;the normal &lt;span style=&quot; font-weight:600;&quot;&gt;G81&lt;/span&gt; drill cycle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>Hole MIll</string>
+       </attribute>
+       <widget class="QLabel" name="label_33">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>15</y>
+          <width>151</width>
+          <height>19</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Hole MIll</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame_11">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>431</width>
+          <height>316</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label_58">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>115</y>
+           <width>106</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>HOLE DIAM</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_59">
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>65</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Y CENTER</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_center_y">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>55</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Circle Y center value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2056</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_60">
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>15</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>X CENTER</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_tool_diam">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>205</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of holes in pattern.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>0.125000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>0.750000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.188000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2047</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_61">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>215</y>
+           <width>91</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>TOOL DIAM</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_center_x">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>5</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Circle X center value. Leave at 0 to start over the active offset X0 Y0.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2055</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_diam">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>105</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole Pattern Diameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.125000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>0.750000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.250000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2052</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_z_hole_depth">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>155</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Z Final depth of hole.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>-0.250000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2051</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_64">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>165</y>
+           <width>101</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>HOLE DEPTH</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_feed">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>55</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feedrate for drill cycle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>10.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2053</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_65">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>65</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>FEEDRATE</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>260</y>
+           <width>87</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>RUN</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>mdi</string>
+         </property>
+         <property name="command" stdset="0">
+          <string>o&lt;hole_mill&gt; call</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_66">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>15</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Z CLEAR</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_z_hole_clear">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>5</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Z Safe return level above Z Start.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2050</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_speed">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>105</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter Spindle speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>0</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>9999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="value">
+          <double>2000.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2054</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_67">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>115</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SPEED</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_11">
+       <attribute name="title">
+        <string>Mill Help</string>
+       </attribute>
+       <widget class="QLabel" name="label_62">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>476</width>
+          <height>376</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the proper endmill and set it's zero offset ahead of this.&lt;/p&gt;&lt;p&gt;To cut a single hole use &lt;span style=&quot; font-weight:600;&quot;&gt;Hole Mill&lt;/span&gt; for all setting in &lt;span style=&quot; font-weight:600;&quot;&gt;Hole Mill&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;To run a pattern, set the hole parameters in &lt;span style=&quot; font-weight:600;&quot;&gt;Hole MIll&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;X Y Center in &lt;span style=&quot; font-weight:600;&quot;&gt;Hole Mill&lt;/span&gt; Must be at 0.&lt;/p&gt;&lt;p&gt;Feed &amp;amp; Speed are set in Hole MIll not in &lt;span style=&quot; font-weight:600;&quot;&gt;Hole Pattern&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;All Z offsets are set in &lt;span style=&quot; font-weight:600;&quot;&gt;Hole Mill&lt;/span&gt; those are ignored in &lt;span style=&quot; font-weight:600;&quot;&gt;Hole Pattern&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;Move to hole pattern and set up the pattern.&lt;/p&gt;&lt;p&gt;Diameter, Hole, Start Angle&lt;/p&gt;&lt;p&gt;Position X0 Y0 where you want to start the pattern.&lt;/p&gt;&lt;p&gt;Press the &amp;quot; RUN COUNTERSINK&amp;quot; button.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
        </widget>
       </widget>
