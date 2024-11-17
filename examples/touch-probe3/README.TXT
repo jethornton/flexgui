@@ -7,7 +7,7 @@ To make user variables persistent create an entry in the .var file for each one 
 2000	0.000000
 2001	0.000000
 . . . .
-2039	0.000000
+2070	0.000000
 
 The values entered from the UI will be saved to the .var file loaded upon startup and 
 updated as changes are made. The following user number variables are used or reserved
@@ -20,8 +20,8 @@ Some are used in the UI file and some are workspace variables.
 #2003	RETRACT_DIST
 #2004	XY_travel_dist
 #2005	offset dist to begin corner probing  			    
-#2006	X start point for corners   			
-#2007	Y start point for corners
+#2006	X start point for corners, bolt pattern center & hole mill 			
+#2007	Y start point for corners, bolt pattern center & hole mill
 #2008	Z max for bar & tool
 #2009	tool Z Start dist
 #2010	max hole radius
@@ -51,6 +51,41 @@ Some are used in the UI file and some are workspace variables.
 #2034	setter Y coord reserved
 #2035	setter Z coord reserved
 #2036	Z-safe for edge probe routines
-#2037	reserved
-#2038	reserved
-#2039	reserved
+
+#2037	hole pattern diameter
+#2038	hole pattern hole count
+#2039	hole pattern start angle
+#2040	hole pattern angle increment
+#2041	hole pattern start
+#2042	hole pattern Z depth
+#2043	hole pattern Radius
+#2044 	hole pattern Feedrate
+#2045 	hole pattern Clear Return point
+#2046	hole pattern spindle speed
+
+#2047	hole mill tool diameter
+#2048	hole mill depth of cut
+#2049	hole mill current depth step
+#2050	hole mill Clear Return point
+#2051	hole mill Z depth
+#2052	hole mill diameter
+#2053	hole mill feedrate
+#2054	hole mill spindle speed
+#2055	hole mill X start point 
+#2056	hole mill Y start point 
+#2057	countersink pattern angle increment additive
+#2058	temp counter for restore
+#2059	Q word for G83 drill cycle
+#2060	reserved
+#2061	reserved
+#2062	reserved
+#2063	reserved
+#2064	reserved
+#2065	reserved
+#2066	reserved
+#2067	reserved
+#2068	reserved
+#2069	reserved
+#2070	reserved
+
+
