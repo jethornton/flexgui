@@ -13,7 +13,11 @@ o<bolt_hole_pattern> sub
 	M3								; Spindle On
 	G0 @[0 + #2043] ^#2039 Z0		; Position over first hole establishing radius
 	G1 Z #2041 F #2044				; Move to Z start depth
-	G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044
+	o101 if [#2059 EQ 0]
+		G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044		; normao drill cycle
+	o101 else
+		G91 G98 G83 R#2045 Q#2059 Z#2042 ^#2040 L#2038 F#2044	; fixup for peck drill
+	o101 endif
 	M5								; Turn spindle off
 	G92.1							; turn offset off
 	G90 G0 X0 Y0					; move back to original center
@@ -33,4 +37,4 @@ M2
 ;	#2044 	Feedrate
 ;	#2045 	Clear Return point
 ;	#2046	Spindle speed
-
+	#2059	Peck Q word. If 0 regular drill cycle >0 peck selected
