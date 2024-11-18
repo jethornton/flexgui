@@ -6,12 +6,13 @@ o<bolt_hole_pattern> sub
 	G20 S#2046
 	#2043 = [#2037 / 2]				; Pattern Radius
 	#2040 = [360 / #2038]			; Circle / number of holes
-	G0 Z0
+	G0 G90 G53 Z0
+	G43 Z#2045 H#5400			; move to z clear #5400 tool in spindle
 	G0 G90 X#2006 Y #2007			; Find center
 	G92 X0 Y0						; Shift the work offset
 	G0 G90 X 0 Y 0					; Find new center
 	M3								; Spindle On
-	G0 @[0 + #2043] ^#2039 Z0		; Position over first hole establishing radius
+	G0 @[0 + #2043] ^#2039 Z#2045	; Position over first hole establishing radius
 	G1 Z #2041 F #2044				; Move to Z start depth
 	o101 if [#2059 EQ 0]
 		G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044		; normao drill cycle
