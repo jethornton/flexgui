@@ -1227,7 +1227,8 @@ def setup_hal(parent):
 	hal_buttons = []
 	hal_spinboxes = []
 	hal_sliders = []
-	hal_lcd = []
+	hal_lcds = []
+	hal_leds = []
 	parent.hal_io = {}
 	parent.hal_readers = {}
 	parent.hal_floats = {}
@@ -1263,7 +1264,6 @@ def setup_hal(parent):
 					'will not contain any value.')
 					dialogs.warn_msg_ok(msg, 'Error')
 
-
 	for child in children:
 		if child.property('function') == 'hal_pin':
 			if isinstance(child, QAbstractButton):
@@ -1275,11 +1275,14 @@ def setup_hal(parent):
 			elif isinstance(child, QLabel):
 				hal_labels.append(child)
 			elif isinstance(child, QLCDNumber):
-				hal_lcd.append(child)
+				hal_lcds.append(child)
+		elif child.property('function') == 'hal_led':
+			if isinstance(child, QLabel):
+				hal_leds.append(child)
 
-	if len(hal_lcd) > 0: # setup hal labels
+	if len(hal_lcds) > 0: # setup hal labels
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
-		for lcd in hal_lcd:
+		for lcd in hal_lcds:
 			lcd_name = lcd.objectName()
 			pin_name = lcd.property('pin_name')
 			if pin_name in dir(parent):
@@ -1589,6 +1592,22 @@ def setup_hal(parent):
 					parent.home_required.append(slider_name)
 				else:
 					parent.state_on[slider_name] = True
+
+	if len(hal_leds) > 0: # setup hal leds
+		for led in hal_leds:
+			hal_type = getattr(hal, f'{led.property("hal_type")}')
+			print(f'hal_type {hal_type}')
+			hal_dir = getattr(hal, f'{led.property("hal_dir")}')
+			print(f'hal_dir {hal_dir}')
+			pin_name = led.property('pin_name')
+			print(f'pin_name {pin_name}')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+
+
+
+
+
 
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.children:
