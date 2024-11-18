@@ -1,7 +1,7 @@
 import os
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
-from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox
+from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox, QPlainTextEdit
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 
@@ -241,5 +241,25 @@ def quick_reference_dialog(parent):
 	layout.addWidget(buttonBox)
 
 	dialog_box.exec()
+
+def help_dialog(parent):
+	btn = parent.sender()
+	print(btn.property('file'))
+	print(parent.ini_path)
+	with open(os.path.join(parent.ini_path, btn.property('file'))) as f:
+		lines = f.readlines()
+	print(lines)
+
+	dialog_box = QDialog()
+	dialog_box.setMinimumSize(300, 300)
+	dialog_box.setWindowTitle(btn.property('topic'))
+
+	layout = QVBoxLayout(dialog_box)
+	text_edit = QPlainTextEdit()
+	layout.addWidget(text_edit)
+
+
+	dialog_box.run() # This opens the dialog as non-modal
+
 
 
