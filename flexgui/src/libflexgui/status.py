@@ -132,7 +132,7 @@ def update(parent):
 				#print(f'{TASK_MODES[parent.status.task_mode]}')
 
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
-				#print('status update INTERP_IDLE MODE_MANUAL')
+				#print('status update INTERP_IDLE MODE_MDI')
 				if parent.mdi_command: # only update mdi if it's configured
 					utilities.update_mdi(parent)
 				else:
@@ -170,12 +170,12 @@ def update(parent):
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
 
-			if parent.status.interp_state == emc.INTERP_IDLE:
-				if parent.mdi_command:
-					utilities.update_mdi(parent)
-				else:
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
+			#if parent.status.interp_state == emc.INTERP_IDLE:
+			#	if parent.mdi_command:
+			#		utilities.update_mdi(parent)
+				#else:
+				#	parent.command.mode(emc.MODE_MANUAL)
+				#	parent.command.wait_complete()
 
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
@@ -273,7 +273,7 @@ def update(parent):
 			parent.gcode_pte.setTextCursor(cursor)
 			parent.last_line = motion_line
 
-	# update hal labels
+	# update hal labels key is label name and value is pin name
 	for key, value in parent.hal_readers.items():
 		value = hal.get_value(f'flexhal.{value}')
 		if isinstance(getattr(parent, key), QLCDNumber):
