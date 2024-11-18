@@ -221,4 +221,5 @@ def update_hal_spinbox(parent, value):
 def update_hal_slider(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
-
+def set_hal_image(parent):
+	print(parent.sender().objectName())
