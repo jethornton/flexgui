@@ -1775,6 +1775,12 @@ def setup_import(parent):
 				'module code.')
 			dialogs.warn_msg_ok(msg, 'Import Failed')
 
+def setup_help(parent):
+	children = parent.findChildren(QPushButton)
+	for child in children:
+		if child.property('function') == 'help':
+			child.clicked.connect(partial(dialogs.help_dialog, parent))
+
 def set_status(parent): # this is only used if running from a terminal
 	parent.status.poll()
 	if parent.status.task_state == linuxcnc.STATE_ESTOP:
