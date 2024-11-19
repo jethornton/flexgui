@@ -3275,18 +3275,18 @@ SET</string>
         <widget class="QLabel" name="label_68">
          <property name="geometry">
           <rect>
-           <x>235</x>
-           <y>255</y>
-           <width>141</width>
+           <x>240</x>
+           <y>260</y>
+           <width>136</width>
            <height>41</height>
           </rect>
          </property>
          <property name="text">
           <string>Q WORD FOR PECK
- 0-normal &gt;0 peck </string>
+0 normal   &gt;0 peck</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
         </widget>
         <widget class="QDoubleSpinBox" name="ops_hole_tap_select">
@@ -3679,7 +3679,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>320</x>
-           <y>55</y>
+           <y>105</y>
            <width>91</width>
            <height>28</height>
           </rect>
@@ -3716,7 +3716,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>240</x>
-           <y>65</y>
+           <y>115</y>
            <width>76</width>
            <height>19</height>
           </rect>
@@ -3732,7 +3732,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>320</x>
-           <y>155</y>
+           <y>205</y>
            <width>87</width>
            <height>27</height>
           </rect>
@@ -3751,7 +3751,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>240</x>
-           <y>15</y>
+           <y>65</y>
            <width>76</width>
            <height>19</height>
           </rect>
@@ -3767,7 +3767,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>320</x>
-           <y>5</y>
+           <y>55</y>
            <width>91</width>
            <height>28</height>
           </rect>
@@ -3804,7 +3804,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>320</x>
-           <y>105</y>
+           <y>155</y>
            <width>91</width>
            <height>28</height>
           </rect>
@@ -3841,7 +3841,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>240</x>
-           <y>115</y>
+           <y>165</y>
            <width>76</width>
            <height>19</height>
           </rect>
@@ -3856,8 +3856,8 @@ SET</string>
         <widget class="QLabel" name="label_78">
          <property name="geometry">
           <rect>
-           <x>240</x>
-           <y>255</y>
+           <x>20</x>
+           <y>260</y>
            <width>176</width>
            <height>61</height>
           </rect>
@@ -3866,6 +3866,76 @@ SET</string>
           <string>Use a cutter at or more
 than the hole radius or
 make more than one pass.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_80">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>15</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Z START</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_hole_z_start">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>5</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Z Start depth (enter a value lower than Z clear).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2069</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_81">
+         <property name="geometry">
+          <rect>
+           <x>265</x>
+           <y>280</y>
+           <width>146</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ZCLEAR must be
+greater than ZSTART</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -4306,16 +4376,36 @@ make more than one pass.</string>
         <widget class="QLabel" name="label_71">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>245</y>
+           <x>55</x>
+           <y>260</y>
            <width>346</width>
-           <height>71</height>
+           <height>61</height>
           </rect>
          </property>
          <property name="text">
           <string>For single hole use, use X Y Center here.
 For Hole Pattern use, all tap settings are done here.
 Rigid Tapping X Y Center must be at zero.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_82">
+         <property name="geometry">
+          <rect>
+           <x>55</x>
+           <y>205</y>
+           <width>146</width>
+           <height>46</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ZCLEAR must be
+greater than ZSTART</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
         </widget>
        </widget>
