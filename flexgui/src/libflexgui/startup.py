@@ -808,7 +808,7 @@ def setup_mdi(parent):
 	if 'run_mdi_pb' in parent.children:
 		if 'mdi_command_le' in parent.children: # we are good to go
 			if parent.mdi_command_le.property('input') == 'nccode':
-			 parent.gcode_le.append('mdi_command_le')
+			 parent.mdi_command_le.append('mdi_command_le')
 			 parent.mdi_command_le.installEventFilter(parent)
 			elif parent.mdi_command_le.property('input') == 'keyboard':
 			 parent.keyboard_le.append('mdi_command_le')
