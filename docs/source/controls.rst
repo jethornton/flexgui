@@ -54,6 +54,23 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 .. note:: Tool-Touch-Off buttons require a Double Spin Box named
    `tool_touchoff_dsb`
 
+E Stop and Power
+----------------
+
+The E Stop push button Open/Closed state text can be set by adding two string
+type Dynamic Properties `open_text` and `closed_text`. The text in those two
+properties will be used if found.
+
+.. image:: /images/estop-01.png
+   :align: center
+
+The Power push button On/Off state text can be set by adding two string type
+Dynamic Properties `on_text` and `off_text`. The text in those two properties
+will be used if found.
+
+.. image:: /images/power-01.png
+   :align: center
+
 Coordinate System Controls
 --------------------------
 
