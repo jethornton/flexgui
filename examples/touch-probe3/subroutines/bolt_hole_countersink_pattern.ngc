@@ -7,12 +7,7 @@ o<bolt_hole_countersink_pattern> sub
 	#2043 = [#2037 / 2]					; Pattern Radius
 	#2058 = #2038						; temp counter for restore
 	#2040 = [360 / #2038]				; Circle / number of holes
-	; Zero external ops X0 Y0 to be safe
-	#2055 = 0							; hole mill X start point 
-	#2056 = 0							; hole mill X start point 
-	#2060 = 0							; tap X Center
-	#2061 = 0							; tap X Center
-	G0 G90 G53 Z0
+;	G0 G90 G53 Z0
 	G0 X0 Y0							; be sure to start at original X0 Y0
 	G43 Z#2050 H#5400					; move to z clear #5400 tool in spindle
 	M3									; Spindle On
