@@ -155,3 +155,34 @@ will appear, allowing you to enter the numbers
 .. image:: /images/dsc-01.png
    :align: center
 
+Help System
+-----------
+
+A QPushButton can be setup to launch a Help dialog which contains text from a
+file in the configuration directory. A help button can be placed on multiple
+places with different file names. Only one Help dialog can be open at a time.
+
+.. csv-table:: Help Button Dynamic Properties
+   :width: 100%
+   :align: left
+
+	**Property Name**, **Type**, **Value**
+	function, string, help
+	file, string, file name
+	topic, string, title of topic
+	x_pos, string, x location of upper right corner
+	y_pos, string, y location of upper right corner
+	horz_size, string, width
+	vert_size, string, height
+
+Dynamic Properties
+
+.. image:: /images/help-01.png
+   :align: center
+
+Help Dialog
+
+.. image:: /images/help-02.png
+   :align: center
+
+

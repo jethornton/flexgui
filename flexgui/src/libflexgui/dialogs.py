@@ -243,31 +243,32 @@ def quick_reference_dialog(parent):
 	dialog_box.exec()
 
 def help_dialog(parent):
-	print('here')
-	dialog = MyDialog()
-	dialog.show()  # This opens the dialog as non-modal
-	return
+	if parent.help_dialog is None:
+		btn = parent.sender()
+		width = btn.property('horz_size') or 250
+		if isinstance(width, str):
+			width = int(width)
+		height = btn.property('vert_size') or 250
+		if isinstance(height, str):
+			height = int(height)
+		x_pos = btn.property('x_pos') or 100
+		if isinstance(x_pos, str):
+			x_pos = int(x_pos)
+		y_pos = btn.property('y_pos') or 100
+		if isinstance(y_pos, str):
+			y_pos = int(y_pos)
 
-	btn = parent.sender()
-	print(btn.property('file'))
-	print(parent.ini_path)
-	with open(os.path.join(parent.ini_path, btn.property('file'))) as f:
-		lines = f.readlines()
-	print(lines)
+		parent.help_dialog = QDialog()
+		parent.help_dialog.setWindowTitle(btn.property('topic'))
+		parent.help_dialog.setGeometry(x_pos, y_pos, width, height)
+		layout = QVBoxLayout(parent.help_dialog)
+		text_edit = QPlainTextEdit()
+		layout.addWidget(text_edit)
+		with open(os.path.join(parent.ini_path, btn.property('file'))) as f:
+			lines = f.readlines()
+		for line in lines:
+			text_edit.appendPlainText(line.rstrip())
 
-	dialog_box = QDialog()
-	dialog_box.setMinimumSize(300, 300)
-	dialog_box.setWindowTitle(btn.property('topic'))
-
-	layout = QVBoxLayout(dialog_box)
-	text_edit = QPlainTextEdit()
-	layout.addWidget(text_edit)
-
-
-	dialog_box.run() # This opens the dialog as non-modal
-
-class MyDialog(QDialog):
-	def __init__(self):
-		super().__init__()
+	parent.help_dialog.show()
 
 
