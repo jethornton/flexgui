@@ -3275,18 +3275,18 @@ SET</string>
         <widget class="QLabel" name="label_68">
          <property name="geometry">
           <rect>
-           <x>235</x>
-           <y>255</y>
-           <width>141</width>
+           <x>240</x>
+           <y>260</y>
+           <width>136</width>
            <height>41</height>
           </rect>
          </property>
          <property name="text">
           <string>Q WORD FOR PECK
- 0-normal &gt;0 peck </string>
+0 normal   &gt;0 peck</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
         </widget>
         <widget class="QDoubleSpinBox" name="ops_hole_tap_select">
@@ -3856,8 +3856,8 @@ SET</string>
         <widget class="QLabel" name="label_78">
          <property name="geometry">
           <rect>
-           <x>240</x>
-           <y>255</y>
+           <x>20</x>
+           <y>260</y>
            <width>176</width>
            <height>61</height>
           </rect>
@@ -4306,16 +4306,36 @@ make more than one pass.</string>
         <widget class="QLabel" name="label_71">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>245</y>
+           <x>55</x>
+           <y>260</y>
            <width>346</width>
-           <height>71</height>
+           <height>61</height>
           </rect>
          </property>
          <property name="text">
           <string>For single hole use, use X Y Center here.
 For Hole Pattern use, all tap settings are done here.
 Rigid Tapping X Y Center must be at zero.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_82">
+         <property name="geometry">
+          <rect>
+           <x>55</x>
+           <y>205</y>
+           <width>146</width>
+           <height>46</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ZCLEAR must be
+greater than ZSTART</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
         </widget>
        </widget>
