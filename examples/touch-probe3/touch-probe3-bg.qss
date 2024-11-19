@@ -517,8 +517,8 @@ QFrame#logo {
     border-radius: 2px;
     padding: 2px;
 /*    background-image: url(:images/Flex-probe117.png); */
-/*    background-image: url(./images/Chips117_red.png); */
-    background-image: url(./images/Chips117_plain.png);
+/*    background-image: url(:images/Chips117_red.png); */
+    background-image: url(:images/Chips117_plain.png);
 
 }
 
