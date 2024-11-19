@@ -175,6 +175,9 @@ places with different file names. Only one Help dialog can be open at a time.
 	horz_size, string, width
 	vert_size, string, height
 
+.. note:: The x_pos is from the left edge of the screen and the y_pos is from
+   the top of the screen.
+
 Dynamic Properties
 
 .. image:: /images/help-01.png
