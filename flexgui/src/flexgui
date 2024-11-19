@@ -64,6 +64,7 @@ class flexgui(QMainWindow):
 		self.flood_state = self.status.flood
 		self.mist_state = self.status.mist
 		self.status_speed_setting = self.status.settings[2] # spindle speed
+		self.help_dialog = None
 
 		self.home_dir = os.path.expanduser('~')
 
@@ -256,6 +257,8 @@ class flexgui(QMainWindow):
 
 	def closeEvent(self, event):
 		shutdown.save_settings(self)
+		if self.help_dialog is not None:
+			self.help_dialog.close()
 
 app = QApplication(sys.argv)
 gui = flexgui()
