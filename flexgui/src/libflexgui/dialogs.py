@@ -243,6 +243,9 @@ def quick_reference_dialog(parent):
 	dialog_box.exec()
 
 def help_dialog(parent):
+	if parent.help_dialog is not None:
+		if not parent.help_dialog.isVisible():
+			parent.help_dialog = None
 	if parent.help_dialog is None:
 		btn = parent.sender()
 		width = btn.property('horz_size') or 250
