@@ -107,6 +107,16 @@ def setup_enables(parent):
 		'actionE_Stop': 'E Stop Open', 'power_pb': 'Power Off',
 		'actionPower': 'Power Off'}
 
+	if 'estop_pb' in parent.children:
+		open_text = parent.estop_pb.property('open_text')
+		if open_text is not None:
+			parent.state_estop_names['estop_pb'] = open_text
+
+	if 'power_pb' in parent.children:
+		off_text = parent.power_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_names['power_pb'] = off_text
+
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_names):
 		if item not in parent.children:
@@ -149,6 +159,16 @@ def setup_enables(parent):
 		'power_pb': 'Power Off', 'actionPower': 'Power Off'
 		}
 
+	if 'estop_pb' in parent.children:
+		closed_text = parent.estop_pb.property('closed_text')
+		if closed_text is not None:
+			parent.state_estop_reset_names['estop_pb'] = closed_text
+
+	if 'power_pb' in parent.children:
+		off_text = parent.power_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_reset_names['power_pb'] = off_text
+
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_reset_names):
 		if item not in parent.children:
@@ -176,6 +196,16 @@ def setup_enables(parent):
 	parent.state_on_names = {'estop_pb': 'E Stop Closed',
 		'actionE_Stop': 'E Stop Closed', 'power_pb': 'Power On',
 		'actionPower': 'Power On'}
+
+	if 'estop_pb' in parent.children:
+		closed_text = parent.estop_pb.property('closed_text')
+		if closed_text is not None:
+			parent.state_on_names['estop_pb'] = closed_text
+
+	if 'power_pb' in parent.children:
+		on_text = parent.power_pb.property('on_text')
+		if on_text is not None:
+			parent.state_on_names['power_pb'] = on_text
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on_names):
