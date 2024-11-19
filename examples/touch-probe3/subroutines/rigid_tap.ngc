@@ -5,7 +5,7 @@ o<rigid_tap> sub
 	o100 endif
 	#2066 = [1/#2065]			; TPI to IPR
 	G90 G17 G20
-	G53 G0 Z0					; start at safe machine Z0
+;	G53 G0 Z0					; start at safe machine Z0
 	S#2067 M03					; spindle speed set from UI
 	G0 X#2060 Y#2061 			; move over hole (zero for pattern)
 	G43 Z#2063 H#5400			; move to z clear #5400 tool in spindle

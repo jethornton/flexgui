@@ -6,7 +6,7 @@ o<bolt_hole_pattern> sub
 	G20 S#2046
 	#2043 = [#2037 / 2]				; Pattern Radius
 	#2040 = [360 / #2038]			; Circle / number of holes
-	G0 G90 G53 Z0
+;	G0 G90 G53 Z0
 	G43 Z#2045 H#5400			; move to z clear #5400 tool in spindle
 	G0 G90 X#2006 Y #2007			; Find center
 	G92 X0 Y0						; Shift the work offset
