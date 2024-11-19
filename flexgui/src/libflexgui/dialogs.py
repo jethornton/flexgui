@@ -243,6 +243,11 @@ def quick_reference_dialog(parent):
 	dialog_box.exec()
 
 def help_dialog(parent):
+	print('here')
+	dialog = MyDialog()
+	dialog.show()  # This opens the dialog as non-modal
+	return
+
 	btn = parent.sender()
 	print(btn.property('file'))
 	print(parent.ini_path)
@@ -261,5 +266,8 @@ def help_dialog(parent):
 
 	dialog_box.run() # This opens the dialog as non-modal
 
+class MyDialog(QDialog):
+	def __init__(self):
+		super().__init__()
 
 
