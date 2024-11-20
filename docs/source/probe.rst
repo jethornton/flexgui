@@ -1,8 +1,8 @@
 Probing
 =======
 
-Controls
---------
+Probe Enable
+------------
 
 Add a QPushButton named `probing_enable_pb` and if it is found it will be set as
 a toggle button. The button will only be enabled when the machine is homed and
@@ -28,6 +28,13 @@ styled with :checked and :enabled pseudo-states among others.
    pseudo-state
 
 For more style sheet options see the :doc:`style` section
+
+The text on the Probe Enable button can be set by adding two Dynamic Properties
+named `on_text` and `off_text`. Both must be present or no change will take
+place as there is no default text for the Probe Enable button.
+
+Function
+--------
 
 When the `probing_enable_pb` is toggled `OFF`, any widget with an object name
 that starts with `probe_` will be disabled.
