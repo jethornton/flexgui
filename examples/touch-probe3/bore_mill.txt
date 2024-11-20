@@ -1,10 +1,10 @@
-To bore a single hole use Bore Mill for all setting in Bore Mill.
-Select an endmill at least the hole radius size and set the Z length
-offset ahead of this and enter the TOOL DIAM (or make multiple passes).
+To bore a single hole use Bore Mill for all setting.
+Load a an endmill at least the hole radius size in the spindle and 
+set the Z length offset ahead of this and enter the TOOL DIAM (or make multiple passes).
 
-Feed & Speed for Mill are set in Bore Mill not in Hole Pattern.
+FEED & SPEED for Mill are set in Bore Mill not in Hole Pattern.
 
-Z-CLEAR for the bore is set in Bore Mill those in Pattern are ignored.
+Z-CLEAR for the bore is set in Bore Mill Z-CLEAR in Pattern is ignored.
 
 Only Pattern parameters are set up the pattern,
 XCENTER, YCENTER, DIAMETER, HOLES, START ANGLE.
