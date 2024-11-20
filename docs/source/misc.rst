@@ -170,8 +170,8 @@ places with different file names. Only one Help dialog can be open at a time.
 	function, string, help
 	file, string, file name
 	topic, string, title of topic
-	x_pos, string, x location of upper right corner
-	y_pos, string, y location of upper right corner
+	x_pos, string, x location of upper left corner
+	y_pos, string, y location of upper left corner
 	horz_size, string, width
 	vert_size, string, height
 
