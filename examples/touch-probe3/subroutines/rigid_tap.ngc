@@ -10,7 +10,6 @@ o<rigid_tap> sub
 	G0 X#2060 Y#2061 			; move over hole (zero for pattern)
 	G43 Z#2063 H#5400			; move to z clear #5400 tool in spindle
 	G1 Z #2062 F#2069				; move to z start
-;	G98 G33.1 Z -#2064 K#2066	; tap to hole depth
 	G98 G33.1 Z [#2062 -#2064] K#2066	; ZDEPTH is from ZSTART
 	G0 G90 Z #2063				; maybe #2062 + #2063 z clear
 	M05
