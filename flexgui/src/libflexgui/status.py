@@ -135,9 +135,9 @@ def update(parent):
 				#print('status update INTERP_IDLE MODE_MDI')
 				if parent.mdi_command: # only update mdi if it's configured
 					utilities.update_mdi(parent)
-				else:
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
+				#else:
+				#	parent.command.mode(emc.MODE_MANUAL)
+				#	parent.command.wait_complete()
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
