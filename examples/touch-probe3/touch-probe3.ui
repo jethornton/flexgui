@@ -2679,7 +2679,7 @@ SET</string>
           <x>5</x>
           <y>25</y>
           <width>491</width>
-          <height>416</height>
+          <height>411</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -3116,7 +3116,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>5</x>
-           <y>365</y>
+           <y>360</y>
            <width>156</width>
            <height>27</height>
           </rect>
@@ -3240,8 +3240,8 @@ SET</string>
         <widget class="QPushButton" name="pushButton_2">
          <property name="geometry">
           <rect>
-           <x>280</x>
-           <y>365</y>
+           <x>195</x>
+           <y>360</y>
            <width>191</width>
            <height>27</height>
           </rect>
@@ -3260,7 +3260,7 @@ SET</string>
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>340</y>
+           <y>335</y>
            <width>386</width>
            <height>21</height>
           </rect>
@@ -3395,8 +3395,8 @@ SET</string>
         <widget class="QPushButton" name="pattern_help_2">
          <property name="geometry">
           <rect>
-           <x>195</x>
-           <y>365</y>
+           <x>425</x>
+           <y>360</y>
            <width>46</width>
            <height>27</height>
           </rect>
@@ -3924,8 +3924,8 @@ make more than one pass.</string>
         <widget class="QPushButton" name="hole_mill_help">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>270</y>
+           <x>360</x>
+           <y>265</y>
            <width>46</width>
            <height>27</height>
           </rect>
@@ -3937,10 +3937,10 @@ make more than one pass.</string>
           <string>help</string>
          </property>
          <property name="file" stdset="0">
-          <string>hole_mill.txt</string>
+          <string>bore_mill.txt</string>
          </property>
          <property name="topic" stdset="0">
-          <string>Hole Mill Help</string>
+          <string>Bore Mill Help</string>
          </property>
          <property name="x_pos" stdset="0">
           <string>30</string>
@@ -4139,7 +4139,7 @@ make more than one pass.</string>
          <property name="geometry">
           <rect>
            <x>320</x>
-           <y>155</y>
+           <y>205</y>
            <width>87</width>
            <height>27</height>
           </rect>
@@ -4369,7 +4369,7 @@ make more than one pass.</string>
         <widget class="QLabel" name="label_71">
          <property name="geometry">
           <rect>
-           <x>55</x>
+           <x>5</x>
            <y>260</y>
            <width>346</width>
            <height>61</height>
@@ -4399,6 +4399,93 @@ greater than ZSTART</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_tap_feed">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>155</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feedrate for drill cycle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>10.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>get_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2069</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_80">
+         <property name="geometry">
+          <rect>
+           <x>215</x>
+           <y>165</y>
+           <width>101</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string> LINEAR FEED</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="rigid_tap_help">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>265</y>
+           <width>46</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Help</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>help</string>
+         </property>
+         <property name="file" stdset="0">
+          <string>rigid_tap.txt</string>
+         </property>
+         <property name="topic" stdset="0">
+          <string>Rigid Tap Help</string>
+         </property>
+         <property name="x_pos" stdset="0">
+          <string>30</string>
+         </property>
+         <property name="y_pos" stdset="0">
+          <string>100</string>
+         </property>
+         <property name="horz_size" stdset="0">
+          <string>540</string>
+         </property>
+         <property name="vert_size" stdset="0">
+          <string>300</string>
          </property>
         </widget>
        </widget>
