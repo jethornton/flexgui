@@ -7,7 +7,7 @@ Feed & Speed for Mill are set in Bore Mill not in Hole Pattern.
 Z-CLEAR for the bore is set in Bore Mill those in Pattern are ignored.
 
 Only Pattern parameters are set up the pattern,
-XCENTER, YCENTER< DIAMETER, HOLES, START ANGLE.
+XCENTER, YCENTER, DIAMETER, HOLES, START ANGLE.
 
 Position X0 Y0 where you want to start the pattern. An X Y offset
 in Pattern will be honored by Bore MILL and RIGID TAP.
