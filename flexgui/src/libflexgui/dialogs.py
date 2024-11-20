@@ -2,7 +2,7 @@ import os
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
 from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox, QPlainTextEdit
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QTextCursor
 from PyQt6.QtCore import Qt
 
 from libflexgui import number_pad
@@ -271,6 +271,13 @@ def help_dialog(parent):
 			lines = f.readlines()
 		for line in lines:
 			text_edit.appendPlainText(line.rstrip())
+
+		# Create a cursor object
+		cursor = text_edit.textCursor()
+		# Move the cursor to the beginning of the document
+		cursor.movePosition(QTextCursor.MoveOperation.Start)
+		# Set the cursor back to the text edit
+		text_edit.setTextCursor(cursor)
 
 	parent.help_dialog.show()
 
