@@ -1,7 +1,11 @@
 import linuxcnc as emc
 
 def toggle(parent):
-	if parent.sender().isChecked():
+	btn = parent.sender()
+	on_text = btn.property('on_text')
+	off_text = btn.property('off_text')
+
+	if btn.isChecked(): # probing is enabled
 		parent.probing = True
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(True)
@@ -13,11 +17,17 @@ def toggle(parent):
 		for key, value in parent.program_running.items():
 			getattr(parent, key).setEnabled(False)
 
-	else:
+		if None not in [on_text, off_text]:
+			btn.setText(on_text)
+
+	else: # probing is disabled
 		parent.probing = False
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(False)
 
 		for key, value in parent.program_running.items():
 			getattr(parent, key).setEnabled(True)
+
+		if None not in [on_text, off_text]:
+			btn.setText(off_text)
 
