@@ -1,5 +1,6 @@
 To tap a single hole use the Rigid Tap tab for all setting.
-Select a tap and set the Z length offet ahead of this.
+Load a tap in the spindle and set the Z length offet to the
+material or your fixture offset Z0 level. Z-CLEAR must be above this.
 
 LINEAR FEED is used for linear Z moves to the tap cycle only.
 SPEED for tap is set here even if using the Hole Pattern.
