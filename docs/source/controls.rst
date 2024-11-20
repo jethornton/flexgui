@@ -59,16 +59,28 @@ E Stop and Power
 
 The E Stop push button Open/Closed state text can be set by adding two string
 type Dynamic Properties `open_text` and `closed_text`. The text in those two
-properties will be used if found.
+properties will be used if found. The default text is `E Stop Open` and
+`E Stop Closed`.
 
 .. image:: /images/estop-01.png
    :align: center
 
 The Power push button On/Off state text can be set by adding two string type
 Dynamic Properties `on_text` and `off_text`. The text in those two properties
-will be used if found.
+will be used if found. The default text is `Power Off` and
+`Power On`.
 
 .. image:: /images/power-01.png
+   :align: center
+
+.. note:: To have two words be above and below insert a \n between the words.
+
+.. image:: /images/estop-02.png
+   :align: center
+
+This is how the above looks in the GUI
+
+.. image:: /images/estop-03.png
    :align: center
 
 Coordinate System Controls
