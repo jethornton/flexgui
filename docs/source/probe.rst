@@ -36,6 +36,11 @@ place as there is no default text for the Probe Enable button.
 .. image:: /images/probe-00.png
    :align: center
 
+This is what the button would look like with the above settings.
+
+.. image:: /images/probe-01.png
+   :align: center
+
 Function
 --------
 
@@ -62,7 +67,7 @@ Example
 
 A minimal example is in the Flex Examples in the Features directory
 
-.. image:: /images/probe-01.png
+.. image:: /images/probe-02.png
    :align: center
 
 To run the example, close the E Stop, turn Power on, Home all, then togggle the
@@ -175,5 +180,5 @@ you can see the flexhal pin names for each spin box and for the Probe Trip
 button. Also notice that the Probe Trip button is conneced to a signal which is
 connected to motion.probe-input in the postgui.hal file
 
-.. image:: /images/probe-02.png
+.. image:: /images/probe-03.png
    :align: center
