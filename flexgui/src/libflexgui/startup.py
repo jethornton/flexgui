@@ -1191,6 +1191,11 @@ def setup_probing(parent):
 			parent.probing_enable_pb.setCheckable(True)
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
+			on_text = parent.probing_enable_pb.property('on_text')
+			off_text = parent.probing_enable_pb.property('off_text')
+			if None not in [on_text, off_text]:
+				parent.probing_enable_pb.setText(off_text)
+
 		else:
 			msg = ('The Probing Enable Push Button\n'
 				'was not found, all probe controls\n'
