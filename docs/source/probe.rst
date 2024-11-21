@@ -36,11 +36,6 @@ place as there is no default text for the Probe Enable button.
 .. image:: /images/probe-00.png
    :align: center
 
-
-The text on the Probe Enable button can be set by adding two Dynamic Properties
-named `on_text` and `off_text`. Both must be present or no change will take
-place as there is no default text for the Probe Enable button.
-
 Function
 --------
 
