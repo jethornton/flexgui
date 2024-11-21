@@ -66,7 +66,7 @@ Some are used in the UI file and some are workspace variables.
 #2047	hole mill tool diameter
 #2048	hole mill depth of cut
 #2049	hole mill current depth step
-#2050	hole mill Clear Return point
+#2050	hole mill Z Clear Return point
 #2051	hole mill Z depth
 #2052	hole mill diameter
 #2053	hole mill feedrate
@@ -85,7 +85,7 @@ Some are used in the UI file and some are workspace variables.
 #2065	tap TPI
 #2066	tap IPR calculated from TPI
 #2067	tap Speed
-#2068	Hole Tap Select 
+#2068	tap Feed ( for linear moves only)
 #2069	reserved
 #2070	reserved
 

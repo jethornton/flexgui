@@ -1,0 +1,4 @@
+G0 X0 Y0 Z0
+o<rigid_tap> call
+o<rigid_tap> call
+o<rigid_tap> call
