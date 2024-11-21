@@ -4451,7 +4451,7 @@ greater than ZSTART</string>
           <string>get_var</string>
          </property>
          <property name="variable" stdset="0">
-          <string>2069</string>
+          <string>2068</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_80">

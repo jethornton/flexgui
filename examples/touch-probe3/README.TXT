@@ -66,7 +66,7 @@ Some are used in the UI file and some are workspace variables.
 #2047	hole mill tool diameter
 #2048	hole mill depth of cut
 #2049	hole mill current depth step
-#2050	hole mill Clear Return point
+#2050	hole mill Z Clear Return point
 #2051	hole mill Z depth
 #2052	hole mill diameter
 #2053	hole mill feedrate
@@ -76,15 +76,16 @@ Some are used in the UI file and some are workspace variables.
 #2057	countersink pattern angle increment additive
 #2058	temp counter for restore
 #2059	Q word for G83 drill cycle
-#2060	reserved
-#2061	reserved
-#2062	reserved
-#2063	reserved
-#2064	reserved
-#2065	reserved
-#2066	reserved
-#2067	reserved
-#2068	reserved
+
+#2060	tap X Center
+#2061	tap Y Center
+#2062	tap Z Start
+#2063	tap Z Clear
+#2064	tap Z Depth
+#2065	tap TPI
+#2066	tap IPR calculated from TPI
+#2067	tap Speed
+#2068	tap Feed ( for linear moves only)
 #2069	reserved
 #2070	reserved
 
