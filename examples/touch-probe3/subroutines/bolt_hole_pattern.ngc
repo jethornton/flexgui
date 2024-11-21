@@ -15,7 +15,7 @@ o<bolt_hole_pattern> sub
 	G0 @[0 + #2043] ^#2039 Z#2045	; Position over first hole establishing radius
 	G1 Z #2041 F #2044				; Move to Z start depth
 	o101 if [#2059 EQ 0]
-		G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044		; normao drill cycle
+		G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044		; normal drill cycle
 	o101 else
 		G91 G98 G83 R#2045 Q#2059 Z#2042 ^#2040 L#2038 F#2044	; fixup for peck drill
 	o101 endif
