@@ -22,6 +22,7 @@ o<bolt_hole_pattern> sub
 	M5								; Turn spindle off
 	G92.1							; turn offset off
 	G90 G0 X0 Y0					; move back to original center
+	G53 G00 Z0
 o<bolt_hole_pattern> endsub
 M2
 
