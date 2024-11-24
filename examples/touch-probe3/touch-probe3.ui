@@ -1760,7 +1760,7 @@ SET</string>
          <double>-0.100000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2009</string>
@@ -1791,7 +1791,7 @@ SET</string>
          <double>0.010000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2003</string>
@@ -1860,7 +1860,7 @@ SET</string>
          <double>0.500000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2013</string>
@@ -1923,7 +1923,7 @@ SET</string>
          <double>20.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2000</string>
@@ -1957,7 +1957,7 @@ SET</string>
          <double>0.500000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2002</string>
@@ -1991,7 +1991,7 @@ SET</string>
          <double>-2.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2008</string>
@@ -2054,7 +2054,7 @@ SET</string>
          <double>0.078700000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2015</string>
@@ -2082,7 +2082,7 @@ SET</string>
          <double>1.250000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2010</string>
@@ -2116,7 +2116,7 @@ SET</string>
          <double>3.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2004</string>
@@ -2147,7 +2147,7 @@ SET</string>
          <double>1.250000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2011</string>
@@ -2210,7 +2210,7 @@ SET</string>
          <double>10.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2001</string>
@@ -2311,7 +2311,7 @@ SET</string>
          <double>1.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2032</string>
@@ -2364,7 +2364,7 @@ SET</string>
          <double>0.300000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2005</string>
@@ -2417,7 +2417,7 @@ SET</string>
          <double>-0.100000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2036</string>
@@ -2767,7 +2767,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2007</string>
@@ -2820,7 +2820,7 @@ SET</string>
           <double>2.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2038</string>
@@ -2873,7 +2873,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2006</string>
@@ -2926,7 +2926,7 @@ SET</string>
           <double>1.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2037</string>
@@ -2963,7 +2963,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2039</string>
@@ -3016,7 +3016,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2041</string>
@@ -3053,7 +3053,7 @@ SET</string>
           <double>-0.500000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2042</string>
@@ -3106,7 +3106,7 @@ SET</string>
           <double>10.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2044</string>
@@ -3194,7 +3194,7 @@ SET</string>
           <double>0.100000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2045</string>
@@ -3231,7 +3231,7 @@ SET</string>
           <double>500.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2046</string>
@@ -3282,7 +3282,7 @@ SET</string>
           </rect>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set Counterbore / TAP Parameters in Hole Mill or Tap Tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set Counterbore / TAP Parameters in Bore Mill or Tap Tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
         <widget class="QDoubleSpinBox" name="ops_Qword">
@@ -3316,7 +3316,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2059</string>
@@ -3370,7 +3370,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2068</string>
@@ -3539,7 +3539,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2056</string>
@@ -3592,7 +3592,7 @@ SET</string>
           <double>0.188000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2047</string>
@@ -3645,7 +3645,7 @@ SET</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2055</string>
@@ -3682,7 +3682,7 @@ SET</string>
           <double>0.250000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2052</string>
@@ -3719,7 +3719,7 @@ SET</string>
           <double>-0.250000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2051</string>
@@ -3772,7 +3772,7 @@ SET</string>
           <double>10.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2053</string>
@@ -3860,7 +3860,7 @@ SET</string>
           <double>0.100000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2050</string>
@@ -3897,7 +3897,7 @@ SET</string>
           <double>2000.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2054</string>
@@ -4039,7 +4039,7 @@ make more than one pass.</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2061</string>
@@ -4092,7 +4092,7 @@ make more than one pass.</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2060</string>
@@ -4129,7 +4129,7 @@ make more than one pass.</string>
           <double>32.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2065</string>
@@ -4217,7 +4217,7 @@ make more than one pass.</string>
           <double>0.100000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2063</string>
@@ -4254,7 +4254,7 @@ make more than one pass.</string>
           <double>500.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2067</string>
@@ -4323,7 +4323,7 @@ make more than one pass.</string>
           <double>0.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2062</string>
@@ -4376,7 +4376,7 @@ make more than one pass.</string>
           <double>0.100000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2064</string>
@@ -4448,7 +4448,7 @@ greater than ZSTART</string>
           <double>10.000000000000000</double>
          </property>
          <property name="function" stdset="0">
-          <string>get_var</string>
+          <string>set_var</string>
          </property>
          <property name="variable" stdset="0">
           <string>2068</string>
@@ -5764,6 +5764,35 @@ ENABLE</string>
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="task_mode_lb">
+    <property name="geometry">
+     <rect>
+      <x>1075</x>
+      <y>5</y>
+      <width>156</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_81">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>5</y>
+      <width>46</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mode:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
