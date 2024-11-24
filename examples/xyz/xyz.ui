@@ -72,7 +72,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -232,6 +232,34 @@
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="text">
+           <string>Help</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>help</string>
+          </property>
+          <property name="file" stdset="0">
+           <string>home_help.txt</string>
+          </property>
+          <property name="topic" stdset="0">
+           <string>Help On Homing</string>
+          </property>
+          <property name="horz_size" stdset="0">
+           <string>500</string>
+          </property>
+          <property name="vert_size" stdset="0">
+           <string>500</string>
+          </property>
+          <property name="x_pos" stdset="0">
+           <string>100</string>
+          </property>
+          <property name="y_pos" stdset="0">
+           <string>250</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -1338,11 +1366,7 @@
          <widget class="QListWidget" name="mdi_history_lw"/>
         </item>
         <item row="1" column="0">
-         <widget class="QLineEdit" name="mdi_command_le">
-          <property name="mode" stdset="0">
-           <string>touch</string>
-          </property>
-         </widget>
+         <widget class="QLineEdit" name="mdi_command_le"/>
         </item>
         <item row="0" column="1">
          <widget class="QGroupBox" name="groupBox_4">
@@ -1350,10 +1374,10 @@
            <string>MDI Commands</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_12">
-           <item row="2" column="0">
-            <widget class="QPushButton" name="run_mdi_pb">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="clear_mdi_history_pb">
              <property name="text">
-              <string>Run MDI</string>
+              <string>Clear History</string>
              </property>
             </widget>
            </item>
@@ -1364,10 +1388,38 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="clear_mdi_history_pb">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="run_mdi_pb">
              <property name="text">
-              <string>Clear History</string>
+              <string>Run MDI</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="text">
+              <string>MDI Help</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>help</string>
+             </property>
+             <property name="file" stdset="0">
+              <string>mdi_help.txt</string>
+             </property>
+             <property name="topic" stdset="0">
+              <string>Help On MDI</string>
+             </property>
+             <property name="horz_size" stdset="0">
+              <string>500</string>
+             </property>
+             <property name="vert_size" stdset="0">
+              <string>500</string>
+             </property>
+             <property name="x_pos" stdset="0">
+              <string>100</string>
+             </property>
+             <property name="y_pos" stdset="0">
+              <string>250</string>
              </property>
             </widget>
            </item>
@@ -1381,7 +1433,7 @@
         <string>Misc.</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_28">
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_11">
           <property name="title">
            <string>Coolant</string>
@@ -1410,7 +1462,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="1" column="2">
          <widget class="QGroupBox" name="groupBox_10">
           <property name="title">
            <string>MDI Buttons</string>
@@ -1445,7 +1497,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="3">
+        <item row="1" column="3">
          <widget class="QGroupBox" name="groupBox_12">
           <property name="title">
            <string>Program Options</string>
@@ -1489,7 +1541,85 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="4">
+         <widget class="QGroupBox" name="groupBox_13">
+          <property name="title">
+           <string>Feed</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_27">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Feed Override &gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="feed_override_enabled_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="feed_override_pb">
+             <property name="text">
+              <string>Feed Override Enable</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_21">
+          <property name="title">
+           <string>Set and Watch Param</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_40">
+           <item row="0" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="function" stdset="0">
+              <string>set_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_45">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+             <property name="precision" stdset="0">
+              <string>2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1001</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
            <string>HAL Buttons</string>
@@ -1635,36 +1765,6 @@
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QGroupBox" name="groupBox_13">
-          <property name="title">
-           <string>Feed</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_27">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Feed Override &gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="feed_override_enabled_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QPushButton" name="feed_override_pb">
-             <property name="text">
-              <string>Feed Override Enable</string>
              </property>
             </widget>
            </item>
