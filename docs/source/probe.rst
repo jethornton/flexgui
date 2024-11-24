@@ -112,7 +112,7 @@ To get the value of a user variable a QLabel can be used with the following
 string type Dynamic Properties
 ::
 
-	function get_var
+	function watch_var
 	variable `nnnn`
 
 The value is updated any time the var file is updated.
