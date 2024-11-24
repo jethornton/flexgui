@@ -209,9 +209,11 @@ def var_file_watch(parent):
 			var_list = f.readlines()
 		for key, value in parent.watch_var.items():
 			for line in var_list:
-				if line.startswith(value):
-					getattr(parent, key).setText(line.split()[1])
+				if line.startswith(value[0]):
+					getattr(parent, key).setText(f'{float(line.split()[1]):.{value[1]}f}')
 		parent.var_mod_time = var_current_time
+
+	# getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
