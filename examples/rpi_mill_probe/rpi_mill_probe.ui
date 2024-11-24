@@ -3384,7 +3384,7 @@ ENABLE</string>
          <double>20.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2000</string>
@@ -3415,7 +3415,7 @@ ENABLE</string>
          <double>10.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2001</string>
@@ -3462,7 +3462,7 @@ ENABLE</string>
          <double>0.010000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2003</string>
@@ -3560,7 +3560,7 @@ ENABLE</string>
          <double>0.500000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2002</string>
@@ -3594,7 +3594,7 @@ ENABLE</string>
          <double>3.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2004</string>
@@ -3660,7 +3660,7 @@ ENABLE</string>
          <double>-2.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2008</string>
@@ -3694,7 +3694,7 @@ ENABLE</string>
          <double>-0.100000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2009</string>
@@ -3725,7 +3725,7 @@ ENABLE</string>
          <double>0.078700000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2015</string>
@@ -3753,7 +3753,7 @@ ENABLE</string>
          <double>1.250000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2010</string>
@@ -3806,7 +3806,7 @@ ENABLE</string>
          <double>1.000000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2032</string>
@@ -3843,7 +3843,7 @@ ENABLE</string>
          <double>0.500000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2013</string>
@@ -3906,7 +3906,7 @@ ENABLE</string>
          <double>1.250000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2011</string>
@@ -3975,7 +3975,7 @@ ENABLE</string>
          <double>-0.100000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2036</string>
@@ -4028,7 +4028,7 @@ ENABLE</string>
          <double>0.300000000000000</double>
         </property>
         <property name="function" stdset="0">
-         <string>get_var</string>
+         <string>set_var</string>
         </property>
         <property name="variable" stdset="0">
          <string>2005</string>
