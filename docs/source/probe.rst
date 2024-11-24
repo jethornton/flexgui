@@ -84,42 +84,6 @@ Trip button, the X axis will back off the Backoff Distance and start to move in
 the positive direction again. Pressing the Probe Trip button again will end the
 probe simulation. The debug information will show up in the Information window.
 
-Setting Variables
------------------
-
-To set and get user variables in the var file with a QDoubleSpinBox add a couple
-of string type Dynamic Properties. The variables 31 - 5000 are avaliable for use
-in NC code programs. Replace `nnnn` with the variable number.
-::
-
-	function get_var
-	variable `nnnn`
-
-The user variable must be in the var file. On startup Flex reads the var file
-and sets the value of the QDoubleSpinBox to that value. When you change the
-value of the QDoubleSpinBox the var file is updated with the new value. There is
-a 2 second timeout before the var file is updated.
-
-The configuration must be out of E-Stop, Power On and Homed before the
-QDoubleSpinBox is enabled.
-
-.. note:: The QDoubleSpinBox get and set variables can be used for any purpose.
-
-Getting Variables
------------------
-
-To get the value of a user variable a QLabel can be used with the following
-string type Dynamic Properties
-::
-
-	function watch_var
-	variable `nnnn`
-
-The value is updated any time the var file is updated.
-
-.. note:: The var file is not updated until the end of a NC file.
-
-
 Subroutine
 ----------
 

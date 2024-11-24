@@ -15,6 +15,7 @@ Flex GUI
    plotter
    mdi
    spindle
+   parameters
    probe
    tools
    coordinates
