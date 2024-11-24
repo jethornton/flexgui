@@ -199,6 +199,7 @@ def sync_var_file(parent):
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(parent.cmd)
+		parent.command.task_plan_synch()
 
 def var_file_watch(parent):
 	var_current_time = os.stat(os.path.join(parent.ini_path, parent.var_file)).st_mtime
