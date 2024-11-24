@@ -1223,14 +1223,15 @@ def setup_mdi_buttons(parent):
 				dialogs.warn_msg_ok(msg, 'Configuration Error')
 				button.setEnabled(False)
 
-def setup_get_var(parent):
+def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox
 	var_file = os.path.join(parent.ini_path, parent.var_file)
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
 	for child in parent.findChildren(QDoubleSpinBox):
-		if child.property('function') == 'get_var':
+		prop = child.property('function')
+		if prop == 'set_var' or prop == 'get_var': # FIXME someday remove get_var
 			var = child.property('variable')
 			found = False
 			if var is not None:
@@ -1256,6 +1257,15 @@ def setup_watch_var(parent):
 			var = child.property('variable')
 			name = child.objectName()
 			parent.watch_var[name] = var
+
+	if len(parent.watch_var) > 0: # update the labels
+		var_file = os.path.join(parent.ini_path, parent.var_file)
+		with open(var_file, 'r') as f:
+			var_list = f.readlines()
+		for key, value in parent.watch_var.items():
+			for line in var_list:
+				if line.startswith(value):
+					getattr(parent, key).setText(line.split()[1])
 
 def setup_hal(parent):
 	hal_labels = []
