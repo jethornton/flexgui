@@ -4,10 +4,10 @@ o<hole_mill> sub
 		M30
 	o100 endif
 	G20 S#2054
-	#2048 = [#2047 / 2]						; #2048 is depth per circle = half of tool diameter
-	#2049 = [#2050 - #2048] 				; #2049 is current depth step
+	#2048 = [#2047 / 2]				; #2048 is depth per circle = half of tool diameter
+	#2049 = [#2050 - #2048] 		; #2049 is current depth step
 	M3
-	G43 G0 Z#2050 H#5400					; move to z clear #5400 tool in spindle	
+	G43 G0 Z#2050 H#5400			; move to z clear #5400 tool in spindle	
 	; start above and right so we make a convex corner for entry to the ccw arcs
 	G0 X[#2055 + #2047] Y[#2056 + [#2052 / 2]]
 	G0 X#2055 Y[#2056 + [#2052 / 2]]
