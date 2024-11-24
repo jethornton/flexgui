@@ -1229,6 +1229,7 @@ def setup_set_var(parent):
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
+	parent.set_var = {}
 	for child in parent.findChildren(QDoubleSpinBox):
 		prop = child.property('function')
 		if prop == 'set_var' or prop == 'get_var': # FIXME someday remove get_var
@@ -1240,6 +1241,7 @@ def setup_set_var(parent):
 						child.setValue(float(line.split()[1]))
 						found = True
 						child.valueChanged.connect(partial(utilities.var_value_changed, parent))
+						parent.set_var[child.objectName()] = var
 						child.setEnabled(False)
 						parent.home_required.append(child.objectName())
 						break
