@@ -200,13 +200,15 @@ class flexgui(QMainWindow):
 		startup.setup_plot(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
-		startup.setup_import(self)
 		startup.setup_help(self)
 		# loading the post gui files can only happen once
 		if self.installed and gui_file != 'flex_default.ui':
 			startup.load_postgui(self)
 
 		startup.set_status(self)
+
+		self.user_timer = QTimer()
+		startup.setup_import(self) # do this after user timer is created
 
 		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
@@ -223,6 +225,10 @@ class flexgui(QMainWindow):
 		self.var_watch_timer.timeout.connect(partial(utilities.var_file_watch, self))
 		self.var_mod_time = 0.0
 		self.var_watch_timer.start(100) # milliseconds
+
+		# test timer
+		self.one_second_timer = QTimer(self)
+		self.one_second_timer.start(1000) # milliseconds
 
 		# set the inital screen size
 		if screen_size:
