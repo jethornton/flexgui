@@ -1,4 +1,4 @@
-Import Python
+Python Module
 =============
 
 `Python Import Tutorial <https://youtu.be/QC4K_8VMc6Y>`_
