@@ -16,6 +16,7 @@ Flex GUI
    mdi
    spindle
    parameters
+   python
    probe
    tools
    coordinates
