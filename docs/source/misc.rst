@@ -19,7 +19,6 @@ If you use the touch input, the selector looks like this
 .. note:: Make sure you use a QListWidget and not a QListView for the file
    selector.
 
-
 `File, Error and Information Tutorial <https://youtu.be/kTFMM71VFuU>`_
 
 Code Viewer
