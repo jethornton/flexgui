@@ -4,7 +4,8 @@ set the Z length offset ahead of this and enter the TOOL DIAM (or make multiple 
 
 FEED & SPEED for Mill are set in Bore Mill not in Hole Pattern.
 
-Z-CLEAR for the bore is set in Bore Mill Z-CLEAR in Pattern is ignored.
+Z-CLEAR for the bore is set here. During loops Z-CLEAR in the Pattern Tab
+is also read. 
 
 Only Pattern parameters are set up the pattern,
 XCENTER, YCENTER, DIAMETER, HOLES, START ANGLE.

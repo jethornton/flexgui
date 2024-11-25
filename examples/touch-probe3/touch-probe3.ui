@@ -3240,14 +3240,14 @@ SET</string>
         <widget class="QLabel" name="label_57">
          <property name="geometry">
           <rect>
-           <x>300</x>
+           <x>280</x>
            <y>215</y>
-           <width>76</width>
+           <width>96</width>
            <height>19</height>
           </rect>
          </property>
          <property name="text">
-          <string>SPEED</string>
+          <string>SPINDLE RPM</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3458,7 +3458,7 @@ SET</string>
          </rect>
         </property>
         <property name="text">
-         <string>Hole MIll</string>
+         <string>Counterbore Milling</string>
         </property>
        </widget>
        <widget class="QFrame" name="frame_11">
@@ -3906,14 +3906,14 @@ SET</string>
         <widget class="QLabel" name="label_67">
          <property name="geometry">
           <rect>
-           <x>240</x>
+           <x>215</x>
            <y>115</y>
-           <width>76</width>
+           <width>101</width>
            <height>19</height>
           </rect>
          </property>
          <property name="text">
-          <string>SPEED</string>
+          <string>SPINDLE RPM</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3956,7 +3956,7 @@ make more than one pass.</string>
           <string>bore_mill.txt</string>
          </property>
          <property name="topic" stdset="0">
-          <string>Bore Mill Help</string>
+          <string>Counterbore Mill Help</string>
          </property>
          <property name="x_pos" stdset="0">
           <string>30</string>
@@ -4263,14 +4263,14 @@ make more than one pass.</string>
         <widget class="QLabel" name="label_75">
          <property name="geometry">
           <rect>
-           <x>240</x>
+           <x>220</x>
            <y>115</y>
-           <width>76</width>
+           <width>96</width>
            <height>19</height>
           </rect>
          </property>
          <property name="text">
-          <string>SPEED</string>
+          <string>SPINDLE RPM</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4516,6 +4516,702 @@ greater than ZSTART</string>
         </property>
         <property name="text">
          <string>Rigid Tapping</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>Slot Mill</string>
+       </attribute>
+       <widget class="QFrame" name="frame_13">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>431</width>
+          <height>356</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label_83">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>115</y>
+           <width>106</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SLOT WIDTH</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_84">
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>65</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>START Y 1</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_y1">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>55</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Y axis start point for slot.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2070</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_85">
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>15</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>START X 1</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_tool_diam">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>205</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Diameter of the mill cutter. Must be less than the SLOT WIDTH.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>0.015600000000000</double>
+         </property>
+         <property name="maximum">
+          <double>0.750000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.188000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2075</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_86">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>215</y>
+           <width>91</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>TOOL DIAM</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_x1">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>5</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>X axis start point for slot.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2069</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_width">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>105</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Width of the slot. Must be greater than TOOL DIAM.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>0.125000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>0.750000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.250000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2073</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_depth">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>155</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Z depth for the slot.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>-0.100000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2074</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_87">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>165</y>
+           <width>101</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SLOT DEPTH</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_feed">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>155</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Feedrate for the slot op.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>10.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2077</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_88">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>165</y>
+           <width>46</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>FEED</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="geometry">
+          <rect>
+           <x>225</x>
+           <y>290</y>
+           <width>86</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>RUN</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>mdi</string>
+         </property>
+         <property name="command" stdset="0">
+          <string>o&lt;slot_mill&gt; call</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_89">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>115</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Z CLEAR</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_z_slot_clear">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>105</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>ZClear above Z0. This becomes the Z start point for the slot.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2076</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_speed">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>205</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Spindle speed for the slot op.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>0</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>9999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="value">
+          <double>2000.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2078</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_90">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>215</y>
+           <width>96</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SPINDLE RPM</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="hole_mill_help_2">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>290</y>
+           <width>46</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Help</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>help</string>
+         </property>
+         <property name="file" stdset="0">
+          <string>slot_mill.txt</string>
+         </property>
+         <property name="topic" stdset="0">
+          <string>Slot Milling Help</string>
+         </property>
+         <property name="x_pos" stdset="0">
+          <string>30</string>
+         </property>
+         <property name="y_pos" stdset="0">
+          <string>100</string>
+         </property>
+         <property name="horz_size" stdset="0">
+          <string>540</string>
+         </property>
+         <property name="vert_size" stdset="0">
+          <string>300</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_y2">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>55</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Y axis end point for slot.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2072</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_93">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>15</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>END X 2</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_94">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>65</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string> END Y 2</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_x2">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>5</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>X axis end point for slot.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2071</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_95">
+         <property name="geometry">
+          <rect>
+           <x>25</x>
+           <y>185</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>(Negative)</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_slot_ramp_percent">
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>255</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>Percent of Tool Diameter for DEPTH OF CUT / RAMP. Range: 20-50.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>0</number>
+         </property>
+         <property name="minimum">
+          <double>20.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>50.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>50.000000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2080</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_91">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>265</y>
+           <width>106</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>RAMP % of Dia</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_96">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>305</y>
+           <width>161</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>% of T DIAM for DOC</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_92">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>5</y>
+          <width>86</width>
+          <height>19</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Slot Milling</string>
         </property>
        </widget>
       </widget>
