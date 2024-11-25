@@ -51,19 +51,31 @@ A user timer is provided for use in the user python module.
 	from functools import partial
 
 	def startup(parent):
-		# make connections to the functions
 		parent.user_timer.timeout.connect(testit)
+		parent.conn_pb.setEnabled(False) # prevent another connection
+		parent.disc_pb.clicked.connect(partial(disc, parent))
+		parent.conn_pb.clicked.connect(partial(conn, parent))
 		parent.start_pb.clicked.connect(partial(start, parent))
 		parent.stop_pb.clicked.connect(partial(stop, parent))
 
+	def testit():
+		print('testing')
+
+	def disc(parent):
+		parent.user_timer.timeout.disconnect(testit)
+		parent.conn_pb.setEnabled(True) # allow a connection
+		parent.disc_pb.setEnabled(False) # prevent trying to disconnect
+
+	def conn(parent):
+		parent.user_timer.timeout.connect(testit)
+		parent.conn_pb.setEnabled(False) # prevent trying to connect
+		parent.disc_pb.setEnabled(True) # allow a disconnect
+
 	def start(parent):
-		parent.user_timer.start(1000)
+		parent.user_timer.start(1000) # milliseconds
 
 	def stop(parent):
 		parent.user_timer.stop()
-
-	def testit():
-		print('testing')
 
 
 
