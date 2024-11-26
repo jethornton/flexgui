@@ -7,7 +7,7 @@ To make user variables persistent create an entry in the .var file for each one 
 2000	0.000000
 2001	0.000000
 . . . .
-2070	0.000000
+2090	0.000000
 
 The values entered from the UI will be saved to the .var file loaded upon startup and 
 updated as changes are made. The following user number variables are used or reserved
@@ -61,7 +61,7 @@ Some are used in the UI file and some are workspace variables.
 #2043	hole pattern Radius
 #2044 	hole pattern Feedrate
 #2045 	hole pattern Clear Return point
-#2046	hole pattern spindle speed
+#2046	hole pattern spindle rpm
 
 #2047	hole mill tool diameter
 #2048	hole mill depth of cut
@@ -70,7 +70,7 @@ Some are used in the UI file and some are workspace variables.
 #2051	hole mill Z depth
 #2052	hole mill diameter
 #2053	hole mill feedrate
-#2054	hole mill spindle speed
+#2054	hole mill spindle rpm
 #2055	hole mill X start point 
 #2056	hole mill Y start point 
 #2057	countersink pattern angle increment additive
@@ -84,9 +84,30 @@ Some are used in the UI file and some are workspace variables.
 #2064	tap Z Depth
 #2065	tap TPI
 #2066	tap IPR calculated from TPI
-#2067	tap Speed
+#2067	tap Spindle rpm
 #2068	tap Feed ( for linear moves only)
-#2069	reserved
-#2070	reserved
+
+#2069	slot X1 
+#2070	slot Y1 
+#2071	slot X2 
+#2072	slot Y2 
+#2073	slot width 
+#2074	slot depth 
+#2075	slot Z Clear 
+#2076	slot tool dia
+#2077	slot feed
+#2078	slot spindle rpm
+#2079	slot tool radius
+#2080	slot ramp percent of T diam
+#2081	slot calc
+#2082	slot calc
+#2083	slot calc
+#2084	slot calc
+#2085	slot calc
+#2086	slot calc
+#2087	slot calc
+#2088	slot calc
+#2089	reserved
+#2090	reserved
 
 
