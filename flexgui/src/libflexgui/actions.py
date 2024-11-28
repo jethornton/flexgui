@@ -101,10 +101,9 @@ def action_edit(parent): # actionEdit
 		else:
 			return
 
-	editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
-	if editor:
+	if parent.editor:
 		if shutil.which(editor.lower()) is not None:
-			subprocess.Popen([editor, gcode_file])
+			subprocess.Popen([parent.editor, gcode_file])
 		else:
 			select_editor(parent, gcode_file)
 	else:

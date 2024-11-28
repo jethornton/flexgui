@@ -57,7 +57,7 @@ def read(parent):
 	else:
 		parent.nc_code_dir = os.path.expanduser('~/')
 
-
+	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
