@@ -8,8 +8,8 @@ The advantage of using apt to install Flex GUI is when the repo is updated apt
 will know when the version changes and you can install the new version along
 with other Debian software.
 
-For a PC create an apt sources file for Flex copy and paste this command in a
-terminal
+For a PC to create an apt sources file for Flex GUI copy and paste this command
+in a terminal
 ::
 
 	echo 'deb [arch=amd64] https://gnipsel.com/flexgui/apt-repo stable main' | sudo tee /etc/apt/sources.list.d/flexgui.list
@@ -24,6 +24,11 @@ Next get the public key for Flex GUI and copy it to trusted.gpg
 ::
 
 	sudo curl --silent --show-error https://gnipsel.com/flexgui/apt-repo/pgp-key.public -o /etc/apt/trusted.gpg.d/flexgui.asc
+
+If curl is not installed you can install it with the following command
+::
+
+	sudo apt install curl
 
 Next update apt
 ::
