@@ -10,3 +10,5 @@ flexgui/src/libflexgui/*.qss usr/lib/libflexgui
 
 flexgui/src/libflexgui/*.py usr/lib/python3/dist-packages/libflexgui
 examples/* usr/lib/libflexgui/examples
+
+flexgui/FlexGUI-blackbg.png usr/share/doc/flexgui
