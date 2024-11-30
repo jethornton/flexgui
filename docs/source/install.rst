@@ -66,6 +66,8 @@ You can still download the deb from github and install with gdebi if that works
 better for you. If you don't have an internet connection this is the best way to
 install Flex GUI
 
+.. note:: Between releases the deb will have the latest bug fixes
+
 `Installing Flex GUI Tutorial <https://youtu.be/F8mCt7JJDDM>`_
 
 Download the latest deb file from
