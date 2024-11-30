@@ -102,7 +102,7 @@ def action_edit(parent): # actionEdit
 			return
 
 	if parent.editor:
-		if shutil.which(editor.lower()) is not None:
+		if shutil.which(parent.editor.lower()) is not None:
 			subprocess.Popen([parent.editor, gcode_file])
 		else:
 			select_editor(parent, gcode_file)
