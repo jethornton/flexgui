@@ -39,7 +39,7 @@ def update(parent):
 	# **************************
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
+		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
 
 		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
@@ -97,7 +97,7 @@ def update(parent):
 	# **************************
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
-		print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
+		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
 		# this sets up home related items
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
 			#print('status update TRAJ_MODE_TELEOP')
@@ -120,7 +120,7 @@ def update(parent):
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
-				print('MDI done')
+				#print('MDI done')
 				if parent.mdi_button:
 					parent.command.mode(emc.MODE_MANUAL)
 					parent.command.wait_complete()
@@ -131,7 +131,7 @@ def update(parent):
 	# **************************
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
+		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
@@ -174,7 +174,7 @@ def update(parent):
 	# **************************
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
+		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		# catch MDI commands that don't change the interp state like M53
 		if parent.status.task_mode == emc.MODE_MDI:
 			for item in parent.probe_controls:
@@ -215,7 +215,7 @@ def update(parent):
 	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
-		print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
+		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
 	# ************************** FLOOD_OFF or FLOOD_ON
