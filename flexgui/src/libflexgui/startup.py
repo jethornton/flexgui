@@ -1204,6 +1204,7 @@ def setup_probing(parent):
 			dialogs.warn_msg_ok(msg, 'Object Not Found!')
 
 def setup_mdi_buttons(parent):
+	parent.mdi_button = False
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'mdi':
 			if button.property('command'):
