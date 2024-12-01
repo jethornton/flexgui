@@ -248,6 +248,8 @@ def help_dialog(parent):
 			parent.help_dialog = None
 	if parent.help_dialog is None:
 		btn = parent.sender()
+		file_name = btn.property('file')
+		help_file = os.path.join(parent.ini_path, file_name)
 		width = btn.property('horz_size') or 250
 		if isinstance(width, str):
 			width = int(width)
@@ -261,24 +263,29 @@ def help_dialog(parent):
 		if isinstance(y_pos, str):
 			y_pos = int(y_pos)
 
-		parent.help_dialog = QDialog()
-		parent.help_dialog.setWindowTitle(btn.property('topic'))
-		parent.help_dialog.setGeometry(x_pos, y_pos, width, height)
-		layout = QVBoxLayout(parent.help_dialog)
-		text_edit = QPlainTextEdit()
-		layout.addWidget(text_edit)
-		with open(os.path.join(parent.ini_path, btn.property('file'))) as f:
-			lines = f.readlines()
-		for line in lines:
-			text_edit.appendPlainText(line.rstrip())
+		if os.path.isfile(help_file):
+			parent.help_dialog = QDialog()
+			parent.help_dialog.setWindowTitle(btn.property('topic'))
+			parent.help_dialog.setGeometry(x_pos, y_pos, width, height)
+			layout = QVBoxLayout(parent.help_dialog)
+			text_edit = QPlainTextEdit()
+			layout.addWidget(text_edit)
+			with open() as f:
+				lines = f.readlines()
+			for line in lines:
+				text_edit.appendPlainText(line.rstrip())
 
-		# Create a cursor object
-		cursor = text_edit.textCursor()
-		# Move the cursor to the beginning of the document
-		cursor.movePosition(QTextCursor.MoveOperation.Start)
-		# Set the cursor back to the text edit
-		text_edit.setTextCursor(cursor)
+			# Create a cursor object
+			cursor = text_edit.textCursor()
+			# Move the cursor to the beginning of the document
+			cursor.movePosition(QTextCursor.MoveOperation.Start)
+			# Set the cursor back to the text edit
+			text_edit.setTextCursor(cursor)
 
-	parent.help_dialog.show()
-
+			parent.help_dialog.show()
+		else:
+			msg = (f'The help file {file_name}\n'
+				'was not found in the configuration directory\n'
+				f'{parent.ini_path}')
+			warn_msg_ok(msg, 'Missing File')
 
