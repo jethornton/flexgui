@@ -270,7 +270,7 @@ def help_dialog(parent):
 			layout = QVBoxLayout(parent.help_dialog)
 			text_edit = QPlainTextEdit()
 			layout.addWidget(text_edit)
-			with open() as f:
+			with open(help_file) as f:
 				lines = f.readlines()
 			for line in lines:
 				text_edit.appendPlainText(line.rstrip())
