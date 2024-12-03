@@ -183,7 +183,6 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 		subprocess.Popen(cmd, cwd=parent.ini_path)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
-	# FIXME to show tool descriptions
 	parent.command.load_tool_table()
 	parent.command.wait_complete()
 	parent.status.poll()
@@ -222,15 +221,6 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 				tool_id = parent.status.tool_table[i][0]
 				parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
 
-	'''
-	tool_len = len(parent.status.tool_table)
-	if 'tool_change_cb' in parent.children:
-		parent.tool_change_cb.clear()
-		parent.tool_change_cb.addItem('Tool 0', 0)
-		for i in range(1, tool_len):
-			tool_id = parent.status.tool_table[i][0]
-			parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
-	'''
 def action_ladder_editor(parent): # actionLadder_Editor
 	if hal.component_exists("classicladder_rt"):
 		p = os.popen("classicladder  &", "w")
