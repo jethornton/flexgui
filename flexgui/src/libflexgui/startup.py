@@ -1123,13 +1123,39 @@ def setup_tools(parent):
 				f'{missing} was not found.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 			return
-		tool_len = len(parent.status.tool_table)
-		parent.tool_change_cb.addItem('Tool 0', 0)
-		for i in range(1, tool_len):
-			tool_id = parent.status.tool_table[i][0]
-			parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
-		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-		parent.home_required.append('tool_change_pb')
+
+		# tool change with description
+		if parent.tool_change_cb.property('option') == 'description':
+			parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
+			tools = os.path.join(parent.ini_path, parent.tool_table)
+			with open(tools, 'r') as t:
+				tool_list = t.readlines()
+			for line in tool_list:
+				if line.find('T') >= 0:
+					t = line.find('T')
+					p = line.find('P')
+					tool = line[t:p].strip()
+					desc = line.split(";")[-1]
+					number = int(line[t+1:p].strip())
+					parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
+			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append('tool_change_pb')
+
+		elif parent.tool_change_cb.property('prefix') is not None:
+			prefix = parent.tool_change_cb.property('prefix')
+			tool_len = len(parent.status.tool_table)
+			parent.tool_change_cb.addItem(f'{prefix} 0', 0)
+			for i in range(1, tool_len):
+				tool_id = parent.status.tool_table[i][0]
+				parent.tool_change_cb.addItem(f'{prefix} {tool_id}', tool_id)
+
+		else:
+			tool_len = len(parent.status.tool_table)
+			parent.tool_change_cb.addItem('Tool 0', 0)
+			for i in range(1, tool_len):
+				tool_id = parent.status.tool_table[i][0]
+				parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
+
 	# tool change push buttons is a MDI command so power on and all homed
 	for i in range(100):
 		item = f'tool_change_pb_{i}'
@@ -1151,6 +1177,12 @@ def setup_tools(parent):
 				msg = ('Tool Touchoff Button requires\n'
 				'the Tool Offset Line Edit tool_touchoff_le')
 				dialogs.warn_msg_ok(msg, 'Required Item Missing')
+
+	# manual tool change
+	if 'tool_changed_pb' in parent.children:
+		parent.tool_changed_pb.setEnabled(False)
+		parent.tool_changed_pb.setText('No Tool')
+		parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
@@ -1511,13 +1543,14 @@ def setup_hal(parent):
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
 
-				parent.state_estop[button_name] = False
-				parent.state_estop_reset[button_name] = False
+				if button_name != 'tool_changed_pb':
+					parent.state_estop[button_name] = False
+					parent.state_estop_reset[button_name] = False
 
-				if button.property('required') == 'homed':
-					parent.home_required.append(button_name)
-				else:
-					parent.state_on[button_name] = True
+					if button.property('required') == 'homed':
+						parent.home_required.append(button_name)
+					else:
+						parent.state_on[button_name] = True
 
 	if len(hal_spinboxes) > 0: # setup hal spinboxes
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
