@@ -183,8 +183,46 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 		subprocess.Popen(cmd, cwd=parent.ini_path)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
+	# FIXME to show tool descriptions
 	parent.command.load_tool_table()
+	parent.command.wait_complete()
 	parent.status.poll()
+
+	if 'tool_change_cb' in parent.children:
+		parent.tool_change_cb.clear()
+		# tool change with description
+		if parent.tool_change_cb.property('option') == 'description':
+			parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
+			tools = os.path.join(parent.ini_path, parent.tool_table)
+			with open(tools, 'r') as t:
+				tool_list = t.readlines()
+			for line in tool_list:
+				if line.find('T') >= 0:
+					t = line.find('T')
+					p = line.find('P')
+					tool = line[t:p].strip()
+					desc = line.split(";")[-1]
+					number = int(line[t+1:p].strip())
+					parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
+			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+			parent.home_required.append('tool_change_pb')
+
+		elif parent.tool_change_cb.property('prefix') is not None:
+			prefix = parent.tool_change_cb.property('prefix')
+			tool_len = len(parent.status.tool_table)
+			parent.tool_change_cb.addItem(f'{prefix} 0', 0)
+			for i in range(1, tool_len):
+				tool_id = parent.status.tool_table[i][0]
+				parent.tool_change_cb.addItem(f'{prefix} {tool_id}', tool_id)
+
+		else:
+			tool_len = len(parent.status.tool_table)
+			parent.tool_change_cb.addItem('Tool 0', 0)
+			for i in range(1, tool_len):
+				tool_id = parent.status.tool_table[i][0]
+				parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
+
+	'''
 	tool_len = len(parent.status.tool_table)
 	if 'tool_change_cb' in parent.children:
 		parent.tool_change_cb.clear()
@@ -192,7 +230,7 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 		for i in range(1, tool_len):
 			tool_id = parent.status.tool_table[i][0]
 			parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
-
+	'''
 def action_ladder_editor(parent): # actionLadder_Editor
 	if hal.component_exists("classicladder_rt"):
 		p = os.popen("classicladder  &", "w")
@@ -203,40 +241,37 @@ def action_ladder_editor(parent): # actionLadder_Editor
 def action_quit(parent): # actionQuit
 	parent.close()
 
-	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or ''
-	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or '#ff6666'
-	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or ''
-	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or '#00ff00'
-
-
 def action_estop(parent): # actionEstop
+	# FIXME move color to status.py
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		if parent.estop_closed_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
-				parent.estop_pb.setStyleSheet(closed_color)
+				#estop_closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
+				parent.estop_pb.setStyleSheet(f'QPushButton{{background-color: {parent.estop_closed_color};}}')
 			if 'flex_E_Stop' in parent.children:
-				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
-				parent.flex_E_Stop.setStyleSheet(closed_color)
+				#estop_closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
+				parent.flex_E_Stop.setStyleSheet(f'QToolButton{{background-color: {parent.estop_closed_color};}}')
 	else:
 		parent.command.state(emc.STATE_ESTOP)
 		if parent.estop_open_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
-				parent.estop_pb.setStyleSheet(open_color)
+				#estop_open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
+				parent.estop_pb.setStyleSheet(f'QPushButton{{background-color: {parent.estop_open_color};}}')
 			if 'flex_E_Stop' in parent.children:
-				open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
-				parent.flex_E_Stop.setStyleSheet(open_color)
+				#estop_open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
+				parent.flex_E_Stop.setStyleSheet(f'QToolButton{{background-color: {parent.estop_open_color};}}')
+
 		if parent.power_off_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-				parent.power_pb.setStyleSheet(off_color)
+				#off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(f'QPushButton{{background-color: {parent.power_off_color};}}')
 			if 'flex_Power' in parent.children:
-				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-				parent.flex_Power.setStyleSheet(off_color)
+				#off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(f'QToolButton{{background-color: {parent.power_off_color};}}')
 
 def action_power(parent): # actionPower
+	# FIXME move color to status.py
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
 		if 'override_limits_cb' in parent.children:
 			if parent.override_limits_cb.isChecked():
@@ -244,20 +279,20 @@ def action_power(parent): # actionPower
 		parent.command.state(emc.STATE_ON)
 		if parent.power_on_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
-				parent.power_pb.setStyleSheet(on_color)
+				#on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
+				parent.power_pb.setStyleSheet(f'QPushButton{{background-color: {parent.power_on_color};}}')
 			if 'flex_Power' in parent.children:
-				on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
-				parent.flex_Power.setStyleSheet(on_color)
+				#on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
+				parent.flex_Power.setStyleSheet(f'QToolButton{{background-color: {parent.power_on_color};}}')
 	else:
 		parent.command.state(emc.STATE_OFF)
 		if parent.power_off_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-				parent.power_pb.setStyleSheet(off_color)
+				#off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
+				parent.power_pb.setStyleSheet(f'QPushButton{{background-color: {parent.power_off_color};}}')
 			if 'flex_Power' in parent.children:
-				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-				parent.flex_Power.setStyleSheet(off_color)
+				#off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
+				parent.flex_Power.setStyleSheet(f'QToolButton{{background-color: {parent.power_off_color};}}')
 
 def action_run(parent, line = 0): # actionRun
 	if parent.status.task_state == emc.STATE_ON:
