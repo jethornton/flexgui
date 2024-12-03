@@ -22,6 +22,31 @@ all the tools found in the tool table.
 	Tool Change, QPushButton, tool_change_pb
 	Tool Selector, QComboBox, tool_change_cb
 
+To add the description of the tools to the tool change combo box add a Dynamic
+Property named `option` and set the value to `description`.
+
+.. image:: /images/tools-02.png
+   :align: center
+
+The description from the tool table will be appended to the tool number.
+
+.. image:: /images/tools-03.png
+   :align: center
+
+If you have limited space you can define the tool prefix by adding a Dynamic
+Property named `prefix` and set the value to the prefix you want.
+
+.. image:: /images/tools-04.png
+   :align: center
+
+The tool number will follow the prefix.
+
+.. image:: /images/tools-05.png
+   :align: center
+
+.. note:: Only one option can be used, if option is found it is used and prefix
+   will be ignored.
+
 Manual Tool Change requires at least the following HAL code in the main hal
 file if the hal connections are not done in another manner.
 ::
