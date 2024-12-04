@@ -238,9 +238,17 @@ def tool_change(parent):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
+			if 'tool_changed_pb' in parent.children:
+				parent.tool_changed_pb.setEnabled(True)
+				parent.tool_changed_pb.setText('Tool Done')
+
 	else:
 		msg = (f'Tool {tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+
+def tool_changed(parent):
+	parent.tool_changed_pb.setEnabled(False)
+	parent.tool_changed_pb.setText('Changed')
 
 def touchoff(parent):
 	if 'touchoff_system_cb' in parent.children:
