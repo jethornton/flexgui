@@ -277,12 +277,21 @@ def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
 	cur_tool = parent.status.tool_in_spindle
-	if 'tool_touchoff_le' in parent.children:
+	btn = parent.sender()
+
+	if btn.property('source') is not None:
+		source = btn.property('source')
+		offset = getattr(parent, source).text()
+	elif 'tool_touchoff_le' in parent.children:
 		offset = parent.tool_touchoff_le.text()
-		if offset == '':
-			msg = ('Tool Touchoff Offset\ncan not be blank!')
-			dialogs.warn_msg_ok(msg, 'Error')
-			return
+
+	print(offset)
+	print(f'G10 L10 P{cur_tool} {axis}{offset} G43')
+
+	if offset == '':
+		msg = ('Tool Touchoff Offset\ncan not be blank!')
+		dialogs.warn_msg_ok(msg, 'Error')
+		return
 
 	if cur_tool > 0:
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'

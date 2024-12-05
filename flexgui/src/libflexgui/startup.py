@@ -1123,6 +1123,8 @@ def setup_tools(parent):
 				f'{missing} was not found.')
 			dialogs.warn_msg_ok(msg, 'Required Item Missing')
 			return
+		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+		parent.home_required.append('tool_change_pb')
 
 		# tool change with description
 		if parent.tool_change_cb.property('option') == 'description':
@@ -1138,8 +1140,6 @@ def setup_tools(parent):
 					desc = line.split(";")[-1]
 					number = int(line[t+1:p].strip())
 					parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
-			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-			parent.home_required.append('tool_change_pb')
 
 		elif parent.tool_change_cb.property('prefix') is not None:
 			prefix = parent.tool_change_cb.property('prefix')
@@ -1169,14 +1169,19 @@ def setup_tools(parent):
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.children:
-			if 'tool_touchoff_le' in parent.children:
-				getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
-				parent.home_required.append(item)
-			else:
-				getattr(parent, item).setEnabled(False)
-				msg = ('Tool Touchoff Button requires\n'
-				'the Tool Offset Line Edit tool_touchoff_le')
-				dialogs.warn_msg_ok(msg, 'Required Item Missing')
+			if item in parent.children:
+				if getattr(parent, item).property('source') is None: # check for tool_touchoff_le
+					if 'tool_touchoff_le' in parent.children:
+						getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
+						parent.home_required.append(item)
+					else:
+						getattr(parent, item).setEnabled(False)
+						msg = ('Tool Touchoff Button requires\n'
+						'the Tool Offset Line Edit tool_touchoff_le')
+						dialogs.warn_msg_ok(msg, 'Required Item Missing')
+				else:
+					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
+					parent.home_required.append(item)
 
 	# manual tool change
 	if 'tool_changed_pb' in parent.children:
@@ -1709,6 +1714,8 @@ def setup_plot(parent):
 
 		if parent.plot_background_color:
 			parent.plotter.background_color = parent.plot_background_color
+
+		parent.plotter.current_view = parent.default_view
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
