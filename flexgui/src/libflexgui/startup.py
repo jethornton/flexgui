@@ -757,7 +757,7 @@ def setup_status_labels(parent):
 			prec = prec if prec is not None else parent.default_precision
 			parent.current_tool_floats[f'tool_{item}_lb'] = [item, prec]
 
-	parent.current_tool_info = parent.status.tool_table[0]
+	parent.current_tool_info = ()
 
 	if 'file_lb' in parent.children:
 		parent.status.poll()
