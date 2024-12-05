@@ -746,6 +746,7 @@ def setup_status_labels(parent):
 	for item in tool_table_items:
 		if f'tool_{item}_lb' in parent.children:
 			parent.current_tool[f'tool_{item}_lb'] = item
+	parent.current_tool_info = parent.status.tool_table[0]
 
 	if 'file_lb' in parent.children:
 		parent.status.poll()
@@ -1095,12 +1096,6 @@ def setup_touchoff(parent):
 			parent.touchoff_le.installEventFilter(parent)
 			parent.number_le.append('touchoff_le')
 
-	if 'tool_touchoff_le' in parent.children:
-		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
-			parent.tool_touchoff_le.installEventFilter(parent)
-			parent.number_le.append('tool_touchoff_le')
-
 	# setup touch off buttons
 	for axis in AXES:
 		item = f'touchoff_pb_{axis}'
@@ -1166,6 +1161,13 @@ def setup_tools(parent):
 	# tool touch off
 	# home required for tool touch off buttons
 	# check to see if any tool touch off buttons are in the ui
+
+	if 'tool_touchoff_le' in parent.children:
+		parent.tool_touchoff_le.setText('0')
+		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
+			parent.tool_touchoff_le.installEventFilter(parent)
+			parent.number_le.append('tool_touchoff_le')
+
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.children:
