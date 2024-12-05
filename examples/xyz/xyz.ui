@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>967</width>
-    <height>674</height>
+    <height>735</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -483,20 +483,10 @@
            <string>Touch Off</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_29">
-           <item row="2" column="0">
-            <widget class="QComboBox" name="touchoff_system_cb"/>
-           </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="touchoff_pb_y">
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_29">
              <property name="text">
-              <string>Touch Off Y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_28">
-             <property name="text">
-              <string>Coordinate System</string>
+              <string>Position</string>
              </property>
             </widget>
            </item>
@@ -507,17 +497,27 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="0">
+            <widget class="QComboBox" name="touchoff_system_cb"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_28">
+             <property name="text">
+              <string>Coordinate System</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="touchoff_pb_y">
+             <property name="text">
+              <string>Touch Off Y</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="4">
             <widget class="QPushButton" name="touchoff_pb_z">
              <property name="text">
               <string>Touch Off Z</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_29">
-             <property name="text">
-              <string>Position</string>
              </property>
             </widget>
            </item>
@@ -533,6 +533,15 @@
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="lineEdit"/>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLineEdit" name="lineEdit_2"/>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLineEdit" name="lineEdit_3"/>
            </item>
           </layout>
          </widget>
@@ -921,153 +930,17 @@
         <string>Tools</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_13">
-        <item row="2" column="0">
-         <widget class="QLabel" name="tool_in_spindle_lb">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Tool in Spindle</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QLabel" name="tool_offset_lb_2">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Tool Offset Y</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="3">
          <widget class="QPushButton" name="tool_touchoff_z">
           <property name="text">
            <string>Tool Touch Off Z</string>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>Tool Offset Z</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="source" stdset="0">
+           <string>tt_z_value_le</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="tool_offset_lb_0">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="tool_touchoff_y">
-          <property name="text">
-           <string>Tool Touch Off Y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>Tool Offset X</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="tool_touchoff_le"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="tool_touchoff_x">
-          <property name="text">
-           <string>Tool Touch Off X</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="tool_offset_lb_1">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QGroupBox" name="groupBox_8">
-          <property name="title">
-           <string>Tool Change</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_18">
-           <item row="0" column="0">
-            <widget class="QComboBox" name="tool_change_cb"/>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="tool_change_pb">
-             <property name="text">
-              <string>Change Tool</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QGroupBox" name="groupBox_19">
-          <property name="title">
-           <string>Tool Table</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_38">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="edit_tool_table_pb">
-             <property name="text">
-              <string>Edit Tool Table</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="reload_tool_table_pb">
-             <property name="text">
-              <string>Reload Tool Table</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="3" column="1" rowspan="2">
+        <item row="4" column="1" rowspan="2">
          <widget class="QGroupBox" name="groupBox_9">
           <property name="title">
            <string>Tool Change Buttons</string>
@@ -1132,7 +1005,72 @@
           </layout>
          </widget>
         </item>
-        <item row="3" column="2" rowspan="2" colspan="2">
+        <item row="5" column="0">
+         <widget class="QGroupBox" name="groupBox_19">
+          <property name="title">
+           <string>Tool Table</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_38">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="edit_tool_table_pb">
+             <property name="text">
+              <string>Edit Tool Table</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="reload_tool_table_pb">
+             <property name="text">
+              <string>Reload Tool Table</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QGroupBox" name="groupBox_8">
+          <property name="title">
+           <string>Tool Change</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_18">
+           <item row="0" column="1">
+            <widget class="QPushButton" name="tool_change_pb">
+             <property name="text">
+              <string>Change Tool</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QComboBox" name="tool_change_cb">
+             <property name="option" stdset="0">
+              <string>description</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="tool_changed_pb">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>tool-changed</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="2" rowspan="2" colspan="2">
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
            <string>Current Tool Info</string>
@@ -1272,6 +1210,70 @@
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="tool_touchoff_y">
+          <property name="text">
+           <string>Tool Touch Off Y</string>
+          </property>
+          <property name="source" stdset="0">
+           <string>tt_y_value_le</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="tool_touchoff_x">
+          <property name="text">
+           <string>Tool Touch Off X</string>
+          </property>
+          <property name="source" stdset="0">
+           <string>tt_x_value_le</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="tool_in_spindle_lb">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Tool in Spindle</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="tool_touchoff_le"/>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLineEdit" name="tt_z_value_le">
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="tt_y_value_le">
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="tt_x_value_le">
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
          </widget>
         </item>
        </layout>
@@ -1433,144 +1435,6 @@
         <string>Misc.</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_28">
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="groupBox_11">
-          <property name="title">
-           <string>Coolant</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_25">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="flood_pb">
-             <property name="text">
-              <string>Flood</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="mist_pb">
-             <property name="text">
-              <string>Mist</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QGroupBox" name="groupBox_10">
-          <property name="title">
-           <string>MDI Buttons</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_24">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton">
-             <property name="text">
-              <string>G0 X0 Y0</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>mdi</string>
-             </property>
-             <property name="command" stdset="0">
-              <string>G0 X0 Y0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>G0 Z0</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>mdi</string>
-             </property>
-             <property name="command" stdset="0">
-              <string>G0 Z0</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QGroupBox" name="groupBox_12">
-          <property name="title">
-           <string>Program Options</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_26">
-           <item row="1" column="0">
-            <widget class="QPushButton" name="block_delete_pb">
-             <property name="text">
-              <string>Block Delete /</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="hal_meter_pb">
-             <property name="text">
-              <string>HAL Meter</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="show_hal_pb">
-             <property name="text">
-              <string>Show HAL</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="optional_stop_pb">
-             <property name="text">
-              <string>Optional Stop at M1</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="hal_scope_pb">
-             <property name="text">
-              <string>HAL Scope</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QGroupBox" name="groupBox_13">
-          <property name="title">
-           <string>Feed</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_27">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Feed Override &gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="feed_override_enabled_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QPushButton" name="feed_override_pb">
-             <property name="text">
-              <string>Feed Override Enable</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox_21">
           <property name="title">
@@ -1765,6 +1629,172 @@
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2" colspan="2">
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="text">
+           <string>Help</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>help</string>
+          </property>
+          <property name="file" stdset="0">
+           <string>broken_help.txt</string>
+          </property>
+          <property name="topic" stdset="0">
+           <string>Help On Homing</string>
+          </property>
+          <property name="horz_size" stdset="0">
+           <string>500</string>
+          </property>
+          <property name="vert_size" stdset="0">
+           <string>500</string>
+          </property>
+          <property name="x_pos" stdset="0">
+           <string>100</string>
+          </property>
+          <property name="y_pos" stdset="0">
+           <string>250</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Coolant</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_25">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="flood_pb">
+             <property name="text">
+              <string>Flood</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="mist_pb">
+             <property name="text">
+              <string>Mist</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QGroupBox" name="groupBox_10">
+          <property name="title">
+           <string>MDI Buttons</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_24">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>G0 X0 Y0</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>mdi</string>
+             </property>
+             <property name="command" stdset="0">
+              <string>G0 X0 Y0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>G0 Z0</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>mdi</string>
+             </property>
+             <property name="command" stdset="0">
+              <string>G0 Z0</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="title">
+           <string>Program Options</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_26">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="block_delete_pb">
+             <property name="text">
+              <string>Block Delete /</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="hal_meter_pb">
+             <property name="text">
+              <string>HAL Meter</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="show_hal_pb">
+             <property name="text">
+              <string>Show HAL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="optional_stop_pb">
+             <property name="text">
+              <string>Optional Stop at M1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="hal_scope_pb">
+             <property name="text">
+              <string>HAL Scope</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QGroupBox" name="groupBox_13">
+          <property name="title">
+           <string>Feed</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_27">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Feed Override &gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="feed_override_enabled_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="feed_override_pb">
+             <property name="text">
+              <string>Feed Override Enable</string>
              </property>
             </widget>
            </item>
