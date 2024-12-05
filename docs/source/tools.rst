@@ -105,4 +105,15 @@ to enter the value of the touch off.
 	Tool Touch Off Value, QLineEdit, tool_touchoff_le
 	Tool Touch Off, QPushButton, tool_touchoff_(axis letter)
 
+Optionally you can have a QLineEdit for each axis for tool touch off. Add a
+Dynamic Property named `source` to the tool touch off button and set the value
+to the name of the QLineEdit that is the source for that touch off button.
+
+.. image:: /images/tools-07.png
+   :align: center
+
+Tool touch off QLineEdit for each axis.
+
+.. image:: /images/tools-08.png
+   :align: center
 
