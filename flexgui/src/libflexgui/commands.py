@@ -285,9 +285,6 @@ def tool_touchoff(parent):
 	elif 'tool_touchoff_le' in parent.children:
 		offset = parent.tool_touchoff_le.text()
 
-	print(offset)
-	print(f'G10 L10 P{cur_tool} {axis}{offset} G43')
-
 	if offset == '':
 		msg = ('Tool Touchoff Offset\ncan not be blank!')
 		dialogs.warn_msg_ok(msg, 'Error')
