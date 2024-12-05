@@ -59,6 +59,10 @@ def read(parent):
 
 	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
+	if parent.inifile.find('DISPLAY', 'LATHE') is not None:
+		parent.default_view = 'y'
+	else:
+		parent.default_view = 'p'
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
 
