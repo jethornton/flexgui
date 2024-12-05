@@ -227,19 +227,4 @@ show the status of the `motion.digital-in-05` HAL pin
 	motion.digital-in-nn, din_n_lb
 	motion.digital-out-nn, dout_n_lb
 
-Current Tool Status
--------------------
-
-Current Tool status of the tool loaded in the spindle
-
-.. csv-table:: Tool Table Status Labels
-   :width: 100%
-   :align: center
-   :widths: 40 40 40
-
-	tool_id_lb, tool_xoffset_lb, tool_yoffset_lb
-	tool_zoffset_lb, tool_aoffset_lb, tool_boffset_lb
-	tool_coffset_lb, tool_uoffset_lb, tool_voffset_lb
-	tool_woffset_lb, tool_diameter_lb, tool_frontangle_lb
-	tool_backangle_lb, tool_orientation_lb
 

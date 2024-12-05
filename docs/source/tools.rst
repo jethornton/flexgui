@@ -117,3 +117,21 @@ Tool touch off QLineEdit for each axis.
 .. image:: /images/tools-08.png
    :align: center
 
+Current Tool Status
+-------------------
+
+Current Tool status of the tool loaded in the spindle. All the labels can have a
+Dynamic Property called `precision` with the number of digits you wish to show.
+The `tool_id_lb` and the `tool_orientation_lb` are integers.
+
+.. csv-table:: Tool Table Status Labels
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	tool_id_lb, tool_xoffset_lb, tool_yoffset_lb
+	tool_zoffset_lb, tool_aoffset_lb, tool_boffset_lb
+	tool_coffset_lb, tool_uoffset_lb, tool_voffset_lb
+	tool_woffset_lb, tool_diameter_lb, tool_frontangle_lb
+	tool_backangle_lb, tool_orientation_lb
+
