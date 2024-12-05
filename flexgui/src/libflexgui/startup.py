@@ -739,13 +739,24 @@ def setup_status_labels(parent):
 				parent.status_aio[label] = [item, i, p] # add label, stat and precision
 
 	# check for tool table labels in the ui , 'comment'
-	tool_table_items = ['id', 'xoffset', 'yoffset', 'zoffset', 'aoffset',
+	# id and orientation are integers and the rest are floats
+	parent.current_tool_intergers = {}
+	parent.current_tool_floats = {}
+	tool_table_intergers = ['id', 'orientation']
+	tool_table_floats = ['xoffset', 'yoffset', 'zoffset', 'aoffset',
 		'boffset', 'coffset', 'uoffset', 'voffset', 'woffset', 'diameter',
-		'frontangle', 'backangle', 'orientation']
-	parent.current_tool = {}
-	for item in tool_table_items:
+		'frontangle', 'backangle']
+
+	for item in tool_table_intergers:
 		if f'tool_{item}_lb' in parent.children:
-			parent.current_tool[f'tool_{item}_lb'] = item
+			parent.current_tool_intergers[f'tool_{item}_lb'] = item
+
+	for item in tool_table_floats:
+		if f'tool_{item}_lb' in parent.children:
+			prec = getattr(parent, f'tool_{item}_lb').property('precision')
+			prec = prec if prec is not None else parent.default_precision
+			parent.current_tool_floats[f'tool_{item}_lb'] = [item, prec]
+
 	parent.current_tool_info = parent.status.tool_table[0]
 
 	if 'file_lb' in parent.children:
