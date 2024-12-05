@@ -414,7 +414,7 @@ def update(parent):
 		else:
 			getattr(parent, item).setText('0')
 
-	# current tool information
+	# current tool information FIXME add precision
 	for key, value in parent.current_tool.items():
 		tr = parent.status.tool_table[0]
 		getattr(parent, key).setText(f'{getattr(tr, value)}')
