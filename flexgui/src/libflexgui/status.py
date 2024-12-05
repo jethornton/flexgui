@@ -417,9 +417,14 @@ def update(parent):
 	# current tool information FIXME add precision
 	if parent.current_tool_info != parent.status.tool_table[0]:
 		print('tool info changed')
-		for key, value in parent.current_tool.items():
+		for key, value in parent.current_tool_intergers.items():
 			tr = parent.status.tool_table[0]
 			getattr(parent, key).setText(f'{getattr(tr, value)}')
+
+		for key, value in parent.current_tool_floats.items():
+			tr = parent.status.tool_table[0]
+			getattr(parent, key).setText(f'{getattr(tr, value[0]):.{value[1]}f}')
+
 		parent.current_tool_info = parent.status.tool_table[0]
 
 	# handle errors
