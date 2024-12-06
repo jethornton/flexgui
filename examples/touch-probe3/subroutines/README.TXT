@@ -7,50 +7,50 @@ To make user variables persistent create an entry in the .var file for each one 
 2000	0.000000
 2001	0.000000
 . . . .
-2090	0.000000
+2110	0.000000
 
 The values entered from the UI will be saved to the .var file loaded upon startup and 
 updated as changes are made. The following user number variables are used or reserved
 for use with these probe routines.
 Some are used in the UI file and some are workspace variables.
 
-#2000	SEARCH_FEED
-#2001	FINE_FEED
-#2002	SEARCH_DIST
-#2003	RETRACT_DIST
-#2004	XY_travel_dist
-#2005	offset dist to begin corner probing  			    
-#2006	X start point for corners, bolt pattern center & hole mill 			
-#2007	Y start point for corners, bolt pattern center & hole mill
-#2008	Z max for bar & tool
-#2009	tool Z Start dist
-#2010	max hole radius
-#2011	max bar radius
-#2012	probe tip radius calc
-#2013	angle_base_dist
-#2014	angle first point
-#2015	Probe tip Diam from UI
-#2016	var angles, dist, bar, hole
-#2017	var angles, dist, bar, hole
-#2018	var angles,	dist, bar, hole
-#2019	var bar & hole
-#2020	var dist, bar, hole
-#2021	var dist, bar, hole
-#2022	var bar
-#2023	var bar
-#2024	X Result
-#2025	Y Result
-#2026	Z Result
-#2027	var in p_hole
-#2028	var in p_hole
-#2029	var in p_hole
-#2030	var in p_hole
-#2031	var in p_hole
-#2032	angle XY search dist
-#2033	setter X coord reserved
-#2034	setter Y coord reserved
-#2035	setter Z coord reserved
-#2036	Z-safe for edge probe routines
+#2000	probing SEARCH_FEED
+#2001	probing FINE_FEED
+#2002	probing SEARCH_DIST
+#2003	probing RETRACT_DIST
+#2004	probing XY_travel_dist
+#2005	probing offset dist to begin corner probing
+#2006	probing X start point for corners, bolt pattern center & hole mill
+#2007	probing Y start point for corners, bolt pattern center & hole mill
+#2008	probing Z max for bar & tool
+#2009	probing tool Z Start dist
+#2010	probing max hole radius
+#2011	probing max bar radius
+#2012	probing probe tip radius calc
+#2013	probing angle_base_dist
+#2014	probing angle first point
+#2015	probing Probe tip Diam from UI
+#2016	probing var angles, dist, bar, hole
+#2017	probing var angles, dist, bar, hole
+#2018	probing var angles, dist, bar, hole
+#2019	probing var bar & hole
+#2020	probing var dist, bar, hole
+#2021	probing var dist, bar, hole
+#2022	probing var bar
+#2023	probing var bar
+#2024	probing X Result
+#2025	probing Y Result
+#2026	probing Z Result
+#2027	probing var in p_hole
+#2028	probing var in p_hole
+#2029	probing var in p_hole
+#2030	probing var in p_hole
+#2031	probing var in p_hole
+#2032	probing angle XY search dist
+#2033	probing setter X coord reserved
+#2034	probing setter Y coord reserved
+#2035	probing setter Z coord reserved
+#2036	probing Z-safe for edge probe routines
 
 #2037	hole pattern diameter
 #2038	hole pattern hole count
@@ -107,7 +107,26 @@ Some are used in the UI file and some are workspace variables.
 #2086	slot calc
 #2087	slot calc
 #2088	slot calc
-#2089	reserved
-#2090	reserved
 
-
+#2089 threadmill FORM = #INTERN0_EXTERN1
+#2090 threadmill DIR_RH0_LH1 is direction of thread RH THREAD = 0, LH THREAD = 1
+#2091 threadmill THREADS is threads per inch
+#2092 threadmill MAJOR_DIAMETER is just that
+#2093 threadmill MINOR_DIAMETER is just that
+#2094 threadmill NO_OF_PASSES is the number of passes to create
+#2095 threadmill THREADMILL_D is diameter of the single point cutter
+#2096 threadmill FULL_THREADS how many full threads do you want
+#2097 threadmill CENTER_X locates the helix X center
+#2098 threadmill CENTER_Y locates the helix Y center
+#2099 threadmill START_Z locates the start of thread for Z (leadin move added above this)
+#2100 threadmill feedrate
+#2101 threadmill spindle rpm
+#2102 threadmill pitch calc
+#2103 threadmill total pitch
+#2104 threadmill first helix
+#2105 threadmill final helix
+#2106 threadmill od start calc
+#2107 threadmill pass count work var
+#2108 threadmill Threadmill Radius
+#2109 	reserved 
+#2110	reserved
