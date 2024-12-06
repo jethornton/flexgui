@@ -1111,8 +1111,27 @@ def setup_touchoff(parent):
 	for axis in AXES:
 		item = f'touchoff_pb_{axis}'
 		if item in parent.children:
-			getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-			parent.home_required.append(item)
+			source = getattr(parent, item).property('source')
+			if source is None:
+				if 'touchoff_le' in parent.children: # check for touchoff_le
+					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
+					parent.home_required.append(item)
+				else:
+					getattr(parent, item).setEnabled(False)
+					msg = ('The Touchoff Button requires\n'
+					'the Offset Line Edit touchoff_le\n'
+					'or a Dynamic Property named source that\n'
+					'has the name of the QLineEdit to be used.')
+					dialogs.warn_msg_ok(msg, 'Required Item Missing')
+			else: # property source is found
+				if source in parent.children:
+					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
+					parent.home_required.append(item)
+				else: # the source was not found
+					msg = (f'The {source} for {item}\n'
+					'was not found. The QPushButton\n'
+					f'{item} will be disabled.')
+					dialogs.warn_msg_ok(msg, 'Required Item Missing')
 
 def setup_tools(parent):
 	# tool change using a combo box
@@ -1182,19 +1201,27 @@ def setup_tools(parent):
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.children:
-			if item in parent.children:
-				if getattr(parent, item).property('source') is None: # check for tool_touchoff_le
-					if 'tool_touchoff_le' in parent.children:
-						getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
-						parent.home_required.append(item)
-					else:
-						getattr(parent, item).setEnabled(False)
-						msg = ('Tool Touchoff Button requires\n'
-						'the Tool Offset Line Edit tool_touchoff_le')
-						dialogs.warn_msg_ok(msg, 'Required Item Missing')
-				else:
+			source = getattr(parent, item).property('source')
+			if source is None: # check for tool_touchoff_le
+				if 'tool_touchoff_le' in parent.children:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.home_required.append(item)
+				else:
+					getattr(parent, item).setEnabled(False)
+					msg = ('Tool Touchoff Button requires\n'
+					'the Tool Offset Line Edit tool_touchoff_le\n'
+					'or a Dynamic Property named source that\n'
+					'has the name of the QLineEdit to be used.')
+					dialogs.warn_msg_ok(msg, 'Required Item Missing')
+			else: # property source is found
+				if source in parent.children:
+					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
+					parent.home_required.append(item)
+				else: # the source was not found
+					msg = (f'The {source} for {item}\n'
+					'was not found. The QPushButton\n'
+					f'{item} will be disabled.')
+					dialogs.warn_msg_ok(msg, 'Source Name Error')
 
 	# manual tool change
 	if 'tool_changed_pb' in parent.children:
