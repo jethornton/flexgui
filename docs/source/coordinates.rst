@@ -16,6 +16,18 @@ To touch-off an axis, use a QPushButton and QLineEdit to set the touch-off value
 	Touch Off Axis, QPushButton, touchoff_pb_(axis letter)
 	Touch Off Value, QLineEdit, touchoff_le
 
+Optionally you can have a QLineEdit for any axis by adding a string type Dynamic
+Property named `source` and the value contains the object name of the QLineEdit
+that you want to use.
+
+.. image:: /images/coordinate-01.png
+   :align: center
+
+As you can see you can have a QLineEdit for each axis.
+
+.. image:: /images/coordinate-02.png
+   :align: center
+
 Change Coordinate System
 ------------------------
 

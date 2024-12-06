@@ -256,12 +256,13 @@ def touchoff(parent):
 	else:
 		coordinate_system = 0
 	axis = parent.sender().objectName()[-1].upper()
-	if 'touchoff_le' in parent.children:
+	btn = parent.sender()
+
+	if btn.property('source') is not None:
+		source = btn.property('source')
+		offset = getattr(parent, source).text()
+	elif 'touchoff_le' in parent.children:
 		offset = parent.touchoff_le.text()
-		if offset == '':
-			msg = ('Coordinate System Offset\ncan not be blank!')
-			dialogs.warn_msg_ok(msg, 'Error')
-			return
 
 	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	if parent.status.task_state == emc.STATE_ON:
