@@ -6047,7 +6047,7 @@ greater than ZSTART</string>
           </rect>
          </property>
          <property name="toolTip">
-          <string>ZClear above ZSTART. A safe distance above the start plane.</string>
+          <string>ZClear above top of threads. A safe distance above the top of the threads.</string>
          </property>
          <property name="toolTipDuration">
           <number>-1</number>
