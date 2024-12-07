@@ -5267,7 +5267,7 @@ greater than ZSTART</string>
          <property name="geometry">
           <rect>
            <x>375</x>
-           <y>205</y>
+           <y>255</y>
            <width>91</width>
            <height>28</height>
           </rect>
@@ -5304,7 +5304,7 @@ greater than ZSTART</string>
          <property name="geometry">
           <rect>
            <x>320</x>
-           <y>215</y>
+           <y>265</y>
            <width>46</width>
            <height>19</height>
           </rect>
@@ -5319,7 +5319,7 @@ greater than ZSTART</string>
         <widget class="QPushButton" name="pushButton_9">
          <property name="geometry">
           <rect>
-           <x>295</x>
+           <x>250</x>
            <y>360</y>
            <width>86</width>
            <height>27</height>
@@ -5339,7 +5339,7 @@ greater than ZSTART</string>
          <property name="geometry">
           <rect>
            <x>295</x>
-           <y>165</y>
+           <y>215</y>
            <width>76</width>
            <height>19</height>
           </rect>
@@ -5351,11 +5351,11 @@ greater than ZSTART</string>
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
-        <widget class="QDoubleSpinBox" name="ops_thread_z_clear">
+        <widget class="QDoubleSpinBox" name="ops_thread_z_start">
          <property name="geometry">
           <rect>
            <x>375</x>
-           <y>155</y>
+           <y>205</y>
            <width>91</width>
            <height>28</height>
           </rect>
@@ -5392,7 +5392,7 @@ greater than ZSTART</string>
          <property name="geometry">
           <rect>
            <x>375</x>
-           <y>255</y>
+           <y>305</y>
            <width>91</width>
            <height>28</height>
           </rect>
@@ -5429,7 +5429,7 @@ greater than ZSTART</string>
          <property name="geometry">
           <rect>
            <x>275</x>
-           <y>265</y>
+           <y>315</y>
            <width>96</width>
            <height>19</height>
           </rect>
@@ -6019,6 +6019,59 @@ greater than ZSTART</string>
          </property>
          <property name="variable" stdset="0">
           <string>2096</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_113">
+         <property name="geometry">
+          <rect>
+           <x>295</x>
+           <y>165</y>
+           <width>76</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Z CLEAR</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="ops_thread_z_clear">
+         <property name="geometry">
+          <rect>
+           <x>375</x>
+           <y>155</y>
+           <width>91</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>ZClear above ZSTART. A safe distance above the start plane.</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>set_var</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>2109</string>
          </property>
         </widget>
        </widget>
