@@ -28,7 +28,7 @@ o<thread_mill> sub
 	; in the while loop use #2104
 	o103 if [#2089 EQ 0]					; form=0 internal thread
 		G0 X#2097 Y#2098					; int - move to center
-		G90 G0 Z [#2099 + [#2103 +.050]]	; rapid to .050 above top thread
+		G90 G0 Z [#2099 + [#2103 +#2109]]	; rapid to .050 above top thread
 		G43 G1 Z#2099 H#5400				; move to z clear #5400 tool in spindle	
 		o104 if [#2090 EQ 0]				; RH thread works
 			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
@@ -44,8 +44,8 @@ o<thread_mill> sub
 			G92.1							; turn offset off
 		o104 endif
 	o103 elseif [#2089 EQ 1] 				; form=1 external thread
-
-		G43 G0 Z#2099 H#5400				; move to z clear #5400 tool in spindle	
+		G90 G0 Z [#2099 + #2109]			; rapid to .050 above top thread
+		G43 G1 Z#2099 H#5400				; move to z clear #5400 tool in spindle	
 		o105 if [#2090 EQ 0]				; RH works
 			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
 			G90 G0 X-[[#2104] + [#2108*1.5]] Y-#2108	; ext - move to outside start point
@@ -55,7 +55,7 @@ o<thread_mill> sub
 			G90 G3 X-[[#2104] + #2108] Y#2108 I-#2108 J0.0	; leadout move
 			G91 G1 X-[#2108/2]
 			G92.1							; turn offset off
-			G90 G0 Z#2099
+			G90 G0 Z[#2099 + #2109]
 			G90 G0 X#2097 Y#2098			; int - move to center
 		o105 elseif [#2090 EQ 1]			; LH thread
 			G90 G0 X-[[#2104] + [#2108*1.5]] Y#2108	; ext - move to outside start point
@@ -65,7 +65,7 @@ o<thread_mill> sub
 			G90 G2 X-[[#2104] + #2108] Y-#2108 I-#2108 J0.0	; leadout move
 			G91 G1 X-[#2108/2]
 			G92.1							; turn offset off
-			G90 G0 Z#2099					; move back to z start
+			G90 G0 [Z#2099 + #2109]				; move back to z clear
 			G90 G0 X#2097 Y#2098			; int - move to center
 		o105 endif
 	o103 endif								; should be at start point for ID or OD here
@@ -77,10 +77,10 @@ o<thread_mill> sub
 	#2107 = [#2107 - 1]						; decrement pass counter
 	o106 endwhile
 	; in the final pass use #2105
-	G90 G0 X#2097 Y#2098					; int - move to center
-	G90 G0 Z [#2099 + [#2103 +.050]]		; rapid to .050 above top thread
-	G43 G1 Z#2099 H#5400					; move to z clear #5400 tool in spindle	
 	o108 if [#2089 EQ 0]					; form=0 internal thread
+		G90 G0 X#2097 Y#2098					; int - move to center
+		G90 G0 Z [#2099 + [#2103 + #2109]]		; rapid to #2109 above top thread
+		G43 G1 Z#2099 H#5400					; move to z clear #5400 tool in spindle	
 		o109 if [#2090 EQ 0]				; RH works
 			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
 			G90 G3 X-#2105 Y0 I-[#2105/2] J0 ; int first-helix lead in 
@@ -95,6 +95,8 @@ o<thread_mill> sub
 			G92.1							; turn offset off
 		o109 endif							; should be at start point for ID or OD here
 	o108 elseif [#2089 EQ 1] 				; form=1 external thread
+		G90 G0 Z [#2099 + #2109]			; rapid to .050 above top thread
+		G43 G1 Z#2099 H#5400				; move to z clear #5400 tool in spindle	
 		o110 if [#2090 EQ 0]				; RH works
 			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
 			G90 G0 X-[[#2105] + [#2108*1.5]] Y-#2108	; ext - move to outside start point
@@ -145,7 +147,7 @@ M2
 #2106	od start calc
 #2107	pass count work var
 #2108	threadmill Radius
-	
+#2109	Z-CLEAR	
 
 
 
