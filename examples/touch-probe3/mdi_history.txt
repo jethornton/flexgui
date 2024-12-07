@@ -5,3 +5,10 @@ o<rigid_tap> call
 G0 X0 Y0 Z0
 o<slot_mill> call
 o<slot_mill> call
+G90 G0 X0 Y0 Z0
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
