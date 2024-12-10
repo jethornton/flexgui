@@ -829,7 +829,6 @@ def setup_spin_boxes(parent):
 			sb_child.setObjectName(f'{child.objectName()}_child')
 			parent.touch_sb.append(sb_child.objectName())
 			sb_child.installEventFilter(parent)
-			#le.installEventFilter(parent)
 
 def load_postgui(parent): # load post gui hal and tcl files if found
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
