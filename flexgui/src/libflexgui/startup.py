@@ -377,6 +377,7 @@ def setup_buttons(parent): # connect buttons to functions
 
 	# touch off coordinate system combo box
 	if 'touchoff_system_cb' in parent.children:
+		parent.touchoff_system_cb.setView(QListView())
 		coordinate_systems = {'Current': 0, 'G54': 1, 'G55': 2, 'G56': 3, 'G57': 4,
 			'G58': 5, 'G59': 6, 'G59.1': 7, 'G59.2': 8, 'G59.3': 9}
 		for key, value in coordinate_systems.items():
@@ -1152,6 +1153,7 @@ def setup_tools(parent):
 			return
 		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
 		parent.home_required.append('tool_change_pb')
+		parent.tool_change_cb.setView(QListView())
 
 		# tool change with description
 		if parent.tool_change_cb.property('option') == 'description':
