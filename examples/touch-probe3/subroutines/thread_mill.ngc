@@ -12,7 +12,7 @@ o<thread_mill> sub
 	#2108 = [#2095/2]						; get tool radius for leadin moves
 	#2102 = [1 / #2091]						; calculate pitch
 	o112 if [#2089 EQ 0]
-		#2096 = [#2096 +1]						; add one so we get a full internal thread
+		#2096 = [#2096 +1]					; add one so we get a full internal thread
 	o112 endif
 	#2103 = [#2102 * #2096]					; pitch * full threads
 	#2106 = [[[#2092 - #2093] / 2] / #2107] ; PASS_INC = (((maj-d - min-d) / 2) / (PASSES+1))
@@ -46,29 +46,31 @@ o<thread_mill> sub
 			G92.1							; turn offset off
 		o104 endif
 	o103 elseif [#2089 EQ 1] 				; form=1 external thread
-		G90 G0 Z [#2099 + #2109]			; rapid to Z Clear
-		G43 G1 Z#2099 H#5400				; move to Z Start #5400 tool in spindle	
+		G90 G43 G0 Z [#2099 + #2109] H#5400	; rapid to Z Clear
 		o105 if [#2090 EQ 0]				; RH works
-			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
+			G92 X0 Y0 						; fake zero - G3 Zx Px bug?
 			G90 G0 X-[#2104 + [#2108*1.5]] Y-#2108	; ext - move to outside start point
+			G1 Z#2099						; move to Z Start
 			G91 G1 X[#2108/2]
 			G90 G3 X-#2104 Y0.0 I0.0 J#2108 ; leadin move
 			G90 G2 X-#2104 Y0.0 I#2104 J0 Z-#2103 P#2096
 			G90 G3 X-[#2104 + #2108] Y#2108 I-#2108 J0.0	; leadout move
 			G91 G1 X-[#2108/2]
-			G92.1							; turn offset off
 			G90 G0 Z[#2099 + #2109]			; move back to Z Clear
-			G90 G0 X#2097 Y#2098			; int - move to center
+			G90 G0 X0 Y0					; don't use X#2097 Y#2098 here because of G92
+			G92.1							; turn offset off
 		o105 elseif [#2090 EQ 1]			; LH thread
+			G92 X0 Y0 						; fake zero - G3 Zx Px bug?
 			G90 G0 X-[#2104 + [#2108*1.5]] Y#2108	; ext - move to outside start point
+			G1 Z#2099						; move to Z Start
 			G91 G1 X[#2108/2]
 			G90 G2 X-#2104 Y0.0 I0.0 J-#2108 ; leadin move
 			G90 G3 X-#2104 Y0.0 I#2104 J0 Z-#2103 P#2096
 			G90 G2 X-[#2104 + #2108] Y-#2108 I-#2108 J0.0	; leadout move
 			G91 G1 X-[#2108/2]
-			G92.1							; turn offset off
 			G90 G0 Z[#2099 + #2109]			; move back to Z Clear
-			G90 G0 X#2097 Y#2098			; int - move to center
+			G90 G0 X0 Y0					; don't use X#2097 Y#2098 here because of G92
+			G92.1							; turn offset off
 		o105 endif
 	o103 endif								; should be at start point for ID or OD here
 	o107 if [#2089 EQ 1]					; IF(#FORM = 1) external thread
@@ -97,25 +99,30 @@ o<thread_mill> sub
 			G92.1							; turn offset off
 		o109 endif							; should be at start point for ID or OD here
 	o108 elseif [#2089 EQ 1] 				; form=1 external thread
-		G90 G0 Z [#2099 + #2109]			; rapid to Z Clear
-		G43 G1 Z#2099 H#5400				; move to Z Start #5400 tool in spindle	
+		G90 G43 G0 Z [#2099 + #2109] H#5400	; rapid to Z Clear
 		o110 if [#2090 EQ 0]				; RH works
-			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
+			G92 X0 Y0 						; fake zero - G3 Zx Px bug?
 			G90 G0 X-[#2105 + [#2108*1.5]] Y-#2108	; ext - move to outside start point
+			G1 Z#2099						; move to Z Start #5400 tool in spindle
 			G91 G1 X[#2108/2]
 			G90 G3 X-#2105 Y0.0 I0.0 J#2108 ; leadin move
 			G90 G2 X-#2105 Y0.0 I#2105 J0 Z-#2103 P#2096
 			G90 G3 X-[#2105 + #2108] Y#2108 I-#2108 J0.0	; leadout move
 			G91 G1 X-[#2108/2]
+			G90 G0 Z[#2099 + #2109]			; move back to Z Clear
+			G90 G0 X0 Y0					; don't use X#2097 Y#2098 here because of G92
 			G92.1							; turn offset off
 		o110 elseif [#2090 EQ 1]			; LH thread
-			G92 X0 Y0 Z0					; fake Z0 - G3 Zx Px bug?
+			G92 X0 Y0						; fake zero - G3 Zx Px bug?
 			G90 G0 X-[#2105 + [#2108*1.5]] Y#2108	; ext - move to outside start point
+			G1 Z#2099						; move to Z Start #5400 tool in spindle
 			G91 G1 X[#2108/2]
 			G90 G2 X-#2105 Y0.0 I0.0 J-#2108 ; leadin move
 			G90 G3 X-#2105 Y0.0 I#2105 J0 Z-#2103 P#2096
 			G90 G2 X-[#2105 + #2108] Y-#2108 I-#2108 J0.0	; leadout move
 			G91 G1 X-[#2108/2]
+			G90 G0 Z[#2099 + #2109]			; move back to Z Clear
+			G90 G0 X0 Y0					; don't use X#2097 Y#2098 here because of G92
 			G92.1							; turn offset off
 		o110 endif							; should be at start point for ID or OD here
 	o108 endif								; should be at start point for ID or OD here
