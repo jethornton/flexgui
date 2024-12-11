@@ -26,6 +26,8 @@ class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
+		self.flex_version = '1.1.0'
+
 		# get the path to the executable
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
@@ -100,14 +102,6 @@ class flexgui(QMainWindow):
 		else: # no gui specified
 			gui_path = os.path.join(self.gui_path, 'flex_default.ui')
 			gui_file = 'flex_default.ui'
-		try:
-			results = subprocess.run(['dpkg-query', '-W', 'flexgui'], text=True, capture_output=True)
-			if results.stdout:
-				self.flex_version = results.stdout.split()[1]
-			else:
-				self.flex_version = 'Unknown'
-		except:
-			self.flex_version = 'Unknown'
 
 		loadUi(gui_path, self)
 		machine = self.inifile.find('EMC', 'MACHINE') or False
