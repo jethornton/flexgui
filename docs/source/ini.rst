@@ -32,8 +32,6 @@ To use a built-in input stylesheet, add either
 	or
 	INPUT = keyboard
 
-.. note:: If no INPUT nor QSS is specified, then no stylesheet will be used.
-
 To use a built in theme choose from one of the following
 ::
 
