@@ -25,14 +25,14 @@ with its `filename`:
 Stylesheets
 -----------
 
-To use a built-in input stylesheet, add either
+To use a built-in input stylesheet with no color changes choose one of the
+following
 ::
 
 	INPUT = touch
-	or
 	INPUT = keyboard
 
-To use a built in theme choose from one of the following
+To use a built in theme with coloring choose one of the following
 ::
 
 	THEME = blue
