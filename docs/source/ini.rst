@@ -34,12 +34,19 @@ To use a built-in input stylesheet, add either
 
 .. note:: If no INPUT nor QSS is specified, then no stylesheet will be used.
 
+To use a built in theme choose from one of the following
+::
+
+	THEME = blue
+	THEME = blue-touch
+
 To use a custom .qss style sheet you created named `lightflex.qss`
 ::
 
 	QSS = lightflex.qss
 
-.. note:: If a QSS file is specified, `INPUT` and `THEME` are ignored.
+.. note:: INPUT is checked first then THEME then QSS so the first entry found is
+   used.
 
 Startup File
 ------------
