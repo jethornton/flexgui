@@ -39,6 +39,8 @@ To use a built in theme choose from one of the following
 
 	THEME = blue
 	THEME = blue-touch
+	THEME = dark
+	THEME = dark-touch
 
 .. note:: Touch themes use tabs set to South for rounding and non touch use tabs
    set to North.

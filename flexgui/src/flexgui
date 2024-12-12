@@ -134,7 +134,7 @@ class flexgui(QMainWindow):
 				stylesheet = os.path.join(self.lib_path, 'touch.qss')
 
 		elif theme:
-			valid_themes = ['blue', 'blue-touch']
+			valid_themes = ['blue', 'blue-touch', 'dark', 'dark-touch']
 			if theme in valid_themes:
 				stylesheet = os.path.join(self.lib_path, f'{theme}.qss')
 				from libflexgui import resources
