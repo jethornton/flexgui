@@ -125,29 +125,22 @@ class flexgui(QMainWindow):
 		theme = self.inifile.find('DISPLAY', 'THEME') or False
 		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
+
 		stylesheet = False
-		if qss_file: # use a local qss file
+		if input_type:
+			if input_type.lower() == 'keyboard':
+				stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
+			elif input_type.lower() == 'touch':
+				stylesheet = os.path.join(self.lib_path, 'touch.qss')
+
+		elif theme:
+			valid_themes = ['blue', 'blue-touch']
+			if theme in valid_themes:
+				stylesheet = os.path.join(self.lib_path, f'{theme}.qss')
+				from libflexgui import resources
+
+		elif qss_file: # use a local qss file
 			stylesheet = os.path.join(self.ini_path, qss_file)
-		else: # check for input and theme options
-			if input_type:
-				if theme: # if the dark theme is found use it
-					if theme.lower() == 'dark':
-						if input_type.lower() == 'keyboard':
-							stylesheet = os.path.join(self.lib_path, 'dark-keyboard.qss')
-						elif input_type.lower() == 'touch':
-							stylesheet = os.path.join(self.lib_path, 'dark-touch.qss')
-					else:
-						msg(f'The theme {theme} is not found.')
-						dialogs.warn_msg_ok(msg, 'INI Error')
-				else: # no theme entry in the ini
-					if input_type:
-						if input_type.lower() == 'keyboard':
-							stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
-						elif input_type.lower() == 'touch':
-							stylesheet = os.path.join(self.lib_path, 'touch.qss')
-					else:
-						msg(f'The input type {input_type} is not a valid type.')
-						dialogs.warn_msg_ok(msg, 'INI Error')
 
 		if stylesheet:
 			if os.path.isfile(stylesheet):
