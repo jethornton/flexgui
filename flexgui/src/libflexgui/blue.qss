@@ -32,6 +32,8 @@ QTabBar::tab {
 	background-color: #000099;
 	border: 2px solid;
 	border-color: #bfbfbf;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	margin-left: 4px; /* make a space between the tabs */
 	margin-right: 0px;
 	margin-bottom: 3px; /* make non-selected tabs look smaller */
