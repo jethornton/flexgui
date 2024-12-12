@@ -24,10 +24,9 @@ X CENTER is the X center location for the threads. Best left at X0.
 
 Y CENTER is the Y center location for the threads. Best left at Y0.
 
-Z-CLEAR is a safe distance above the top of the threads. For internal threads this is Z-START plus the thread count.
+Z-CLEAR is a safe distance above the Z-START plane.
 
 Z-START is the start plane for both internal and external thread ops. For INTERNAL threads this will be the BOTTOM of the threads and for EXTERNAL threads this will be the TOP of the threads.
-Give Z-START a couple extra threads above the actual start of thread for external threading.
 
 Set the FEED & SPEED for the threadmill accordingly.
 
