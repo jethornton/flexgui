@@ -1,0 +1,36 @@
+# This file was created with the Mesa Configuration Tool on Jan 25 2024 11:28:15
+# If you make changes to this file DO NOT use the Configuration Tool
+
+# Inputs
+net jog-x-enable axis.x.jog-enable <= hm2_5i25.0.7i77.0.0.input-00
+net jog-x-enable joint.0.jog-enable
+net jog-y-enable axis.y.jog-enable <= hm2_5i25.0.7i77.0.0.input-01
+net jog-y-enable joint.1.jog-enable
+net jog-z-enable axis.z.jog-enable <= hm2_5i25.0.7i77.0.0.input-02
+net jog-z-enable joint.2.jog-enable
+net plus-minus-home-joint-0 joint.0.pos-lim-sw-in
+net plus-minus-home-joint-0 joint.0.neg-lim-sw-in
+net plus-minus-home-joint-0 joint.0.home-sw-in <= hm2_5i25.0.7i77.0.0.input-09-not
+net plus-minus-home-joint-1 joint.1.pos-lim-sw-in
+net plus-minus-home-joint-1 joint.1.neg-lim-sw-in
+net plus-minus-home-joint-1 joint.1.home-sw-in <= hm2_5i25.0.7i77.0.0.input-10-not
+net plus-home-joint-2 joint.2.pos-lim-sw-in
+net plus-home-joint-2 joint.2.home-sw-in <= hm2_5i25.0.7i77.0.0.input-11-not
+net neg-limit-joint-2 joint.2.neg-lim-sw-in <= hm2_5i25.0.7i77.0.0.input-12-not
+
+# E-Stop Chain
+loadrt estop_latch count=1
+addf estop-latch.0 servo-thread
+
+# E-Stop Loop
+net estop-loopin iocontrol.0.user-enable-out => estop-latch.0.ok-in
+net estop-loopout estop-latch.0.ok-out => iocontrol.0.emc-enable-in
+
+# E-Stop Reset
+net estop-reset iocontrol.0.user-request-enable
+net estop-reset => estop-latch.0.reset
+net remote-estop0 estop-latch.0.fault-in <= hm2_5i25.0.7i77.0.0.input-06-not
+
+# Outputs
+net motion-enable =>  hm2_5i25.0.7i77.0.0.output-00
+net motion-enable =>  hm2_5i25.0.7i77.0.0.output-01
