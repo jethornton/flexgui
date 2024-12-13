@@ -22,15 +22,15 @@ with its `filename`:
 
 	GUI = my-file-name.ui
 
-Stylesheets
------------
+Themes
+------
 
-To use a built-in input stylesheet with no color changes choose one of the
+To use a built-in theme with no color changes choose one of the
 following
 ::
 
-	INPUT = touch
-	INPUT = keyboard
+	THEME = touch
+	THEME = keyboard
 
 To use a built in theme with coloring choose one of the following
 ::
@@ -48,8 +48,7 @@ To use a custom .qss style sheet you created named `lightflex.qss`
 
 	QSS = lightflex.qss
 
-.. note:: INPUT is checked first then THEME then QSS so the first entry found is
-   used.
+.. note:: THEME is checked first then QSS so the first entry found is used.
 
 Startup File
 ------------

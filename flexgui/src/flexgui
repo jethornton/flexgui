@@ -127,20 +127,23 @@ class flexgui(QMainWindow):
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 
 		stylesheet = False
-		if input_type:
-			if input_type.lower() == 'keyboard':
-				stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
-			elif input_type.lower() == 'touch':
-				stylesheet = os.path.join(self.lib_path, 'touch.qss')
-
-		elif theme:
-			valid_themes = ['blue', 'blue-touch', 'dark', 'dark-touch']
+		if theme:
+			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
 			if theme in valid_themes:
 				stylesheet = os.path.join(self.lib_path, f'{theme}.qss')
 				from libflexgui import resources
 
 		elif qss_file: # use a local qss file
 			stylesheet = os.path.join(self.ini_path, qss_file)
+
+		elif input_type: # depreciated FIXME
+			if input_type.lower() == 'keyboard':
+				stylesheet = os.path.join(self.lib_path, 'keyboard.qss')
+			elif input_type.lower() == 'touch':
+				stylesheet = os.path.join(self.lib_path, 'touch.qss')
+			msg = ('INPUT is depreciated\n'
+			'use THEME for keyboard or touch')
+			dialogs.warn_msg_ok(msg, 'INI File Error')
 
 		if stylesheet:
 			if os.path.isfile(stylesheet):
