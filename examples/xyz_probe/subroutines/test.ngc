@@ -1,6 +1,0 @@
-o<test> sub
-(debug, #<_hal[flexhal.probe_seek]>)
-F#<_hal[flexhal.probe_seek]>
-G1 X1
-o<test> endsub
-M2
