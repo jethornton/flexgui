@@ -2012,6 +2012,9 @@ def set_status(parent): # this is only used if running from a terminal
 	if open_file and open_file != '""':
 		if open_file.startswith('./'):
 			open_file = os.path.join(parent.ini_path, open_file.lstrip('./'))
+		elif open_file.startswith('../'):
+			open_file = os.path.join(os.path.dirname(parent.ini_path), open_file.lstrip('../'))
+			print(open_file)
 		elif open_file.startswith('~'):
 			open_file = open_file.replace('~', parent.home_dir)
 		else: # full path
