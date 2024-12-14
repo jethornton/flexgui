@@ -1,0 +1,39 @@
+o<hole_mill> sub
+	(helical hole milling, load tool and set feed first, then use like so:)
+	(o100 call [X pos] [Y pos] [safety height] [hole depth] [hole dia] [tool dia])
+	(			#2006	#2007	#2050			#2051		#2052		#2047)
+	(tool dia doesn't have to be specified exactly.)
+	#2051=[0 - #2051]
+	#2048=[#2047 / 2]  (#2048 is depth per circle = half of tool diameter)
+	#2049=[#2050 - #2048] (#2049 is current depth step)
+	G0 Z#2050
+	(start above and right so we make a convex corner for entry to the ccw arcs)
+	G0 X[#2006 + #2047] Y[#2007 + [#2052 / 2]] 
+	G41 G0 X#2006 Y[#2007 + [#2052 / 2]]
+	o101 while [#2049 GT #2051]
+		(down toward the specified depth a bit at a time)
+		G3 X#2006 Y[#2007 + [#2052 / 2]] I0 J[0 - [#2052 / 2]] Z#2049
+		#2049=[#2049 - #2048]
+	o101 endwhile
+	(down to the actual depth)
+	G3 X#2006 Y[#2007 + [#2052 / 2]] I0 J[0 - [#2052 / 2]] Z#2051
+	(full circle at the actual depth)
+	G3 X#2006 Y[#2007 + [#2052 / 2]] I0 J[0 - [#2052 / 2]]
+	G0 Z#2050
+	g40
+o<hole_mill> endsub
+M2
+
+;	Parameters
+;x	#2006	X start point for corners & bolt pattern center  			
+;x	#2007	Y start point for corners & bolt pattern center
+;x	#2050	hole mill Clear Return point
+;x	#2051	hole mill Z depth
+;x	#2052	hole mill diameter
+;x	#2047	hole mill tool diameter
+;	#2048	hole mill depth of cut	
+;	#2049	hole mill current depth step
+;	#2044	Feedrate	
+;	#2046	Spindle Speed
+
+
