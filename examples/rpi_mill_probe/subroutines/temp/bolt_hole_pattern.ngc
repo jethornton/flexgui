@@ -1,0 +1,28 @@
+o<bolt_hole_pattern> sub
+	G20
+	#2043 = [#2037 / 2]				; Pattern Radius
+	#2040 = [360 / #2038]			; Circle / number of holes
+
+	G0 G90 X#2006 Y #2007			; Find center
+	G10 L20 P0 X 0
+	G10 L20 P0 X 0
+	
+	#2006 = 0
+	#2007 = 0
+	G0 G90 X#2006 Y #2007			; Find center
+
+	G0 @[#2006 + #2043] ^0 Z0		; Position over first hole establishing radius
+;	G0 @[#2006 + #2043] ^#2039 Z0	; Position over first hole establishing radius
+	G1 Z #2041 F #2044				; Move to Z start depth
+	G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044
+
+G92 X0 Y0
+;	G90
+;	G53 G0 X#2046					; return to original X
+;	G53 G0 Y#2047					; return to original X
+
+o<bolt_hole_pattern> endsub
+M2
+
+
+

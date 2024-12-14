@@ -1,0 +1,8 @@
+o<work_zero_xy> sub
+G90
+G0 X0 Y0
+o<work_zero_xy> endsub
+
+m2
+
+

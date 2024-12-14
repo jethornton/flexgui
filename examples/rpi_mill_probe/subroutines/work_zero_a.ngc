@@ -1,0 +1,8 @@
+o<work_zero_a> sub
+G90
+G0 A0
+o<work_zero_a> endsub
+
+m2
+
+
