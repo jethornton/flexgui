@@ -20,7 +20,13 @@ QPlainTextEdit#errors_pte {
     border: 1px solid white;
 	color: lightgreen;
 	}
-
+	
+QPlainTextEdit#info_pte {
+	background-color: rgba(0, 96, 192, 60%); color: white;
+    border: 1px solid white;
+	color: lightgreen;
+	}
+	
 QListWidget, QLineEdit, QComboBox {
 	background-color: rgba(0, 96, 192, 60%);
 	color: lightgreen;
@@ -382,15 +388,31 @@ QPushButton#G1_XY_plus:pressed, QPushButton#G1_XY_minus:pressed {
 	} 
 /* ********** Tool Change, Jog Modes Combo Box ********** */
 
-QComboBox#tool_change_cb::item:selected, QComboBox#jog_modes_cb::item:selected {
+QComboBox {
+
+	background-color: rgba(0, 96, 192, 60%);
+	color: lightgreen;
+
+}
+QListView::item:selected {
 	background-color: rgba(0, 96, 192, 60%);
 	color: white;
-	}
-	
-QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected {
+
+}
+QListView::item:!selected {
 	background-color: rgba(0, 96, 192, 80%);
 	color: lightgreen;
-	}
+
+}
+/*QComboBox#tool_change_cb::item:selected, QComboBox#jog_modes_cb::item:selected {
+	background-color: rgba(0, 96, 192, 60%);
+	color: white;
+	} */
+	
+/* QComboBox#tool_change_cb::item:!selected, QComboBox#jog_modes_cb::item:!selected {
+	background-color: rgba(0, 96, 192, 80%);
+	color: lightgreen;
+	} */
 
 /* **************************************** */
 QPushButton#probe_inXminusYplus {
@@ -516,7 +538,10 @@ QFrame#logo {
     border: 1px grey;
     border-radius: 2px;
     padding: 2px;
-    background-image: url(:images/Flex-probe117.png);
+/*    background-image: url(:images/Flex-probe117.png); */
+/*    background-image: url(:images/Chips117_red.png); */
+    background-image: url(:images/Chips117_plain.png);
+
 }
 
 QPushButton#probing_enable_pb:enabled:checked {
