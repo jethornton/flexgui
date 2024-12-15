@@ -84,6 +84,7 @@ class flexqrc(QMainWindow):
 			if files:
 				self.images_lw.clear()
 				self.images_lw.addItems(files)
+				self.files.clear()
 				for file in files:
 					self.files.append(file)
 				self.build_qrc_pb.setEnabled(True)
@@ -141,6 +142,9 @@ class flexqrc(QMainWindow):
 			with open(resource_file, 'w') as file:
 				file.write(filedata)
 			shutil.copy2(resource_file, self.config_directory)
+
+		else:
+			self.build_resources_lb.setText('Build Failed')
 
 app = QApplication(sys.argv)
 gui = flexqrc()
