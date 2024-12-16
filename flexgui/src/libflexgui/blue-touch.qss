@@ -120,6 +120,14 @@ QAbstractSpinBox::up-button {
 	border-image: url(:/arrow_up.png);
 }
 
+QAbstractSpinBox::up-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::up-button:disabled {
+	border-image: url(:/up_arrow_disabled.png);
+}
+
 QAbstractSpinBox::down-button {
 	subcontrol-origin: content;
 	subcontrol-position: left;
@@ -127,6 +135,14 @@ QAbstractSpinBox::down-button {
 	min-width: 35px;
 	padding: 12px;
 	border-image: url(:/arrow_down.png);
+}
+
+QAbstractSpinBox::down-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::down-button:disabled {
+	border-image: url(:/down_arrow_disabled.png);
 }
 
 /***** QListWidget *****/
