@@ -117,7 +117,7 @@ QAbstractSpinBox::up-button {
 	min-width: 38px;
 	padding: 12px;
 	/*border : 2px solid black;*/
-	border-image: url(:/arrow_up.png);
+	border-image: url(:/up_arrow.png);
 }
 
 QAbstractSpinBox::up-button:off {
@@ -134,7 +134,15 @@ QAbstractSpinBox::down-button {
 	min-height: 35px;
 	min-width: 35px;
 	padding: 12px;
-	border-image: url(:/arrow_down.png);
+	border-image: url(:/down_arrow.png);
+}
+
+QAbstractSpinBox::down-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::down-button:disabled {
+	border-image: url(:/down_arrow_disabled.png);
 }
 
 QAbstractSpinBox::down-button:off {

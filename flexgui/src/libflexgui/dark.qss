@@ -108,14 +108,30 @@ QAbstractSpinBox::up-button {
 	subcontrol-origin: content;
 	subcontrol-position: right;
 	padding: 12px;
-	border-image: url(:/arrow_up.png);
+	border-image: url(:/up_arrow.png);
+}
+
+QAbstractSpinBox::up-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::up-button:disabled {
+	border-image: url(:/up_arrow_disabled.png);
 }
 
 QAbstractSpinBox::down-button {
 	subcontrol-origin: content;
 	subcontrol-position: left;
 	padding: 12px;
-	border-image: url(:/arrow_down.png);
+	border-image: url(:/down_arrow.png);
+}
+
+QAbstractSpinBox::down-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::down-button:disabled {
+	border-image: url(:/down_arrow_disabled.png);
 }
 
 /***** QListWidget *****/
