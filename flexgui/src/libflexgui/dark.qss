@@ -83,6 +83,15 @@ QAbstractButton{
 	padding-left: 5px;
 }
 
+QPushButton:pressed {
+	border-style: inset;
+}
+
+QPushButton:hover {
+	background-color: #404040;
+	color: white;
+}
+
 QPushButton:disabled {
 	color: #808080;
 	background-color: #4d4d4d;
