@@ -198,6 +198,23 @@ The following settings can be used in the DISPLAY section of the ini file:
 	Feed Override maximum             MAX_FEED_OVERRIDE
 	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
 
+Override Presets
+----------------
+
+Feed, Rapid and Spindle overrides can have a preset button(s) for different
+preset amounts. Replace the nnn with the percent of override you want that
+button to use.
+
+.. csv-table:: Override Presets
+   :width: 100%
+   :align: left
+
+	**Function**, **Widget**, **Object Name**
+	Feed Override Preset, QPushButton, feed_percent_nnn
+	Rapid Override Preset, QPushButton, rapid_percent_nnn
+	Spindle Override Preset, QPushButton, spindle_percent_nnn
+
+.. note:: The maximum override for Rapid is 100
 
 Double Spin Boxes
 -----------------

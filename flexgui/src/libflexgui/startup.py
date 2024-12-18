@@ -414,6 +414,21 @@ def setup_buttons(parent): # connect buttons to functions
 			button.clicked.connect(partial(commands.zero_axis, parent, axis.upper()))
 			parent.home_required.append(name)
 
+	# override preset buttons
+	for item in parent.children:
+		if item.startswith('feed_percent_'):
+			print(item)
+			button = getattr(parent, item)
+			button.clicked.connect(partial(commands.feed_override_preset, parent))
+		elif item.startswith('rapid_percent_'):
+			print(item)
+			button = getattr(parent, item)
+			button.clicked.connect(partial(commands.rapid_override_preset, parent))
+		elif item.startswith('spindle_percent_'):
+			print(item)
+			button = getattr(parent, item)
+			button.clicked.connect(partial(commands.spindle_override_preset, parent))
+
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
 	parent.shortcuts = []
