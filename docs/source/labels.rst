@@ -69,7 +69,7 @@ Status Labels
 	estop_lb, mist_lb, task_state_lb
 	exec_state_lb, motion_line_lb, tool_in_spindle_lb
 	feed_hold_enabled_lb, motion_mode_lb, tool_from_pocket_lb
-	motion_type_lb, tool_offset_lb, feedrate_lb
+	motion_type_lb, tool_offset_lb, feed_override_lb
 	optional_stop_lb, file_lb, paused_lb
 
 .. note:: You don't have to use all the labels; use only as many as you need.
