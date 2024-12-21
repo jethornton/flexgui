@@ -10,7 +10,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
 
-from libflexgui import boxmodel
+from libflexgui import qss_images
 
 class main(QMainWindow):
 	def __init__(self):
@@ -165,6 +165,10 @@ class main(QMainWindow):
 			if color.isValid():
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
+		else:
+			print('abort')
+			setattr(self, variable, False)
+			getattr(self, label).setStyleSheet(f'background-color: none;')
 
 	def font_dialog(self):
 		font, valid = QFontDialog.getFont()
