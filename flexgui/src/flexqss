@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+
+import sys, os, textwrap
+# disable cache usage must be before any local imports
+sys.dont_write_bytecode = True
+
+from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog
+from PyQt6.QtWidgets import QRadioButton
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import QSignalBlocker
+from PyQt6 import uic
+
+from libflexgui import boxmodel
+
+class main(QMainWindow):
+	def __init__(self):
+		super().__init__()
+		uic.loadUi(os.path.join(os. getcwd(), 'flexqss.ui'), self)
+		self.setGeometry(50, 50, 500, 500)
+		self.setWindowTitle('Flex QSS Creator')
+		self.pb_text_color.clicked.connect(self.color_dialog)
+		self.pb_bg_color.clicked.connect(self.color_dialog)
+		self.pb_border_color.clicked.connect(self.color_dialog)
+		self.pb_text_color_pressed.clicked.connect(self.color_dialog)
+		self.pb_bg_color_pressed.clicked.connect(self.color_dialog)
+		self.pb_text_color_hover.clicked.connect(self.color_dialog)
+		self.pb_bg_color_hover.clicked.connect(self.color_dialog)
+		self.pb_padding.valueChanged.connect(self.padding)
+		self.pb_padding_left.valueChanged.connect(self.padding)
+		self.pb_padding_right.valueChanged.connect(self.padding)
+		self.pb_padding_top.valueChanged.connect(self.padding)
+		self.pb_padding_bottom.valueChanged.connect(self.padding)
+
+		self.pb_margin.valueChanged.connect(self.margin)
+		self.pb_margin_left.valueChanged.connect(self.margin)
+		self.pb_margin_right.valueChanged.connect(self.margin)
+		self.pb_margin_top.valueChanged.connect(self.margin)
+		self.pb_margin_bottom.valueChanged.connect(self.margin)
+
+		self.pb_disable.clicked.connect(self.disable)
+
+		self.apply_button_style.clicked.connect(self.apply_style)
+
+		self.boxmodel_lb.setPixmap(QPixmap(':/stylesheet-boxmodel.png'))
+
+		#self.button.clicked.connect(self.style_button)
+		#self.button_border_width.valueChanged.connect(self.set_button_border_width)
+		self.setup()
+		self.show()
+
+	def setup(self):
+		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+			'ridge', 'inset', 'outset']
+		self.border_style.addItems(border_types)
+		self.pb_color = '#000000'
+		self.pb_bg_color = '#ffffff'
+		self.pb_border_color = '#000000'
+		self.pb_color_pressed = False
+		self.pb_bg_color_pressed = False
+		self.pb_color_hover = False
+		self.pb_bg_color_hover = False
+		self.pb_color_disabled = False
+		self.pb_bg_color_disabled = False
+
+
+	def apply_style(self):
+		border_type = self.border_style.currentText()
+
+		style = 'QPushButton {'
+
+		style += f'\n\tcolor: {self.pb_color};'
+		style += f'\n\tbackground-color: {self.pb_bg_color};'
+		style += f'\n\tborder-style: {border_type};'
+		style += f'\n\tborder-color: {self.pb_border_color};'
+		style += f'\n\tborder-width: {self.pb_border_width.value()}px;'
+		style += f'\n\tborder-radius: {self.pb_border_radius.value()}px;'
+
+		if self.pb_min_width.value() > 0:
+			style += f'\n\tmin-width: {self.pb_min_width.value()};'
+		if self.pb_min_height.value() > 0:
+			style += f'\n\tmin-height: {self.pb_min_height.value()};'
+		if self.pb_max_width.value() > 0:
+			style += f'\n\tmax-width: {self.pb_max_width.value()};'
+		if self.pb_max_height.value() > 0:
+			style += f'\n\tmax-height: {self.pb_max_height.value()};'
+
+		if self.pb_padding.value() > 0:
+			style += f'\n\tpadding: {self.pb_padding.value()};'
+		if self.pb_padding_left.value() > 0:
+			style += f'\n\tpadding-left: {self.pb_padding_left.value()};'
+		if self.pb_padding_right.value() > 0:
+			style += f'\n\tpadding-right: {self.pb_padding_right.value()};'
+		if self.pb_padding_top.value() > 0:
+			style += f'\n\tpadding-top: {self.pb_padding_top.value()};'
+		if self.pb_padding_bottom.value() > 0:
+			style += f'\n\tpadding-bottom: {self.pb_padding_bottom.value()};'
+
+		if self.pb_margin.value() > 0:
+			style += f'\n\tmargin: {self.pb_margin.value()};'
+		if self.pb_margin_left.value() > 0:
+			style += f'\n\tmargin-left: {self.pb_margin_left.value()};'
+		if self.pb_margin_right.value() > 0:
+			style += f'\n\tmargin-right: {self.pb_margin_right.value()};'
+		if self.pb_margin_top.value() > 0:
+			style += f'\n\tmargin-top: {self.pb_margin_top.value()};'
+		if self.pb_margin_bottom.value() > 0:
+			style += f'\n\tmargin-bottom: {self.pb_margin_bottom.value()};'
+
+		style += '\n}'
+
+		# pressed
+		if self.pb_color_pressed or self.pb_bg_color_pressed:
+			style += '\n\nQPushButton:pressed {'
+		if self.pb_color_pressed:
+			style += f'\n\tcolor: {self.pb_color_pressed};'
+		if self.pb_bg_color_pressed:
+			style += f'\n\tbackground-color: {self.pb_bg_color_pressed};'
+		if self.pb_color_pressed or self.pb_bg_color_pressed:
+			style += '\n}'
+
+		# hover
+		if self.pb_color_hover or self.pb_bg_color_hover:
+			style += '\n\nQPushButton:hover {'
+		if self.pb_color_hover:
+			style += f'\n\tcolor: {self.pb_color_hover};'
+		if self.pb_bg_color_hover:
+			style += f'\n\tbackground-color: {self.pb_bg_color_hover};'
+		if self.pb_color_hover or self.pb_bg_color_hover:
+			style += '\n}'
+
+		# disabled
+		if self.pb_color_disabled or self.pb_bg_color_disabled:
+			style += '\n\nQPushButton:disabled {'
+		if self.pb_color_disabled:
+			style += f'\n\tcolor: {self.pb_color_disabled};'
+		if self.pb_bg_color_disabled:
+			style += f'\n\tbackground-color: {self.pb_bg_color_disabled};'
+		if self.pb_color_disabled or self.pb_bg_color_disabled:
+			style += '\n}'
+
+		self.pb_stylesheet.clear()
+		lines = style.splitlines()
+		for line in lines:
+			self.pb_stylesheet.appendPlainText(line)
+
+		self.pushButton.setStyleSheet(textwrap.dedent(style))
+
+
+	def set_button_border_width(self, width):
+		if width > 0:
+			self.pushButton.setStyleSheet (f'border-width: {width}px; border-style: solid;')
+
+	def color_dialog(self):
+		prop = self.sender().property('qss')
+		variable = self.sender().property('var')
+		label = self.sender().property('label')
+		color = QColorDialog.getColor()
+		if color.isValid():
+			setattr(self, variable, color.name())
+			getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
+
+	def padding(self):
+		if self.sender().objectName() == 'pb_padding': # set the rest to 0
+			with QSignalBlocker(self.pb_padding_left):
+				self.pb_padding_left.setValue(0)
+			with QSignalBlocker(self.pb_padding_right):
+				self.pb_padding_right.setValue(0)
+			with QSignalBlocker(self.pb_padding_top):
+				self.pb_padding_top.setValue(0)
+			with QSignalBlocker(self.pb_padding_bottom):
+				self.pb_padding_bottom.setValue(0)
+		else: # set pb_padding to 0
+			with QSignalBlocker(self.pb_padding):
+				self.pb_padding.setValue(0)
+
+	def margin(self):
+		if self.sender().objectName() == 'pb_margin': # set the rest to 0
+			with QSignalBlocker(self.pb_margin_left):
+				self.pb_margin_left.setValue(0)
+			with QSignalBlocker(self.pb_margin_right):
+				self.pb_margin_right.setValue(0)
+			with QSignalBlocker(self.pb_margin_top):
+				self.pb_margin_top.setValue(0)
+			with QSignalBlocker(self.pb_margin_bottom):
+				self.pb_margin_bottom.setValue(0)
+		else: # set pb_margin to 0
+			with QSignalBlocker(self.pb_margin):
+				self.pb_margin.setValue(0)
+
+	def disable(self):
+		if self.sender().isChecked():
+			self.sender().setText('Enable')
+			self.pushButton.setEnabled(False)
+		else:
+			self.sender().setText('Disable')
+			self.pushButton.setEnabled(True)
+
+app = QApplication(sys.argv)
+gui = main()
+sys.exit(app.exec())
+
