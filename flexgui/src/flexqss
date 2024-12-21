@@ -109,16 +109,6 @@ class main(QMainWindow):
 
 		style += '\n}'
 
-		# pressed
-		if self.pb_color_pressed or self.pb_bg_color_pressed:
-			style += '\n\nQPushButton:pressed {'
-		if self.pb_color_pressed:
-			style += f'\n\tcolor: {self.pb_color_pressed};'
-		if self.pb_bg_color_pressed:
-			style += f'\n\tbackground-color: {self.pb_bg_color_pressed};'
-		if self.pb_color_pressed or self.pb_bg_color_pressed:
-			style += '\n}'
-
 		# hover
 		if self.pb_color_hover or self.pb_bg_color_hover:
 			style += '\n\nQPushButton:hover {'
@@ -127,6 +117,16 @@ class main(QMainWindow):
 		if self.pb_bg_color_hover:
 			style += f'\n\tbackground-color: {self.pb_bg_color_hover};'
 		if self.pb_color_hover or self.pb_bg_color_hover:
+			style += '\n}'
+
+		# pressed
+		if self.pb_color_pressed or self.pb_bg_color_pressed:
+			style += '\n\nQPushButton:pressed {'
+		if self.pb_color_pressed:
+			style += f'\n\tcolor: {self.pb_color_pressed};'
+		if self.pb_bg_color_pressed:
+			style += f'\n\tbackground-color: {self.pb_bg_color_pressed};'
+		if self.pb_color_pressed or self.pb_bg_color_pressed:
 			style += '\n}'
 
 		# disabled
