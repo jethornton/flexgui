@@ -17,6 +17,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Button</string>
@@ -25,7 +31,7 @@
         <item row="6" column="1">
          <widget class="QCheckBox" name="pb_disable">
           <property name="text">
-           <string>Disable</string>
+           <string>Disable the PushButton</string>
           </property>
          </widget>
         </item>
@@ -63,6 +69,22 @@
              <widget class="QLabel" name="boxmodel_lb">
               <property name="text">
                <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_8">
+           <attribute name="title">
+            <string>Help</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QPlainTextEdit" name="plainTextEdit">
+              <property name="plainText">
+               <string>To delete a color open the color dialog and Cancel
+
+Border needs both width and color to show up</string>
               </property>
              </widget>
             </item>
@@ -344,6 +366,9 @@
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0">
             <widget class="QPushButton" name="pb_text_color">
+             <property name="toolTip">
+              <string/>
+             </property>
              <property name="text">
               <string>Text Color</string>
              </property>
@@ -388,6 +413,9 @@
            </item>
            <item row="1" column="0">
             <widget class="QPushButton" name="pb_bg_color">
+             <property name="toolTip">
+              <string/>
+             </property>
              <property name="text">
               <string>Background Color</string>
              </property>
@@ -433,7 +461,7 @@
         <item row="6" column="0">
          <widget class="QPushButton" name="apply_button_style">
           <property name="text">
-           <string>Apply</string>
+           <string>Apply The Style</string>
           </property>
          </widget>
         </item>
@@ -539,6 +567,9 @@
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="0" column="0">
             <widget class="QPushButton" name="pb_text_color_pressed">
+             <property name="toolTip">
+              <string/>
+             </property>
              <property name="text">
               <string>Text Color</string>
              </property>
@@ -583,6 +614,9 @@
            </item>
            <item row="1" column="0">
             <widget class="QPushButton" name="pb_bg_color_pressed">
+             <property name="toolTip">
+              <string/>
+             </property>
              <property name="text">
               <string>Background Color</string>
              </property>
@@ -865,7 +899,12 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Label</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>Page</string>
        </attribute>
       </widget>
      </widget>
