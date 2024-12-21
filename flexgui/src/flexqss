@@ -25,6 +25,8 @@ class main(QMainWindow):
 		self.pb_bg_color_pressed.clicked.connect(self.color_dialog)
 		self.pb_text_color_hover.clicked.connect(self.color_dialog)
 		self.pb_bg_color_hover.clicked.connect(self.color_dialog)
+		self.pb_text_color_disabled.clicked.connect(self.color_dialog)
+		self.pb_bg_color_disabled.clicked.connect(self.color_dialog)
 		self.pb_padding.valueChanged.connect(self.padding)
 		self.pb_padding_left.valueChanged.connect(self.padding)
 		self.pb_padding_right.valueChanged.connect(self.padding)
@@ -53,9 +55,9 @@ class main(QMainWindow):
 		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 			'ridge', 'inset', 'outset']
 		self.border_style.addItems(border_types)
-		self.pb_color = '#000000'
-		self.pb_bg_color = '#ffffff'
-		self.pb_border_color = '#000000'
+		self.pb_color = False
+		self.pb_bg_color = False
+		self.pb_border_color = False
 		self.pb_color_pressed = False
 		self.pb_bg_color_pressed = False
 		self.pb_color_hover = False
@@ -69,13 +71,19 @@ class main(QMainWindow):
 
 		style = 'QPushButton {'
 
-		style += f'\n\tcolor: {self.pb_color};'
-		style += f'\n\tbackground-color: {self.pb_bg_color};'
-		style += f'\n\tborder-style: {border_type};'
-		style += f'\n\tborder-color: {self.pb_border_color};'
-		style += f'\n\tborder-width: {self.pb_border_width.value()}px;'
-		style += f'\n\tborder-radius: {self.pb_border_radius.value()}px;'
+		if self.pb_color:
+			style += f'\n\tcolor: {self.pb_color};'
+		if self.pb_bg_color:
+			style += f'\n\tbackground-color: {self.pb_bg_color};'
+		if border_type != 'none':
+			style += f'\n\tborder-style: {border_type};'
 
+		if self.pb_border_color:
+			style += f'\n\tborder-color: {self.pb_border_color};'
+		if self.pb_border_width.value() > 0:
+			style += f'\n\tborder-width: {self.pb_border_width.value()}px;'
+		if self.pb_border_radius.value() > 0:
+			style += f'\n\tborder-radius: {self.pb_border_radius.value()}px;'
 		if self.pb_min_width.value() > 0:
 			style += f'\n\tmin-width: {self.pb_min_width.value()};'
 		if self.pb_min_height.value() > 0:
@@ -166,7 +174,6 @@ class main(QMainWindow):
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
 		else:
-			print('abort')
 			setattr(self, variable, False)
 			getattr(self, label).setStyleSheet(f'background-color: none;')
 
