@@ -5,7 +5,7 @@ import sys, os, textwrap
 sys.dont_write_bytecode = True
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog
-from PyQt6.QtWidgets import QRadioButton
+from PyQt6.QtWidgets import QRadioButton, QFontDialog
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
@@ -38,6 +38,7 @@ class main(QMainWindow):
 		self.pb_margin_bottom.valueChanged.connect(self.margin)
 
 		self.pb_disable.clicked.connect(self.disable)
+		self.pb_font_picker.clicked.connect(self.font_dialog)
 
 		self.apply_button_style.clicked.connect(self.apply_style)
 
@@ -154,10 +155,22 @@ class main(QMainWindow):
 		prop = self.sender().property('qss')
 		variable = self.sender().property('var')
 		label = self.sender().property('label')
-		color = QColorDialog.getColor()
-		if color.isValid():
-			setattr(self, variable, color.name())
-			getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
+		color_dialog = QColorDialog()
+		color_dialog.setOptions(QColorDialog.ColorDialogOption.DontUseNativeDialog | 
+			QColorDialog.ColorDialogOption.ShowAlphaChannel)
+		#color = QColorDialog.getColor()
+		#color = cd.getColor()
+		if color_dialog.exec():
+			color = color_dialog.currentColor()
+			if color.isValid():
+				setattr(self, variable, color.name())
+				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
+
+	def font_dialog(self):
+		font, valid = QFontDialog.getFont()
+		if valid:
+			#self.styleChoice.setFont(font)
+			print(font)
 
 	def padding(self):
 		if self.sender().objectName() == 'pb_padding': # set the rest to 0
