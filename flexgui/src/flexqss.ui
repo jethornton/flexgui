@@ -935,7 +935,17 @@ Border needs both width and color to show up</string>
       </widget>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
-        <string>Page</string>
+        <string>Checkbox</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_9">
+       <attribute name="title">
+        <string>Spinbox</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>Containers</string>
        </attribute>
       </widget>
      </widget>
