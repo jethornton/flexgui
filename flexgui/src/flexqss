@@ -64,6 +64,7 @@ class main(QMainWindow):
 		self.font_size = False
 		self.font_weight = False
 		self.font_style = False
+		self.font_italic = False
 		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 			'ridge', 'inset', 'outset']
 		self.border_style.addItems(border_types)
@@ -204,19 +205,28 @@ class main(QMainWindow):
 			options |= QFontDialog.FontDialogOption.MonospacedFonts
 		elif self.pb_proportional_fonts.isChecked():
 			options |= QFontDialog.FontDialogOption.ProportionalFonts
-		current_font = QFont(self.font_family) if self.font_family else self.font()
+		print(self.font_family)
+		if self.font_family: # QFont(const QString &family, int pointSize = -1, int weight = -1, bool italic = false)
+			current_font = QFont(self.font_family, self.font_size, self.font_weight, self.font_italic)
+		else:
+			current_font = self.font()
+		#print(current_font)
 		font, ok = QFontDialog.getFont(current_font, self, "Choose a Font", options)
 		if ok:
 			fontinfo = QFontInfo(font)
+			#print(dir(fontinfo))
+			# 'bold', 'exactMatch', 'family', 'fixedPitch', 'italic', 'pixelSize', 'pointSize', 'pointSizeF', 'style', 'styleHint', 'styleName', 'swap', 'weight'
 			self.font_family = fontinfo.family()
 			self.font_size = font.pointSize()
 			self.font_style = fontinfo.styleName()
 			self.font_weight = fontinfo.weight()
+			self.font_italic = fontinfo.italic()
 		else:
 			self.font_family = False
 			self.font_size = False
 			self.font_weight = False
 			self.font_weight = False
+			self.font_italic = False
 
 	def padding(self):
 		if self.sender().objectName() == 'pb_padding': # set the rest to 0
