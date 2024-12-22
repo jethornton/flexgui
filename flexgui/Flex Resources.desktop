@@ -9,6 +9,6 @@ Categories=Development;Engineering;X-CNC;
 Terminal=false
 StartupNotify=true
 StartupWMClass=flexqrc
-GenericName=Flex GUI
+GenericName=Flex Resources
 
 Name[en_US]=Flex Resources
