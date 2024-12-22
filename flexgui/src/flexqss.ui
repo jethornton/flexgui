@@ -874,7 +874,7 @@ Border needs both width and color to show up</string>
           </widget>
           <widget class="QWidget" name="tab_6">
            <attribute name="title">
-            <string>Font</string>
+            <string>Fonts</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
@@ -885,9 +885,40 @@ Border needs both width and color to show up</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_18">
+             <widget class="QRadioButton" name="pb_all_fonts">
               <property name="text">
-               <string>TextLabel</string>
+               <string>All Fonts</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="pb_scaleable_fonts">
+              <property name="text">
+               <string>Scalable Fonts</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="pb_non_scaleable_fonts">
+              <property name="text">
+               <string>Non Scalable Fonts</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="pb_monospaced_fonts">
+              <property name="text">
+               <string>Monospaced Fonts</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="pb_proportional_fonts">
+              <property name="text">
+               <string>Proportional Fonts</string>
               </property>
              </widget>
             </item>
