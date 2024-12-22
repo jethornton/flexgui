@@ -15,7 +15,17 @@ from libflexgui import qss_images
 class main(QMainWindow):
 	def __init__(self):
 		super().__init__()
-		uic.loadUi(os.path.join(os. getcwd(), 'flexqss.ui'), self)
+
+		# get the path to the executable
+		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+		# set the library path
+		if self.path == '/usr/bin':
+			self.gui_path = '/usr/lib/libflexgui'
+		else:
+			self.gui_path = self.path
+		uic.loadUi(os.path.join(self.gui_path, 'flexqss.ui'), self)
+
 		self.setGeometry(50, 50, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
 		self.pb_text_color.clicked.connect(self.color_dialog)
@@ -46,8 +56,6 @@ class main(QMainWindow):
 
 		self.boxmodel_lb.setPixmap(QPixmap(':/stylesheet-boxmodel.png'))
 
-		#self.button.clicked.connect(self.style_button)
-		#self.button_border_width.valueChanged.connect(self.set_button_border_width)
 		self.setup()
 		self.show()
 
@@ -81,8 +89,6 @@ class main(QMainWindow):
 			style += f'\n\tfont-size: {self.font_size}px;'
 		if self.font_weight:
 			style += f'\n\tfont-weight: {self.font_weight};'
-		#if self.font_style:
-		#	style += f'\n\tfont-style: {self.font_style};'
 
 		if self.pb_color:
 			style += f'\n\tcolor: {self.pb_color};'
@@ -179,8 +185,6 @@ class main(QMainWindow):
 		color_dialog = QColorDialog()
 		color_dialog.setOptions(QColorDialog.ColorDialogOption.DontUseNativeDialog | 
 			QColorDialog.ColorDialogOption.ShowAlphaChannel)
-		#color = QColorDialog.getColor()
-		#color = cd.getColor()
 		if color_dialog.exec():
 			color = color_dialog.currentColor()
 			if color.isValid():
@@ -200,7 +204,6 @@ class main(QMainWindow):
 			options |= QFontDialog.FontDialogOption.MonospacedFonts
 		elif self.pb_proportional_fonts.isChecked():
 			options |= QFontDialog.FontDialogOption.ProportionalFonts
-		# value_if_true if condition else value_if_false
 		current_font = QFont(self.font_family) if self.font_family else self.font()
 		font, ok = QFontDialog.getFont(current_font, self, "Choose a Font", options)
 		if ok:
@@ -210,7 +213,6 @@ class main(QMainWindow):
 			self.font_style = fontinfo.styleName()
 			self.font_weight = fontinfo.weight()
 		else:
-			print('abort')
 			self.font_family = False
 			self.font_size = False
 			self.font_weight = False

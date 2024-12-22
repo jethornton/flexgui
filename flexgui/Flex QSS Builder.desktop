@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Flex QSS Builder
+Comment=Create QSS
+Exec=flexqss
+Icon=linuxcncicon
+Categories=Development;Engineering;X-CNC;
+Terminal=false
+StartupNotify=true
+StartupWMClass=flexss
+GenericName=Flex QSS Builder
+
+Name[en_US]=Flex QSS Builder
