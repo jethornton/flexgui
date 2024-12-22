@@ -86,7 +86,7 @@ class main(QMainWindow):
 		if self.font_family:
 			style += f'\n\tfont-family: {self.font_family};'
 		if self.font_size:
-			style += f'\n\tfont-size: {self.font_size}px;'
+			style += f'\n\tfont-size: {self.font_size}pt;'
 		if self.font_weight:
 			style += f'\n\tfont-weight: {self.font_weight};'
 
