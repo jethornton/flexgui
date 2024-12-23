@@ -882,6 +882,9 @@ Border needs both width and color to show up</string>
               <property name="text">
                <string>Font Picker</string>
               </property>
+              <property name="object" stdset="0">
+               <string>pushButton</string>
+              </property>
              </widget>
             </item>
             <item>
