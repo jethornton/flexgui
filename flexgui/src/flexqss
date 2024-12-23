@@ -6,7 +6,7 @@ sys.dont_write_bytecode = True
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog
 from PyQt6.QtWidgets import QRadioButton, QFontDialog
-from PyQt6.QtGui import QPixmap, QFont, QFontInfo
+from PyQt6.QtGui import QPixmap, QFont, QFontInfo, QColor
 from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
 
@@ -60,11 +60,11 @@ class main(QMainWindow):
 		self.show()
 
 	def setup(self):
-		self.font_family = False
-		self.font_size = False
-		self.font_weight = False
-		self.font_style = False
-		self.font_italic = False
+		self.pb_font_family = False
+		self.pb_font_size = False
+		self.pb_font_weight = False
+		self.pb_font_style = False
+		self.pb_font_italic = False
 		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 			'ridge', 'inset', 'outset']
 		self.border_style.addItems(border_types)
@@ -78,19 +78,20 @@ class main(QMainWindow):
 		self.pb_color_disabled = False
 		self.pb_bg_color_disabled = False
 
-
 	def apply_style(self):
 		border_type = self.border_style.currentText()
 
 		style = 'QPushButton {'
 
-		if self.font_family:
-			style += f'\n\tfont-family: {self.font_family};'
-		if self.font_size:
-			style += f'\n\tfont-size: {self.font_size}pt;'
-		if self.font_weight:
-			style += f'\n\tfont-weight: {self.font_weight};'
+		# font
+		if self.pb_font_family:
+			style += f'\n\tfont-family: {self.pb_font_family};'
+		if self.pb_font_size:
+			style += f'\n\tfont-size: {self.pb_font_size}pt;'
+		if self.pb_font_weight:
+			style += f'\n\tfont-weight: {self.pb_font_weight};'
 
+		# color
 		if self.pb_color:
 			style += f'\n\tcolor: {self.pb_color};'
 		if self.pb_bg_color:
@@ -98,6 +99,7 @@ class main(QMainWindow):
 		if border_type != 'none':
 			style += f'\n\tborder-style: {border_type};'
 
+		# border
 		if self.pb_border_color:
 			style += f'\n\tborder-color: {self.pb_border_color};'
 		if self.pb_border_width.value() > 0:
@@ -113,6 +115,7 @@ class main(QMainWindow):
 		if self.pb_max_height.value() > 0:
 			style += f'\n\tmax-height: {self.pb_max_height.value()};'
 
+		# padding
 		if self.pb_padding.value() > 0:
 			style += f'\n\tpadding: {self.pb_padding.value()};'
 		if self.pb_padding_left.value() > 0:
@@ -124,6 +127,7 @@ class main(QMainWindow):
 		if self.pb_padding_bottom.value() > 0:
 			style += f'\n\tpadding-bottom: {self.pb_padding_bottom.value()};'
 
+		# margin
 		if self.pb_margin.value() > 0:
 			style += f'\n\tmargin: {self.pb_margin.value()};'
 		if self.pb_margin_left.value() > 0:
@@ -135,7 +139,7 @@ class main(QMainWindow):
 		if self.pb_margin_bottom.value() > 0:
 			style += f'\n\tmargin-bottom: {self.pb_margin_bottom.value()};'
 
-		style += '\n}'
+		style += '\n}' # End of QPushButton
 
 		# hover
 		if self.pb_color_hover or self.pb_bg_color_hover:
@@ -145,7 +149,7 @@ class main(QMainWindow):
 		if self.pb_bg_color_hover:
 			style += f'\n\tbackground-color: {self.pb_bg_color_hover};'
 		if self.pb_color_hover or self.pb_bg_color_hover:
-			style += '\n}'
+			style += '\n}' # End of QPushButton:hover
 
 		# pressed
 		if self.pb_color_pressed or self.pb_bg_color_pressed:
@@ -155,7 +159,7 @@ class main(QMainWindow):
 		if self.pb_bg_color_pressed:
 			style += f'\n\tbackground-color: {self.pb_bg_color_pressed};'
 		if self.pb_color_pressed or self.pb_bg_color_pressed:
-			style += '\n}'
+			style += '\n}' # End of QPushButton:pressed
 
 		# disabled
 		if self.pb_color_disabled or self.pb_bg_color_disabled:
@@ -165,7 +169,7 @@ class main(QMainWindow):
 		if self.pb_bg_color_disabled:
 			style += f'\n\tbackground-color: {self.pb_bg_color_disabled};'
 		if self.pb_color_disabled or self.pb_bg_color_disabled:
-			style += '\n}'
+			style += '\n}' # End of QPushButton:disabled
 
 		self.pb_stylesheet.clear()
 		lines = style.splitlines()
@@ -173,7 +177,6 @@ class main(QMainWindow):
 			self.pb_stylesheet.appendPlainText(line)
 
 		self.pushButton.setStyleSheet(textwrap.dedent(style))
-
 
 	def set_button_border_width(self, width):
 		if width > 0:
@@ -183,9 +186,14 @@ class main(QMainWindow):
 		prop = self.sender().property('qss')
 		variable = self.sender().property('var')
 		label = self.sender().property('label')
-		color_dialog = QColorDialog()
+		if getattr(self, variable):
+			initial_color = QColor(getattr(self, variable))
+		else:
+			initial_color = QColor(0, 0, 0)  # Initial color: Black
+		color_dialog = QColorDialog(self)
 		color_dialog.setOptions(QColorDialog.ColorDialogOption.DontUseNativeDialog | 
 			QColorDialog.ColorDialogOption.ShowAlphaChannel)
+		color_dialog.setCurrentColor(initial_color)
 		if color_dialog.exec():
 			color = color_dialog.currentColor()
 			if color.isValid():
@@ -207,25 +215,25 @@ class main(QMainWindow):
 			options |= QFontDialog.FontDialogOption.ProportionalFonts
 
 		# QFont(const QString &family, int pointSize = -1, int weight = -1, bool italic = false)
-		if self.font_family:
-			current_font = QFont(self.font_family, self.font_size, self.font_weight, self.font_italic)
+		if self.pb_font_family:
+			current_font = QFont(self.pb_font_family, self.pb_font_size, self.pb_font_weight, self.pb_font_italic)
 		else:
 			current_font = self.font()
 
 		font, ok = QFontDialog.getFont(current_font, self, "Choose a Font", options)
 		if ok:
 			fontinfo = QFontInfo(font)
-			self.font_family = fontinfo.family()
-			self.font_size = font.pointSize()
-			self.font_style = fontinfo.styleName()
-			self.font_weight = fontinfo.weight()
-			self.font_italic = fontinfo.italic()
+			self.pb_font_family = fontinfo.family()
+			self.pb_font_size = font.pointSize()
+			self.pb_font_style = fontinfo.styleName()
+			self.pb_font_weight = fontinfo.weight()
+			self.pb_font_italic = fontinfo.italic()
 		else:
-			self.font_family = False
-			self.font_size = False
-			self.font_weight = False
-			self.font_weight = False
-			self.font_italic = False
+			self.pb_font_family = False
+			self.pb_font_size = False
+			self.pb_font_weight = False
+			self.pb_font_weight = False
+			self.pb_font_italic = False
 
 	def padding(self):
 		if self.sender().objectName() == 'pb_padding': # set the rest to 0
@@ -257,10 +265,10 @@ class main(QMainWindow):
 
 	def disable(self):
 		if self.sender().isChecked():
-			self.sender().setText('Enable')
+			self.sender().setText('Enable the Pushbutton')
 			self.pushButton.setEnabled(False)
 		else:
-			self.sender().setText('Disable')
+			self.sender().setText('Disable the Pushbutton')
 			self.pushButton.setEnabled(True)
 
 app = QApplication(sys.argv)
