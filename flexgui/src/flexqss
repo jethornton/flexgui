@@ -54,7 +54,7 @@ class main(QMainWindow):
 
 		self.apply_button_style.clicked.connect(self.apply_style)
 
-		self.boxmodel_lb.setPixmap(QPixmap(':/stylesheet-boxmodel.png'))
+		self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
 
 		self.setup()
 		self.show()
@@ -205,17 +205,16 @@ class main(QMainWindow):
 			options |= QFontDialog.FontDialogOption.MonospacedFonts
 		elif self.pb_proportional_fonts.isChecked():
 			options |= QFontDialog.FontDialogOption.ProportionalFonts
-		print(self.font_family)
-		if self.font_family: # QFont(const QString &family, int pointSize = -1, int weight = -1, bool italic = false)
+
+		# QFont(const QString &family, int pointSize = -1, int weight = -1, bool italic = false)
+		if self.font_family:
 			current_font = QFont(self.font_family, self.font_size, self.font_weight, self.font_italic)
 		else:
 			current_font = self.font()
-		#print(current_font)
+
 		font, ok = QFontDialog.getFont(current_font, self, "Choose a Font", options)
 		if ok:
 			fontinfo = QFontInfo(font)
-			#print(dir(fontinfo))
-			# 'bold', 'exactMatch', 'family', 'fixedPitch', 'italic', 'pixelSize', 'pointSize', 'pointSizeF', 'style', 'styleHint', 'styleName', 'swap', 'weight'
 			self.font_family = fontinfo.family()
 			self.font_size = font.pointSize()
 			self.font_style = fontinfo.styleName()
