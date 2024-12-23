@@ -28,6 +28,8 @@ class main(QMainWindow):
 
 		self.setGeometry(50, 50, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
+
+		# QPushButton
 		self.pb_text_color.clicked.connect(self.color_dialog)
 		self.pb_bg_color.clicked.connect(self.color_dialog)
 		self.pb_border_color.clicked.connect(self.color_dialog)
@@ -52,7 +54,18 @@ class main(QMainWindow):
 		self.pb_disable.clicked.connect(self.disable)
 		self.pb_font_picker.clicked.connect(self.font_dialog)
 
-		self.apply_button_style.clicked.connect(self.apply_style)
+		self.pb_apply_style.clicked.connect(self.pb_create_stylesheet)
+
+		# QLabel
+		self.lb_text_color.clicked.connect(self.color_dialog)
+		self.lb_bg_color.clicked.connect(self.color_dialog)
+		self.lb_border_color.clicked.connect(self.color_dialog)
+		self.lb_text_color_hover.clicked.connect(self.color_dialog)
+		self.lb_bg_color_hover.clicked.connect(self.color_dialog)
+		self.lb_text_color_disabled.clicked.connect(self.color_dialog)
+		self.lb_bg_color_disabled.clicked.connect(self.color_dialog)
+
+		self.lb_apply_style.clicked.connect(self.lb_create_stylesheet)
 
 		self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
 
@@ -60,16 +73,18 @@ class main(QMainWindow):
 		self.show()
 
 	def setup(self):
+		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+			'ridge', 'inset', 'outset']
+
+		# QPushButton
+		self.pb_color = False
+		self.pb_bg_color = False
 		self.pb_font_family = False
 		self.pb_font_size = False
 		self.pb_font_weight = False
 		self.pb_font_style = False
 		self.pb_font_italic = False
-		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
-			'ridge', 'inset', 'outset']
-		self.border_style.addItems(border_types)
-		self.pb_color = False
-		self.pb_bg_color = False
+		self.pb_border_style.addItems(border_types)
 		self.pb_border_color = False
 		self.pb_color_pressed = False
 		self.pb_bg_color_pressed = False
@@ -78,18 +93,17 @@ class main(QMainWindow):
 		self.pb_color_disabled = False
 		self.pb_bg_color_disabled = False
 
-	def apply_style(self):
-		border_type = self.border_style.currentText()
+		# QLabel
+		self.lb_color = False
+		self.lb_bg_color = False
+
+		self.lb_border_style.addItems(border_types)
+
+
+	def pb_create_stylesheet(self):
+		border_type = self.pb_border_style.currentText()
 
 		style = 'QPushButton {'
-
-		# font
-		if self.pb_font_family:
-			style += f'\n\tfont-family: {self.pb_font_family};'
-		if self.pb_font_size:
-			style += f'\n\tfont-size: {self.pb_font_size}pt;'
-		if self.pb_font_weight:
-			style += f'\n\tfont-weight: {self.pb_font_weight};'
 
 		# color
 		if self.pb_color:
@@ -98,6 +112,14 @@ class main(QMainWindow):
 			style += f'\n\tbackground-color: {self.pb_bg_color};'
 		if border_type != 'none':
 			style += f'\n\tborder-style: {border_type};'
+
+		# font
+		if self.pb_font_family:
+			style += f'\n\tfont-family: {self.pb_font_family};'
+		if self.pb_font_size:
+			style += f'\n\tfont-size: {self.pb_font_size}pt;'
+		if self.pb_font_weight:
+			style += f'\n\tfont-weight: {self.pb_font_weight};'
 
 		# border
 		if self.pb_border_color:
@@ -181,6 +203,30 @@ class main(QMainWindow):
 	def set_button_border_width(self, width):
 		if width > 0:
 			self.pushButton.setStyleSheet (f'border-width: {width}px; border-style: solid;')
+
+	def lb_create_stylesheet(self):
+		border_type = self.lb_border_style.currentText()
+
+		style = 'QLabel {'
+
+		# color
+		if self.lb_color:
+			style += f'\n\tcolor: {self.lb_color};'
+		if self.lb_bg_color:
+			style += f'\n\tbackground-color: {self.lb_bg_color};'
+		if border_type != 'none':
+			style += f'\n\tborder-style: {border_type};'
+
+
+		style += '\n}' # End of QLabel
+
+		self.lb_stylesheet.clear()
+		lines = style.splitlines()
+		for line in lines:
+			self.lb_stylesheet.appendPlainText(line)
+
+		self.label.setStyleSheet(textwrap.dedent(style))
+
 
 	def color_dialog(self):
 		prop = self.sender().property('qss')
