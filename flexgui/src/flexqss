@@ -4,6 +4,8 @@ import sys, os, textwrap
 # disable cache usage must be before any local imports
 sys.dont_write_bytecode = True
 
+from functools import partial
+
 from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog
 from PyQt6.QtWidgets import QRadioButton, QFontDialog
 from PyQt6.QtGui import QPixmap, QFont, QFontInfo, QColor
@@ -26,209 +28,374 @@ class main(QMainWindow):
 			self.gui_path = self.path
 		uic.loadUi(os.path.join(self.gui_path, 'flexqss.ui'), self)
 
-		self.setGeometry(50, 50, 500, 500)
+		self.setGeometry(0, 0, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
 
-		# QPushButton
-		self.pb_text_color.clicked.connect(self.color_dialog)
-		self.pb_bg_color.clicked.connect(self.color_dialog)
-		self.pb_border_color.clicked.connect(self.color_dialog)
-		self.pb_text_color_pressed.clicked.connect(self.color_dialog)
-		self.pb_bg_color_pressed.clicked.connect(self.color_dialog)
-		self.pb_text_color_hover.clicked.connect(self.color_dialog)
-		self.pb_bg_color_hover.clicked.connect(self.color_dialog)
-		self.pb_text_color_disabled.clicked.connect(self.color_dialog)
-		self.pb_bg_color_disabled.clicked.connect(self.color_dialog)
-		self.pb_padding.valueChanged.connect(self.padding)
-		self.pb_padding_left.valueChanged.connect(self.padding)
-		self.pb_padding_right.valueChanged.connect(self.padding)
-		self.pb_padding_top.valueChanged.connect(self.padding)
-		self.pb_padding_bottom.valueChanged.connect(self.padding)
-
-		self.pb_margin.valueChanged.connect(self.margin)
-		self.pb_margin_left.valueChanged.connect(self.margin)
-		self.pb_margin_right.valueChanged.connect(self.margin)
-		self.pb_margin_top.valueChanged.connect(self.margin)
-		self.pb_margin_bottom.valueChanged.connect(self.margin)
-
-		self.pb_disable.clicked.connect(self.disable)
-		self.pb_font_picker.clicked.connect(self.font_dialog)
-
-		self.pb_apply_style.clicked.connect(self.pb_create_stylesheet)
-
-		# QLabel
-		self.lb_text_color.clicked.connect(self.color_dialog)
-		self.lb_bg_color.clicked.connect(self.color_dialog)
-		self.lb_border_color.clicked.connect(self.color_dialog)
-		self.lb_text_color_hover.clicked.connect(self.color_dialog)
-		self.lb_bg_color_hover.clicked.connect(self.color_dialog)
-		self.lb_text_color_disabled.clicked.connect(self.color_dialog)
-		self.lb_bg_color_disabled.clicked.connect(self.color_dialog)
-
-		self.lb_apply_style.clicked.connect(self.lb_create_stylesheet)
-
-		self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
 
 		self.setup()
 		self.show()
 
 	def setup(self):
+		# QPushButton
+		self.pb_set_checkable.released.connect(self.set_checkable)
+		self.pb_disable.clicked.connect(partial(self.disable, 'pushButton'))
+		self.pb_apply_style.clicked.connect(self.pb_create_stylesheet)
+
 		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 			'ridge', 'inset', 'outset']
+		pb_pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
-		# QPushButton
-		self.pb_color = False
-		self.pb_bg_color = False
+		for item in pb_pseudo_states: # populate border combo boxes
+			getattr(self, f'pb_border_type_{item}').addItems(border_types)
+
+		for state in pb_pseudo_states: # color dialog connections
+			getattr(self, f'pb_fg_color_{state}').clicked.connect(self.color_dialog)
+			getattr(self, f'pb_bg_color_{state}').clicked.connect(self.color_dialog)
+			getattr(self, f'pb_border_color_{state}').clicked.connect(self.color_dialog)
+
+		# setup enable variables
+		for item in pb_pseudo_states:
+			setattr(self, f'pb_{item}', False)
+			setattr(self, f'pb_color_{item}', False)
+			setattr(self, f'pb_bg_color_{item}', False)
+			setattr(self, f'pb_border_color_{item}', False)
+
 		self.pb_font_family = False
 		self.pb_font_size = False
 		self.pb_font_weight = False
 		self.pb_font_style = False
 		self.pb_font_italic = False
-		self.pb_border_style.addItems(border_types)
-		self.pb_border_color = False
-		self.pb_color_pressed = False
-		self.pb_bg_color_pressed = False
-		self.pb_color_hover = False
-		self.pb_bg_color_hover = False
-		self.pb_color_disabled = False
-		self.pb_bg_color_disabled = False
+
+		for state in pb_pseudo_states: # border
+			getattr(self, f'pb_border_type_{state}').currentIndexChanged.connect(self.border)
+
+		self.pb_min_width_normal.valueChanged.connect(self.size)
+		self.pb_min_height_normal.valueChanged.connect(self.size)
+		self.pb_max_width_normal.valueChanged.connect(self.size)
+		self.pb_max_height_normal.valueChanged.connect(self.size)
+
+		self.pb_padding_normal.valueChanged.connect(self.padding)
+		self.pb_padding_left_normal.valueChanged.connect(self.padding)
+		self.pb_padding_right_normal.valueChanged.connect(self.padding)
+		self.pb_padding_top_normal.valueChanged.connect(self.padding)
+		self.pb_padding_bottom_normal.valueChanged.connect(self.padding)
+
+		self.pb_margin_normal.valueChanged.connect(self.margin)
+		self.pb_margin_left_normal.valueChanged.connect(self.margin)
+		self.pb_margin_right_normal.valueChanged.connect(self.margin)
+		self.pb_margin_top_normal.valueChanged.connect(self.margin)
+		self.pb_margin_bottom_normal.valueChanged.connect(self.margin)
+
+		self.pb_font_picker.clicked.connect(self.font_dialog)
+
+		# QLabel
+		self.lb_disable.clicked.connect(partial(self.disable, 'label'))
+
+		lb_pseudo_states = ['normal', 'hover', 'disabled']
+
+		for state in lb_pseudo_states: # color dialog connections
+			getattr(self, f'lb_fg_color_{state}').clicked.connect(self.color_dialog)
+			getattr(self, f'lb_bg_color_{state}').clicked.connect(self.color_dialog)
+			#getattr(self, f'lb_border_color_{state}').clicked.connect(self.color_dialog)
+
+		# setup enable variables
+		for item in lb_pseudo_states:
+			setattr(self, f'lb_{item}', False)
+			setattr(self, f'lb_color_{item}', False)
+			setattr(self, f'lb_bg_color_{item}', False)
+			setattr(self, f'lb_border_color_{item}', False)
+
+		self.lb_font_family = False
+		self.lb_font_size = False
+		self.lb_font_weight = False
+		self.lb_font_style = False
+		self.lb_font_italic = False
+
+		self.lb_apply_style.clicked.connect(self.lb_create_stylesheet)
+
+		'''
+		self.lb_text_color.clicked.connect(self.color_dialog)
+		self.lb_bg_color.clicked.connect(self.color_dialog)
+		self.lb_border_color.clicked.connect(self.color_dialog)
+		self.lb_text_color_disabled.clicked.connect(self.color_dialog)
+		self.lb_bg_color_disabled.clicked.connect(self.color_dialog)
+
+
+		self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
 
 		# QLabel
 		self.lb_color = False
 		self.lb_bg_color = False
 
 		self.lb_border_style.addItems(border_types)
-
+		label_style = (
+'QLabel {\n'
+'	color: #ffffff;\n'
+'	background-color: #000000;\n'
+'	font-family: Courier;\n'
+'	font-size: 14pt;\n'
+'	font-weight: 700;\n'
+'	border-style: double;\n'
+'	border-color: #ff0000;\n'
+'	border-width: 4px;\n'
+'	border-radius: 6px;\n'
+'	padding-left: 5;\n'
+'	padding-right: 5;\n'
+'	qproperty-alignment: AlignCenter;\n'
+'}\n'
+'QLabel:hover {\n'
+'	background-color: darkblue;\n'
+'}\n'
+)
+		# AlignBottom | AlignRight AlignCenter
+		self.label.setStyleSheet(textwrap.dedent(label_style))
+		'''
 
 	def pb_create_stylesheet(self):
-		border_type = self.pb_border_style.currentText()
+		style = False
+		# normal pseudo-state
+		if self.pb_normal:
+			style = 'QPushButton {'
 
-		style = 'QPushButton {'
+			# color
+			if self.pb_color_normal:
+				style += f'\n\tcolor: {self.pb_color_normal};'
+			if self.pb_bg_color_normal:
+				style += f'\n\tbackground-color: {self.pb_bg_color_normal};'
 
-		# color
-		if self.pb_color:
-			style += f'\n\tcolor: {self.pb_color};'
-		if self.pb_bg_color:
-			style += f'\n\tbackground-color: {self.pb_bg_color};'
-		if border_type != 'none':
-			style += f'\n\tborder-style: {border_type};'
+			# font
+			if self.pb_font_family:
+				style += f'\n\tfont-family: {self.pb_font_family};'
+			if self.pb_font_size:
+				style += f'\n\tfont-size: {self.pb_font_size}pt;'
+			if self.pb_font_weight:
+				style += f'\n\tfont-weight: {self.pb_font_weight};'
 
-		# font
-		if self.pb_font_family:
-			style += f'\n\tfont-family: {self.pb_font_family};'
-		if self.pb_font_size:
-			style += f'\n\tfont-size: {self.pb_font_size}pt;'
-		if self.pb_font_weight:
-			style += f'\n\tfont-weight: {self.pb_font_weight};'
+			# size
+			if self.pb_min_width_normal.value() > 0:
+				style += f'\n\tmin-width: {self.pb_min_width_normal.value()};'
+			if self.pb_min_height_normal.value() > 0:
+				style += f'\n\tmin-height: {self.pb_min_height_normal.value()};'
+			if self.pb_max_width_normal.value() > 0:
+				style += f'\n\tmax-width: {self.pb_max_width_normal.value()};'
+			if self.pb_max_height_normal.value() > 0:
+				style += f'\n\tmax-height: {self.pb_max_height_normal.value()};'
 
-		# border
-		if self.pb_border_color:
-			style += f'\n\tborder-color: {self.pb_border_color};'
-		if self.pb_border_width.value() > 0:
-			style += f'\n\tborder-width: {self.pb_border_width.value()}px;'
-		if self.pb_border_radius.value() > 0:
-			style += f'\n\tborder-radius: {self.pb_border_radius.value()}px;'
-		if self.pb_min_width.value() > 0:
-			style += f'\n\tmin-width: {self.pb_min_width.value()};'
-		if self.pb_min_height.value() > 0:
-			style += f'\n\tmin-height: {self.pb_min_height.value()};'
-		if self.pb_max_width.value() > 0:
-			style += f'\n\tmax-width: {self.pb_max_width.value()};'
-		if self.pb_max_height.value() > 0:
-			style += f'\n\tmax-height: {self.pb_max_height.value()};'
+			# border
+			border_type_normal = self.pb_border_type_normal.currentText()
+			if border_type_normal != 'none':
+				style += f'\n\tborder-style: {border_type_normal};'
+			if self.pb_border_color_normal:
+				style += f'\n\tborder-color: {self.pb_border_color_normal};'
+			if self.pb_border_width_normal.value() > 0:
+				style += f'\n\tborder-width: {self.pb_border_width_normal.value()}px;'
+			if self.pb_border_radius_normal.value() > 0:
+				style += f'\n\tborder-radius: {self.pb_border_radius_normal.value()}px;'
 
-		# padding
-		if self.pb_padding.value() > 0:
-			style += f'\n\tpadding: {self.pb_padding.value()};'
-		if self.pb_padding_left.value() > 0:
-			style += f'\n\tpadding-left: {self.pb_padding_left.value()};'
-		if self.pb_padding_right.value() > 0:
-			style += f'\n\tpadding-right: {self.pb_padding_right.value()};'
-		if self.pb_padding_top.value() > 0:
-			style += f'\n\tpadding-top: {self.pb_padding_top.value()};'
-		if self.pb_padding_bottom.value() > 0:
-			style += f'\n\tpadding-bottom: {self.pb_padding_bottom.value()};'
+			# padding
+			if self.pb_padding_normal.value() > 0:
+				style += f'\n\tpadding: {self.pb_padding_normal.value()};'
+			if self.pb_padding_left_normal.value() > 0:
+				style += f'\n\tpadding-left: {self.pb_padding_left_normal.value()};'
+			if self.pb_padding_right_normal.value() > 0:
+				style += f'\n\tpadding-right: {self.pb_padding_right_normal.value()};'
+			if self.pb_padding_top_normal.value() > 0:
+				style += f'\n\tpadding-top: {self.pb_padding_top_normal.value()};'
+			if self.pb_padding_bottom_normal.value() > 0:
+				style += f'\n\tpadding-bottom: {self.pb_padding_bottom_normal.value()};'
 
-		# margin
-		if self.pb_margin.value() > 0:
-			style += f'\n\tmargin: {self.pb_margin.value()};'
-		if self.pb_margin_left.value() > 0:
-			style += f'\n\tmargin-left: {self.pb_margin_left.value()};'
-		if self.pb_margin_right.value() > 0:
-			style += f'\n\tmargin-right: {self.pb_margin_right.value()};'
-		if self.pb_margin_top.value() > 0:
-			style += f'\n\tmargin-top: {self.pb_margin_top.value()};'
-		if self.pb_margin_bottom.value() > 0:
-			style += f'\n\tmargin-bottom: {self.pb_margin_bottom.value()};'
+			# margin
+			if self.pb_margin_normal.value() > 0:
+				style += f'\n\tmargin: {self.pb_margin.value()};'
+			if self.pb_margin_left_normal.value() > 0:
+				style += f'\n\tmargin-left: {self.pb_margin_left.value()};'
+			if self.pb_margin_right_normal.value() > 0:
+				style += f'\n\tmargin-right: {self.pb_margin_right.value()};'
+			if self.pb_margin_top_normal.value() > 0:
+				style += f'\n\tmargin-top: {self.pb_margin_top.value()};'
+			if self.pb_margin_bottom_normal.value() > 0:
+				style += f'\n\tmargin-bottom: {self.pb_margin_bottom.value()};'
 
-		style += '\n}' # End of QPushButton
+			style += '\n}' # End of QPushButton
 
-		# hover
-		if self.pb_color_hover or self.pb_bg_color_hover:
-			style += '\n\nQPushButton:hover {'
-		if self.pb_color_hover:
-			style += f'\n\tcolor: {self.pb_color_hover};'
-		if self.pb_bg_color_hover:
-			style += f'\n\tbackground-color: {self.pb_bg_color_hover};'
-		if self.pb_color_hover or self.pb_bg_color_hover:
+		# hover pseudo-state
+		if self.pb_hover:
+			# color
+			if style: # style is not False
+				style += '\n\nQPushButton:hover {'
+			else:
+				style = '\n\nQPushButton:hover {'
+
+			if self.pb_color_hover:
+				style += f'\n\tcolor: {self.pb_color_hover};'
+			if self.pb_bg_color_hover:
+				style += f'\n\tbackground-color: {self.pb_bg_color_hover};'
+
+			# border
+			border_type_hover = self.pb_border_type_hover.currentText()
+			if border_type_hover != 'none':
+				style += f'\n\tborder-style: {border_type_hover};'
+			if self.pb_border_color_hover:
+				style += f'\n\tborder-color: {self.pb_border_color_hover};'
+			if self.pb_border_width_hover.value() > 0:
+				style += f'\n\tborder-width: {self.pb_border_width_hover.value()}px;'
+			if self.pb_border_radius_hover.value() > 0:
+				style += f'\n\tborder-radius: {self.pb_border_radius_hover.value()}px;'
+
 			style += '\n}' # End of QPushButton:hover
 
-		# pressed
-		if self.pb_color_pressed or self.pb_bg_color_pressed:
-			style += '\n\nQPushButton:pressed {'
-		if self.pb_color_pressed:
-			style += f'\n\tcolor: {self.pb_color_pressed};'
-		if self.pb_bg_color_pressed:
-			style += f'\n\tbackground-color: {self.pb_bg_color_pressed};'
-		if self.pb_color_pressed or self.pb_bg_color_pressed:
+		# pressed pseudo-state
+
+		# color
+		if self.pb_pressed:
+			if style: # style is not False
+				style += '\n\nQPushButton:pressed {'
+			else:
+				style = '\n\nQPushButton:pressed {'
+
+			if self.pb_color_pressed:
+				style += f'\n\tcolor: {self.pb_color_pressed};'
+			if self.pb_bg_color_pressed:
+				style += f'\n\tbackground-color: {self.pb_bg_color_pressed};'
+
+			# border
+			border_type_pressed = self.pb_border_type_pressed.currentText()
+			if border_type_pressed != 'none':
+				style += f'\n\tborder-style: {border_type_pressed};'
+			if self.pb_border_color_pressed:
+				style += f'\n\tborder-color: {self.pb_border_color_pressed};'
+			if self.pb_border_width_pressed.value() > 0:
+				style += f'\n\tborder-width: {self.pb_border_width_pressed.value()}px;'
+			if self.pb_border_radius_pressed.value() > 0:
+				style += f'\n\tborder-radius: {self.pb_border_radius_pressed.value()}px;'
+
 			style += '\n}' # End of QPushButton:pressed
 
-		# disabled
-		if self.pb_color_disabled or self.pb_bg_color_disabled:
-			style += '\n\nQPushButton:disabled {'
-		if self.pb_color_disabled:
-			style += f'\n\tcolor: {self.pb_color_disabled};'
-		if self.pb_bg_color_disabled:
-			style += f'\n\tbackground-color: {self.pb_bg_color_disabled};'
-		if self.pb_color_disabled or self.pb_bg_color_disabled:
+		# checked pseudo-state
+		if self.pb_checked:
+			if style: # style is not False
+				style += '\n\nQPushButton:checked {'
+			else:
+				style = '\n\nQPushButton:checked {'
+
+			#color
+			if self.pb_color_checked:
+				style += f'\n\tcolor: {self.pb_color_checked};'
+			if self.pb_bg_color_checked:
+				style += f'\n\tbackground-color: {self.pb_bg_color_checked};'
+
+			# border
+			border_type_checked = self.pb_border_type_checked.currentText()
+			if border_type_checked != 'none':
+				style += f'\n\tborder-style: {border_type_checked};'
+			if self.pb_border_color_checked:
+				style += f'\n\tborder-color: {self.pb_border_color_checked};'
+			if self.pb_border_width_checked.value() > 0:
+				style += f'\n\tborder-width: {self.pb_border_width_checked.value()}px;'
+			if self.pb_border_radius_checked.value() > 0:
+				style += f'\n\tborder-radius: {self.pb_border_radius_checked.value()}px;'
+
+			style += '\n}' # End of QPushButton:checked
+
+		# disabled pseudo-state
+		if self.pb_disabled:
+			if style: # style is not False
+				style += '\n\nQPushButton:disabled {'
+			else:
+				style = '\n\nQPushButton:disabled {'
+
+			# color
+			if self.pb_color_disabled:
+				style += f'\n\tcolor: {self.pb_color_disabled};'
+			if self.pb_bg_color_disabled:
+				style += f'\n\tbackground-color: {self.pb_bg_color_disabled};'
+
+			# border
+			border_type_disabled = self.pb_border_type_disabled.currentText()
+			if border_type_disabled != 'none':
+				style += f'\n\tborder-style: {border_type_disabled};'
+			if self.pb_border_color_disabled:
+				style += f'\n\tborder-color: {self.pb_border_color_disabled};'
+			if self.pb_border_width_disabled.value() > 0:
+				style += f'\n\tborder-width: {self.pb_border_width_disabled.value()}px;'
+			if self.pb_border_radius_disabled.value() > 0:
+				style += f'\n\tborder-radius: {self.pb_border_radius_disabled.value()}px;'
+
 			style += '\n}' # End of QPushButton:disabled
 
 		self.pb_stylesheet.clear()
-		lines = style.splitlines()
-		for line in lines:
-			self.pb_stylesheet.appendPlainText(line)
+		if style:
+			lines = style.splitlines()
+			for line in lines:
+				self.pb_stylesheet.appendPlainText(line)
 
-		self.pushButton.setStyleSheet(textwrap.dedent(style))
+			self.pushButton.setStyleSheet(textwrap.dedent(style))
 
 	def set_button_border_width(self, width):
 		if width > 0:
 			self.pushButton.setStyleSheet (f'border-width: {width}px; border-style: solid;')
 
 	def lb_create_stylesheet(self):
-		border_type = self.lb_border_style.currentText()
+		style = False
 
-		style = 'QLabel {'
+		# normal state
+		if self.lb_normal:
+			style = 'QLabel {'
 
-		# color
-		if self.lb_color:
-			style += f'\n\tcolor: {self.lb_color};'
-		if self.lb_bg_color:
-			style += f'\n\tbackground-color: {self.lb_bg_color};'
-		if border_type != 'none':
-			style += f'\n\tborder-style: {border_type};'
+			# color
+			if self.lb_color_normal:
+				style += f'\n\tcolor: {self.lb_color_normal};'
+			if self.lb_bg_color_normal:
+				style += f'\n\tbackground-color: {self.lb_bg_color_normal};'
+
+			# border
+			border_type_normal = self.lb_border_type_normal.currentText()
+			if border_type_normal != 'none':
+				style += f'\n\tborder-style: {border_type_normal};'
+
+			style += '\n}' # End of normal state
+
+		# hover state
+		if self.lb_hover:
+			# color
+			if style: # style is not False
+				style += '\n\nQLabel:hover {'
+			else:
+				style = '\n\nQLabel:hover {'
+
+			if self.lb_color_hover:
+				style += f'\n\tcolor: {self.lb_color_hover};'
+			if self.lb_bg_color_hover:
+				style += f'\n\tbackground-color: {self.lb_bg_color_hover};'
+
+			style += '\n}' # End of hover state
 
 
-		style += '\n}' # End of QLabel
+		# disabled state
+		if self.lb_disabled:
+			# color
+			if style: # style is not False
+				style += '\n\nQLabel:disabled {'
+			else:
+				style = '\n\nQLabel:disabled {'
+
+			if self.lb_color_disabled:
+				style += f'\n\tcolor: {self.lb_color_disabled};'
+			if self.lb_bg_color_disabled:
+				style += f'\n\tbackground-color: {self.lb_bg_color_disabled};'
+
+			style += '\n}' # End of disabled state
 
 		self.lb_stylesheet.clear()
-		lines = style.splitlines()
-		for line in lines:
-			self.lb_stylesheet.appendPlainText(line)
-
-		self.label.setStyleSheet(textwrap.dedent(style))
-
+		if style:
+			lines = style.splitlines()
+			for line in lines:
+				self.lb_stylesheet.appendPlainText(line)
+			self.label.setStyleSheet(textwrap.dedent(style))
 
 	def color_dialog(self):
+		obj_type = self.sender().objectName().split('_')[0]
+		state = self.sender().objectName().split('_')[-1]
 		prop = self.sender().property('qss')
 		variable = self.sender().property('var')
 		label = self.sender().property('label')
@@ -245,11 +412,26 @@ class main(QMainWindow):
 			if color.isValid():
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
+				setattr(self, f'{obj_type}_{state}', True)
 		else:
 			setattr(self, variable, False)
 			getattr(self, label).setStyleSheet(f'background-color: none;')
 
+	def size(self):
+		obj_type = self.sender().objectName().split('_')[0]
+		state = self.sender().objectName().split('_')[-1]
+		setattr(self, f'{obj_type}_{state}', True)
+
+	def border(self):
+		text = self.sender().currentText()
+		if text != 'none':
+			obj_type = self.sender().objectName().split('_')[0]
+			state = self.sender().objectName().split('_')[-1]
+			setattr(self, f'{obj_type}_{state}', True)
+
 	def font_dialog(self):
+		obj_type = self.sender().objectName().split('_')[0]
+		state = self.sender().objectName().split('_')[-1]
 		options = QFontDialog.FontDialogOption.DontUseNativeDialog
 		if self.pb_scaleable_fonts.isChecked():
 			options |= QFontDialog.FontDialogOption.ScalableFonts
@@ -274,6 +456,7 @@ class main(QMainWindow):
 			self.pb_font_style = fontinfo.styleName()
 			self.pb_font_weight = fontinfo.weight()
 			self.pb_font_italic = fontinfo.italic()
+			setattr(self, f'{obj_type}_{state}', True)
 		else:
 			self.pb_font_family = False
 			self.pb_font_size = False
@@ -282,20 +465,29 @@ class main(QMainWindow):
 			self.pb_font_italic = False
 
 	def padding(self):
-		if self.sender().objectName() == 'pb_padding': # set the rest to 0
-			with QSignalBlocker(self.pb_padding_left):
-				self.pb_padding_left.setValue(0)
-			with QSignalBlocker(self.pb_padding_right):
-				self.pb_padding_right.setValue(0)
-			with QSignalBlocker(self.pb_padding_top):
-				self.pb_padding_top.setValue(0)
-			with QSignalBlocker(self.pb_padding_bottom):
-				self.pb_padding_bottom.setValue(0)
-		else: # set pb_padding to 0
-			with QSignalBlocker(self.pb_padding):
-				self.pb_padding.setValue(0)
+		if self.sender().value() > 0:
+			obj_type = self.sender().objectName().split('_')[0]
+			state = self.sender().objectName().split('_')[-1]
+			setattr(self, f'{obj_type}_{state}', True)
+			obj_name = self.sender().objectName().split('_')
+			obj_name.pop()
+			obj_base_name = '_'.join(obj_name)
+			if obj_base_name == 'pb_padding': # set the rest to 0
+				with QSignalBlocker(getattr(self, f'pb_padding_left_{state}')):
+					getattr(self, f'pb_padding_left_{state}').setValue(0)
+				with QSignalBlocker(getattr(self, f'pb_padding_right_{state}')):
+					getattr(self, f'pb_padding_right_{state}').setValue(0)
+				with QSignalBlocker(getattr(self, f'pb_padding_top_{state}')):
+					getattr(self, f'pb_padding_top_{state}').setValue(0)
+				with QSignalBlocker(getattr(self, f'pb_padding_bottom_{state}')):
+					getattr(self, f'pb_padding_bottom_{state}').setValue(0)
+			else: # set pb_padding to 0
+				with QSignalBlocker(getattr(self, f'pb_padding_{state}')):
+					getattr(self, f'pb_padding_{state}').setValue(0)
 
 	def margin(self):
+		obj_type = self.sender().objectName().split('_')[0]
+		state = self.sender().objectName().split('_')[-1]
 		if self.sender().objectName() == 'pb_margin': # set the rest to 0
 			with QSignalBlocker(self.pb_margin_left):
 				self.pb_margin_left.setValue(0)
@@ -309,13 +501,22 @@ class main(QMainWindow):
 			with QSignalBlocker(self.pb_margin):
 				self.pb_margin.setValue(0)
 
-	def disable(self):
-		if self.sender().isChecked():
-			self.sender().setText('Enable the Pushbutton')
-			self.pushButton.setEnabled(False)
+	def set_checkable(self):
+		checked = self.sender().isChecked()
+		if checked:
+			self.pushButton.setCheckable(True)
 		else:
-			self.sender().setText('Disable the Pushbutton')
-			self.pushButton.setEnabled(True)
+			self.pushButton.setCheckable(False)
+
+	def disable(self, obj):
+		if self.sender().isChecked():
+			self.sender().setText('Enable')
+			getattr(self, obj).setEnabled(False)
+			#self.pushButton.setEnabled(False)
+		else:
+			self.sender().setText('Disable')
+			getattr(self, obj).setEnabled(True)
+			#self.pushButton.setEnabled(True)
 
 app = QApplication(sys.argv)
 gui = main()
