@@ -1469,7 +1469,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QRadioButton" name="pb_all_fonts_3">
+                <widget class="QRadioButton" name="lb_all_fonts">
                  <property name="text">
                   <string>All Fonts</string>
                  </property>
@@ -1479,28 +1479,28 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QRadioButton" name="pb_scaleable_fonts_3">
+                <widget class="QRadioButton" name="lb_scaleable_fonts">
                  <property name="text">
                   <string>Scalable Fonts</string>
                  </property>
                 </widget>
                </item>
                <item row="3" column="0">
-                <widget class="QRadioButton" name="pb_non_scaleable_fonts_3">
+                <widget class="QRadioButton" name="lb_non_scaleable_fonts">
                  <property name="text">
                   <string>Non Scalable Fonts</string>
                  </property>
                 </widget>
                </item>
                <item row="4" column="0">
-                <widget class="QRadioButton" name="pb_monospaced_fonts_3">
+                <widget class="QRadioButton" name="lb_monospaced_fonts">
                  <property name="text">
                   <string>Monospaced Fonts</string>
                  </property>
                 </widget>
                </item>
                <item row="5" column="0">
-                <widget class="QRadioButton" name="pb_proportional_fonts_3">
+                <widget class="QRadioButton" name="lb_proportional_fonts">
                  <property name="text">
                   <string>Proportional Fonts</string>
                  </property>
@@ -2344,10 +2344,10 @@ Border needs both width and color to show up</string>
                   <string>border-color</string>
                  </property>
                  <property name="label" stdset="0">
-                  <string>pb_border_color_disabled_lb</string>
+                  <string>lb_border_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>pb_border_color_disabled</string>
+                  <string>lb_border_color_disabled</string>
                  </property>
                 </widget>
                </item>
