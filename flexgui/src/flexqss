@@ -7,7 +7,7 @@ sys.dont_write_bytecode = True
 from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog
-from PyQt6.QtWidgets import QRadioButton, QFontDialog
+from PyQt6.QtWidgets import QRadioButton, QFontDialog, QFileDialog
 from PyQt6.QtGui import QPixmap, QFont, QFontInfo, QColor
 from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
@@ -36,6 +36,10 @@ class main(QMainWindow):
 		self.show()
 
 	def setup(self):
+
+		# Menu Items
+		self.actionSave_As.triggered.connect(self.save)
+
 		# QPushButton
 		self.pb_set_checkable.released.connect(self.set_checkable)
 		self.pb_disable.clicked.connect(partial(self.disable, 'pushButton'))
@@ -424,6 +428,9 @@ class main(QMainWindow):
 			if self.lb_margin_bottom_normal.value() > 0:
 				style += f'\n\tmargin-bottom: {self.lb_margin_bottom_normal.value()};'
 
+			# alignment
+			# label.setStyleSheet("qproperty-alignment: 'AlignBottom | AlignRight';");qproperty-alignment: AlignCenter
+
 			style += '\n}' # End of normal state
 
 		# hover state
@@ -623,6 +630,20 @@ class main(QMainWindow):
 			self.sender().setText('Disable')
 			getattr(self, obj).setEnabled(True)
 			#self.pushButton.setEnabled(True)
+
+	def save(self):
+		file_dialog = QFileDialog()
+		options = QFileDialog.Option.DontUseNativeDialog
+		file_path, file_type = file_dialog.getSaveFileName(None,
+		caption='Save QSS As', directory=os.path.expanduser("~"),
+		filter='QSS Files (*.qss)', options=options)
+		if file_path:
+			pb_style = self.pb_stylesheet.toPlainText()
+			with open(file_path, "w") as f:
+				f.write(pb_style)
+			lb_style = self.lb_stylesheet.toPlainText()
+			with open(file_path, "a") as f:
+				f.write(lb_style)
 
 app = QApplication(sys.argv)
 gui = main()
