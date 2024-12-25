@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
+    <item alignment="Qt::AlignHCenter">
      <widget class="QTabWidget" name="tabWidget">
       <property name="toolTip">
        <string/>
@@ -28,25 +28,6 @@
         <string>Button</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_20">
-        <item row="0" column="2">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QPushButton" name="pushButton">
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="1" column="2" colspan="3">
          <widget class="QTabWidget" name="tabWidget_4">
           <property name="currentIndex">
@@ -128,7 +109,7 @@ Border needs both width and color to show up</string>
         <item row="0" column="0" rowspan="3" colspan="2">
          <widget class="QTabWidget" name="tabWidget_8">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_14">
            <attribute name="title">
@@ -1421,6 +1402,25 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
+        <item row="0" column="3">
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_6">
@@ -1428,6 +1428,20 @@ Border needs both width and color to show up</string>
         <string>Label</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_33">
+        <item row="2" column="1">
+         <widget class="QPushButton" name="lb_apply_style">
+          <property name="text">
+           <string>Apply The Style</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QCheckBox" name="lb_disable">
+          <property name="text">
+           <string>Disable</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0" rowspan="3">
          <widget class="QTabWidget" name="tabWidget_10">
           <property name="currentIndex">
@@ -1445,7 +1459,7 @@ Border needs both width and color to show up</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_23">
                <item row="0" column="0">
-                <widget class="QPushButton" name="pb_font_picker_3">
+                <widget class="QPushButton" name="lb_font_picker">
                  <property name="text">
                   <string>Font Picker</string>
                  </property>
@@ -1639,7 +1653,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QSpinBox" name="pb_padding_bottom_normal_2">
+                 <widget class="QSpinBox" name="lb_padding_bottom_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1656,7 +1670,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QSpinBox" name="pb_padding_top_normal_2">
+                 <widget class="QSpinBox" name="lb_padding_top_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1673,21 +1687,21 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QSpinBox" name="pb_padding_right_normal_2">
+                 <widget class="QSpinBox" name="lb_padding_right_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSpinBox" name="pb_padding_left_normal_2">
+                 <widget class="QSpinBox" name="lb_padding_left_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QSpinBox" name="pb_padding_normal_2">
+                 <widget class="QSpinBox" name="lb_padding_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1721,7 +1735,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QSpinBox" name="pb_margin_normal_2">
+                 <widget class="QSpinBox" name="lb_margin_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1738,7 +1752,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSpinBox" name="pb_margin_left_normal_2">
+                 <widget class="QSpinBox" name="lb_margin_left_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1755,7 +1769,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QSpinBox" name="pb_margin_right_normal_2">
+                 <widget class="QSpinBox" name="lb_margin_right_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1772,7 +1786,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QSpinBox" name="pb_margin_top_normal_2">
+                 <widget class="QSpinBox" name="lb_margin_top_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1789,7 +1803,7 @@ Border needs both width and color to show up</string>
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QSpinBox" name="pb_margin_bottom_normal_2">
+                 <widget class="QSpinBox" name="lb_margin_bottom_normal">
                   <property name="maximum">
                    <number>500</number>
                   </property>
@@ -1844,7 +1858,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QSpinBox" name="pb_border_width_normal_2">
+                <widget class="QSpinBox" name="lb_border_width_normal">
                  <property name="maximum">
                   <number>100</number>
                  </property>
@@ -1864,7 +1878,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QSpinBox" name="pb_border_radius_normal_2">
+                <widget class="QSpinBox" name="lb_border_radius_normal">
                  <property name="maximum">
                   <number>100</number>
                  </property>
@@ -1874,7 +1888,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="3" column="0">
-                <widget class="QPushButton" name="pb_border_color_normal_2">
+                <widget class="QPushButton" name="lb_border_color_normal">
                  <property name="text">
                   <string>Border Color</string>
                  </property>
@@ -1882,15 +1896,15 @@ Border needs both width and color to show up</string>
                   <string>border-color</string>
                  </property>
                  <property name="label" stdset="0">
-                  <string>pb_border_color_normal_lb</string>
+                  <string>lb_border_color_normal_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>pb_border_color_normal</string>
+                  <string>lb_border_color_normal</string>
                  </property>
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QLabel" name="pb_border_color_normal_lb_2">
+                <widget class="QLabel" name="lb_border_color_normal_lb">
                  <property name="maximumSize">
                   <size>
                    <width>27</width>
@@ -1928,7 +1942,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QSpinBox" name="pb_min_width_normal_2">
+                <widget class="QSpinBox" name="lb_min_width_normal">
                  <property name="maximum">
                   <number>500</number>
                  </property>
@@ -1945,7 +1959,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QSpinBox" name="pb_min_height_normal_2">
+                <widget class="QSpinBox" name="lb_min_height_normal">
                  <property name="maximum">
                   <number>500</number>
                  </property>
@@ -1962,7 +1976,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QSpinBox" name="pb_max_width_normal_2">
+                <widget class="QSpinBox" name="lb_max_width_normal">
                  <property name="maximum">
                   <number>500</number>
                  </property>
@@ -1979,7 +1993,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QSpinBox" name="pb_max_height_normal_2">
+                <widget class="QSpinBox" name="lb_max_height_normal">
                  <property name="maximum">
                   <number>500</number>
                  </property>
@@ -2148,10 +2162,10 @@ Border needs both width and color to show up</string>
                   <string>border-color</string>
                  </property>
                  <property name="label" stdset="0">
-                  <string>pb_border_color_hover_lb</string>
+                  <string>lb_border_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>pb_border_color_hover</string>
+                  <string>lb_border_color_hover</string>
                  </property>
                 </widget>
                </item>
@@ -2376,26 +2390,20 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame_3">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+        <item row="2" column="3">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_13">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+         </spacer>
         </item>
-        <item row="1" column="1" colspan="2">
+        <item row="1" column="1" colspan="3">
          <widget class="QTabWidget" name="tabWidget_9">
           <property name="currentIndex">
            <number>0</number>
@@ -2452,18 +2460,23 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="lb_apply_style">
-          <property name="text">
-           <string>Apply The Style</string>
+        <item row="0" column="2">
+         <widget class="QFrame" name="frame_3">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QCheckBox" name="lb_disable">
-          <property name="text">
-           <string>Disable</string>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
