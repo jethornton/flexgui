@@ -124,6 +124,9 @@ extensions must be in the format `*.ext` with the asterisk and dot
 
 	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
 
+Screen Size
+-----------
+
 To control the initial size of the screen, add either:
 ::
 
