@@ -1101,15 +1101,19 @@ class main(QMainWindow):
 		if file_path:
 			pb_style = self.pb_stylesheet.toPlainText()
 			with open(file_path, "w") as f:
+				f.write('/* Stylesheet created by Flexqss\n\n')
 				f.write(pb_style)
 			cb_style = self.cb_stylesheet.toPlainText()
 			with open(file_path, "a") as f:
+				f.write('\n')
 				f.write(cb_style)
 			rb_style = self.rb_stylesheet.toPlainText()
 			with open(file_path, "a") as f:
+				f.write('\n')
 				f.write(rb_style)
 			lb_style = self.lb_stylesheet.toPlainText()
 			with open(file_path, "a") as f:
+				f.write('\n')
 				f.write(lb_style)
 
 app = QApplication(sys.argv)
