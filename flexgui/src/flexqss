@@ -1099,22 +1099,32 @@ class main(QMainWindow):
 		caption='Save QSS As', directory=os.path.expanduser("~"),
 		filter='QSS Files (*.qss)', options=options)
 		if file_path:
-			pb_style = self.pb_stylesheet.toPlainText()
-			with open(file_path, "w") as f:
-				f.write('/* Stylesheet created by Flexqss\n\n')
-				f.write(pb_style)
-			cb_style = self.cb_stylesheet.toPlainText()
-			with open(file_path, "a") as f:
-				f.write('\n')
-				f.write(cb_style)
-			rb_style = self.rb_stylesheet.toPlainText()
-			with open(file_path, "a") as f:
-				f.write('\n')
-				f.write(rb_style)
-			lb_style = self.lb_stylesheet.toPlainText()
-			with open(file_path, "a") as f:
-				f.write('\n')
-				f.write(lb_style)
+			with open(file_path, "w") as f: # clear the file
+				f.write('/* Stylesheet created by Flexqss*/\n\n')
+
+			if self.pb_stylesheet.toPlainText() != '':
+				pb_style = self.pb_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('/* QPushButton Section */\n\n')
+					f.write(pb_style)
+
+			if self.cb_stylesheet.toPlainText() != '':
+				cb_style = self.cb_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QCheckBox Section */\n\n')
+					f.write(cb_style)
+
+			if self.rb_stylesheet.toPlainText() != '':
+				rb_style = self.rb_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QRadioButton Section */\n\n')
+					f.write(rb_style)
+
+			if self.lb_stylesheet.toPlainText() != '':
+				lb_style = self.lb_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QLabel Section */\n\n')
+					f.write(lb_style)
 
 app = QApplication(sys.argv)
 gui = main()
