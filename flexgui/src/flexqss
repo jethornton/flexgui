@@ -141,6 +141,58 @@ class main(QMainWindow):
 		self.cb_indicator_width_normal.valueChanged.connect(self.indicator)
 		self.cb_indicator_height_normal.valueChanged.connect(self.indicator)
 
+		# QRadioButton
+		self.rb_disable.clicked.connect(partial(self.disable, 'checkBox'))
+		self.rb_apply_style.clicked.connect(self.rb_create_stylesheet)
+
+		for item in abstract_button_states: # populate border combo boxes
+			getattr(self, f'rb_border_type_{item}').addItems(border_types)
+
+		for state in abstract_button_states: # color dialog connections
+			getattr(self, f'rb_fg_color_{state}').clicked.connect(self.color_dialog)
+			getattr(self, f'rb_bg_color_{state}').clicked.connect(self.color_dialog)
+			getattr(self, f'rb_border_color_{state}').clicked.connect(self.color_dialog)
+
+		# setup enable variables
+		for item in abstract_button_states:
+			setattr(self, f'rb_{item}', False)
+			setattr(self, f'rb_color_{item}', False)
+			setattr(self, f'rb_bg_color_{item}', False)
+			setattr(self, f'rb_border_color_{item}', False)
+
+		self.rb_font_family = False
+		self.rb_font_size = False
+		self.rb_font_weight = False
+		self.rb_font_style = False
+		self.rb_font_italic = False
+		self.rb_indicator = False
+
+		for state in abstract_button_states: # border
+			getattr(self, f'rb_border_type_{state}').currentIndexChanged.connect(self.border)
+
+		self.rb_min_width_normal.valueChanged.connect(self.size)
+		self.rb_min_height_normal.valueChanged.connect(self.size)
+		self.rb_max_width_normal.valueChanged.connect(self.size)
+		self.rb_max_height_normal.valueChanged.connect(self.size)
+
+		self.rb_padding_normal.valueChanged.connect(self.padding)
+		self.rb_padding_left_normal.valueChanged.connect(self.padding)
+		self.rb_padding_right_normal.valueChanged.connect(self.padding)
+		self.rb_padding_top_normal.valueChanged.connect(self.padding)
+		self.rb_padding_bottom_normal.valueChanged.connect(self.padding)
+
+		self.rb_margin_normal.valueChanged.connect(self.margin)
+		self.rb_margin_left_normal.valueChanged.connect(self.margin)
+		self.rb_margin_right_normal.valueChanged.connect(self.margin)
+		self.rb_margin_top_normal.valueChanged.connect(self.margin)
+		self.rb_margin_bottom_normal.valueChanged.connect(self.margin)
+
+		self.rb_font_picker.clicked.connect(self.font_dialog)
+
+		self.rb_indicator_width_normal.valueChanged.connect(self.indicator)
+		self.rb_indicator_height_normal.valueChanged.connect(self.indicator)
+
+
 		# QLabel
 		self.lb_disable.clicked.connect(partial(self.disable, 'label'))
 
@@ -568,8 +620,206 @@ class main(QMainWindow):
 
 			self.checkBox.setStyleSheet(textwrap.dedent(style))
 
-	######### QLabel Stylesheet #########
+	######### QRadioButton Stylesheet #########
 
+	def rb_create_stylesheet(self):
+		style = False
+
+		# QRadioButton normal pseudo-state
+		if self.rb_normal:
+			style = 'QRadioButton {'
+
+			# color
+			if self.rb_color_normal:
+				style += f'\n\tcolor: {self.rb_color_normal};'
+			if self.rb_bg_color_normal:
+				style += f'\n\tbackground-color: {self.rb_bg_color_normal};'
+
+			# font
+			if self.rb_font_family:
+				style += f'\n\tfont-family: {self.rb_font_family};'
+			if self.rb_font_size:
+				style += f'\n\tfont-size: {self.rb_font_size}pt;'
+			if self.rb_font_weight:
+				style += f'\n\tfont-weight: {self.rb_font_weight};'
+
+			# size
+			if self.rb_min_width_normal.value() > 0:
+				style += f'\n\tmin-width: {self.rb_min_width_normal.value()};'
+			if self.rb_min_height_normal.value() > 0:
+				style += f'\n\tmin-height: {self.rb_min_height_normal.value()};'
+			if self.rb_max_width_normal.value() > 0:
+				style += f'\n\tmax-width: {self.rb_max_width_normal.value()};'
+			if self.rb_max_height_normal.value() > 0:
+				style += f'\n\tmax-height: {self.rb_max_height_normal.value()};'
+
+			# border
+			border_type_normal = self.rb_border_type_normal.currentText()
+			if border_type_normal != 'none':
+				style += f'\n\tborder-style: {border_type_normal};'
+			if self.rb_border_color_normal:
+				style += f'\n\tborder-color: {self.rb_border_color_normal};'
+			if self.rb_border_width_normal.value() > 0:
+				style += f'\n\tborder-width: {self.rb_border_width_normal.value()}px;'
+			if self.rb_border_radius_normal.value() > 0:
+				style += f'\n\tborder-radius: {self.rb_border_radius_normal.value()}px;'
+
+			# padding
+			if self.rb_padding_normal.value() > 0:
+				style += f'\n\tpadding: {self.rb_padding_normal.value()};'
+			if self.rb_padding_left_normal.value() > 0:
+				style += f'\n\tpadding-left: {self.rb_padding_left_normal.value()};'
+			if self.rb_padding_right_normal.value() > 0:
+				style += f'\n\tpadding-right: {self.rb_padding_right_normal.value()};'
+			if self.rb_padding_top_normal.value() > 0:
+				style += f'\n\tpadding-top: {self.rb_padding_top_normal.value()};'
+			if self.rb_padding_bottom_normal.value() > 0:
+				style += f'\n\tpadding-bottom: {self.rb_padding_bottom_normal.value()};'
+
+			# margin
+			if self.rb_margin_normal.value() > 0:
+				style += f'\n\tmargin: {self.rb_margin_normal.value()};'
+			if self.rb_margin_left_normal.value() > 0:
+				style += f'\n\tmargin-left: {self.rb_margin_left_normal.value()};'
+			if self.rb_margin_right_normal.value() > 0:
+				style += f'\n\tmargin-right: {self.rb_margin_right_normal.value()};'
+			if self.rb_margin_top_normal.value() > 0:
+				style += f'\n\tmargin-top: {self.rb_margin_top_normal.value()};'
+			if self.rb_margin_bottom_normal.value() > 0:
+				style += f'\n\tmargin-bottom: {self.rb_margin_bottom_normal.value()};'
+
+			style += '\n}' # End of QRadioButton normal pseudo-state
+
+		# QRadioButton indicator sub-control
+
+		if self.rb_indicator:
+			if style: # style is not False
+				style += '\n\nQRadioButton::indicator {'
+			else:
+				style = '\n\nQRadioButton::indicator {'
+			if self.rb_indicator_width_normal.value() > 0:
+				style += f'\n\twidth: {self.rb_indicator_width_normal.value()}px;'
+			if self.rb_indicator_height_normal.value() > 0:
+				style += f'\n\theight: {self.rb_indicator_height_normal.value()}px;'
+
+			style += '\n}' # End of QRadioButton::indicator
+
+		# QRadioButton hover pseudo-state
+		if self.rb_hover:
+			# color
+			if style: # style is not False
+				style += '\n\nQRadioButton:hover {'
+			else:
+				style = '\n\nQRadioButton:hover {'
+
+			if self.rb_color_hover:
+				style += f'\n\tcolor: {self.rb_color_hover};'
+			if self.rb_bg_color_hover:
+				style += f'\n\tbackground-color: {self.rb_bg_color_hover};'
+
+			# border
+			border_type_hover = self.rb_border_type_hover.currentText()
+			if border_type_hover != 'none':
+				style += f'\n\tborder-style: {border_type_hover};'
+			if self.rb_border_color_hover:
+				style += f'\n\tborder-color: {self.rb_border_color_hover};'
+			if self.rb_border_width_hover.value() > 0:
+				style += f'\n\tborder-width: {self.rb_border_width_hover.value()}px;'
+			if self.rb_border_radius_hover.value() > 0:
+				style += f'\n\tborder-radius: {self.rb_border_radius_hover.value()}px;'
+
+			style += '\n}' # End of QRadioButton hover pseudo-state
+
+		# QRadioButton pressed pseudo-state
+		if self.rb_pressed:
+			if style: # style is not False
+				style += '\n\nQRadioButton:pressed {'
+			else:
+				style = '\n\nQRadioButton:pressed {'
+
+		# color
+			if self.rb_color_pressed:
+				style += f'\n\tcolor: {self.rb_color_pressed};'
+			if self.rb_bg_color_pressed:
+				style += f'\n\tbackground-color: {self.rb_bg_color_pressed};'
+
+			# border
+			border_type_pressed = self.rb_border_type_pressed.currentText()
+			if border_type_pressed != 'none':
+				style += f'\n\tborder-style: {border_type_pressed};'
+			if self.rb_border_color_pressed:
+				style += f'\n\tborder-color: {self.rb_border_color_pressed};'
+			if self.rb_border_width_pressed.value() > 0:
+				style += f'\n\tborder-width: {self.rb_border_width_pressed.value()}px;'
+			if self.rb_border_radius_pressed.value() > 0:
+				style += f'\n\tborder-radius: {self.rb_border_radius_pressed.value()}px;'
+
+			style += '\n}' # End of QRadioButton pressed pseudo-state
+
+		# QRadioButton checked pseudo-state
+		if self.rb_checked:
+			if style: # style is not False
+				style += '\n\nQRadioButton:checked {'
+			else:
+				style = '\n\nQRadioButton:checked {'
+
+			#color
+			if self.rb_color_checked:
+				style += f'\n\tcolor: {self.rb_color_checked};'
+			if self.rb_bg_color_checked:
+				style += f'\n\tbackground-color: {self.rb_bg_color_checked};'
+
+			# border
+			border_type_checked = self.rb_border_type_checked.currentText()
+			if border_type_checked != 'none':
+				style += f'\n\tborder-style: {border_type_checked};'
+			if self.rb_border_color_checked:
+				style += f'\n\tborder-color: {self.rb_border_color_checked};'
+			if self.rb_border_width_checked.value() > 0:
+				style += f'\n\tborder-width: {self.rb_border_width_checked.value()}px;'
+			if self.rb_border_radius_checked.value() > 0:
+				style += f'\n\tborder-radius: {self.rb_border_radius_checked.value()}px;'
+
+			style += '\n}' # End of QRadioButton checked pseudo-state
+
+		# QRadioButton disabled pseudo-state
+		if self.rb_disabled:
+			if style: # style is not False
+				style += '\n\nQRadioButton:disabled {'
+			else:
+				style = '\n\nQRadioButton:disabled {'
+
+			# color
+			if self.rb_color_disabled:
+				style += f'\n\tcolor: {self.rb_color_disabled};'
+			if self.rb_bg_color_disabled:
+				style += f'\n\tbackground-color: {self.rb_bg_color_disabled};'
+
+			# border
+			border_type_disabled = self.rb_border_type_disabled.currentText()
+			if border_type_disabled != 'none':
+				style += f'\n\tborder-style: {border_type_disabled};'
+			if self.rb_border_color_disabled:
+				style += f'\n\tborder-color: {self.rb_border_color_disabled};'
+			if self.rb_border_width_disabled.value() > 0:
+				style += f'\n\tborder-width: {self.rb_border_width_disabled.value()}px;'
+			if self.rb_border_radius_disabled.value() > 0:
+				style += f'\n\tborder-radius: {self.rb_border_radius_disabled.value()}px;'
+
+			style += '\n}' # QRadioButton disabled pseudo-state
+
+		# QRadioButton build and apply the stylesheet
+		self.rb_stylesheet.clear()
+		if style:
+			lines = style.splitlines()
+			for line in lines:
+				self.rb_stylesheet.appendPlainText(line)
+
+			self.radioButton.setStyleSheet(textwrap.dedent(style))
+
+
+
+	######### QLabel Stylesheet #########
 
 	def lb_create_stylesheet(self):
 		style = False
@@ -855,6 +1105,9 @@ class main(QMainWindow):
 			cb_style = self.cb_stylesheet.toPlainText()
 			with open(file_path, "a") as f:
 				f.write(cb_style)
+			rb_style = self.rb_stylesheet.toPlainText()
+			with open(file_path, "a") as f:
+				f.write(rb_style)
 			lb_style = self.lb_stylesheet.toPlainText()
 			with open(file_path, "a") as f:
 				f.write(lb_style)
