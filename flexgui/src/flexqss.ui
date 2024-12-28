@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -4856,7 +4856,7 @@ Toolbar style must be set before Toolbutton</string>
             <item row="2" column="0">
              <widget class="QTabWidget" name="tabWidget_15">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="currentIndex">
                <number>0</number>
