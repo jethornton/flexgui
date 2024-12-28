@@ -115,6 +115,8 @@ the ./subroutines directory
 	│   └── xplus.ngc
 	└── tool.tbl
 
+In your subroutine you can use user parameters instead of using HAL pins.
+See the :doc:`parameters` section.
 
 The subroutine is a normal LinuxCNC subroutine. The magic is how you get the
 values from HAL pins with `#<_hal[pin_name]>` where pin_name is the actual
