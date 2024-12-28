@@ -4743,7 +4743,9 @@ Border needs both width and color to show up</string>
               <property name="plainText">
                <string>To delete a color open the color dialog and Cancel
 
-Border needs both width and color to show up</string>
+Border needs both width and color to show up
+
+Toolbar style must be set before Toolbutton</string>
               </property>
              </widget>
             </item>
@@ -4755,13 +4757,13 @@ Border needs both width and color to show up</string>
       </widget>
       <widget class="QWidget" name="tab_26">
        <attribute name="title">
-        <string>Toolbar Button</string>
+        <string>Toolbutton</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_65">
         <item row="0" column="0" rowspan="3">
          <widget class="QTabWidget" name="tabWidget_14">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="currentIndex">
            <number>0</number>
@@ -4773,6 +4775,9 @@ Border needs both width and color to show up</string>
            <layout class="QGridLayout" name="gridLayout_53">
             <item row="3" column="2" rowspan="2">
              <widget class="QGroupBox" name="groupBox_31">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Font</string>
               </property>
@@ -4849,10 +4854,10 @@ Border needs both width and color to show up</string>
                   <string>color</string>
                  </property>
                  <property name="label" stdset="0">
-                  <string>tb_text_color_lb</string>
+                  <string>tb_fg_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tb_color_normal</string>
+                  <string>tbtn_fg_color_normal</string>
                  </property>
                 </widget>
                </item>
@@ -4896,12 +4901,12 @@ Border needs both width and color to show up</string>
                   <string>tb_bg_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tb_bg_color_normal</string>
+                  <string>tbtn_bg_color_normal</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLabel" name="tb_text_color_lb">
+                <widget class="QLabel" name="tb_fg_color_lb">
                  <property name="minimumSize">
                   <size>
                    <width>27</width>
@@ -4943,6 +4948,9 @@ Border needs both width and color to show up</string>
             </item>
             <item row="3" column="1">
              <widget class="QTabWidget" name="tabWidget_15">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="currentIndex">
                <number>0</number>
               </property>
@@ -5134,6 +5142,9 @@ Border needs both width and color to show up</string>
             </item>
             <item row="2" column="2">
              <widget class="QGroupBox" name="groupBox_33">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Border</string>
               </property>
@@ -5231,6 +5242,9 @@ Border needs both width and color to show up</string>
             </item>
             <item row="2" column="1">
              <widget class="QGroupBox" name="groupBox_34">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Size</string>
               </property>
@@ -5315,6 +5329,9 @@ Border needs both width and color to show up</string>
            <layout class="QGridLayout" name="gridLayout_60">
             <item row="0" column="0">
              <widget class="QGroupBox" name="groupBox_35">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Hover</string>
               </property>
@@ -5497,6 +5514,9 @@ Border needs both width and color to show up</string>
             </item>
             <item row="2" column="1">
              <widget class="QGroupBox" name="groupBox_36">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Disabled</string>
               </property>
@@ -5679,6 +5699,9 @@ Border needs both width and color to show up</string>
             </item>
             <item row="2" column="0">
              <widget class="QGroupBox" name="groupBox_37">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Pressed</string>
               </property>
@@ -5867,6 +5890,9 @@ Border needs both width and color to show up</string>
             </item>
             <item row="0" column="1">
              <widget class="QGroupBox" name="groupBox_38">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="title">
                <string>Checked</string>
               </property>
@@ -6106,7 +6132,9 @@ Border needs both width and color to show up</string>
               <property name="plainText">
                <string>To delete a color open the color dialog and Cancel
 
-Border needs both width and color to show up</string>
+Border needs both width and color to show up
+
+Toolbar will overwrite toolbutton</string>
               </property>
              </widget>
             </item>
@@ -6117,7 +6145,7 @@ Border needs both width and color to show up</string>
         <item row="2" column="1">
          <widget class="QPushButton" name="tb_apply_style">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="text">
            <string>Apply The Style</string>

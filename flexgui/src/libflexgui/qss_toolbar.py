@@ -1,16 +1,16 @@
 from functools import partial
 
-
+from libflexgui import qss_toolbutton
 
 def startup(parent):
 
-	parent.tbar_normal = False
-
 	# QToolBar
+	parent.tbar_normal = False
+	parent.tbar_apply_style.clicked.connect(partial(tbar_create_stylesheet, parent))
+
 	parent.tbar_bg_color_normal.clicked.connect(parent.color_dialog)
 	parent.toolbar_spacing.valueChanged.connect(partial(spacing, parent))
 	parent.tbar_border_color_normal.clicked.connect(parent.color_dialog)
-	parent.tbar_apply_style.clicked.connect(partial(tbar_create_stylesheet, parent))
 	# variables to build sections in the stylesheet
 	parent.build_toolbar = False
 
@@ -85,6 +85,11 @@ def tbar_create_stylesheet(parent):
 
 		style += '}\n' # End of QToolBar
 
+	# check for toolbutton style set
+	if parent.sender().objectName() == 'tbar_apply_style':
+		if parent.tb_normal:
+			style += qss_toolbutton.tb_create_stylesheet(parent)
+
 	parent.tbar_stylesheet.clear()
 	if style:
 		lines = style.splitlines()
@@ -92,6 +97,9 @@ def tbar_create_stylesheet(parent):
 			parent.tbar_stylesheet.appendPlainText(line)
 
 		parent.toolBar.setStyleSheet(style)
+
+	if parent.sender().objectName() == 'tb_apply_style':
+		return style
 
 def spacing(parent):
 	obj = parent.sender().objectName().split('_')[0]
