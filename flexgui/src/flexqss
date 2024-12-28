@@ -37,6 +37,10 @@ class main(QMainWindow):
 
 	def setup(self):
 
+		for i in range(6):
+			getattr(self, f'boxmodel_lb_{i}').setPixmap(QPixmap(':/boxmodel.png'))
+		#self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
+
 		# Menu Items
 		self.actionSave_As.triggered.connect(self.save)
 
