@@ -13,6 +13,7 @@ from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
 
 from libflexgui import qss_images
+from libflexgui import qss_toolbar
 
 class main(QMainWindow):
 	def __init__(self):
@@ -30,11 +31,12 @@ class main(QMainWindow):
 
 		self.setGeometry(0, 0, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
-
+		qss_toolbar.startup(self)
 		self.setup()
 		self.show()
 
 	def setup(self):
+
 		# Menu Items
 		self.actionSave_As.triggered.connect(self.save)
 
@@ -193,7 +195,13 @@ class main(QMainWindow):
 		self.rb_indicator_height_normal.valueChanged.connect(self.indicator)
 
 
+		# QToolButton
+		self.tb_apply_style.clicked.connect(self.tb_create_stylesheet)
+
+
+
 		# QLabel
+		self.lb_apply_style.clicked.connect(self.lb_create_stylesheet)
 		self.lb_disable.clicked.connect(partial(self.disable, 'label'))
 
 		lb_pseudo_states = ['normal', 'hover', 'disabled']
@@ -218,8 +226,6 @@ class main(QMainWindow):
 		self.lb_font_weight = False
 		self.lb_font_style = False
 		self.lb_font_italic = False
-
-		self.lb_apply_style.clicked.connect(self.lb_create_stylesheet)
 
 		self.lb_min_width_normal.valueChanged.connect(self.size)
 		self.lb_min_height_normal.valueChanged.connect(self.size)
@@ -815,9 +821,38 @@ class main(QMainWindow):
 			for line in lines:
 				self.rb_stylesheet.appendPlainText(line)
 
-			self.radioButton.setStyleSheet(textwrap.dedent(style))
+			self.radioButton_0.setStyleSheet(textwrap.dedent(style))
+			self.radioButton_1.setStyleSheet(textwrap.dedent(style))
 
 
+	######### QToolButton Stylesheet #########
+
+	def tb_create_stylesheet(self):
+		style = False
+
+		# QToolBar
+		if self.toolbar_normal:
+			style = 'QToolBar {\n'
+			if self.tbar_bg_color:
+				style += f'background: {self.tbar_bg_color};\n'
+			if self.toolbar_spacing.value() > 0:
+				style += f'spacing: {self.toolbar_spacing.value()}px;\n'
+			style += '}\n' # End of QToolBar
+
+		# QToolButton normal pseudo-state
+		#if self.lb_normal:
+		#	style = 'QLabel {'
+
+
+		#	style += '\n}' # End of QToolButton normal pseudo-state
+
+		self.tb_stylesheet.clear()
+		if style:
+			lines = style.splitlines()
+			for line in lines:
+				self.tb_stylesheet.appendPlainText(line)
+
+			self.toolBar.setStyleSheet(textwrap.dedent(style))
 
 	######### QLabel Stylesheet #########
 
@@ -958,6 +993,13 @@ class main(QMainWindow):
 		prop = self.sender().property('qss')
 		variable = self.sender().property('var')
 		label = self.sender().property('label')
+		#print(f'obj {obj}')
+		#print(f'state {state}')
+		#print(f'prop {prop}')
+		#print(f'variable {variable}')
+		#print(f'variable {getattr(self, variable)}')
+		#print(f'label {label}')
+		#return
 		if getattr(self, variable):
 			initial_color = QColor(getattr(self, variable))
 		else:
