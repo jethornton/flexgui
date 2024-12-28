@@ -36,6 +36,19 @@ def startup(parent):
 	parent.tb_font_style = False
 	parent.tb_font_italic = False
 
+	parent.tb_padding_normal.valueChanged.connect(parent.padding)
+	parent.tb_padding_left_normal.valueChanged.connect(parent.padding)
+	parent.tb_padding_right_normal.valueChanged.connect(parent.padding)
+	parent.tb_padding_top_normal.valueChanged.connect(parent.padding)
+	parent.tb_padding_bottom_normal.valueChanged.connect(parent.padding)
+
+	parent.tb_margin_normal.valueChanged.connect(parent.margin)
+	parent.tb_margin_left_normal.valueChanged.connect(parent.margin)
+	parent.tb_margin_right_normal.valueChanged.connect(parent.margin)
+	parent.tb_margin_top_normal.valueChanged.connect(parent.margin)
+	parent.tb_margin_bottom_normal.valueChanged.connect(parent.margin)
+
+
 ######### QToolButton Stylesheet #########
 
 def tb_create_stylesheet(parent):
@@ -89,6 +102,29 @@ def tb_create_stylesheet(parent):
 		if parent.tb_font_weight:
 			style += f'\tfont-weight: {parent.tb_font_weight};\n'
 
+		# padding
+		if parent.tb_padding_normal.value() > 0:
+			style += f'\tpadding: {parent.tb_padding_normal.value()};\n'
+		if parent.tb_padding_left_normal.value() > 0:
+			style += f'\tpadding-left: {parent.tb_padding_left_normal.value()};\n'
+		if parent.tb_padding_right_normal.value() > 0:
+			style += f'\tpadding-right: {parent.tb_padding_right_normal.value()};\n'
+		if parent.tb_padding_top_normal.value() > 0:
+			style += f'\tpadding-top: {parent.tb_padding_top_normal.value()};\n'
+		if parent.tb_padding_bottom_normal.value() > 0:
+			style += f'\tpadding-bottom: {parent.tb_padding_bottom_normal.value()};\n'
+
+		# margin
+		if parent.tb_margin_normal.value() > 0:
+			style += f'\tmargin: {parent.tb_margin_normal.value()};\n'
+		if parent.tb_margin_left_normal.value() > 0:
+			style += f'\tmargin-left: {parent.tb_margin_left_normal.value()};\n'
+		if parent.tb_margin_right_normal.value() > 0:
+			style += f'\tmargin-right: {parent.tb_margin_right_normal.value()};\n'
+		if parent.tb_margin_top_normal.value() > 0:
+			style += f'\tmargin-top: {parent.tb_margin_top_normal.value()};\n'
+		if parent.tb_margin_bottom_normal.value() > 0:
+			style += f'\tmargin-bottom: {parent.tb_margin_bottom_normal.value()};\n'
 
 		style += '\tspacing: 25px;\n'
 
