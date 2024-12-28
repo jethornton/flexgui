@@ -996,7 +996,7 @@ class main(QMainWindow):
 		#print(f'obj {obj}')
 		#print(f'state {state}')
 		#print(f'prop {prop}')
-		#print(f'variable {variable}')
+		print(f'variable {variable}')
 		#print(f'variable {getattr(self, variable)}')
 		#print(f'label {label}')
 		#return
