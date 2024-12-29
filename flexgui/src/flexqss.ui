@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -6290,7 +6290,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_text_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_color_normal</string>
+                  <string>lb_fg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -6334,7 +6334,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_bg_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_bg_color_normal</string>
+                  <string>lb_bg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -6641,7 +6641,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_border_color_normal_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_border_color_normal</string>
+                  <string>lb_border_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -6807,7 +6807,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_bg_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_bg_color_hover</string>
+                  <string>lb_bg_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -6891,7 +6891,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_text_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_color_hover</string>
+                  <string>lb_fg_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -6907,7 +6907,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_border_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_border_color_hover</string>
+                  <string>lb_border_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -6951,7 +6951,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_bg_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_bg_color_disabled</string>
+                  <string>lb_bg_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -7000,7 +7000,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_text_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_color_disabled</string>
+                  <string>lb_fg_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -7089,7 +7089,7 @@ Toolbar will overwrite toolbutton</string>
                   <string>lb_border_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>lb_border_color_disabled</string>
+                  <string>lb_border_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
