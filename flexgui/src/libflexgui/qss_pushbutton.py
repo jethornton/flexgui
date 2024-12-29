@@ -118,7 +118,7 @@ def pb_create_stylesheet(parent):
 		if parent.pb_margin_bottom_normal.value() > 0:
 			style += f'\tmargin-bottom: {parent.pb_margin_bottom_normal.value()};\n'
 
-		style += '\n}' # End of QPushButton normal pseudo-state
+		style += '}' # End of QPushButton normal pseudo-state
 
 	# QPushButton hover pseudo-state
 	if parent.pb_hover:
@@ -144,7 +144,7 @@ def pb_create_stylesheet(parent):
 		if parent.pb_border_radius_hover.value() > 0:
 			style += f'\tborder-radius: {parent.pb_border_radius_hover.value()}px;\n'
 
-		style += '\n}' # End of QPushButton hover pseudo-state
+		style += '}' # End of QPushButton hover pseudo-state
 
 	# QPushButton pressed pseudo-state
 	# color
@@ -170,7 +170,7 @@ def pb_create_stylesheet(parent):
 		if parent.pb_border_radius_pressed.value() > 0:
 			style += f'\tborder-radius: {parent.pb_border_radius_pressed.value()}px;\n'
 
-		style += '\n}' # End of QPushButton pressed pseudo-state
+		style += '}' # End of QPushButton pressed pseudo-state
 
 	# QPushButton checked pseudo-state
 	if parent.pb_checked:
@@ -196,7 +196,7 @@ def pb_create_stylesheet(parent):
 		if parent.pb_border_radius_checked.value() > 0:
 			style += f'\tborder-radius: {parent.pb_border_radius_checked.value()}px;\n'
 
-		style += '\n}' # End of QPushButton checked pseudo-state
+		style += '}' # End of QPushButton checked pseudo-state
 
 	# QPushButton disabled pseudo-state
 	if parent.pb_disabled:
