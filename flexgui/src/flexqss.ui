@@ -4766,7 +4766,7 @@ Toolbar style must be set before Toolbutton</string>
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_34">
            <attribute name="title">
@@ -5336,7 +5336,7 @@ Toolbar style must be set before Toolbutton</string>
             <item row="0" column="0">
              <widget class="QGroupBox" name="groupBox_35">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="title">
                <string>Hover</string>
@@ -5392,7 +5392,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_bg_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_bg_color_hover</string>
+                  <string>tb_bg_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -5476,7 +5476,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_text_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_color_hover</string>
+                  <string>tb_fg_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -5492,7 +5492,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_border_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_border_color_hover</string>
+                  <string>tb_border_color_sel_hover</string>
                  </property>
                 </widget>
                </item>

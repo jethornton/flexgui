@@ -17,12 +17,15 @@ def startup(parent):
 		'ridge', 'inset', 'outset']
 	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
-	for item in abstract_button_states: # populate border combo boxes
+	for item in abstract_button_states:
+		# populate border combo boxes
 		getattr(parent, f'tb_border_type_{item}').addItems(border_types)
-		setattr(parent, f'tb_{item}', False)
-		setattr(parent, f'tbtn_fg_color_{item}', False)
-		setattr(parent, f'tbtn_bg_color_{item}', False)
-		setattr(parent, f'tbtn_border_color_{item}', False)
+		# setup variables
+		setattr(parent, f'tb_{item}', False) # build section flag
+		setattr(parent, f'tb_fg_color_sel_{item}', False)
+		setattr(parent, f'tb_bg_color_sel_{item}', False)
+		setattr(parent, f'tb_border_color_sel_{item}', False)
+	# tb_fg_color_sel_hover tb_bg_color_sel_hover tb_border_color_sel_hover
 
 	for state in abstract_button_states: # color dialog connections
 		getattr(parent, f'tb_fg_color_{state}').clicked.connect(parent.color_dialog)
@@ -68,7 +71,7 @@ def tb_create_stylesheet(parent):
 			style = 'QToolBar QToolButton {\n'
 
 		# color 
-		if parent.tbtn_fg_color_normal:
+		if parent.tbtn_fg_color_sel_normal:
 			style += f'\tcolor: {parent.tbtn_fg_color_normal};\n'
 		if parent.tbtn_bg_color_normal:
 			style += f'\tbackground-color: {parent.tbtn_bg_color_normal};\n'
@@ -128,7 +131,113 @@ def tb_create_stylesheet(parent):
 
 		style += '\tspacing: 25px;\n'
 
-		style += '}\n' # End of QToolButton
+		style += '}\n' # End of QToolButton normal pseudo-state
+
+	# QToolBar QToolButton hover pseudo-state
+	if parent.tb_hover:
+		print('here')
+		# color
+		if style: # style is not False
+			style += '\nQToolBar QToolButton:hover {\n'
+		else:
+			style = '\nQToolBar QToolButton:hover {\n'
+
+		if parent.tb_fg_color_sel_hover:
+			style += f'\tcolor: {parent.tb_fg_color_sel_hover};\n'
+		if parent.tb_bg_color_sel_hover:
+			style += f'\tbackground-color: {parent.tb_bg_color_sel_hover};\n'
+
+		# border
+		border_type_hover = parent.tb_border_type_hover.currentText()
+		if border_type_hover != 'none':
+			style += f'\tborder-style: {border_type_hover};\n'
+		if parent.tb_border_color_sel_hover:
+			style += f'\tborder-color: {parent.tb_border_color_sel_hover};\n'
+		if parent.tb_border_width_hover.value() > 0:
+			style += f'\tborder-width: {parent.tb_border_width_hover.value()}px;\n'
+		if parent.tb_border_radius_hover.value() > 0:
+			style += f'\tborder-radius: {parent.tb_border_radius_hover.value()}px;\n'
+
+		style += '\n}' # End of QToolBar QToolButton hover pseudo-state
+	'''
+	# QToolBar QToolButton pressed pseudo-state
+	# color
+	if parent.tb_pressed:
+		if style: # style is not False
+			style += '\n\nQToolBar QToolButton:pressed {\n'
+		else:
+			style = '\n\nQToolBar QToolButton:pressed {\n'
+
+		if parent.tb_color_sel_pressed:
+			style += f'\tcolor: {parent.tb_color_sel_pressed};\n'
+		if parent.tb_bg_color_sel_pressed:
+			style += f'\tbackground-color: {parent.tb_bg_color_sel_pressed};\n'
+
+		# border
+		border_type_pressed = parent.tb_border_type_pressed.currentText()
+		if border_type_pressed != 'none':
+			style += f'\tborder-style: {border_type_pressed};\n'
+		if parent.tb_border_color_sel_pressed:
+			style += f'\tborder-color: {parent.tb_border_color_sel_pressed};\n'
+		if parent.tb_border_width_pressed.value() > 0:
+			style += f'\tborder-width: {parent.tb_border_width_pressed.value()}px;\n'
+		if parent.tb_border_radius_pressed.value() > 0:
+			style += f'\tborder-radius: {parent.tb_border_radius_pressed.value()}px;\n'
+
+		style += '\n}' # End of QToolBar QToolButton pressed pseudo-state
+
+	# QToolBar QToolButton checked pseudo-state
+	if parent.tb_checked:
+		if style: # style is not False
+			style += '\n\nQToolBar QToolButton:checked {\n'
+		else:
+			style = '\n\nQToolBar QToolButton:checked {\n'
+
+		#color
+		if parent.tb_color_sel_checked:
+			style += f'\tcolor: {parent.tb_color_sel_checked};\n'
+		if parent.tb_bg_color_sel_checked:
+			style += f'\tbackground-color: {parent.tb_bg_color_sel_checked};\n'
+
+		# border
+		border_type_checked = parent.tb_border_type_checked.currentText()
+		if border_type_checked != 'none':
+			style += f'\tborder-style: {border_type_checked};\n'
+		if parent.tb_border_color_sel_checked:
+			style += f'\tborder-color: {parent.tb_border_color_sel_checked};\n'
+		if parent.tb_border_width_checked.value() > 0:
+			style += f'\tborder-width: {parent.tb_border_width_checked.value()}px;\n'
+		if parent.tb_border_radius_checked.value() > 0:
+			style += f'\tborder-radius: {parent.tb_border_radius_checked.value()}px;\n'
+
+		style += '\n}' # End of QToolBar QToolButton checked pseudo-state
+
+	# QToolBar QToolButton disabled pseudo-state
+	if parent.tb_disabled:
+		if style: # style is not False
+			style += '\n\nQToolBar QToolButton:disabled {\n'
+		else:
+			style = '\n\nQToolBar QToolButton:disabled {\n'
+
+		# color
+		if parent.tb_color_sel_disabled:
+			style += f'\tcolor: {parent.tb_color_sel_disabled};\n'
+		if parent.tb_bg_color_sel_disabled:
+			style += f'\tbackground-color: {parent.tb_bg_color_sel_disabled};\n'
+
+		# border
+		border_type_disabled = parent.tb_border_type_disabled.currentText()
+		if border_type_disabled != 'none':
+			style += f'\tborder-style: {border_type_disabled};\n'
+		if parent.tb_border_color_sel_disabled:
+			style += f'\tborder-color: {parent.tb_border_color_sel_disabled};\n'
+		if parent.tb_border_width_disabled.value() > 0:
+			style += f'\tborder-width: {parent.tb_border_width_disabled.value()}px;\n'
+		if parent.tb_border_radius_disabled.value() > 0:
+			style += f'\tborder-radius: {parent.tb_border_radius_disabled.value()}px;\n'
+
+		style += '\n}' # End of QToolBar QToolButton disabled pseudo-state
+	'''
 
 	parent.tb_stylesheet.clear()
 	if style:
