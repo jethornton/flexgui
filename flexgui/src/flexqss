@@ -1012,7 +1012,6 @@ class main(QMainWindow):
 			color = color_dialog.currentColor()
 			if color.isValid():
 				setattr(self, variable, color.name())
-				print(getattr(self, variable))
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
 				setattr(self, f'{obj}_{state}', True)
 		else:
