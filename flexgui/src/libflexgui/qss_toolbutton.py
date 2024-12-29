@@ -25,7 +25,11 @@ def startup(parent):
 		setattr(parent, f'tb_fg_color_sel_{item}', False)
 		setattr(parent, f'tb_bg_color_sel_{item}', False)
 		setattr(parent, f'tb_border_color_sel_{item}', False)
+
 	# tb_fg_color_sel_hover tb_bg_color_sel_hover tb_border_color_sel_hover
+	# tb_fg_color_sel_checked tb_bg_color_sel_checked tb_border_color_sel_checked
+
+
 
 	for state in abstract_button_states: # color dialog connections
 		getattr(parent, f'tb_fg_color_{state}').clicked.connect(parent.color_dialog)
@@ -71,10 +75,10 @@ def tb_create_stylesheet(parent):
 			style = 'QToolBar QToolButton {\n'
 
 		# color 
-		if parent.tbtn_fg_color_sel_normal:
-			style += f'\tcolor: {parent.tbtn_fg_color_normal};\n'
-		if parent.tbtn_bg_color_normal:
-			style += f'\tbackground-color: {parent.tbtn_bg_color_normal};\n'
+		if parent.tb_fg_color_sel_normal:
+			style += f'\tcolor: {parent.tb_fg_color_sel_normal};\n'
+		if parent.tb_bg_color_sel_normal:
+			style += f'\tbackground-color: {parent.tb_bg_color_sel_normal};\n'
 
 		# size
 		if parent.tb_min_width_normal.value() > 0:
@@ -90,8 +94,8 @@ def tb_create_stylesheet(parent):
 		border_type_normal = parent.tb_border_type_normal.currentText()
 		if border_type_normal != 'none':
 			style += f'\tborder-style: {border_type_normal};\n'
-		if parent.tbtn_border_color_normal:
-			style += f'\tborder-color: {parent.tbtn_border_color_normal};\n'
+		if parent.tb_border_color_sel_normal:
+			style += f'\tborder-color: {parent.tb_border_color_sel_normal};\n'
 		if parent.tb_border_width_normal.value() > 0:
 			style += f'\tborder-width: {parent.tb_border_width_normal.value()}px;\n'
 		if parent.tb_border_radius_normal.value() > 0:
@@ -129,13 +133,10 @@ def tb_create_stylesheet(parent):
 		if parent.tb_margin_bottom_normal.value() > 0:
 			style += f'\tmargin-bottom: {parent.tb_margin_bottom_normal.value()};\n'
 
-		style += '\tspacing: 25px;\n'
-
 		style += '}\n' # End of QToolButton normal pseudo-state
 
 	# QToolBar QToolButton hover pseudo-state
 	if parent.tb_hover:
-		print('here')
 		# color
 		if style: # style is not False
 			style += '\nQToolBar QToolButton:hover {\n'
@@ -158,8 +159,8 @@ def tb_create_stylesheet(parent):
 		if parent.tb_border_radius_hover.value() > 0:
 			style += f'\tborder-radius: {parent.tb_border_radius_hover.value()}px;\n'
 
-		style += '\n}' # End of QToolBar QToolButton hover pseudo-state
-	'''
+		style += '}\n' # End of QToolBar QToolButton hover pseudo-state
+
 	# QToolBar QToolButton pressed pseudo-state
 	# color
 	if parent.tb_pressed:
@@ -168,8 +169,8 @@ def tb_create_stylesheet(parent):
 		else:
 			style = '\n\nQToolBar QToolButton:pressed {\n'
 
-		if parent.tb_color_sel_pressed:
-			style += f'\tcolor: {parent.tb_color_sel_pressed};\n'
+		if parent.tb_fg_color_sel_pressed:
+			style += f'\tcolor: {parent.tb_fg_color_sel_pressed};\n'
 		if parent.tb_bg_color_sel_pressed:
 			style += f'\tbackground-color: {parent.tb_bg_color_sel_pressed};\n'
 
@@ -184,7 +185,8 @@ def tb_create_stylesheet(parent):
 		if parent.tb_border_radius_pressed.value() > 0:
 			style += f'\tborder-radius: {parent.tb_border_radius_pressed.value()}px;\n'
 
-		style += '\n}' # End of QToolBar QToolButton pressed pseudo-state
+		style += '}\n' # End of QToolBar QToolButton pressed pseudo-state
+
 
 	# QToolBar QToolButton checked pseudo-state
 	if parent.tb_checked:
@@ -194,8 +196,8 @@ def tb_create_stylesheet(parent):
 			style = '\n\nQToolBar QToolButton:checked {\n'
 
 		#color
-		if parent.tb_color_sel_checked:
-			style += f'\tcolor: {parent.tb_color_sel_checked};\n'
+		if parent.tb_fg_color_sel_checked:
+			style += f'\tcolor: {parent.tb_fg_color_sel_checked};\n'
 		if parent.tb_bg_color_sel_checked:
 			style += f'\tbackground-color: {parent.tb_bg_color_sel_checked};\n'
 
@@ -210,7 +212,7 @@ def tb_create_stylesheet(parent):
 		if parent.tb_border_radius_checked.value() > 0:
 			style += f'\tborder-radius: {parent.tb_border_radius_checked.value()}px;\n'
 
-		style += '\n}' # End of QToolBar QToolButton checked pseudo-state
+		style += '}\n' # End of QToolBar QToolButton checked pseudo-state
 
 	# QToolBar QToolButton disabled pseudo-state
 	if parent.tb_disabled:
@@ -220,8 +222,8 @@ def tb_create_stylesheet(parent):
 			style = '\n\nQToolBar QToolButton:disabled {\n'
 
 		# color
-		if parent.tb_color_sel_disabled:
-			style += f'\tcolor: {parent.tb_color_sel_disabled};\n'
+		if parent.tb_fg_color_sel_disabled:
+			style += f'\tcolor: {parent.tb_fg_color_sel_disabled};\n'
 		if parent.tb_bg_color_sel_disabled:
 			style += f'\tbackground-color: {parent.tb_bg_color_sel_disabled};\n'
 
@@ -236,8 +238,8 @@ def tb_create_stylesheet(parent):
 		if parent.tb_border_radius_disabled.value() > 0:
 			style += f'\tborder-radius: {parent.tb_border_radius_disabled.value()}px;\n'
 
-		style += '\n}' # End of QToolBar QToolButton disabled pseudo-state
-	'''
+		style += '}' # End of QToolBar QToolButton disabled pseudo-state
+
 
 	parent.tb_stylesheet.clear()
 	if style:

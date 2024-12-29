@@ -5127,7 +5127,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_border_color_normal_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_border_color_normal</string>
+                  <string>tb_border_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -5237,7 +5237,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_fg_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_fg_color_normal</string>
+                  <string>tb_fg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -5281,7 +5281,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_bg_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_bg_color_normal</string>
+                  <string>tb_bg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -5518,10 +5518,392 @@ Toolbar style must be set before Toolbutton</string>
               </layout>
              </widget>
             </item>
+            <item row="0" column="1">
+             <widget class="QGroupBox" name="groupBox_37">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="title">
+               <string>Pressed</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_63">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="tb_fg_color_pressed">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Text Color</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>tb_text_color_pressed_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>tb_fg_color_sel_pressed</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QSpinBox" name="tb_border_width_pressed">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_139">
+                 <property name="text">
+                  <string>Border Radius</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QSpinBox" name="tb_border_radius_pressed">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_140">
+                 <property name="text">
+                  <string>Border Type</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="tb_border_type_pressed"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="tb_bg_color_pressed">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>tb_bg_color_pressed_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>tb_bg_color_sel_pressed</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_141">
+                 <property name="text">
+                  <string>Border Width</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="tb_text_color_pressed_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="tb_bg_color_pressed_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QPushButton" name="tb_border_color_pressed">
+                 <property name="text">
+                  <string>Border Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>tb_border_color_pressed_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>tb_border_color_sel_pressed</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="tb_border_color_pressed_lb">
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QGroupBox" name="groupBox_38">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="title">
+               <string>Checked</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_64">
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_142">
+                 <property name="text">
+                  <string>Border Type</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="tb_border_type_checked"/>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="tb_fg_color_checked_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QSpinBox" name="tb_border_width_checked">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="tb_bg_color_checked">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>tb_bg_color_checked_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>tb_bg_color_sel_checked</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_143">
+                 <property name="text">
+                  <string>Border Radius</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="tb_fg_color_checked">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Text Color</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>tb_fg_color_checked_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>tb_fg_color_sel_checked</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="tb_bg_color_checked_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QSpinBox" name="tb_border_radius_checked">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_144">
+                 <property name="text">
+                  <string>Border Width</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QPushButton" name="tb_border_color_checked">
+                 <property name="text">
+                  <string>Border Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>tb_border_color_checked_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>tb_border_color_sel_checked</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="tb_border_color_checked_lb">
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
             <item row="2" column="1">
              <widget class="QGroupBox" name="groupBox_36">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="title">
                <string>Disabled</string>
@@ -5539,7 +5921,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_bg_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_bg_color_disabled</string>
+                  <string>tb_bg_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -5588,7 +5970,7 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_text_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_color_disabled</string>
+                  <string>tb_fg_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -5677,394 +6059,12 @@ Toolbar style must be set before Toolbutton</string>
                   <string>tb_border_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>tbtn_border_color_disabled</string>
+                  <string>tb_border_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
                <item row="5" column="1">
                 <widget class="QLabel" name="tb_border_color_disabled_lb">
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QGroupBox" name="groupBox_37">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="title">
-               <string>Pressed</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_63">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="tb_fg_color_pressed">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Text Color</string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>tb_text_color_pressed_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>tbtn_color_pressed</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="tb_border_width_pressed">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_139">
-                 <property name="text">
-                  <string>Border Radius</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QSpinBox" name="tb_border_radius_pressed">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_140">
-                 <property name="text">
-                  <string>Border Type</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="tb_border_type_pressed"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="tb_bg_color_pressed">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>tb_bg_color_pressed_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>tbtn_bg_color_pressed</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_141">
-                 <property name="text">
-                  <string>Border Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="tb_text_color_pressed_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="tb_bg_color_pressed_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="tb_border_color_pressed">
-                 <property name="text">
-                  <string>Border Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>tb_border_color_pressed_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>tbtn_border_color_pressed</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="tb_border_color_pressed_lb">
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QGroupBox" name="groupBox_38">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="title">
-               <string>Checked</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_64">
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_142">
-                 <property name="text">
-                  <string>Border Type</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="tb_border_type_checked"/>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="tb_fg_color_checked_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="tb_border_width_checked">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="tb_bg_color_checked">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>tb_bg_color_checked_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>tbtn_bg_color_checked</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_143">
-                 <property name="text">
-                  <string>Border Radius</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QPushButton" name="tb_fg_color_checked">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Text Color</string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>tb_fg_color_checked_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>tbtn_color_checked</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="tb_bg_color_checked_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QSpinBox" name="tb_border_radius_checked">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_144">
-                 <property name="text">
-                  <string>Border Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="tb_border_color_checked">
-                 <property name="text">
-                  <string>Border Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>tb_border_color_checked_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>tbtn_border_color_checked</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="tb_border_color_checked_lb">
                  <property name="maximumSize">
                   <size>
                    <width>27</width>
