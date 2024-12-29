@@ -18,6 +18,7 @@ from libflexgui import qss_checkbox
 from libflexgui import qss_radiobutton
 from libflexgui import qss_toolbar
 from libflexgui import qss_toolbutton
+from libflexgui import qss_spinbox
 from libflexgui import qss_label
 
 class main(QMainWindow):
@@ -41,6 +42,7 @@ class main(QMainWindow):
 		qss_radiobutton.startup(self)
 		qss_toolbar.startup(self)
 		qss_toolbutton.startup(self)
+		qss_spinbox.startup(self)
 		qss_label.startup(self)
 		self.setup()
 		self.show()
@@ -65,10 +67,10 @@ class main(QMainWindow):
 		prop = self.sender().property('qss')
 		variable = self.sender().property('var')
 		label = self.sender().property('label')
-		print(f'obj {obj}')
-		print(f'state {state}')
+		#print(f'obj {obj}')
+		#print(f'state {state}')
 		#print(f'prop {prop}')
-		print(f'variable {variable}')
+		#print(f'variable {variable}')
 		#print(f'variable {getattr(self, variable)}')
 		#print(f'label {label}')
 		#return
@@ -86,6 +88,7 @@ class main(QMainWindow):
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
 				setattr(self, f'{obj}_{state}', True)
+				#print(getattr(self, f'{obj}_{state}'))
 		else:
 			setattr(self, variable, False)
 			getattr(self, label).setStyleSheet(f'background-color: none;')
