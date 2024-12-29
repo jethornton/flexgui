@@ -58,67 +58,66 @@ def lb_create_stylesheet(parent):
 
 	# QLabel normal pseudo-state
 	if parent.lb_normal:
-		style = 'QLabel {'
+		style = 'QLabel {\n'
 
 		# color
 		if parent.lb_fg_color_sel_normal:
-			style += f'\n\tcolor: {parent.lb_fg_color_sel_normal};'
+			style += f'\tcolor: {parent.lb_fg_color_sel_normal};\n'
 		if parent.lb_bg_color_sel_normal:
-			style += f'\n\tbackground-color: {parent.lb_bg_color_sel_normal};'
+			style += f'\tbackground-color: {parent.lb_bg_color_sel_normal};\n'
 
 		# font
 		if parent.lb_font_family:
-			style += f'\n\tfont-family: {parent.lb_font_family};'
+			style += f'\tfont-family: {parent.lb_font_family};\n'
 		if parent.lb_font_size:
-			style += f'\n\tfont-size: {parent.lb_font_size}pt;'
+			style += f'\tfont-size: {parent.lb_font_size}pt;\n'
 		if parent.lb_font_weight:
-			style += f'\n\tfont-weight: {parent.lb_font_weight};'
-
+			style += f'\tfont-weight: {parent.lb_font_weight};\n'
 
 		# size
 		if parent.lb_min_width_normal.value() > 0:
-			style += f'\n\tmin-width: {parent.lb_min_width_normal.value()};'
+			style += f'\tmin-width: {parent.lb_min_width_normal.value()};\n'
 		if parent.lb_min_height_normal.value() > 0:
-			style += f'\n\tmin-height: {parent.lb_min_height_normal.value()};'
+			style += f'\tmin-height: {parent.lb_min_height_normal.value()};\n'
 		if parent.lb_max_width_normal.value() > 0:
-			style += f'\n\tmax-width: {parent.lb_max_width_normal.value()};'
+			style += f'\tmax-width: {parent.lb_max_width_normal.value()};\n'
 		if parent.lb_max_height_normal.value() > 0:
-			style += f'\n\tmax-height: {parent.lb_max_height_normal.value()};'
+			style += f'\tmax-height: {parent.lb_max_height_normal.value()};\n'
 
 		# border
 		border_type_normal = parent.lb_border_type_normal.currentText()
 		if border_type_normal != 'none':
-			style += f'\n\tborder-style: {border_type_normal};'
+			style += f'\tborder-style: {border_type_normal};\n'
 		if parent.lb_border_color_sel_normal:
-			style += f'\n\tborder-color: {parent.lb_border_color_sel_normal};'
+			style += f'\tborder-color: {parent.lb_border_color_sel_normal};\n'
 		if parent.lb_border_width_normal.value() > 0:
-			style += f'\n\tborder-width: {parent.lb_border_width_normal.value()}px;'
+			style += f'\tborder-width: {parent.lb_border_width_normal.value()}px;\n'
 		if parent.lb_border_radius_normal.value() > 0:
-			style += f'\n\tborder-radius: {parent.lb_border_radius_normal.value()}px;'
+			style += f'\tborder-radius: {parent.lb_border_radius_normal.value()}px;\n'
 
 		# padding
 		if parent.lb_padding_normal.value() > 0:
-			style += f'\n\tpadding: {parent.lb_padding_normal.value()};'
+			style += f'\tpadding: {parent.lb_padding_normal.value()};\n'
 		if parent.lb_padding_left_normal.value() > 0:
-			style += f'\n\tpadding-left: {parent.lb_padding_left_normal.value()};'
+			style += f'\tpadding-left: {parent.lb_padding_left_normal.value()};\n'
 		if parent.lb_padding_right_normal.value() > 0:
-			style += f'\n\tpadding-right: {parent.lb_padding_right_normal.value()};'
+			style += f'\tpadding-right: {parent.lb_padding_right_normal.value()};\n'
 		if parent.lb_padding_top_normal.value() > 0:
-			style += f'\n\tpadding-top: {parent.lb_padding_top_normal.value()};'
+			style += f'\tpadding-top: {parent.lb_padding_top_normal.value()};\n'
 		if parent.lb_padding_bottom_normal.value() > 0:
-			style += f'\n\tpadding-bottom: {parent.lb_padding_bottom_normal.value()};'
+			style += f'\tpadding-bottom: {parent.lb_padding_bottom_normal.value()};\n'
 
 		# margin
 		if parent.lb_margin_normal.value() > 0:
-			style += f'\n\tmargin: {parent.lb_margin_normal.value()};'
+			style += f'\tmargin: {parent.lb_margin_normal.value()};\n'
 		if parent.lb_margin_left_normal.value() > 0:
-			style += f'\n\tmargin-left: {parent.lb_margin_left_normal.value()};'
+			style += f'\tmargin-left: {parent.lb_margin_left_normal.value()};\n'
 		if parent.lb_margin_right_normal.value() > 0:
-			style += f'\n\tmargin-right: {parent.lb_margin_right_normal.value()};'
+			style += f'\tmargin-right: {parent.lb_margin_right_normal.value()};\n'
 		if parent.lb_margin_top_normal.value() > 0:
-			style += f'\n\tmargin-top: {parent.lb_margin_top_normal.value()};'
+			style += f'\tmargin-top: {parent.lb_margin_top_normal.value()};\n'
 		if parent.lb_margin_bottom_normal.value() > 0:
-			style += f'\n\tmargin-bottom: {parent.lb_margin_bottom_normal.value()};'
+			style += f'\tmargin-bottom: {parent.lb_margin_bottom_normal.value()};\n'
 
 		style += '\n}' # End of QLabel normal pseudo-state
 
@@ -126,26 +125,26 @@ def lb_create_stylesheet(parent):
 	if parent.lb_hover:
 
 		if style: # style is not False
-			style += '\n\nQLabel:hover {'
+			style += '\n\nQLabel:hover {\n'
 		else:
-			style = '\n\nQLabel:hover {'
+			style = '\n\nQLabel:hover {\n'
 
 		# color
 		if parent.lb_fg_color_sel_hover:
-			style += f'\n\tcolor: {parent.lb_fg_color_sel_hover};'
+			style += f'\tcolor: {parent.lb_fg_color_sel_hover};\n'
 		if parent.lb_bg_color_sel_hover:
-			style += f'\n\tbackground-color: {parent.lb_bg_color_sel_hover};'
+			style += f'\tbackground-color: {parent.lb_bg_color_sel_hover};\n'
 
 		# border
 		border_type_hover = parent.lb_border_type_hover.currentText()
 		if border_type_hover != 'none':
-			style += f'\n\tborder-style: {border_type_hover};'
+			style += f'\tborder-style: {border_type_hover};\n'
 		if parent.lb_border_color_sel_hover:
-			style += f'\n\tborder-color: {parent.lb_border_color_sel_hover};'
+			style += f'\tborder-color: {parent.lb_border_color_sel_hover};\n'
 		if parent.lb_border_width_hover.value() > 0:
-			style += f'\n\tborder-width: {parent.lb_border_width_hover.value()}px;'
+			style += f'\tborder-width: {parent.lb_border_width_hover.value()}px;\n'
 		if parent.lb_border_radius_hover.value() > 0:
-			style += f'\n\tborder-radius: {parent.lb_border_radius_hover.value()}px;'
+			style += f'\tborder-radius: {parent.lb_border_radius_hover.value()}px;\n'
 
 		style += '\n}' # End of QLabel hover pseudo-state
 
@@ -154,25 +153,25 @@ def lb_create_stylesheet(parent):
 
 		# color
 		if style: # style is not False
-			style += '\n\nQLabel:disabled {'
+			style += '\n\nQLabel:disabled {\n'
 		else:
-			style = '\n\nQLabel:disabled {'
+			style = '\n\nQLabel:disabled {\n'
 
 		if parent.lb_fg_color_sel_disabled:
-			style += f'\n\tcolor: {parent.lb_fg_color_sel_disabled};'
+			style += f'\tcolor: {parent.lb_fg_color_sel_disabled};\n'
 		if parent.lb_bg_color_sel_disabled:
-			style += f'\n\tbackground-color: {parent.lb_bg_color_sel_disabled};'
+			style += f'\tbackground-color: {parent.lb_bg_color_sel_disabled};\n'
 
 		# border
 		border_type_disabled = parent.lb_border_type_disabled.currentText()
 		if border_type_disabled != 'none':
-			style += f'\n\tborder-style: {border_type_disabled};'
+			style += f'\tborder-style: {border_type_disabled};\n'
 		if parent.lb_border_color_sel_disabled:
-			style += f'\n\tborder-color: {parent.lb_border_color_sel_disabled};'
+			style += f'\tborder-color: {parent.lb_border_color_sel_disabled};\n'
 		if parent.lb_border_width_disabled.value() > 0:
-			style += f'\n\tborder-width: {parent.lb_border_width_disabled.value()}px;'
+			style += f'\tborder-width: {parent.lb_border_width_disabled.value()}px;\n'
 		if parent.lb_border_radius_disabled.value() > 0:
-			style += f'\n\tborder-radius: {parent.lb_border_radius_disabled.value()}px;'
+			style += f'\tborder-radius: {parent.lb_border_radius_disabled.value()}px;\n'
 
 		style += '\n}' # End of QLabel disabled pseudo-state
 
