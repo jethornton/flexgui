@@ -26,11 +26,6 @@ def startup(parent):
 		setattr(parent, f'tb_bg_color_sel_{item}', False)
 		setattr(parent, f'tb_border_color_sel_{item}', False)
 
-	# tb_fg_color_sel_hover tb_bg_color_sel_hover tb_border_color_sel_hover
-	# tb_fg_color_sel_checked tb_bg_color_sel_checked tb_border_color_sel_checked
-
-
-
 	for state in abstract_button_states: # color dialog connections
 		getattr(parent, f'tb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'tb_bg_color_{state}').clicked.connect(parent.color_dialog)
