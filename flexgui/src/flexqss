@@ -14,6 +14,7 @@ from PyQt6 import uic
 
 from libflexgui import qss_images
 from libflexgui import qss_pushbutton
+from libflexgui import qss_checkbox
 from libflexgui import qss_toolbar
 from libflexgui import qss_toolbutton
 
@@ -34,6 +35,7 @@ class main(QMainWindow):
 		self.setGeometry(0, 0, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
 		qss_pushbutton.startup(self)
+		qss_checkbox.startup(self)
 		qss_toolbar.startup(self)
 		qss_toolbutton.startup(self)
 		self.setup()
@@ -53,54 +55,6 @@ class main(QMainWindow):
 		abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
 		'''
-		# QPushButton
-		self.pb_apply_style.clicked.connect(self.pb_create_stylesheet)
-
-
-		for item in abstract_button_states: # populate border combo boxes
-			getattr(self, f'pb_border_type_{item}').addItems(border_types)
-
-		for state in abstract_button_states: # color dialog connections
-			getattr(self, f'pb_fg_color_{state}').clicked.connect(self.color_dialog)
-			getattr(self, f'pb_bg_color_{state}').clicked.connect(self.color_dialog)
-			getattr(self, f'pb_border_color_{state}').clicked.connect(self.color_dialog)
-
-		# setup enable variables
-		for item in abstract_button_states:
-			setattr(self, f'pb_{item}', False)
-			setattr(self, f'pb_color_{item}', False)
-			setattr(self, f'pb_bg_color_{item}', False)
-			setattr(self, f'pb_border_color_{item}', False)
-
-		self.pb_font_family = False
-		self.pb_font_size = False
-		self.pb_font_weight = False
-		self.pb_font_style = False
-		self.pb_font_italic = False
-
-		for state in abstract_button_states: # border
-			getattr(self, f'pb_border_type_{state}').currentIndexChanged.connect(self.border)
-
-		self.pb_min_width_normal.valueChanged.connect(self.size)
-		self.pb_min_height_normal.valueChanged.connect(self.size)
-		self.pb_max_width_normal.valueChanged.connect(self.size)
-		self.pb_max_height_normal.valueChanged.connect(self.size)
-
-		self.pb_padding_normal.valueChanged.connect(self.padding)
-		self.pb_padding_left_normal.valueChanged.connect(self.padding)
-		self.pb_padding_right_normal.valueChanged.connect(self.padding)
-		self.pb_padding_top_normal.valueChanged.connect(self.padding)
-		self.pb_padding_bottom_normal.valueChanged.connect(self.padding)
-
-		self.pb_margin_normal.valueChanged.connect(self.margin)
-		self.pb_margin_left_normal.valueChanged.connect(self.margin)
-		self.pb_margin_right_normal.valueChanged.connect(self.margin)
-		self.pb_margin_top_normal.valueChanged.connect(self.margin)
-		self.pb_margin_bottom_normal.valueChanged.connect(self.margin)
-
-		self.pb_font_picker.clicked.connect(self.font_dialog)
-		'''
-
 		# QCheckBox
 		self.cb_disable.clicked.connect(partial(self.disable, 'checkBox'))
 		self.cb_apply_style.clicked.connect(self.cb_create_stylesheet)
@@ -151,7 +105,7 @@ class main(QMainWindow):
 
 		self.cb_indicator_width_normal.valueChanged.connect(self.indicator)
 		self.cb_indicator_height_normal.valueChanged.connect(self.indicator)
-
+		'''
 		# QRadioButton
 		self.rb_disable.clicked.connect(partial(self.disable, 'checkBox'))
 		self.rb_apply_style.clicked.connect(self.rb_create_stylesheet)
@@ -249,7 +203,7 @@ class main(QMainWindow):
 
 		self.lb_font_picker.clicked.connect(self.font_dialog)
 
-
+	'''
 	######### QCheckBox Stylesheet #########
 
 	def cb_create_stylesheet(self):
@@ -446,7 +400,7 @@ class main(QMainWindow):
 				self.cb_stylesheet.appendPlainText(line)
 
 			self.checkBox.setStyleSheet(textwrap.dedent(style))
-
+	'''
 	######### QRadioButton Stylesheet #########
 
 	def rb_create_stylesheet(self):
@@ -645,7 +599,7 @@ class main(QMainWindow):
 			self.radioButton_0.setStyleSheet(textwrap.dedent(style))
 			self.radioButton_1.setStyleSheet(textwrap.dedent(style))
 
-
+	'''
 	######### QToolButton Stylesheet #########
 
 	def tb_create_stylesheet(self):
@@ -674,7 +628,7 @@ class main(QMainWindow):
 				self.tb_stylesheet.appendPlainText(line)
 
 			self.toolBar.setStyleSheet(textwrap.dedent(style))
-
+	'''
 	######### QLabel Stylesheet #########
 
 	def lb_create_stylesheet(self):

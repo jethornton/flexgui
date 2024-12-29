@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1519,7 +1519,7 @@ Border needs both width and color to show up</string>
                   <string>cb_text_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_color_normal</string>
+                  <string>cb_fg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -1563,7 +1563,7 @@ Border needs both width and color to show up</string>
                   <string>cb_bg_color_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_bg_color_normal</string>
+                  <string>cb_bg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -1910,7 +1910,7 @@ Border needs both width and color to show up</string>
                   <string>cb_border_color_normal_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_border_color_normal</string>
+                  <string>cb_border_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -2076,7 +2076,7 @@ Border needs both width and color to show up</string>
                   <string>cb_bg_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_bg_color_hover</string>
+                  <string>cb_bg_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -2160,7 +2160,7 @@ Border needs both width and color to show up</string>
                   <string>cb_text_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_color_hover</string>
+                  <string>cb_fg_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -2176,7 +2176,7 @@ Border needs both width and color to show up</string>
                   <string>cb_border_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_border_color_hover</string>
+                  <string>cb_border_color_sel_hover</string>
                  </property>
                 </widget>
                </item>
@@ -2220,7 +2220,7 @@ Border needs both width and color to show up</string>
                   <string>cb_bg_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_bg_color_disabled</string>
+                  <string>cb_bg_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -2269,7 +2269,7 @@ Border needs both width and color to show up</string>
                   <string>cb_text_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_color_disabled</string>
+                  <string>cb_fg_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -2358,7 +2358,7 @@ Border needs both width and color to show up</string>
                   <string>cb_border_color_disabled_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_border_color_disabled</string>
+                  <string>cb_border_color_sel_disabled</string>
                  </property>
                 </widget>
                </item>
@@ -2408,7 +2408,7 @@ Border needs both width and color to show up</string>
                   <string>cb_text_color_pressed_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_color_pressed</string>
+                  <string>cb_fg_color_sel_pressed</string>
                  </property>
                 </widget>
                </item>
@@ -2470,7 +2470,7 @@ Border needs both width and color to show up</string>
                   <string>cb_bg_color_pressed_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_bg_color_pressed</string>
+                  <string>cb_bg_color_sel_pressed</string>
                  </property>
                 </widget>
                </item>
@@ -2546,7 +2546,7 @@ Border needs both width and color to show up</string>
                   <string>cb_border_color_pressed_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_border_color_pressed</string>
+                  <string>cb_border_color_sel_pressed</string>
                  </property>
                 </widget>
                </item>
@@ -2641,7 +2641,7 @@ Border needs both width and color to show up</string>
                   <string>cb_bg_color_checked_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_bg_color_checked</string>
+                  <string>cb_bg_color_sel_checked</string>
                  </property>
                 </widget>
                </item>
@@ -2673,7 +2673,7 @@ Border needs both width and color to show up</string>
                   <string>cb_fg_color_checked_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_color_checked</string>
+                  <string>cb_fg_color_sel_checked</string>
                  </property>
                 </widget>
                </item>
@@ -2734,7 +2734,7 @@ Border needs both width and color to show up</string>
                   <string>cb_border_color_checked_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>cb_border_color_checked</string>
+                  <string>cb_border_color_sel_checked</string>
                  </property>
                 </widget>
                </item>
