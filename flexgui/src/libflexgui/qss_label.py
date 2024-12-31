@@ -123,7 +123,6 @@ def lb_create_stylesheet(parent):
 
 	# QLabel hover pseudo-state
 	if parent.lb_hover:
-
 		if style: # style is not False
 			style += '\n\nQLabel:hover {\n'
 		else:
