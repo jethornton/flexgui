@@ -237,11 +237,18 @@ class main(QMainWindow):
 					f.write('\n/* QRadioButton Section */\n\n')
 					f.write(rb_style)
 
+			if self.sb_stylesheet.toPlainText() != '':
+				lb_style = self.sb_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QSpinBox Section */\n\n')
+					f.write(lb_style)
+
 			if self.lb_stylesheet.toPlainText() != '':
 				lb_style = self.lb_stylesheet.toPlainText()
 				with open(file_path, "a") as f:
 					f.write('\n/* QLabel Section */\n\n')
 					f.write(lb_style)
+
 
 app = QApplication(sys.argv)
 gui = main()
