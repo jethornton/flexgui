@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tab_51">
        <attribute name="title">
@@ -6642,6 +6642,70 @@ Toolbar will overwrite toolbutton</string>
         <string>Spinbox</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_85">
+        <item row="1" column="1" colspan="3">
+         <widget class="QTabWidget" name="tabWidget_20">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tabWidget_4Page1_7">
+           <attribute name="title">
+            <string>Stylesheet</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_25">
+            <item>
+             <widget class="QPlainTextEdit" name="sb_stylesheet">
+              <property name="minimumSize">
+               <size>
+                <width>350</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="tabStopDistance">
+               <double>20.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_47">
+           <attribute name="title">
+            <string>Box Model</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_26">
+            <item>
+             <widget class="QLabel" name="boxmodel_lb_5">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_48">
+           <attribute name="title">
+            <string>Help</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_27">
+            <item>
+             <widget class="QPlainTextEdit" name="plainTextEdit_7">
+              <property name="plainText">
+               <string>To delete a color open the color dialog and Cancel
+
+Border needs both width and color to show up</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QCheckBox" name="sb_disable">
+          <property name="text">
+           <string>Disable</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0" rowspan="3">
          <widget class="QTabWidget" name="tabWidget_17">
           <property name="currentIndex">
@@ -7894,78 +7958,14 @@ Toolbar will overwrite toolbutton</string>
           </widget>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="QTabWidget" name="tabWidget_20">
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <widget class="QWidget" name="tabWidget_4Page1_7">
-           <attribute name="title">
-            <string>Stylesheet</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_25">
-            <item>
-             <widget class="QPlainTextEdit" name="sb_stylesheet">
-              <property name="minimumSize">
-               <size>
-                <width>350</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="tabStopDistance">
-               <double>20.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_47">
-           <attribute name="title">
-            <string>Box Model</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_26">
-            <item>
-             <widget class="QLabel" name="boxmodel_lb_5">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_48">
-           <attribute name="title">
-            <string>Help</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_27">
-            <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit_7">
-              <property name="plainText">
-               <string>To delete a color open the color dialog and Cancel
-
-Border needs both width and color to show up</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QPushButton" name="sb_apply_style">
           <property name="text">
-           <string>Apply The Style</string>
+           <string>Apply Style</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QCheckBox" name="sb_disable">
-          <property name="text">
-           <string>Disable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter">
+        <item row="0" column="1" colspan="3" alignment="Qt::AlignHCenter">
          <widget class="QFrame" name="frame_5">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -7988,6 +7988,13 @@ Border needs both width and color to show up</string>
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="sb_clear_style">
+          <property name="text">
+           <string>Clear Style</string>
+          </property>
          </widget>
         </item>
        </layout>
