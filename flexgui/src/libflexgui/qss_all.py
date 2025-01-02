@@ -12,7 +12,9 @@ def startup(parent):
 
 	# All
 	parent.all_normal = False
+
 	parent.all_apply_style.clicked.connect(partial(all_create_stylesheet, parent))
+	parent.all_clear_style.clicked.connect(partial(clear_stylesheet, parent))
 
 	parent.all_fg_color_normal.clicked.connect(parent.color_dialog)
 	parent.all_bg_color_normal.clicked.connect(parent.color_dialog)
@@ -382,11 +384,6 @@ def all_create_stylesheet(parent):
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.lb_bg_color_sel_disabled = color
 
-
-
-
-
-
 	qss_pushbutton.create_stylesheet(parent)
 	qss_checkbox.create_stylesheet(parent)
 	qss_radiobutton.create_stylesheet(parent)
@@ -395,4 +392,11 @@ def all_create_stylesheet(parent):
 	qss_label.create_stylesheet(parent)
 
 
+def clear_stylesheet(parent):
+	qss_pushbutton.clear_stylesheet(parent)
+	qss_checkbox.clear_stylesheet(parent)
+	qss_radiobutton.clear_stylesheet(parent)
+	qss_toolbutton.clear_stylesheet(parent)
+	qss_spinbox.clear_stylesheet(parent)
+	qss_label.clear_stylesheet(parent)
 
