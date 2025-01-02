@@ -4,23 +4,26 @@ def startup(parent):
 
 	# QLabel
 	parent.lb_normal = False
+
 	parent.lb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	parent.lb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
 	parent.lb_disable.clicked.connect(partial(parent.disable, 'label'))
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
-	lb_pseudo_states = ['normal', 'hover', 'disabled']
+	pseudo_states = ['normal', 'hover', 'disabled']
 
-	for state in lb_pseudo_states: # color dialog connections
+	for state in pseudo_states: # color dialog connections
 		getattr(parent, f'lb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'lb_bg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'lb_border_color_{state}').clicked.connect(parent.color_dialog)
 
-	for item in lb_pseudo_states: # populate border combo boxes
+	for item in pseudo_states: # populate border combo boxes
 		getattr(parent, f'lb_border_type_{item}').addItems(border_types)
 
 	# setup enable variables
-	for item in lb_pseudo_states:
+	for item in pseudo_states:
 		setattr(parent, f'lb_{item}', False)
 		setattr(parent, f'lb_fg_color_sel_{item}', False)
 		setattr(parent, f'lb_bg_color_sel_{item}', False)
@@ -181,4 +184,57 @@ def create_stylesheet(parent):
 		for line in lines:
 			parent.lb_stylesheet.appendPlainText(line)
 		parent.label.setStyleSheet(style)
+
+def clear_stylesheet(parent):
+	parent.lb_normal = False
+
+	pseudo_states = ['normal', 'hover', 'disabled']
+
+	# set all the variables to False
+	for item in pseudo_states:
+		setattr(parent, f'lb_{item}', False) # build section flag
+		setattr(parent, f'lb_fg_color_sel_{item}', False)
+		setattr(parent, f'lb_bg_color_sel_{item}', False)
+		setattr(parent, f'lb_border_color_sel_{item}', False)
+
+	# clear all the colors
+	for item in pseudo_states:
+		label = getattr(parent, f'lb_fg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'lb_bg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'lb_border_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+
+	# set border to none and 0
+	for item in pseudo_states:
+		getattr(parent, f'lb_border_type_{item}').setCurrentIndex(0)
+		getattr(parent, f'lb_border_width_{item}').setValue(0)
+		getattr(parent, f'lb_border_radius_{item}').setValue(0)
+
+	# clear the font variables
+	parent.lb_font_family = False
+	parent.lb_font_size = False
+	parent.lb_font_weight = False
+	parent.lb_font_style = False
+	parent.lb_font_italic = False
+
+	parent.lb_min_width_normal.setValue(0)
+	parent.lb_min_height_normal.setValue(0)
+	parent.lb_max_width_normal.setValue(0)
+	parent.lb_max_height_normal.setValue(0)
+	parent.lb_padding_normal.setValue(0)
+	parent.lb_padding_left_normal.setValue(0)
+	parent.lb_padding_right_normal.setValue(0)
+	parent.lb_padding_top_normal.setValue(0)
+	parent.lb_padding_top_normal.setValue(0)
+	parent.lb_margin_normal.setValue(0)
+	parent.lb_margin_left_normal.setValue(0)
+	parent.lb_margin_right_normal.setValue(0)
+	parent.lb_margin_top_normal.setValue(0)
+	parent.lb_margin_top_normal.setValue(0)
+
+	parent.lb_stylesheet.clear()
+	parent.label.setStyleSheet('')
+
 
