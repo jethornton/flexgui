@@ -4,7 +4,7 @@ def startup(parent):
 
 	# QPushButton
 	parent.pb_normal = False
-	parent.pb_apply_style.clicked.connect(partial(pb_create_stylesheet, parent))
+	parent.pb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.pb_set_checkable.released.connect(parent.set_checkable)
 	parent.pb_disable.clicked.connect(partial(parent.disable, 'pushButton'))
 
@@ -52,12 +52,12 @@ def startup(parent):
 
 ######### QPushButton Stylesheet #########
 
-def pb_create_stylesheet(parent):
+def create_stylesheet(parent):
 	style = False
 
 	# QPushButton normal pseudo-state
 	if parent.pb_normal:
-		style = 'QPushButton {'
+		style = 'QPushButton {\n'
 
 		# color
 		if parent.pb_fg_color_sel_normal:

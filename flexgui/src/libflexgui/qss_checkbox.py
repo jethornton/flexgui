@@ -4,7 +4,7 @@ def startup(parent):
 
 	# QCheckBox
 	parent.cb_normal = False
-	parent.cb_apply_style.clicked.connect(partial(cb_create_stylesheet, parent))
+	parent.cb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.cb_disable.clicked.connect(partial(parent.disable, 'checkBox'))
 
 	parent.cb_min_width_normal.valueChanged.connect(parent.size)
@@ -55,7 +55,7 @@ def startup(parent):
 
 ######### QCheckBox Stylesheet #########
 
-def cb_create_stylesheet(parent):
+def create_stylesheet(parent):
 	style = False
 
 	# QCheckBox normal pseudo-state

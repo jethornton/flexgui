@@ -4,7 +4,7 @@ def startup(parent):
 
 	# QLabel
 	parent.lb_normal = False
-	parent.lb_apply_style.clicked.connect(partial(lb_create_stylesheet, parent))
+	parent.lb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.lb_disable.clicked.connect(partial(parent.disable, 'label'))
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
@@ -53,7 +53,7 @@ def startup(parent):
 
 ######### QLabel Stylesheet #########
 
-def lb_create_stylesheet(parent):
+def create_stylesheet(parent):
 	style = False
 
 	# QLabel normal pseudo-state
@@ -119,7 +119,7 @@ def lb_create_stylesheet(parent):
 		if parent.lb_margin_bottom_normal.value() > 0:
 			style += f'\tmargin-bottom: {parent.lb_margin_bottom_normal.value()};\n'
 
-		style += '\n}' # End of QLabel normal pseudo-state
+		style += '}' # End of QLabel normal pseudo-state
 
 	# QLabel hover pseudo-state
 	if parent.lb_hover:
@@ -145,7 +145,7 @@ def lb_create_stylesheet(parent):
 		if parent.lb_border_radius_hover.value() > 0:
 			style += f'\tborder-radius: {parent.lb_border_radius_hover.value()}px;\n'
 
-		style += '\n}' # End of QLabel hover pseudo-state
+		style += '}' # End of QLabel hover pseudo-state
 
 	# QLabel disabled pseudo-state
 	if parent.lb_disabled:
@@ -172,7 +172,7 @@ def lb_create_stylesheet(parent):
 		if parent.lb_border_radius_disabled.value() > 0:
 			style += f'\tborder-radius: {parent.lb_border_radius_disabled.value()}px;\n'
 
-		style += '\n}' # End of QLabel disabled pseudo-state
+		style += '}' # End of QLabel disabled pseudo-state
 
 	# QLabel build and apply the stylesheet
 	parent.lb_stylesheet.clear()

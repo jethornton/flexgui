@@ -6,7 +6,7 @@ def startup(parent):
 
 	# QToolButton
 	parent.tb_normal = False
-	parent.tb_apply_style.clicked.connect(partial(tb_create_stylesheet, parent))
+	parent.tb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 
 	parent.tb_min_width_normal.valueChanged.connect(parent.size)
 	parent.tb_min_height_normal.valueChanged.connect(parent.size)
@@ -53,7 +53,7 @@ def startup(parent):
 
 ######### QToolButton Stylesheet #########
 
-def tb_create_stylesheet(parent):
+def create_stylesheet(parent):
 	style = False
 
 	# check for toolbar style set

@@ -13,6 +13,7 @@ from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
 
 from libflexgui import qss_images
+from libflexgui import qss_all
 from libflexgui import qss_pushbutton
 from libflexgui import qss_checkbox
 from libflexgui import qss_radiobutton
@@ -37,6 +38,7 @@ class main(QMainWindow):
 
 		self.setGeometry(0, 0, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
+		qss_all.startup(self)
 		qss_pushbutton.startup(self)
 		qss_checkbox.startup(self)
 		qss_radiobutton.startup(self)

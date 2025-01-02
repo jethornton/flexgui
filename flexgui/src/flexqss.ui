@@ -15,14 +15,157 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item alignment="Qt::AlignHCenter">
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="toolTip">
        <string/>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
+      <widget class="QWidget" name="tab_51">
+       <attribute name="title">
+        <string>All</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_88">
+        <item row="2" column="0">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="1" rowspan="3">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Instructions</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_28">
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextEdit_8">
+             <property name="plainText">
+              <string>Apply the color to all normal widgets that do not have a color set.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>Normal</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_84">
+           <item row="0" column="1">
+            <widget class="QLabel" name="all_fg_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="all_bg_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="all_fg_color_normal">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Text Color</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="qss" stdset="0">
+              <string>color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>all_fg_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>all_fg_color_sel_normal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="all_bg_color_normal">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Background Color</string>
+             </property>
+             <property name="qss" stdset="0">
+              <string>background-color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>all_bg_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>all_bg_color_sel_normal</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="all_apply_style">
+          <property name="text">
+           <string>Apply Color Style to All Normal Objects</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Button</string>
@@ -4205,8 +4348,8 @@ Border needs both width and color to show up</string>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_14">
-           <item>
+          <layout class="QGridLayout" name="gridLayout_89">
+           <item row="0" column="0">
             <widget class="QRadioButton" name="radioButton_0">
              <property name="text">
               <string>Radio Button</string>
@@ -4216,7 +4359,7 @@ Border needs both width and color to show up</string>
              </property>
             </widget>
            </item>
-           <item>
+           <item row="0" column="1">
             <widget class="QRadioButton" name="radioButton_1">
              <property name="text">
               <string>RadioButton</string>
