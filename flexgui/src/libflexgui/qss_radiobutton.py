@@ -4,7 +4,10 @@ def startup(parent):
 
 	# QRadioButton
 	parent.rb_normal = False
+
 	parent.rb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	parent.rb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
 	parent.rb_disable.clicked.connect(partial(parent.disable, 'radioButton_0'))
 
 	parent.rb_min_width_normal.valueChanged.connect(parent.size)
@@ -250,5 +253,59 @@ def create_stylesheet(parent):
 
 		parent.radioButton_0.setStyleSheet(style)
 		parent.radioButton_1.setStyleSheet(style)
+
+def clear_stylesheet(parent):
+	parent.rb_normal = False
+
+	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
+
+	# set all the variables to False
+	for item in abstract_button_states:
+		setattr(parent, f'rb_{item}', False) # build section flag
+		setattr(parent, f'rb_fg_color_sel_{item}', False)
+		setattr(parent, f'rb_bg_color_sel_{item}', False)
+		setattr(parent, f'rb_border_color_sel_{item}', False)
+
+	# clear all the colors
+	for item in abstract_button_states:
+		label = getattr(parent, f'rb_fg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'rb_bg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'rb_border_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+
+	# set border to none and 0
+	for item in abstract_button_states:
+		getattr(parent, f'rb_border_type_{item}').setCurrentIndex(0)
+		getattr(parent, f'rb_border_width_{item}').setValue(0)
+		getattr(parent, f'rb_border_radius_{item}').setValue(0)
+
+	# clear the font variables
+	parent.rb_font_family = False
+	parent.rb_font_size = False
+	parent.rb_font_weight = False
+	parent.rb_font_style = False
+	parent.rb_font_italic = False
+
+	parent.rb_min_width_normal.setValue(0)
+	parent.rb_min_height_normal.setValue(0)
+	parent.rb_max_width_normal.setValue(0)
+	parent.rb_max_height_normal.setValue(0)
+	parent.rb_padding_normal.setValue(0)
+	parent.rb_padding_left_normal.setValue(0)
+	parent.rb_padding_right_normal.setValue(0)
+	parent.rb_padding_top_normal.setValue(0)
+	parent.rb_padding_top_normal.setValue(0)
+	parent.rb_margin_normal.setValue(0)
+	parent.rb_margin_left_normal.setValue(0)
+	parent.rb_margin_right_normal.setValue(0)
+	parent.rb_margin_top_normal.setValue(0)
+	parent.rb_margin_top_normal.setValue(0)
+
+	parent.rb_stylesheet.clear()
+	parent.radioButton_0.setStyleSheet('')
+	parent.radioButton_1.setStyleSheet('')
+
 
 

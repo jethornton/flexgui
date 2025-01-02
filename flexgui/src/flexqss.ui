@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_51">
        <attribute name="title">
@@ -4660,36 +4660,7 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter">
-         <widget class="QFrame" name="frame_4">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_89">
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="radioButton_0">
-             <property name="text">
-              <string>Radio Button</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QRadioButton" name="radioButton_1">
-             <property name="text">
-              <string>RadioButton</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="1" colspan="2">
+        <item row="1" column="1" colspan="4">
          <widget class="QTabWidget" name="tabWidget_13">
           <property name="currentIndex">
            <number>0</number>
@@ -4746,17 +4717,53 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="2" column="1" rowspan="2">
+        <item row="3" column="4">
+         <widget class="QCheckBox" name="rb_disable">
+          <property name="text">
+           <string>Disable</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="4" alignment="Qt::AlignHCenter">
+         <widget class="QFrame" name="frame_4">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_89">
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="radioButton_0">
+             <property name="text">
+              <string>Radio Button</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QRadioButton" name="radioButton_1">
+             <property name="text">
+              <string>RadioButton</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="1">
          <widget class="QPushButton" name="rb_apply_style">
           <property name="text">
-           <string>Apply The Style</string>
+           <string>Apply Style</string>
           </property>
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QCheckBox" name="rb_disable">
+         <widget class="QPushButton" name="rb_clear_style">
           <property name="text">
-           <string>Disable</string>
+           <string>Clear Style</string>
           </property>
          </widget>
         </item>
