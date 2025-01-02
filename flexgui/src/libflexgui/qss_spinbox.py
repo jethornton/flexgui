@@ -4,7 +4,7 @@ def startup(parent):
 
 	# QSpinBox
 	parent.sb_normal = False
-	parent.sb_apply_style.clicked.connect(partial(sb_create_stylesheet, parent))
+	parent.sb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.sb_disable.clicked.connect(partial(parent.disable, 'spinBox'))
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
@@ -74,7 +74,7 @@ def startup(parent):
 
 ######### QSpinBox Stylesheet #########
 
-def sb_create_stylesheet(parent):
+def create_stylesheet(parent):
 	style = False
 
 	# QAbstractSpinBox normal pseudo-state

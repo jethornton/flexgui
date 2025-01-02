@@ -4,7 +4,7 @@ def startup(parent):
 
 	# QRadioButton
 	parent.rb_normal = False
-	parent.rb_apply_style.clicked.connect(partial(rb_create_stylesheet, parent))
+	parent.rb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.rb_disable.clicked.connect(partial(parent.disable, 'radioButton'))
 
 	parent.rb_min_width_normal.valueChanged.connect(parent.size)
@@ -55,7 +55,7 @@ def startup(parent):
 
 ######### QRadioButton Stylesheet #########
 
-def rb_create_stylesheet(parent):
+def create_stylesheet(parent):
 	style = False
 
 	# QRadioButton normal pseudo-state
