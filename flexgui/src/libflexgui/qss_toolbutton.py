@@ -6,7 +6,9 @@ def startup(parent):
 
 	# QToolButton
 	parent.tb_normal = False
+
 	parent.tb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	parent.tb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
 
 	parent.tb_min_width_normal.valueChanged.connect(parent.size)
 	parent.tb_min_height_normal.valueChanged.connect(parent.size)
@@ -246,5 +248,57 @@ def create_stylesheet(parent):
 
 	if parent.sender().objectName() == 'tbar_apply_style':
 		return style
+
+def clear_stylesheet(parent):
+	parent.tb_normal = False
+
+	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
+
+	# set all the variables to False
+	for item in abstract_button_states:
+		setattr(parent, f'tb_{item}', False) # build section flag
+		setattr(parent, f'tb_fg_color_sel_{item}', False)
+		setattr(parent, f'tb_bg_color_sel_{item}', False)
+		setattr(parent, f'tb_border_color_sel_{item}', False)
+
+	# clear all the colors
+	for item in abstract_button_states:
+		label = getattr(parent, f'tb_fg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'tb_bg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'tb_border_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+
+	# set border to none and 0
+	for item in abstract_button_states:
+		getattr(parent, f'tb_border_type_{item}').setCurrentIndex(0)
+		getattr(parent, f'tb_border_width_{item}').setValue(0)
+		getattr(parent, f'tb_border_radius_{item}').setValue(0)
+
+	# clear the font variables
+	parent.tb_font_family = False
+	parent.tb_font_size = False
+	parent.tb_font_weight = False
+	parent.tb_font_style = False
+	parent.tb_font_italic = False
+
+	parent.tb_min_width_normal.setValue(0)
+	parent.tb_min_height_normal.setValue(0)
+	parent.tb_max_width_normal.setValue(0)
+	parent.tb_max_height_normal.setValue(0)
+	parent.tb_padding_normal.setValue(0)
+	parent.tb_padding_left_normal.setValue(0)
+	parent.tb_padding_right_normal.setValue(0)
+	parent.tb_padding_top_normal.setValue(0)
+	parent.tb_padding_top_normal.setValue(0)
+	parent.tb_margin_normal.setValue(0)
+	parent.tb_margin_left_normal.setValue(0)
+	parent.tb_margin_right_normal.setValue(0)
+	parent.tb_margin_top_normal.setValue(0)
+	parent.tb_margin_top_normal.setValue(0)
+
+	parent.tb_stylesheet.clear()
+	parent.toolBar.setStyleSheet('')
 
 
