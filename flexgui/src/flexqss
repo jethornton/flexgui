@@ -58,11 +58,6 @@ class main(QMainWindow):
 		# Menu Items
 		self.actionSave_As.triggered.connect(self.save)
 
-		border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
-			'ridge', 'inset', 'outset']
-		abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
-
-
 	def color_dialog(self):
 		obj = self.sender().objectName().split('_')[0]
 		state = self.sender().objectName().split('_')[-1]
