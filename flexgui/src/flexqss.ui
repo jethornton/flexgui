@@ -1884,6 +1884,96 @@ Border needs both width and color to show up</string>
         <string>Checkbox</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_35">
+        <item row="2" column="3">
+         <widget class="QCheckBox" name="cb_disable">
+          <property name="text">
+           <string>Disable</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="3" alignment="Qt::AlignHCenter">
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>Checkbox</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="3">
+         <widget class="QTabWidget" name="tabWidget_6">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tabWidget_4Page1_2">
+           <attribute name="title">
+            <string>Stylesheet</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QPlainTextEdit" name="cb_stylesheet">
+              <property name="minimumSize">
+               <size>
+                <width>350</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="tabStopDistance">
+               <double>20.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_12">
+           <attribute name="title">
+            <string>Box Model</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QLabel" name="boxmodel_lb_1">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_13">
+           <attribute name="title">
+            <string>Help</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <widget class="QPlainTextEdit" name="plainTextEdit_2">
+              <property name="plainText">
+               <string>To delete a color open the color dialog and Cancel
+
+Border needs both width and color to show up</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="cb_apply_style">
+          <property name="text">
+           <string>Apply Style</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0" rowspan="3">
          <widget class="QTabWidget" name="tabWidget_11">
           <property name="currentIndex">
@@ -3220,94 +3310,11 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="QTabWidget" name="tabWidget_6">
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <widget class="QWidget" name="tabWidget_4Page1_2">
-           <attribute name="title">
-            <string>Stylesheet</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
-            <item>
-             <widget class="QPlainTextEdit" name="cb_stylesheet">
-              <property name="minimumSize">
-               <size>
-                <width>350</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="tabStopDistance">
-               <double>20.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_12">
-           <attribute name="title">
-            <string>Box Model</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_9">
-            <item>
-             <widget class="QLabel" name="boxmodel_lb_1">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_13">
-           <attribute name="title">
-            <string>Help</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_11">
-            <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit_2">
-              <property name="plainText">
-               <string>To delete a color open the color dialog and Cancel
-
-Border needs both width and color to show up</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="cb_apply_style">
-          <property name="text">
-           <string>Apply The Style</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
-         <widget class="QCheckBox" name="cb_disable">
+         <widget class="QPushButton" name="cb_clear_style">
           <property name="text">
-           <string>Disable</string>
+           <string>Clear Style</string>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Checkbox</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
