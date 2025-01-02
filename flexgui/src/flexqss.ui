@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_51">
        <attribute name="title">
@@ -468,6 +468,13 @@ Disabled: Apply the color to all widgets when disabled</string>
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QPushButton" name="all_clear_style">
+          <property name="text">
+           <string>Clear all Styles</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -8004,20 +8011,6 @@ Border needs both width and color to show up</string>
         <string>Label</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_33">
-        <item row="2" column="1">
-         <widget class="QPushButton" name="lb_apply_style">
-          <property name="text">
-           <string>Apply The Style</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QCheckBox" name="lb_disable">
-          <property name="text">
-           <string>Disable</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0" rowspan="3">
          <widget class="QTabWidget" name="tabWidget_10">
           <property name="currentIndex">
@@ -8951,20 +8944,40 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="2" column="3">
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="lb_apply_style">
+          <property name="text">
+           <string>Apply Style</string>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
+         </widget>
         </item>
-        <item row="1" column="1" colspan="3">
+        <item row="2" column="3">
+         <widget class="QCheckBox" name="lb_disable">
+          <property name="text">
+           <string>Disable</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QFrame" name="frame_3">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="4">
          <widget class="QTabWidget" name="tabWidget_9">
           <property name="currentIndex">
            <number>0</number>
@@ -9021,23 +9034,11 @@ Border needs both width and color to show up</string>
           </widget>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QFrame" name="frame_3">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="lb_clear_style">
+          <property name="text">
+           <string>Clear Style</string>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_13">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
