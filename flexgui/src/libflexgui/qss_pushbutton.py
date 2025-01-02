@@ -4,7 +4,10 @@ def startup(parent):
 
 	# QPushButton
 	parent.pb_normal = False
+
 	parent.pb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	parent.pb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
 	parent.pb_set_checkable.released.connect(parent.set_checkable)
 	parent.pb_disable.clicked.connect(partial(parent.disable, 'pushButton'))
 
@@ -232,4 +235,57 @@ def create_stylesheet(parent):
 			parent.pb_stylesheet.appendPlainText(line)
 
 		parent.pushButton.setStyleSheet(style)
+
+def clear_stylesheet(parent):
+	parent.pb_normal = False
+
+	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
+
+	# set all the variables to False
+	for item in abstract_button_states:
+		setattr(parent, f'pb_{item}', False) # build section flag
+		setattr(parent, f'pb_fg_color_sel_{item}', False)
+		setattr(parent, f'pb_bg_color_sel_{item}', False)
+		setattr(parent, f'pb_border_color_sel_{item}', False)
+
+	# clear all the colors
+	for item in abstract_button_states:
+		label = getattr(parent, f'pb_fg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'pb_bg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'pb_border_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+
+	# set border to none and 0
+	for item in abstract_button_states:
+		getattr(parent, f'pb_border_type_{item}').setCurrentIndex(0)
+		getattr(parent, f'pb_border_width_{item}').setValue(0)
+		getattr(parent, f'pb_border_radius_{item}').setValue(0)
+
+	# clear the font variables
+	parent.pb_font_family = False
+	parent.pb_font_size = False
+	parent.pb_font_weight = False
+	parent.pb_font_style = False
+	parent.pb_font_italic = False
+
+	parent.pb_min_width_normal.setValue(0)
+	parent.pb_min_height_normal.setValue(0)
+	parent.pb_max_width_normal.setValue(0)
+	parent.pb_max_height_normal.setValue(0)
+	parent.pb_padding_normal.setValue(0)
+	parent.pb_padding_left_normal.setValue(0)
+	parent.pb_padding_right_normal.setValue(0)
+	parent.pb_padding_top_normal.setValue(0)
+	parent.pb_padding_top_normal.setValue(0)
+	parent.pb_margin_normal.setValue(0)
+	parent.pb_margin_left_normal.setValue(0)
+	parent.pb_margin_right_normal.setValue(0)
+	parent.pb_margin_top_normal.setValue(0)
+	parent.pb_margin_top_normal.setValue(0)
+
+	parent.pb_stylesheet.clear()
+	parent.pushButton.setStyleSheet('')
+
 
