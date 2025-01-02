@@ -4,7 +4,10 @@ def startup(parent):
 
 	# QSpinBox
 	parent.sb_normal = False
+
 	parent.sb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	parent.sb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
 	parent.sb_disable.clicked.connect(partial(parent.disable, 'spinBox'))
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
@@ -274,5 +277,57 @@ def sub_controls(parent):
 		parent.sb_down = True
 	else:
 		parent.sb_down = False
+
+def clear_stylesheet(parent):
+	parent.sb_normal = False
+
+	pseudo_states = ['normal', 'hover', 'pressed', 'disabled']
+
+	# set all the variables to False
+	for item in pseudo_states:
+		setattr(parent, f'sb_{item}', False) # build section flag
+		setattr(parent, f'sb_fg_color_sel_{item}', False)
+		setattr(parent, f'sb_bg_color_sel_{item}', False)
+		setattr(parent, f'sb_border_color_sel_{item}', False)
+
+	# clear all the colors
+	for item in pseudo_states:
+		label = getattr(parent, f'sb_fg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'sb_bg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'sb_border_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+
+	# set border to none and 0
+	for item in pseudo_states:
+		getattr(parent, f'sb_border_type_{item}').setCurrentIndex(0)
+		getattr(parent, f'sb_border_width_{item}').setValue(0)
+		getattr(parent, f'sb_border_radius_{item}').setValue(0)
+
+	# clear the font variables
+	parent.sb_font_family = False
+	parent.sb_font_size = False
+	parent.sb_font_weight = False
+	parent.sb_font_style = False
+	parent.sb_font_italic = False
+
+	parent.sb_min_width_normal.setValue(0)
+	parent.sb_min_height_normal.setValue(0)
+	parent.sb_max_width_normal.setValue(0)
+	parent.sb_max_height_normal.setValue(0)
+	parent.sb_padding_normal.setValue(0)
+	parent.sb_padding_left_normal.setValue(0)
+	parent.sb_padding_right_normal.setValue(0)
+	parent.sb_padding_top_normal.setValue(0)
+	parent.sb_padding_top_normal.setValue(0)
+	parent.sb_margin_normal.setValue(0)
+	parent.sb_margin_left_normal.setValue(0)
+	parent.sb_margin_right_normal.setValue(0)
+	parent.sb_margin_top_normal.setValue(0)
+	parent.sb_margin_top_normal.setValue(0)
+
+	parent.sb_stylesheet.clear()
+	parent.spinBox.setStyleSheet('')
 
 

@@ -17,9 +17,9 @@ def startup(parent):
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
-	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
+	pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
-	for item in abstract_button_states:
+	for item in pseudo_states:
 		# populate border combo boxes
 		getattr(parent, f'tb_border_type_{item}').addItems(border_types)
 		# setup variables
@@ -28,7 +28,7 @@ def startup(parent):
 		setattr(parent, f'tb_bg_color_sel_{item}', False)
 		setattr(parent, f'tb_border_color_sel_{item}', False)
 
-	for state in abstract_button_states: # color dialog connections
+	for state in pseudo_states: # color dialog connections
 		getattr(parent, f'tb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'tb_bg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'tb_border_color_{state}').clicked.connect(parent.color_dialog)
@@ -252,17 +252,17 @@ def create_stylesheet(parent):
 def clear_stylesheet(parent):
 	parent.tb_normal = False
 
-	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
+	pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
 	# set all the variables to False
-	for item in abstract_button_states:
+	for item in pseudo_states:
 		setattr(parent, f'tb_{item}', False) # build section flag
 		setattr(parent, f'tb_fg_color_sel_{item}', False)
 		setattr(parent, f'tb_bg_color_sel_{item}', False)
 		setattr(parent, f'tb_border_color_sel_{item}', False)
 
 	# clear all the colors
-	for item in abstract_button_states:
+	for item in pseudo_states:
 		label = getattr(parent, f'tb_fg_color_{item}').property('label')
 		getattr(parent, label).setStyleSheet('background-color: none;')
 		label = getattr(parent, f'tb_bg_color_{item}').property('label')
@@ -271,7 +271,7 @@ def clear_stylesheet(parent):
 		getattr(parent, label).setStyleSheet('background-color: none;')
 
 	# set border to none and 0
-	for item in abstract_button_states:
+	for item in pseudo_states:
 		getattr(parent, f'tb_border_type_{item}').setCurrentIndex(0)
 		getattr(parent, f'tb_border_width_{item}').setValue(0)
 		getattr(parent, f'tb_border_radius_{item}').setValue(0)
