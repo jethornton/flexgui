@@ -4,7 +4,10 @@ def startup(parent):
 
 	# QCheckBox
 	parent.cb_normal = False
+
 	parent.cb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	parent.cb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
 	parent.cb_disable.clicked.connect(partial(parent.disable, 'checkBox'))
 
 	parent.cb_min_width_normal.valueChanged.connect(parent.size)
@@ -249,4 +252,58 @@ def create_stylesheet(parent):
 			parent.cb_stylesheet.appendPlainText(line)
 
 		parent.checkBox.setStyleSheet(style)
+
+def clear_stylesheet(parent):
+	parent.cb_normal = False
+
+	abstract_button_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
+
+	# set all the variables to False
+	for item in abstract_button_states:
+		setattr(parent, f'cb_{item}', False) # build section flag
+		setattr(parent, f'cb_fg_color_sel_{item}', False)
+		setattr(parent, f'cb_bg_color_sel_{item}', False)
+		setattr(parent, f'cb_border_color_sel_{item}', False)
+
+	# clear all the colors
+	for item in abstract_button_states:
+		label = getattr(parent, f'cb_fg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'cb_bg_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+		label = getattr(parent, f'cb_border_color_{item}').property('label')
+		getattr(parent, label).setStyleSheet('background-color: none;')
+
+	# set border to none and 0
+	for item in abstract_button_states:
+		getattr(parent, f'cb_border_type_{item}').setCurrentIndex(0)
+		getattr(parent, f'cb_border_width_{item}').setValue(0)
+		getattr(parent, f'cb_border_radius_{item}').setValue(0)
+
+	# clear the font variables
+	parent.cb_font_family = False
+	parent.cb_font_size = False
+	parent.cb_font_weight = False
+	parent.cb_font_style = False
+	parent.cb_font_italic = False
+
+	parent.cb_min_width_normal.setValue(0)
+	parent.cb_min_height_normal.setValue(0)
+	parent.cb_max_width_normal.setValue(0)
+	parent.cb_max_height_normal.setValue(0)
+	parent.cb_padding_normal.setValue(0)
+	parent.cb_padding_left_normal.setValue(0)
+	parent.cb_padding_right_normal.setValue(0)
+	parent.cb_padding_top_normal.setValue(0)
+	parent.cb_padding_top_normal.setValue(0)
+	parent.cb_margin_normal.setValue(0)
+	parent.cb_margin_left_normal.setValue(0)
+	parent.cb_margin_right_normal.setValue(0)
+	parent.cb_margin_top_normal.setValue(0)
+	parent.cb_margin_top_normal.setValue(0)
+
+	parent.cb_stylesheet.clear()
+	parent.checkBox.setStyleSheet('')
+
+
 
