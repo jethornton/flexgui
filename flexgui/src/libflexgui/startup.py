@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtWidgets import QVBoxLayout, QAbstractButton, QAbstractSpinBox
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QDoubleSpinBox, QListView
+from PyQt6.QtWidgets import QProgressBar
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -1381,8 +1382,10 @@ def setup_hal(parent):
 	hal_sliders = []
 	hal_lcds = []
 	hal_leds = []
+	hal_progressbar = []
 	parent.hal_io = {}
 	parent.hal_readers = {}
+	parent.hal_progressbars = {}
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
 
@@ -1426,6 +1429,8 @@ def setup_hal(parent):
 				hal_sliders.append(child)
 			elif isinstance(child, QLabel):
 				hal_labels.append(child)
+			elif isinstance(child, QProgressBar):
+				hal_progressbar.append(child)
 			elif isinstance(child, QLCDNumber):
 				hal_lcds.append(child)
 		elif child.property('function') == 'hal_led':
@@ -1542,6 +1547,55 @@ def setup_hal(parent):
 					parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
 				else:
 					parent.hal_readers[label_name] = pin_name
+
+	if len(hal_progressbar) > 0: # setup hal progressbar
+		valid_types = ['HAL_S32', 'HAL_U32']
+		for item in hal_progressbar:
+			progressbar_name = item.objectName()
+			pin_name = item.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
+
+			hal_type = item.property('hal_type')
+			if hal_type not in valid_types:
+				item.setEnabled(False)
+				msg = (f'{hal_type} is not valid for a HAL Progressbar\n'
+				', only HAL_S32 or HAL_U32\n'
+				f'can be used. The {progressbar_name} label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			hal_dir = item.property('hal_dir')
+			if hal_dir != 'HAL_IN':
+				item.setEnabled(False)
+				msg = (f'{hal_dir} is not a valid\n'
+				'hal_dir for a HAL Lable,\n'
+				'only HAL_IN can be used for hal_dir.\n'
+				f'The {progressbar_name} Label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			if progressbar_name == pin_name:
+				item.setEnabled(False)
+				msg = (f'The object name {label_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				pin = getattr(parent, f'{pin_name}')
+				parent.hal_progressbars[progressbar_name] = pin_name
 
 	'''
 	HAL_BIT = 1
