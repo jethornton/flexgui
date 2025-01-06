@@ -126,6 +126,23 @@ Currently only `HAL_BIT` with `HAL_OUT` have been tested.
    in the Designer. Starting up with none checked could be a problem if you
    expect one to be selected at startup.
 
+Progress Bar
+------------
+
+A QProgressBar can be used to monitor HAL pins. HAL connections must be made in
+the post gui HAL file. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-bar would be in HAL `flexhal.my-bar`.
+
+.. csv-table:: HAL Progressbar
+   :width: 100%
+   :align: center
+
+	Property Name, Pin Value
+	function, hal_pin
+	pin_name, any unique name
+	hal_type, HAL_S32 or HAL_U32
+	hal_dir, HAL_IN
+
 Step by Step
 ------------
 

@@ -291,6 +291,11 @@ def update(parent):
 		else:
 			getattr(parent, key).setText(f'{value}')
 
+	# update hal progressbars key is the progressbar name and value is the pin name
+	for key, value in parent.hal_progressbars.items():
+		value = hal.get_value(f'flexhal.{value}')
+		getattr(parent, key).setValue(int(value))
+
 	# update hal io
 	for key, value in parent.hal_io.items():
 		value = hal.get_value(f'flexhal.{value}')
