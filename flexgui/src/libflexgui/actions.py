@@ -352,8 +352,13 @@ def action_toggle_dro(parent):
 	name = parent.sender().objectName()
 	if name == 'view_dro_cb':
 		utilities.sync_checkboxes(parent, 'view_dro_cb', 'actionDRO')
+		utilities.sync_checkboxes(parent, 'view_dro_cb', 'view_dro_pb')
+	elif name == 'view_dro_pb':
+		utilities.sync_checkboxes(parent, 'view_dro_pb', 'actionDRO')
+		utilities.sync_checkboxes(parent, 'view_dro_pb', 'view_dro_cb')
 	elif name == 'actionDRO':
 		utilities.sync_checkboxes(parent, 'actionDRO', 'view_dro_cb')
+		utilities.sync_checkboxes(parent, 'actionDRO', 'view_dro_pb')
 
 def action_toggle_limits(parent):
 	if parent.sender().isChecked():
@@ -365,8 +370,13 @@ def action_toggle_limits(parent):
 	name = parent.sender().objectName()
 	if name == 'view_limits_cb':
 		utilities.sync_checkboxes(parent, 'view_limits_cb', 'actionLimits')
+		utilities.sync_checkboxes(parent, 'view_limits_cb', 'view_limits_pb')
+	elif name == 'view_limits_pb':
+		utilities.sync_checkboxes(parent, 'view_limits_pb', 'actionLimits')
+		utilities.sync_checkboxes(parent, 'view_limits_pb', 'view_limits_cb')
 	elif name == 'actionLimits':
 		utilities.sync_checkboxes(parent, 'actionLimits', 'view_limits_cb')
+		utilities.sync_checkboxes(parent, 'actionLimits', 'view_limits_pb')
 
 def action_toggle_extents_option(parent):
 	if parent.sender().isChecked():
@@ -378,8 +388,13 @@ def action_toggle_extents_option(parent):
 	name = parent.sender().objectName()
 	if name == 'view_extents_option_cb':
 		utilities.sync_checkboxes(parent, 'view_extents_option_cb', 'actionExtents_Option')
+		utilities.sync_checkboxes(parent, 'view_extents_option_cb', 'view_extents_option_pb')
+	elif name == 'view_extents_option_pb':
+		utilities.sync_checkboxes(parent, 'view_extents_option_pb', 'actionExtents_Option')
+		utilities.sync_checkboxes(parent, 'view_extents_option_pb', 'view_extents_option_cb')
 	elif name == 'actionExtents_Option':
 		utilities.sync_checkboxes(parent, 'actionExtents_Option', 'view_extents_option_cb')
+		utilities.sync_checkboxes(parent, 'actionExtents_Option', 'view_extents_option_pb')
 
 def action_toggle_live_plot(parent):
 	if parent.sender().isChecked():
@@ -391,8 +406,13 @@ def action_toggle_live_plot(parent):
 	name = parent.sender().objectName()
 	if name == 'view_live_plot_cb':
 		utilities.sync_checkboxes(parent, 'view_live_plot_cb', 'actionLive_Plot')
+		utilities.sync_checkboxes(parent, 'view_live_plot_cb', 'view_live_plot_pb')
+	elif name == 'view_live_plot_pb':
+		utilities.sync_checkboxes(parent, 'view_live_plot_pb', 'actionLive_Plot')
+		utilities.sync_checkboxes(parent, 'view_live_plot_pb', 'view_live_plot_cb')
 	elif name == 'actionLive_Plot':
-		utilities.sync_checkboxes(parent, 'actionLive_Plot', 'view_live_plot_cb')
+		utilities.sync_checkboxes(parent, 'actionExtents_Option', 'view_live_plot_cb')
+		utilities.sync_checkboxes(parent, 'actionExtents_Option', 'view_live_plot_pb')
 
 def action_toggle_velocity(parent):
 	if parent.sender().isChecked():
@@ -404,8 +424,13 @@ def action_toggle_velocity(parent):
 	name = parent.sender().objectName()
 	if name == 'view_velocity_cb':
 		utilities.sync_checkboxes(parent, 'view_velocity_cb', 'actionVelocity')
+		utilities.sync_checkboxes(parent, 'view_velocity_cb', 'view_velocity_pb')
+	elif name == 'view_velocity_pb':
+		utilities.sync_checkboxes(parent, 'view_velocity_pb', 'actionVelocity')
+		utilities.sync_checkboxes(parent, 'view_velocity_pb', 'view_velocity_cb')
 	elif name == 'actionVelocity':
 		utilities.sync_checkboxes(parent, 'actionVelocity', 'view_velocity_cb')
+		utilities.sync_checkboxes(parent, 'actionVelocity', 'view_velocity_pb')
 
 def action_toggle_metric_units(parent):
 	if parent.sender().isChecked():
@@ -417,8 +442,13 @@ def action_toggle_metric_units(parent):
 	name = parent.sender().objectName()
 	if name == 'view_metric_units_cb':
 		utilities.sync_checkboxes(parent, 'view_metric_units_cb', 'actionMetric_Units')
+		utilities.sync_checkboxes(parent, 'view_metric_units_cb', 'view_metric_units_pb')
+	elif name == 'view_metric_units_pb':
+		utilities.sync_checkboxes(parent, 'view_metric_units_pb', 'actionMetric_Units')
+		utilities.sync_checkboxes(parent, 'view_metric_units_pb', 'view_metric_units_cb')
 	elif name == 'actionMetric_Units':
 		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_metric_units_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_metric_units_pb')
 
 def action_toggle_program(parent):
 	if parent.sender().isChecked():
@@ -430,8 +460,13 @@ def action_toggle_program(parent):
 	name = parent.sender().objectName()
 	if name == 'view_program_cb':
 		utilities.sync_checkboxes(parent, 'view_program_cb', 'actionProgram')
+		utilities.sync_checkboxes(parent, 'view_program_cb', 'view_program_pb')
+	elif name == 'view_program_pb':
+		utilities.sync_checkboxes(parent, 'view_program_pb', 'actionProgram')
+		utilities.sync_checkboxes(parent, 'view_program_pb', 'view_program_cb')
 	elif name == 'actionProgram':
-		utilities.sync_checkboxes(parent, 'actionProgram', 'view_program_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_program_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_program_pb')
 
 def action_toggle_rapids(parent):
 	if parent.sender().isChecked():
@@ -443,8 +478,13 @@ def action_toggle_rapids(parent):
 	name = parent.sender().objectName()
 	if name == 'view_rapids_cb':
 		utilities.sync_checkboxes(parent, 'view_rapids_cb', 'actionRapids')
+		utilities.sync_checkboxes(parent, 'view_rapids_cb', 'view_rapids_pb')
+	elif name == 'view_rapids_pb':
+		utilities.sync_checkboxes(parent, 'view_rapids_pb', 'actionRapids')
+		utilities.sync_checkboxes(parent, 'view_rapids_pb', 'view_rapids_cb')
 	elif name == 'actionRapids':
-		utilities.sync_checkboxes(parent, 'actionRapids', 'view_rapids_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_rapids_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_rapids_pb')
 
 def action_toggle_tool(parent):
 	if parent.sender().isChecked():
@@ -456,8 +496,13 @@ def action_toggle_tool(parent):
 	name = parent.sender().objectName()
 	if name == 'view_tool_cb':
 		utilities.sync_checkboxes(parent, 'view_tool_cb', 'actionTool')
+		utilities.sync_checkboxes(parent, 'view_tool_cb', 'view_tool_pb')
+	elif name == 'view_tool_pb':
+		utilities.sync_checkboxes(parent, 'view_tool_pb', 'actionTool')
+		utilities.sync_checkboxes(parent, 'view_tool_pb', 'view_tool_cb')
 	elif name == 'actionTool':
-		utilities.sync_checkboxes(parent, 'actionTool', 'view_tool_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_tool_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_tool_pb')
 
 def action_toggle_lathe_radius(parent):
 	if parent.sender().isChecked():
@@ -469,8 +514,13 @@ def action_toggle_lathe_radius(parent):
 	name = parent.sender().objectName()
 	if name == 'view_lathe_radius_cb':
 		utilities.sync_checkboxes(parent, 'view_lathe_radius_cb', 'actionLathe_Radius')
+		utilities.sync_checkboxes(parent, 'view_lathe_radius_cb', 'view_lathe_radius_pb')
+	elif name == 'view_lathe_radius_pb':
+		utilities.sync_checkboxes(parent, 'view_lathe_radius_pb', 'actionLathe_Radius')
+		utilities.sync_checkboxes(parent, 'view_lathe_radius_pb', 'view_lathe_radius_cb')
 	elif name == 'actionLathe_Radius':
-		utilities.sync_checkboxes(parent, 'actionLathe_Radius', 'view_lathe_radius_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_lathe_radius_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_lathe_radius_pb')
 
 def action_toggle_dtg(parent):
 	if parent.sender().isChecked():
@@ -482,8 +532,13 @@ def action_toggle_dtg(parent):
 	name = parent.sender().objectName()
 	if name == 'view_dtg_cb':
 		utilities.sync_checkboxes(parent, 'view_dtg_cb', 'actionDTG')
+		utilities.sync_checkboxes(parent, 'view_dtg_cb', 'view_dtg_pb')
+	elif name == 'view_dtg_pb':
+		utilities.sync_checkboxes(parent, 'view_dtg_pb', 'actionDTG')
+		utilities.sync_checkboxes(parent, 'view_dtg_pb', 'view_dtg_cb')
 	elif name == 'actionDTG':
-		utilities.sync_checkboxes(parent, 'actionDTG', 'view_dtg_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_dtg_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_dtg_pb')
 
 def action_toggle_offsets(parent):
 	if parent.sender().isChecked():
@@ -495,8 +550,13 @@ def action_toggle_offsets(parent):
 	name = parent.sender().objectName()
 	if name == 'view_offsets_cb':
 		utilities.sync_checkboxes(parent, 'view_offsets_cb', 'actionOffsets')
+		utilities.sync_checkboxes(parent, 'view_offsets_cb', 'view_offsets_pb')
+	elif name == 'view_offsets_pb':
+		utilities.sync_checkboxes(parent, 'view_offsets_pb', 'actionOffsets')
+		utilities.sync_checkboxes(parent, 'view_offsets_pb', 'view_offsets_cb')
 	elif name == 'actionOffsets':
-		utilities.sync_checkboxes(parent, 'actionOffsets', 'view_offsets_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_offsets_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_offsets_pb')
 
 def action_toggle_overlay(parent):
 	if parent.sender().isChecked():
@@ -508,8 +568,13 @@ def action_toggle_overlay(parent):
 	name = parent.sender().objectName()
 	if name == 'view_overlay_cb':
 		utilities.sync_checkboxes(parent, 'view_overlay_cb', 'actionOverlay')
+		utilities.sync_checkboxes(parent, 'view_overlay_cb', 'view_overlay_pb')
+	elif name == 'view_overlay_pb':
+		utilities.sync_checkboxes(parent, 'view_overlay_pb', 'actionOverlay')
+		utilities.sync_checkboxes(parent, 'view_overlay_pb', 'view_overlay_cb')
 	elif name == 'actionOverlay':
-		utilities.sync_checkboxes(parent, 'actionOverlay', 'view_overlay_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_overlay_cb')
+		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_overlay_pb')
 
 def action_clear_live_plot(parent):
 	parent.plotter.clear_live_plotter()

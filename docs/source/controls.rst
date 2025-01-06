@@ -225,3 +225,18 @@ Double Spin Boxes
 
 .. note:: You don't have to use any of these controls; Flex GUI is flexible.
 
+Stacked Widget
+--------------
+
+To change pages on a QStackedWidget add a QPushButton and set a couple of
+Dynamic Properties.
+
+.. csv-table:: Stacked Widget
+   :width: 100%
+   :align: left
+
+	**Dynamic Property**, **Value**
+	change_page, QStackedWidget Object Name
+	index, index of page to change to
+
+

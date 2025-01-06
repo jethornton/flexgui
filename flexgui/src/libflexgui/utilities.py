@@ -235,3 +235,11 @@ def help(parent):
 
 def set_hal_image(parent):
 	print(parent.sender().objectName())
+
+def change_page(parent):
+	object_name = parent.sender().property('change_page')
+	index = int(parent.sender().property('index'))
+	getattr(parent, object_name).setCurrentIndex(index)
+
+
+

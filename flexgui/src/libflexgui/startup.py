@@ -822,6 +822,12 @@ def setup_plain_text_edits(parent):
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
 
+def setup_stacked_widgets(parent):
+	children = parent.findChildren(QPushButton)
+	for child in children:
+		if child.property('change_page'):
+			child.clicked.connect(partial(utilities.change_page, parent))
+
 def setup_line_edits(parent):
 	parent.number_le = []
 	parent.nccode_le = []
@@ -1750,12 +1756,6 @@ def setup_hal(parent):
 			print(f'pin_name {pin_name}')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
-
-
-
-
-
-
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.children:
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
@@ -1827,6 +1827,37 @@ def setup_plot(parent):
 		for key, value in view_checkboxes.items():
 			if key in parent.children:
 				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
+				if parent.settings.contains(f'PLOT/{key}'):
+					state = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
+				else: # add it and set to default
+					state = getattr(parent.plotter, value[1])
+					parent.settings.beginGroup('PLOT')
+					parent.settings.setValue(key, state)
+					parent.settings.endGroup()
+				getattr(parent, key).setChecked(state)
+				setattr(parent.plotter, value[1], state)
+
+		view_pushbuttons = {
+			'view_dro_pb': ['action_toggle_dro', 'enable_dro'],
+			'view_limits_pb': ['action_toggle_limits', 'show_limits'],
+			'view_extents_option_pb': ['action_toggle_extents_option', 'show_extents_option'],
+			'view_live_plot_pb': ['action_toggle_live_plot', 'show_live_plot'],
+			'view_velocity_pb': ['action_toggle_velocity', 'show_velocity'],
+			'view_metric_units_pb': ['action_toggle_metric_units', 'metric_units'],
+			'view_program_pb': ['action_toggle_program', 'show_program'],
+			'view_rapids_pb': ['action_toggle_rapids', 'show_rapids'],
+			'view_tool_pb': ['action_toggle_tool', 'show_tool'],
+			'view_lathe_radius_pb': ['action_toggle_lathe_radius', 'show_lathe_radius'],
+			'view_dtg_pb': ['action_toggle_dtg', 'show_dtg'],
+			'view_offsets_pb': ['action_toggle_offsets', 'show_offsets'],
+			'view_overlay_pb': ['action_toggle_overlay', 'show_overlay']
+		}
+
+		# if a pushbutton is found connect it to the function
+		for key, value in view_pushbuttons.items():
+			if key in parent.children:
+				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
+				getattr(parent, f'{key}').setCheckable(True)
 				if parent.settings.contains(f'PLOT/{key}'):
 					state = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
 				else: # add it and set to default

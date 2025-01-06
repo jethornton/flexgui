@@ -56,7 +56,7 @@ Display
 -------
 
 The DRO overlaid onto the plotter can be customized by turning on or off
-various features. Use either a QCheckbox or a Menu to toggle these
+various features. Use either a QCheckbox or a QPushButton to toggle these
 
 .. csv-table:: Display Checkbox Options
    :width: 100%
@@ -77,6 +77,26 @@ various features. Use either a QCheckbox or a Menu to toggle these
 	View Distance to Go, QCheckBox, view_dtg_cb
 	View Offsets, QCheckBox, view_offsets_cb
 	View Overlay, QCheckBox, view_overlay_cb
+
+.. csv-table:: Display PushButton Options
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	**Function**, **Widget**, **Object Name**
+	View DRO, QPushButton, view_dro_pb
+	View Machine Limits, QPushButton, view_limits_pb
+	View Extents Option, QPushButton, view_extents_option_pb
+	View Live Plot, QPushButton, view_live_plot_pb
+	View Velocity, QPushButton, view_velocity_pb
+	Use Metric Units, QPushButton, view_metric_units_pb
+	View Program, QPushButton, view_program_pb
+	View Rapids, QPushButton, view_rapids_pb
+	View Tool, QPushButton, view_tool_pb
+	View Lathe Radius, QPushButton, view_lathe_radius_pb
+	View Distance to Go, QPushButton, view_dtg_pb
+	View Offsets, QPushButton, view_offsets_pb
+	View Overlay, QPushButton, view_overlay_pb
 
 .. note:: Don't set the checked property to checked in Qt Designer as this is
    already handled in the code. Once you check an option it is remembered.
