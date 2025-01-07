@@ -239,4 +239,7 @@ Dynamic Properties.
 	change_page, QStackedWidget Object Name
 	index, index of page to change to
 
+.. image:: /images/stacked-01.png
+   :align: center
+
 
