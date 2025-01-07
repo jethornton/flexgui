@@ -23,7 +23,7 @@ all the tools found in the tool table.
 	Tool Selector, QComboBox, tool_change_cb
 
 To add the description of the tools to the tool change combo box add a Dynamic
-Property named `option` and set the value to `description`.
+Property named `option` and set the value to `description`. See :doc:`property`
 
 .. image:: /images/tools-02.png
    :align: center
@@ -108,6 +108,7 @@ to enter the value of the touch off.
 Optionally you can have a QLineEdit for each axis for tool touch off. Add a
 Dynamic Property named `source` to the tool touch off button and set the value
 to the name of the QLineEdit that is the source for that touch off button.
+See :doc:`property`
 
 .. image:: /images/tools-07.png
    :align: center

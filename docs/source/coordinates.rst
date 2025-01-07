@@ -18,7 +18,7 @@ To touch-off an axis, use a QPushButton and QLineEdit to set the touch-off value
 
 Optionally you can have a QLineEdit for any axis by adding a string type Dynamic
 Property named `source` and the value contains the object name of the QLineEdit
-that you want to use.
+that you want to use. See :doc:`property`
 
 .. image:: /images/coordinate-01.png
    :align: center

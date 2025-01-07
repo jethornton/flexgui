@@ -7,8 +7,9 @@ Setting Parameters
 ------------------
 
 To set a user parameter value in the var file with a QDoubleSpinBox add a couple
-of string type Dynamic Properties. The parameters 31 - 5000 are avaliable for
-use in NC code programs. Replace `nnnn` with the variable number.
+of string type Dynamic Properties. See :doc:`property` The parameters 31 - 5000
+are avaliable for use in NC code programs. Replace `nnnn` with the variable
+number.
 ::
 
 	function set_var
@@ -30,7 +31,7 @@ Watching Parameters
 -------------------
 
 To watch the value of a user parameter a QLabel can be used with the following
-string type Dynamic Properties
+string type Dynamic Properties. See :doc:`property`
 ::
 
 	function watch_var

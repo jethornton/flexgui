@@ -15,7 +15,7 @@ Button
 Any QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
 adding four string type Dynamic Properties.  The pin_name used will create a HAL
 pin prefixed with `flexhal.` A pin_name of my-button would be in HAL
-`flexhal.my-button`.
+`flexhal.my-button`. See :doc:`property`
 
 .. csv-table:: HAL Push Button
    :width: 100%
@@ -55,7 +55,7 @@ Slider
 
 A QSlider can be a HAL pin by adding these four string type Dynamic Properties.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
-my-slider would be in HAL `flexhal.my-slider`.
+my-slider would be in HAL `flexhal.my-slider`. See :doc:`property`
 
 .. csv-table:: HAL Slider
    :width: 100%
@@ -155,7 +155,8 @@ Drag the widget into the GUI and the widget can have any name you like; names
 are not used by HAL controls in Flex GUI - it is the following that matters.
 
 Click on the widget to select it then click on the green plus sign in the
-Property Editor for that widget to add a Dynamic Property and select String
+Property Editor for that widget to add a Dynamic Property and select String.
+See :doc:`property`
 
 .. image:: /images/hal-01.png
    :align: center
