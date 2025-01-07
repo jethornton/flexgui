@@ -46,6 +46,8 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 	HAL Meter, hal_meter_pb
 	HAL Scope, hal_scope_pb
 
+.. note:: You don't have to use any of these controls; Flex GUI is flexible.
+
 .. image:: /images/controls-01.png
    :align: center
 
@@ -53,6 +55,13 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 
 .. note:: Tool-Touch-Off buttons require a Double Spin Box named
    `tool_touchoff_dsb`
+
+Touch-Off Spin Boxes
+--------------------
+::
+
+	Touch Off Value         touchoff_dsb
+	Tool Touch Off Value    tool_touchoff_dsb
 
 E Stop and Power
 ----------------
@@ -216,20 +225,11 @@ button to use.
 
 .. note:: The maximum override for Rapid is 100
 
-Double Spin Boxes
------------------
-::
-
-	Touch Off Value         touchoff_dsb
-	Tool Touch Off Value    tool_touchoff_dsb
-
-.. note:: You don't have to use any of these controls; Flex GUI is flexible.
-
 Stacked Widget
 --------------
 
-To change to a specific page on a QStackedWidget add a QPushButton and set a
-couple of Dynamic Properties.
+To change to a specific page on a QStackedWidget add a QPushButton on each page
+and set a couple of Dynamic Properties.
 
 .. csv-table:: Stacked Widget Change Page
    :width: 100%
@@ -242,7 +242,7 @@ couple of Dynamic Properties.
 .. image:: /images/stacked-01.png
    :align: center
 
-To create a Forward and Backward button for a QStackedWidget add two
+To create a Next Page and Previous Page buttons for a QStackedWidget add two
 QPushButtons with the following Dynamic Properties.
 
 .. csv-table:: Stacked Widget Next/Previous Page
@@ -251,6 +251,8 @@ QPushButtons with the following Dynamic Properties.
 
 	**Button Function**, **Dynamic Property Name**, **Value**
 	Next Page, next_page, QStackedWidget Object Name
-	Previous Page, previous_page, , QStackedWidget Object Name
+	Previous Page, previous_page, QStackedWidget Object Name
+
+.. note:: The Forward and Backward Buttons should not be in the QStackedWidget
 
 
