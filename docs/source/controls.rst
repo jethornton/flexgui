@@ -228,18 +228,29 @@ Double Spin Boxes
 Stacked Widget
 --------------
 
-To change pages on a QStackedWidget add a QPushButton and set a couple of
-Dynamic Properties.
+To change to a specific page on a QStackedWidget add a QPushButton and set a
+couple of Dynamic Properties.
 
-.. csv-table:: Stacked Widget
+.. csv-table:: Stacked Widget Change Page
    :width: 100%
    :align: left
 
-	**Dynamic Property**, **Value**
+	**Dynamic Property Name**, **Value**
 	change_page, QStackedWidget Object Name
 	index, index of page to change to
 
 .. image:: /images/stacked-01.png
    :align: center
+
+To create a Forward and Backward button for a QStackedWidget add two
+QPushButtons with the following Dynamic Properties.
+
+.. csv-table:: Stacked Widget Next/Previous Page
+   :width: 100%
+   :align: left
+
+	**Button Function**, **Dynamic Property Name**, **Value**
+	Next Page, next_page, QStackedWidget Object Name
+	Previous Page, previous_page, , QStackedWidget Object Name
 
 
