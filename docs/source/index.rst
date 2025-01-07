@@ -1,4 +1,3 @@
-
 Flex GUI
 ========
 .. toctree::
@@ -8,6 +7,7 @@ Flex GUI
    description
    install
    designer
+   property
    ini
    labels
    menu

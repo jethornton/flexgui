@@ -69,7 +69,7 @@ E Stop and Power
 The E Stop push button Open/Closed state text can be set by adding two string
 type Dynamic Properties `open_text` and `closed_text`. The text in those two
 properties will be used if found. The default text is `E Stop Open` and
-`E Stop Closed`.
+`E Stop Closed`. See :doc:`property`
 
 .. image:: /images/estop-01.png
    :align: center
@@ -229,7 +229,7 @@ Stacked Widget
 --------------
 
 To change to a specific page on a QStackedWidget add a QPushButton on each page
-and set a couple of Dynamic Properties.
+and set a couple of Dynamic Properties. See :doc:`property`
 
 .. csv-table:: Stacked Widget Change Page
    :width: 100%
@@ -243,7 +243,7 @@ and set a couple of Dynamic Properties.
    :align: center
 
 To create a Next Page and Previous Page buttons for a QStackedWidget add two
-QPushButtons with the following Dynamic Properties.
+QPushButtons with the following Dynamic Properties. See :doc:`property`
 
 .. csv-table:: Stacked Widget Next/Previous Page
    :width: 100%

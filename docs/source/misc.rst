@@ -83,6 +83,7 @@ set the Object Name to `fsc_container`
 To make the entry boxes touch-screen aware, add a Dynamic Property called 
 `mode` and set the value to `touch`. Then when you touch an entry field, a 
 numeric popup will show up to allow you to enter the value without a keyboard.
+See :doc:`property`
 
 .. image:: /images/fsc-01.png
    :align: center

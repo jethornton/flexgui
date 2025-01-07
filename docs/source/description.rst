@@ -12,6 +12,8 @@ Flex GUI is a flexible GUI that can be customized to suit your needs.
 * All Flex GUI configuration is done in the .ini file
 * Flex GUI remembers the size and position of your GUI
 
+For more information on Dynamic Properties see :doc:`property`
+
 Features
 --------
 

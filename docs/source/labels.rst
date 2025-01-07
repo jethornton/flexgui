@@ -23,7 +23,8 @@ Labels that return float values default to 3 decimal places for metric and 4
 for inch.
 
 To override the default, select the label then click on the Green Plus sign
-in the Property Editor to add a Dynamic Property and select String
+in the Property Editor to add a Dynamic Property and select String.
+See :doc:`property`
 
 .. image:: /images/status-02.png
    :align: center
