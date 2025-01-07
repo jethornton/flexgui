@@ -237,5 +237,27 @@ def change_page(parent):
 	index = int(parent.sender().property('index'))
 	getattr(parent, object_name).setCurrentIndex(index)
 
+def next_page(parent):
+	btn = parent.sender()
+	object_name = btn.property('next_page')
+	pages = getattr(parent, object_name).count() -1
+	index = getattr(parent, object_name).currentIndex()
+	if index < pages:
+		getattr(parent, object_name).setCurrentIndex(index + 1)
+	elif index == pages:
+		getattr(parent, object_name).setCurrentIndex(0)
+
+def previous_page(parent):
+	btn = parent.sender()
+	object_name = btn.property('previous_page')
+	pages = getattr(parent, object_name).count() -1
+	index = getattr(parent, object_name).currentIndex()
+	if index > 0:
+		getattr(parent, object_name).setCurrentIndex(index - 1)
+	elif index == 0:
+		getattr(parent, object_name).setCurrentIndex(pages)
+
+
+
 
 

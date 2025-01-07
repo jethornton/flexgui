@@ -828,6 +828,10 @@ def setup_stacked_widgets(parent):
 	for child in children:
 		if child.property('change_page'):
 			child.clicked.connect(partial(utilities.change_page, parent))
+		elif child.property('next_page'):
+			child.clicked.connect(partial(utilities.next_page, parent))
+		elif child.property('previous_page'):
+			child.clicked.connect(partial(utilities.previous_page, parent))
 
 def setup_line_edits(parent):
 	parent.number_le = []
