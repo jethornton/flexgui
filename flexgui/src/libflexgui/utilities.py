@@ -227,7 +227,6 @@ def update_hal_slider(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 def help(parent):
-	#print(parent.sender().objectName())
 	print(parent.sender().property('file'))
 
 def set_hal_image(parent):
