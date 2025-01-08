@@ -359,6 +359,9 @@ def setup_buttons(parent): # connect buttons to functions
 	'show_hal_pb': 'action_show_hal',
 	'hal_meter_pb': 'action_hal_meter',
 	'hal_scope_pb': 'action_hal_scope'
+	'about_pb': 'action_about',
+	'quick_reference_pb': 'action_quick_reference',
+
 	}
 
 	for key, value in action_buttons.items():
