@@ -11,6 +11,9 @@ QMainWindow {
 /***** QWidget *****/
 QWidget {
 	margin: 2px;
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
 }
 
 /***** QTabWidget *****/
@@ -48,7 +51,7 @@ QTabBar::tab {
 
 QTabBar::tab:selected {
 	border-color: #ffffff;
-	color: rgba(255, 255, 255, 100%);
+	color: #ffffff;
 	background-color: #000000;
 	margin-bottom: 0px; /* make non-selected tabs look smaller */
 }
@@ -57,7 +60,6 @@ QTabBar::tab:selected {
 QGroupBox {
 	background-color: #121212;
 	color: #ffffff;
-	font: bold;
 	border: 2px solid white;
 	border-radius: 6px;
 	margin-top: 6px;
@@ -77,7 +79,6 @@ QGroupBox::title {
 QStackedWidget {
 	background-color: #121212;
 	color: #ffffff;
-	font: bold;
 	border: 2px solid white;
 	border-radius: 6px;
 }
@@ -121,7 +122,6 @@ QAbstractSpinBox {
 	border-radius: 5px;
 	padding: 2px;
 	min-height: 50px;
-	font-size: 20px
 }
 
 QAbstractSpinBox::up-button {
@@ -161,7 +161,6 @@ QAbstractSpinBox::down-button:disabled {
 /***** QListWidget *****/
 QListWidget{
 border-radius: 5px;
-font-size: 20px;
 color: #bfbfbf;
 background-color: #121212;
 }
@@ -179,10 +178,10 @@ QListWidget::item:selected {
 }
 
 QScrollBar:vertical {
-border: 1px solid grey;
-background: #bfbfbf;
-width: 50px;
-height: 50px;
+	border: 1px solid grey;
+	background: #bfbfbf;
+	width: 50px;
+	height: 50px;
 }
 
 /***** QLabel *****/
@@ -206,7 +205,6 @@ QLineEdit {
 QPlainTextEdit {
 	background-color: #121212;
 	color: #ffffff;
-	font: bold;
 	border: 2px solid white;
 	border-radius: 6px;
 }

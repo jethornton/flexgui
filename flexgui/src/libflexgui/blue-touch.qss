@@ -11,6 +11,9 @@ QMainWindow {
 /***** QWidget *****/
 QWidget {
 	margin: 2px;
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
 }
 
 /***** QTabWidget *****/
@@ -168,17 +171,17 @@ QAbstractSpinBox::down-button:disabled {
 
 /***** QListWidget *****/
 QListWidget{
-border-radius: 5px;
-font-size: 20px;
-color: #bfbfbf;
-background-color: #000099;
+	border-radius: 5px;
+	font-size: 20px;
+	color: #bfbfbf;
+	background-color: #000099;
 }
 
 QListWidget::item { /* the items in the list */
-min-height: 50px;
-border: 1px solid;
-border-color: #bfbfbf;
-border-radius: 5px;
+	min-height: 50px;
+	border: 1px solid;
+	border-color: #bfbfbf;
+	border-radius: 5px;
 }
 
 QListWidget::item:selected {
@@ -187,10 +190,10 @@ QListWidget::item:selected {
 }
 
 QScrollBar:vertical {
-border: 1px solid grey;
-background: #bfbfbf;
-width: 50px;
-height: 50px;
+	border: 1px solid grey;
+	background: #bfbfbf;
+	width: 50px;
+	height: 50px;
 }
 
 /***** QLabel *****/
@@ -251,63 +254,63 @@ the border should either specify all its properties or just use none;
 
 /***** QSlider *****/
 QSlider:horizontal {
-    min-height: 50px;
-    max-height: 50px;
-    background: #bfbfbf;
+	min-height: 50px;
+	max-height: 50px;
+	background: #bfbfbf;
 }
 
 QSlider::groove:horizontal {
-    height: 42px;
-    background: #393939;
-    margin-left: -1px;
+	height: 42px;
+	background: #393939;
+	margin-left: -1px;
 }
 
 QSlider::handle:horizontal {
-    background: #bfbfbf;
-    width: 50px;
-    margin-top: -3px;
-    margin-bottom: -3px;
-    border: 2px solid #000000;
-    border-radius: 5px;
+	background: #bfbfbf;
+	width: 50px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border: 2px solid #000000;
+	border-radius: 5px;
 }
 QSlider::add-page:horizontal {
     background: white;
 }
 
 QSlider::sub-page:horizontal {
-    background: green;
+	background: green;
 }
 
 QSlider:vertical {
-    min-width: 50px;
-    max-width: 50px;
-    background: #bfbfbf;
+	min-width: 50px;
+	max-width: 50px;
+	background: #bfbfbf;
 }
 
 QSlider::groove:vertical {
-    background: #bfbfbf;
-    position: absolute;
-    /* absolutely position 4px from the left and right of the widget.*/
-    /* setting margins on the widget should work too... */
-    left: 4px;
-    right: 4px;
+	background: #bfbfbf;
+	position: absolute;
+	/* absolutely position 4px from the left and right of the widget.*/
+	/* setting margins on the widget should work too... */
+	left: 4px;
+	right: 4px;
 }
 
 QSlider::handle:vertical {
-    height: 40px;
-    background: #bfbfbf;
-    margin-left: -3px;
-    margin-right: -3px;
-    border: 2px solid #000000;
-    border-radius: 5px;
+	height: 40px;
+	background: #bfbfbf;
+	margin-left: -3px;
+	margin-right: -3px;
+	border: 2px solid #000000;
+	border-radius: 5px;
 }
 
 QSlider::add-page:vertical {
-    background: green;
+	background: green;
 }
 
 QSlider::sub-page:vertical {
-    background: white;
+	background: white;
 }
 
 
