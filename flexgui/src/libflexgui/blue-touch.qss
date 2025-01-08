@@ -3,14 +3,17 @@ or sub-control is customized, all the other properties or sub-controls must be
 customized as well. */
 
 /***** QMainWindow *****/
-
 QMainWindow {
 	color: #ffffff;
 	background-color: #000099;
 }
 
-/***** QTabWidget *****/
+/***** QWidget *****/
+QWidget {
+	margin: 2px;
+}
 
+/***** QTabWidget *****/
 QTabWidget {
 	color: #ffffff;
 	background-color: #000099;
@@ -51,7 +54,6 @@ QTabBar::tab:selected {
 }
 
 /***** QGroupBox *****/
-
 QGroupBox {
 	background-color: #000099;
 	color: #ffffff;
@@ -71,8 +73,16 @@ QGroupBox::title {
 	padding-left: 5px;
 }
 
-/***** QAbstractButton *****/
+/***** QStackedWidget *****/
+QStackedWidget {
+	background-color: #000099;
+	color: #ffffff;
+	font: bold;
+	border: 2px solid white;
+	border-radius: 6px;
+}
 
+/***** QAbstractButton *****/
 QAbstractButton{
 	min-height: 50px;
 	min-width: 50px;
@@ -120,7 +130,6 @@ QAbstractSpinBox::up-button {
 	min-height: 38px;
 	min-width: 38px;
 	padding: 12px;
-	/*border : 2px solid black;*/
 	border-image: url(:/up_arrow.png);
 }
 
@@ -158,7 +167,6 @@ QAbstractSpinBox::down-button:disabled {
 }
 
 /***** QListWidget *****/
-
 QListWidget{
 border-radius: 5px;
 font-size: 20px;
@@ -186,13 +194,14 @@ height: 50px;
 }
 
 /***** QLabel *****/
-
 QLabel {
 	color: #ffffff;
+	background-color: #000099;
+	border: 2px solid #b3b3b3;
+	border-radius: 6px;
 }
 
 /***** QLineEdit *****/
-
 QLineEdit {
 	min-height: 40px;
 	color: #ffffff;
@@ -202,14 +211,14 @@ QLineEdit {
 }
 
 /***** QPlainTextEdit *****/
-
 QPlainTextEdit {
 	color: #ffffff;
 	background-color: #000099;
+	border: 2px solid #b3b3b3;
+	border-radius: 6px;
 }
 
 /***** QComboBox *****/
-
 QComboBox {
 	min-height: 50px;
 	color: #ffffff;
@@ -241,7 +250,6 @@ the border should either specify all its properties or just use none;
 */
 
 /***** QSlider *****/
-
 QSlider:horizontal {
     min-height: 50px;
     max-height: 50px;
