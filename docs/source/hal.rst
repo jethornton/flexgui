@@ -87,6 +87,27 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 .. note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
 
+Bool Label
+----------
+
+A Qlabel of hal_type HAL_BIT can have True and False text by adding two
+additional Dynamic Properties. See :doc:`property`
+
+.. csv-table:: HAL Bool Label
+   :width: 100%
+   :align: center
+
+	Property Name, Pin Value
+	function, hal_pin
+	pin_name, any unique name
+	hal_type, HAL_BIT
+	hal_dir, HAL_IN
+	true_text, text to display when True
+	false_text, text to display when False
+
+.. image:: /images/hal-bool-label-01.png
+   :align: center
+
 LCD
 -----
 
