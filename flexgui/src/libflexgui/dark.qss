@@ -3,14 +3,17 @@ or sub-control is customized, all the other properties or sub-controls must be
 customized as well. */
 
 /***** QMainWindow *****/
-
 QMainWindow {
 	color: #ffffff;
 	background-color: #121212;
 }
 
-/***** QTabWidget *****/
+/***** QWidget *****/
+QWidget {
+	margin: 2px;
+}
 
+/***** QTabWidget *****/
 QTabWidget {
 	color: #ffffff;
 	background-color: #121212;
@@ -20,7 +23,7 @@ QTabWidget::pane { /* The tab widget frame */
 	border: 2px solid;
 	border-color: #ffffff;
 	border-radius: 6px;
-	margin-right: 5px;
+	margin: 2px;
 }
 
 QTabWidget::tab-bar {
@@ -30,8 +33,7 @@ QTabWidget::tab-bar {
 QTabBar::tab {
 	color: #bfbfbf;
 	background-color: #121212;
-	border: 2px solid;
-	border-color: #bfbfbf;
+	border: 2px solid white;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
 	margin-left: 4px; /* make a space between the tabs */
@@ -49,7 +51,6 @@ QTabBar::tab:selected {
 }
 
 /***** QGroupBox *****/
-
 QGroupBox {
 	background-color: #121212;
 	color: #ffffff;
@@ -69,8 +70,16 @@ QGroupBox::title {
 	padding-left: 5px;
 }
 
-/***** QAbstractButton *****/
+/***** QStackedWidget *****/
+QStackedWidget {
+	background-color: #121212;
+	color: #ffffff;
+	font: bold;
+	border: 2px solid white;
+	border-radius: 6px;
+}
 
+/***** QAbstractButton *****/
 QAbstractButton{
 	color: #ffffff;
 	background-color: #121212;
@@ -108,7 +117,7 @@ QPushButton:disabled {
 QAbstractSpinBox {
 	color: white;
 	background-color: #121212;
-	border: 2px solid #b3b3b3;
+	border: 2px solid white;
 	border-radius: 5px;
 	padding: 2px;
 }
@@ -144,7 +153,6 @@ QAbstractSpinBox::down-button:disabled {
 }
 
 /***** QListWidget *****/
-
 QListWidget{
 border-radius: 5px;
 color: #bfbfbf;
@@ -163,32 +171,34 @@ QListWidget::item:selected {
 }
 
 QScrollBar:vertical {
-border: 1px solid grey;
-background: #bfbfbf;
-width: 50px;
-height: 50px;
+	border: 1px solid grey;
+	background: #bfbfbf;
+	width: 50px;
+	height: 50px;
 }
 
 /***** QLabel *****/
-
 QLabel {
 	color: #ffffff;
+	background-color: #121212;
+	border: 2px solid white;
+	border-radius: 6px;
 }
 
 /***** QLineEdit *****/
-
 QLineEdit {
 	color: #ffffff;
 	background-color: #121212;
-	border: 3px solid #b3b3b3;
+	border: 2px solid white;
 	border-radius: 6px;
 }
 
 /***** QPlainTextEdit *****/
-
 QPlainTextEdit {
 	color: #ffffff;
 	background-color: #121212;
+	border: 2px solid white;
+	border-radius: 6px;
 }
 
 /***** QComboBox *****/
@@ -225,7 +235,6 @@ the border should either specify all its properties or just use none;
 
 
 /***** QSlider *****/
-
 QSlider:horizontal {
     background: #bfbfbf;
 }
