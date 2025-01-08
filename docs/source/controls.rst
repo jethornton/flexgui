@@ -45,6 +45,8 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 	Show HAL, show_hal_pb
 	HAL Meter, hal_meter_pb
 	HAL Scope, hal_scope_pb
+	Help About, about_pb
+	Quick Reference, quick_reference_pb
 
 .. note:: You don't have to use any of these controls; Flex GUI is flexible.
 
