@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
+    <width>936</width>
     <height>731</height>
    </rect>
   </property>
@@ -4973,7 +4973,7 @@ Border needs both width and color to show up</string>
                  <string>tbar_bg_color_lb</string>
                 </property>
                 <property name="var" stdset="0">
-                 <string>toolbar_bg_color</string>
+                 <string>tbar_bg_sel_color</string>
                 </property>
                </widget>
               </item>
@@ -9057,7 +9057,7 @@ Border needs both width and color to show up</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>920</width>
+     <width>936</width>
      <height>24</height>
     </rect>
    </property>
