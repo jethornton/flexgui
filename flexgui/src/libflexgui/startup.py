@@ -358,10 +358,9 @@ def setup_buttons(parent): # connect buttons to functions
 	'save_mdi_history_pb': 'action_save_mdi',
 	'show_hal_pb': 'action_show_hal',
 	'hal_meter_pb': 'action_hal_meter',
-	'hal_scope_pb': 'action_hal_scope'
+	'hal_scope_pb': 'action_hal_scope',
 	'about_pb': 'action_about',
-	'quick_reference_pb': 'action_quick_reference',
-
+	'quick_reference_pb': 'action_quick_reference'
 	}
 
 	for key, value in action_buttons.items():
@@ -1505,6 +1504,8 @@ def setup_hal(parent):
 		for label in hal_labels:
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')
+			true_text = label.property('true_text')
+			false_text = label.property('false_text')
 			if pin_name in dir(parent):
 				msg = (f'HAL Label {label_name}\n'
 				f'pin name {pin_name}\n'
@@ -1552,6 +1553,8 @@ def setup_hal(parent):
 					p = label.property('precision')
 					p = p if p is not None else parent.default_precision
 					parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
+				elif true_text and false_text:
+					print(true_text, false_text)
 				else:
 					parent.hal_readers[label_name] = pin_name
 
