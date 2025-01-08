@@ -1391,6 +1391,7 @@ def setup_hal(parent):
 	hal_progressbar = []
 	parent.hal_io = {}
 	parent.hal_readers = {}
+	parent.hal_bool_labels = {}
 	parent.hal_progressbars = {}
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
@@ -1555,6 +1556,7 @@ def setup_hal(parent):
 					parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
 				elif true_text and false_text:
 					print(true_text, false_text)
+					parent.hal_bool_labels[label_name] = [pin_name, true_text, false_text]
 				else:
 					parent.hal_readers[label_name] = pin_name
 

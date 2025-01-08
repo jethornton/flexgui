@@ -285,11 +285,23 @@ def update(parent):
 
 	# update hal labels key is label name and value is pin name
 	for key, value in parent.hal_readers.items():
-		value = hal.get_value(f'flexhal.{value}')
+		state = hal.get_value(f'flexhal.{value}')
 		if isinstance(getattr(parent, key), QLCDNumber):
-			getattr(parent, key).display(f'{value}')
+			getattr(parent, key).display(f'{state}')
 		else:
-			getattr(parent, key).setText(f'{value}')
+			getattr(parent, key).setText(f'{state}')
+
+	# update hal bool labels
+	# key is label name
+	# value[0] is pin name
+	# value[1] is true text
+	# value[2] is false text
+	for key, value in parent.hal_bool_labels.items():
+		state = hal.get_value(f'flexhal.{value[0]}')
+		if state:
+			getattr(parent, key).setText(value[1])
+		else:
+			getattr(parent, key).setText(value[2])
 
 	# update hal progressbars key is the progressbar name and value is the pin name
 	for key, value in parent.hal_progressbars.items():
