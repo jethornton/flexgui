@@ -1,0 +1,49 @@
+QLabel#label_0 {
+	font-family: DejaVu Sans;
+	font-size: 14pt;
+	font-weight: 400;
+}
+
+QLabel#label_1 {
+	font-family: DejaVu Sans;
+	font-size: 14pt;
+	font-weight: 700;
+}
+
+QLabel#label_2 {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+}
+
+QLabel#label_3 {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+}
+
+QLabel#label_4 {
+	font-family: Free Helvetian;
+	font-size: 14pt;
+	font-weight: 500;
+}
+
+QLabel#label_5 {
+	font-family: Free Helvetian;
+	font-size: 14pt;
+	font-weight: 700;
+}
+
+QLabel#label_6 {
+	font-family: FreeMono;
+	font-size: 14pt;
+	font-weight: 400;
+}
+
+QLabel#label_7 {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+}
+
+

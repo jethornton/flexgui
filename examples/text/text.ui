@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="5" column="0">
+     <widget class="QPlainTextEdit" name="plainTextEdit_4">
+      <property name="plainText">
+       <string>QLabel#label_2 {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 500;
+}</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="label_1">
+      <property name="text">
+       <string>label_1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_0">
+      <property name="text">
+       <string>label_0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>label_4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPlainTextEdit" name="plainTextEdit_2">
+      <property name="plainText">
+       <string>QLabel#label_3 {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+}</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPlainTextEdit" name="plainTextEdit_5">
+      <property name="plainText">
+       <string>QLabel#label_4 {
+	font-family: Free Helvetian;
+	font-size: 14pt;
+	font-weight: 500;
+}
+</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>label_3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QPlainTextEdit" name="plainTextEdit_8">
+      <property name="plainText">
+       <string>QLabel#label_7 {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+}
+</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>label_2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="4">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>label_5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="3">
+     <widget class="QPlainTextEdit" name="plainTextEdit_7">
+      <property name="plainText">
+       <string>QLabel#label_6 {
+	font-family: FreeMono;
+	font-size: 14pt;
+	font-weight: 400;
+}
+</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPlainTextEdit" name="plainTextEdit_6">
+      <property name="plainText">
+       <string>QLabel#label_5 {
+	font-family: Free Helvetian;
+	font-size: 14pt;
+	font-weight: 700;
+}
+</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="plainText">
+       <string>QLabel#label_0 {
+	font-family: DejaVu Sans;
+	font-size: 14pt;
+	font-weight: 400;
+}</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPlainTextEdit" name="plainTextEdit_3">
+      <property name="plainText">
+       <string>QLabel#label_1 {
+	font-family: DejaVu Sans;
+	font-size: 14pt;
+	font-weight: 700;
+}</string>
+      </property>
+      <property name="tabStopDistance">
+       <double>40.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="4">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>label_7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>label_6</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
