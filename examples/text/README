@@ -1,0 +1,5 @@
+This configuration shows some different
+stylesheet text options for bold and
+regular text. The labels are given
+different styles by using the #label_name
+after QLabel.
