@@ -21,6 +21,7 @@ from libflexgui import qss_toolbar
 from libflexgui import qss_toolbutton
 from libflexgui import qss_spinbox
 from libflexgui import qss_label
+from libflexgui import qss_gradiant
 
 class main(QMainWindow):
 	def __init__(self):
@@ -46,6 +47,7 @@ class main(QMainWindow):
 		qss_toolbutton.startup(self)
 		qss_spinbox.startup(self)
 		qss_label.startup(self)
+		qss_gradiant.startup(self)
 		self.setup()
 		self.show()
 
