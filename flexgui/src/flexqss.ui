@@ -9048,6 +9048,854 @@ Border needs both width and color to show up</string>
         <string>Containers</string>
        </attribute>
       </widget>
+      <widget class="QWidget" name="tab_52">
+       <attribute name="title">
+        <string>Gradients</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_96">
+        <item row="1" column="1">
+         <widget class="QLabel" name="gr_lb">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="gr_apply">
+          <property name="text">
+           <string>Apply Gradiant</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QComboBox" name="gradiant_direction"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Colors</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_94">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="gr_first_color">
+             <property name="text">
+              <string>First Color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>gr_first_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>gr_first_sel_color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="gr_first_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="gr_second_color">
+             <property name="text">
+              <string>2nd Color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>gr_second_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>gr_second_sel_color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="gr_third_color">
+             <property name="text">
+              <string>3rd Color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>gr_third_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>gr_third_sel_color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="gr_fourth_color">
+             <property name="text">
+              <string>4th Color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>gr_fourth_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>gr_fourth_sel_color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="gr_second_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="gr_third_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="gr_fourth_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>Positions</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_95">
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_212">
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_213">
+             <property name="text">
+              <string>End</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_211">
+             <property name="text">
+              <string>First Color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="qr_stop_first_start">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QDoubleSpinBox" name="qr_stop_first_end">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_214">
+             <property name="text">
+              <string>2nd Color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QDoubleSpinBox" name="qr_stop_second_start">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QDoubleSpinBox" name="qr_stop_second_end">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_215">
+             <property name="text">
+              <string>3rd Color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QDoubleSpinBox" name="qr_stop_third_start">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QDoubleSpinBox" name="qr_stop_third_end">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_216">
+             <property name="text">
+              <string>4th Color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QDoubleSpinBox" name="qr_stop_fourth_start">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QDoubleSpinBox" name="qr_stop_fourth_end">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2" rowspan="2">
+         <widget class="QTabWidget" name="tabWidget_2">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab_53">
+           <attribute name="title">
+            <string>Stylesheet</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_14">
+            <item>
+             <widget class="QPlainTextEdit" name="gr_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tabWidget_2Page1" native="true">
+           <attribute name="title">
+            <string>Gradient Examples</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_93">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_187">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>0,0,1,0
+Left to Right</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_188">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: QLinearGradient( x1: 1, y1: 0, x2: 0, y2: 0,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>1,0,0,0
+Right to Left</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_197">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>0,0,0,1
+Top to Bottom</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_198">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>0,1,0,0
+Bottom to Top</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_199">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>0,1,1,0
+LL to UR</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="label_200">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>0,0,1,1
+UL to LR</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="label_201">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: QLinearGradient( x1: 1, y1: 0, x2: 0, y2: 1,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>1,0,0,1
+UR to LL</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="label_202">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,
+	stop: 0 green, stop: 0.5 yellow,stop: 1 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>1,1,0,0
+LR to UL</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_203">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+	stop:0 green, stop:0.5 yellow, stop:1 red)
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Fuzzy
+Right to Left</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="label_204">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+	stop:0 green, stop:0.4 yellow,  stop:0.7 yellow, stop:1 red)
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Wider
+Mid Color</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="label_205">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+		stop: 0 green, 
+		stop: 0.7 green,
+		stop: 0.71 yellow,
+		stop: 0.9 yellow,
+		stop: 1.0 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Solid
+First Color</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLabel" name="label_206">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+		stop: 0 green, 
+		stop: 0.7 green,
+		stop: 0.71 yellow,
+		stop: 0.9 yellow,
+		stop: 0.91 red,
+		stop: 1.0 red);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Solid Colors</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_207">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	border-style: solid;
+	border-left-color: red;
+	border-top-color: green;
+	border-right-color: blue;
+	border-bottom-color: yellow;
+	border-width: 10px;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Border
+Start/Stop
+No Radius</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="label_208">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	border-style: solid;
+	border-left-color: red;
+	border-top-color: green;
+	border-right-color: blue;
+	border-bottom-color: yellow;
+	border-width: 10px;
+	border-radius: 10px;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Border
+Start/Stop
+with Radius</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="label_209">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	color: qlineargradient(x1:0, y1:0, x2: 1, y2: 1, stop:0 #000000, stop:1 #404040);
+	background: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+	stop: 0 #404040, stop: 0.5 #bfbfbf, stop: 1 #ffffff);
+	border-style: inset;
+	border-top-color: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #404040, stop: 1 #ffffff );
+	border-bottom-color: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #000000, stop: 1 #ffffff );
+	border-left-color: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 #000000, stop: 1 #ffffff );
+	border-right-color: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 #404040, stop: 1 #ffffff );
+	border-width: 10px;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Border
+Gradient
+each Border</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLabel" name="label_210">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	border-style: inset;
+	border-width: 10px;
+	border-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+	stop: 0 #000000 stop: 1 #ffffff);
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Border
+Gradient
+for all</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
