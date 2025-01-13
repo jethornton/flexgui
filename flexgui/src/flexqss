@@ -219,7 +219,7 @@ class main(QMainWindow):
 		filter='QSS Files (*.qss)', options=options)
 		if file_path:
 			with open(file_path, "w") as f: # clear the file
-				f.write('/* Stylesheet created by Flexqss*/\n\n')
+				f.write('/* Stylesheet created by Flex QSS Creator */\n\n')
 
 			if self.pb_stylesheet.toPlainText() != '':
 				pb_style = self.pb_stylesheet.toPlainText()
@@ -240,16 +240,16 @@ class main(QMainWindow):
 					f.write(rb_style)
 
 			if self.tbar_stylesheet.toPlainText() != '':
-				rb_style = self.tbar_stylesheet.toPlainText()
+				tbar_style = self.tbar_stylesheet.toPlainText()
 				with open(file_path, "a") as f:
 					f.write('\n/* QToolBar Section */\n\n')
-					f.write(rb_style)
+					f.write(tbar_style)
 
 			if self.tb_stylesheet.toPlainText() != '':
-				rb_style = self.tb_stylesheet.toPlainText()
+				tb_style = self.tb_stylesheet.toPlainText()
 				with open(file_path, "a") as f:
 					f.write('\n/* QToolButton Section */\n\n')
-					f.write(rb_style)
+					f.write(tb_style)
 
 			if self.sb_stylesheet.toPlainText() != '':
 				sb_style = self.sb_stylesheet.toPlainText()
