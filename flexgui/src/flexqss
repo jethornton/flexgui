@@ -252,16 +252,34 @@ class main(QMainWindow):
 					f.write(rb_style)
 
 			if self.sb_stylesheet.toPlainText() != '':
-				lb_style = self.sb_stylesheet.toPlainText()
+				sb_style = self.sb_stylesheet.toPlainText()
 				with open(file_path, "a") as f:
 					f.write('\n/* QSpinBox Section */\n\n')
-					f.write(lb_style)
+					f.write(sb_style)
 
 			if self.lb_stylesheet.toPlainText() != '':
 				lb_style = self.lb_stylesheet.toPlainText()
 				with open(file_path, "a") as f:
 					f.write('\n/* QLabel Section */\n\n')
 					f.write(lb_style)
+
+			if self.mw_stylesheet.toPlainText() != '':
+				mw_style = self.mw_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QMainWindow Section */\n\n')
+					f.write(mw_style)
+
+			if self.fr_stylesheet.toPlainText() != '':
+				fr_style = self.fr_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QFrame Section */\n\n')
+					f.write(fr_style)
+
+			if self.gb_stylesheet.toPlainText() != '':
+				gb_style = self.gb_stylesheet.toPlainText()
+				with open(file_path, "a") as f:
+					f.write('\n/* QGroupBox Section */\n\n')
+					f.write(gb_style)
 
 
 app = QApplication(sys.argv)
