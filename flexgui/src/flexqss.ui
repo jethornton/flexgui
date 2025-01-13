@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="tab_51">
        <attribute name="title">
@@ -9047,6 +9047,470 @@ Border needs both width and color to show up</string>
        <attribute name="title">
         <string>Containers</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_98">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTabWidget" name="tabWidget_2">
+          <property name="minimumSize">
+           <size>
+            <width>455</width>
+            <height>287</height>
+           </size>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tabWidget_2Page1_2" native="true">
+           <attribute name="title">
+            <string>Main Window</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_99">
+            <item row="1" column="3" rowspan="4">
+             <widget class="QPlainTextEdit" name="mw_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="mw_clear_style">
+              <property name="text">
+               <string>Clear Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="QFrame" name="mw_frame">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_29">
+               <item>
+                <widget class="QLabel" name="label_217">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>18</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="mw_fg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QPushButton" name="mw_apply_style">
+              <property name="text">
+               <string>Apply Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="mw_fg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Text Color</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="qss" stdset="0">
+               <string>color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>mw_fg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>mw_fg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="mw_bg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="qss" stdset="0">
+               <string>background-color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>mw_bg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>mw_bg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="mw_bg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_54">
+           <attribute name="title">
+            <string>Frame</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_102">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="fr_fg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Text Color</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="qss" stdset="0">
+               <string>color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>fr_fg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>fr_fg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="fr_fg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="4">
+             <widget class="QPlainTextEdit" name="fr_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="fr_bg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="qss" stdset="0">
+               <string>background-color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>fr_bg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>fr_bg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="fr_bg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="fr_apply_style">
+              <property name="text">
+               <string>Apply Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="fr_clear_style">
+              <property name="text">
+               <string>Clear Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QFrame" name="fr_frame">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_30">
+               <item>
+                <widget class="QLabel" name="label_218">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>18</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_55">
+           <attribute name="title">
+            <string>Group Box</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_100">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="gb_fg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Text Color</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="qss" stdset="0">
+               <string>color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>gb_fg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>gb_fg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="gb_fg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="4">
+             <widget class="QPlainTextEdit" name="gb_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="gb_bg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="qss" stdset="0">
+               <string>background-color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>gb_bg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>gb_bg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="gb_bg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="gb_apply_style">
+              <property name="text">
+               <string>Apply Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="gb_clear_style">
+              <property name="text">
+               <string>Clear Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QGroupBox" name="gb_groupbox">
+              <property name="title">
+               <string>Group Box</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_31">
+               <item>
+                <widget class="QLabel" name="label_219">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>18</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_56">
+           <attribute name="title">
+            <string>Widget</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_52">
        <attribute name="title">
@@ -9375,7 +9839,7 @@ Border needs both width and color to show up</string>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="tabWidget_2Page1" native="true">
+          <widget class="QWidget" name="tabWidget_2Page1">
            <attribute name="title">
             <string>Gradient Examples</string>
            </attribute>
@@ -9892,6 +10356,53 @@ for all</string>
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QFrame" name="frame_6">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_97">
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="gr_radiobutton">
+             <property name="text">
+              <string>RadioButton</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="gr_pushbutton">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QProgressBar" name="gr_progressbar">
+             <property name="value">
+              <number>24</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="gr_checkbox">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="gr_label">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>

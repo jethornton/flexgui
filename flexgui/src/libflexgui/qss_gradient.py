@@ -49,7 +49,7 @@ def apply_style(parent):
 		x2 = parent.gradiant_direction.currentData()[2]
 		y2 = parent.gradiant_direction.currentData()[3]
 
-		style = 'QLabel {\n'
+		style = 'QWidget {\n'
 		style += '\tbackground: QLinearGradient(\n'
 		style += f'\tx1: {x1}, y1: {y1}, x2: {x2}, y2: {y2},\n'
 
@@ -86,6 +86,11 @@ def apply_style(parent):
 		parent.gr_stylesheet.clear()
 		parent.gr_stylesheet.setPlainText(style)
 		parent.gr_lb.setStyleSheet(style)
+		parent.gr_pushbutton.setStyleSheet(style)
+		parent.gr_radiobutton.setStyleSheet(style)
+		parent.gr_checkbox.setStyleSheet(style)
+		parent.gr_progressbar.setStyleSheet(style)
+		parent.gr_label.setStyleSheet(style)
 
 def index_changed(parent, index):
 	data = parent.gradiant_direction.itemData(index)
