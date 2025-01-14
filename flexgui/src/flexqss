@@ -73,7 +73,6 @@ class main(QMainWindow):
 
 	def setup(self):
 		self.launch_sample_pb.clicked.connect(self.launch_sample)
-		self.build_stylesheet_pb.clicked.connect(self.build_stylesheet)
 
 		# add box model image to all pages
 		for i in range(7):
