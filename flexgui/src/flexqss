@@ -24,9 +24,26 @@ from libflexgui import qss_label
 from libflexgui import qss_containers
 from libflexgui import qss_gradient
 
+class example(QMainWindow):
+	def __init__(self):
+		super().__init__()
+
+		# get the path to the executable
+		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+		# set the library path
+		if self.path == '/usr/bin':
+			self.gui_path = '/usr/lib/libflexgui'
+		else:
+			self.gui_path = self.path
+		uic.loadUi(os.path.join(self.gui_path, 'qss.ui'), self)
+
+
 class main(QMainWindow):
 	def __init__(self):
 		super().__init__()
+
+		self.example_gui = example()
 
 		# get the path to the executable
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -56,6 +73,7 @@ class main(QMainWindow):
 
 	def setup(self):
 		self.launch_sample_pb.clicked.connect(self.launch_sample)
+		self.build_stylesheet_pb.clicked.connect(self.build_stylesheet)
 
 		# add box model image to all pages
 		for i in range(7):
@@ -64,6 +82,9 @@ class main(QMainWindow):
 
 		# Menu Items
 		self.actionSave_As.triggered.connect(self.save)
+
+		# setup stylesheet
+		self.stylesheet = ''
 
 	def color_dialog(self):
 		obj = self.sender().objectName().split('_')[0]
@@ -215,78 +236,66 @@ class main(QMainWindow):
 			getattr(self, obj).setEnabled(True)
 
 	def launch_sample(self):
-		print('here')
+		self.build_stylesheet()
+		self.example_gui.setStyleSheet(self.stylesheet)
+		self.example_gui.show()
+
+	def build_stylesheet(self):
+		self.stylesheet = ''
+
+		if self.mw_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QMainWindow Section */\n\n'
+			self.stylesheet += self.mw_stylesheet.toPlainText()
+
+		if self.fr_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QFrame Section */\n\n'
+			self.stylesheet += self.fr_stylesheet.toPlainText()
+
+		if self.gb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QGroupBox Section */\n\n'
+			self.stylesheet += self.gb_stylesheet.toPlainText()
+
+		if self.pb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QPushButton Section */\n\n'
+			self.stylesheet += self.pb_stylesheet.toPlainText()
+
+		if self.cb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QCheckBox Section */\n\n'
+			self.stylesheet += self.cb_stylesheet.toPlainText()
+
+		if self.rb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QRadioButton Section */\n\n'
+			self.stylesheet += self.rb_stylesheet.toPlainText()
+
+		if self.tbar_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QToolBar Section */\n\n'
+			self.stylesheet += self.tbar_stylesheet.toPlainText()
+
+		if self.tb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QToolButton Section */\n\n'
+			self.stylesheet += self.tb_stylesheet.toPlainText()
+
+		if self.sb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QSpinBox Section */\n\n'
+			self.stylesheet += self.sb_stylesheet.toPlainText()
+
+		if self.lb_stylesheet.toPlainText() != '':
+			self.stylesheet += '\n/* QLabel Section */\n\n'
+			self.stylesheet += self.lb_stylesheet.toPlainText()
 
 	def save(self):
+		self.build_stylesheet()
 		file_dialog = QFileDialog()
 		options = QFileDialog.Option.DontUseNativeDialog
 		file_path, file_type = file_dialog.getSaveFileName(None,
 		caption='Save QSS As', directory=os.path.expanduser("~"),
 		filter='QSS Files (*.qss)', options=options)
-		if file_path:
+		if file_path and self.stylesheet != '':
 			with open(file_path, "w") as f: # clear the file
-				f.write('/* Stylesheet created by Flex QSS Creator */\n\n')
+				f.write('/* Stylesheet created by Flex QSS Creator */\n')
 
-			if self.pb_stylesheet.toPlainText() != '':
-				pb_style = self.pb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('/* QPushButton Section */\n\n')
-					f.write(pb_style)
-
-			if self.cb_stylesheet.toPlainText() != '':
-				cb_style = self.cb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QCheckBox Section */\n\n')
-					f.write(cb_style)
-
-			if self.rb_stylesheet.toPlainText() != '':
-				rb_style = self.rb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QRadioButton Section */\n\n')
-					f.write(rb_style)
-
-			if self.tbar_stylesheet.toPlainText() != '':
-				tbar_style = self.tbar_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QToolBar Section */\n\n')
-					f.write(tbar_style)
-
-			if self.tb_stylesheet.toPlainText() != '':
-				tb_style = self.tb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QToolButton Section */\n\n')
-					f.write(tb_style)
-
-			if self.sb_stylesheet.toPlainText() != '':
-				sb_style = self.sb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QSpinBox Section */\n\n')
-					f.write(sb_style)
-
-			if self.lb_stylesheet.toPlainText() != '':
-				lb_style = self.lb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QLabel Section */\n\n')
-					f.write(lb_style)
-
-			if self.mw_stylesheet.toPlainText() != '':
-				mw_style = self.mw_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QMainWindow Section */\n\n')
-					f.write(mw_style)
-
-			if self.fr_stylesheet.toPlainText() != '':
-				fr_style = self.fr_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QFrame Section */\n\n')
-					f.write(fr_style)
-
-			if self.gb_stylesheet.toPlainText() != '':
-				gb_style = self.gb_stylesheet.toPlainText()
-				with open(file_path, "a") as f:
-					f.write('\n/* QGroupBox Section */\n\n')
-					f.write(gb_style)
-
+			with open(file_path, "a") as f:
+				f.write(self.stylesheet)
 
 app = QApplication(sys.argv)
 gui = main()
