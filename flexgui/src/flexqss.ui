@@ -21,48 +21,13 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_51">
        <attribute name="title">
         <string>All</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_88">
-        <item row="5" column="0">
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="1" rowspan="6">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Instructions</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_28">
-           <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit_8">
-             <property name="plainText">
-              <string>Normal: Apply the color to all normal widgets that do not have a color set.
-
-Hover: Apply the color to all widgets when the mouse is hovering over
-
-Checked: Apply the color to all widgets when checked
-
-Disabled: Apply the color to all widgets when disabled</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="3" column="0">
          <widget class="QGroupBox" name="groupBox_32">
           <property name="title">
@@ -157,113 +122,6 @@ Disabled: Apply the color to all widgets when disabled</string>
              </property>
              <property name="var" stdset="0">
               <string>all_bg_color_sel_disabled</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QPushButton" name="all_apply_style">
-          <property name="text">
-           <string>Apply Color Style to All Objects</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="groupBox_44">
-          <property name="title">
-           <string>Hover</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_91">
-           <item row="0" column="1">
-            <widget class="QLabel" name="all_fg_color_hover_lb">
-             <property name="minimumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="all_bg_color_hover_lb">
-             <property name="minimumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="all_fg_color_hover">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Text Color</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-             <property name="qss" stdset="0">
-              <string>color</string>
-             </property>
-             <property name="label" stdset="0">
-              <string>all_fg_color_hover_lb</string>
-             </property>
-             <property name="var" stdset="0">
-              <string>all_fg_color_sel_hover</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="all_bg_color_hover">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Background Color</string>
-             </property>
-             <property name="qss" stdset="0">
-              <string>background-color</string>
-             </property>
-             <property name="label" stdset="0">
-              <string>all_bg_color_hover_lb</string>
-             </property>
-             <property name="var" stdset="0">
-              <string>all_bg_color_sel_hover</string>
              </property>
             </widget>
            </item>
@@ -370,6 +228,126 @@ Disabled: Apply the color to all widgets when disabled</string>
           </layout>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_44">
+          <property name="title">
+           <string>Hover</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_91">
+           <item row="0" column="1">
+            <widget class="QLabel" name="all_fg_color_hover_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="all_bg_color_hover_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="all_fg_color_hover">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Text Color</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="qss" stdset="0">
+              <string>color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>all_fg_color_hover_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>all_fg_color_sel_hover</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="all_bg_color_hover">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Background Color</string>
+             </property>
+             <property name="qss" stdset="0">
+              <string>background-color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>all_bg_color_hover_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>all_bg_color_sel_hover</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="all_apply_style">
+          <property name="text">
+           <string>Apply Color Style to All Objects</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item row="2" column="0">
          <widget class="QGroupBox" name="groupBox_46">
           <property name="title">
@@ -471,10 +449,52 @@ Disabled: Apply the color to all widgets when disabled</string>
          </widget>
         </item>
         <item row="6" column="0">
+         <widget class="QPushButton" name="launch_sample_pb">
+          <property name="text">
+           <string>Launch Sample GUI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
          <widget class="QPushButton" name="all_clear_style">
           <property name="text">
            <string>Clear all Styles</string>
           </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="1" rowspan="9">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Instructions</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_28">
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextEdit_8">
+             <property name="plainText">
+              <string>Normal: Apply the color to all normal widgets that do not have a color set.
+
+Hover: Apply the color to all widgets when the mouse is hovering over
+
+Checked: Apply the color to all widgets when checked
+
+Disabled: Apply the color to all widgets when disabled</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -9059,7 +9079,7 @@ Border needs both width and color to show up</string>
           <property name="currentIndex">
            <number>0</number>
           </property>
-          <widget class="QWidget" name="tabWidget_2Page1_2" native="true">
+          <widget class="QWidget" name="tabWidget_2Page1_2">
            <attribute name="title">
             <string>Main Window</string>
            </attribute>
