@@ -343,7 +343,9 @@ Hover: Apply the color to all widgets when the mouse is hovering over
 
 Checked: Apply the color to all widgets when checked
 
-Disabled: Apply the color to all widgets when disabled</string>
+Disabled: Apply the color to all widgets when disabled
+
+To change a color clear the color by selecting Text or Background color then cancel or press Clear all Styles</string>
              </property>
             </widget>
            </item>
