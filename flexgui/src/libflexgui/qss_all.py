@@ -407,3 +407,12 @@ def clear_stylesheet(parent):
 	qss_spinbox.clear_stylesheet(parent)
 	qss_label.clear_stylesheet(parent)
 
+	parent.all_fg_color_lb.setStyleSheet('')
+	parent.all_bg_color_lb.setStyleSheet('')
+	parent.all_fg_color_hover_lb.setStyleSheet('')
+	parent.all_bg_color_hover_lb.setStyleSheet('')
+	parent.all_fg_color_checked_lb.setStyleSheet('')
+	parent.all_bg_color_checked_lb.setStyleSheet('')
+	parent.all_fg_color_disabled_lb.setStyleSheet('')
+	parent.all_bg_color_disabled_lb.setStyleSheet('')
+
