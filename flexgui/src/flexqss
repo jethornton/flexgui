@@ -37,6 +37,7 @@ class main(QMainWindow):
 		else:
 			self.gui_path = self.path
 		uic.loadUi(os.path.join(self.gui_path, 'flexqss.ui'), self)
+		#uic.loadUi(os.path.join(self.gui_path, 'qss.ui'), self)
 
 		self.setGeometry(0, 0, 500, 500)
 		self.setWindowTitle('Flex QSS Creator')
@@ -54,7 +55,9 @@ class main(QMainWindow):
 		self.show()
 
 	def setup(self):
+		self.launch_sample_pb.clicked.connect(self.launch_sample)
 
+		# add box model image to all pages
 		for i in range(7):
 			getattr(self, f'boxmodel_lb_{i}').setPixmap(QPixmap(':/boxmodel.png'))
 		#self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
@@ -210,6 +213,9 @@ class main(QMainWindow):
 		else:
 			self.sender().setText('Disable')
 			getattr(self, obj).setEnabled(True)
+
+	def launch_sample(self):
+		print('here')
 
 	def save(self):
 		file_dialog = QFileDialog()
