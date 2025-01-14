@@ -114,7 +114,6 @@ def clear_fr_stylesheet(parent):
 	parent.fr_frame.setStyleSheet('')
 	parent.fr_stylesheet.clear()
 
-
 ######### QGroupBox Stylesheet #########
 
 def create_gb_stylesheet(parent):
