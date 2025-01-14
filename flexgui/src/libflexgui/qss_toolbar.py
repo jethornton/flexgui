@@ -14,8 +14,8 @@ def startup(parent):
 	# variables to build sections in the stylesheet
 	parent.build_toolbar = False
 
-	parent.toolbar_bg_color = False
-	parent.toolbar_border_color = False
+	parent.toolbar_bg_sel_color = False
+	parent.toolbar_border_sel_color = False
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
@@ -43,8 +43,8 @@ def tbar_create_stylesheet(parent):
 		style = 'QToolBar {\n'
 
 		# background color and spacing
-		if parent.toolbar_bg_color:
-			style += f'\tbackground: {parent.toolbar_bg_color};\n'
+		if parent.toolbar_bg_sel_color:
+			style += f'\tbackground: {parent.toolbar_bg_sel_color};\n'
 		if parent.toolbar_spacing.value() > 0:
 			style += f'\tspacing: {parent.toolbar_spacing.value()}px;\n'
 
@@ -53,7 +53,7 @@ def tbar_create_stylesheet(parent):
 		if border_type != 'none':
 			style += f'\tborder-style: {border_type};\n'
 			if parent.tbar_border_color_normal:
-				style += f'\tborder-color: {parent.toolbar_border_color};\n'
+				style += f'\tborder-color: {parent.toolbar_border_sel_color};\n'
 			if parent.tbar_border_width.value() > 0:
 				style += f'\tborder-width: {parent.tbar_border_width.value()}px;\n'
 			if parent.tbar_border_radius.value() > 0:
