@@ -4,17 +4,37 @@ from PyQt6.QtWidgets import QVBoxLayout, QMenuBar, QStatusBar
 
 def startup(parent):
 
+	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+		'ridge', 'inset', 'outset']
+
 ######### QMainWindow Setup #########
 	parent.mw_normal = False
+	parent.mw_border_color_sel_normal = False
 
 	parent.mw_fg_color_normal.clicked.connect(parent.color_dialog)
 	parent.mw_bg_color_normal.clicked.connect(parent.color_dialog)
+	parent.mw_border_color_normal.clicked.connect(parent.color_dialog)
 
 	parent.mw_fg_color_sel = False
 	parent.mw_bg_color_sel = False
 
 	parent.mw_apply_style.clicked.connect(partial(create_mw_stylesheet, parent))
 	parent.mw_clear_style.clicked.connect(partial(clear_mw_stylesheet, parent))
+
+	parent.mw_border_type_normal.addItems(border_types)
+
+	parent.mw_padding_normal.valueChanged.connect(parent.padding)
+	parent.mw_padding_left_normal.valueChanged.connect(parent.padding)
+	parent.mw_padding_right_normal.valueChanged.connect(parent.padding)
+	parent.mw_padding_top_normal.valueChanged.connect(parent.padding)
+	parent.mw_padding_bottom_normal.valueChanged.connect(parent.padding)
+
+	parent.mw_margin_normal.valueChanged.connect(parent.margin)
+	parent.mw_margin_left_normal.valueChanged.connect(parent.margin)
+	parent.mw_margin_right_normal.valueChanged.connect(parent.margin)
+	parent.mw_margin_top_normal.valueChanged.connect(parent.margin)
+	parent.mw_margin_bottom_normal.valueChanged.connect(parent.margin)
+
 
 ######### QFrame Setup #########
 	parent.fr_normal = False
@@ -46,7 +66,7 @@ def startup(parent):
 def create_mw_stylesheet(parent):
 	style = False
 	style_print = 'QMainWindow'
-	style_apply = 'QFrame'
+	style_apply = 'QLable'
 
 	# QMainWindow normal pseudo-state
 	if parent.mw_normal:
@@ -57,6 +77,41 @@ def create_mw_stylesheet(parent):
 			style += f'\tcolor: {parent.mw_fg_color_sel};\n'
 		if parent.mw_bg_color_sel:
 			style += f'\tbackground-color: {parent.mw_bg_color_sel};\n'
+
+		# border
+		border_type_normal = parent.mw_border_type_normal.currentText()
+		if border_type_normal != 'none':
+			style += f'\tborder-style: {border_type_normal};\n'
+		if parent.mw_border_color_sel_normal:
+			style += f'\tborder-color: {parent.mw_border_color_sel_normal};\n'
+		if parent.mw_border_width_normal.value() > 0:
+			style += f'\tborder-width: {parent.mw_border_width_normal.value()}px;\n'
+		if parent.mw_border_radius_normal.value() > 0:
+			style += f'\tborder-radius: {parent.mw_border_radius_normal.value()}px;\n'
+
+		# padding
+		if parent.mw_padding_normal.value() > 0:
+			style += f'\tpadding: {parent.mw_padding_normal.value()};\n'
+		if parent.mw_padding_left_normal.value() > 0:
+			style += f'\tpadding-left: {parent.mw_padding_left_normal.value()};\n'
+		if parent.mw_padding_right_normal.value() > 0:
+			style += f'\tpadding-right: {parent.mw_padding_right_normal.value()};\n'
+		if parent.mw_padding_top_normal.value() > 0:
+			style += f'\tpadding-top: {parent.mw_padding_top_normal.value()};\n'
+		if parent.mw_padding_bottom_normal.value() > 0:
+			style += f'\tpadding-bottom: {parent.mw_padding_bottom_normal.value()};\n'
+
+		# margin
+		if parent.mw_margin_normal.value() > 0:
+			style += f'\tmargin: {parent.mw_margin_normal.value()};\n'
+		if parent.mw_margin_left_normal.value() > 0:
+			style += f'\tmargin-left: {parent.mw_margin_left_normal.value()};\n'
+		if parent.mw_margin_right_normal.value() > 0:
+			style += f'\tmargin-right: {parent.mw_margin_right_normal.value()};\n'
+		if parent.mw_margin_top_normal.value() > 0:
+			style += f'\tmargin-top: {parent.mw_margin_top_normal.value()};\n'
+		if parent.mw_margin_bottom_normal.value() > 0:
+			style += f'\tmargin-bottom: {parent.mw_margin_bottom_normal.value()};\n'
 
 		style += '}' # End of QMainWindow normal pseudo-state
 
