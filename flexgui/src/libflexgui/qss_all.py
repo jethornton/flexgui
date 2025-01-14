@@ -69,7 +69,7 @@ def all_create_stylesheet(parent):
 			parent.rb_fg_color_sel_normal = color
 
 		# QToolBar
-		if not parent.toolbar_bg_color:
+		if not parent.toolbar_bg_sel_color:
 			parent.tbar_normal = True
 			label = parent.tbar_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
