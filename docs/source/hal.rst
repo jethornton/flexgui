@@ -121,7 +121,7 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
 	Property Name, Pin Value
 	function, hal_pin
 	pin_name, any unique name
-	hal_type, HAL_S32
+	hal_type, HAL_U32
 	hal_dir, HAL_IN
 	text_n, text to display when value is equal to n
 
