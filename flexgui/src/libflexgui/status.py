@@ -291,6 +291,13 @@ def update(parent):
 		else:
 			getattr(parent, key).setText(f'{state}')
 
+	# update multi state labels
+	# key is label name and value[0] is the pin name
+	for key, value in parent.hal_ms_labels.items():
+		state = hal.get_value(f'flexhal.{value[0]}')
+		if state < len(value[1]):
+			getattr(parent, key).setText(f'{value[1][state]}')
+
 	# update hal bool labels
 	# key is label name
 	# value[0] is pin name
