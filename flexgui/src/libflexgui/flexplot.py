@@ -1062,6 +1062,11 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 	def presetViewSettings(self,v,z,x,y,lat=None,lon=None):
 		#print('Preset:',v,z,x,y,lat,lon)
+		# initialize variables for user view
+		#self.presetViewSettings(v=None,z=0,
+		#	x=0,y=0,lat=None,lon=None)
+		# allow anyone else to preset user view with better settings
+		#self._presetFlag = False
 
 		self._recordedView = v
 		self._recordedDist = z
