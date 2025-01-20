@@ -1383,6 +1383,7 @@ def setup_watch_var(parent):
 
 def setup_hal(parent):
 	hal_labels = []
+	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
 	hal_spinboxes = []
 	hal_sliders = []
@@ -1391,6 +1392,7 @@ def setup_hal(parent):
 	hal_progressbar = []
 	parent.hal_io = {}
 	parent.hal_readers = {}
+	parent.hal_ms_labels = {}
 	parent.hal_bool_labels = {}
 	parent.hal_progressbars = {}
 	parent.hal_floats = {}
@@ -1443,6 +1445,10 @@ def setup_hal(parent):
 		elif child.property('function') == 'hal_led':
 			if isinstance(child, QLabel):
 				hal_leds.append(child)
+		elif child.property('function') == 'hal_msl':
+			if isinstance(child, QLabel):
+				hal_ms_labels.append(child)
+
 
 	if len(hal_lcds) > 0: # setup hal labels
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
@@ -1560,6 +1566,62 @@ def setup_hal(parent):
 				else:
 					parent.hal_readers[label_name] = pin_name
 
+	if len(hal_ms_labels) > 0: # setup hal multi state labels
+		for item in hal_ms_labels:
+			msl_name = item.objectName()
+			pin_name = item.property('pin_name')
+			if pin_name in dir(parent):
+				msg = (f'HAL Multi-State Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				continue
+
+			hal_type = item.property('hal_type')
+			if hal_type != 'HAL_U32':
+				item.setEnabled(False)
+				msg = (f'{hal_type} is not valid for a HAL Multi-State Label\n'
+				', only HAL_U32 can be used.\n'
+				f'The {msl_name} label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			hal_dir = item.property('hal_dir')
+			if hal_dir != 'HAL_IN':
+				item.setEnabled(False)
+				msg = (f'{hal_dir} is not a valid\n'
+				'hal_dir for a HAL Multi-State Lable,\n'
+				'only HAL_IN can be used for hal_dir.\n'
+				f'The {msl_name} Label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			if msl_name == pin_name:
+				item.setEnabled(False)
+				msg = (f'The object name {msl_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					'and the label will be disabled.')
+				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				continue
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				pin = getattr(parent, f'{pin_name}')
+				text = ''
+				text_list = []
+				i = 0
+				while text is not None:
+					text = item.property(f'text_{i}')
+					if text is not None:
+						text_list.append(text)
+					i += 1
+				parent.hal_ms_labels[msl_name] = [pin_name, text_list]
+
 	if len(hal_progressbar) > 0: # setup hal progressbar
 		valid_types = ['HAL_S32', 'HAL_U32']
 		for item in hal_progressbar:
@@ -1594,7 +1656,7 @@ def setup_hal(parent):
 
 			if progressbar_name == pin_name:
 				item.setEnabled(False)
-				msg = (f'The object name {label_name}\n'
+				msg = (f'The object name {progressbar_name}\n'
 					'can not be the same as the\n'
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
@@ -1933,6 +1995,10 @@ def setup_plot(parent):
 					parent.settings.endGroup()
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
+
+		#def setView(self,v,z,x,y,lat=None,lon=None):
+		#parent.plotter.setView('x', 0.0, 1.0, 0.0, None, None)
+
 
 		parent.plotter.update()
 

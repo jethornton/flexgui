@@ -90,7 +90,7 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 Bool Label
 ----------
 
-A Qlabel of hal_type HAL_BIT can have True and False text by adding two
+A QLabel of hal_type HAL_BIT can have True and False text by adding two
 additional Dynamic Properties. See :doc:`property`
 
 .. csv-table:: HAL Bool Label
@@ -107,6 +107,25 @@ additional Dynamic Properties. See :doc:`property`
 
 .. image:: /images/hal-bool-label-01.png
    :align: center
+
+Multi-State Label
+-----------------
+
+A QLabel of hal_type HAL_U32 can have multiple text by adding as many Dynamic
+Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
+
+.. csv-table:: HAL Multi-State Label
+   :width: 100%
+   :align: center
+
+	Property Name, Pin Value
+	function, hal_pin
+	pin_name, any unique name
+	hal_type, HAL_S32
+	hal_dir, HAL_IN
+	text_n, text to display when value is equal to n
+
+.. note:: The text values must start at 0 and be sequencial.
 
 LCD
 -----
