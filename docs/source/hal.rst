@@ -119,13 +119,16 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
    :align: center
 
 	Property Name, Pin Value
-	function, hal_pin
+	function, hal_msl
 	pin_name, any unique name
 	hal_type, HAL_U32
 	hal_dir, HAL_IN
 	text_n, text to display when value is equal to n
 
 .. note:: The text values must start at 0 and be sequencial.
+
+.. image:: /images/hal-msl.png
+   :align: center
 
 LCD
 -----
