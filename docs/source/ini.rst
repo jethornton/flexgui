@@ -151,6 +151,12 @@ select the RGB values.
 	[FLEX]
 	PLOT_BACKGROUND_COLOR = 0.0,0.0,0.0
 
+The plotter orientation can be set to one of the following x, x2, y, y2, z, or p.
+::
+
+	[DISPLAY]
+	VIEW = x
+
 Colors
 ------
 
