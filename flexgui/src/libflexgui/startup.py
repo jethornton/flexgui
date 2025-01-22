@@ -216,7 +216,7 @@ def setup_enables(parent):
 	# run controls used to enable/disable when not running a program
 	run_items = ['open_pb', 'run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
 	'reload_pb', 'actionOpen', 'menuRecent', 'actionReload', 'actionRun',
-	'actionRun_From_Line', 'actionStep', 'tool_change_pb', 'flood_pb', 'mist_pb']
+	'actionRun_From_Line', 'actionStep', 'tool_change_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
 	for item in AXES:
@@ -258,7 +258,6 @@ def setup_enables(parent):
 			'spindle_fwd_pb': False, 'spindle_rev_pb': False,
 			'spindle_stop_pb': False, 'spindle_plus_pb': False,
 			'spindle_minus_pb': False, 'tool_change_pb': False,
-			'flood_pb': False, 'mist_pb': False
 			}
 
 	for i in range(9):
@@ -289,8 +288,7 @@ def setup_enables(parent):
 		'home_all_pb': False, 'unhome_all_pb': False,
 		'actionRun': False, 'actionRun_From_Line': False,
 		'actionStep': True, 'actionPause': False,
-		'actionResume': True, 'flood_pb': True,
-		'mist_pb': True
+		'actionResume': True
 		}
 
 	for i in range(9):
