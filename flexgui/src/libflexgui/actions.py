@@ -76,7 +76,7 @@ def load_file(parent, gcode_file):
 def file_selector(parent): # touch screen file selector
 	item = parent.file_lw.currentItem().text()
 
-	if item == 'Parent Directory': # move up one directory
+	if item == 'Open Parent Directory': # move up one directory
 		parent.nc_code_dir = os.path.abspath(os.path.join(parent.nc_code_dir, os.pardir))
 		utilities.read_dir(parent)
 	elif item.endswith('...'): # a subdirectory
