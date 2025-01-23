@@ -179,7 +179,8 @@ def read_dir(parent):
 		parent.file_lw.clear()
 		parent.file_lw.addItem('Parent Directory')
 		parent.file_lw.addItems(file_list)
-		parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
+		if parent.touch_file_width:
+			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
 
 def sync_checkboxes(parent, sender, receiver):
 	parent.settings.setValue(f'PLOT/{sender}',getattr(parent, sender).isChecked())

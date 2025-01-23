@@ -76,5 +76,10 @@ def read(parent):
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
 
+	parent.touch_file_width = parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH') or False
+	if parent.touch_file_width in ['True', 'true', '1']:
+		parent.touch_file_width = True
+	else:
+		parent.touch_file_width = False
 
 
