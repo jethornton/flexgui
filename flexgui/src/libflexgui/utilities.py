@@ -226,6 +226,8 @@ def update_hal_spinbox(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 def update_hal_slider(parent, value):
+	if parent.sender().property('hal_type') == "HAL_FLOAT":
+		value /= 100
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
 def help(parent):
