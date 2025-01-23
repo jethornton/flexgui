@@ -1621,7 +1621,7 @@ def setup_hal(parent):
 				parent.hal_ms_labels[msl_name] = [pin_name, text_list]
 
 	if len(hal_progressbar) > 0: # setup hal progressbar
-		valid_types = ['HAL_S32', 'HAL_U32']
+		valid_types = ['HAL_S32', 'HAL_U32', 'HAL_FLOAT']
 		for item in hal_progressbar:
 			progressbar_name = item.objectName()
 			pin_name = item.property('pin_name')
