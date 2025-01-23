@@ -25,6 +25,18 @@ with its `filename`:
 Themes
 ------
 
+Themes are just style sheets that get applied to the widgets. The theme files
+are in the themes directory of the example files if you want to copy and
+customize one of the themes.
+::
+
+	blue.qss
+	blue-touch.qss
+	dark.qss
+	dark-touch.qss
+	keyboard.qss
+	touch.qss
+
 To use a built-in theme with no color changes choose one of the
 following
 ::
@@ -43,12 +55,15 @@ To use a built in theme with coloring choose one of the following
 .. note:: Touch themes use tabs set to South for rounding and non touch use tabs
    set to North.
 
+.. note:: THEME is checked first then QSS so the first entry found is used.
+
 To use a custom .qss style sheet you created named `lightflex.qss`
 ::
 
 	QSS = lightflex.qss
 
-.. note:: THEME is checked first then QSS so the first entry found is used.
+For more information on style sheets see :doc:`style`
+
 
 Startup File
 ------------
@@ -176,3 +191,15 @@ specification; it's suggested to use RGB or Hex colors:
 
 Another way to achieve this is is via adding and editing a .qss stylesheet
 file. See the :doc:`style` section for more info.
+
+Touch Screens
+-------------
+
+Options for touch screen users.
+
+Set the touch screen file chooser to automaticly adjust the width by adding the
+following to the FLEX section.
+::
+
+	[FLEX]
+	TOUCH_FILE_WIDTH = True
