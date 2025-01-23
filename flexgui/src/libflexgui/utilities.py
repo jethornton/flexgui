@@ -164,7 +164,8 @@ def update_qcode_pte(parent):
 		selected_block = cursor.blockNumber() # get current block number
 		parent.start_line_lb.setText(f'{selected_block}')
 
-def read_dir(parent):
+def read_dir(parent): # touch screen file navigator
+	print(parent.nc_code_dir)
 	if os.path.isdir(parent.nc_code_dir):
 		file_list = []
 		# get directories
@@ -177,7 +178,8 @@ def read_dir(parent):
 			if os.path.splitext(item)[1].lower() in parent.extensions:
 				file_list.append(item)
 		parent.file_lw.clear()
-		parent.file_lw.addItem('Parent Directory')
+		parent.file_lw.addItem(parent.nc_code_dir)
+		parent.file_lw.addItem('Open Parent Directory')
 		parent.file_lw.addItems(file_list)
 		if parent.touch_file_width:
 			parent.file_lw.setMinimumWidth(parent.file_lw.sizeHintForColumn(0)+60)
