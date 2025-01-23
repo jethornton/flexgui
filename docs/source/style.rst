@@ -2,8 +2,13 @@ StyleSheet
 ==========
 
 You can use your own .qss style sheet by creating a valid .qss file in the
-configuration directory and setting it in the :doc:`ini`. Note that once you do
-this, any INPUT and THEME keys in the .ini will be ignored.
+configuration directory and setting it in the :doc:`ini`.
+::
+
+	[DISPLAY]
+	QSS = name_of_file.qss
+
+.. Note:: If a THEME is found in the ini file the QSS entry is ignored
 
 The Qt `Style Sheets Reference <https://doc.qt.io/qt-6/stylesheet-reference.html>`_
 and the `Style Sheet Syntax <https://doc.qt.io/qt-6/stylesheet-syntax.html>`_
@@ -21,11 +26,14 @@ are good references to use when creating your own stylesheets.
 Colors
 ------
 
-Most colors can be specified using either the RGB or RGBA color model. RGB is
-Red, Green, Blue and A means Alpha or transparency.
+Most colors can be specified using Hex, RGB or RGBA color model. RGB is
+Red, Green, Blue and A means Alpha or transparency. The alpha parameter is a
+number between 0.0 (fully transparent) and 1.0 (not transparent at all). Hex is
+red, green blue in hexidecimal number pairs from 00 to ff.
 
 .. code-block:: css
 
+	#0000ff
 	rgb(0, 0, 255) Blue
 	rgba(0, 0, 255, 25%) Light Blue
 
