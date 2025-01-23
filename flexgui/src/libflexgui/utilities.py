@@ -165,7 +165,6 @@ def update_qcode_pte(parent):
 		parent.start_line_lb.setText(f'{selected_block}')
 
 def read_dir(parent): # touch screen file navigator
-	print(parent.nc_code_dir)
 	if os.path.isdir(parent.nc_code_dir):
 		file_list = []
 		# get directories
