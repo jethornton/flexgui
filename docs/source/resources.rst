@@ -67,7 +67,7 @@ Next Build Resources File
 The Flex Resourse Builder can be closed now. In the configuration directory you
 will have a resources.py file that contains the images used by the stylesheet.
 
-Next edit the ini file and in the [FLEX] section add the following line
+Next edit the ini file and in the [DISPLAY] section add the following line
 ::
 
 	RESOURCES = resources.py
