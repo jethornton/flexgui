@@ -64,6 +64,8 @@ class flexqrc(QMainWindow):
 			self.rcc_version_lb.setText('rcc was not found')
 			self.rcc = False
 
+		self.config_directory = False
+
 		self.show()
 
 	def get_images_dir(self):
@@ -89,6 +91,9 @@ class flexqrc(QMainWindow):
 					self.files.append(file)
 				self.build_qrc_pb.setEnabled(True)
 				self.get_images_lb.setText(f'{len(files)} images selected')
+				self.build_qrc_lb.clear()
+				self.build_resources_lb.clear()
+				self.build_resources_pb.setEnabled(False)
 
 	def build_qrc(self):
 		self.qrc_file = os.path.join(self.images_directory, 'resources.qrc')
@@ -104,6 +109,9 @@ class flexqrc(QMainWindow):
 		self.build_qrc_lb.setText('Build QRC Done')
 		if self.rcc:
 			self.get_config_dir_pb.setEnabled(True)
+		if self.config_directory:
+			if self.rcc:
+				self.build_resources_pb.setEnabled(True)
 
 	def get_config_dir(self):
 		if os.path.isdir(os.path.expanduser('~/linuxcnc/configs')):
