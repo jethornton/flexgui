@@ -1665,6 +1665,9 @@ def setup_hal(parent):
 			if None not in [pin_name, hal_type, hal_dir]:
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
+				if hal_type == 2:
+					item.setMinimum(item.minimum() * 100)
+					item.setMaximum(item.maximum() * 100)
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				pin = getattr(parent, f'{pin_name}')
 				parent.hal_progressbars[progressbar_name] = pin_name
@@ -1811,7 +1814,7 @@ def setup_hal(parent):
 					parent.state_on[spinbox_name] = True
 
 	if len(hal_sliders) > 0: # setup hal sliders
-		valid_types = ['HAL_S32', 'HAL_U32']
+		valid_types = ['HAL_S32', 'HAL_U32', 'HAL_FLOAT']
 		for slider in hal_sliders:
 			slider_name = slider.objectName()
 			pin_name = slider.property('pin_name')
@@ -1861,6 +1864,9 @@ def setup_hal(parent):
 				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
 				# set the default value of the spin box to the hal pin
 				setattr(parent.halcomp, pin_name, slider.value())
+				if hal_type == 2:
+					slider.setMinimum(slider.minimum() * 100)
+					slider.setMaximum(slider.maximum() * 100)
 				slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
 				parent.state_estop[slider_name] = False
 				parent.state_estop_reset[slider_name] = False
