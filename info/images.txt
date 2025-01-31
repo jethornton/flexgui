@@ -1,0 +1,9 @@
+open in gimp
+Layer → Tranparency → Add Alpha Channel
+
+
+image > crop to content
+layer > transparency > add alpha channel
+image > scale 120
+image > canvas size 128x128 > center > resize
+bucket fill > erase outer

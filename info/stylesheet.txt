@@ -1,0 +1,46 @@
+background-clip
+controls the area where the background is drawn. It specifies the rectangle to
+which the background-color and background-image are clipped.
+
+	border-box: The background is drawn within the entire border area of the widget (default).
+	padding-box: The background is drawn within the padding area, excluding the border.
+	content-box: The background is drawn within the content area, excluding the padding and border.
+
+background-repeat
+
+	repeat: This is the default value, which repeats the image in both directions.
+	repeat-x: This repeats the image only horizontally along the x-axis.
+	repeat-y: This repeats the image only vertically along the y-axis.
+	no-repeat: This prevents the image from repeating at all, displaying it only
+	once in the top-left corner.
+
+background-origin
+
+	content
+	padding
+	border
+	margin
+
+background-position
+
+top, bottom, left, right, and center
+top right, bottom left
+
+percentages or pixel values to specify the exact position
+background-position: bottom right;
+background-position: 50% 50%;
+background-position: 20px 30px;
+
+solid: A solid line
+dashed: A dashed line
+dotted: A dotted line
+double: A double line
+groove: A 3D grooved border
+ridge: A 3D ridged border
+inset: A 3D inset border
+outset: A 3D outset border
+none: No border
+
+margin Equivalent to specifying margin-top, margin-right, margin-bottom, margin-left
+
+
