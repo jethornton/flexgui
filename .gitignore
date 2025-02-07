@@ -1,4 +1,6 @@
-docs/build
+docs_flex/build
+docs_qss/build
+docs_resources/build
 debian/.debhelper
 debian/files
 debian/flexgui
