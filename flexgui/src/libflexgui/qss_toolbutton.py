@@ -79,13 +79,13 @@ def create_stylesheet(parent):
 
 		# size
 		if parent.tb_min_width_normal.value() > 0:
-			style += f'\tmin-width: {parent.tb_min_width_normal.value()};\n'
+			style += f'\tmin-width: {parent.tb_min_width_normal.value()}px;\n'
 		if parent.tb_min_height_normal.value() > 0:
-			style += f'\tmin-height: {parent.tb_min_height_normal.value()};\n'
+			style += f'\tmin-height: {parent.tb_min_height_normal.value()}px;\n'
 		if parent.tb_max_width_normal.value() > 0:
-			style += f'\tmax-width: {parent.tb_max_width_normal.value()};\n'
+			style += f'\tmax-width: {parent.tb_max_width_normal.value()}px;\n'
 		if parent.tb_max_height_normal.value() > 0:
-			style += f'\tmax-height: {parent.tb_max_height_normal.value()};\n'
+			style += f'\tmax-height: {parent.tb_max_height_normal.value()}px;\n'
 
 		# border
 		border_type_normal = parent.tb_border_type_normal.currentText()
