@@ -14,7 +14,7 @@ Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 * Probing with safety for spindle and run controls and MDI controls
 
 One of the example configurations
-<img src='./images/touch-probe-3.png'>
+<img src='./images/touch-probe3.png'>
 
 
 [Documents](https://gnipsel.com/linuxcnc/flexgui/index.html)
