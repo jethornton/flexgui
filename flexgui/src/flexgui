@@ -184,9 +184,9 @@ class flexgui(QMainWindow):
 		startup.setup_mdi_buttons(self)
 		startup.setup_set_var(self)
 		startup.setup_watch_var(self)
+		startup.setup_tools(self)
 		startup.setup_hal(self)
 		startup.setup_touchoff(self)
-		startup.setup_tools(self)
 		startup.setup_sliders(self)
 		startup.setup_overrides(self)
 		startup.setup_defaults(self)
@@ -222,6 +222,7 @@ class flexgui(QMainWindow):
 		# test timer
 		self.one_second_timer = QTimer(self)
 		self.one_second_timer.start(1000) # milliseconds
+
 
 		# set the inital screen size
 		if screen_size:
