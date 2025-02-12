@@ -1,4 +1,4 @@
-import os
+import os, threading
 
 from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton
 
@@ -218,21 +218,21 @@ def tool_change(parent):
 	tools = [0]
 	for i in range(1, tool_len):
 		tools.append(parent.status.tool_table[i][0])
-	tool_number = parent.sender().objectName().split('_')[-1]
-	if tool_number.isdigit(): # tool button used
-		tool_number = int(tool_number)
+	parent.new_tool_number = parent.sender().objectName().split('_')[-1]
+	if parent.new_tool_number.isdigit(): # tool button used
+		parent.new_tool_number = int(parent.new_tool_number)
 		if 'tool_change_cb' in parent.children:
-			if tool_number in tools:
-				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(tool_number))
-	else:
-		tool_number = parent.tool_change_cb.currentData()
-	if tool_number not in tools:
-		msg = (f'Tool {tool_number} is not in the Tool Table.')
+			if parent.new_tool_number in tools:
+				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
+	else: # using tool change cb
+		parent.new_tool_number = parent.tool_change_cb.currentData()
+	if parent.new_tool_number not in tools:
+		msg = (f'Tool {parent.new_tool_number} is not in the Tool Table.')
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 		return
 
-	if tool_number != parent.status.tool_in_spindle:
-		mdi_command = f'M6 T{tool_number}'
+	if parent.new_tool_number != parent.status.tool_in_spindle:
+		mdi_command = f'M6 T{parent.new_tool_number}'
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
 				parent.command.mode(emc.MODE_MDI)
@@ -240,15 +240,33 @@ def tool_change(parent):
 			parent.command.mdi(mdi_command)
 			if 'tool_changed_pb' in parent.children:
 				parent.tool_changed_pb.setEnabled(True)
-				parent.tool_changed_pb.setText('Tool Done')
+				parent.tool_changed_pb.setText('Press when Done')
+				#tool_timer = threading.Timer(0.1, tool_check, args=[parent])
+				#tool_timer.start()
 
 	else:
-		msg = (f'Tool {tool_number} is already in the Spindle.')
+		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
 
 def tool_changed(parent):
-	parent.tool_changed_pb.setEnabled(False)
-	parent.tool_changed_pb.setText('Changed')
+	count = 0
+	parent.status.poll()
+	print(parent.new_tool_number)
+	print(parent.status.tool_in_spindle)
+
+	def tool_check(parent):
+		#parent.tool_changed_pb.setChecked(True)
+		parent.status.poll()
+		if parent.new_tool_number == parent.status.tool_in_spindle:
+			parent.tool_changed_pb.setEnabled(False)
+			parent.tool_changed_pb.setChecked(False)
+			parent.tool_changed_pb.setText('Tool Changed')
+		else:
+			tool_timer = threading.Timer(0.1, tool_check, args=[parent])
+			tool_timer.start()
+
+	tool_timer = threading.Timer(0.1, tool_check, args=[parent])
+	tool_timer.start()
 
 def touchoff(parent):
 	if 'touchoff_system_cb' in parent.children:
