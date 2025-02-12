@@ -16,5 +16,6 @@ Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 One of the example configurations
 <img src='./images/touch-probe3.png'>
 
+[Flex GUI Documents](https://gnipsel.com/linuxcnc/flexgui/index.html)
 
-[Documents](https://gnipsel.com/linuxcnc/flexgui/index.html)
+[Flex QSS Builder Documents](https://gnipsel.com/linuxcnc/flexqss/index.html)

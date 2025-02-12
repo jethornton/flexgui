@@ -15,14 +15,36 @@ For more information on the Box Model see the
    In that case, all four rectangles (margin, border, padding, and content)
    coincide exactly.
 
+
+States
+------
+
+The normal state is where you can set the Size, Font, Padding and Margin. In all
+states normal, pressed, hover, disabled and checked you can set colors and
+borders.
+
 Size
 ----
 
 The size of the button can be set using the Min Width and Min Height. The Max
-Width and Max Height can limit the size but clipping can occur. The size
-increments are in pixels.
+Width and Max Height can limit the size but clipping of the contents can occur.
+The size increments are in pixels.
 
 .. image:: /images/button-02.png
+   :align: center
+
+Font
+----
+
+The Font Picker can be limited to only show certain types of fonts like
+Monospaced Fonts etc.
+
+.. image:: /images/button-03.png
+   :align: center
+
+After selecting the font click on Apply Style to show the result.
+
+.. image:: /images/button-04.png
    :align: center
 
 
