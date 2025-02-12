@@ -105,16 +105,9 @@ QPushButton:pressed {
 	border-style: inset;
 }
 
-QPushButton#pushButton {
-	min-height: 30px;
-	min-width: 30px;
-	background-image: url(":left_arrow_30.png");
-	background-position: center;
-	background-origin: content;
-	background-clip: padding;
-	background-repeat: no-repeat;
+QPushButton:checked {
+	border-style: inset;
 }
-
 
 QPushButton:disabled {
 	color: #808080;
