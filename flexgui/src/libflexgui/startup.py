@@ -1255,7 +1255,8 @@ def setup_tools(parent):
 
 	# manual tool change
 	if 'tool_changed_pb' in parent.children:
-		parent.tool_changed_pb.setEnabled(False)
+		#parent.tool_changed_pb.setEnabled(False)
+		parent.tool_changed_pb.setCheckable(True)
 		parent.tool_changed_pb.setText('No Tool')
 		parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
 
