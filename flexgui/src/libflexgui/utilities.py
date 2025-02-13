@@ -34,7 +34,7 @@ def convert_string_to_number(string):
 		number = int(string)
 		return number
 	except ValueError:
-		pass
+		return False
 
 	try:
 		number = float(string)

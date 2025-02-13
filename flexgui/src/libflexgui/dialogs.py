@@ -17,12 +17,12 @@ def spinbox_numbers(parent, obj):
 		np.setStyleSheet(fh.read())
 	result = np.exec()
 	if result:
-		number = utilities.convert_string_to_number(np.retval())
-		if number:
+		value = utilities.convert_string_to_number(np.retval())
+		if isinstance(value, (int, float)):
 			if isinstance(obj, QSpinBox): # return an int
-				obj.setValue(int(number))
+				obj.setValue(int(value))
 			else:
-				obj.setValue(number)
+				obj.setValue(value)
 
 def numbers(parent, obj):
 	np = number_pad.number_pad()
