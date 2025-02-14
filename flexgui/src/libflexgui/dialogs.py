@@ -11,18 +11,19 @@ from libflexgui import keyboard_pad
 from libflexgui import utilities
 
 def spinbox_numbers(parent, obj):
-	np = number_pad.number_pad()
-	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as fh:
-		np.setStyleSheet(fh.read())
-	result = np.exec()
-	if result:
-		value = utilities.convert_string_to_number(np.retval())
-		if isinstance(value, (int, float)):
-			if isinstance(obj, QSpinBox): # return an int
-				obj.setValue(int(value))
-			else:
-				obj.setValue(value)
+	if obj.isEnabled():
+		np = number_pad.number_pad()
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(stylesheet,'r') as fh:
+			np.setStyleSheet(fh.read())
+		result = np.exec()
+		if result:
+			value = utilities.convert_string_to_number(np.retval())
+			if isinstance(value, (int, float)):
+				if isinstance(obj, QSpinBox): # return an int
+					obj.setValue(int(value))
+				else:
+					obj.setValue(value)
 
 def numbers(parent, obj):
 	np = number_pad.number_pad()
