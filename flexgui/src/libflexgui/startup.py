@@ -1254,11 +1254,11 @@ def setup_tools(parent):
 					dialogs.warn_msg_ok(msg, 'Source Name Error')
 
 	# manual tool change
-	if 'tool_changed_pb' in parent.children:
-		#parent.tool_changed_pb.setEnabled(False)
-		parent.tool_changed_pb.setCheckable(True)
-		parent.tool_changed_pb.setText('No Tool')
-		parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
+	#if 'tool_changed_pb' in parent.children:
+	#	#parent.tool_changed_pb.setEnabled(False)
+	#	parent.tool_changed_pb.setCheckable(True)
+	#	parent.tool_changed_pb.setText('No Tool')
+	#	parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
@@ -1886,6 +1886,26 @@ def setup_hal(parent):
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.children:
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
+
+def setup_tool_change(parent):
+	if parent.manual_tool_change:
+		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
+		parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
+		parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
+		parent.toolcomp.ready()
+		parent.tool_change = hal.get_value('tool-change.change')
+
+		hal.new_sig('tool-prepare-loopback',hal.HAL_BIT)
+		hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
+		hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
+
+		hal.new_sig('tool-number',hal.HAL_S32)
+		hal.connect('iocontrol.0.tool-prep-number','tool-number')
+		hal.connect('tool-change.number','tool-number')
+
+		hal.new_sig('tool-change',hal.HAL_BIT)
+		hal.connect('iocontrol.0.tool-change','tool-change')
+		hal.connect('tool-change.change','tool-change')
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:

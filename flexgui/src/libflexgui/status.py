@@ -7,6 +7,7 @@ import linuxcnc as emc
 import hal
 
 from libflexgui import utilities
+from libflexgui import dialogs
 
 '''
 STATE_ESTOP
@@ -36,7 +37,7 @@ STATES = {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'}
 def update(parent):
 	parent.status.poll()
 
-	# **************************
+	# **** TASK STATE ****
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
 		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
@@ -94,7 +95,7 @@ def update(parent):
 
 		parent.task_state = parent.status.task_state
 
-	# **************************
+	# **** MOTION MODE ****
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
 		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
@@ -128,7 +129,7 @@ def update(parent):
 
 		parent.motion_mode = parent.status.motion_mode
 
-	# **************************
+	# ****  ****
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
 		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
@@ -171,7 +172,7 @@ def update(parent):
 
 		parent.interp_state = parent.status.interp_state
 
-	# **************************
+	# **** TASK MODE ****
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
@@ -209,7 +210,7 @@ def update(parent):
 
 		parent.task_mode = parent.status.task_mode
 
-	# **************************
+	# **** EXEC STATE ****
 	#exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
 	#EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
 	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
@@ -218,7 +219,16 @@ def update(parent):
 		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
 		parent.exec_state = parent.status.exec_state
 
-	# ************************** FLOOD_OFF or FLOOD_ON
+	# **** TOOL CHANGE ****
+	if parent.manual_tool_change:
+		if parent.tool_change != hal.get_value('tool-change.change'):
+			if hal.get_value('iocontrol.0.tool-changed'):
+				hal.set_p('iocontrol.0.tool-changed','false')
+			else:
+				dialogs.manual_tool_change(parent)
+			parent.tool_change = hal.get_value('tool-change.change')
+
+	# **** FLOOD_OFF or FLOOD_ON **** 
 	if parent.flood_state != parent.status.flood:
 		if 'flood_pb' in parent.children: 
 			if parent.status.flood == emc.FLOOD_OFF:
@@ -227,7 +237,7 @@ def update(parent):
 				parent.flood_pb.setChecked(True)
 		parent.flood_state = parent.status.flood
 
-	# ************************** MIST_OFF or MIST_ON
+	# **** MIST_OFF or MIST_ON ****
 	if parent.mist_state != parent.status.mist:
 		if 'mist_pb' in parent.children: 
 			if parent.status.mist == emc.MIST_OFF:
@@ -236,7 +246,7 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 		parent.mist_state = parent.status.mist
 
-	# ************************** SPINDLE SPEED SETTINGS
+	# **** SPINDLE SPEED SETTINGS ****
 	if parent.status_speed_setting != parent.status.settings[2]:
 		parent.spindle_speed = int(parent.status.settings[2])
 		if 'spindle_speed_sb' in parent.children:

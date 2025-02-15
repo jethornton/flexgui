@@ -8,6 +8,7 @@ from PyQt6.QtCore import Qt
 from libflexgui import number_pad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
+from libflexgui import tool_change
 from libflexgui import utilities
 
 def spinbox_numbers(parent, obj):
@@ -42,6 +43,16 @@ def gcode(parent, obj):
 	result = gp.exec()
 	if result:
 		obj.setText(gp.retval())
+
+def manual_tool_change(parent):
+	tc = tool_change.app()
+	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as fh:
+		tc.setStyleSheet(fh.read())
+	result = tc.exec()
+	if result:
+		#print(tc.retval())
+		print(result)
 
 def keyboard(parent, obj):
 	kb = keyboard_pad.keyboard_pad()

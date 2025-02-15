@@ -72,6 +72,7 @@ class flexgui(QMainWindow):
 
 		if self.installed:
 			self.halcomp = hal.component('flexhal')
+			self.toolcomp = hal.component('tool-change')
 		else: # use a random name for the hal component if not installed
 			self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
 
@@ -190,6 +191,7 @@ class flexgui(QMainWindow):
 		startup.setup_sliders(self)
 		startup.setup_overrides(self)
 		startup.setup_defaults(self)
+		startup.setup_tool_change(self)
 		startup.setup_plot(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)

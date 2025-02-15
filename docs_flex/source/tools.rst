@@ -50,24 +50,18 @@ The tool number will follow the prefix.
 Manual Tool Change
 ------------------
 
-The manual tool change requires that the iocontrol.0.tool-prepared and the
-iocontrol.0.tool-changed be toggled on after inserting the tool into the
-spindle. A QPushButton with an object name of `tool_changed_pb` can be used in
-place of the hal_manualtoolchange. You need to make it a HAL button and connect
-the output to both iocontrol.0.tool-prepared and iocontrol.0.tool-changed
+All that is needed to add a manual tool change is to add the following to the
+ini file in the [FLEX] section.
 ::
 
-	net manual-tool-changed iocontrol.0.tool-prepared flexhal.tool-changed
-	net manual-tool-changed iocontrol.0.tool-changed
+	[FLEX]
+	MANUAL_TOOL_CHANGE = True
 
 .. image:: /images/tools-06.png
    :align: center
 
-.. note:: You need to hold the button down for about 2 seconds or until you see
-   the tool is changed.
-
 Manual Tool Change requires at least the following HAL code in the main hal
-file if the hal connections are not done as above.
+file if not done as above.
 ::
 
 	# manual tool change
