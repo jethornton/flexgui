@@ -205,8 +205,6 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 					desc = line.split(";")[-1]
 					number = int(line[t+1:p].strip())
 					parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
-			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-			parent.home_required.append('tool_change_pb')
 
 		elif parent.tool_change_cb.property('prefix') is not None:
 			prefix = parent.tool_change_cb.property('prefix')
