@@ -46,9 +46,12 @@ def gcode(parent, obj):
 
 def manual_tool_change(parent):
 	tc = tool_change.app()
-	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as fh:
-		tc.setStyleSheet(fh.read())
+	if parent.theme: # use the theme
+		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	else:
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(stylesheet,'r') as s:
+			tc.setStyleSheet(s.read())
 	result = tc.exec()
 	if result:
 		#print(tc.retval())

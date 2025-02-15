@@ -123,15 +123,15 @@ class flexgui(QMainWindow):
 				dialogs.warn_msg_ok(msg, 'Import Failed')
 
 		# check for theme and input type or a qss file
-		theme = self.inifile.find('DISPLAY', 'THEME') or False
+		self.theme = self.inifile.find('DISPLAY', 'THEME') or False
 		input_type = self.inifile.find('DISPLAY', 'INPUT') or False
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 
 		stylesheet = False
-		if theme:
+		if self.theme:
 			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
-			if theme in valid_themes:
-				stylesheet = os.path.join(self.lib_path, f'{theme}.qss')
+			if self.theme in valid_themes:
+				stylesheet = os.path.join(self.lib_path, f'{self.theme}.qss')
 				from libflexgui import resources
 
 		elif qss_file: # use a local qss file
