@@ -17,6 +17,14 @@ QWidget {
 	font-weight: 700;
 }
 */
+
+/***** QDialog *****/
+QDialog {
+	color: #ffffff;
+	background-color: #000099;
+
+}
+
 /***** QTabWidget *****/
 QTabWidget {
 	color: #ffffff;
