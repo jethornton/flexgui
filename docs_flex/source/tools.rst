@@ -57,8 +57,13 @@ ini file in the [FLEX] section.
 	[FLEX]
 	MANUAL_TOOL_CHANGE = True
 
-.. image:: /images/tools-06.png
-   :align: center
+.. figure:: /images/tools-06.png
+
+   This is without using a theme.
+
+.. figure:: /images/tools-07.png
+
+   This is the blue-touch theme.
 
 .. warning:: You can't use the hal_manualtoolchange at the same time as the
    builtin Flex Manual Tool Change, you must comment out all the
@@ -121,12 +126,12 @@ Dynamic Property named `source` to the tool touch off button and set the value
 to the name of the QLineEdit that is the source for that touch off button.
 See :doc:`property`
 
-.. image:: /images/tools-07.png
+.. image:: /images/tools-08.png
    :align: center
 
 Tool touch off QLineEdit for each axis.
 
-.. image:: /images/tools-08.png
+.. image:: /images/tools-09.png
    :align: center
 
 Current Tool Status
