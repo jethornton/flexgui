@@ -1889,6 +1889,17 @@ def setup_hal(parent):
 
 def setup_tool_change(parent):
 	if parent.manual_tool_change:
+		if hal.component_exists('hal_manualtoolchange'):
+			print('eeek')
+			msg = ('The Flex Manual Tool Change\n'
+			'can not function with the hal_manualtoolchange\n'
+			'component. You must find and remove the\n'
+			'hal_manualtoolchange component!\n'
+			'See the Docs for more info.')
+			dialogs.critical_msg_ok(parent, msg, 'Configuration ERROR!')
+			parent.manual_tool_change = False
+			return
+
 		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
 		parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
 		parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
