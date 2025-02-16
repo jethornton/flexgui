@@ -18,3 +18,8 @@ o<bolt_hole_countersink_pattern> call
 o<bolt_hole_countersink_pattern> call
 o<bolt_hole_pattern> call
 o<bolt_hole_countersink_pattern> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern> call
+o<bolt_hole_pattern> call
+o<bolt_hole_pattern> call
+o<bolt_hole_countersink_pattern> call

@@ -1,6 +1,6 @@
 o<bolt_hole_pattern> sub
 	o100 if [#5400 EQ 0]
-		(abort,Tool must be non zero)
+		(ABORT,Tool must be non zero)
 		;M30
 	o100 endif
 ;o100 if [#1021 GT 0]
@@ -21,24 +21,21 @@ o<bolt_hole_pattern> sub
 	G0 G90 X 0 Y 0					; Find new center
 	M3								; Spindle On
 	G0 @[0 + #2043] ^#2039 Z#2045	; Position over first hole establishing radius
-
-	G1 Z #2041 F #2044				; Move to Z start depth
-	o101 if [#2059 EQ 0]
-		G91 G98 G81 R#2045 Z#2042 		; normal drill cycle
-	o101 else
-		G91 G98 G83 R#2045 Q#2059 Z#2042 ; fixup for peck drill
-	o101 endif
-	#2058 = [#2058 -1]
-
 	o102 while [#2058 GT 0]
-		^#2040
-		#2058 = [#2058 -1]
+		o101 if [#2059 EQ 0]
+			G91 G98 G81 R#2045 Z#2042 ; normal drill cycle
+		o101 else
+			G91 G98 G83 R#2045 Q#2059 Z#2042 ; fixup for peck drill
+		o101 endif
+		#2058 = [#2058 -1]			; decrement hole count
+		o103 if [#2058 GT 0]
+			G0 ^#2040				; Move to next hole
+		o103 endif
 	o102 endwhile
-
 	M5								; Turn spindle off
 	G92.1							; turn offset off
-	G90 G0 X0 Y0					; move back to original center
-	G53 G00 Z0
+	G90 G53 G00 Z0
+	G0 X0 Y0					; move back to original center
 o<bolt_hole_pattern> endsub
 M2
 
