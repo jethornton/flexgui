@@ -60,8 +60,11 @@ ini file in the [FLEX] section.
 .. image:: /images/tools-06.png
    :align: center
 
+.. warning:: You can't use the hal_manualtoolchange at the same time as the
+   builtin Flex Manual Tool Change
+
 Manual Tool Change requires at least the following HAL code in the main hal
-file if not done as above.
+file if not using the buildin Flex Manual Tool Change.
 ::
 
 	# manual tool change
