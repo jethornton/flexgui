@@ -30,13 +30,13 @@ class fs_calc(QWidget):
 	def check_cl(self):
 		if self.fsc_chip_load_le.text() == '':
 			msg = ('Chip Load can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_float(self.fsc_chip_load_le.text()):
 			return float(self.fsc_chip_load_le.text())
 		else:
 			msg = ('Chip Load is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def check_feed(self):
@@ -48,43 +48,43 @@ class fs_calc(QWidget):
 			return float(self.fsc_feed_le.text())
 		else:
 			msg = ('Feed is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def check_rpm(self):
 		if self.fsc_rpm_le.text() == '':
 			msg = ('RPM can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_float(self.fsc_rpm_le.text()):
 			return float(self.fsc_rpm_le.text())
 		else:
 			msg = ('RPM is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def check_flutes(self):
 		if self.fsc_flutes_le.text() == '':
 			msg = ('Flutes can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_int(self.fsc_flutes_le.text()):
 			return int(self.fsc_flutes_le.text())
 		else:
 			msg = ('Flutes is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def check_dia(self):
 		if self.fsc_diameter_le.text() == '':
 			msg = ('Diameter can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_float(self.fsc_diameter_le.text()):
 			return float(self.fsc_diameter_le.text())
 		else:
 			msg = ('Diameter is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def calc_cl(self):

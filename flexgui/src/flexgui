@@ -48,7 +48,7 @@ class flexgui(QMainWindow):
 			msg = ('Flex GUI can not run without LinuxCNC.\n'
 			'A LinuxCNC Simulator can be started first\n'
 			'to start Flex GUI for TESTING ONLY!')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			sys.exit()
 
 		# connect to linuxcnc
@@ -120,7 +120,7 @@ class flexgui(QMainWindow):
 			except:
 				msg = (f'The resources file {resources_file} was\n'
 					'not found, check for file name resources.py.')
-				dialogs.warn_msg_ok(msg, 'Import Failed')
+				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
 		# check for theme and input type or a qss file
 		self.theme = self.inifile.find('DISPLAY', 'THEME') or False
@@ -144,7 +144,7 @@ class flexgui(QMainWindow):
 				stylesheet = os.path.join(self.lib_path, 'touch.qss')
 			msg = ('INPUT is depreciated\n'
 			'use THEME for keyboard or touch')
-			dialogs.warn_msg_ok(msg, 'INI File Error')
+			dialogs.warn_msg_ok(parent, msg, 'INI File Error')
 
 		if stylesheet:
 			if os.path.isfile(stylesheet):
@@ -153,7 +153,7 @@ class flexgui(QMainWindow):
 			else:
 				msg = (f'The Stylesheet {stylesheet}\n'
 					'was not found.')
-				dialogs.warn_msg_ok(msg, 'INI Error')
+				dialogs.warn_msg_ok(parent, msg, 'INI Error')
 
 		# get a list of axis letters in the configuration
 		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']

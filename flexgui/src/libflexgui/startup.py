@@ -60,7 +60,7 @@ def update_check(parent):
 		'feedrate_lb has been changed to feed_override_lb.\n'
 		'Change the name in the ui file.\n'
 		'The label will be disabled and will not function.')
-		dialogs.critical_msg_ok(msg, 'Object Name Changed')
+		dialogs.critical_msg_ok(parent, msg, 'Object Name Changed')
 		parent.feedrate_lb.setEnabled(False)
 
 def setup_enables(parent):
@@ -913,7 +913,7 @@ def setup_jog(parent):
 			if item not in parent.children:
 				msg = (f'{item} is required to jog\n but was not found.\n'
 					'Jog Buttons will be disabled.')
-				dialogs.warn_msg_ok(msg, 'Missing Item')
+				dialogs.warn_msg_ok(parent, msg, 'Missing Item')
 				for item in jog_buttons:
 					getattr(parent, item).setEnabled(False)
 				return
@@ -988,12 +988,12 @@ def setup_jog(parent):
 								msg = ('Malformed INCREMENTS value\n'
 									f'{distance}\n'
 									'may be missing comma seperators?')
-								dialogs.warn_msg_ok(msg, 'Error')
+								dialogs.warn_msg_ok(parent, msg, 'Error')
 					else:
 						msg = ('INI section DISPLAY value INCREMENTS\n'
 							f'{item} is not a valid jog increment\n'
 							'and will not be added to the jog options.')
-						dialogs.warn_msg_ok(msg, 'Configuration Error')
+						dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 def conv_units(value, suffix, machine_units):
 	if machine_units == 'inch':
@@ -1151,7 +1151,7 @@ def setup_touchoff(parent):
 					'the Offset Line Edit touchoff_le\n'
 					'or a Dynamic Property named source that\n'
 					'has the name of the QLineEdit to be used.')
-					dialogs.warn_msg_ok(msg, 'Required Item Missing')
+					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			else: # property source is found
 				if source in parent.children:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
@@ -1160,7 +1160,7 @@ def setup_touchoff(parent):
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
 					f'{item} will be disabled.')
-					dialogs.warn_msg_ok(msg, 'Required Item Missing')
+					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 
 def setup_tools(parent):
 	# tool change using a combo box
@@ -1175,7 +1175,7 @@ def setup_tools(parent):
 				'the tool_change_cb combo box\n'
 				'and the tool_change_pb push button.\n'
 				f'{missing} was not found.')
-			dialogs.warn_msg_ok(msg, 'Required Item Missing')
+			dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			return
 		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
 		parent.home_required.append('tool_change_pb')
@@ -1242,7 +1242,7 @@ def setup_tools(parent):
 					'the Tool Offset Line Edit tool_touchoff_le\n'
 					'or a Dynamic Property named source that\n'
 					'has the name of the QLineEdit to be used.')
-					dialogs.warn_msg_ok(msg, 'Required Item Missing')
+					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			else: # property source is found
 				if source in parent.children:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
@@ -1309,7 +1309,7 @@ def setup_probing(parent):
 				'was not found, all probe controls\n'
 				'will be disabled. Did you name it\n'
 				'probing_enable_pb?')
-			dialogs.warn_msg_ok(msg, 'Object Not Found!')
+			dialogs.warn_msg_ok(parent, msg, 'Object Not Found!')
 
 def setup_mdi_buttons(parent):
 	parent.mdi_button = False
@@ -1329,7 +1329,7 @@ def setup_mdi_buttons(parent):
 				msg = (f'MDI Button {button.text()}\n'
 				'Does not have a command\n'
 				f'{button.text()} will not be functional.')
-				dialogs.warn_msg_ok(msg, 'Configuration Error')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 				button.setEnabled(False)
 
 def setup_set_var(parent):
@@ -1359,7 +1359,7 @@ def setup_set_var(parent):
 					f'in the variables file {parent.var_file}\n'
 					f'the QDoubleSpinBox {child.objectName()}\n'
 					'will not contain any value.')
-					dialogs.warn_msg_ok(msg, 'Error')
+					dialogs.warn_msg_ok(parent, msg, 'Error')
 
 def setup_watch_var(parent):
 	parent.watch_var = {}
@@ -1425,7 +1425,7 @@ def setup_hal(parent):
 					f'in the variables file {parent.var_file}\n'
 					f'the QDoubleSpinBox {item.objectName()}\n'
 					'will not contain any value.')
-					dialogs.warn_msg_ok(msg, 'Error')
+					dialogs.warn_msg_ok(parent, msg, 'Error')
 
 	for child in children:
 		if child.property('function') == 'hal_pin':
@@ -1459,7 +1459,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = lcd.property('hal_type')
@@ -1469,7 +1469,7 @@ def setup_hal(parent):
 				'for a HAL LCD, only\n'
 				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
 				f'can be used. The {lcd_name} will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = lcd.property('hal_dir')
@@ -1479,7 +1479,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL LCD Display,\n'
 				'only HAL_IN can be used for hal_dir.\n'
 				f'The {lcd_name} LCD will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if lcd_name == pin_name:
@@ -1489,7 +1489,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					'and the LCD will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -1517,7 +1517,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = label.property('hal_type')
@@ -1526,7 +1526,7 @@ def setup_hal(parent):
 				msg = (f'{hal_type} is not valid for a HAL Label\n'
 				', only HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32\n'
 				f'can be used. The {label_name} label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = label.property('hal_dir')
@@ -1536,7 +1536,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL Lable,\n'
 				'only HAL_IN can be used for hal_dir.\n'
 				f'The {label_name} Label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if label_name == pin_name:
@@ -1546,7 +1546,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					'and the label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -1574,7 +1574,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = item.property('hal_type')
@@ -1583,7 +1583,7 @@ def setup_hal(parent):
 				msg = (f'{hal_type} is not valid for a HAL Multi-State Label\n'
 				', only HAL_U32 can be used.\n'
 				f'The {msl_name} label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = item.property('hal_dir')
@@ -1593,7 +1593,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL Multi-State Lable,\n'
 				'only HAL_IN can be used for hal_dir.\n'
 				f'The {msl_name} Label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if msl_name == pin_name:
@@ -1603,7 +1603,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					'and the label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -1631,7 +1631,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = item.property('hal_type')
@@ -1640,7 +1640,7 @@ def setup_hal(parent):
 				msg = (f'{hal_type} is not valid for a HAL Progressbar\n'
 				', only HAL_S32 or HAL_U32\n'
 				f'can be used. The {progressbar_name} label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = item.property('hal_dir')
@@ -1650,7 +1650,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL Lable,\n'
 				'only HAL_IN can be used for hal_dir.\n'
 				f'The {progressbar_name} Label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if progressbar_name == pin_name:
@@ -1660,7 +1660,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					'and the label will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -1693,7 +1693,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.'
 				f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if button_name == pin_name:
@@ -1703,7 +1703,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = button.property('hal_type')
@@ -1713,7 +1713,7 @@ def setup_hal(parent):
 				'hal_type for a HAL Button,\n'
 				'only HAL_BIT can be used for hal_type.\n'
 				f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = button.property('hal_dir')
@@ -1723,7 +1723,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL Button,\n'
 				'only HAL_OUT can be used for hal_dir.\n'
 				f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -1761,7 +1761,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.'
 				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if spinbox_name == pin_name:
@@ -1771,7 +1771,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = spinbox.property('hal_type')
@@ -1781,7 +1781,7 @@ def setup_hal(parent):
 				'for a HAL spinbox, only\n'
 				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
 				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = spinbox.property('hal_dir')
@@ -1791,7 +1791,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL Spinbox,\n'
 				'only HAL_OUT can be used for hal_dir.\n'
 				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -1823,7 +1823,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
 				f'The {slider_name} slider will be disabled.'
-				dialogs.critical_msg_ok(msg, 'Configuration Error')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if slider_name == pin_name:
@@ -1833,7 +1833,7 @@ def setup_hal(parent):
 					f'pin name {pin_name}.\n'
 					'The HAL object will not be created\n'
 					f'The {slider_name} slider will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = slider.property('hal_type')
@@ -1843,7 +1843,7 @@ def setup_hal(parent):
 				'for a HAL slider, only\n'
 				'HAL_S32 or HAL_U32 are valid\n'
 				f'The {slider_name} slider will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_dir = slider.property('hal_dir')
@@ -1853,7 +1853,7 @@ def setup_hal(parent):
 				'hal_dir for a HAL Slider,\n'
 				'only HAL_OUT can be used for hal_dir.\n'
 				f'The {slider_name} slider will be disabled.')
-				dialogs.critical_msg_ok(msg, 'Configuration Error!')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if None not in [pin_name, hal_type, hal_dir]:
@@ -2104,7 +2104,7 @@ def setup_import(parent):
 				'not found, check for file name\n'
 				'or there was an error in the imported\n'
 				'module code.')
-			dialogs.warn_msg_ok(msg, 'Import Failed')
+			dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
 def setup_help(parent):
 	children = parent.findChildren(QPushButton)
@@ -2224,6 +2224,6 @@ def set_status(parent): # this is only used if running from a terminal
 				'Check the [DISPLAY] OPEN_FILE\n'
 				'setting in the ini file.')
 
-			dialogs.warn_msg_ok(msg, 'File Not Found')
+			dialogs.warn_msg_ok(parent, msg, 'File Not Found')
 
 

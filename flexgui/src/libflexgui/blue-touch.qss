@@ -22,7 +22,11 @@ QWidget {
 QDialog {
 	color: #ffffff;
 	background-color: #000099;
+}
 
+QMessageBox {
+	color: #ffffff;
+	background-color: #000099;
 }
 
 /***** QTabWidget *****/
