@@ -13,6 +13,18 @@ QWidget {
 	margin: 2px;
 }
 
+/***** QDialog *****/
+QDialog {
+	color: #ffffff;
+	background-color: #000099;
+}
+
+/***** QMessageBox *****/
+QMessageBox {
+	color: #ffffff;
+	background-color: #000099;
+}
+
 /***** QTabWidget *****/
 QTabWidget {
 	color: #ffffff;
