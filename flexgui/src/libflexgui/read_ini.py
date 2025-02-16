@@ -83,6 +83,5 @@ def read(parent):
 		parent.touch_file_width = False
 
 	parent.manual_tool_change = parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE') or False
-	print(f'parent.manual_tool_change {parent.manual_tool_change}')
 
 
