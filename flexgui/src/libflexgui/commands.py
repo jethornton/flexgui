@@ -119,7 +119,7 @@ def run_mdi(parent, cmd=''):
 			parent.command.mdi(mdi_command)
 	else:
 		msg = 'No MDI command was found!'
-		dialogs.warn_msg_ok(msg, 'Error')
+		dialogs.warn_msg_ok(parent, msg, 'Error')
 
 def set_motion_teleop(parent, value):
 	# 1:teleop, 0: joint
@@ -162,7 +162,7 @@ def jog(parent):
 	if parent.sender().isDown():
 		if vel == 0.0:
 			msg = ('Can not jog at Zero Velocity!')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return
 		if increment:
 			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
@@ -228,7 +228,7 @@ def tool_change(parent):
 		parent.new_tool_number = parent.tool_change_cb.currentData()
 	if parent.new_tool_number not in tools:
 		msg = (f'Tool {parent.new_tool_number} is not in the Tool Table.')
-		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
 		return
 
 	if parent.new_tool_number != parent.status.tool_in_spindle:
@@ -246,7 +246,7 @@ def tool_change(parent):
 
 	else:
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
-		dialogs.warn_msg_ok(msg, 'Tool Change Aborted')
+		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
 
 def tool_changed(parent):
 	count = 0
@@ -306,7 +306,7 @@ def tool_touchoff(parent):
 
 	if offset == '':
 		msg = ('Tool Touchoff Offset\ncan not be blank!')
-		dialogs.warn_msg_ok(msg, 'Error')
+		dialogs.warn_msg_ok(parent, msg, 'Error')
 		return
 
 	if cur_tool > 0:
@@ -321,7 +321,7 @@ def tool_touchoff(parent):
 			parent.command.wait_complete()
 	else:
 		msg = ('No Tool in Spindle.')
-		dialogs.warn_msg_ok(msg, 'Touch Off Aborted')
+		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
 def zero_axis(parent, axis):
 	mdi_command = f'G10 L20 P0 {axis}0'
@@ -351,7 +351,7 @@ def spindle(parent, value=0):
 		if parent.spindle_speed == 0:
 			msg = ('Can not start spindle\n'
 				'at 0 RPM')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			parent.spindle_fwd_pb.setChecked(False)
 		else:
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
@@ -362,7 +362,7 @@ def spindle(parent, value=0):
 		if parent.spindle_speed == 0:
 			msg = ('Can not start spindle\n'
 				'at 0 RPM')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			parent.spindle_rev_pb.setChecked(False)
 		else:
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))

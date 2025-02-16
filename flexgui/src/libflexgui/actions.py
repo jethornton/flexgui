@@ -71,7 +71,7 @@ def load_file(parent, gcode_file):
 	else:
 		msg = (f'{gcode_file}\n'
 		'was not found. Loading aborted!')
-		dialogs.warn_msg_ok(msg, 'File Missing')
+		dialogs.warn_msg_ok(parent, msg, 'File Missing')
 
 def file_selector(parent): # touch screen file selector
 	item = parent.file_lw.currentItem().text()
@@ -96,7 +96,7 @@ def action_edit(parent): # actionEdit
 	gcode_file = parent.status.file or False
 	if not gcode_file:
 		msg = ('No File is open.\nDo you want to open a file?')
-		response = dialogs.warn_msg_yes_no(msg, 'No File Loaded')
+		response = dialogs.warn_msg_yes_no(parent, msg, 'No File Loaded')
 		if response:
 			action_open(parent)
 			return
@@ -111,7 +111,7 @@ def action_edit(parent): # actionEdit
 	else:
 		msg = ('No Editor was found\nin the ini Display section\n'
 			'Do you want to select an Editor?')
-		if dialogs.warn_msg_yes_no(msg, 'No Editor Configured'):
+		if dialogs.warn_msg_yes_no(parent, msg, 'No Editor Configured'):
 			select_editor(parent, gcode_file)
 
 def select_editor(parent, gcode_file):
@@ -142,7 +142,7 @@ def action_save_as(parent): # actionSave_As
 	current_gcode_file = parent.status.file or False
 	if not current_gcode_file:
 		msg = ('No File is Open')
-		dialogs.warn_msg_ok(msg, 'Error')
+		dialogs.warn_msg_ok(parent, msg, 'Error')
 		return
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
@@ -169,7 +169,7 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			'the minimum second line has a tool and pocket\n'
 			';\n'
 			'T1 P1')
-			dialogs.critical_msg_ok(msg, 'Empty File')
+			dialogs.critical_msg_ok(parent, msg, 'Empty File')
 			return
 
 		cmd = []
@@ -226,7 +226,7 @@ def action_ladder_editor(parent): # actionLadder_Editor
 		p = os.popen("classicladder  &", "w")
 	else:
 		msg = ('The Classic Ladder component\n is not loaded.')
-		dialogs.warn_msg_ok(msg, 'Error')
+		dialogs.warn_msg_ok(parent, msg, 'Error')
 
 def action_quit(parent): # actionQuit
 	parent.close()
@@ -340,7 +340,7 @@ def action_save_mdi(parent): # actionSave_MDI
 			shutil.copyfile(mdi_history_file, file_path)
 		else:
 			msg = ('No MDI history file was found!')
-			dialogs.info_msg_ok(msg , 'No MDI History')
+			dialogs.info_msg_ok(parent, msg , 'No MDI History')
 
 def action_toggle_dro(parent):
 	if parent.sender().isChecked():

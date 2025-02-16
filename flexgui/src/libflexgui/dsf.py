@@ -58,25 +58,25 @@ class dsf_calc(QWidget):
 	def check_dia(self):
 		if self.dfs_diameter_le.text() == '':
 			msg = ('Diameter can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_float(self.dfs_diameter_le.text()):
 			return float(self.dfs_diameter_le.text())
 		else:
 			msg = ('Diameter is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def check_speed(self):
 		if self.dfs_surface_speed_le.text() == '':
 			msg = ('Surface Speed can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_float(self.dfs_surface_speed_le.text()):
 			return float(self.dfs_surface_speed_le.text())
 		else:
 			msg = ('Surface Speed is not a valid number')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
 	def calculate(self):
