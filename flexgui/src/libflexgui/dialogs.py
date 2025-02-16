@@ -5,6 +5,8 @@ from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox, QPlainTextEdit
 from PyQt6.QtGui import QPixmap, QTextCursor
 from PyQt6.QtCore import Qt
 
+import hal
+
 from libflexgui import number_pad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
@@ -50,12 +52,14 @@ def manual_tool_change(parent):
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
 	else:
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-		with open(stylesheet,'r') as s:
-			tc.setStyleSheet(s.read())
+	with open(stylesheet,'r') as s:
+		tc.setStyleSheet(s.read())
 	result = tc.exec()
 	if result:
-		#print(tc.retval())
-		print(result)
+		hal.set_p('iocontrol.0.tool-changed','true')
+	else:
+		parent.command.abort()
+		parent.command.wait_complete()
 
 def keyboard(parent, obj):
 	kb = keyboard_pad.keyboard_pad()
