@@ -61,10 +61,24 @@ ini file in the [FLEX] section.
    :align: center
 
 .. warning:: You can't use the hal_manualtoolchange at the same time as the
-   builtin Flex Manual Tool Change
+   builtin Flex Manual Tool Change, you must comment out all the
+   hal_manualtoolchange lines or remove them.
+
+Manual Tool Change Error
+------------------------
+
+If you get an error that hal_manualtoolchange component exists look in your hal
+files for the hal_manualtoolchange lines in the Manual Tool Change Option below.
+
+If you're using a copy of one of the Axis sims the hal_manualtoolchange
+component can be hard to find. It's recommended that you start with a simple
+configuration like the Flex example simple-sim.
+
+Manual Tool Change Option
+-------------------------
 
 Manual Tool Change requires at least the following HAL code in the main hal
-file if not using the buildin Flex Manual Tool Change.
+file if not using the builtin Flex Manual Tool Change above.
 ::
 
 	# manual tool change
