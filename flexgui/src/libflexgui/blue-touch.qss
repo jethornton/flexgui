@@ -24,6 +24,7 @@ QDialog {
 	background-color: #000099;
 }
 
+/***** QMessageBox *****/
 QMessageBox {
 	color: #ffffff;
 	background-color: #000099;
