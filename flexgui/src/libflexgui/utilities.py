@@ -102,11 +102,6 @@ def set_homed_enable(parent):
 def update_jog_lb(parent):
 	parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()} {parent.units}/min')
 
-def add_mdi(parent):
-	for item in ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']:
-		if item in parent.children:
-			getattr(parent, item).setText(f'{parent.mdi_history_lw.currentItem().text()}')
-
 def copy_errors(parent):
 	qclip = QApplication.clipboard()
 	qclip.setText(parent.errors_pte.toPlainText())
@@ -121,19 +116,25 @@ def clear_errors(parent):
 def clear_info(parent):
 	parent.info_pte.clear()
 
+def add_mdi(parent): # when you click on the mdi history list widget
+	if 'mdi_command_le' in parent.children:
+		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
+
 def update_mdi(parent):
 	if 'mdi_history_lw' in parent.children:
-		parent.mdi_history_lw.addItem(parent.mdi_command)
-		path = os.path.dirname(parent.status.ini_filename)
-		mdi_file = os.path.join(path, 'mdi_history.txt')
-		mdi_codes = []
-		for index in range(parent.mdi_history_lw.count()):
-			mdi_codes.append(parent.mdi_history_lw.item(index).text())
-		with open(mdi_file, 'w') as f:
-			f.write('\n'.join(mdi_codes))
-		for item in ['mdi_command_le', 'mdi_command_gc_le', 'mdi_command_kb_le']:
-			if item in parent.children:
-				getattr(parent, item).setText('')
+		rows = parent.mdi_history_lw.count()
+		last_item = parent.mdi_history_lw.item(rows - 1).text().strip()
+		if last_item != parent.mdi_command:
+			parent.mdi_history_lw.addItem(parent.mdi_command)
+			path = os.path.dirname(parent.status.ini_filename)
+			mdi_file = os.path.join(path, 'mdi_history.txt')
+			mdi_codes = []
+			for index in range(parent.mdi_history_lw.count()):
+				mdi_codes.append(parent.mdi_history_lw.item(index).text())
+			with open(mdi_file, 'w') as f:
+				f.write('\n'.join(mdi_codes))
+		if 'mdi_command_le' in parent.children:
+			parent.mdi_command_le.setText('')
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 		parent.mdi_command = ''
