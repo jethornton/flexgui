@@ -9,14 +9,12 @@ QMainWindow {
 }
 
 /***** QWidget *****/
-/*
 QWidget {
 	margin: 2px;
 	font-family: Courier;
 	font-size: 14pt;
 	font-weight: 700;
 }
-*/
 
 /***** QDialog *****/
 QDialog {
