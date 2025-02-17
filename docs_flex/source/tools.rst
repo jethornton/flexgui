@@ -65,8 +65,12 @@ ini file in the [FLEX] section.
 
    This is the blue-touch theme.
 
+.. figure:: /images/tools-08.png
+
+   This is the dark-touch theme.
+
 .. warning:: You can't use the hal_manualtoolchange at the same time as the
-   builtin Flex Manual Tool Change, you must comment out all the
+   built in Flex Manual Tool Change, you must comment out all the
    hal_manualtoolchange lines or remove them.
 
 Manual Tool Change Error
@@ -82,8 +86,8 @@ configuration like the Flex example simple-sim.
 Manual Tool Change Option
 -------------------------
 
-Manual Tool Change requires at least the following HAL code in the main hal
-file if not using the builtin Flex Manual Tool Change above.
+The HAL Manual Tool Change requires at least the following HAL code in the main
+hal file if not using the builtin Flex Manual Tool Change above.
 ::
 
 	# manual tool change
