@@ -106,10 +106,6 @@ def run_mdi(parent, cmd=''):
 	else:
 		if 'mdi_command_le' in parent.children:
 			mdi_command = parent.mdi_command_le.text()
-		elif 'mdi_command_gc_le' in parent.children:
-			mdi_command = parent.mdi_command_gc_le.text()
-		elif 'mdi_command_kb_le' in parent.children:
-			mdi_command = parent.mdi_command_kb_le.text()
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
@@ -218,12 +214,13 @@ def tool_change(parent):
 	tools = [0]
 	for i in range(1, tool_len):
 		tools.append(parent.status.tool_table[i][0])
-	parent.new_tool_number = parent.sender().objectName().split('_')[-1]
-	if parent.new_tool_number.isdigit(): # tool button used
-		parent.new_tool_number = int(parent.new_tool_number)
+	if parent.sender().objectName().split('_')[-1].isdigit(): # tool button
+		parent.new_tool_number = int(parent.sender().objectName().split('_')[-1])
+		parent.tool_button = True
 		if 'tool_change_cb' in parent.children:
 			if parent.new_tool_number in tools:
 				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
+
 	else: # using tool change cb
 		parent.new_tool_number = parent.tool_change_cb.currentData()
 	if parent.new_tool_number not in tools:
@@ -255,7 +252,6 @@ def tool_changed(parent):
 	print(parent.status.tool_in_spindle)
 
 	def tool_check(parent):
-		#parent.tool_changed_pb.setChecked(True)
 		parent.status.poll()
 		if parent.new_tool_number == parent.status.tool_in_spindle:
 			parent.tool_changed_pb.setEnabled(False)
