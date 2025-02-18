@@ -119,13 +119,6 @@ def update(parent):
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
 
-		if parent.status.interp_state == emc.INTERP_IDLE:
-			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
-				if parent.mdi_button:
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
-					parent.mdi_button = False
-
 		parent.motion_mode = parent.status.motion_mode
 
 	# **** INTERP STATE ****
@@ -144,10 +137,6 @@ def update(parent):
 				#print('status update INTERP_IDLE MODE_MDI')
 				if parent.mdi_command: # only update mdi if it's configured
 					utilities.update_mdi(parent)
-				elif parent.mdi_button:
-					parent.mdi_button = False
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
 				elif parent.tool_button:
 					parent.tool_button = False
 					parent.command.mode(emc.MODE_MANUAL)
@@ -188,13 +177,6 @@ def update(parent):
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
 
-			#if parent.status.interp_state == emc.INTERP_IDLE:
-			#	if parent.mdi_command:
-			#		utilities.update_mdi(parent)
-				#else:
-				#	parent.command.mode(emc.MODE_MANUAL)
-				#	parent.command.wait_complete()
-
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
 				if parent.status.interp_state == emc.INTERP_IDLE:
@@ -224,12 +206,6 @@ def update(parent):
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
 		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
-		if parent.exec_state == emc.EXEC_DONE:
-			if parent.mdi_button:
-				parent.mdi_button = False
-				parent.command.mode(emc.MODE_MANUAL)
-				parent.command.wait_complete()
-
 		parent.exec_state = parent.status.exec_state
 
 	# **** TOOL CHANGE ****
