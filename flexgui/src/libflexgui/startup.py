@@ -1213,12 +1213,12 @@ def setup_tools(parent):
 				parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
 
 	# tool change push buttons is a MDI command so power on and all homed
+	parent.tool_button = False
 	for i in range(100):
 		item = f'tool_change_pb_{i}'
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append(item)
-			parent.tool_button = False
 
 	# tool touch off
 	# home required for tool touch off buttons
