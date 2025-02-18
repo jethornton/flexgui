@@ -57,6 +57,7 @@ def manual_tool_change(parent):
 	result = tc.exec()
 	if result:
 		hal.set_p('iocontrol.0.tool-changed','true')
+		parent.tool_changed = True
 	else:
 		parent.command.abort()
 		parent.command.wait_complete()

@@ -135,9 +135,9 @@ def update_mdi(parent):
 				f.write('\n'.join(mdi_codes))
 		if 'mdi_command_le' in parent.children:
 			parent.mdi_command_le.setText('')
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
-		parent.mdi_command = ''
+	parent.command.mode(emc.MODE_MANUAL)
+	parent.command.wait_complete()
+	parent.mdi_command = ''
 
 def feed_override(parent, value):
 	parent.command.feedrate(float(value / 100))

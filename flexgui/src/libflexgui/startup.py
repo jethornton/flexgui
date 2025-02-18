@@ -1178,6 +1178,7 @@ def setup_tools(parent):
 			dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			return
 		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+		parent.tool_changed = False
 		parent.home_required.append('tool_change_pb')
 		parent.tool_change_cb.setView(QListView())
 
@@ -1217,6 +1218,7 @@ def setup_tools(parent):
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append(item)
+			parent.tool_button = False
 
 	# tool touch off
 	# home required for tool touch off buttons
