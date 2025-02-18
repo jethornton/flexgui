@@ -3,7 +3,8 @@ o<bolt_hole_countersink_pattern> sub
 		(abort,Tool must be non zero)
 ;		M30
 	o100 endif
-	G20
+G17 G20 G40 G49 G54 G80 G90 G94 ; preamble
+;	G20
 	#2043 = [#2037 / 2]				; Pattern Radius
 	#2058 = #2038					; temp counter for restore
 	#2040 = [360 / #2038]			; Circle / number of holes
