@@ -149,16 +149,18 @@ def update(parent):
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if parent.status.interp_state == emc.INTERP_WAITING:
-				#print('INTERP_WAITING MODE_AUTO')
+				print('INTERP_WAITING MODE_AUTO')
+				for key, value in parent.program_paused.items():
+					getattr(parent, key).setEnabled(value)
 				if parent.status.exec_state != emc.EXEC_WAITING_FOR_IO:
 					for key, value in parent.program_running.items():
 						getattr(parent, key).setEnabled(value)
 
-			# program is paused
-			if parent.status.interp_state == emc.INTERP_PAUSED:
-				#print('INTERP_PAUSED MODE_AUTO')
-				for key, value in parent.program_paused.items():
-					getattr(parent, key).setEnabled(value)
+		# program is paused in either auto or mdi
+		if parent.status.interp_state == emc.INTERP_PAUSED:
+			print('INTERP_PAUSED MODE_AUTO')
+			for key, value in parent.program_paused.items():
+				getattr(parent, key).setEnabled(value)
 
 		if parent.status.interp_state == emc.INTERP_READING:
 			#print('INTERP_READING')
@@ -206,6 +208,9 @@ def update(parent):
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
 		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
+		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
+			for key, value in parent.program_running.items():
+				getattr(parent, key).setEnabled(value)
 		parent.exec_state = parent.status.exec_state
 
 	# **** TOOL CHANGE ****
