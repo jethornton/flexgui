@@ -1,6 +1,4 @@
 
-jog_modes_cb
-jog_vel_s
-mdi_history_lw
-numberpad_pb
-gcode_pad_pb
+make html
+
+make latexpdf
