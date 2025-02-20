@@ -173,11 +173,11 @@ is not found, Jog Buttons will be disabled.
 The following settings can be used in the DISPLAY section of the ini file:
 ::
 
-	Jog Increments                INCREMENTS = 0.100, 0.010, 0.001
-	Jog Increments                INCREMENTS = 1 inch, 0.5 in, 1 cm, 1 mm
-	Jog Velocity minimum          MIN_LINEAR_VELOCITY = 0.1
-	Jog Velocity maximum          MAX_LINEAR_VELOCITY = 1.0
-	Jog Velocity default          DEFAULT_LINEAR_VELOCITY = 0.2
+	INCREMENTS = 0.100, 0.010, 0.001
+	INCREMENTS = 1 inch, 0.5 in, 1 cm, 1 mm
+	MIN_LINEAR_VELOCITY = 0.1
+	MAX_LINEAR_VELOCITY = 1.0
+	DEFAULT_LINEAR_VELOCITY = 0.2
 
 .. note:: Jog incremnts can have unit lables, the following are valid unit
    labels cm, mm, um, inch, in or mil. If no unit labels are found the the
