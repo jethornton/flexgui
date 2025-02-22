@@ -123,7 +123,11 @@ def add_mdi(parent): # when you click on the mdi history list widget
 def update_mdi(parent):
 	if 'mdi_history_lw' in parent.children:
 		rows = parent.mdi_history_lw.count()
-		last_item = parent.mdi_history_lw.item(rows - 1).text().strip()
+		print(rows)
+		if rows > 0:
+			last_item = parent.mdi_history_lw.item(rows - 1).text().strip()
+		else:
+			last_item = ''
 		if last_item != parent.mdi_command:
 			parent.mdi_history_lw.addItem(parent.mdi_command)
 			path = os.path.dirname(parent.status.ini_filename)
