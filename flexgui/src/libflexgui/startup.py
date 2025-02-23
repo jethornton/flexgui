@@ -418,15 +418,12 @@ def setup_buttons(parent): # connect buttons to functions
 	# override preset buttons
 	for item in parent.children:
 		if item.startswith('feed_percent_'):
-			print(item)
 			button = getattr(parent, item)
 			button.clicked.connect(partial(commands.feed_override_preset, parent))
 		elif item.startswith('rapid_percent_'):
-			print(item)
 			button = getattr(parent, item)
 			button.clicked.connect(partial(commands.rapid_override_preset, parent))
 		elif item.startswith('spindle_percent_'):
-			print(item)
 			button = getattr(parent, item)
 			button.clicked.connect(partial(commands.spindle_override_preset, parent))
 
@@ -1566,7 +1563,6 @@ def setup_hal(parent):
 					p = p if p is not None else parent.default_precision
 					parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
 				elif true_text and false_text:
-					print(true_text, false_text)
 					parent.hal_bool_labels[label_name] = [pin_name, true_text, false_text]
 				else:
 					parent.hal_readers[label_name] = pin_name
@@ -1882,11 +1878,8 @@ def setup_hal(parent):
 	if len(hal_leds) > 0: # setup hal leds
 		for led in hal_leds:
 			hal_type = getattr(hal, f'{led.property("hal_type")}')
-			print(f'hal_type {hal_type}')
 			hal_dir = getattr(hal, f'{led.property("hal_dir")}')
-			print(f'hal_dir {hal_dir}')
 			pin_name = led.property('pin_name')
-			print(f'pin_name {pin_name}')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	parent.halcomp.ready()
@@ -1896,7 +1889,6 @@ def setup_hal(parent):
 def setup_tool_change(parent):
 	if parent.manual_tool_change:
 		if hal.component_exists('hal_manualtoolchange'):
-			print('eeek')
 			msg = ('The Flex Manual Tool Change\n'
 			'can not function with the hal_manualtoolchange\n'
 			'component. You must find and remove the\n'
