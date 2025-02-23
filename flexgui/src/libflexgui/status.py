@@ -135,6 +135,7 @@ def update(parent):
 
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
 				#print('status update INTERP_IDLE MODE_MDI')
+				print(parent.mdi_command)
 				if parent.mdi_command: # only update mdi if it's configured
 					utilities.update_mdi(parent)
 				elif parent.tool_button:
@@ -149,7 +150,7 @@ def update(parent):
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if parent.status.interp_state == emc.INTERP_WAITING:
-				print('INTERP_WAITING MODE_AUTO')
+				#print('INTERP_WAITING MODE_AUTO')
 				for key, value in parent.program_paused.items():
 					getattr(parent, key).setEnabled(value)
 				if parent.status.exec_state != emc.EXEC_WAITING_FOR_IO:
@@ -158,7 +159,7 @@ def update(parent):
 
 		# program is paused in either auto or mdi
 		if parent.status.interp_state == emc.INTERP_PAUSED:
-			print('INTERP_PAUSED MODE_AUTO')
+			#print('INTERP_PAUSED MODE_AUTO')
 			for key, value in parent.program_paused.items():
 				getattr(parent, key).setEnabled(value)
 
@@ -178,6 +179,15 @@ def update(parent):
 		if parent.status.task_mode == emc.MODE_MDI:
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
+
+		'''
+		# catch mdi commands that don't move an axis
+		if parent.status.task_mode == emc.MODE_MDI:
+			if parent.status.motion_mode == emc.TRAJ_MODE_COORD:
+				if parent.status.exec_state == emc.EXEC_DONE:
+					parent.command.mode(emc.MODE_MANUAL)
+					parent.command.wait_complete()
+		'''
 
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
@@ -212,6 +222,12 @@ def update(parent):
 			for key, value in parent.program_running.items():
 				getattr(parent, key).setEnabled(value)
 		parent.exec_state = parent.status.exec_state
+
+	# **** MDI CHANGE ****
+	if parent.mdi_command != '':
+		if parent.status.task_mode == emc.MODE_MDI:
+			if parent.status.interp_state == emc.INTERP_IDLE:
+				utilities.update_mdi(parent)
 
 	# **** TOOL CHANGE ****
 	if parent.manual_tool_change:
