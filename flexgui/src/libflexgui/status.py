@@ -175,19 +175,9 @@ def update(parent):
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
-		# catch MDI commands that don't change the interp state like M53
 		if parent.status.task_mode == emc.MODE_MDI:
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
-
-		'''
-		# catch mdi commands that don't move an axis
-		if parent.status.task_mode == emc.MODE_MDI:
-			if parent.status.motion_mode == emc.TRAJ_MODE_COORD:
-				if parent.status.exec_state == emc.EXEC_DONE:
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
-		'''
 
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
