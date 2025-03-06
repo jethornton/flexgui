@@ -1,3 +1,6 @@
+for pdf docs
+sudo apt install texlive-latex-extra
+sudo apt install latexmk
 
 make html
 

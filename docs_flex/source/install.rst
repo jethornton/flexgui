@@ -9,6 +9,9 @@ is released apt will know a new version is avaliable when you run
 `sudo apt update`. This will allow you to install the new version of Flex GUI
 along with other Debian software.
 
+.. note:: on a brand-new Rpi5 using the linuxcnc.iso, use apt `--fix-broken
+   install` to install several qt6 sub-dependencies
+
 The first command will ask for your password. Neither command will print
 anything in the terminal.
 
