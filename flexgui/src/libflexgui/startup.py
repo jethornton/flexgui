@@ -30,7 +30,7 @@ def set_screen(parent):
 		parent.move(parent.settings.value('GUI/window_position'))
 		parent.no_check_firmware_cb.setChecked(True if parent.settings.value('NAGS/firmware') == "true" else False)
 	except:
-		pass
+		parent.move(0, 0) # if no settings move window to upper left corner
 
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
