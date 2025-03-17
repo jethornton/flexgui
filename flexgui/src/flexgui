@@ -128,6 +128,12 @@ class flexgui(QMainWindow):
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 
 		stylesheet = False
+		if self.theme and qss_file:
+			msg = (f'The THEME {self.theme} and QSS {qss_file}\n'
+				'were both found in the ini file.\n'
+				f'the QSS {qss_file} will not be used.\n'
+				'Only one can be specified in the ini.')
+			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
 		if self.theme:
 			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
 			if self.theme in valid_themes:
