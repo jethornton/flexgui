@@ -1160,6 +1160,7 @@ def setup_touchoff(parent):
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 
 def setup_tools(parent):
+	parent.tool_changed = False
 	# tool change using a combo box
 	tool_change_required = ['tool_change_pb', 'tool_change_cb']
 	# test to see if any tool change items are in the ui
@@ -1175,7 +1176,6 @@ def setup_tools(parent):
 			dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			return
 		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-		parent.tool_changed = False
 		parent.home_required.append('tool_change_pb')
 		parent.tool_change_cb.setView(QListView())
 
