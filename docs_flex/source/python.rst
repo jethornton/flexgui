@@ -5,7 +5,8 @@ Python Module
 
 To import a python module add the following to the INI [FLEX] section using the
 name of the python file without the.py extension. The file name must be unique
-and can not be any python module name.
+and can not be any python module name. You can have as many imports as you need
+to simplify your code.
 ::
 
 	[FLEX]
@@ -14,7 +15,7 @@ and can not be any python module name.
 .. note:: The module requires the .py extension to be able to import so the
    above module would be named testpy.py.
 
-In the python file you import you must have a `startup` function where you make
+In each python file you import you must have a `startup` function where you make
 any connections from objects in the ui file to code in your module. The parent
 is passed to the startup function to give you access to all the objects in the
 GUI.

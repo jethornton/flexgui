@@ -2101,19 +2101,20 @@ def setup_dsf(parent): # drill speed and feed calculator
 				parent.number_le.append(item)
 
 def setup_import(parent):
-	module_name = parent.inifile.find('FLEX', 'IMPORT') or False
-	if module_name: # import the module
-		try:
-			sys.path.append(parent.ini_path)
-			module = importlib.import_module(module_name)
-			module.startup(parent)
-		except Exception as e:
-			print(traceback.format_exc())
-			msg = (f'The file {module_name} was\n'
-				'not found, check for file name\n'
-				'or there was an error in the imported\n'
-				'module code.')
-			dialogs.warn_msg_ok(parent, msg, 'Import Failed')
+	modules = parent.inifile.findall('FLEX', 'IMPORT') or False
+	if modules:
+		for module_name in modules:
+			try:
+				sys.path.append(parent.ini_path)
+				module = importlib.import_module(module_name)
+				module.startup(parent)
+			except Exception as e:
+				print(traceback.format_exc())
+				msg = (f'The file {module_name} was\n'
+					'not found, check for file name\n'
+					'or there was an error in the imported\n'
+					'module code.')
+				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
 def setup_help(parent):
 	children = parent.findChildren(QPushButton)
