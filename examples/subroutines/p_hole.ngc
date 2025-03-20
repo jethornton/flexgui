@@ -1,0 +1,78 @@
+(file name p_hole.ngc)
+o<p_hole> sub
+
+; probe for hole center
+; for best accuracy set Fine Feed very slow
+
+; #2000 Search Feed
+; #2001 Fine Feed
+; #2002 Max Radius
+; #2003 Probe Diameter
+; #2004 Retract Distance
+
+; #5061 x probed location
+; #5062 y probed location
+
+G20 F#2000
+
+; get start xy location
+G91 G38.3 Z.00001
+#<x_center>=#5061
+#<y_center>=#5062
+
+G91 G38.2 X#2002
+#<x_plus>=#5061
+G90 G0 X#<x_center>
+G91 G38.2 X[0-#2002]
+#<x_minus>=#5061
+#<x_center>=[[#<x_plus>+#<x_minus>]/2]
+G90 G0 X#<x_center>
+
+G91 G38.2 Y#2002
+#<y_plus>=#5062
+G90 G0 Y#<y_center>
+G91 G38.2 Y[0-#2002]
+#<y_minus>=#5062
+#<y_center>=[[#<y_plus>+#<y_minus>]/2]
+G90 G0 Y#<y_center>
+
+G91 G38.2 X#2002
+#<x_plus>=#5061
+G90 G0 X#<x_center>
+G91 G38.2 X[0-#2002]
+#<x_minus>=#5061
+#<x_center>=[[#<x_plus>+#<x_minus>]/2]
+G90 G0 X#<x_center>
+
+G91 G38.2 Y#2002
+#<y_plus>=#5062
+G90 G0 Y#<y_center>
+G91 G38.2 Y[0-#2002]
+#<y_minus>=#5062
+#<y_center>=[[#<y_plus>+#<y_minus>]/2]
+G90 G0 Y#<y_center>
+
+F#2001
+
+G90 G0 X[#<x_plus>-#2004]
+G91 G38.2 X[#2004*2]
+#<x_plus>=#5061
+G90 G0 X[#<x_minus>+#2004]
+G91 G38.2 X-[#2004*2]
+#<x_minus>=#5061
+#<x_center>=[[#<x_plus>+#<x_minus>]/2]
+G90 G0 X#<x_center>
+
+G90 G0 Y[#<y_plus>-#2004]
+G91 G38.2 Y[#2004*2]
+#<y_plus>=#5062
+G90 G0 Y[#<y_minus>+#2004]
+G91 G38.2 Y-[#2004*2]
+#<y_minus>=#5062
+#<y_center>=[[#<y_plus>+#<y_minus>]/2]
+G90 G0 Y#<y_center>
+
+(debug, Centers X#<x_center> Y#<y_center>)
+o<p_hole> endsub
+
+M2
