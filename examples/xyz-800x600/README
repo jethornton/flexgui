@@ -1,0 +1,4 @@
+This example is a 3 axis mill simulated hardware for keyboard and mouse.
+Small screen that is 800x600 in size
+Uses the Flex tool change widget
+Simulates a stepper driving machine with volatile home
