@@ -1,0 +1,22 @@
+QLabel[objectName*="dro"] {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+	min-width: 75;
+}
+
+QLabel[objectName*='actual'] {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+	min-width: 75;
+}
+
+QLabel[objectName*='g5x'] {
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+	min-width: 75;
+}
+
+
