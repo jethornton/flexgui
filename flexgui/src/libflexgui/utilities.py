@@ -29,13 +29,7 @@ def string_to_int(string):
 		string, digits = string.split('.')
 		return int(string)
 
-def convert_string_to_number(string):
-	try:
-		number = int(string)
-		return number
-	except ValueError:
-		return False
-
+def string_to_float(string):
 	try:
 		number = float(string)
 		return number

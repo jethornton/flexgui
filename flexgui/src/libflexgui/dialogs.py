@@ -1,7 +1,8 @@
 import os
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
-from PyQt6.QtWidgets import QMessageBox, QCheckBox, QSpinBox, QPlainTextEdit
+from PyQt6.QtWidgets import QMessageBox, QCheckBox, QPlainTextEdit
+from PyQt6.QtWidgets import QSpinBox, QDoubleSpinBox
 from PyQt6.QtGui import QPixmap, QTextCursor
 from PyQt6.QtCore import Qt
 
@@ -21,12 +22,11 @@ def spinbox_numbers(parent, obj):
 			np.setStyleSheet(fh.read())
 		result = np.exec()
 		if result:
-			value = utilities.convert_string_to_number(np.retval())
-			if isinstance(value, (int, float)):
-				if isinstance(obj, QSpinBox): # return an int
-					obj.setValue(int(value))
-				else:
-					obj.setValue(value)
+			if isinstance(obj, QSpinBox): # return an int
+				obj.setValue(utilities.string_to_int(np.retval()))
+			elif isinstance(obj, QDoubleSpinBox): # return a float
+				print(utilities.string_to_float(np.retval()))
+				obj.setValue(utilities.string_to_float(np.retval()))
 
 def numbers(parent, obj):
 	np = number_pad.number_pad()
