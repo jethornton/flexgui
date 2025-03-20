@@ -1,0 +1,89 @@
+o<bc> sub
+
+; PREAMBLE
+G17 ; Select XY Plane
+G20 ; Select Inch units
+G40 ; Cutter Compensation Off
+G49 ; Cancel Tool Length Compensation
+G54 ; Select Coordinate System 1
+G80 ; Cancel Canned Cycle
+G90 ; Absolute Distance Mode
+G94 ; Feed Rate Units per Minute
+; END PREAMBLE
+
+; User Parameters
+; #1010 Feedrate
+; #1011 Spindle Speed
+; #1012 X Start Point
+; #1013 Y Start Point
+; #1014 Diameter
+; #1015 Hole Count
+; #1016 Start Angle
+; #1017 Z Start
+; #1018 Clear Return Point
+; #1019 Z Depth
+; #1020 Peck Q word. If 0 regular drill cycle >0 peck selected
+; #1021 Tool Number if 0 and tool in spindle that is used
+
+;(DEBUG, Feedrate #1010)
+;(DEBUG, Spindle Speed #1011)
+;(DEBUG, X Start Point #1012)
+;(DEBUG, Y Start Point #1013)
+;(DEBUG, Diameter #1014)
+;(DEBUG, Hole Count #1015)
+;(DEBUG, Start Angle #1016)
+;(DEBUG, Z Start #1017)
+;(DEBUG, Clear Return Point #1018)
+;(DEBUG, Z Depth #1019)
+;(DEBUG, Peck #1020)
+;(DEBUG, Tool Number #1021)
+
+; test for tool in spindle or load a tool
+o100 if [#1021 GT 0]
+	M6 T#1021 G43
+o100 elseif [#5400 EQ 0]
+	(ABORT, No Tool in Spindle and No Tool Number)
+o100 elseif [#5400 GT 0]
+	G43 ; enable tool length compensation
+o100 endif
+
+#<radius> = [#1014 / 2]
+;(DEBUG, Radius #<radius>)
+#<arc_angle> = [360 / #1015]
+;(DEBUG, Arc Angle #<arc_angle>)
+
+G53 G0 Z0 ; raise Z to top
+G0 X#1012 Y#1013 ; go to X Y center
+
+G92 X0 Y0 ; set coordinate system X0 Y0
+
+G0 @#<radius> ^#1016 ; Position over first hole
+
+M3 F#1010
+(DEBUG, Adjust RPM then press Resume)
+M0 ; wait for spindle speed to be adjusted
+#<holes> = #1015
+o110 if [#1020 EQ 0] ; G81 Drill Cycle
+	G90 G99 G81 Z#1019 R#1018 ; drill first hole
+	#<holes> = [#<holes> - 1]
+	o120 while [#<holes> GT 0] ; drill rest of the holes
+		G91 G0 ^#<arc_angle>
+		G90 G81 Z#1019 R#1018
+		#<holes> = [#<holes> - 1]
+	o120 endwhile
+o110 else
+	G90 G99 G83 Z#1019 R#1018 Q#1020
+	#<holes> = [#<holes> - 1]
+	o130 while [#<holes> GT 0] ; drill rest of the holes
+		G91 G0 ^#<arc_angle>
+		G90 G99 G83 Z#1019 R#1018 Q#1020
+		#<holes> = [#<holes> - 1]
+	o130 endwhile
+o110 endif
+
+G53 G0 Z0 ; raise Z to top
+G0 X0 Y0 ; return to center of hole pattern
+G92.1 ; turn off G92 offsets and reset parameters 5211 - 5219 to zero
+
+M2 ; program end
+o<bc> endsub
