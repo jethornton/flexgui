@@ -104,10 +104,13 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_estop[item]
 
+	''' LED
 	parent.state_estop_names = {'estop_pb': 'E Stop Open',
 		'actionE_Stop': 'E Stop Open', 'power_pb': 'Power Off',
 		'actionPower': 'Power Off'}
+	'''
 
+	parent.state_estop_names = {}
 	if 'estop_pb' in parent.children:
 		open_text = parent.estop_pb.property('open_text')
 		if open_text is not None:
@@ -155,11 +158,14 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_estop_reset[item]
 
+	''' LED
 	parent.state_estop_reset_names = {
 		'estop_pb': 'E Stop Closed', 'actionE_Stop': 'E Stop Closed',
 		'power_pb': 'Power Off', 'actionPower': 'Power Off'
 		}
+	'''
 
+	parent.state_estop_reset_names = {}
 	if 'estop_pb' in parent.children:
 		closed_text = parent.estop_pb.property('closed_text')
 		if closed_text is not None:
@@ -194,10 +200,13 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_on[item]
 
+	''' LED
 	parent.state_on_names = {'estop_pb': 'E Stop Closed',
 		'actionE_Stop': 'E Stop Closed', 'power_pb': 'Power On',
 		'actionPower': 'Power On'}
+	'''
 
+	parent.state_on_names = {}
 	if 'estop_pb' in parent.children:
 		closed_text = parent.estop_pb.property('closed_text')
 		if closed_text is not None:
