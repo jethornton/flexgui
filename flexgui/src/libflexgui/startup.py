@@ -66,12 +66,10 @@ def setup_led_buttons(parent): # LED
 			r,g,b = [int(s) for s in led_on_color.split(',')]
 			led_on_color = QColor(r, g, b)
 		elif len(led_on_color.split(',')) == 4: # RGBA
-			print('rgba')
 			r,g,b,a = [int(s) for s in led_on_color.split(',')]
 			led_on_color = QColor(r, g, b, a)
 		else: # bad color
 			print('bad')
-		print(led_on_color)
 	else: # use default
 		led_on_color = QColor(0, 255, 0, 255)
 	if led_off_color: # convert to qcolor
@@ -82,11 +80,11 @@ def setup_led_buttons(parent): # LED
 	else: # use default
 		led_off_color = QColor(125, 0, 0, 255)
 
-	print(f'led_diameter {led_diameter}')
-	print(f'led_right_offset {led_right_offset}')
-	print(f'led_top_offset {led_top_offset}')
-	print(f'led_on_color {led_on_color}')
-	print(f'led_off_color {led_off_color}')
+	#print(f'led_diameter {led_diameter}')
+	#print(f'led_right_offset {led_right_offset}')
+	#print(f'led_top_offset {led_top_offset}')
+	#print(f'led_on_color {led_on_color}')
+	#print(f'led_off_color {led_off_color}')
 
 	# find led buttons and get any custom properties
 	for child in parent.findChildren(QPushButton):
