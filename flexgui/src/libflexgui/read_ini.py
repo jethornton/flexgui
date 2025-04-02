@@ -2,6 +2,8 @@ import os
 
 from PyQt6.QtCore import QSettings
 
+from libflexgui import dialogs
+
 def read(parent):
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -29,10 +31,19 @@ def read(parent):
 	else:
 		parent.ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 
-	parent.estop_open_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN') or False
-	parent.estop_closed_color = parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED') or False
-	parent.power_off_color =  parent.inifile.find('FLEX_COLORS', 'POWER_OFF') or False
-	parent.power_on_color =  parent.inifile.find('FLEX_COLORS', 'POWER_ON') or False
+	# FIXME use rgb, rgba or hex.
+	# FIXME check for FLEX-COLORS section and items and warn
+	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
+		msg = ('The colors for E Stop and Power buttons\n'
+		'has been moved to the [FLEXGUI] section\n'
+		'of the ini file.\n'
+		'See the INI Settings section of the\n'
+		'documents for more information.')
+		dialogs.warn_msg_ok(parent, msg, 'Update the INI file')
+	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
+	parent.estop_closed_color = parent.inifile.find('FLEXGUI', 'ESTOP_CLOSED_COLOR') or False
+	parent.power_off_color =  parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
+	parent.power_on_color =  parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
 
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	if units == 'inch':
