@@ -178,19 +178,44 @@ Colors
 The E-Stop and Power Buttons can have a static color for Open and Closed. The
 Power Button can have a static color for Off and On.
 
-Create a key in the ini file called FLEX_COLORS and use the following to 
+Create a key in the ini file called FLEXGUI and use the following to 
 control the static color of these items. The value can be any valid color 
 specification; it's suggested to use RGB or Hex colors:
 ::
 
-	[FLEX_COLORS]
-	ESTOP_OPEN = rgb(128, 255, 128)
-	ESTOP_CLOSED = rgb(255, 77, 77)
-	POWER_OFF = rgb(255, 128, 128)
-	POWER_ON = #00FF00
+	[FLEXGUI]
+	ESTOP_OPEN_COLOR = rgb(128, 255, 128)
+	ESTOP_CLOSED_COLOR = rgb(255, 77, 77)
+	POWER_OFF_COLOR = rgb(255, 128, 128)
+	POWER_ON_COLOR = #00FF00
 
 Another way to achieve this is is via adding and editing a .qss stylesheet
 file. See the :doc:`style` section for more info.
+
+.. _led_defaults:
+
+LED Defaults
+------------
+
+LED buttons can have defaults set in the ini file. This makes it easier to have
+consistant LED size, position and colors. These options go in the [FLEXGUI]
+section. The colors are Red, Green, Blue(, Alpha).
+
+RGB (Red, Green, Blue) values are 0 to 255.
+
+PyQt6 the Alpha channel is 0 to 255. 0 represents a fully transparent color,
+while 255 represents a fully opaque color. If Alpha is ommitted then it's set to
+fully opaque or 255.
+::
+
+	[FLEXGUI]
+	LED_DIAMETER = 15
+	LED_RIGHT_OFFSET = 5
+	LED_TOP_OFFSET = 5
+	LED_ON_COLOR = 0, 255, 0, 255
+	LED_OFF_COLOR= 125, 0, 0, 255
+
+For more information on LED buttons see :ref:`led_buttons`
 
 Touch Screens
 -------------
