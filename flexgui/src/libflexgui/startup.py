@@ -36,15 +36,39 @@ def set_screen(parent):
 
 def setup_led_buttons(parent): # LED
 	# check for defaults in the ini file
-	led_diameter = int(parent.inifile.find('FLEXGUI', 'LED_DIAMETER')) or 15
-	led_right_offset = int(parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')) or 5
-	led_top_offset = int(parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')) or 5
+	led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
+	if led_diameter is None:
+		led_diameter = 15
+	else:
+		led_diameter =  int(led_diameter)
+
+	led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
+	if led_right_offset is None:
+		led_right_offset = 5
+	else:
+		led_right_offset =  int(led_right_offset)
+
+	led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
+	if led_top_offset is None:
+		led_top_offset = 5
+	else:
+		led_top_offset =  int(led_top_offset)
+
+	#led_diameter = int(parent.inifile.find('FLEXGUI', 'LED_DIAMETER')) or 15
+	#led_right_offset = int(parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')) or 5
+	#led_top_offset = int(parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')) or 5
 	led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
 	led_off_color = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR') or False
 	if led_on_color: # convert to qcolor
-		# FIXME test for correct number of values and range
-		r,g,b,a = [int(s) for s in led_on_color.split(',')]
-		led_on_color = QColor(r, g, b, a)
+		if len(led_on_color.split(',')) == 3: # RGB
+			r,g,b = [int(s) for s in led_on_color.split(',')]
+			led_on_color = QColor(r, g, b)
+		elif len(led_on_color.split(',')) == 4: # RGBA
+			print('rgba')
+			r,g,b,a = [int(s) for s in led_on_color.split(',')]
+			led_on_color = QColor(r, g, b, a)
+		else: # bad color
+			print('bad')
 		print(led_on_color)
 	else: # use default
 		led_on_color = QColor(0, 255, 0, 255)
@@ -64,17 +88,17 @@ def setup_led_buttons(parent): # LED
 
 	# find led buttons and get any custom properties
 	for child in parent.findChildren(QPushButton):
-		if child.property('indicator'):
-			prop_dict = {}
-			prop_dict['name'] = child.objectName()
-			prop_dict['text'] = child.text()
-			prop_dict['diameter'] = child.property('diameter') or led_diameter
-			prop_dict['right_offset'] = child.property('right_offset') or led_right_offset
-			prop_dict['top_offset'] = child.property('top_offset') or led_top_offset
-			prop_dict['on_color'] = child.property('on_color') or led_on_color
-			prop_dict['off_color'] = child.property('off_color') or led_off_color
+		if child.property('led_indicator'):
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['text'] = child.text()
+			led_dict['diameter'] = child.property('led_diameter') or led_diameter
+			led_dict['right_offset'] = child.property('led_right_offset') or led_right_offset
+			led_dict['top_offset'] = child.property('led_top_offset') or led_top_offset
+			led_dict['on_color'] = child.property('led_on_color') or led_on_color
+			led_dict['off_color'] = child.property('led_off_color') or led_off_color
 
-			new_button = led.IndicatorButton(**prop_dict)
+			new_button = led.IndicatorButton(**led_dict)
 			# determine layout or not
 			layout = child.parent().layout()
 			if layout:
@@ -92,8 +116,8 @@ def setup_led_buttons(parent): # LED
 				new_button.setParent(child_parent)
 				new_button.setGeometry(geometry)
 			child.deleteLater()
-			new_button.setObjectName(prop_dict['name'])
-			setattr(parent, prop_dict['name'], new_button) # give the new button the old name
+			new_button.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
