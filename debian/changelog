@@ -1,3 +1,9 @@
+flexgui (1.2.0) UNRELEASED; urgency=medium
+
+  * Add LED Indicators
+
+ -- John Thornton <dev@gnipsel.com>  Wed, 02 Apr 2025 15:46:03 -0500
+
 flexgui (1.1.2) unstable; urgency=medium
 
   * Add improved manual tool change
