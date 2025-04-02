@@ -156,6 +156,9 @@ def update(parent):
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
+			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+				parent.run_pb.led = True
+
 			if parent.status.interp_state == emc.INTERP_WAITING:
 				#print('INTERP_WAITING MODE_AUTO')
 				for key, value in parent.program_paused.items():
@@ -169,6 +172,11 @@ def update(parent):
 			#print('INTERP_PAUSED MODE_AUTO')
 			for key, value in parent.program_paused.items():
 				getattr(parent, key).setEnabled(value)
+			if 'pause_pb' in parent.children and hasattr(parent.pause_pb, 'led'):
+				parent.pause_pb.led = True
+		else: # not paused
+			if 'pause_pb' in parent.children and hasattr(parent.pause_pb, 'led'):
+				parent.pause_pb.led = False
 
 		if parent.status.interp_state == emc.INTERP_READING:
 			#print('INTERP_READING')
@@ -206,6 +214,10 @@ def update(parent):
 								for item in parent.run_controls:
 									getattr(parent, item).setEnabled(True)
 
+		if parent.status.task_mode == emc.MODE_MANUAL:
+			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+				parent.run_pb.led = False
+
 		parent.task_mode = parent.status.task_mode
 
 	# **** EXEC STATE ****
@@ -237,11 +249,15 @@ def update(parent):
 
 	# **** FLOOD_OFF or FLOOD_ON **** 
 	if parent.flood_state != parent.status.flood:
-		if 'flood_pb' in parent.children: 
+		if 'flood_pb' in parent.children:
 			if parent.status.flood == emc.FLOOD_OFF:
 				parent.flood_pb.setChecked(False)
+				if hasattr(parent.flood_pb, 'led'):
+					parent.flood_pb.led = False
 			elif parent.status.flood == emc.FLOOD_ON:
 				parent.flood_pb.setChecked(True)
+				if hasattr(parent.flood_pb, 'led'):
+					parent.flood_pb.led = True
 		parent.flood_state = parent.status.flood
 
 	# **** MIST_OFF or MIST_ON ****
@@ -249,8 +265,13 @@ def update(parent):
 		if 'mist_pb' in parent.children: 
 			if parent.status.mist == emc.MIST_OFF:
 				parent.mist_pb.setChecked(False)
+				if hasattr(parent.mist_pb, 'led'):
+					parent.mist_pb.led = False
 			elif parent.status.mist == emc.MIST_ON:
 				parent.mist_pb.setChecked(True)
+				if hasattr(parent.mist_pb, 'led'):
+					parent.mist_pb.led = True
+
 		parent.mist_state = parent.status.mist
 
 	# **** SPINDLE SPEED SETTINGS ****
