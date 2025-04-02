@@ -70,8 +70,7 @@ E Stop and Power
 
 The E Stop push button Open/Closed state text can be set by adding two string
 type Dynamic Properties `open_text` and `closed_text`. The text in those two
-properties will be used if found. The default text is `E Stop Open` and
-`E Stop Closed`. See :doc:`property`
+properties will be used if found. See :doc:`property`
 
 .. image:: /images/estop-01.png
    :align: center
@@ -93,6 +92,53 @@ This is how the above looks in the GUI
 
 .. image:: /images/estop-03.png
    :align: center
+
+.. _led_buttons:
+
+LED Buttons
+-----------
+
+.. important:: This is a work in progress and will be fully implmented by
+   version 1.2.0. Prior to that some control buttons may not change LED states.
+
+Some push buttons can have a LED to indicate on and off states. The LED is added
+to the push button with a Bool type Dynamic Property called `led_indicator`.
+
+.. csv-table:: LED Buttons
+   :width: 100%
+   :align: center
+
+	**Control Name**, **Object Name**, **Function**
+	E Stop, estop_pb, E Stop Toggle Button
+	Power, power_pb, Power Toggle Button
+	Run, run_pb, Runs a loaded NC file
+	Pause, pause_pb, Pauses a running NC file
+	Manual Mode, manual_mode_pb, Puts the control into Manual Mode
+	MDI Mode, mdi_mode_pb, Puts the control into MDI Mode
+	Flood, flood_pb, Turns on the flood cooland
+	Mist, mist_pb, Turns on the mist coolant
+
+Adding the Bool type Dynamic Property `led_indicator` to one of the above
+control buttons will add the default LED to that button. Each control button can
+have different options.
+
+.. csv-table:: LED Button Dynamic Properties
+   :width: 100%
+   :align: center
+
+	**Property Name**, **Type**, **Function**
+	led_indicator, Bool, Creates a LED
+	led_diameter, Int, Sets the Diameter of the LED in pixels
+	led_right_offset, Int, Sets the offset from the right edge in pixels
+	led_top_offset, Int, Sets the offsset from the top edge in pixels
+	led_on_color, Color, Sets the color of the LED when on
+	led_off_color, Color, Sets the color of the LED when off
+
+
+To change the LED default options they can be set in the INI file.
+See :ref:`led_defaults`
+
+.. tip:: A space after the button text gives more room for the LED
 
 Coordinate System Controls
 --------------------------
