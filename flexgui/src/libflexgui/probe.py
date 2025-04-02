@@ -20,6 +20,10 @@ def toggle(parent):
 		if None not in [on_text, off_text]:
 			btn.setText(on_text)
 
+		if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
+			parent.probing_enable_pb.led = True
+
+
 	else: # probing is disabled
 		parent.probing = False
 		for item in parent.probe_controls:
@@ -30,4 +34,7 @@ def toggle(parent):
 
 		if None not in [on_text, off_text]:
 			btn.setText(off_text)
+
+		if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
+			parent.probing_enable_pb.led = False
 
