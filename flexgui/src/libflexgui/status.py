@@ -49,6 +49,10 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_names.items():
 				getattr(parent, key).setText(value)
+			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
+				parent.estop_pb.led = False
+			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
+				parent.power_pb.led = False
 
 		# e stop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
@@ -57,6 +61,10 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_reset_names.items():
 				getattr(parent, key).setText(value)
+			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
+				parent.estop_pb.led = True
+			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
+				parent.power_pb.led = False
 
 		# e stop closed power on
 		if parent.status.task_state == emc.STATE_ON:
@@ -65,6 +73,8 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
+			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
+				parent.power_pb.led = True
 
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
