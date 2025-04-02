@@ -76,7 +76,6 @@ def setup_led_buttons(parent): # LED
 		# FIXME test for correct number of values and range
 		r,g,b,a = [int(s) for s in led_off_color.split(',')]
 		led_off_color = QColor(r, g, b, a)
-		print(led_off_color)
 	else: # use default
 		led_off_color = QColor(125, 0, 0, 255)
 
