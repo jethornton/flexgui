@@ -174,9 +174,13 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			if 'pause_pb' in parent.children and hasattr(parent.pause_pb, 'led'):
 				parent.pause_pb.led = True
+			if 'resume_pb' in parent.children and hasattr(parent.resume_pb, 'led'):
+				parent.resume_pb.led = True
 		else: # not paused
 			if 'pause_pb' in parent.children and hasattr(parent.pause_pb, 'led'):
 				parent.pause_pb.led = False
+			if 'resume_pb' in parent.children and hasattr(parent.resume_pb, 'led'):
+				parent.resume_pb.led = False
 
 		if parent.status.interp_state == emc.INTERP_READING:
 			#print('INTERP_READING')
@@ -231,6 +235,11 @@ def update(parent):
 			for key, value in parent.program_running.items():
 				getattr(parent, key).setEnabled(value)
 		parent.exec_state = parent.status.exec_state
+
+	# **** STATE ****
+	if parent.state != parent.status.state:
+		print(f'STATE: {STATES[parent.status.state]}')
+		parent.state = parent.status.state
 
 	# **** MDI CHANGE ****
 	if parent.mdi_command != '':
