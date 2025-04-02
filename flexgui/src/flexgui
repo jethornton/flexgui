@@ -87,9 +87,6 @@ class flexgui(QMainWindow):
 			self.inifile = linuxcnc.ini(self.status.ini_filename)
 			self.ini_path = os.path.split(self.status.ini_filename)[0]
 
-		# get ini values if any
-		read_ini.read(self)
-
 		#gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
 
@@ -160,6 +157,9 @@ class flexgui(QMainWindow):
 				msg = (f'The Stylesheet {stylesheet}\n'
 					'was not found.')
 				dialogs.warn_msg_ok(parent, msg, 'INI Error')
+
+		# get ini values if any
+		read_ini.read(self)
 
 		# get a list of axis letters in the configuration
 		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
