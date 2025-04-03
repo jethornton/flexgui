@@ -406,16 +406,16 @@ def flood_toggle(parent):
 	parent.status.poll()
 	if parent.sender().isChecked():
 		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MANUAL:
-				parent.command.mode(emc.MODE_MANUAL)
-				parent.command.wait_complete()
+			#if parent.status.task_mode != emc.MODE_MANUAL:
+			#	parent.command.mode(emc.MODE_MANUAL)
+			#	parent.command.wait_complete()
 			parent.command.flood(emc.FLOOD_ON)
 			parent.command.wait_complete()
 	else:
 		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MANUAL:
-				parent.command.mode(emc.MODE_MANUAL)
-				parent.command.wait_complete()
+			#if parent.status.task_mode != emc.MODE_MANUAL:
+			#	parent.command.mode(emc.MODE_MANUAL)
+			#	parent.command.wait_complete()
 			parent.command.flood(emc.FLOOD_OFF)
 			parent.command.wait_complete()
 

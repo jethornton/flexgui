@@ -51,10 +51,10 @@ Manual Tool Change
 ------------------
 
 All that is needed to add a manual tool change is to add the following to the
-ini file in the [FLEX] section.
+ini file in the [FLEXGUI] section.
 ::
 
-	[FLEX]
+	[FLEXGUI]
 	MANUAL_TOOL_CHANGE = True
 
 .. figure:: /images/tools-06.png

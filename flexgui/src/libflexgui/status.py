@@ -75,6 +75,9 @@ def update(parent):
 				getattr(parent, key).setText(value)
 			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
+			if parent.status.task_mode == emc.MODE_MANUAL:
+				if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+					parent.manual_mode_pb.led = True
 
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
@@ -193,10 +196,40 @@ def update(parent):
 	# **** TASK MODE ****
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
+		print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
+
+		if parent.status.task_mode == emc.MODE_MANUAL:
+			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+				parent.manual_mode_pb.led = True
+			if 'mdi_mode_pb' in parent.children and hasattr(parent.mdi_mode_pb, 'led'):
+				parent.mdi_mode_pb.led = False
+			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
+				parent.auto_mode_pb.led = False
+			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+				parent.run_pb.led = False
+			# enable flood and mist buttons
+
 		if parent.status.task_mode == emc.MODE_MDI:
+			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+				parent.manual_mode_pb.led = False
+			if 'mdi_mode_pb' in parent.children and hasattr(parent.mdi_mode_pb, 'led'):
+				parent.mdi_mode_pb.led = True
+			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
+				parent.auto_mode_pb.led = False
+
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
+
+		if parent.status.task_mode == emc.MODE_AUTO:
+			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+				parent.manual_mode_pb.led = False
+			if 'mdi_mode_pb' in parent.children and hasattr(parent.mdi_mode_pb, 'led'):
+				parent.mdi_mode_pb.led = False
+			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
+				parent.auto_mode_pb.led = True
+			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+				parent.run_pb.led = False
+			# disable flood and mist buttons
 
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode == emc.MODE_MANUAL:
@@ -219,6 +252,8 @@ def update(parent):
 									getattr(parent, item).setEnabled(True)
 
 		if parent.status.task_mode == emc.MODE_MANUAL:
+			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+				parent.manual_mode_pb.led = True
 			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
 				parent.run_pb.led = False
 
@@ -237,8 +272,9 @@ def update(parent):
 		parent.exec_state = parent.status.exec_state
 
 	# **** STATE ****
+	# state RCS_DONE, RCS_EXEC, RCS_ERROR
 	if parent.state != parent.status.state:
-		print(f'STATE: {STATES[parent.status.state]}')
+		#print(f'STATE: {STATES[parent.status.state]}')
 		parent.state = parent.status.state
 
 	# **** MDI CHANGE ****

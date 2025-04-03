@@ -157,13 +157,13 @@ To control the initial size of the screen, add either:
 Plotter
 -------
 
-The plotter background color can be set in the [FLEX] section of the ini. The
+The plotter background color can be set in the [FLEXGUI] section of the ini. The
 value is the Red,Greed,Blue color numbers from 0 to 1 with no space. So an entry
 of 0.0,0.0,0.0 is black and 1.0,1.0,1.0 is white. Use a RGB 0-1 Color Picker to
 select the RGB values.
 ::
 
-	[FLEX]
+	[FLEXGUI]
 	PLOT_BACKGROUND_COLOR = 0.0,0.0,0.0
 
 The plotter orientation can be set to one of the following x, x2, y, y2, z, or p.
@@ -223,8 +223,8 @@ Touch Screens
 Options for touch screen users.
 
 Set the touch screen file chooser to automaticly adjust the width by adding the
-following to the FLEX section.
+following to the FLEXGUI section.
 ::
 
-	[FLEX]
+	[FLEXGUI]
 	TOUCH_FILE_WIDTH = True

@@ -77,15 +77,26 @@ def read(parent):
 	else:
 		parent.default_view = 'p'
 
-
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
 	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
 
-	parent.plot_background_color = parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR') or False
+	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
+		'Check the Plotter section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	parent.plot_background_color = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
 	#print(type(background_color))
 	#print(background_color)
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
+
+	if parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key TOUCH_FILE_WIDTH needs to be in the [FLEXGUI] section\n'
+		'Check the Plotter section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	parent.touch_file_width = parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH') or False
 	if parent.touch_file_width in ['True', 'true', '1']:
@@ -93,6 +104,12 @@ def read(parent):
 	else:
 		parent.touch_file_width = False
 
-	parent.manual_tool_change = parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE') or False
+	if parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key MANUAL_TOOL_CHANGE needs to be in the [FLEXGUI] section\n'
+		'Check the Tools section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
 
 

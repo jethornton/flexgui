@@ -3,14 +3,14 @@ Python Module
 
 `Python Import Tutorial <https://youtu.be/QC4K_8VMc6Y>`_
 
-To import a python module add the following to the INI [FLEX] section using the
+To import a python module add the following to the INI [FLEXGUI] section using the
 name of the python file without the.py extension. The file name must be unique
 and can not be any python module name. You can have as many imports as you need
 to simplify your code.
 ::
 
-	[FLEX]
-	IMPORT = testpy
+	[FLEXGUI]
+	IMPORT_PYTHON = testpy
 
 .. note:: The module requires the .py extension to be able to import so the
    above module would be named testpy.py.
