@@ -349,6 +349,7 @@ def setup_enables(parent):
 			'actionOpen': False, 'menuRecent': False, 'actionReload': False,
 			'actionRun_From_Line': False, 'actionStep': False,
 			'actionPause': True, 'actionResume': False,
+			'flood_pb': False, 'mist_pb': False,
 			'unhome_all_pb': False, 'spindle_start_pb': False,
 			'spindle_fwd_pb': False, 'spindle_rev_pb': False,
 			'spindle_stop_pb': False, 'spindle_plus_pb': False,
