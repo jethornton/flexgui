@@ -2196,7 +2196,12 @@ def setup_dsf(parent): # drill speed and feed calculator
 				parent.number_le.append(item)
 
 def setup_import(parent):
-	modules = parent.inifile.findall('FLEX', 'IMPORT') or False
+	if parent.inifile.findall('FLEX', 'IMPORT'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key IMPORT has been changed to IMPORT_PYTHON\n'
+		'Check the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+	modules = parent.inifile.findall('FLEXGUI', 'IMPORT_PYTHON') or False
 	if modules:
 		for module_name in modules:
 			try:
