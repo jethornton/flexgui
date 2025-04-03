@@ -307,7 +307,9 @@ def action_step(parent): # actionStep
 		parent.command.auto(emc.AUTO_STEP)
 
 def action_pause(parent): # actionPause
-	if parent.status.state == emc.RCS_EXEC: # program is running
+	if parent.status.task_mode == emc.MODE_AUTO: # program is running
+		#  sometimes the state can be RCS_ERROR so this does not work all the time
+		# if parent.status.state == emc.RCS_EXEC:
 		parent.command.auto(emc.AUTO_PAUSE)
 
 def action_resume(parent): # actionResume
