@@ -117,6 +117,7 @@ to the push button with a Bool type Dynamic Property called `led_indicator`.
 	MDI Mode, mdi_mode_pb, Puts the control into MDI Mode
 	Flood, flood_pb, Turns on the flood cooland
 	Mist, mist_pb, Turns on the mist coolant
+	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
 
 Adding the Bool type Dynamic Property `led_indicator` to one of the above
 control buttons will add the default LED to that button. Each control button can
