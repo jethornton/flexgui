@@ -175,8 +175,9 @@ The plotter orientation can be set to one of the following x, x2, y, y2, z, or p
 Colors
 ------
 
-The E-Stop and Power Buttons can have a static color for Open and Closed. The
-Power Button can have a static color for Off and On.
+The E-Stop can have a static color for Open and Closed.
+
+The Power Button can have a static color for Off and On.
 
 Create a key in the ini file called FLEXGUI and use the following to 
 control the static color of these items. The value can be any valid color 
@@ -199,21 +200,27 @@ LED Defaults
 
 LED buttons can have defaults set in the ini file. This makes it easier to have
 consistant LED size, position and colors. These options go in the [FLEXGUI]
-section. The colors are Red, Green, Blue(, Alpha).
+section.
 
-RGB (Red, Green, Blue) values are 0 to 255.
+The color options can be specified using HEX, RGB or RGBA.
 
-PyQt6 the Alpha channel is 0 to 255. 0 represents a fully transparent color,
+Valid RGB(A) Red, Green, Blue (Alpha) values are 0 to 255.
+
+Valid HEX values are #000000 to #ffffff
+
+In PyQt6 the Alpha channel is 0 to 255. 0 represents a fully transparent color,
 while 255 represents a fully opaque color. If Alpha is ommitted then it's set to
 fully opaque or 255.
+
+The Diameter and Offset values are whole numbers only.
 ::
 
 	[FLEXGUI]
 	LED_DIAMETER = 15
 	LED_RIGHT_OFFSET = 5
 	LED_TOP_OFFSET = 5
-	LED_ON_COLOR = 0, 255, 0, 255
-	LED_OFF_COLOR= 125, 0, 0, 255
+	LED_ON_COLOR = rgb(0, 255, 0)
+	LED_OFF_COLOR= rgba(125, 0, 0, 255)
 
 For more information on LED buttons see :ref:`led_buttons`
 

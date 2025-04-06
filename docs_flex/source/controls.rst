@@ -98,8 +98,7 @@ This is how the above looks in the GUI
 LED Buttons
 -----------
 
-.. important:: This is a work in progress and will be fully implmented by
-   version 1.2.0. Prior to that some control buttons may not change LED states.
+.. important:: This is implmented in version 1.2.0.
 
 Some push buttons can have a LED to indicate on and off states. The LED is added
 to the push button with a Bool type Dynamic Property called `led_indicator`.
