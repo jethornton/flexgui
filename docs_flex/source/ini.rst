@@ -185,10 +185,12 @@ specification; it's suggested to use RGB or Hex colors:
 ::
 
 	[FLEXGUI]
-	ESTOP_OPEN_COLOR = rgb(128, 255, 128)
-	ESTOP_CLOSED_COLOR = rgb(255, 77, 77)
-	POWER_OFF_COLOR = rgb(255, 128, 128)
+	ESTOP_OPEN_COLOR = 128, 255, 128
+	ESTOP_CLOSED_COLOR = 255, 77, 77
+	POWER_OFF_COLOR = 255, 128, 128
 	POWER_ON_COLOR = #00FF00
+
+.. important:: INI background colors do not work on LED Controls
 
 Another way to achieve this is is via adding and editing a .qss stylesheet
 file. See the :doc:`style` section for more info.
@@ -219,8 +221,8 @@ The Diameter and Offset values are whole numbers only.
 	LED_DIAMETER = 15
 	LED_RIGHT_OFFSET = 5
 	LED_TOP_OFFSET = 5
-	LED_ON_COLOR = rgb(0, 255, 0)
-	LED_OFF_COLOR= rgba(125, 0, 0, 255)
+	LED_ON_COLOR = 0, 255, 0
+	LED_OFF_COLOR= 125, 0, 0, 255
 
 For more information on LED buttons see :ref:`led_buttons`
 
