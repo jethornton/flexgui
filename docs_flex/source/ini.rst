@@ -190,8 +190,6 @@ specification; it's suggested to use RGB or Hex colors:
 	POWER_OFF_COLOR = 255, 128, 128
 	POWER_ON_COLOR = #00FF00
 
-.. important:: INI background colors do not work on LED Controls
-
 Another way to achieve this is is via adding and editing a .qss stylesheet
 file. See the :doc:`style` section for more info.
 
