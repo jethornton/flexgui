@@ -237,27 +237,21 @@ def action_estop(parent): # actionEstop
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		if parent.estop_closed_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				#estop_closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
 				parent.estop_pb.setStyleSheet(f'QPushButton{{background-color: {parent.estop_closed_color};}}')
 			if 'flex_E_Stop' in parent.children:
-				#estop_closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
 				parent.flex_E_Stop.setStyleSheet(f'QToolButton{{background-color: {parent.estop_closed_color};}}')
 	else:
 		parent.command.state(emc.STATE_ESTOP)
 		if parent.estop_open_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				#estop_open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
 				parent.estop_pb.setStyleSheet(f'QPushButton{{background-color: {parent.estop_open_color};}}')
 			if 'flex_E_Stop' in parent.children:
-				#estop_open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
 				parent.flex_E_Stop.setStyleSheet(f'QToolButton{{background-color: {parent.estop_open_color};}}')
 
 		if parent.power_off_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				#off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
 				parent.power_pb.setStyleSheet(f'QPushButton{{background-color: {parent.power_off_color};}}')
 			if 'flex_Power' in parent.children:
-				#off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
 				parent.flex_Power.setStyleSheet(f'QToolButton{{background-color: {parent.power_off_color};}}')
 
 def action_power(parent): # actionPower
@@ -269,19 +263,15 @@ def action_power(parent): # actionPower
 		parent.command.state(emc.STATE_ON)
 		if parent.power_on_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				#on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
 				parent.power_pb.setStyleSheet(f'QPushButton{{background-color: {parent.power_on_color};}}')
 			if 'flex_Power' in parent.children:
-				#on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
 				parent.flex_Power.setStyleSheet(f'QToolButton{{background-color: {parent.power_on_color};}}')
 	else:
 		parent.command.state(emc.STATE_OFF)
 		if parent.power_off_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				#off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
 				parent.power_pb.setStyleSheet(f'QPushButton{{background-color: {parent.power_off_color};}}')
 			if 'flex_Power' in parent.children:
-				#off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
 				parent.flex_Power.setStyleSheet(f'QToolButton{{background-color: {parent.power_off_color};}}')
 
 def action_run(parent, line = 0): # actionRun

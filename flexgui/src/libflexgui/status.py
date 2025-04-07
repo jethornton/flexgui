@@ -196,8 +196,7 @@ def update(parent):
 	# **** TASK MODE ****
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
-
+		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = True
@@ -316,7 +315,6 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 				if hasattr(parent.mist_pb, 'led'):
 					parent.mist_pb.led = True
-
 		parent.mist_state = parent.status.mist
 
 	# **** SPINDLE SPEED SETTINGS ****
