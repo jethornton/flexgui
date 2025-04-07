@@ -39,11 +39,18 @@ def string_to_float(string):
 def string_to_rgba(parent, string, key):
 	if string.startswith('#') and len(string) == 7:
 		return string
-	else: # add rgb or rgba
-		if string.count(',') == 2: # rgb
-			return f'rgb({string})'
-		elif string.count(',') == 3: # rgba
-			return f'rgba({string})'
+	elif string.count(',') == 2: # rgb
+		return f'rgb({string})'
+	elif string.count(',') == 3: # rgba
+		return f'rgba({string})'
+	else: # unknown color value
+		msg = (f'The [FLEXGUI] key {key}\n'
+			f'{string}\n'
+			'is not a valid color\n'
+			'See the INI section of the\n'
+			'documents for proper usage.')
+		dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+		return False
 
 def string_to_qcolor(parent, string, key):
 	if ',' in string:
