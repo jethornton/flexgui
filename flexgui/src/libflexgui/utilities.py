@@ -36,6 +36,81 @@ def string_to_float(string):
 	except ValueError:
 		return False
 
+def string_to_rgba(parent, string, key):
+	if string.startswith('#'):
+		return string
+	else: # add rgb or rgba
+		if string.count(',') == 2: # rgb
+			return f'rgb({string})'
+		elif string.count(',') == 3: # rgba
+			return f'rgba({string})'
+
+def string_to_qcolor(parent, string, key):
+	if ',' in string:
+		return QColor(string)
+	elif string.startswith('#'):
+		color = string.lstrip('#')
+		if len(color) != 6:
+			return False
+		try:
+			r = int(color[0:2], 16)
+			g = int(color[2:4], 16)
+			b = int(color[4:6], 16)
+			return QColor(r, g, b)
+		except ValueError:
+			return False
+
+	return
+
+	if string.startswith('rgba'): # test rbga first
+		color_string = string.split('(')[1].split(')')[0]
+		r, g, b, a = [int(s) for s in color_string.split(',')]
+		#if max(r, g, b, a) > 255 or min(r, g, b, a) < 0:
+		if not all(0 <= n <= 255 for n in (r, g, b, a)):
+			msg = (f'The [FLEXGUI] key {key}\n'
+				f'{color_string}\n'
+				'is not a valid RGBA color\n'
+				'See the INI section of the\n'
+				'documents for proper usage.')
+			dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+			return False
+		return QColor(r, g, b, a)
+
+	elif string.startswith('rgb'):
+		color_string = string.split('(')[1].split(')')[0]
+		r,g,b = [int(s) for s in color_string.split(',')]
+		if not all(0 <= n <= 255 for n in (r, g, b)):
+			msg = (f'The [FLEXGUI] key {key}\n'
+				f'{color_string}\n'
+				'is not a valid RGB color\n'
+				'See the INI section of the\n'
+				'documents for proper usage.')
+			dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+			return False
+		return QColor(r, g, b)
+
+	elif string.startswith('#'): # hex color
+		try:
+			int(string[1:], 16)
+			return QColor(string.strip())
+		except ValueError:
+			msg = (f'The [FLEXGUI] key {key}\n'
+				f'{string}\n'
+				'is not a valid HEX color\n'
+				'See the INI section of the\n'
+				'documents for proper usage.')
+			dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+			return False
+
+	else: # unknown color value
+		msg = (f'The [FLEXGUI] key {key}\n'
+			f'{string}\n'
+			'is not a valid color\n'
+			'See the INI section of the\n'
+			'documents for proper usage.')
+		dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+		return False
+
 def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
 	if nc_code_dir is None:
 		nc_code_dir = parent.nc_code_dir

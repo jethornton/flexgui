@@ -37,65 +37,17 @@ def set_screen(parent):
 		print(f"An unexpected error occurred: {e}")
 
 def setup_led_buttons(parent): # LED
-	# check for defaults in the ini file
-	led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
-	if led_diameter is None:
-		led_diameter = 15
-	else:
-		led_diameter =  int(led_diameter)
-
-	led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
-	if led_right_offset is None:
-		led_right_offset = 5
-	else:
-		led_right_offset =  int(led_right_offset)
-
-	led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
-	if led_top_offset is None:
-		led_top_offset = 5
-	else:
-		led_top_offset =  int(led_top_offset)
-
-	#led_diameter = int(parent.inifile.find('FLEXGUI', 'LED_DIAMETER')) or 15
-	#led_right_offset = int(parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')) or 5
-	#led_top_offset = int(parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')) or 5
-	led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
-	led_off_color = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR') or False
-	if led_on_color: # convert to qcolor
-		if len(led_on_color.split(',')) == 3: # RGB
-			r,g,b = [int(s) for s in led_on_color.split(',')]
-			led_on_color = QColor(r, g, b)
-		elif len(led_on_color.split(',')) == 4: # RGBA
-			r,g,b,a = [int(s) for s in led_on_color.split(',')]
-			led_on_color = QColor(r, g, b, a)
-		else: # bad color
-			print('bad')
-	else: # use default
-		led_on_color = QColor(0, 255, 0, 255)
-	if led_off_color: # convert to qcolor
-		# FIXME test for correct number of values and range
-		r,g,b,a = [int(s) for s in led_off_color.split(',')]
-		led_off_color = QColor(r, g, b, a)
-	else: # use default
-		led_off_color = QColor(125, 0, 0, 255)
-
-	#print(f'led_diameter {led_diameter}')
-	#print(f'led_right_offset {led_right_offset}')
-	#print(f'led_top_offset {led_top_offset}')
-	#print(f'led_on_color {led_on_color}')
-	#print(f'led_off_color {led_off_color}')
-
 	# find led buttons and get any custom properties
 	for child in parent.findChildren(QPushButton):
 		if child.property('led_indicator'):
 			led_dict = {}
 			led_dict['name'] = child.objectName()
 			led_dict['text'] = child.text()
-			led_dict['diameter'] = child.property('led_diameter') or led_diameter
-			led_dict['right_offset'] = child.property('led_right_offset') or led_right_offset
-			led_dict['top_offset'] = child.property('led_top_offset') or led_top_offset
-			led_dict['on_color'] = child.property('led_on_color') or led_on_color
-			led_dict['off_color'] = child.property('led_off_color') or led_off_color
+			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
+			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
+			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
+			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
+			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 
 			new_button = led.IndicatorButton(**led_dict)
 			# determine layout or not
@@ -662,7 +614,6 @@ def setup_actions(parent): # setup menu actions
 		if 'actionCopy_MDI_History' in parent.children:
 			parent.actionCopy_MDI_History.setEnabled(False)
 
-
 def setup_status_labels(parent):
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
@@ -671,7 +622,8 @@ def setup_status_labels(parent):
 		7: 'EXEC_WAITING_FOR_MOTION_AND_IO', 8: 'EXEC_WAITING_FOR_DELAY',
 		9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED',},
 	'estop': {0: False, 1: True},
-	'flood': {0: 'FLOOD_OFF', 1: 'FLOOD_ON'},
+	'flood': {0: 'Flood OFF', 1: 'Flood ON'},
+	'mist': {0: 'Mist OFF', 1: 'Mist ON'},
 	'g5x_index': {1: 'G54', 2: 'G55', 3: 'G56', 4: 'G57', 5: 'G58', 6: 'G59',
 		7: 'G59.1', 8: 'G59.2', 9: 'G59.3'},
 	'interp_state': {1: 'INTERP_IDLE', 2: 'INTERP_READING',
@@ -2262,6 +2214,7 @@ def set_status(parent): # this is only used if running from a terminal
 			if 'power_pb' in parent.children:
 				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
 				parent.power_pb.setStyleSheet(off_color)
+				print('here')
 			if 'flex_Power' in parent.children:
 				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
 				parent.flex_Power.setStyleSheet(off_color)

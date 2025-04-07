@@ -1,8 +1,10 @@
 import os
 
 from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QColor
 
 from libflexgui import dialogs
+from libflexgui import utilities
 
 def read(parent):
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
@@ -31,8 +33,7 @@ def read(parent):
 	else:
 		parent.ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 
-	# FIXME use rgb, rgba or hex.
-	# FIXME check for FLEX-COLORS section and items and warn
+	# FIXME remove these tests 6-1-25
 	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
 		msg = ('The colors for E Stop and Power buttons\n'
 		'has been moved to the [FLEXGUI] section\n'
@@ -40,10 +41,122 @@ def read(parent):
 		'See the INI Settings section of the\n'
 		'documents for more information.')
 		dialogs.warn_msg_ok(parent, msg, 'Update the INI file')
-	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
+
+	# check for LED defaults in the ini file
+	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
+	if parent.led_diameter is None:
+		parent.led_diameter = 15
+	else:
+		parent.led_diameter =  int(parent.led_diameter)
+
+	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
+	if parent.led_right_offset is None:
+		parent.led_right_offset = 5
+	else:
+		parent.led_right_offset =  int(parent.led_right_offset)
+
+	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
+	if parent.led_top_offset is None:
+		parent.led_top_offset = 5
+	else:
+		parent.led_top_offset =  int(parent.led_top_offset)
+
+	parent.led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
+	if parent.led_on_color: # convert string to QColor
+		parent.led_on_color = utilities.string_to_qcolor(parent, parent.led_on_color, 'LED_ON_COLOR')
+	if not parent.led_on_color: # use default led on color
+		parent.led_on_color = QColor(0, 255, 0, 255)
+
+	parent.led_off_color = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR') or False
+	if parent.led_off_color: # convert string to QColor
+		parent.led_off_color = utilities.string_to_qcolor(parent, parent.led_off_color, 'LED_OFF_COLOR')
+	if not parent.led_off_color: # use default led on color
+		parent.led_off_color = QColor(125, 0, 0, 255)
+
+	# FIXME test for valid color string
+	eoc = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
+	if eoc: # get a valid color string
+		parent.estop_open_color = utilities.string_to_rgba(parent, eoc, 'ESTOP_OPEN_COLOR')
+	print(f'estop open color {parent.estop_open_color}')
 	parent.estop_closed_color = parent.inifile.find('FLEXGUI', 'ESTOP_CLOSED_COLOR') or False
-	parent.power_off_color =  parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
-	parent.power_on_color =  parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
+	#print(f'estop closed color {parent.estop_closed_color}')
+	parent.power_off_color = parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
+	#print(f'power off color {parent.power_off_color}')
+	parent.power_on_color = parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
+	#print(f'power on color {parent.power_on_color}')
+
+	'''
+	#led_diameter = int(parent.inifile.find('FLEXGUI', 'LED_DIAMETER')) or 15
+	#led_right_offset = int(parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')) or 5
+	#led_top_offset = int(parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')) or 5
+
+	# RGB Color Values rgb(red, green, blue)
+	test_rgb = parent.inifile.find('FLEXGUI', 'RGB') or False
+	if test_rgb:
+		test_rgb_color = utilities.string_to_color(parent, test_rgb, 'RGB')
+		print(f'rgb {test_rgb_color}')
+
+	# RGBA Color Values rgba(red, green, blue, alpha)
+	test_rgba = parent.inifile.find('FLEXGUI', 'RGBA') or False
+	if test_rgba:
+		test_rgba_color = utilities.string_to_color(parent, test_rgba, 'RGBA')
+		print(f'rgba {test_rgba_color}')
+
+	# HEX Color Values #rrggbb
+	test_hex = parent.inifile.find('FLEXGUI', 'HEX') or False
+	if test_hex:
+		test_hex_color = utilities.string_to_color(parent, test_hex, 'HEX')
+		print(f'hex {test_hex_color}')
+
+	test_hsv = parent.inifile.find('FLEXGUI', 'HSV') or False
+	if test_hsv:
+		test_hsv_color = utilities.string_to_color(parent, test_hsv, 'HSV')
+		print(f'hsv {test_hsv_color}')
+
+	test_hsva = parent.inifile.find('FLEXGUI', 'HSVA') or False
+	if test_hsva:
+		test_hsva_color = utilities.string_to_color(parent, test_hsva, 'HSVA')
+		print(f'hsva {test_hsva_color}')
+
+
+	# HSL Color Values hsl(hue, saturation, lightness)
+	# HSLA Color Values hsla(hue, saturation, lightness, alpha)
+	led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
+	led_off_color = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR') or False
+	if led_on_color: # convert to qcolor
+		loc = [int(s) for s in led_on_color.split(',')]
+		if max(loc) > 255:
+			msg = (f'LED_ON_COLOR {loc} is invalid.\n'
+			'The maximum value for color number is 255')
+			print(f'error {loc} {max(loc)}')
+			for i, n in enumerate(loc):
+				if n > 255:
+					loc[i] = 255
+			print(loc)
+		if len(led_on_color.split(',')) == 3: # RGB
+			r,g,b = [int(s) for s in led_on_color.split(',')]
+			r = r if r <= 255 else 255
+			led_on_color = QColor(r, g, b)
+		elif len(led_on_color.split(',')) == 4: # RGBA
+			r,g,b,a = [int(s) for s in led_on_color.split(',')]
+			led_on_color = QColor(r, g, b, a)
+		else: # bad color
+			print('bad')
+	else: # use default
+		led_on_color = QColor(0, 255, 0, 255)
+	if led_off_color: # convert to qcolor
+		# FIXME test for correct number of values and range
+		r,g,b,a = [int(s) for s in led_off_color.split(',')]
+		led_off_color = QColor(r, g, b, a)
+	else: # use default
+		led_off_color = QColor(125, 0, 0, 255)
+
+	#print(f'led_diameter {led_diameter}')
+	#print(f'led_right_offset {led_right_offset}')
+	#print(f'led_top_offset {led_top_offset}')
+	#print(f'led_on_color {led_on_color}')
+	#print(f'led_off_color {led_off_color}')
+	'''
 
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	if units == 'inch':
