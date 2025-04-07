@@ -73,17 +73,22 @@ def read(parent):
 	if not parent.led_off_color: # use default led on color
 		parent.led_off_color = QColor(125, 0, 0, 255)
 
-	# FIXME test for valid color string
-	eoc = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
-	if eoc: # get a valid color string
-		parent.estop_open_color = utilities.string_to_rgba(parent, eoc, 'ESTOP_OPEN_COLOR')
-	print(f'estop open color {parent.estop_open_color}')
+	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
+	if parent.estop_open_color: # get a valid color string
+		parent.estop_open_color = utilities.string_to_rgba(parent, parent.estop_open_color, 'ESTOP_OPEN_COLOR')
+
 	parent.estop_closed_color = parent.inifile.find('FLEXGUI', 'ESTOP_CLOSED_COLOR') or False
-	#print(f'estop closed color {parent.estop_closed_color}')
+	if parent.estop_closed_color: # get a valid color string
+		parent.estop_closed_color = utilities.string_to_rgba(parent, parent.estop_closed_color, 'ESTOP_OPEN_COLOR')
+
 	parent.power_off_color = parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
-	#print(f'power off color {parent.power_off_color}')
+	if parent.power_off_color: # get a valid color string
+		parent.power_off_color = utilities.string_to_rgba(parent, parent.power_off_color, 'ESTOP_OPEN_COLOR')
+
 	parent.power_on_color = parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
-	#print(f'power on color {parent.power_on_color}')
+	if parent.power_on_color: # get a valid color string
+		parent.power_on_color = utilities.string_to_rgba(parent, parent.power_on_color, 'ESTOP_OPEN_COLOR')
+
 
 	'''
 	#led_diameter = int(parent.inifile.find('FLEXGUI', 'LED_DIAMETER')) or 15
