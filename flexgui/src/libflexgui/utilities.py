@@ -215,6 +215,7 @@ def read_dir(parent): # touch screen file navigator
 			path = os.path.join(parent.nc_code_dir, item)
 			if os.path.isdir(path):
 				file_list.append(f'{item} ...')
+
 		# get nc_code files
 		for item in sorted(os.listdir(parent.nc_code_dir)):
 			if os.path.splitext(item)[1].lower() in parent.extensions:

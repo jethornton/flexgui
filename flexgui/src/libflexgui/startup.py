@@ -856,8 +856,7 @@ def setup_status_labels(parent):
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.children:
-		if os.path.exists(parent.nc_code_dir):
-			utilities.read_dir(parent) # this is called from actions as well
+		utilities.read_dir(parent) # this is called from actions as well
 		parent.file_lw.itemClicked.connect(partial(actions.file_selector, parent))
 
 def setup_plain_text_edits(parent):
