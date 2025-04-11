@@ -97,7 +97,9 @@ def read(parent):
 
 	# set the nc code directory to some valid directory
 	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
-	if directory:
+	ini_dir = False
+	if directory: # expand directory if needed
+		ini_dir = True
 		if directory.startswith('./'): # in this directory
 			directory = os.path.join(parent.ini_path, directory[2:])
 		elif directory.startswith('../'): # up one directory
@@ -105,26 +107,21 @@ def read(parent):
 		elif directory.startswith('~'): # users home directory
 			directory = os.path.expanduser(directory)
 
-		if os.path.isdir(directory):
-			parent.nc_code_dir = directory
-		else: # try and find a directory
-			if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
-				parent.nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
-			else:
-				parent.nc_code_dir = os.path.expanduser('~/')
-			msg = (f'The path {directory}\n'
-			'does not exist. Check the\n'
-			'PROGRAM_PREFIX key in the\n'
-			'[DISPLAY] section of the\n'
-			'INI file for a valid path.\n'
-			f'{parent.nc_code_dir} will be used.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-	else: # FIXME duplicate code...
+	if os.path.isdir(directory):
+		parent.nc_code_dir = directory
+	else: # try and find a directory
 		if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 			parent.nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
 		else:
 			parent.nc_code_dir = os.path.expanduser('~/')
-	print(parent.nc_code_dir)
+		if ini_dir: # a nc code directory was in the ini file but is not valid
+			msg = (f'The path {directory}\n'
+				'does not exist. Check the\n'
+				'PROGRAM_PREFIX key in the\n'
+				'[DISPLAY] section of the\n'
+				'INI file for a valid path.\n'
+				f'{parent.nc_code_dir} will be used.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
