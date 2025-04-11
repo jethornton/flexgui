@@ -21,6 +21,7 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 	Edit Tool Table, edit_tool_table_pb
 	Edit Ladder, edit_ladder_pb
 	Reload Tool Table, reload_tool_table_pb
+	Save, save_pb
 	Save As a New Name, save_as_pb
 	Quit the Program, quit_pb
 	E-Stop Toggle, estop_pb
