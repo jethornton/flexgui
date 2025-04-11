@@ -202,6 +202,11 @@ def update_qcode_pte(parent):
 		selected_block = cursor.blockNumber() # get current block number
 		parent.start_line_lb.setText(f'{selected_block}')
 
+def nc_code_changed(parent):
+	if 'save_pb' in parent.children:
+		if hasattr(parent.save_pb, 'led'):
+			parent.save_pb.led = True
+
 def read_dir(parent): # touch screen file navigator
 	if os.path.isdir(parent.nc_code_dir):
 		file_list = []

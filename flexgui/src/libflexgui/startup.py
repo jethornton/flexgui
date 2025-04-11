@@ -869,6 +869,7 @@ def setup_plain_text_edits(parent):
 		parent.gcode_pte.cursorPositionChanged.connect(partial(utilities.update_qcode_pte, parent))
 		parent.status.poll()
 		parent.last_line = parent.status.motion_line
+		parent.gcode_pte.textChanged.connect(partial(utilities.nc_code_changed, parent))
 
 def setup_stacked_widgets(parent):
 	children = parent.findChildren(QPushButton)
