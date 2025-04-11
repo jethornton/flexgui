@@ -68,6 +68,14 @@ def load_file(parent, gcode_file):
 		if utilities.all_homed(parent) and parent.status.task_state == emc.STATE_ON:
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
+
+		if 'save_pb' in parent.children:
+			if hasattr(parent.save_pb, 'led'):
+				parent.save_pb.led = False
+		if 'reload_pb' in parent.children:
+			if hasattr(parent.reload_pb, 'led'):
+				parent.reload_pb.led = False
+
 	else:
 		msg = (f'{gcode_file}\n'
 		'was not found. Loading aborted!')
@@ -133,14 +141,18 @@ def action_reload(parent): # actionReload
 			parent.plotter.clear_live_plotter()
 			parent.plotter.update()
 			parent.plotter.load(gcode_file)
-
 		if 'gcode_pte' in parent.children:
 			with open(gcode_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
+		if 'save_pb' in parent.children:
+			if hasattr(parent.save_pb, 'led'):
+				parent.save_pb.led = False
+		if 'reload_pb' in parent.children:
+			if hasattr(parent.reload_pb, 'led'):
+				parent.reload_pb.led = False
 
 def action_save(parent): # actionSave
 	current_nccode_file = parent.status.file or False
-	print(f'gcode file {current_nccode_file}')
 	if not current_nccode_file:
 		msg = ('No File is Open')
 		dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -149,6 +161,12 @@ def action_save(parent): # actionSave
 	nc_code = text.splitlines()
 	with open(current_nccode_file, 'w') as f:
 		f.writelines(line + "\n" for line in nc_code)
+	if 'save_pb' in parent.children:
+		if hasattr(parent.save_pb, 'led'):
+			parent.save_pb.led = False
+	if 'reload_pb' in parent.children:
+		if hasattr(parent.reload_pb, 'led'):
+			parent.reload_pb.led = True
 
 def action_save_as(parent): # actionSave_As
 	current_gcode_file = parent.status.file or False
