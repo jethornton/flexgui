@@ -119,6 +119,12 @@ def read(parent):
 			'INI file for a valid path.\n'
 			f'{parent.nc_code_dir} will be used.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+	else: # FIXME duplicate code...
+		if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
+			parent.nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
+		else:
+			parent.nc_code_dir = os.path.expanduser('~/')
+	print(parent.nc_code_dir)
 
 	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
