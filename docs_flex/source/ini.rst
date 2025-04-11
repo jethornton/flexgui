@@ -6,6 +6,11 @@ INI Settings
 .. note:: The following Flex GUI settings are all located in the [DISPLAY]
    section of your LinuxCNC .ini file.
 
+.. _using_flexgui:
+
+Using Flex GUI
+--------------
+
 To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to
 ::
 
@@ -21,6 +26,8 @@ with its `filename`:
 ::
 
 	GUI = my-file-name.ui
+
+.. _installed_themes:
 
 Themes
 ------

@@ -1,6 +1,8 @@
 Qt Designer
 ===========
 
+.. _install_designer:
+
 Installing the Qt Designer
 --------------------------
 
@@ -10,6 +12,8 @@ In a terminal, install Qt Designer 5 with
 	sudo apt install qttools5-dev-tools
 
 .. note:: The Qt6 Designer is not required nor better; Qt5 Designer is fine.
+
+.. _build_gui:
 
 Building a GUI
 --------------

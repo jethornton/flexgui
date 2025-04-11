@@ -1,7 +1,9 @@
 Installing
 ==========
 
-Install with apt
+.. _install_apt:
+
+Install with Apt
 ----------------
 
 The advantage of using apt to install Flex GUI is when a new version of Flex GUI
@@ -62,7 +64,9 @@ If Flex GUI is not installed you can install it with the following command
 
 	sudo apt install flexgui
 
-Install the deb
+.. _install_deb:
+
+Install the Deb
 ---------------
 
 You can still download the deb from github and install with gdebi if that works
@@ -99,6 +103,34 @@ an older version.
 ::
 
 	sudo dpkg -i flexgui_1.1.0_amd64.deb
+
+.. _install_build:
+
+Build and Install
+-----------------
+
+If you plan on changing code in Flex GUI you can clone the repository and build
+the deb after making changes. The target directory is optional.
+::
+
+	git clone https://github.com/jethornton/flexgui.git (target/directory)
+
+Before building the deb you will need to install some programs that do the
+building. Open a terminal and run the following to install devscripts
+::
+
+	sudo apt install devscripts
+
+Open a terminal in the top most flexgui directory and use this command to build
+a deb file.
+::
+
+	debuild -us -uc
+
+.. _copy_examples:
+
+Copy Example Files
+------------------
 
 After installing Flex GUI, a menu item `Copy Flex Examples` is added to the
 `CNC` menu. This will copy the Flex GUI example files to

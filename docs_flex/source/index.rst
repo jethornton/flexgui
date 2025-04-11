@@ -5,6 +5,7 @@ Flex GUI
    :caption: Contents:
 
    description
+   start
    install
    designer
    property
