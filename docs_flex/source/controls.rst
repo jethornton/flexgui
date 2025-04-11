@@ -109,6 +109,8 @@ to the push button with a Bool type Dynamic Property called `led_indicator`.
    :align: center
 
 	**Control Name**, **Object Name**, **Function**
+	Save, save_pb, NC Code Save Button
+	Reload, reload_pb, Reload NC Code from current file
 	E Stop, estop_pb, E Stop Toggle Button
 	Power, power_pb, Power Toggle Button
 	Run, run_pb, Runs a loaded NC file
