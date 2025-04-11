@@ -138,6 +138,18 @@ def action_reload(parent): # actionReload
 			with open(gcode_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
 
+def action_save(parent): # actionSave
+	current_nccode_file = parent.status.file or False
+	print(f'gcode file {current_nccode_file}')
+	if not current_nccode_file:
+		msg = ('No File is Open')
+		dialogs.warn_msg_ok(parent, msg, 'Error')
+		return
+	text = parent.gcode_pte.toPlainText()
+	nc_code = text.splitlines()
+	with open(current_nccode_file, 'w') as f:
+		f.writelines(line + "\n" for line in nc_code)
+
 def action_save_as(parent): # actionSave_As
 	current_gcode_file = parent.status.file or False
 	if not current_gcode_file:
