@@ -69,6 +69,7 @@ def keyboard(parent, obj):
 		obj.setText(kb.retval())
 
 def info_msg_ok(parent, text, title=None):
+	# dialogs.info_msg_ok(parent, msg, 'title'
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Information)
 	msg_box.setWindowTitle(title)
@@ -88,20 +89,8 @@ def info_msg_ok(parent, text, title=None):
 	else:
 		return False
 
-def question_msg_yes_no_check(body_text, chkbx_text, title=None): # not used anywhere
-	chkBox = QCheckBox()
-	chkBox.setText(chkbx_text)
-	msg_box = QMessageBox()
-	msg_box.setCheckBox(chkBox)
-	msg_box.setIcon(QMessageBox.Icon.Question)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(body_text)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-	returnValue = msg_box.exec()
-	answer = True if returnValue == QMessageBox.StandardButton.Yes else False
-	return answer, chkBox.isChecked()
-
 def warn_msg_ok(parent, text, title=None):
+	# dialogs.warn_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
@@ -121,19 +110,8 @@ def warn_msg_ok(parent, text, title=None):
 	else:
 		return False
 
-def warn_msg_cancel_ok(text, title=None): # not used anywhere
-	msg_box = QMessageBox()
-	msg_box.setIcon(QMessageBox.Icon.Warning)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(text)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Cancel | QMessageBox.StandardButton.Ok)
-	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.StandardButton.Ok:
-		return True
-	else:
-		return False
-
 def warn_msg_yes_no(parent, text, title=None):
+	# dialogs.warn_msg_yes_no(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
@@ -153,20 +131,8 @@ def warn_msg_yes_no(parent, text, title=None):
 	else:
 		return False
 
-def warn_msg_yes_no_check(body_text, chkbx_text, title=None):
-	chkBox = QCheckBox()
-	chkBox.setText(chkbx_text)
-	msg_box = QMessageBox()
-	msg_box.setCheckBox(chkBox)
-	msg_box.setIcon(QMessageBox.Icon.Warning)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(body_text)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-	returnValue = msg_box.exec()
-	answer = True if returnValue == QMessageBox.StandardButton.Yes else False
-	return answer, chkBox.isChecked()
-
 def critical_msg_ok(parent, text, title=None):
+	# dialogs.critical_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Critical)
 	msg_box.setWindowTitle(title)
