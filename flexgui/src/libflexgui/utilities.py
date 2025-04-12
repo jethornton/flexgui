@@ -189,7 +189,7 @@ def max_velocity(parent,value):
 	# maxvel(float) set maximum velocity
 	parent.command.maxvel(float(value / 60))
 	if 'max_vel_lb' in parent.children:
-		parent.max_vel_lb.setText(f'{value}')
+		parent.max_vel_lb.setText(f'{value} {parent.units}/min')
 
 def update_qcode_pte(parent):
 	extraSelections = []
