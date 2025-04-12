@@ -1322,6 +1322,12 @@ def setup_sliders(parent):
 		parent.rapid_override_sl.setMaximum(100)
 		parent.rapid_override_sl.setValue(100)
 
+	if 'max_vel_sl' in parent.children:
+		parent.max_vel_sl.valueChanged.connect(partial(utilities.max_velocity, parent))
+		max_units_min = int(float(parent.max_linear_vel) * 60)
+		parent.max_vel_sl.setMaximum(max_units_min)
+		parent.max_vel_sl.setValue(max_units_min)
+
 def setup_overrides(parent):
 	if 'override_limits_cb' in parent.children:
 		parent.override_limits_cb.setEnabled(False)
