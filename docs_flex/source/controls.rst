@@ -250,6 +250,7 @@ label shows the value of the slider:
 	Rapid Override Percent, QLabel, rapid_override_lb
 	Spindle Override Slider, QSlider, spindle_override_sl
 	Spindle Override Percent, QLabel, spindle_override_0_lb
+	Maximum Velocity, QSlider, max_vel_sl
 	Override Limits, QCheckBox, override_limits_cb
 
 The following settings can be used in the DISPLAY section of the ini file:

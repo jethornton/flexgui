@@ -185,6 +185,12 @@ def rapid_override(parent, value):
 def spindle_override(parent, value):
 	parent.command.spindleoverride(float(value / 100), 0)
 
+def max_velocity(parent,value):
+	# maxvel(float) set maximum velocity
+	parent.command.maxvel(float(value / 60))
+	if 'max_vel_lb' in parent.children:
+		parent.max_vel_lb.setText(f'{value}')
+
 def update_qcode_pte(parent):
 	extraSelections = []
 	if not parent.gcode_pte.isReadOnly():

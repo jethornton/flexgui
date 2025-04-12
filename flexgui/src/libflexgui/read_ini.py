@@ -89,11 +89,18 @@ def read(parent):
 	if parent.power_on_color: # get a valid color string
 		parent.power_on_color = utilities.string_to_rgba(parent, parent.power_on_color, 'ESTOP_OPEN_COLOR')
 
+	# ***** [TRAJ] Section *****
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	if units == 'inch':
 		parent.units = 'in'
 	else:
 		parent.units = 'mm'
+
+	''' MAX_LINEAR_VELOCITY = 5.0 - The maximum velocity for any axis or coordinated
+	move, in machine units per second. The value shown equals 300 units per minute. '''
+
+	parent.max_linear_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
+	print(f'Max Linear Velocity {parent.max_linear_vel}')
 
 	# set the nc code directory to some valid directory
 	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
