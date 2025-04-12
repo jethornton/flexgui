@@ -71,6 +71,27 @@ To use a custom .qss style sheet you created named `lightflex.qss`
 
 For more information on style sheets see :doc:`style`
 
+Jog Increments
+--------------
+
+The following settings can be used in the [DISPLAY] section of the ini file to
+preset jog items
+::
+
+	INCREMENTS = 0.100, 0.010, 0.001
+	or
+	INCREMENTS = 1 inch, 0.5 in, 1 cm, 1 mm
+	MIN_LINEAR_VELOCITY = 0.1
+	MAX_LINEAR_VELOCITY = 1.0
+	DEFAULT_LINEAR_VELOCITY = 0.2
+
+.. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be
+   ignored.
+
+.. note:: Jog incremnts can have unit lables, the following are valid unit
+   labels cm, mm, um, inch, in or mil. If no unit labels are found the the
+   configuration units are used.
+
 
 Startup File
 ------------
