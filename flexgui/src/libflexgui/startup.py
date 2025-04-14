@@ -76,8 +76,8 @@ def find_children(parent): # get the object names of all widgets
 	for child in children:
 		if child.objectName():
 			parent.children.append(child.objectName())
-	actions = parent.findChildren(QAction)
-	for action in actions:
+	parent.actions = parent.findChildren(QAction)
+	for action in parent.actions:
 		if action.objectName():
 			parent.children.append(action.objectName())
 			if 'toolBar' in parent.children:
@@ -2149,6 +2149,25 @@ def setup_plot(parent):
 					setattr(parent.plotter, 'current_view', v),
 					parent.plotter.set_current_view()
 				))
+
+		view_actions = {
+		'actionView_P': 'p',
+		'actionView_X': 'x',
+		'actionView_Y': 'y',
+		'actionView_Y2': 'y2',
+		'actionView_Z': 'z',
+		'actionView_Z2': 'z2',
+		}
+
+		for key, value in view_actions.items():
+			if key in parent.children:
+				action = getattr(parent, key)
+				action.triggered.connect(lambda _, v=value: (
+					parent.plotter.makeCurrent(),
+					setattr(parent.plotter, 'current_view', v),
+					parent.plotter.set_current_view()
+				))
+
 
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.children:
