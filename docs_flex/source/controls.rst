@@ -204,7 +204,7 @@ is not found, Jog Buttons will be disabled.
    :align: left
 
 	**Function**, **Widget**, **Name**
-	Jog Plus Axis (0-8), QPushButton,jog_plus_pb_(0-8)
+	Jog Plus Axis (0-8), QPushButton, jog_plus_pb_(0-8)
 	Jog Minus Axis (0-8), QPushButton, jog_minus_pb_(0-8)
 	Jog Velocity Slider, QSlider, jog_vel_sl
 	Jog Velocity Label, QLabel, jog_vel_lb
@@ -215,6 +215,22 @@ is not found, Jog Buttons will be disabled.
 
 .. note:: `Jog Mode Selector` reads the ini entry [DISPLAY] INCREMENTS and if
    not found, only `Continuous` will be an option.
+
+Jog Selected Controls
+---------------------
+
+To add Axis style jog controls where you select an axis then the plus/minus
+buttons jog the selected axis add a QRadioButton for each axis and a QPushButton
+for Plus and Minus. Axes are 0-8 for X, Y, Z, A, B, C, U, V, W.
+
+.. csv-table:: Jog Selected Widgets
+   :width: 100%
+   :align: left
+
+	**Function**, **Widget**, **Name**
+	Axis Select (0-8), QRadioButton, axis_select_(0-8)
+	Jog Plus, QPushButton, jog_selected_plus
+	Jog Minus, QPushButton, jog_selected_minus
 
 Overrides
 ---------

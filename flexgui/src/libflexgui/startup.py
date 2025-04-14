@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
 from PyQt6.QtWidgets import QAbstractButton, QAbstractSpinBox
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QDoubleSpinBox, QListView
 from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
-from PyQt6.QtWidgets import QProgressBar
+from PyQt6.QtWidgets import QProgressBar, QButtonGroup
 from PyQt6.QtGui import QAction, QColor
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -113,6 +113,7 @@ def setup_enables(parent):
 		'power_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False,
 		'pause_pb': False, 'resume_pb': False,
+		'jog_selected_plus': False, 'jog_selected_minus': False,
 		'home_all_pb': False, 'unhome_all_pb': False,
 		'run_mdi_pb': False, 'mdi_s_pb': False,
 		'spindle_start_pb': False, 'spindle_fwd_pb': False,
@@ -169,6 +170,7 @@ def setup_enables(parent):
 		'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False,
 		'pause_pb': False, 'resume_pb': False,
+		'jog_selected_plus': False, 'jog_selected_minus': False,
 		'home_all_pb': False, 'unhome_all_pb': False,
 		'run_mdi_pb': False, 'spindle_start_pb': False,
 		'spindle_fwd_pb': False, 'spindle_rev_pb': False,
@@ -224,6 +226,7 @@ def setup_enables(parent):
 		'power_pb': True, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False,
 		'pause_pb': False, 'resume_pb': False,
+		'jog_selected_plus': True, 'jog_selected_minus': True,
 		'spindle_start_pb': True, 'spindle_fwd_pb': True,
 		'spindle_rev_pb': True, 'spindle_stop_pb': True,
 		'spindle_plus_pb': True, 'spindle_minus_pb': True,
@@ -974,6 +977,7 @@ def setup_jog(parent):
 			parent.state_on[item] = True
 			parent.program_running[item] = False
 
+	if 'jog_vel_sl' in parent.children:
 		min_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
 		if min_vel:
 			parent.jog_vel_sl.setMinimum(int(float(min_vel) * 60))
@@ -1041,6 +1045,20 @@ def setup_jog(parent):
 							f'{item} is not a valid jog increment\n'
 							'and will not be added to the jog options.')
 						dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+def setup_jog_selected(parent):
+	parent.axes_group = QButtonGroup()
+	for i in range(9):
+		if f'axis_select_{i}' in parent.children:
+			parent.axes_group.addButton(getattr(parent, f'axis_select_{i}'))
+	if len(parent.axes_group.buttons()) > 0:
+		parent.axes_group.buttons()[0].setChecked(True)
+		if 'jog_selected_plus' in parent.children:
+			parent.jog_selected_plus.pressed.connect(partial(commands.jog_selected, parent))
+			parent.jog_selected_plus.released.connect(partial(commands.jog_selected, parent))
+		if 'jog_selected_minus' in parent.children:
+			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
+			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
 def conv_units(value, suffix, machine_units):
 	if machine_units == 'inch':
