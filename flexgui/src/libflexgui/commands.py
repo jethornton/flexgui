@@ -123,6 +123,19 @@ def set_motion_teleop(parent, value):
 	parent.command.wait_complete()
 	parent.status.poll()
 
+def jog_check(parent):
+	if 'jog_vel_sl' in parent.children:
+		if parent.jog_vel_sl.value() > 0.0:
+			return True
+		else:
+			msg = ('Can not jog at Zero Velocity!')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
+			return False
+	else:
+		msg = ('Can not jog without a\njog velocity slider.')
+		dialogs.warn_msg_ok(msg, 'Error')
+		return False
+
 def get_jog_mode(parent):
 	parent.status.poll()
 	if parent.status.kinematics_type == emc.KINEMATICS_IDENTITY and utilities.all_homed(parent):
@@ -142,24 +155,20 @@ def get_jog_mode(parent):
 	return jjogmode
 
 def jog(parent):
-	if 'jog_vel_sl' in parent.children:
+	if jog_check(parent):
 		vel = parent.jog_vel_sl.value() / 60
-	else:
-		msg = ('Can not jog without a\njog velocity slider.')
-		dialogs.warn_msg_ok(msg, 'Error')
-		return
+
 	jog_command = parent.sender().objectName().split('_')
+	print(f'jog_command {jog_command}')
 	joint = int(jog_command[-1])
+	print(f'joint {joint}')
 	increment = parent.jog_modes_cb.currentData()
+	print(f'increment {increment}')
 	if 'minus' in jog_command:
 		vel = -vel
 
 	jjogmode = get_jog_mode(parent)
 	if parent.sender().isDown():
-		if vel == 0.0:
-			msg = ('Can not jog at Zero Velocity!')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
-			return
 		if increment:
 			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
 		else:
@@ -169,6 +178,33 @@ def jog(parent):
 		if 'override_limits_cb' in parent.children:
 			parent.override_limits_cb.setChecked(False)
 			parent.override_limits_cb.setEnabled(False)
+
+def jog_selected(parent):
+	#print(f'{parent.sender().objectName()}')
+	#print(f'{parent.axes_group.checkedButton().objectName()}')
+	if jog_check(parent):
+		joint_name = parent.axes_group.checkedButton().objectName().split('_')
+		dir_name = parent.sender().objectName()
+
+		vel = parent.jog_vel_sl.value() / 60
+		if 'minus' in dir_name:
+			vel = -vel
+			print('minus')
+		joint = int(joint_name[-1])
+		increment = parent.jog_modes_cb.currentData()
+		jjogmode = get_jog_mode(parent)
+
+		if parent.sender().isDown():
+			if increment:
+				parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
+			else:
+				parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
+		else:
+			parent.command.jog(emc.JOG_STOP, jjogmode, joint)
+			if 'override_limits_cb' in parent.children:
+				parent.override_limits_cb.setChecked(False)
+				parent.override_limits_cb.setEnabled(False)
+
 
 def mdi_button(parent, button):
 	mdi_command = button.property('command')
