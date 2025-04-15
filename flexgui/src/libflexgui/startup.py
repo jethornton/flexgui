@@ -2150,6 +2150,19 @@ def setup_plot(parent):
 					parent.plotter.set_current_view()
 				))
 
+		action_view_controls = {
+			'actionView_Zoom_In': 'zoomin',
+			'actionView_Zoom_Out': 'zoomout',
+			'actionView_Clear': 'clear_live_plotter'
+		}
+
+		for key, value in action_view_controls.items():
+			if key in parent.children:
+				action = getattr(parent, key)
+				action.triggered.connect(lambda _, m=value: (
+					getattr(parent.plotter, m)()))
+
+		# toolbar view actions
 		view_actions = {
 		'actionView_P': 'p',
 		'actionView_X': 'x',
@@ -2167,7 +2180,6 @@ def setup_plot(parent):
 					setattr(parent.plotter, 'current_view', v),
 					parent.plotter.set_current_view()
 				))
-
 
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.children:
