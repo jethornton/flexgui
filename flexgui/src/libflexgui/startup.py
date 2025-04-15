@@ -1227,6 +1227,11 @@ def setup_touchoff(parent):
 					f'{item} will be disabled.')
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 
+	# setup Axis style touch off buttons
+	# FIXME make sure radio buttons exist
+	if 'touchoff_selected_pb' in parent.children:
+		parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
+
 def setup_tools(parent):
 	parent.tool_changed = False
 	# tool change using a combo box

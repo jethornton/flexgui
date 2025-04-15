@@ -150,6 +150,11 @@ def clear_errors(parent):
 def clear_info(parent):
 	parent.info_pte.clear()
 
+def ok_for_mdi(parent):
+	parent.status.poll()
+	return not parent.status.estop and parent.status.enabled and (parent.status.homed.count(1) == parent.status.joints) and (parent.status.interp_state == emc.INTERP_IDLE)
+
+
 def add_mdi(parent): # when you click on the mdi history list widget
 	if 'mdi_command_le' in parent.children:
 		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
