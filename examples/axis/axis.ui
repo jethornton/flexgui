@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>752</width>
+    <height>857</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Manual Control</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="1" colspan="2">
+         <widget class="QWidget" name="widget" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QRadioButton" name="axis_select_0">
+             <property name="text">
+              <string>X</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="axis_select_1">
+             <property name="text">
+              <string>Y</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="axis_select_2">
+             <property name="text">
+              <string>Z</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Axis</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QWidget" name="widget_2" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="jog_selected_plus">
+             <property name="maximumSize">
+              <size>
+               <width>50</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="jog_selected_minus">
+             <property name="maximumSize">
+              <size>
+               <width>50</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>-</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QComboBox" name="jog_modes_cb"/>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="touchoff_selected_pb">
+          <property name="text">
+           <string>Touch Off</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="spindle_minus_pb">
+          <property name="text">
+           <string>Spindle Slower</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="spindle_plus_pb">
+          <property name="text">
+           <string>Spindle Faster</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="spindle_fwd_pb">
+          <property name="text">
+           <string>Spindle Fwd</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="spindle_stop_pb">
+          <property name="text">
+           <string>Spindle Stop</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QPushButton" name="spindle_rev_pb">
+          <property name="text">
+           <string>Spindle Rev</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>Tool Touch Off</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QSpinBox" name="spindle_speed_sb"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="home_all_pb">
+          <property name="text">
+           <string>Home All</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>MDI</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0" colspan="2">
+         <widget class="QListWidget" name="mdi_history_lw"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="mdi_command_le"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="run_mdi_pb">
+          <property name="text">
+           <string>Run MDI</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="3">
+     <widget class="QTabWidget" name="tabWidget_2">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Preview</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QWidget" name="plot_widget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>350</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>DRO</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="2">
+        <widget class="QSlider" name="feed_override_sl">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QSlider" name="max_vel_sl">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Max Velocity</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QSlider" name="jog_vel_sl">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Feed Override</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QSlider" name="rapid_override_sl">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QSlider" name="spindle_override_sl">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Jog Speed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Spindle Override</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Rapid Override</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="feed_override_lb">
+         <property name="text">
+          <string>100%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="rapid_override_lb">
+         <property name="text">
+          <string>100%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="spindle_override_0_lb">
+         <property name="text">
+          <string>100%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="jog_vel_lb">
+         <property name="text">
+          <string>100%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="max_vel_lb">
+         <property name="text">
+          <string>100%</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="2">
+     <widget class="QFrame" name="frame_3">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QPlainTextEdit" name="gcode_pte"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Active NC Codes</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="gcodes_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="mcodes_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>752</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionReload"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="actionEdit_Tool_Table"/>
+    <addaction name="actionReload_Tool_Table"/>
+    <addaction name="actionLadder_Editor"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuMachine">
+    <property name="title">
+     <string>Machine</string>
+    </property>
+    <addaction name="actionE_Stop"/>
+    <addaction name="actionPower"/>
+    <addaction name="actionRun"/>
+    <addaction name="actionRun_From_Line"/>
+    <addaction name="actionStep"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionResume"/>
+    <addaction name="actionStop"/>
+    <addaction name="actionClear_MDI_History"/>
+    <addaction name="actionCopy_MDI_History"/>
+    <addaction name="actionHoming"/>
+    <addaction name="actionUnhoming"/>
+    <addaction name="actionClear_Offsets"/>
+   </widget>
+   <widget class="QMenu" name="menuPrograms">
+    <property name="title">
+     <string>Programs</string>
+    </property>
+    <addaction name="actionShow_HAL"/>
+    <addaction name="actionHAL_Meter"/>
+    <addaction name="actionHAL_Scope"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionDRO"/>
+    <addaction name="actionLimits"/>
+    <addaction name="actionLive_Plot"/>
+    <addaction name="actionVelocity"/>
+    <addaction name="actionMetric_Units"/>
+    <addaction name="actionProgram"/>
+    <addaction name="actionRapids"/>
+    <addaction name="actionTool"/>
+    <addaction name="actionDTG"/>
+    <addaction name="actionOffsets"/>
+    <addaction name="actionClear_Live_Plot"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionQuick_Reference"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuMachine"/>
+   <addaction name="menuPrograms"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionE_Stop"/>
+   <addaction name="actionPower"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionReload"/>
+   <addaction name="actionRun"/>
+   <addaction name="actionStep"/>
+   <addaction name="actionPause"/>
+   <addaction name="actionResume"/>
+   <addaction name="actionStop"/>
+   <addaction name="actionView_Zoom_In"/>
+   <addaction name="actionView_Zoom_Out"/>
+   <addaction name="actionView_P"/>
+   <addaction name="actionView_X"/>
+   <addaction name="actionView_Y"/>
+   <addaction name="actionView_Y2"/>
+   <addaction name="actionView_Z"/>
+   <addaction name="actionView_Z2"/>
+   <addaction name="actionView_Clear"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_open.gif</normaloff>images/tool_open.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionReload">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_reload.gif</normaloff>images/tool_reload.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Reload</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionEdit_Tool_Table">
+   <property name="text">
+    <string>Edit Tool Table</string>
+   </property>
+  </action>
+  <action name="actionReload_Tool_Table">
+   <property name="text">
+    <string>Reload Tool Table</string>
+   </property>
+  </action>
+  <action name="actionLadder_Editor">
+   <property name="text">
+    <string>Ladder Editor</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionE_Stop">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_estop.gif</normaloff>images/tool_estop.gif</iconset>
+   </property>
+   <property name="text">
+    <string>E Stop</string>
+   </property>
+  </action>
+  <action name="actionPower">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_power.gif</normaloff>images/tool_power.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Power</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_run.gif</normaloff>images/tool_run.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </action>
+  <action name="actionRun_From_Line">
+   <property name="text">
+    <string>Run From Line</string>
+   </property>
+  </action>
+  <action name="actionStep">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_step.gif</normaloff>images/tool_step.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Step</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_pause.gif</normaloff>images/tool_pause.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionResume">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_resume_5.png</normaloff>images/tool_resume_5.png</iconset>
+   </property>
+   <property name="text">
+    <string>Resume</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_stop.gif</normaloff>images/tool_stop.gif</iconset>
+   </property>
+   <property name="text">
+    <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionClear_MDI_History">
+   <property name="text">
+    <string>Clear MDI History</string>
+   </property>
+  </action>
+  <action name="actionCopy_MDI_History">
+   <property name="text">
+    <string>Copy MDI History</string>
+   </property>
+  </action>
+  <action name="actionHoming">
+   <property name="text">
+    <string>Homing</string>
+   </property>
+  </action>
+  <action name="actionUnhoming">
+   <property name="text">
+    <string>Unhoming</string>
+   </property>
+  </action>
+  <action name="actionClear_Offsets">
+   <property name="text">
+    <string>Clear Offsets</string>
+   </property>
+  </action>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>Show HAL</string>
+   </property>
+  </action>
+  <action name="actionHAL_Meter">
+   <property name="text">
+    <string>HAL Meter</string>
+   </property>
+  </action>
+  <action name="actionHAL_Scope">
+   <property name="text">
+    <string>HAL Scope</string>
+   </property>
+  </action>
+  <action name="actionDRO">
+   <property name="text">
+    <string>DRO</string>
+   </property>
+  </action>
+  <action name="actionLimits">
+   <property name="text">
+    <string>Limits</string>
+   </property>
+  </action>
+  <action name="actionLive_Plot">
+   <property name="text">
+    <string>Live Plot</string>
+   </property>
+  </action>
+  <action name="actionVelocity">
+   <property name="text">
+    <string>Velocity</string>
+   </property>
+  </action>
+  <action name="actionMetric_Units">
+   <property name="text">
+    <string>Metric Units</string>
+   </property>
+  </action>
+  <action name="actionProgram">
+   <property name="text">
+    <string>Program</string>
+   </property>
+  </action>
+  <action name="actionRapids">
+   <property name="text">
+    <string>Rapids</string>
+   </property>
+  </action>
+  <action name="actionTool">
+   <property name="text">
+    <string>Tool</string>
+   </property>
+  </action>
+  <action name="actionDTG">
+   <property name="text">
+    <string>DTG</string>
+   </property>
+  </action>
+  <action name="actionOffsets">
+   <property name="text">
+    <string>Offsets</string>
+   </property>
+  </action>
+  <action name="actionClear_Live_Plot">
+   <property name="text">
+    <string>Clear Live Plot</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionQuick_Reference">
+   <property name="text">
+    <string>Quick Reference</string>
+   </property>
+  </action>
+  <action name="actionView_P">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_axis_p.gif</normaloff>images/tool_axis_p.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View P</string>
+   </property>
+  </action>
+  <action name="actionView_X">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_axis_x.gif</normaloff>images/tool_axis_x.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View X</string>
+   </property>
+  </action>
+  <action name="actionView_Y">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_axis_y.gif</normaloff>images/tool_axis_y.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View Y</string>
+   </property>
+  </action>
+  <action name="actionView_Y2">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_axis_y2.png</normaloff>images/tool_axis_y2.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Y2</string>
+   </property>
+  </action>
+  <action name="actionView_Z">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_axis_z.gif</normaloff>images/tool_axis_z.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View Z</string>
+   </property>
+  </action>
+  <action name="actionView_Z2">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_axis_z2.gif</normaloff>images/tool_axis_z2.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View Z2</string>
+   </property>
+  </action>
+  <action name="actionView_Zoom_In">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_zoomin.gif</normaloff>images/tool_zoomin.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View Zoom In</string>
+   </property>
+  </action>
+  <action name="actionView_Zoom_Out">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_zoomout.gif</normaloff>images/tool_zoomout.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionView_Clear">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/tool_clear.gif</normaloff>images/tool_clear.gif</iconset>
+   </property>
+   <property name="text">
+    <string>View Clear</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
