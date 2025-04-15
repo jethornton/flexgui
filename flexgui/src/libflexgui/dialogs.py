@@ -6,12 +6,14 @@ from PyQt6.QtWidgets import QSpinBox, QDoubleSpinBox
 from PyQt6.QtGui import QPixmap, QTextCursor
 from PyQt6.QtCore import Qt
 
+import linuxcnc as emc
 import hal
 
 from libflexgui import number_pad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
 from libflexgui import tool_change
+from libflexgui import touchoff
 from libflexgui import utilities
 
 def spinbox_numbers(parent, obj):
@@ -61,6 +63,32 @@ def manual_tool_change(parent):
 	else:
 		parent.command.abort()
 		parent.command.wait_complete()
+
+def touchoff_selected(parent):
+	to = touchoff.app()
+	if parent.theme: # use the theme
+		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	else:
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as s:
+		to.setStyleSheet(s.read())
+	axis = parent.axes_group.checkedButton().text()
+	to.axis_lb.setText(f'Axis: {axis}')
+	result = to.exec()
+	if result == QDialog.DialogCode.Accepted:
+		# FIXME maybe check for a valid number here
+		offset = to.coordinate_le.text()
+		cs = to.coordinate_systems_cb.currentData()
+		command = f'G10 L20 P{cs} {axis}{offset}'
+		print(command)
+		if utilities.ok_for_mdi(parent):
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete() # wait until mode switch executed
+			parent.command.mdi(command)
+			parent.command.wait_complete()
+			parent.command.mode(emc.MODE_MANUAL)
+	else:
+		print('Cancled')
 
 def keyboard(parent, obj):
 	kb = keyboard_pad.keyboard_pad()
