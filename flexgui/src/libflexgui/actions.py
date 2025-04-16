@@ -194,10 +194,8 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 		file_size = os.path.getsize(tool_table_file)
 		if file_size == 0:
 			msg = ('Can not edit an empty tool file.\n'
-			'The tool file must have at least one entry.\n'
-			'the first line must be just a semicolon\n'
-			'the minimum second line has a tool and pocket\n'
-			';\n'
+			'The tool file must have at least one entry\n'
+			'with a Tool number and a Pocket number\n'
 			'T1 P1')
 			dialogs.critical_msg_ok(parent, msg, 'Empty File')
 			return
