@@ -123,7 +123,8 @@ def setup_enables(parent):
 		'actionPower': False, 'actionRun': False,
 		'actionRun_From_Line': False, 'actionStep': False,
 		'actionPause': False, 'tool_change_pb': False,
-		'actionResume': False
+		'actionResume': False,
+		'touchoff_selected_pb': False, 'touchoff_selected_tool_pb': False
 		}
 
 	for i in range(9):
@@ -172,14 +173,16 @@ def setup_enables(parent):
 		'pause_pb': False, 'resume_pb': False,
 		'jog_selected_plus': False, 'jog_selected_minus': False,
 		'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False, 'spindle_start_pb': False,
-		'spindle_fwd_pb': False, 'spindle_rev_pb': False,
-		'spindle_stop_pb': False, 'spindle_plus_pb': False,
-		'spindle_minus_pb': False, 'flood_pb': False,
-		'mist_pb': False, 'actionPower': True,
-		'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': False, 'actionPause': False,
-		'tool_change_pb': False, 'actionResume': False
+		'run_mdi_pb': False,  'mdi_s_pb': False,
+		'spindle_start_pb': False, 'spindle_fwd_pb': False,
+		'spindle_rev_pb': False, 'spindle_stop_pb': False,
+		'spindle_plus_pb': False, 'spindle_minus_pb': False,
+		'flood_pb': False, 'mist_pb': False,
+		'actionPower': True, 'actionRun': False,
+		'actionRun_From_Line': False, 'actionStep': False,
+		'actionPause': False, 'tool_change_pb': False,
+		'actionResume': False,
+		'touchoff_selected_pb': False, 'touchoff_selected_tool_pb': False
 		}
 
 	for i in range(9):
@@ -233,7 +236,8 @@ def setup_enables(parent):
 		'flood_pb': True, 'mist_pb': True,
 		'actionPower': True, 'actionRun': False,
 		'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': False, 'actionResume': False
+		'actionPause': False, 'actionResume': False,
+		'touchoff_selected_pb': True
 		}
 
 	# remove any items not found in the gui
@@ -1325,12 +1329,10 @@ def setup_tools(parent):
 					f'{item} will be disabled.')
 					dialogs.warn_msg_ok(msg, 'Source Name Error')
 
-	# manual tool change
-	#if 'tool_changed_pb' in parent.children:
-	#	#parent.tool_changed_pb.setEnabled(False)
-	#	parent.tool_changed_pb.setCheckable(True)
-	#	parent.tool_changed_pb.setText('No Tool')
-	#	parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
+	# Axis style tool touch off
+	if 'touchoff_selected_tool_pb' in parent.children:
+		parent.touchoff_selected_tool_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:

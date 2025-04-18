@@ -24,6 +24,17 @@ def is_int(string):
 	except ValueError:
 		return False
 
+def is_number(string):
+	try:
+		int(string)
+		return True
+	except ValueError:
+		try:
+			float(string)
+			return True
+		except ValueError:
+			return False
+
 def string_to_int(string):
 	if '.' in string:
 		string, digits = string.split('.')

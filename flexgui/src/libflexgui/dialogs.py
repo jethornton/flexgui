@@ -14,6 +14,7 @@ from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
 from libflexgui import tool_change
 from libflexgui import touchoff
+from libflexgui import tool_touchoff
 from libflexgui import utilities
 
 def spinbox_numbers(parent, obj):
@@ -76,19 +77,44 @@ def touchoff_selected(parent):
 	to.axis_lb.setText(f'Axis: {axis}')
 	result = to.exec()
 	if result == QDialog.DialogCode.Accepted:
-		# FIXME maybe check for a valid number here
 		offset = to.coordinate_le.text()
+		if not utilities.is_number(offset):
+			msg = (f'{offset} is not a number.')
+			warn_msg_ok(parent, msg, 'Invalid Entry')
+			return
 		cs = to.coordinate_systems_cb.currentData()
 		command = f'G10 L20 P{cs} {axis}{offset}'
-		print(command)
 		if utilities.ok_for_mdi(parent):
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete() # wait until mode switch executed
 			parent.command.mdi(command)
 			parent.command.wait_complete()
 			parent.command.mode(emc.MODE_MANUAL)
+
+def tool_touchoff_selected(parent):
+	tto = tool_touchoff.app()
+	if parent.theme: # use the theme
+		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
 	else:
-		print('Cancled')
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as s:
+		tto.setStyleSheet(s.read())
+	axis = parent.axes_group.checkedButton().text()
+	tto.axis_lb.setText(f'Axis: {axis}')
+	result = tto.exec()
+	if result == QDialog.DialogCode.Accepted:
+		offset = tto.offset_le.text()
+		if not utilities.is_number(offset):
+			msg = (f'{offset} is not a number.')
+			warn_msg_ok(parent, msg, 'Invalid Entry')
+			return
+		command = f'G10 L11 P0 {axis}{offset}'
+		if utilities.ok_for_mdi(parent):
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete() # wait until mode switch executed
+			parent.command.mdi(command)
+			parent.command.wait_complete()
+			parent.command.mode(emc.MODE_MANUAL)
 
 def keyboard(parent, obj):
 	kb = keyboard_pad.keyboard_pad()

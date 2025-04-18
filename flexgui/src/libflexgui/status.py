@@ -291,6 +291,16 @@ def update(parent):
 				dialogs.manual_tool_change(parent)
 			parent.tool_change = hal.get_value('tool-change.change')
 
+	# **** TOOL IN SPINDLE CHANGE ****
+	if parent.tool_in_spindle != parent.status.tool_in_spindle:
+		tool = parent.status.tool_in_spindle
+		if 'touchoff_selected_tool_pb' in parent.children:
+			if tool > 0:
+				parent.touchoff_selected_tool_pb.setEnabled(True)
+			else:
+				parent.touchoff_selected_tool_pb.setEnabled(False)
+		parent.tool_in_spindle = parent.status.tool_in_spindle
+
 	# **** FLOOD_OFF or FLOOD_ON **** 
 	if parent.flood_state != parent.status.flood:
 		if 'flood_pb' in parent.children:
