@@ -239,8 +239,10 @@ def clear_cs(parent):
 		axes += f'{axis}0 '
 	if int(cs) < 10:
 		cmd = f'G10 L2 P{cs} {axes}'
-	else:
-		cmd = f'G92.1'
+	elif int(cs) == 10:
+		cmd = 'G92.1'
+	elif int(cs) == 11:
+		cmd = 'G10 L2 P0 R0'
 	run_mdi(parent, cmd)
 
 def tool_change(parent):

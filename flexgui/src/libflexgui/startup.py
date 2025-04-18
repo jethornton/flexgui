@@ -558,7 +558,8 @@ def setup_menus(parent):
 					parent.program_paused[f'actionUnhome_{i}'] = False
 			elif action.objectName() == 'actionClear_Offsets':
 				action.setMenu(QMenu('Clear Offsets', parent))
-				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1', 'G59.2', 'G59.3', 'G92']
+				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1',
+				'G59.2', 'G59.3', 'G92', 'Rotation']
 				for i, item in enumerate(cs):
 					setattr(parent, f'actionClear_{i}', QAction(f'Clear {item}', parent))
 					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
