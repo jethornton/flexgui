@@ -20,8 +20,6 @@ def set_mode(parent, mode=None):
 		parent.command.mode(mode)
 		parent.command.wait_complete()
 
-# parent.home_required list
-
 def home(parent):
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
@@ -159,11 +157,8 @@ def jog(parent):
 		vel = parent.jog_vel_sl.value() / 60
 
 	jog_command = parent.sender().objectName().split('_')
-	print(f'jog_command {jog_command}')
 	joint = int(jog_command[-1])
-	print(f'joint {joint}')
 	increment = parent.jog_modes_cb.currentData()
-	print(f'increment {increment}')
 	if 'minus' in jog_command:
 		vel = -vel
 
@@ -180,8 +175,6 @@ def jog(parent):
 			parent.override_limits_cb.setEnabled(False)
 
 def jog_selected(parent):
-	#print(f'{parent.sender().objectName()}')
-	#print(f'{parent.axes_group.checkedButton().objectName()}')
 	if jog_check(parent):
 		joint_name = parent.axes_group.checkedButton().objectName().split('_')
 		dir_name = parent.sender().objectName()
@@ -204,7 +197,6 @@ def jog_selected(parent):
 			if 'override_limits_cb' in parent.children:
 				parent.override_limits_cb.setChecked(False)
 				parent.override_limits_cb.setEnabled(False)
-
 
 def mdi_button(parent, button):
 	mdi_command = button.property('command')
