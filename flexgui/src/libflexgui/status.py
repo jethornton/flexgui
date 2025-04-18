@@ -448,6 +448,10 @@ def update(parent):
 	for key, value in parent.status_g92.items(): # key is label value tuple position & precision
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").g92_offset[value[0]]:.{value[1]}f}')
 
+	# axis DTG
+	for key, value in parent.status_dtg.items(): # key is label value tuple position & precision
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").dtg[value[0]]:.{value[1]}f}')
+
 	# axis s.axis[0]['velocity'] parent.status.axis[0]['velocity']
 	for key, value in parent.status_axes.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").axis[value[0]][value[1]]:.{value[2]}f}')

@@ -144,6 +144,17 @@ Axis position labels `including` all offsets. Returns a float
 	dro_lb_a, dro_lb_b, dro_lb_c
 	dro_lb_u, dro_lb_v, dro_lb_w
 
+Axis Distance to Go labels
+
+.. csv-table:: Distance to Go Labels
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	dtg_lb_x, dtg_lb_y, dtg_lb_z
+	dtg_lb_a, dtg_lb_b, dtg_lb_c
+	dtg_lb_u, dtg_lb_v, dtg_lb_w
+
 Axis-is-homed labels
 
 .. csv-table:: Axis Homed Labels
