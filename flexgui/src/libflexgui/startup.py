@@ -681,6 +681,7 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
+	# DRO labels
 	parent.status_dro = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'dro_lb_{axis}'
@@ -689,6 +690,7 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_dro[f'{label}'] = [i, p] # add the label, tuple position & precision
 
+	# G5x Offset Labels
 	parent.status_g5x_offset = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'g5x_lb_{axis}'
@@ -697,6 +699,7 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_g5x_offset[f'{label}'] = [i, p] # add the label, tuple position & precision
 
+	# G92 Offset Labels
 	parent.status_g92 = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'g92_lb_{axis}'
@@ -704,6 +707,15 @@ def setup_status_labels(parent):
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_g92[f'{label}'] = [i, p] # add the label, tuple position & precision
+
+	# Distance to Go Labels
+	parent.status_dtg = {} # create an empty dictionary
+	for i, axis in enumerate(AXES):
+		label = f'dtg_lb_{axis}'
+		if label in parent.children:
+			p = getattr(parent, label).property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.status_dtg[f'{label}'] = [i, p] # add the label, tuple position & precision
 
 	# check for axis labels in the ui
 	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
