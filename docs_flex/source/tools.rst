@@ -138,6 +138,22 @@ Tool touch off QLineEdit for each axis.
 .. image:: /images/tools-09.png
    :align: center
 
+Tool Touchoff Selected Axis
+---------------------------
+
+To have Axis style tool touch off add a QPushButton named
+`tool_touchoff_selected_pb`. You must have at least one QRadiobutton for an axis
+to select.
+
+.. csv-table:: Tool Touchoff Selected Widgets
+   :width: 100%
+   :align: left
+
+	**Function**, **Widget**, **Name**
+	Axis Select (0-8), QRadioButton, axis_select_(0-8)
+	Tool Touchoff, QPushButton, tool_touchoff_selected_pb
+
+
 Current Tool Status
 -------------------
 
