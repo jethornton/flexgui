@@ -1245,9 +1245,11 @@ def setup_touchoff(parent):
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 
 	# setup Axis style touch off buttons
-	# FIXME make sure radio buttons exist
 	if 'touchoff_selected_pb' in parent.children:
-		parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
+		for i in range(9):
+			if f'axis_select_{i}' in parent.children:
+				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
+				break
 
 def setup_tools(parent):
 	parent.tool_changed = False
@@ -1343,9 +1345,8 @@ def setup_tools(parent):
 					dialogs.warn_msg_ok(msg, 'Source Name Error')
 
 	# Axis style tool touch off
-	if 'touchoff_selected_tool_pb' in parent.children:
-		parent.touchoff_selected_tool_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
-
+	if 'tool_touchoff_selected_pb' in parent.children:
+		parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
