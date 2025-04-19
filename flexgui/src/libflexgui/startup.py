@@ -30,8 +30,6 @@ def set_screen(parent):
 	try:
 		parent.resize(parent.settings.value('GUI/window_size'))
 		parent.move(parent.settings.value('GUI/window_position'))
-		# FIXME why is this here???
-		#parent.no_check_firmware_cb.setChecked(True if parent.settings.value('NAGS/firmware') == "true" else False)
 	except Exception as e:
 		parent.move(0, 0) # if no settings move window to upper left corner
 		print(f"An unexpected error occurred: {e}")
