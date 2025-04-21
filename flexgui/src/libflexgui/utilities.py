@@ -65,7 +65,15 @@ def string_to_rgba(parent, string, key):
 
 def string_to_qcolor(parent, string, key):
 	if ',' in string:
-		return QColor(string)
+		colors = [int(s) for s in string.split(',')]
+		if len(colors) == 3:
+			r, g, b = colors
+			a = 255
+		elif len(colors) == 4:
+			r, g, b, a = colors
+		else:
+			return False
+		return QColor(r,g,b,a)
 	elif string.startswith('#'):
 		color = string.lstrip('#')
 		if len(color) != 6:
