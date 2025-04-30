@@ -1131,36 +1131,36 @@ def setup_spindle(parent):
 			if key in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, key).setCheckable(True)
 
+	# get default values
 	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	parent.increment = int(increment) if increment else 10
 
+	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+	if parent.min_rpm and utilities.is_int(parent.min_rpm): # found in the ini and a valid int
+		parent.min_rpm = int(parent.min_rpm)
+	elif parent.min_rpm and utilities.is_float(parent.min_rpm): # see if it's a float if so convert to int
+		parent.min_rpm = utilities.string_to_int(parent.min_rpm)
+	else:
+		parent.min_rpm = 0
+
+	max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+	if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
+		parent.max_rpm = int(max_rpm)
+		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
+	elif max_rpm and utilities.is_float(max_rpm): # see if it's a float if so convert to int
+		parent.max_rpm = utilities.string_to_int(max_rpm)
+		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
+	else:
+		parent.max_rpm = 1000
+
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-
-		parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
-		if parent.min_rpm and utilities.is_int(parent.min_rpm): # found in the ini and a valid int
-			parent.min_rpm = int(parent.min_rpm)
-		elif parent.min_rpm and utilities.is_float(parent.min_rpm): # see if it's a float if so convert to int
-			parent.min_rpm = utilities.string_to_int(parent.min_rpm)
-		else:
-			parent.min_rpm = 0
-		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
-
-		max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
-		if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
-			parent.max_rpm = int(max_rpm)
-			parent.spindle_speed_sb.setMaximum(parent.max_rpm)
-		elif max_rpm and utilities.is_float(max_rpm): # see if it's a float if so convert to int
-			parent.max_rpm = utilities.string_to_int(max_rpm)
-			parent.spindle_speed_sb.setMaximum(parent.max_rpm)
-		else:
-			parent.max_rpm = 1000
-			parent.spindle_speed_sb.setMaximum(parent.max_rpm)
-
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
+		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
+		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 
 	if 'spindle_override_sl' in parent.children:
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
@@ -2290,7 +2290,6 @@ def set_status(parent): # this is only used if running from a terminal
 			if 'power_pb' in parent.children:
 				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
 				parent.power_pb.setStyleSheet(off_color)
-				print('here')
 			if 'flex_Power' in parent.children:
 				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
 				parent.flex_Power.setStyleSheet(off_color)
