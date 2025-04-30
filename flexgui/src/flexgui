@@ -245,6 +245,14 @@ class flexgui(QMainWindow):
 		spec.loader.exec_module(module)
 		return module
 
+	def resizeEvent(self, event):
+		if 'window_size_lb' in self.children:
+			width = self.geometry().width()
+			height =  self.geometry().height()
+			self.window_size_lb.setText(f'{width}x{height}')
+		QMainWindow.resizeEvent(self, event)
+
+
 	def eventFilter(self, obj, event):
 		if obj.objectName() in self.number_le and event.type() == QEvent.Type.MouseButtonRelease:
 			dialogs.numbers(self, obj)
