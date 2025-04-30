@@ -6,7 +6,9 @@ Coordinate Systems
 Coordinate System Touchoff
 --------------------------
 
-To touch-off an axis, use a QPushButton and QLineEdit to set the touch-off value
+To touch-off an axis, use a QPushButton and QLineEdit to set the touch-off value.
+Optionally you can have a QComboBox to select the Coordinate System to touch off
+to.
 
 .. csv-table:: Coordinate System Touch Off Controls
    :width: 100%
@@ -15,10 +17,11 @@ To touch-off an axis, use a QPushButton and QLineEdit to set the touch-off value
 	**Control Function**, **Object Type**, **Object Name**
 	Touch Off Axis, QPushButton, touchoff_pb_(axis letter)
 	Touch Off Value, QLineEdit, touchoff_le
+	Coordinate System, QComboBox, touchoff_system_cb
 
 Optionally you can have a QLineEdit for any axis by adding a string type Dynamic
-Property named `source` and the value contains the object name of the QLineEdit
-that you want to use. See :doc:`property`
+Property named `source` to the QPushButton and the value contains the object
+name of the QLineEdit that you want to use. See :doc:`property`
 
 .. image:: /images/coordinate-01.png
    :align: center

@@ -197,7 +197,8 @@ Jog Controls
 `Jog Controls Tutorial <https://youtu.be/ReVeEB5tEYM>`_
 
 Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`. If either
-is not found, Jog Buttons will be disabled.
+is not found, Jog Buttons will be disabled. This type of jog controls provides
+a button for each axis and jog direction.
 
 .. csv-table:: Jog Widgets
    :width: 100%
@@ -216,8 +217,8 @@ is not found, Jog Buttons will be disabled.
 .. note:: `Jog Mode Selector` reads the ini entry [DISPLAY] INCREMENTS and if
    not found, only `Continuous` will be an option.
 
-Jog Selected Controls
----------------------
+Jog Selected Axis Controls
+--------------------------
 
 To add Axis style jog controls where you select an axis then the plus/minus
 buttons jog the selected axis add a QRadioButton for each axis and a QPushButton
