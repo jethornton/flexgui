@@ -215,7 +215,8 @@ def update(parent):
 				parent.mdi_mode_pb.led = True
 			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
 				parent.auto_mode_pb.led = False
-
+			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+				parent.run_pb.led = False
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
 
@@ -227,7 +228,7 @@ def update(parent):
 			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
 				parent.auto_mode_pb.led = True
 			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
-				parent.run_pb.led = False
+				parent.run_pb.led = True
 			# disable flood and mist buttons
 
 		if parent.status.task_state == emc.STATE_ON:
