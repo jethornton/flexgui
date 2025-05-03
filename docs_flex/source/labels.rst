@@ -46,34 +46,37 @@ Status Attributes
 Status Labels
 -------------
 
+Status Labels are created by adding a QLabel and changing the Object Name to one
+of the following.
+
 .. csv-table:: Single Status Label Object Names
    :width: 100%
    :align: center
    :widths: 40 40 40
 
-	acceleration_lb, flood_lb, pocket_prepped_lb
-	active_queue_lb, gcodes_lb, probe_tripped_lb
-	adaptive_feed_enabled_lb, g5x_index_lb, probe_val_lb
-	angular_units_lb, ini_filename_lb, probed_position_lb
-	axis_mask_lb, inpos_lb, probing_lb
-	block_delete_lb, input_timeout_lb, program_units_lb
-	call_level_lb, interp_state_lb, queue_lb
-	command_lb, interpreter_errcode_lb, queue_full_lb
-	current_line_lb, joints_lb, rapid_override_lb
-	current_vel_lb, kinematics_type_lb, read_line_lb
-	cycle_time_lb, linear_units_lb, rotation_xy_lb
-	debug_lb, lube_lb, settings_lb
-	delay_left_lb, lube_level_lb, spindles_lb
-	distance_to_go_lb, max_acceleration_lb, state_lb
-	echo_serial_number_lb, max_velocity_lb, task_mode_lb
-	enabled_lb, mcodes_lb, task_paused_lb
-	estop_lb, mist_lb, task_state_lb
-	exec_state_lb, motion_line_lb, tool_in_spindle_lb
-	feed_hold_enabled_lb, motion_mode_lb, tool_from_pocket_lb
-	motion_type_lb, tool_offset_lb, feed_override_lb
-	optional_stop_lb, file_lb, paused_lb
+	acceleration_lb, active_queue_lb, adaptive_feed_enabled_lb
+	angular_units_lb, axis_mask_lb, block_delete_lb
+	call_level_lb, command_lb, current_line_lb
+	current_vel_lb, cycle_time_lb, debug_lb
+	delay_left_lb, distance_to_go_lb, echo_serial_number_lb
+	enabled_lb, estop_lb, exec_state_lb
+	feed_hold_enabled_lb, feed_override_lb, file_lb
+	flood_lb, g5x_index_lb, gcodes_lb
+	ini_filename_lb, inpos_lb, probing_lb
+	input_timeout_lb, interp_state_lb, queue_lb
+	interpreter_errcode_lb, joints_lb, kinematics_type_lb
+	linear_units_lb, lube_lb, lube_level_lb
+	max_acceleration_lb, max_velocity_lb, mcodes_lb
+	mist_lb, motion_line_lb, motion_mode_lb
+	motion_type_lb, optional_stop_lb, paused_lb
+	pocket_prepped_lb, probe_tripped_lb, probe_val_lb
+	probed_position_lb, program_units_lb, queue_full_lb
+	rapid_override_lb, read_line_lb, rotation_xy_lb
+	settings_lb, spindles_lb, state_lb
+	task_mode_lb, task_paused_lb, task_state_lb
+	tool_from_pocket_lb, tool_in_spindle_lb, tool_offset_lb
 
-.. note:: You don't have to use all the labels; use only as many as you need.
+.. note:: You don't have to use all the labels; only use the ones you need.
 
 Axis Status
 -----------
