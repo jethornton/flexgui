@@ -997,7 +997,7 @@ def setup_jog(parent):
 		if min_vel:
 			parent.jog_vel_sl.setMinimum(int(float(min_vel) * 60))
 
-		max_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
+		max_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
 		if max_vel:
 			parent.jog_vel_sl.setMaximum(int(float(max_vel) * 60))
 
@@ -1161,6 +1161,9 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
+
+	if 'spindle_speed_setting_lb' in parent.children:
+		parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
 
 	if 'spindle_override_sl' in parent.children:
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
@@ -2119,7 +2122,6 @@ def setup_plot(parent):
 
 		#def setView(self,v,z,x,y,lat=None,lon=None):
 		#parent.plotter.setView('x', 0.0, 1.0, 0.0, None, None)
-
 
 		parent.plotter.update()
 

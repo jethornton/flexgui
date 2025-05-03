@@ -380,8 +380,12 @@ def spindle(parent, value=0):
 			parent.spindle_fwd_pb.setChecked(False)
 		else:
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
+			if hasattr(parent.spindle_fwd_pb, 'led'):
+				parent.spindle_fwd_pb.led = True
 			if 'spindle_rev_pb' in parent.children:
 				parent.spindle_rev_pb.setChecked(False)
+				if hasattr(parent.spindle_rev_pb, 'led'):
+					parent.spindle_rev_pb.led = False
 
 	elif sender_name == 'spindle_rev_pb':
 		if parent.spindle_speed == 0:
@@ -391,15 +395,23 @@ def spindle(parent, value=0):
 			parent.spindle_rev_pb.setChecked(False)
 		else:
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
+			if hasattr(parent.spindle_rev_pb, 'led'):
+				parent.spindle_rev_pb.led = True
 			if 'spindle_fwd_pb' in parent.children:
 				parent.spindle_fwd_pb.setChecked(False)
+				if hasattr(parent.spindle_fwd_pb, 'led'):
+					parent.spindle_fwd_pb.led = False
 
 	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
 		if 'spindle_fwd_pb' in parent.children:
 			parent.spindle_fwd_pb.setChecked(False)
+			if hasattr(parent.spindle_fwd_pb, 'led'):
+				parent.spindle_fwd_pb.led = False
 		if 'spindle_rev_pb' in parent.children:
 			parent.spindle_rev_pb.setChecked(False)
+			if hasattr(parent.spindle_rev_pb, 'led'):
+				parent.spindle_rev_pb.led = False
 
 	elif sender_name == 'spindle_plus_pb':
 		if (parent.spindle_speed + parent.increment) <= parent.max_rpm:
@@ -407,13 +419,17 @@ def spindle(parent, value=0):
 			parent.spindle_speed += parent.increment
 			if 'spindle_speed_sb' in parent.children:
 				parent.spindle_speed_sb.setValue(parent.spindle_speed)
-			if 'spindle_speed_lb' in parent.children:
-				parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+			if 'spindle_speed_setting_lb' in parent.children:
+				parent.spindle_speed_setting_lb.setText(f'{parent.spindle_speed}')
 
 	elif sender_name == 'spindle_minus_pb':
 		if (parent.spindle_speed - parent.increment) > 0: # it's ok
 			parent.command.spindle(emc.SPINDLE_DECREASE)
 			parent.spindle_speed -= parent.increment
+			if 'spindle_speed_sb' in parent.children:
+				parent.spindle_speed_sb.setValue(parent.spindle_speed)
+			if 'spindle_speed_setting_lb' in parent.children:
+				parent.spindle_speed_setting_lb.setText(f'{parent.spindle_speed}')
 		else:
 			parent.spindle_speed = 0
 			if 'spindle_fwd_pb' in parent.children:
