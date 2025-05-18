@@ -1,3 +1,9 @@
+flexgui (1.2.1) unstable; urgency=medium
+
+  * Add Axis style controls
+
+ -- John Thornton <dev@gnipsel.com>  Sun, 18 May 2025 07:50:55 -0500
+
 flexgui (1.2.0) unstable; urgency=medium
 
   * Add LED Indicators
