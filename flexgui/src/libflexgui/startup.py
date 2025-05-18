@@ -1435,12 +1435,7 @@ def setup_set_var(parent):
 	parent.set_var = {}
 	for child in parent.findChildren(QDoubleSpinBox):
 		prop = child.property('function')
-		if prop == 'get_var':
-			msg = ('The property get_var is deprecated\n'
-			'and will be removed soon.\n'
-			'Use the property set_var for Setting Parameters')
-			dialogs.warn_msg_ok(parent, msg, 'Property Deprecated')
-		if prop == 'set_var' or prop == 'get_var': # FIXME someday remove get_var
+		if prop == 'set_var':
 			var = child.property('variable')
 			found = False
 			if var is not None:
