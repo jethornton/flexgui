@@ -354,7 +354,7 @@ def setup_enables(parent):
 			del parent.program_paused[item]
 
 	# file items if not loaded disable
-	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'actionEdit',
+	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'search_pb', 'actionEdit',
 		'actionReload', 'actionSave_As']
 
 	parent.file_edit_items = []
@@ -480,6 +480,10 @@ def setup_buttons(parent): # connect buttons to functions
 		elif item.startswith('spindle_percent_'):
 			button = getattr(parent, item)
 			button.clicked.connect(partial(commands.spindle_override_preset, parent))
+
+	# nc code search
+	if 'search_pb' in parent.children:
+		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
 
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
@@ -1275,7 +1279,7 @@ def setup_tools(parent):
 		# tool change with description
 		if parent.tool_change_cb.property('option') == 'description':
 			parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
-			tools = os.path.join(parent.ini_path, parent.tool_table)
+			tools = os.path.join(parent.config_path, parent.tool_table)
 			with open(tools, 'r') as t:
 				tool_list = t.readlines()
 			for line in tool_list:
@@ -1428,7 +1432,7 @@ def setup_mdi_buttons(parent):
 
 def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox
-	var_file = os.path.join(parent.ini_path, parent.var_file)
+	var_file = os.path.join(parent.config_path, parent.var_file)
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
@@ -1466,7 +1470,7 @@ def setup_watch_var(parent):
 			parent.watch_var[name] = [var, prec]
 
 	if len(parent.watch_var) > 0: # update the labels
-		var_file = os.path.join(parent.ini_path, parent.var_file)
+		var_file = os.path.join(parent.config_path, parent.var_file)
 		with open(var_file, 'r') as f:
 			var_list = f.readlines()
 		for key, value in parent.watch_var.items():
@@ -1491,7 +1495,7 @@ def setup_hal(parent):
 	parent.hal_floats = {}
 	children = parent.findChildren(QWidget)
 
-	var_file = os.path.join(parent.ini_path, parent.var_file)
+	var_file = os.path.join(parent.config_path, parent.var_file)
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
@@ -2231,7 +2235,7 @@ def setup_import(parent):
 	if modules:
 		for module_name in modules:
 			try:
-				sys.path.append(parent.ini_path)
+				sys.path.append(parent.config_path)
 				module = importlib.import_module(module_name)
 				module.startup(parent)
 			except Exception as e:
@@ -2344,9 +2348,9 @@ def set_status(parent): # this is only used if running from a terminal
 	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 	if open_file and open_file != '""':
 		if open_file.startswith('./'):
-			open_file = os.path.join(parent.ini_path, open_file.lstrip('./'))
+			open_file = os.path.join(parent.config_path, open_file.lstrip('./'))
 		elif open_file.startswith('../'):
-			open_file = os.path.join(os.path.dirname(parent.ini_path), open_file.lstrip('../'))
+			open_file = os.path.join(os.path.dirname(parent.config_path), open_file.lstrip('../'))
 		elif open_file.startswith('~'):
 			open_file = open_file.replace('~', parent.home_dir)
 		else: # full path
