@@ -278,9 +278,9 @@ def sync_var_file(parent):
 		parent.command.task_plan_synch()
 
 def var_file_watch(parent):
-	var_current_time = os.stat(os.path.join(parent.ini_path, parent.var_file)).st_mtime
+	var_current_time = os.stat(os.path.join(parent.config_path, parent.var_file)).st_mtime
 	if parent.var_mod_time != var_current_time:
-		var_file = os.path.join(parent.ini_path, parent.var_file)
+		var_file = os.path.join(parent.config_path, parent.var_file)
 		with open(var_file, 'r') as f:
 			var_list = f.readlines()
 		for key, value in parent.watch_var.items():

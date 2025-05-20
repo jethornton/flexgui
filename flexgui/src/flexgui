@@ -78,15 +78,18 @@ class flexgui(QMainWindow):
 			self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
 
 		# get connection to the ini file
+		# FIXME set the ini_path first then create the inifile object
 		self.inifile = False
 		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
 			if sys.argv[i].endswith('.ini'):
+				self.ini_path = sys.argv[i]
 				self.inifile = linuxcnc.ini(sys.argv[i])
-				self.ini_path = os.path.split(sys.argv[i])[0]
+				self.config_path = os.path.split(sys.argv[i])[0]
 				break
 		if not self.inifile: # otherwise it's running with axis for testing
 			self.inifile = linuxcnc.ini(self.status.ini_filename)
-			self.ini_path = os.path.split(self.status.ini_filename)[0]
+			self.ini_path = self.status.ini_filename
+			self.config_path = os.path.split(self.status.ini_filename)[0]
 
 		#gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
@@ -113,7 +116,7 @@ class flexgui(QMainWindow):
 		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
 		if resources_file: # import the resources file
 			try:
-				sys.path.append(self.ini_path)
+				sys.path.append(self.config_path)
 				import resources
 			except:
 				msg = (f'The resources file {resources_file} was\n'
@@ -138,7 +141,7 @@ class flexgui(QMainWindow):
 				from libflexgui import resources
 
 		elif qss_file: # use a local qss file
-			stylesheet = os.path.join(self.ini_path, qss_file)
+			stylesheet = os.path.join(self.config_path, qss_file)
 
 		if stylesheet:
 			if os.path.isfile(stylesheet):

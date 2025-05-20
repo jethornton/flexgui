@@ -189,7 +189,7 @@ def action_save_as(parent): # actionSave_As
 		load_file(parent, new_gcode_file)
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
-	tool_table_file = os.path.join(parent.ini_path, parent.tool_table)
+	tool_table_file = os.path.join(parent.config_path, parent.tool_table)
 	if os.path.isfile(tool_table_file):
 		file_size = os.path.getsize(tool_table_file)
 		if file_size == 0:
@@ -210,7 +210,7 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 				cmd.append(axis)
 			cmd.append('diam')
 		cmd.append(parent.tool_table)
-		subprocess.Popen(cmd, cwd=parent.ini_path)
+		subprocess.Popen(cmd, cwd=parent.config_path)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
@@ -222,7 +222,7 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 		# tool change with description
 		if parent.tool_change_cb.property('option') == 'description':
 			parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
-			tools = os.path.join(parent.ini_path, parent.tool_table)
+			tools = os.path.join(parent.config_path, parent.tool_table)
 			with open(tools, 'r') as t:
 				tool_list = t.readlines()
 			for line in tool_list:
@@ -355,7 +355,7 @@ def action_copy_mdi(parent): # actionCopy_MDI
 def action_save_mdi(parent): # actionSave_MDI
 	file_path = utilities.file_chooser(parent, 'Caption', 'save')
 	if file_path:
-		mdi_history_file = os.path.join(parent.ini_path, 'mdi_history.txt')
+		mdi_history_file = os.path.join(parent.config_path, 'mdi_history.txt')
 		if os.path.isfile(mdi_history_file):
 			shutil.copyfile(mdi_history_file, file_path)
 		else:
@@ -600,13 +600,13 @@ def action_clear_live_plot(parent):
 	parent.plotter.clear_live_plotter()
 
 def action_show_hal(parent): # actionShow_HAL
-	subprocess.Popen('halshow', cwd=parent.ini_path)
+	subprocess.Popen('halshow', cwd=parent.config_path)
 
 def action_hal_meter(parent): # actionHal_Meter
-	subprocess.Popen('halmeter', cwd=parent.ini_path)
+	subprocess.Popen('halmeter', cwd=parent.config_path)
 
 def action_hal_scope(parent): # actionHal_Scope
-	subprocess.Popen('halscope', cwd=parent.ini_path)
+	subprocess.Popen('halscope', cwd=parent.config_path)
 
 def action_about(parent): # actionAbout
 	dialogs.about_dialog(parent)
