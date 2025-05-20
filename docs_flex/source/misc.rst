@@ -30,6 +30,18 @@ To add a code viewer, add a `QPlainTextEdit` from Input Widgets and name it
 .. image:: /images/gcode-viewer-01.png
    :align: center
 
+Code Viewer Controls
+--------------------
+
+The Code Viewer allows you to edit the file in Flex GUI without using an external
+text editor. You can save the current code to the current file name, save the
+current code with a new file name and you can search the code.
+
+	**Function**, **Type**, **Object Name**
+	Save, QPushButton, save_pb
+	Save As, QPushButton, save_as_pb
+	Search, QPushButton, search_pb
+
 MDI Viewer
 ----------
 
