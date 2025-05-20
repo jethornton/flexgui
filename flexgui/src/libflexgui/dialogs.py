@@ -16,6 +16,7 @@ from libflexgui import tool_change
 from libflexgui import touchoff
 from libflexgui import tool_touchoff
 from libflexgui import utilities
+from libflexgui import search
 
 def spinbox_numbers(parent, obj):
 	if obj.isEnabled():
@@ -121,6 +122,12 @@ def keyboard(parent, obj):
 	result = kb.exec()
 	if result:
 		obj.setText(kb.retval())
+
+def find(parent):
+	sr = search.FindDialog(parent)
+	result = sr.exec()
+	print(result)
+
 
 def info_msg_ok(parent, text, title=None):
 	# dialogs.info_msg_ok(parent, msg, 'title'
@@ -321,7 +328,7 @@ def help_dialog(parent):
 	if parent.help_dialog is None:
 		btn = parent.sender()
 		file_name = btn.property('file')
-		help_file = os.path.join(parent.ini_path, file_name)
+		help_file = os.path.join(parent.config_path, file_name)
 		width = btn.property('horz_size') or 250
 		if isinstance(width, str):
 			width = int(width)
@@ -358,6 +365,6 @@ def help_dialog(parent):
 		else:
 			msg = (f'The help file {file_name}\n'
 				'was not found in the configuration directory\n'
-				f'{parent.ini_path}')
+				f'{parent.config_path}')
 			warn_msg_ok(parent, msg, 'Missing File')
 

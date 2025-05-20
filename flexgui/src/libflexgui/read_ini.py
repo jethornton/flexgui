@@ -106,9 +106,9 @@ def read(parent):
 	if directory: # expand directory if needed
 		ini_dir = True
 		if directory.startswith('./'): # in this directory
-			directory = os.path.join(parent.ini_path, directory[2:])
+			directory = os.path.join(parent.config_path, directory[2:])
 		elif directory.startswith('../'): # up one directory
-			directory = os.path.join(os.path.dirname(parent.ini_path), directory[3:])
+			directory = os.path.join(os.path.dirname(parent.config_path), directory[3:])
 		elif directory.startswith('~'): # users home directory
 			directory = os.path.expanduser(directory)
 
