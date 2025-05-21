@@ -37,6 +37,10 @@ The Code Viewer allows you to edit the file in Flex GUI without using an externa
 text editor. You can save the current code to the current file name, save the
 current code with a new file name and you can search the code.
 
+.. csv-table:: Code Viewer Controls
+   :width: 100%
+   :align: center
+
 	**Function**, **Type**, **Object Name**
 	Save, QPushButton, save_pb
 	Save As, QPushButton, save_as_pb
