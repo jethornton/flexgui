@@ -9,7 +9,7 @@ class FindDialog(QDialog):
 		layout = QGridLayout(self)
 		label = QLabel("Find Text:")
 		layout.addWidget(label, 0, 0)
-		self.lineEdit = QLineEdit('bla')
+		self.lineEdit = QLineEdit()
 		layout.addWidget(self.lineEdit, 0, 1)
 		self.caseSensitive = QCheckBox('Case Sensitive')
 		layout.addWidget(self.caseSensitive, 1 ,0)
