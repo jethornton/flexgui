@@ -132,6 +132,32 @@ Open</string>
      <string>E-Stop
 Closed</string>
     </property>
+    <property name="led_indicator" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="led_diameter" stdset="0">
+     <number>15</number>
+    </property>
+    <property name="led_right_offset" stdset="0">
+     <number>6</number>
+    </property>
+    <property name="led_top_offset" stdset="0">
+     <number>6</number>
+    </property>
+    <property name="led_on_color" stdset="0">
+     <color>
+      <red>255</red>
+      <green>255</green>
+      <blue>0</blue>
+     </color>
+    </property>
+    <property name="led_off_color" stdset="0">
+     <color>
+      <red>222</red>
+      <green>24</green>
+      <blue>24</blue>
+     </color>
+    </property>
    </widget>
    <widget class="QPushButton" name="power_pb">
     <property name="geometry">
@@ -152,6 +178,32 @@ On</string>
     <property name="off_text" stdset="0">
      <string>Power
 Off</string>
+    </property>
+    <property name="led_indicator" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="led_diameter" stdset="0">
+     <number>15</number>
+    </property>
+    <property name="led_right_offset" stdset="0">
+     <number>6</number>
+    </property>
+    <property name="led_top_offset" stdset="0">
+     <number>6</number>
+    </property>
+    <property name="led_on_color" stdset="0">
+     <color>
+      <red>51</red>
+      <green>209</green>
+      <blue>122</blue>
+     </color>
+    </property>
+    <property name="led_off_color" stdset="0">
+     <color>
+      <red>222</red>
+      <green>24</green>
+      <blue>24</blue>
+     </color>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget_2">
@@ -194,6 +246,9 @@ Off</string>
          <height>27</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Set fixture offset in Probe tab 'Set Z'</string>
+       </property>
        <property name="text">
         <string>Jog Z +</string>
        </property>
@@ -206,6 +261,9 @@ Off</string>
          <width>71</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Set fixture offset in Probe tab 'Set Z'</string>
        </property>
        <property name="text">
         <string>Jog Z -</string>
@@ -220,6 +278,9 @@ Off</string>
          <height>27</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Set fixture offset in Probe tab 'Set X'</string>
+       </property>
        <property name="text">
         <string>Jog X -</string>
        </property>
@@ -232,6 +293,9 @@ Off</string>
          <width>71</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Set fixture offset in Probe tab 'Set X'</string>
        </property>
        <property name="text">
         <string>Jog X +</string>
@@ -246,6 +310,9 @@ Off</string>
          <height>27</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Set fixture offset in Probe tab 'Set Y'</string>
+       </property>
        <property name="text">
         <string>Jog Y -</string>
        </property>
@@ -258,6 +325,9 @@ Off</string>
          <width>71</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Set fixture offset in Probe tab 'Set Y'</string>
        </property>
        <property name="text">
         <string>Jog Y +</string>
@@ -6047,7 +6117,7 @@ greater than ZSTART</string>
           </rect>
          </property>
          <property name="toolTip">
-          <string>ZClear above top of threads. A safe distance above the top of the threads.</string>
+          <string>ZClear above ZSTART. A safe distance above the start plane.</string>
          </property>
          <property name="toolTipDuration">
           <number>-1</number>
@@ -6278,13 +6348,13 @@ ERROR</string>
      <rect>
       <x>590</x>
       <y>1</y>
-      <width>50</width>
+      <width>100</width>
       <height>21</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>50</width>
+      <width>100</width>
       <height>16777215</height>
      </size>
     </property>
@@ -6325,15 +6395,15 @@ ERROR</string>
    <widget class="QLabel" name="motion_line_lb">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>785</x>
       <y>0</y>
-      <width>50</width>
+      <width>100</width>
       <height>21</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>50</width>
+      <width>100</width>
       <height>16777215</height>
      </size>
     </property>
@@ -6358,7 +6428,7 @@ ERROR</string>
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>655</x>
+      <x>690</x>
       <y>5</y>
       <width>91</width>
       <height>16</height>
@@ -6452,9 +6522,9 @@ ERROR</string>
    <widget class="QPushButton" name="probing_enable_pb">
     <property name="geometry">
      <rect>
-      <x>605</x>
+      <x>575</x>
       <y>390</y>
-      <width>71</width>
+      <width>101</width>
       <height>46</height>
      </rect>
     </property>
@@ -6463,7 +6533,33 @@ ERROR</string>
     </property>
     <property name="text">
      <string>PROBE 
-ENABLE</string>
+ ENABLE   </string>
+    </property>
+    <property name="led_indicator" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="led_diameter" stdset="0">
+     <number>15</number>
+    </property>
+    <property name="led_right_offset" stdset="0">
+     <number>6</number>
+    </property>
+    <property name="led_top_offset" stdset="0">
+     <number>6</number>
+    </property>
+    <property name="led_on_color" stdset="0">
+     <color>
+      <red>249</red>
+      <green>240</green>
+      <blue>107</blue>
+     </color>
+    </property>
+    <property name="led_off_color" stdset="0">
+     <color>
+      <red>222</red>
+      <green>24</green>
+      <blue>24</blue>
+     </color>
     </property>
    </widget>
    <widget class="QLabel" name="label_32">
@@ -6670,9 +6766,9 @@ ENABLE</string>
    <widget class="QPushButton" name="edit_pb">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>75</x>
       <y>330</y>
-      <width>87</width>
+      <width>56</width>
       <height>21</height>
      </rect>
     </property>
@@ -6685,7 +6781,7 @@ ENABLE</string>
      <rect>
       <x>5</x>
       <y>330</y>
-      <width>87</width>
+      <width>61</width>
       <height>21</height>
      </rect>
     </property>
@@ -6696,9 +6792,9 @@ ENABLE</string>
    <widget class="QPushButton" name="save_as_pb">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>280</x>
       <y>330</y>
-      <width>87</width>
+      <width>61</width>
       <height>21</height>
      </rect>
     </property>
@@ -6709,9 +6805,9 @@ ENABLE</string>
    <widget class="QPushButton" name="reload_pb">
     <property name="geometry">
      <rect>
-      <x>195</x>
+      <x>140</x>
       <y>330</y>
-      <width>87</width>
+      <width>61</width>
       <height>21</height>
      </rect>
     </property>
@@ -7352,6 +7448,32 @@ ENABLE</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="save_pb">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>330</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="search_pb">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>330</y>
+      <width>76</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
     </property>
    </widget>
   </widget>
