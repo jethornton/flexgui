@@ -43,7 +43,7 @@ o<p_ly_out_m> sub
 	G90 G1 Y #2013						; move to other side
 	G90 G1 Z #2021 					; move to Z probe
 	F #2001
-	G91 G38.2 Y  #2013				; probe other side
+	G91 G38.2 Y  -#2013				; probe other side
 	#2013 = [#5062 + #2012]			; store Y- location ADD TIP RADIUS HERE
 	F #2000
 	G91 G1 Y -2.54					; back off 2.54
