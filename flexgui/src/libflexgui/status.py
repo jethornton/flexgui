@@ -49,10 +49,13 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_names.items():
 				getattr(parent, key).setText(value)
+			# FIXME find a better way to set leds when estop is tripped
 			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
 				parent.estop_pb.led = False
 			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = False
+			if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
+				parent.probing_enable_pb.led = False
 
 		# e stop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
