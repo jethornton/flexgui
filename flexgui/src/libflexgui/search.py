@@ -44,19 +44,21 @@ class FindDialog(QDialog):
 		if self.wholeWord.isChecked():
 			flagList.append('ww')
 			flags = QTextDocument.FindFlag.FindWholeWords
-		if flagList == ['bs', 'cs', 'ww']:
-			flags = QTextDocument.FindFlag.FindWholeWords | \
-			QTextDocument.FindFlag.FindCaseSensitively | \
-			QTextDocument.FindFlag.FindBackward
-		elif flagList == ['bs', 'cs']:
-			flags = QTextDocument.FindFlag.FindCaseSensitively | \
-			QTextDocument.FindFlag.FindBackward
-		elif flagList == ['bs', 'ww']:
-			flags = QTextDocument.FindFlag.FindWholeWords | \
-			QTextDocument.FindFlag.FindBackward
-		elif flagList == ['cs', 'ww']:
-			flags = QTextDocument.FindFlag.FindWholeWords | \
-			QTextDocument.FindFlag.FindCaseSensitively
+
+		match flagList:
+			case ['bs', 'cs', 'ww']:
+				flags = QTextDocument.FindFlag.FindWholeWords | \
+				QTextDocument.FindFlag.FindCaseSensitively | \
+				QTextDocument.FindFlag.FindBackward
+			case ['bs', 'cs']:
+				flags = QTextDocument.FindFlag.FindCaseSensitively | \
+				QTextDocument.FindFlag.FindBackward
+			case ['bs', 'ww']:
+				flags = QTextDocument.FindFlag.FindWholeWords | \
+				QTextDocument.FindFlag.FindBackward
+			case ['cs', 'ww']:
+				flags = QTextDocument.FindFlag.FindWholeWords | \
+				QTextDocument.FindFlag.FindCaseSensitively
 
 		text_to_find = self.lineEdit.text()
 		if text_to_find:
