@@ -89,6 +89,10 @@ def read(parent):
 	if parent.power_on_color: # get a valid color string
 		parent.power_on_color = utilities.string_to_rgba(parent, parent.power_on_color, 'ESTOP_OPEN_COLOR')
 
+	# FIXME add these
+	#PROBE_ENABLE_OFF_COLOR = 192, 0, 0, 80%
+	#PROBE_ENABLE_ON_COLOR = 0, 192, 0, 80%
+
 	# ***** [TRAJ] Section *****
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	if units == 'inch':
