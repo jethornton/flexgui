@@ -1395,6 +1395,7 @@ def setup_probing(parent):
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
 		if 'probing_enable_pb' in parent.children:
 			parent.state_estop[f'probing_enable_pb'] = False
+			parent.state_estop_reset[f'probing_enable_pb'] = False
 			parent.probing_enable_pb.setCheckable(True)
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
