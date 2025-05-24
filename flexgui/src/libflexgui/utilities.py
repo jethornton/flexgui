@@ -51,8 +51,10 @@ def string_to_rgba(parent, string, key):
 	if string.startswith('#') and len(string) == 7:
 		return string
 	elif string.count(',') == 2: # rgb
+		print(f'rgb({string})')
 		return f'rgb({string})'
 	elif string.count(',') == 3: # rgba
+		print(f'rgba({string})')
 		return f'rgba({string})'
 	else: # unknown color value
 		msg = (f'The [FLEXGUI] key {key}\n'
