@@ -35,19 +35,15 @@ class flexgui(QMainWindow):
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
-			self.installed = True
-		else:
-			self.lib_path = os.path.join(self.path, 'libflexgui')
-			self.gui_path = self.path
-			root_path = os.path.abspath(os.path.join(os.getcwd() ,"../.."))
-			self.installed = False
+		else: # trying to run with a sim
+			msg = ('Flex GUI must be called from LinuxCNC.')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
+			sys.exit()
 
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
-			msg = ('Flex GUI can not run without LinuxCNC.\n'
-			'A LinuxCNC Simulator can be started first\n'
-			'to start Flex GUI for TESTING ONLY!')
+			msg = ('Flex GUI can not run without LinuxCNC.')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			sys.exit()
 
@@ -71,11 +67,9 @@ class flexgui(QMainWindow):
 
 		self.home_dir = os.path.expanduser('~')
 
-		if self.installed:
-			self.halcomp = hal.component('flexhal')
-			self.toolcomp = hal.component('tool-change')
-		else: # use a random name for the hal component if not installed
-			self.halcomp = hal.component(''.join(random.choices(string.ascii_letters + string.digits, k=5)))
+		# setup hal components
+		self.halcomp = hal.component('flexhal')
+		self.toolcomp = hal.component('tool-change')
 
 		# get connection to the ini file
 		# FIXME set the ini_path first then create the inifile object
@@ -199,10 +193,9 @@ class flexgui(QMainWindow):
 		startup.setup_dsf(self)
 		startup.setup_help(self)
 		# loading the post gui files can only happen once
-		if self.installed and gui_file != 'flex_default.ui':
-			startup.load_postgui(self)
+		startup.load_postgui(self)
 
-		startup.set_status(self)
+		#startup.set_status(self)
 
 		self.user_timer = QTimer()
 		startup.setup_import(self) # do this after user timer is created
