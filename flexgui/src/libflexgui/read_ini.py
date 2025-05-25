@@ -75,27 +75,39 @@ def read(parent):
 
 	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
 	if parent.estop_open_color: # get a valid color string
-		parent.estop_open_color = utilities.string_to_rgba(parent, parent.estop_open_color, 'ESTOP_OPEN_COLOR')
+		color = utilities.string_to_rgba(parent, parent.estop_open_color, 'ESTOP_OPEN_COLOR')
+		if color:
+			parent.estop_open_color = f'background-color: {color};'
 
 	parent.estop_closed_color = parent.inifile.find('FLEXGUI', 'ESTOP_CLOSED_COLOR') or False
 	if parent.estop_closed_color: # get a valid color string
-		parent.estop_closed_color = utilities.string_to_rgba(parent, parent.estop_closed_color, 'ESTOP_OPEN_COLOR')
+		color = utilities.string_to_rgba(parent, parent.estop_closed_color, 'ESTOP_CLOSED_COLOR')
+		if color:
+			parent.estop_closed_color = f'background-color: {color};'
 
 	parent.power_off_color = parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
 	if parent.power_off_color: # get a valid color string
-		parent.power_off_color = utilities.string_to_rgba(parent, parent.power_off_color, 'ESTOP_OPEN_COLOR')
+		color = utilities.string_to_rgba(parent, parent.power_off_color, 'POWER_OFF_COLOR')
+		if color:
+			parent.power_off_color = f'background-color: {color};'
 
 	parent.power_on_color = parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
 	if parent.power_on_color: # get a valid color string
-		parent.power_on_color = utilities.string_to_rgba(parent, parent.power_on_color, 'ESTOP_OPEN_COLOR')
+		color = utilities.string_to_rgba(parent, parent.power_on_color, 'POWER_ON_COLOR')
+		if color:
+			parent.power_on_color = f'background-color: {color};'
 
 	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
 	if parent.probe_enable_on_color: # get a valid color string
-		parent.probe_enable_on_color = utilities.string_to_rgba(parent, parent.probe_enable_on_color, 'PROBE_ENABLE_ON_COLOR')
+		color = utilities.string_to_rgba(parent, parent.probe_enable_on_color, 'PROBE_ENABLE_ON_COLOR')
+		if color:
+			parent.probe_enable_on_color = f'background-color: {color};'
 
 	parent.probe_enable_off_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_OFF_COLOR') or False
 	if parent.probe_enable_off_color: # get a valid color string
-		parent.probe_enable_off_color = utilities.string_to_rgba(parent, parent.probe_enable_off_color, 'PROBE_ENABLE_OFF_COLOR')
+		color = utilities.string_to_rgba(parent, parent.probe_enable_off_color, 'PROBE_ENABLE_OFF_COLOR')
+		if color:
+			parent.probe_enable_off_color = f'background-color: {color};'
 
 	# ***** [TRAJ] Section *****
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False

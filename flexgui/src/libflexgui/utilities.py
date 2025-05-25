@@ -48,8 +48,9 @@ def string_to_float(string):
 		return False
 
 def string_to_rgba(parent, string, key):
-	if string.startswith('#') and len(string) == 7:
+	if string.startswith('#') and len(string) == 7: # hex color
 		return string
+	# FIXME check for valid color string
 	elif string.count(',') == 2: # rgb
 		return f'rgb({string})'
 	elif string.count(',') == 3: # rgba
