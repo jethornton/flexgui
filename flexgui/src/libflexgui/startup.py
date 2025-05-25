@@ -1383,6 +1383,25 @@ def setup_defaults(parent):
 		else:
 			parent.command.set_optional_stop(False)
 
+	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
+	if open_file and open_file != '""':
+		if open_file.startswith('./'):
+			open_file = os.path.join(parent.config_path, open_file.lstrip('./'))
+		elif open_file.startswith('../'):
+			open_file = os.path.join(os.path.dirname(parent.config_path), open_file.lstrip('../'))
+		elif open_file.startswith('~'):
+			open_file = open_file.replace('~', parent.home_dir)
+		else: # full path
+			open_file = open_file
+		if os.path.exists(open_file):
+			actions.load_file(parent, open_file)
+		else:
+			msg = (f'The G code file\n{open_file}\n'
+				'was not found.\n'
+				'Check the [DISPLAY] OPEN_FILE\n'
+				'setting in the ini file.')
+			dialogs.warn_msg_ok(parent, msg, 'File Not Found')
+
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
 	parent.probing = False
@@ -1403,6 +1422,8 @@ def setup_probing(parent):
 			off_text = parent.probing_enable_pb.property('off_text')
 			if None not in [on_text, off_text]:
 				parent.probing_enable_pb.setText(off_text)
+			if parent.probe_enable_off_color:
+				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
 		else:
 			msg = ('The Probing Enable Push Button\n'
@@ -2262,18 +2283,14 @@ def set_status(parent): # this is only used if running from a terminal
 			getattr(parent, key).setText(value)
 		if parent.estop_open_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				open_color = f'QPushButton{{background-color: {parent.estop_open_color};}}'
-				parent.estop_pb.setStyleSheet(open_color)
+				parent.estop_pb.setStyleSheet(parent.estop_open_color)
 			if 'flex_E_Stop' in parent.children:
-				open_color = f'QToolButton{{background-color: {parent.estop_open_color};}}'
-				parent.flex_E_Stop.setStyleSheet(open_color)
+				parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
 		if parent.power_off_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-				parent.power_pb.setStyleSheet(off_color)
+				parent.power_pb.setStyleSheet(parent.power_off_color)
 			if 'flex_Power' in parent.children:
-				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-				parent.flex_Power.setStyleSheet(off_color)
+				parent.flex_Power.setStyleSheet(parent.power_off_color)
 
 	# this state can only happen when runnning with a sim
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
@@ -2283,18 +2300,14 @@ def set_status(parent): # this is only used if running from a terminal
 			getattr(parent, key).setText(value)
 		if parent.estop_closed_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
-				parent.estop_pb.setStyleSheet(closed_color)
+				parent.estop_pb.setStyleSheet(parent.estop_closed_color)
 			if 'flex_E_Stop' in parent.children:
-				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
-				parent.flex_E_Stop.setStyleSheet(closed_color)
+				parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
 		if parent.power_off_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				off_color = f'QPushButton{{background-color: {parent.power_off_color};}}'
-				parent.power_pb.setStyleSheet(off_color)
+				parent.power_pb.setStyleSheet(parent.power_off_color)
 			if 'flex_Power' in parent.children:
-				off_color = f'QToolButton{{background-color: {parent.power_off_color};}}'
-				parent.flex_Power.setStyleSheet(off_color)
+				parent.flex_Power.setStyleSheet(parent.power_off_color)
 
 	if parent.status.task_state == linuxcnc.STATE_ON:
 		for key, value in parent.state_on.items():
@@ -2306,18 +2319,14 @@ def set_status(parent): # this is only used if running from a terminal
 				getattr(parent, item).setEnabled(True)
 		if parent.estop_closed_color: # if False just don't bother
 			if 'estop_pb' in parent.children:
-				closed_color = f'QPushButton{{background-color: {parent.estop_closed_color};}}'
-				parent.estop_pb.setStyleSheet(closed_color)
+				parent.estop_pb.setStyleSheet(parent.estop_closed_color)
 			if 'flex_E_Stop' in parent.children:
-				closed_color = f'QToolButton{{background-color: {parent.estop_closed_color};}}'
-				parent.flex_E_Stop.setStyleSheet(closed_color)
+				parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
 		if parent.power_on_color: # if False just don't bother
 			if 'power_pb' in parent.children:
-				on_color = f'QPushButton{{background-color: {parent.power_on_color};}}'
-				parent.power_pb.setStyleSheet(on_color)
+				parent.power_pb.setStyleSheet(parent.power_on_color)
 			if 'flex_Power' in parent.children:
-				on_color = f'QToolButton{{background-color: {parent.power_on_color};}}'
-				parent.flex_Power.setStyleSheet(on_color)
+				parent.flex_Power.setStyleSheet(parent.power_on_color)
 		if utilities.all_homed(parent):
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(True)
@@ -2345,25 +2354,5 @@ def set_status(parent): # this is only used if running from a terminal
 						getattr(parent, item).setEnabled(False)
 					elif parent.status.homed[joint] == 1: # homed
 						getattr(parent, item).setEnabled(True)
-
-	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
-	if open_file and open_file != '""':
-		if open_file.startswith('./'):
-			open_file = os.path.join(parent.config_path, open_file.lstrip('./'))
-		elif open_file.startswith('../'):
-			open_file = os.path.join(os.path.dirname(parent.config_path), open_file.lstrip('../'))
-		elif open_file.startswith('~'):
-			open_file = open_file.replace('~', parent.home_dir)
-		else: # full path
-			open_file = open_file
-		if os.path.exists(open_file):
-			actions.load_file(parent, open_file)
-		else:
-			msg = (f'The G code file\n{open_file}\n'
-				'was not found.\n'
-				'Check the [DISPLAY] OPEN_FILE\n'
-				'setting in the ini file.')
-
-			dialogs.warn_msg_ok(parent, msg, 'File Not Found')
 
 
