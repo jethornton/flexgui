@@ -260,7 +260,7 @@ def action_quit(parent): # actionQuit
 	parent.close()
 
 def action_estop(parent): # actionEstop
-	# FIXME move color to status.py
+	# FIXME move color to status.py because an estop might be triggered some other way
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		if parent.estop_closed_color: # if False just don't bother
@@ -282,6 +282,10 @@ def action_estop(parent): # actionEstop
 			if 'flex_Power' in parent.children:
 				parent.flex_Power.setStyleSheet(parent.power_off_color)
 
+		if parent.probe_enable_off_color: # if False just don't bother
+			if 'probing_enable_pb' in parent.children:
+				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+
 def action_power(parent): # actionPower
 	# FIXME move color to status.py
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
@@ -301,6 +305,10 @@ def action_power(parent): # actionPower
 				parent.power_pb.setStyleSheet(parent.power_off_color)
 			if 'flex_Power' in parent.children:
 				parent.flex_Power.setStyleSheet(parent.power_off_color)
+
+		if parent.probe_enable_off_color: # if False just don't bother
+			if 'probing_enable_pb' in parent.children:
+				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
 def action_run(parent, line = 0): # actionRun
 	if parent.status.task_state == emc.STATE_ON:
