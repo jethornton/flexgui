@@ -51,18 +51,20 @@ def string_to_rgba(parent, string, key):
 	if string.startswith('#') and len(string) == 7: # hex color
 		return string
 	# FIXME check for valid color string
-	elif string.count(',') == 2: # rgb
+	for item in string.split(','):
+		if not item.strip().isdigit():
+			msg = (f'The [FLEXGUI] key {key}\n'
+				f'{string}\n'
+				'is not a valid color\n'
+				'See the INI section of the\n'
+				'documents for proper usage.')
+			dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+			return False
+
+	if string.count(',') == 2: # rgb
 		return f'rgb({string})'
 	elif string.count(',') == 3: # rgba
 		return f'rgba({string})'
-	else: # unknown color value
-		msg = (f'The [FLEXGUI] key {key}\n'
-			f'{string}\n'
-			'is not a valid color\n'
-			'See the INI section of the\n'
-			'documents for proper usage.')
-		dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
-		return False
 
 def string_to_qcolor(parent, string, key):
 	if ',' in string:
