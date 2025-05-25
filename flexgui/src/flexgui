@@ -195,7 +195,7 @@ class flexgui(QMainWindow):
 		# loading the post gui files can only happen once
 		startup.load_postgui(self)
 
-		#startup.set_status(self)
+		startup.set_status(self)
 
 		self.user_timer = QTimer()
 		startup.setup_import(self) # do this after user timer is created
