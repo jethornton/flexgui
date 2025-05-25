@@ -485,6 +485,18 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'search_pb' in parent.children:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
 
+	# set button background colors if needed
+	if parent.estop_open_color: # if False just don't bother
+		if 'estop_pb' in parent.children:
+			parent.estop_pb.setStyleSheet(parent.estop_open_color)
+		if 'flex_E_Stop' in parent.children:
+			parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
+	if parent.power_off_color: # if False just don't bother
+		if 'power_pb' in parent.children:
+			parent.power_pb.setStyleSheet(parent.power_off_color)
+		if 'flex_Power' in parent.children:
+			parent.flex_Power.setStyleSheet(parent.power_off_color)
+
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
 	parent.shortcuts = []
@@ -2281,16 +2293,6 @@ def set_status(parent): # this is only used if running from a terminal
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
-		if parent.estop_open_color: # if False just don't bother
-			if 'estop_pb' in parent.children:
-				parent.estop_pb.setStyleSheet(parent.estop_open_color)
-			if 'flex_E_Stop' in parent.children:
-				parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
-		if parent.power_off_color: # if False just don't bother
-			if 'power_pb' in parent.children:
-				parent.power_pb.setStyleSheet(parent.power_off_color)
-			if 'flex_Power' in parent.children:
-				parent.flex_Power.setStyleSheet(parent.power_off_color)
 
 	# this state can only happen when runnning with a sim
 	if parent.status.task_state == linuxcnc.STATE_ESTOP_RESET:
