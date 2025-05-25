@@ -89,9 +89,13 @@ def read(parent):
 	if parent.power_on_color: # get a valid color string
 		parent.power_on_color = utilities.string_to_rgba(parent, parent.power_on_color, 'ESTOP_OPEN_COLOR')
 
-	# FIXME add these
-	#PROBE_ENABLE_OFF_COLOR = 192, 0, 0, 80%
-	#PROBE_ENABLE_ON_COLOR = 0, 192, 0, 80%
+	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
+	if parent.probe_enable_on_color: # get a valid color string
+		parent.probe_enable_on_color = utilities.string_to_rgba(parent, parent.probe_enable_on_color, 'PROBE_ENABLE_ON_COLOR')
+
+	parent.probe_enable_off_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_OFF_COLOR') or False
+	if parent.probe_enable_off_color: # get a valid color string
+		parent.probe_enable_off_color = utilities.string_to_rgba(parent, parent.probe_enable_off_color, 'PROBE_ENABLE_OFF_COLOR')
 
 	# ***** [TRAJ] Section *****
 	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
