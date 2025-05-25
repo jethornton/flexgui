@@ -209,7 +209,7 @@ The Power Button can have a static color for Off and On.
 
 Create a key in the ini file called FLEXGUI and use the following to 
 control the static color of these items. The value can be any valid color 
-specification; it's suggested to use RGB or Hex colors:
+specification in the RGB, RGBA or Hex color format.
 ::
 
 	[FLEXGUI]
@@ -217,8 +217,11 @@ specification; it's suggested to use RGB or Hex colors:
 	ESTOP_CLOSED_COLOR = 255, 77, 77
 	POWER_OFF_COLOR = 255, 128, 128
 	POWER_ON_COLOR = #00FF00
+	PROBE_ENABLE_ON_COLOR = 255, 0, 0, 255
+	PROBE_ENABLE_OFF_COLOR = 0, 125, 0, 125
 
-.. note:: E Stop and Power colors need to have both colors specified
+.. note:: Color pairs need to have both colors specified or the color will only
+   toggle once.
 
 Another way to achieve this is is via adding and editing a .qss stylesheet
 file. See the :doc:`style` section for more info.
