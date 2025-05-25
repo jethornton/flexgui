@@ -128,5 +128,18 @@ Some are used in the UI file and some are workspace variables.
 #2106 threadmill od start calc
 #2107 threadmill pass count work var
 #2108 threadmill Threadmill Radius
-#2109 threadmill Z-CLEAR 
-#2110	reserved
+
+#2109 probing X- bar first pass edge Result
+#2110 probing Y- bar first pass edge Result
+
+#2111	reserved
+#2112	reserved
+#2113	reserved
+#2114	reserved
+#2115	reserved
+#2116	reserved
+#2117	reserved
+#2118	reserved
+#2119	reserved
+#2120	reserved
+

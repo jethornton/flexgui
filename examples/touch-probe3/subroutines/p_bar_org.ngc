@@ -24,7 +24,6 @@ o<p_bar> sub
 	G90 G1 Z #2021 			; move to Z probe
 	G91 G38.2 X #2013		; probe other side
 	#2013=#5061				; store X- location
-	#2109 = #2013			; save for 2nd pass close probe
 	G91 G1 X -.1			; back off .1
 	#2024=[[#2017+#2013]/2]	; 1st side + 2nd side /2 for X center
 	G90 G1 Z #2020			; raise to z clear
@@ -43,7 +42,6 @@ o<p_bar> sub
 	G90 G1 Z #2021 			; move to Z probe
 	G91 G38.2 Y  #2019		; probe other side
 	#2019 = #5062			; store Y- location
-	#2110 = #2019			; save for 2nd pass close probe
 	G91 G1 Y -.1				; back off .1
 	#2025=[[#2022 + #2019]/2]	; 1st side + 2nd side /2 for Y center
 	G90 G1 Z #2020			; move to Z clear
@@ -52,8 +50,8 @@ o<p_bar> sub
 ; 2nd probe check
 	F#2000
 	G90 G1 Z #2020			; move to Z clear
-	#2017 = [#2017 +  .1]	; move to start X + max X)
-	G90 G1 X #2017
+	#2017 = [#2024 +  #2011]	; move to start X + max X)
+	G1 X #2017
 	G1 Z #2021				; move to probe depth
 	#2013 = [ #2011 + .5]
 	F#2001
@@ -62,8 +60,8 @@ o<p_bar> sub
 	F#2000
 	G91 G1 X .1				; back off .1
 	G90 G1 Z #2020			; raise to z clear
-	#2109 = [#2109 - .1]
-	G90 G1 X #2109			; move to other side
+	#2018 = [#2024- #2011]
+	G90 G1 X #2018			; move to other side
 	G90 G1 Z #2021 			; move to Z probe
 	F#2001
 	G91 G38.2 X #2013		; probe other side
@@ -74,7 +72,7 @@ o<p_bar> sub
 	G90 G1 Z #2020			; raise to z clear
 	G90 G1 X#2024			; move back to X center
 ; find Y center
-	#2022 = [#2022 +  .1]
+	#2022 = [#2025 +  #2011]
 	G90 G1 Y #2022
 	G1 Z #2021
 	#2019 = [ #2011 + .5]
@@ -82,8 +80,8 @@ o<p_bar> sub
 	#2022 = #5062
 	G91 G1 Y .1				; back off .1
 	G90 G1 Z #2020			; move to Z clear
-	#2110 = [#2110 -  .1]
-	G90 G1 Y #2110			; move to other side
+	#2023 = [#2025 -  #2011]
+	G90 G1 Y #2023			; move to other side
 	G90 G1 Z #2021 			; move to Z probe
 	G91 G38.2 Y  #2019		; probe other side
 	#2019 = #5062			; store Y- location
