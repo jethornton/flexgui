@@ -129,8 +129,8 @@ Some are used in the UI file and some are workspace variables.
 #2107 threadmill pass count work var
 #2108 threadmill Threadmill Radius
 
-#2109 probing X- first pass edge Result
-#2110 probing Y- first pass edge Result
+#2109 probing X- bar first pass edge Result
+#2110 probing Y- bar first pass edge Result
 
 #2111	reserved
 #2112	reserved
