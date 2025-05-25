@@ -47,10 +47,7 @@ def string_to_float(string):
 	except ValueError:
 		return False
 
-def string_to_rgba(parent, string, key):
-	if string.startswith('#') and len(string) == 7: # hex color
-		return string
-	# FIXME check for valid color string
+def valid_color_string(string, key):
 	for item in string.split(','):
 		if not item.strip().isdigit():
 			msg = (f'The [FLEXGUI] key {key}\n'
@@ -60,14 +57,20 @@ def string_to_rgba(parent, string, key):
 				'documents for proper usage.')
 			dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
 			return False
+		else:
+			return True
 
-	if string.count(',') == 2: # rgb
-		return f'rgb({string})'
-	elif string.count(',') == 3: # rgba
-		return f'rgba({string})'
+def string_to_rgba(parent, string, key):
+	if string.startswith('#') and len(string) == 7: # hex color
+		return string
+	if valid_color_string(string, key):
+		if string.count(',') == 2: # rgb
+			return f'rgb({string})'
+		elif string.count(',') == 3: # rgba
+			return f'rgba({string})'
 
 def string_to_qcolor(parent, string, key):
-	if ',' in string:
+	if valid_color_string(string, key):
 		colors = [int(s) for s in string.split(',')]
 		if len(colors) == 3:
 			r, g, b = colors
