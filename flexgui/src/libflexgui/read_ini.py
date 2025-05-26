@@ -25,7 +25,7 @@ def read(parent):
 	parent.extensions = ['.ngc'] # used by the touch file selector
 	extensions = parent.inifile.find('DISPLAY', 'EXTENSIONS') or False
 	if extensions: # add any extensions from the ini to ngc
-		for ext in ini_extensions.split(','):
+		for ext in extensions.split(','):
 			parent.extensions.append(ext.strip())
 		extensions = extensions.split(',')
 		extensions = ' '.join(extensions).strip()
