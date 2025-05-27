@@ -49,20 +49,14 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_names.items():
 				getattr(parent, key).setText(value)
+			for key, value in parent.state_estop_checked.items():
+				getattr(parent, key).setChecked(value)
+
 			# FIXME there must be a better way to show the toolbar toolbuttons
 			if 'flex_E_Stop' in parent.children:
-				parent.flex_E_Stop.setStyleSheet("""
-					QToolButton {
-					border: 2px solid gray;
-					border-style: inset;
-				}
-				""")
+				parent.flex_E_Stop.setStyleSheet(parent.selected_style)
 			if 'flex_Power' in parent.children:
-				parent.flex_Power.setStyleSheet("""
-					QToolButton {
-					border-style: none;
-				}
-				""")
+				parent.flex_Power.setStyleSheet(parent.deselected_style)
 
 			# FIXME find a better way to set leds when estop is tripped
 			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
@@ -79,18 +73,13 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_estop_reset_names.items():
 				getattr(parent, key).setText(value)
+			for key, value in parent.state_estop_reset_checked.items():
+				getattr(parent, key).setChecked(value)
+
 			if 'flex_E_Stop' in parent.children:
-				parent.flex_E_Stop.setStyleSheet("""
-					QToolButton {
-					border-style: none;
-				}
-				""")
+				parent.flex_E_Stop.setStyleSheet(parent.deselected_style)
 			if 'flex_Power' in parent.children:
-				parent.flex_Power.setStyleSheet("""
-					QToolButton {
-					border-style: none;
-				}
-				""")
+				parent.flex_Power.setStyleSheet(parent.deselected_style)
 
 			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
 				parent.estop_pb.led = True
@@ -107,12 +96,7 @@ def update(parent):
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
 			if 'flex_Power' in parent.children:
-				parent.flex_Power.setStyleSheet("""
-					QToolButton {
-					border: 2px solid gray;
-					border-style: inset;
-				}
-				""")
+				parent.flex_Power.setStyleSheet(parent.selected_style)
 
 			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
