@@ -189,6 +189,7 @@ class flexgui(QMainWindow):
 		startup.setup_overrides(self)
 		startup.setup_defaults(self)
 		startup.setup_tool_change(self)
+		startup.setup_toolbar(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
 		startup.setup_help(self)

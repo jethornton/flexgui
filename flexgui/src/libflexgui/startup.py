@@ -101,6 +101,8 @@ def update_check(parent):
 
 def setup_enables(parent):
 	parent.home_required = [] # different functions add to this
+	parent.state_estop_checked = {}
+	parent.state_estop_reset_checked = {}
 	# disable home all if home sequence is not found
 	if 'home_all_pb' in parent.children:
 		if not utilities.home_all_check(parent):
@@ -1425,8 +1427,11 @@ def setup_probing(parent):
 				parent.probe_controls.append(child)
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
 		if 'probing_enable_pb' in parent.children:
-			parent.state_estop[f'probing_enable_pb'] = False
-			parent.state_estop_reset[f'probing_enable_pb'] = False
+			parent.state_estop['probing_enable_pb'] = False
+			parent.state_estop_reset['probing_enable_pb'] = False
+			parent.state_estop_checked['probing_enable_pb'] = False
+			parent.state_estop_reset_checked['probing_enable_pb'] = False
+
 			parent.probing_enable_pb.setCheckable(True)
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
@@ -2045,6 +2050,17 @@ def setup_tool_change(parent):
 		hal.connect('iocontrol.0.tool-change','tool-change')
 		hal.connect('tool-change.change','tool-change')
 
+def setup_toolbar(parent):
+	parent.selected_style = '''
+		border-style: inset;
+		border-width: 2px;
+		border-color: gray;
+		border-style: solid;'''
+	parent.deselected_style = 'border-style: none;'
+	if 'flex_E_Stop' in parent.children:
+		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
+		print('here')
+
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
 		# add the plotter to the container
@@ -2060,6 +2076,7 @@ def setup_plot(parent):
 			parent.plotter.background_color = parent.plot_background_color
 
 		parent.plotter.current_view = parent.default_view
+		print(parent.default_view)
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
@@ -2195,6 +2212,7 @@ def setup_plot(parent):
 			'view_z2_pb': 'z2'
 		}
 
+		# this connects the view buttons to the plotter
 		for key, value in views.items():
 			if key in parent.children:
 				button = getattr(parent, key)
