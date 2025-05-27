@@ -114,6 +114,10 @@ QPushButton:pressed {
 	border-style: inset;
 }
 
+QPushButton:checked {
+	border-style: inset;
+}
+
 QPushButton:disabled {
 	color: #808080;
 	background-color: #4d4d4d;
