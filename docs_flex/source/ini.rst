@@ -165,7 +165,7 @@ EXTENSIONS key with the desired extensions seperated by a comma. The
 extensions must be in the format `*.ext` with the asterisk and dot
 ::
 
-	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
+	EXTENSIONS = *.nc, *.G-code, *.ngc, *.txt
 
 Screen Size
 -----------
