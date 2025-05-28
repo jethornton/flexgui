@@ -269,6 +269,36 @@ def sync_checkboxes(parent, sender, receiver):
 		getattr(parent, receiver).setChecked(getattr(parent, sender).isChecked())
 		parent.settings.setValue(f'PLOT/{receiver}', getattr(parent, sender).isChecked())
 
+def sync_toolbuttons(parent, view):
+	view_toolbuttons = [
+	'flex_View_P',
+	'flex_View_X',
+	'flex_View_Y',
+	'flex_View_Y2',
+	'flex_View_Z',
+	'flex_View_Z2',
+	]
+
+	for t in view_toolbuttons:
+		if t in parent.children:
+			getattr(parent, t).setStyleSheet(parent.deselected_style)
+
+	match view:
+		case 'p' if 'flex_View_P' in parent.children:
+			parent.flex_View_P.setStyleSheet(parent.selected_style)
+		case 'x' if 'flex_View_X' in parent.children:
+			parent.flex_View_X.setStyleSheet(parent.selected_style)
+		case 'y' if 'flex_View_Y' in parent.children:
+			parent.flex_View_Y.setStyleSheet(parent.selected_style)
+		case 'y2' if 'flex_View_Y2' in parent.children:
+			parent.flex_View_Y2.setStyleSheet(parent.selected_style)
+		case 'z' if 'flex_View_Z' in parent.children:
+			parent.flex_View_Z.setStyleSheet(parent.selected_style)
+		case 'z2' if 'flex_View_Z2' in parent.children:
+			parent.flex_View_Z2.setStyleSheet(parent.selected_style)
+		case _:
+			print('view not found')
+
 def var_value_changed(parent, value):
 	parent.var_timer.stop()
 	variable = parent.sender().property('variable')
