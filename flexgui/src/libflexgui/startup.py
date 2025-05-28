@@ -34,6 +34,16 @@ def set_screen(parent):
 		parent.move(0, 0) # if no settings move window to upper left corner
 		print(f"An unexpected error occurred: {e}")
 
+def setup_vars(parent): # put any variables in here so they are created first
+	# FIXME margin is lost when selecting the next one
+	parent.selected_style = '''
+		border-style: inset;
+		border-width: 2px;
+		border-color: gray;
+		border-style: solid;'''
+	parent.deselected_style = 'border-style: none;'
+
+
 def setup_led_buttons(parent): # LED
 	# find led buttons and get any custom properties
 	for child in parent.findChildren(QPushButton):
@@ -2051,15 +2061,8 @@ def setup_tool_change(parent):
 		hal.connect('tool-change.change','tool-change')
 
 def setup_toolbar(parent):
-	parent.selected_style = '''
-		border-style: inset;
-		border-width: 2px;
-		border-color: gray;
-		border-style: solid;'''
-	parent.deselected_style = 'border-style: none;'
 	if 'flex_E_Stop' in parent.children:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
-		print('here')
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.children:
@@ -2076,7 +2079,22 @@ def setup_plot(parent):
 			parent.plotter.background_color = parent.plot_background_color
 
 		parent.plotter.current_view = parent.default_view
-		print(parent.default_view)
+
+		match parent.default_view:
+			case 'p' if 'flex_View_P' in parent.children:
+				parent.flex_View_P.setStyleSheet(parent.selected_style)
+			case 'x' if 'flex_View_X' in parent.children:
+				parent.flex_View_X.setStyleSheet(parent.selected_style)
+			case 'y' if 'flex_View_Y' in parent.children:
+				parent.flex_View_Y.setStyleSheet(parent.selected_style)
+			case 'y2' if 'flex_View_Y2' in parent.children:
+				parent.flex_View_Y2.setStyleSheet(parent.selected_style)
+			case 'z' if 'flex_View_Z' in parent.children:
+				parent.flex_View_Z.setStyleSheet(parent.selected_style)
+			case 'z2' if 'flex_View_Z2' in parent.children:
+				parent.flex_View_Z2.setStyleSheet(parent.selected_style)
+			case _:
+				print('view not found')
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
@@ -2250,7 +2268,8 @@ def setup_plot(parent):
 				action.triggered.connect(lambda _, v=value: (
 					parent.plotter.makeCurrent(),
 					setattr(parent.plotter, 'current_view', v),
-					parent.plotter.set_current_view()
+					parent.plotter.set_current_view(),
+					utilities.sync_toolbuttons(parent, v)
 				))
 
 def setup_fsc(parent): # mill feed and speed calculator
