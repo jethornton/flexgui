@@ -41,7 +41,7 @@ def setup_vars(parent): # put any variables in here so they are created first
 		border-width: 2px;
 		border-color: gray;
 		border-style: solid;'''
-	parent.deselected_style = 'border-style: none;'
+	parent.deselected_style = 'border-color: transparent;'
 
 
 def setup_led_buttons(parent): # LED
