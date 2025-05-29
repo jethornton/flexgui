@@ -34,11 +34,12 @@ def set_screen(parent):
 		parent.move(0, 0) # if no settings move window to upper left corner
 		print(f"An unexpected error occurred: {e}")
 
-def setup_vars(parent): # put any variables in here so they are created first
-	# FIXME margin is lost when selecting the next one
+def setup_vars(parent):
+	# put any variables in here that might be called during startup
 	parent.selected_style = '''
 		border-style: inset;
 		border-width: 2px;
+		border-radius: 1px;
 		border-color: gray;
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
