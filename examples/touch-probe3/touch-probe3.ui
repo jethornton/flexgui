@@ -2009,7 +2009,7 @@ SET</string>
          </rect>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max XY search distance on Outside / Inside routines.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Max XY search distance on angle start &amp; edge search routines.</string>
         </property>
         <property name="decimals">
          <number>3</number>
@@ -2168,7 +2168,7 @@ SET</string>
          </rect>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max travel on XY search distance.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Max travel on XY distance measure routines.</string>
         </property>
         <property name="decimals">
          <number>3</number>
