@@ -11,21 +11,22 @@ o<bolt_hole_countersink_pattern> sub
 	G0 X0 Y0							; be sure to start at original X0 Y0
 	G43 Z#2050 H#5400					; move to z clear #5400 tool in spindle
 	M3									; Spindle On
-	G90 G0 @[0 + #2043] ^#2039 Z#2050
-	o101 while [#2058 GT 0] 			; hole count use 0 for now (may need to decrement a var)
+	#2057 = [#2039 + #2040]				; store angle + offset angle for first hole
+	o101 while [#2038 GT 0] 			; hole count use 0 for now (may need to decrement a var)
+		G0 @[0 + #2043] ^#2057 Z#2050	; Move over first hole establishing radius
 		G92 X0 Y0						; Shift the work offset
-		G0 G90 X0 Y0
 		o102 if[#2068 EQ 0]
 			o<hole_mill> call			; mill the hole
 		o102 else
 			o<rigid_tap> call			; tap the hole
 		o102 endif
 		G92.1							; turn offset off
-		#2058 = [#2058 -1]				; decrement the hole couunt
-		o103 if [#2058 GT 0]		;  #2035 ???
-			G91 G0 ^#2040			; Position over first hole establishing radius
-		o103 endif
+		G90 G0 X0 Y0					; move back to original center
+		#2057 = [#2057 + #2040]			; update angle for next hole
+		#2038 = [#2038 -1]				; decrement the hole couunt
 	o101 endwhile
+	#2057 = 0							; reset counters
+	#2038 = #2058						; restore count to original
 M5										; Turn spindle off
 	G92.1								; turn offset off
 	G90 G0 X0 Y0						; move back to original center
