@@ -3,22 +3,30 @@ o<bolt_hole_pattern> sub
 		(debug,Tool must be non zero)
 		M30
 	o100 endif
-	G20 S#2046
+	G20
+	S#2046
+	F#2044
 	#2043 = [#2037 / 2]				; Pattern Radius
+	#2058 = #2038					; temp counter for restore 
 	#2040 = [360 / #2038]			; Circle / number of holes
 ;	G0 G90 G53 Z0
-	G0 G43 Z#2045 H#5400 F #2044	; move to z clear #5400 tool in spindle
+	G0 G90 G43 Z#2045 H#5400 F #2044	; move to z clear #5400 tool in spindle
 	G0 G90 X#2006 Y #2007			; Find center
 	G92 X0 Y0						; Shift the work offset
 	G0 G90 X 0 Y 0					; Find new center
 	M3								; Spindle On
 	G0 @[0 + #2043] ^#2039 Z#2045	; Position over first hole establishing radius
-	G1 Z #2041 F #2044				; Move to Z start depth
-	o101 if [#2059 EQ 0]
-		G91 G98 G81 R#2045 Z#2042 ^#2040 L#2038 F#2044		; normao drill cycle
-	o101 else
-		G91 G98 G83 R#2045 Q#2059 Z#2042 ^#2040 L#2038 F#2044	; fixup for peck drill
-	o101 endif
+	o102 while [#2058 GT 0]
+		o101 if [#2059 EQ 0]
+			G90 G98 G81 R#2045 Z#2042 ; was G91 normal drill cycle
+		o101 else
+			G90 G98 G83 R#2045 Q#2059 Z#2042 ; was G91fixup for peck drill
+		o101 endif
+		#2058 = [#2058 - 1]			; decrement hole count
+		o103 if [#2058 GT 0]		;  #2035 ???
+			G91 G0 ^#2040			; Position over first hole establishing radius
+		o103 endif
+	o102 endwhile
 	M5								; Turn spindle off
 	G92.1							; turn offset off
 	G90 G0 X0 Y0					; move back to original center
@@ -33,7 +41,6 @@ M2
 ;	#2038	hole count
 ;	#2039	start angle
 ;	#2040	angle increment
-;	#2041	Z start
 ;	#2042	Z depth
 ;	#2043	Radius
 ;	#2044 	Feedrate
