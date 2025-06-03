@@ -3207,6 +3207,9 @@ SET</string>
            <height>27</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>Set parameters for Hole Pattern on this screen.</string>
+         </property>
          <property name="text">
           <string>RUN HOLE PATTERN</string>
          </property>
@@ -3331,6 +3334,9 @@ SET</string>
            <width>191</width>
            <height>27</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>Set parameters for Counterbore &amp; Tap in BoreMill &amp; RigidTap tabs</string>
          </property>
          <property name="text">
           <string>RUN COUNTERBORE / TAP</string>
