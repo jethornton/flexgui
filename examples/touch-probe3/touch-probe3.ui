@@ -3345,7 +3345,7 @@ SET</string>
           <string>mdi</string>
          </property>
          <property name="command" stdset="0">
-          <string>o&lt;bolt_hole_countersink_pattern_first_hole&gt; call</string>
+          <string>o&lt;bolt_hole_countersink_pattern&gt; call</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_63">
