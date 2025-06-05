@@ -226,7 +226,7 @@ Off</string>
       <property name="geometry">
        <rect>
         <x>35</x>
-        <y>60</y>
+        <y>20</y>
         <width>191</width>
         <height>351</height>
        </rect>
@@ -486,7 +486,7 @@ Off</string>
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>60</y>
+        <y>20</y>
         <width>246</width>
         <height>286</height>
        </rect>
@@ -679,6 +679,176 @@ Off</string>
        </property>
        <property name="text">
         <string>S Word</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>310</y>
+        <width>246</width>
+        <height>146</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Velocity</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <widget class="QLabel" name="label_114">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>35</y>
+         <width>16</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_115">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>95</y>
+         <width>16</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Z</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_116">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>65</y>
+         <width>16</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Y</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="joint_vel_min_0_lb">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>35</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="joint_vel_min_1_lb">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>65</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="joint_vel_min_2_lb">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>95</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_117">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>35</y>
+         <width>21</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X Y</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="two_vel_lb">
+       <property name="geometry">
+        <rect>
+         <x>165</x>
+         <y>35</y>
+         <width>66</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="joint_0" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="joint_1" stdset="0">
+        <number>0</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="three_vel_lb">
+       <property name="geometry">
+        <rect>
+         <x>165</x>
+         <y>65</y>
+         <width>66</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="joint_0" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="joint_1" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="joint_2" stdset="0">
+        <number>0</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_118">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>65</y>
+         <width>36</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X Y Z</string>
        </property>
       </widget>
      </widget>
