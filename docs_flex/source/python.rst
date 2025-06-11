@@ -28,7 +28,7 @@ GUI.
 		parent.my_test_pb.clicked.connect(test_1)
 		parent.get_names_pb.clicked.connect(partial(get_names, parent))
 
-		# connect a pushbutton and pass parent to fhe function
+		# connect a pushbutton and pass parent to the function
 		parent.another_test_pb.clicked.connect(partial(test_2, parent))
 
 	def test_1():

@@ -8,7 +8,7 @@ Add a QListWidget and name it `file_lw`, this can be used with a touch screen by
 specifying the touch input. A single left-click or touch is all that's needed to
 use the `File Selector`. A left-click or touch on a directory will change to
 that directory. A left-click or touch on the up or down arrow will move the list
-by one. A left-click or touch inbetween an arrow and the slider will move the
+by one. A left-click or touch in between an arrow and the slider will move the
 list by one page. Touch-and-hold to move the slider.
 
 If you use the touch input, the selector looks like this

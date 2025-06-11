@@ -81,7 +81,7 @@ Spin Boxes
 ----------
 
 QDoubleSpinBox and QSpinBox can use the popup numbers keypad by adding a
-Dynamic Property named `input` and seting the value to `number`. If you enter
+Dynamic Property named `input` and setting the value to `number`. If you enter
 a float value for a QSpinBox the value will get converted to an integer
 
 Line Edits

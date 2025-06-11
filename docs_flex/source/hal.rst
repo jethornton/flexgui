@@ -255,7 +255,7 @@ Homed Required
 --------------
 
 If the HAL button requires all joints to be homed before being enabled, you can
-specifiy that by adding a Dynamic Property named `required` and set the value to
+specify that by adding a Dynamic Property named `required` and set the value to
 `homed`.
 
 .. image:: /images/hal-09.png

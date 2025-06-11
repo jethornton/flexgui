@@ -17,14 +17,14 @@ Adding a menu item creates an action. When you create File > Open menu, the
    application if you don't have the Exit action or an Exit Push Button or Press
    ALT-F4 to close the GUI.
 
-This shows the typical menu catagories which are the first items in each menu.
+This shows the typical menu categories which are the first items in each menu.
 The image is from the Qt Designer.
 
 .. image:: /images/menu-02.png
    :align: center
 
 The following table shows the menu name you type into Qt Designer and the action
-name that is created by the Qt Designer. Menu catagories like `File` don't
+name that is created by the Qt Designer. Menu categories like `File` don't
 create an action name.
 
 .. csv-table:: Menu Items

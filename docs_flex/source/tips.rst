@@ -19,7 +19,7 @@ widget and set the minimum width a tad bigger than the widest widget in that
 column. This will prevent the column from resizing as the values change.
 
 For example, the numbers in the Actual column can contain up to 8 characters
-like -23.4567. In the next image no mininum width has been set
+like -23.4567. In the next image no minimum width has been set
 
 .. image:: /images/tips-02.png
    :align: center

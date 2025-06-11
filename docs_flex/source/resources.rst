@@ -64,7 +64,7 @@ Next Build Resources File
 .. image:: /images/resources-08.png
    :align: center
 
-The Flex Resourse Builder can be closed now. In the configuration directory you
+The Flex Resource Builder can be closed now. In the configuration directory you
 will have a resources.py file that contains the images used by the stylesheet.
 
 Next edit the ini file and in the [DISPLAY] section add the following line
