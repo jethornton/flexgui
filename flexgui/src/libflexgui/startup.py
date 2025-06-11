@@ -510,6 +510,12 @@ def setup_buttons(parent): # connect buttons to functions
 		if 'flex_Power' in parent.children:
 			parent.flex_Power.setStyleSheet(parent.power_off_color)
 
+	# file open buttons
+	for child in parent.findChildren(QPushButton):
+		if child.property('function') == 'load_file':
+			child.clicked.connect(partial(actions.load_file, parent))
+			# add to enable disables
+
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
 	parent.shortcuts = []
