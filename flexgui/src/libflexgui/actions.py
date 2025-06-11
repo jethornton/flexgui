@@ -10,17 +10,31 @@ from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import select
 
-def load_file(parent, gcode_file):
-	if os.path.isfile(gcode_file):
-		parent.command.program_open(gcode_file)
+def load_file(parent, nc_code_file=None):
+	# File load buttons don't pass a file name it has to be read from the property
+
+	file_button = False
+	if parent.sender().property('function') == 'load_file':
+		# don't add the file name to recent files
+		file_button = True
+		file_name = parent.sender().property('filename') or False
+		if file_name:
+			nc_code_file = os.path.join(parent.nc_code_dir, file_name)
+		else:
+			msg = ('The filename property was not found')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+			return
+
+	if os.path.isfile(nc_code_file):
+		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
 		if 'plot_widget' in parent.children:
 			parent.plotter.clear_live_plotter()
 
-		text = open(gcode_file).read()
+		text = open(nc_code_file).read()
 		if 'gcode_pte' in parent.children:
 			parent.gcode_pte.setPlainText(text)
-		base = os.path.basename(gcode_file)
+		base = os.path.basename(nc_code_file)
 		if 'file_lb' in parent.children:
 			parent.file_lb.setText(base)
 
@@ -30,38 +44,39 @@ def load_file(parent, gcode_file):
 		if 'start_line_lb' in parent.children:
 			parent.start_line_lb.setText('0')
 
-		# get recent files from settings
-		keys = parent.settings.allKeys()
-		file_list = []
-		for key in keys:
-			if key.startswith('recent_files'):
-				file_list.append(parent.settings.value(key))
-		# if the g code file is in the list remove it
-		if gcode_file in file_list:
-			file_list.remove(gcode_file)
-		# insert the g code file at the top of the list
-		file_list.insert(0, gcode_file)
-		# trim the list to 10
-		file_list = file_list[:10]
-
-		# add files back into settings
-		parent.settings.beginGroup('recent_files')
-		parent.settings.remove('')
-		for i, item in enumerate(file_list):
-			parent.settings.setValue(str(i), item)
-		parent.settings.endGroup()
-
-		# clear the recent menu
-		if parent.findChild(QMenu, 'menuRecent'):
-			parent.menuRecent.clear()
-			# add the recent files from settings
+		if not file_button:
+			# get recent files from settings
 			keys = parent.settings.allKeys()
+			file_list = []
 			for key in keys:
 				if key.startswith('recent_files'):
-					path = parent.settings.value(key)
-					name = os.path.basename(path)
-					a = parent.menuRecent.addAction(name)
-					a.triggered.connect(partial(load_file, parent, path))
+					file_list.append(parent.settings.value(key))
+			# if the g code file is in the list remove it
+			if nc_code_file in file_list:
+				file_list.remove(nc_code_file)
+			# insert the g code file at the top of the list
+			file_list.insert(0, nc_code_file)
+			# trim the list to 10
+			file_list = file_list[:10]
+
+			# add files back into settings
+			parent.settings.beginGroup('recent_files')
+			parent.settings.remove('')
+			for i, item in enumerate(file_list):
+				parent.settings.setValue(str(i), item)
+			parent.settings.endGroup()
+
+			# clear the recent menu
+			if parent.findChild(QMenu, 'menuRecent'):
+				parent.menuRecent.clear()
+				# add the recent files from settings
+				keys = parent.settings.allKeys()
+				for key in keys:
+					if key.startswith('recent_files'):
+						path = parent.settings.value(key)
+						name = os.path.basename(path)
+						a = parent.menuRecent.addAction(name)
+						a.triggered.connect(partial(load_file, parent, path))
 
 		# enable run items
 		parent.status.poll()
@@ -77,7 +92,7 @@ def load_file(parent, gcode_file):
 				parent.reload_pb.led = False
 
 	else:
-		msg = (f'{gcode_file}\n'
+		msg = (f'{nc_code_file}\n'
 		'was not found. Loading aborted!')
 		dialogs.warn_msg_ok(parent, msg, 'File Missing')
 

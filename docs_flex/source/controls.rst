@@ -117,7 +117,7 @@ to the push button with a Bool type Dynamic Property called `led_indicator`.
 	Pause, pause_pb, Pauses a running NC file
 	Manual Mode, manual_mode_pb, Puts the control into Manual Mode
 	MDI Mode, mdi_mode_pb, Puts the control into MDI Mode
-	Flood, flood_pb, Turns on the flood cooland
+	Flood, flood_pb, Turns on the flood coolant
 	Mist, mist_pb, Turns on the mist coolant
 	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
 
@@ -133,7 +133,7 @@ have different options.
 	led_indicator, Bool, Creates a LED
 	led_diameter, Int, Sets the Diameter of the LED in pixels
 	led_right_offset, Int, Sets the offset from the right edge in pixels
-	led_top_offset, Int, Sets the offsset from the top edge in pixels
+	led_top_offset, Int, Sets the offset from the top edge in pixels
 	led_on_color, Color, Sets the color of the LED when on
 	led_off_color, Color, Sets the color of the LED when off
 
@@ -146,7 +146,7 @@ See :ref:`led_defaults`
 Coordinate System Controls
 --------------------------
 
-A QPushButton can be used to clear the curren cooridnate system by using 0 as
+A QPushButton can be used to clear the current coordinate system by using 0 as
 the index or any one of the 9 coordinate systems with (1-9).
 
 To clear the G92 coordinate system use 10 as the index.
@@ -308,4 +308,23 @@ QPushButtons with the following Dynamic Properties. See :doc:`property`
 
 .. note:: The Forward and Backward Buttons should not be in the QStackedWidget
 
+File Load Buttons
+-----------------
 
+To create a QPushButton to load a specific file add two Dynamic Properties.
+
+.. csv-table:: File Load Buttons
+   :width: 100%
+   :align: left
+
+	**Dynamic Property Name**, **Value**
+	function, load_file
+	filename, full name of the nc code file including extension
+
+.. warning:: The file must be in the directory specified by the INI entry
+   PROGRAM_PREFIX in the [DISPLAY] section or have a fully qualified path.
+
+This is useful for probe routine buttons to load the nc code so the
+path can be viewed in the plotter and for programs that are ran frequently.
+
+.. note:: The file is not added to the Recent Files list.
