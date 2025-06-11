@@ -27,12 +27,12 @@ from libflexgui import probe
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
 def set_screen(parent):
-	try:
+	if parent.settings.contains('GUI/window_size'):
 		parent.resize(parent.settings.value('GUI/window_size'))
+	if parent.settings.contains('GUI/window_position'):
 		parent.move(parent.settings.value('GUI/window_position'))
-	except Exception as e:
+	else:
 		parent.move(0, 0) # if no settings move window to upper left corner
-		print(f"An unexpected error occurred: {e}")
 
 def setup_vars(parent):
 	# put any variables in here that might be called during startup
