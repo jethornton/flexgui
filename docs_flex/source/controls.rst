@@ -310,7 +310,6 @@ QPushButtons with the following Dynamic Properties. See :doc:`property`
 
 File Load Buttons
 -----------------
-
 To create a QPushButton to load a specific file add two Dynamic Properties.
 
 .. csv-table:: File Load Buttons
@@ -319,10 +318,51 @@ To create a QPushButton to load a specific file add two Dynamic Properties.
 
 	**Dynamic Property Name**, **Value**
 	function, load_file
-	filename, full name of the nc code file including extension
+	filename, file to load
+
+File Name in the PROGRAM_PREFIX path.
+
+.. image:: /images/controls-02.png
+   :align: center
+
+File Name with Full Path
+
+.. image:: /images/controls-03.png
+   :align: center
+
+File Name in the Configuration Directory
+
+.. image:: /images/controls-04.png
+   :align: center
+
+File Name relative to the Users Home Directory
+
+.. image:: /images/controls-05.png
+   :align: center
+
+
+The file name can be just the name and extension if it's in the PROGRAM_PREFIX
+path. Or it can be any valid path and file name.
+
+File Name Examples
+::
+
+	A file in the PROGRAM_PREFIX path
+	somefile.ngc
+
+	A file in the configuration directory
+	./anotherfile.ngc
+
+	A file up one directory from the configuration directory
+	../up_one.ngc
+
+	A file relative to the users home directory
+	/home/fred/linuxcnc/my_files/afile.ngc
+	could be 
+	~/linuxcnc/my_files/afile.ngc
 
 .. warning:: The file must be in the directory specified by the INI entry
-   PROGRAM_PREFIX in the [DISPLAY] section or have a fully qualified path.
+   PROGRAM_PREFIX in the [DISPLAY] section or have a valid path.
 
 This is useful for probe routine buttons to load the nc code so the
 path can be viewed in the plotter and for programs that are ran frequently.
