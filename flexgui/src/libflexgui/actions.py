@@ -19,12 +19,16 @@ def load_file(parent, nc_code_file=None):
 		file_button = True
 		file_name = parent.sender().property('filename') or False
 		if file_name:
-			nc_code_file = os.path.join(parent.nc_code_dir, file_name)
+			if os.path.isfile(file_name):
+				nc_code_file = file_name
+			else: # try adding the nc code dir path to the file name
+				nc_code_file = os.path.join(parent.nc_code_dir, file_name)
 		else:
 			msg = ('The filename property was not found')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 			return
 
+	print(f'nc_code_file {nc_code_file}')
 	if os.path.isfile(nc_code_file):
 		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
