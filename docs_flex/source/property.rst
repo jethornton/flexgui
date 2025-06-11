@@ -1,7 +1,7 @@
 Dynamic Properties
 ==================
 
-Flex GUI uses a lot Dynamic Properties to cusomize widget behaviour and add
+Flex GUI uses a lot Dynamic Properties to customize widget behavior and add
 more functionality to a widget.
 
 To Create a Dynamic Property the first thing you do is select the widget.

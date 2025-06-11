@@ -29,7 +29,7 @@ Colors
 Most colors can be specified using Hex, RGB or RGBA color model. RGB is
 Red, Green, Blue and A means Alpha or transparency. The alpha parameter is a
 number between 0.0 (fully transparent) and 1.0 (not transparent at all). Hex is
-red, green blue in hexidecimal number pairs from 00 to ff.
+red, green blue in hexadecimal number pairs from 00 to ff.
 
 .. code-block:: css
 

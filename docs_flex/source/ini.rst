@@ -16,7 +16,7 @@ To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to
 
 	DISPLAY = flexgui
 
-If no GUI is specificed then the default GUI will be used.
+If no GUI is specified then the default GUI will be used.
 
 .. note:: Any Flex GUI .ui and .qss files must be in the same LinuxCNC
    configuration directory as the .ini file.
@@ -107,13 +107,13 @@ that the file is in the configuration directory
 	OPEN_FILE = ~/linuxcnc/configs/flex_examples/probe_sim/square.ngc
 	or use the ./ to use the current configuration directory
 	OPEN_FILE = ./welcome.ngc
-	or ust the ../ to use the parent directory of the configuration
+	or use the ../ to use the parent directory of the configuration
 	OPEN_FILE = ../welcome.ngc
 
 File Location
 -------------
 
-Likewise, to specify a default loction for NC files, add the PROGRAM_PREFIX
+Likewise, to specify a default location for NC files, add the PROGRAM_PREFIX
 item.
 ::
 
@@ -128,14 +128,14 @@ item.
 Tool Table Editor
 -----------------
 
-To specify a differnent tool table editor add an entry to the [DISPLAY] section.
+To specify a different tool table editor add an entry to the [DISPLAY] section.
 If no entry is found then the default tool editor is used
 ::
 
 	TOOL_EDITOR = tooledit
 
 To control the columns displayed by the default tool editor add any of the valid
-column specifiers seperated by a space. 
+column specifiers separated by a space. 
 ::
 
 	TOOL_EDITOR = tooledit x y z a b c u v w diam front back orien
@@ -161,7 +161,7 @@ File Extensions
 
 The keyboard file dialog defaults to `*.ngc` and this ignores case. To
 specify the file extensions you want the file dialog to show, add an
-EXTENSIONS key with the desired extensions seperated by a comma. The
+EXTENSIONS key with the desired extensions separated by a comma. The
 extensions must be in the format `*.ext` with the asterisk and dot
 ::
 
@@ -232,7 +232,7 @@ LED Defaults
 ------------
 
 LED buttons can have defaults set in the ini file. This makes it easier to have
-consistant LED size, position and colors. These options go in the [FLEXGUI]
+consistent LED size, position and colors. These options go in the [FLEXGUI]
 section.
 
 The color options can be specified using HEX, RGB or RGBA.
@@ -262,7 +262,7 @@ Touch Screens
 
 Options for touch screen users.
 
-Set the touch screen file chooser to automaticly adjust the width by adding the
+Set the touch screen file chooser to automatically adjust the width by adding the
 following to the FLEXGUI section.
 ::
 

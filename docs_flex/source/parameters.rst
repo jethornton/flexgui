@@ -8,7 +8,7 @@ Setting Parameters
 
 To set a user parameter value in the var file with a QDoubleSpinBox add a couple
 of string type Dynamic Properties. See :doc:`property` The parameters 31 - 5000
-are avaliable for use in NC code programs. Replace `nnnn` with the variable
+are available for use in NC code programs. Replace `nnnn` with the variable
 number.
 ::
 

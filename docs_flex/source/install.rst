@@ -7,7 +7,7 @@ Install with Apt
 ----------------
 
 The advantage of using apt to install Flex GUI is when a new version of Flex GUI
-is released apt will know a new version is avaliable when you run 
+is released apt will know a new version is available when you run 
 `sudo apt update`. This will allow you to install the new version of Flex GUI
 along with other Debian software.
 
@@ -86,7 +86,7 @@ browser
 
 	https://github.com/jethornton/flexgui/releases
 
-~amd64.deb is for PC's and ~arm64.deb is for Raspberri Pi.
+~amd64.deb is for PC's and ~arm64.deb is for Raspberry Pi.
 
 Select the latest release and click on the .deb to start a download.
 

@@ -71,7 +71,7 @@ A minimal example is in the Flex Examples in the Features directory
 .. image:: /images/probe-02.png
    :align: center
 
-To run the example, close the E Stop, turn Power on, Home all, then togggle the
+To run the example, close the E Stop, turn Power on, Home all, then toggle the
 Enable button. When probing is enabled many other controls are disabled
 including the spindle.
 
@@ -144,7 +144,7 @@ pin name in HAL.
 
 Looking at the Halshow window which pops up when you press the Show HAL button,
 you can see the flexhal pin names for each spin box and for the Probe Trip
-button. Also notice that the Probe Trip button is conneced to a signal which is
+button. Also notice that the Probe Trip button is connected to a signal which is
 connected to motion.probe-input in the postgui.hal file
 
 .. image:: /images/probe-03.png

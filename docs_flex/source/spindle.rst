@@ -38,7 +38,7 @@ of the .ini file
 
 If `INCREMENT` is not found, Flex will look in the .ini [DISPLAY] section for
 `SPINDLE_INCREMENT` and if not there will default the increment to 10 for
-spindle faster/slower control buttons and sindle step for the QSpinBox.
+spindle faster/slower control buttons and spindle step for the QSpinBox.
 
 If `MIN_FORWARD_VELOCITY` is found, it will be used to set the QSpinBox minimum
 setting. If not found, the minimum setting will be 0.
