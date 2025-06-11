@@ -300,18 +300,21 @@ def sync_toolbuttons(parent, view):
 			print('view not found')
 
 def var_value_changed(parent, value):
-	parent.var_timer.stop()
 	variable = parent.sender().property('variable')
 	parent.cmd = f'#{variable}={value}'
 	parent.var_timer.start(500)  # Timeout after 0.5 seconds
 
 def sync_var_file(parent):
 	if parent.status.task_state == emc.STATE_ON:
+		original_mode = parent.status.task_mode
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(parent.cmd)
+		parent.command.wait_complete()
 		parent.command.task_plan_synch()
+		parent.command.mode(original_mode)
+		parent.command.wait_complete()
 
 def var_file_watch(parent):
 	var_current_time = os.stat(os.path.join(parent.config_path, parent.var_file)).st_mtime
