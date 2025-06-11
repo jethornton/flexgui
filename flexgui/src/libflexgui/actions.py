@@ -21,6 +21,8 @@ def load_file(parent, nc_code_file=None):
 		if file_name:
 			if os.path.isfile(file_name):
 				nc_code_file = file_name
+			elif '~' in file_name:
+				nc_code_file = os.path.expanduser(file_name)
 			else: # try adding the nc code dir path to the file name
 				nc_code_file = os.path.join(parent.nc_code_dir, file_name)
 		else:
