@@ -1416,22 +1416,7 @@ def setup_defaults(parent):
 
 	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 	if open_file and open_file != '""':
-		if open_file.startswith('./'):
-			open_file = os.path.join(parent.config_path, open_file.lstrip('./'))
-		elif open_file.startswith('../'):
-			open_file = os.path.join(os.path.dirname(parent.config_path), open_file.lstrip('../'))
-		elif open_file.startswith('~'):
-			open_file = open_file.replace('~', parent.home_dir)
-		else: # full path
-			open_file = open_file
-		if os.path.exists(open_file):
-			actions.load_file(parent, open_file)
-		else:
-			msg = (f'The G code file\n{open_file}\n'
-				'was not found.\n'
-				'Check the [DISPLAY] OPEN_FILE\n'
-				'setting in the ini file.')
-			dialogs.warn_msg_ok(parent, msg, 'File Not Found')
+		actions.load_file(parent, open_file)
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
