@@ -12,25 +12,21 @@ from libflexgui import select
 
 def load_file(parent, nc_code_file=None):
 	# File load buttons don't pass a file name it has to be read from the property
+	if not nc_code_file: # function called by a file load button
+		if parent.sender() is not None:
+			if parent.sender().property('function') == 'load_file':
+				if parent.sender().property('filename'):
+					nc_code_file = parent.sender().property('filename')
+				else:
+					msg = ('The property filename\n'
+					'was not found. Loading aborted!')
+					dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
-	file_button = False
-	if parent.sender().property('function') == 'load_file':
-		# don't add the file name to recent files
-		file_button = True
-		file_name = parent.sender().property('filename') or False
-		if file_name:
-			if os.path.isfile(file_name):
-				nc_code_file = file_name
-			elif '~' in file_name:
-				nc_code_file = os.path.expanduser(file_name)
-			else: # try adding the nc code dir path to the file name
-				nc_code_file = os.path.join(parent.nc_code_dir, file_name)
-		else:
-			msg = ('The filename property was not found')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-			return
+	if '~' in nc_code_file:
+		nc_code_file = os.path.expanduser(nc_code_file)
+	elif not os.path.isfile(nc_code_file): # try adding the nc code dir path to the file name
+		nc_code_file = os.path.join(parent.nc_code_dir, nc_code_file)
 
-	print(f'nc_code_file {nc_code_file}')
 	if os.path.isfile(nc_code_file):
 		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
@@ -50,7 +46,7 @@ def load_file(parent, nc_code_file=None):
 		if 'start_line_lb' in parent.children:
 			parent.start_line_lb.setText('0')
 
-		if not file_button:
+		if parent.sender() is None: # called by menu or file open button
 			# get recent files from settings
 			keys = parent.settings.allKeys()
 			file_list = []
@@ -97,10 +93,11 @@ def load_file(parent, nc_code_file=None):
 			if hasattr(parent.reload_pb, 'led'):
 				parent.reload_pb.led = False
 
-	else:
+	else: # file not found
 		msg = (f'{nc_code_file}\n'
 		'was not found. Loading aborted!')
 		dialogs.warn_msg_ok(parent, msg, 'File Missing')
+
 
 def file_selector(parent): # touch screen file selector
 	item = parent.file_lw.currentItem().text()
