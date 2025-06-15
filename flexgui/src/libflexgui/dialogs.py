@@ -150,6 +150,20 @@ def info_msg_ok(parent, text, title=None):
 	else:
 		return False
 
+def error_msg_ok(parent, text, title=None): # plain error message
+	# dialogs.error_msg_ok(parent, msg, 'title')
+	msg_box = QMessageBox()
+	msg_box.setIcon(QMessageBox.Icon.Warning)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(text)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+
+	returnValue = msg_box.exec()
+	if returnValue == QMessageBox.StandardButton.Ok:
+		return True
+	else:
+		return False
+
 def warn_msg_ok(parent, text, title=None):
 	# dialogs.warn_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
