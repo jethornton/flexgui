@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, subprocess
+import os, sys, subprocess, psutil
 # these are for testing to generate a random hal name
 import random, string
 
@@ -28,24 +28,22 @@ class flexgui(QMainWindow):
 
 		self.flex_version = '1.2.1'
 
-		# get the path to the executable
+		# verify that flexgui is loaded by emc
+		parent_pid = os.getppid()
+		parent_process = psutil.Process(parent_pid)
+		parent_name = parent_process.name()
+		if parent_name != 'linuxcnc':
+			msg = ('Flex GUI must be called from\n'
+			'the LinuxCNC ini file.')
+			dialogs.error_msg_ok(self, msg, 'Error')
+			sys.exit()
+
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 		# set the library path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
-		else: # trying to run with a sim
-			msg = ('Flex GUI must be called from LinuxCNC.')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
-			sys.exit()
-
-		# check to see if linuxcnc is running
-		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
-		if 'linuxcnc' not in cp.stdout:
-			msg = ('Flex GUI can not run without LinuxCNC.')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
-			sys.exit()
 
 		# connect to linuxcnc
 		self.status = linuxcnc.stat()
