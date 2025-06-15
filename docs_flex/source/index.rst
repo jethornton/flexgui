@@ -5,9 +5,9 @@ Flex GUI
    :caption: Contents:
 
    description
-   start
    install
    designer
+   build
    property
    ini
    labels
