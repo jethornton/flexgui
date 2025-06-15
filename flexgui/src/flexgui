@@ -37,14 +37,18 @@ class flexgui(QMainWindow):
 			self.gui_path = '/usr/lib/libflexgui'
 		else: # trying to run with a sim
 			msg = ('Flex GUI must be called from LinuxCNC.')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			if 'parent' in globals():
+				dialogs.warn_msg_ok(parent, msg, 'Error')
+			else: print(f'Flex GUI v{self.flex_version} must be called from LinuxCNC.')
 			sys.exit()
 
 		# check to see if linuxcnc is running
 		cp = subprocess.run(['pgrep', '-l', 'linuxcnc'], text=True, capture_output=True)
 		if 'linuxcnc' not in cp.stdout:
 			msg = ('Flex GUI can not run without LinuxCNC.')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			if 'parent' in globals():
+				dialogs.warn_msg_ok(parent, msg, 'Error')
+			else: print(f'Flex GUI v{self.flex_version} cannot run without LinuxCNC.')
 			sys.exit()
 
 		# connect to linuxcnc
