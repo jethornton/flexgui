@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import os, sys, subprocess, psutil
-# these are for testing to generate a random hal name
-import random, string
 
 # disable cache usage must be before any local imports
 sys.dont_write_bytecode = True
