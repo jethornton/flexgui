@@ -1,0 +1,16 @@
+share/qtvcp/screens/qtdragon/qtdragon_handler.py:403:
+self.w.chk_use_keyboard.setChecked(self.w.PREFS_.getpref('Use keyboard', False, bool, 'CUSTOM_FORM_ENTRIES'))
+
+share/qtvcp/screens/qtdragon/qtdragon_handler.py:438:
+self.w.PREFS_.putpref('Use keyboard', self.w.chk_use_keyboard.isChecked(), bool, 'CUSTOM_FORM_ENTRIES')
+
+share/qtvcp/screens/qtdragon/qtdragon_handler.py:1569:
+if self.w.chk_use_keyboard.isChecked():
+
+14
+from qtvcp.lib.keybindings import Keylookup
+
+22
+KEYBIND = Keylookup()
+
+
