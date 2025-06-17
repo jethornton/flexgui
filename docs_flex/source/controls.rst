@@ -59,13 +59,6 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 .. note:: Tool-Touch-Off buttons require a Double Spin Box named
    `tool_touchoff_dsb`
 
-Touch-Off Spin Boxes
---------------------
-::
-
-	Touch Off Value         touchoff_dsb
-	Tool Touch Off Value    tool_touchoff_dsb
-
 E Stop and Power
 ----------------
 
