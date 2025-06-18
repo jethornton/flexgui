@@ -25,6 +25,15 @@ class flexgui(QMainWindow):
 		super().__init__()
 
 		self.flex_version = '1.2.1'
+		try:
+			import psutil
+		except Exception as err:
+			msg = ('An error occurred trying import psutil\n'
+			f'{err}\n'
+			'To install psutil use the following command\n'
+			'sudo apt install python3-psutil')
+			dialogs.error_msg_ok(self, msg, 'Error')
+			sys.exit()
 
 		# verify that flexgui is loaded by emc
 		parent_pid = os.getppid()
