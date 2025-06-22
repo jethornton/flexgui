@@ -1,17 +1,20 @@
 import os, sys, shutil, re, importlib
 from functools import partial
 
-from PyQt6.QtWidgets import QPushButton, QListWidget, QPlainTextEdit, QLineEdit
-from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton, QWidget
-from PyQt6.QtWidgets import QAbstractButton, QAbstractSpinBox
-from PyQt6.QtWidgets import QLabel, QLCDNumber, QDoubleSpinBox, QListView
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
+from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
+from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox
+from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
+from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
 from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
 from PyQt6.QtWidgets import QProgressBar, QButtonGroup
 from PyQt6.QtGui import QAction, QColor
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 
-import linuxcnc, hal
+import linuxcnc as emc
+import hal
 
 import traceback
 
@@ -1183,10 +1186,8 @@ def setup_spindle(parent):
 	max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 	if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
 		parent.max_rpm = int(max_rpm)
-		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 	elif max_rpm and utilities.is_float(max_rpm): # see if it's a float if so convert to int
 		parent.max_rpm = utilities.string_to_int(max_rpm)
-		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 	else:
 		parent.max_rpm = 1000
 
@@ -1520,6 +1521,7 @@ def setup_watch_var(parent):
 					getattr(parent, key).setText(f'{float(line.split()[1]):.{value[1]}f}')
 
 def setup_hal(parent):
+	hal_io_checkboxes = []
 	hal_labels = []
 	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
@@ -1549,7 +1551,24 @@ def setup_hal(parent):
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, f'{hal_dir}')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+
+			if isinstance(child, QCheckBox): #FIXME verify hal type is correct for spinboxes
+				if hal_type == hal.HAL_BIT:
+					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
+					#hal_io_checkboxes.append(child)
+				else: # FIXME make error a popup
+					print(f'error {pin_name} {hal_type}')
+			elif isinstance(child, QSpinBox):
+				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
+					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+				else: # FIXME make error a popup
+					print(f'error {pin_name} {hal_type}')
+			elif isinstance(child, QDoubleSpinBox):
+				if hal_type == hal.HAL_FLOAT:
+					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+				else: # FIXME make error a popup
+					print(f'error {pin_name} {hal_type}')
+
 			parent.hal_io[child_name] = pin_name
 			if child.property('variable') is not None:
 				var = child.property('variable')
@@ -2317,7 +2336,7 @@ def setup_help(parent):
 
 def set_status(parent): # this is only used if running from a terminal
 	parent.status.poll()
-	if parent.status.task_state == linuxcnc.STATE_ESTOP:
+	if parent.status.task_state == emc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
 		for key, value in parent.state_estop_names.items():
