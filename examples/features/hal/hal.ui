@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>600</height>
+    <width>880</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -143,203 +143,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
       </layout>
      </widget>
     </item>
-    <item row="1" column="0" rowspan="2" colspan="2">
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="title">
-       <string>HAL Objects</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="4" column="1">
-        <widget class="QDoubleSpinBox" name="halfload">
-         <property name="decimals">
-          <number>3</number>
-         </property>
-         <property name="value">
-          <double>12.350000000000000</double>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>probe_seek</string>
-         </property>
-         <property name="hal_type" stdset="0">
-          <string>HAL_FLOAT</string>
-         </property>
-         <property name="hal_dir" stdset="0">
-          <string>HAL_OUT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Checkbox</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="text">
-          <string>HAL Check</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-check</string>
-         </property>
-         <property name="hal_type" stdset="0">
-          <string>HAL_BIT</string>
-         </property>
-         <property name="hal_dir" stdset="0">
-          <string>HAL_OUT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="checkBox">
-         <property name="text">
-          <string>Check Me</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>check-me</string>
-         </property>
-         <property name="hal_type" stdset="0">
-          <string>HAL_BIT</string>
-         </property>
-         <property name="hal_dir" stdset="0">
-          <string>HAL_OUT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QSpinBox" name="hal_seek_sb">
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>spin</string>
-         </property>
-         <property name="hal_type" stdset="0">
-          <string>HAL_U32</string>
-         </property>
-         <property name="hal_dir" stdset="0">
-          <string>HAL_OUT</string>
-         </property>
-         <property name="required" stdset="0">
-          <string>homed</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="abutton">
-         <property name="text">
-          <string>Must Home HAL</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>must_home</string>
-         </property>
-         <property name="hal_type" stdset="0">
-          <string>HAL_BIT</string>
-         </property>
-         <property name="hal_dir" stdset="0">
-          <string>HAL_OUT</string>
-         </property>
-         <property name="required" stdset="0">
-          <string>homed</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Homed Required</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>HAL Float</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Toggle Button</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_6">
-         <property name="text">
-          <string>MDI Button</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>mdi</string>
-         </property>
-         <property name="command" stdset="0">
-          <string>(msg, MDI pressed)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>MDI Homed Required</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>HAL U32 </string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="QSlider" name="halslide">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>slideme</string>
-         </property>
-         <property name="hal_type" stdset="0">
-          <string>HAL_S32</string>
-         </property>
-         <property name="hal_dir" stdset="0">
-          <string>HAL_OUT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>HAL Slider</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="3" column="0" colspan="2">
      <widget class="QLineEdit" name="mdi_command_le"/>
     </item>
@@ -377,6 +180,457 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
       </widget>
      </widget>
     </item>
+    <item row="1" column="0" rowspan="2" colspan="2">
+     <widget class="QTabWidget" name="tabWidget_3">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabWidget_3Page1">
+       <attribute name="title">
+        <string>HAL Buttons</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="3" column="1">
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>Regular Check Box</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>check-me</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_BIT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_OUT</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>flexhal.check-me</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>flexhal.hal-check</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="hal_seek_sb">
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-u32</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_U32</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_OUT</string>
+          </property>
+          <property name="required" stdset="0">
+           <string>homed</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>flexhal.hal-float</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>flexhal.must_home</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QDoubleSpinBox" name="halfload">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="value">
+           <double>12.350000000000000</double>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-float</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_FLOAT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_OUT</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="text">
+           <string>HAL Check Button</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-check</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_BIT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_OUT</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>flexhal.slideme</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="abutton">
+          <property name="text">
+           <string>Must Home HAL</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>must_home</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_BIT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_OUT</string>
+          </property>
+          <property name="required" stdset="0">
+           <string>homed</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>flexhal.hal-u32</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_19">
+          <property name="text">
+           <string>HAL Pin Names</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QSlider" name="halslide">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>slideme</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_S32</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_OUT</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="2">
+         <widget class="QLabel" name="label_21">
+          <property name="text">
+           <string>Add the pins to the Watch tab to see them change.
+Power must be on to enable HAL controls
+you can also force that home is required</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_22">
+          <property name="text">
+           <string>&lt;a href=&quot;https://gnipsel.com/linuxcnc/flexgui/hal.html&quot;&gt;HAL Docs&lt;/a&gt;</string>
+          </property>
+          <property name="openExternalLinks">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>HAL IO</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="3" column="1">
+         <widget class="QSpinBox" name="spinBox_2">
+          <property name="minimum">
+           <number>-99</number>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-s32-sb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_S32</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_IO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>flexhal.hal-io-cb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>flexhal.hal-io-s32-sb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>flexhal.hal-io-u32-sb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox_2">
+          <property name="text">
+           <string>I/O Check Box</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-cb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_BIT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_IO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>flexhal.hal-io-dsb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Run Programs Show HAL and add
+ the HALpins to the watch window
+in the HAL command box you can use setp
+ to change a value and see the object
+change in the GUI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="spinBox_3">
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-u32-sb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_U32</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_IO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox">
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-dsb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_FLOAT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_IO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_20">
+          <property name="text">
+           <string>HAL Pin Name</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>MDI</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>MDI Homed Required</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="text">
+           <string>MDI Button</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>(msg, MDI pressed)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QLabel" name="label_18">
+          <property name="text">
+           <string>This will execute a short MDI command.
+Note: MDI buttons are disabled until all
+ axes are homed</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Parameters</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Parameter Variable 1000</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>Parameter Variable 1001</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_16">
+          <property name="text">
+           <string>Parameter Variable 1002</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+          <property name="function" stdset="0">
+           <string>set_var</string>
+          </property>
+          <property name="variable" stdset="0">
+           <string>1000</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+          <property name="function" stdset="0">
+           <string>set_var</string>
+          </property>
+          <property name="variable" stdset="0">
+           <string>1001</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+          <property name="function" stdset="0">
+           <string>set_var</string>
+          </property>
+          <property name="variable" stdset="0">
+           <string>1002</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>If you open the parameters.var file you can
+see that when you change the values in the
+double spin boxes the file updates
+after 1/2 second</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_23">
+      <property name="text">
+       <string>&lt;a href='https://gnipsel.com/linuxcnc/flexgui/hal.html'&gt;HAL Docs&lt;/a&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -384,7 +638,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>850</width>
+     <width>880</width>
      <height>24</height>
     </rect>
    </property>
