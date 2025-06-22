@@ -21,7 +21,7 @@ pin prefixed with `flexhal.` A pin_name of my-button would be in HAL
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_BIT
@@ -41,7 +41,7 @@ type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
@@ -61,11 +61,30 @@ my-slider would be in HAL `flexhal.my-slider`. See :doc:`property`
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_S32 or HAL_U32
 	hal_dir, HAL_OUT
+
+HAL I/O
+-------
+
+Currently a QCheckBox, QDoubleSpinBox and QSpinBox can be HAL I/O pins. Two I/O
+pins connected to the same signal will stay in synchronization. The connected
+pins must be of the same type.
+
+.. csv-table:: HAL I/O
+   :width: 100%
+   :align: center
+
+	**Property Name**, **Pin Value**
+	function, hal_io
+	pin_name, any unique name
+	hal_type, HAL_BIT for a QCheckBox
+	hal_type, HAL_FLOAT for a QDoubleSpinBox
+	hal_type, HAL_S32 or HAL_U32 for a QSpinBox
+	hal_dir, HAL_IO
 
 Label
 -----
@@ -78,7 +97,7 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
@@ -97,7 +116,7 @@ additional Dynamic Properties. See :doc:`property`
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_BIT
@@ -118,7 +137,7 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_msl
 	pin_name, any unique name
 	hal_type, HAL_U32
@@ -141,7 +160,7 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
@@ -180,7 +199,7 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	Property Name, Pin Value
+	**Property Name**, **Pin Value**
 	function, hal_pin
 	pin_name, any unique name
 	hal_type, HAL_S32 or HAL_U32
