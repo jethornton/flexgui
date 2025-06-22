@@ -1,3 +1,4 @@
+
 QPushButton[objectName*="button"] {
 	min-height: 80px;
 	min-width: 80px;
@@ -15,5 +16,36 @@ QPushButton#button_1 {
 
 QPushButton#button_2 {
 	background-image: url(:inX-.png);
+}
+
+QPushButton:pressed {
+	border-style: inset;
+	border-color: red;
+}
+
+
+QLabel[objectName*="chips"] {
+	min-height: 80px;
+	min-width: 80px;
+	background-position: center;
+	background-origin: content;
+	background-clip: content;
+	background-repeat: no-repeat;
+	border: 2px solid black;
+	border-radius: 6px;
+}
+
+QLabel#chips_lb {
+	background-image: url(:chips.png);
+}
+
+QLabel#chips_crosseyed_lb {
+	background-image: url(:crosseyed_chips.png);
+}
+
+QLabel#chips_emc_lb {
+	background-image: url(:emc_chips.jpg);
+	min-height: 120px;
+
 }
 

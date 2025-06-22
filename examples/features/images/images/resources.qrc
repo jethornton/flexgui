@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="/">
+    <file>chips.png</file>
+    <file>crosseyed_chips.png</file>
+    <file>emc_chips.jpg</file>
     <file>inX-.png</file>
     <file>inX+.png</file>
     <file>inY-.png</file>

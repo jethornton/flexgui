@@ -1,0 +1,6 @@
+This example shows how to add images
+to push buttons and labels using a
+resource file.
+
+The images.qss file sets the background
+image and styles to the objects
