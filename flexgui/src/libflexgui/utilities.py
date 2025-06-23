@@ -334,6 +334,7 @@ def var_file_watch(parent):
 
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
+	print(parent.sender().property('pin_name'), value)
 
 def update_hal_spinbox(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)

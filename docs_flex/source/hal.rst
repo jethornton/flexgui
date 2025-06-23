@@ -70,9 +70,13 @@ my-slider would be in HAL `flexhal.my-slider`. See :doc:`property`
 HAL I/O
 -------
 
-Currently a QCheckBox, QDoubleSpinBox and QSpinBox can be HAL I/O pins. Two I/O
-pins connected to the same signal will stay in synchronization. The connected
-pins must be of the same type.
+A HAL I/O pin can be input and output functions.
+
+A QPushButton (set to checkable), QCheckBox, QDoubleSpinBox and QSpinBox can be
+HAL I/O pin.
+
+Two I/O pins connected to the same signal will stay in
+synchronization. The connected pins must be of the same type.
 
 .. csv-table:: HAL I/O
    :width: 100%
@@ -81,7 +85,7 @@ pins must be of the same type.
 	**Property Name**, **Pin Value**
 	function, hal_io
 	pin_name, any unique name
-	hal_type, HAL_BIT for a QCheckBox
+	hal_type, HAL_BIT for a QCheckBox or QPushButton
 	hal_type, HAL_FLOAT for a QDoubleSpinBox
 	hal_type, HAL_S32 or HAL_U32 for a QSpinBox
 	hal_dir, HAL_IO
