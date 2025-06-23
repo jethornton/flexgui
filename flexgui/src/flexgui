@@ -24,7 +24,7 @@ class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
-		self.flex_version = '1.2.1'
+		self.flex_version = '1.2.2'
 		try:
 			import psutil
 		except Exception as err:
