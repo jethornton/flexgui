@@ -4,7 +4,7 @@ from functools import partial
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
 from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
-from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox
+from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox, QRadioButton
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
 from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
@@ -1552,12 +1552,32 @@ def setup_hal(parent):
 			hal_dir = getattr(hal, f'{hal_dir}')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
-			if isinstance(child, QCheckBox): #FIXME verify hal type is correct for spinboxes
+			if isinstance(child, QCheckBox): # QCheckBox, QPushButton, QRadioButton & QToolButton
 				if hal_type == hal.HAL_BIT:
 					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
 					#hal_io_checkboxes.append(child)
 				else: # FIXME make error a popup
 					print(f'error {pin_name} {hal_type}')
+					msg = (f'The {child_name} has a hal_type of {hal_type}\n'
+					'Only a hal_type of HAL_BIT can be used with\n'
+					'a QCheckBox')
+					dialogs.error_msg_ok(parent, msg, 'Error')
+			elif isinstance(child, QPushButton):
+				if hal_type == hal.HAL_BIT:
+					if child.isCheckable():
+						child.toggled.connect(partial(utilities.update_hal_io, parent))
+					else:
+						msg = (f'The QPushButton {child_name} must be\n'
+						'set to checkable to be a IO button.')
+						dialogs.error_msg_ok(parent, msg, 'Error')
+				else: # FIXME make error a popup
+					print(f'error {pin_name} {hal_type}')
+			elif isinstance(child, QRadioButton):
+				if hal_type == hal.HAL_BIT:
+					child.toggled.connect(partial(utilities.update_hal_io, parent))
+				else: # FIXME make error a popup
+					print(f'error {pin_name} {hal_type}')
+
 			elif isinstance(child, QSpinBox):
 				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
