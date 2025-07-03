@@ -49,32 +49,253 @@ Status Labels
 Status Labels are created by adding a QLabel and changing the Object Name to one
 of the following.
 
-.. csv-table:: Single Status Label Object Names
-   :width: 100%
-   :align: center
-   :widths: 40 40 40
+.. code-block:: text
 
-	acceleration_lb, active_queue_lb, adaptive_feed_enabled_lb
-	angular_units_lb, axis_mask_lb, block_delete_lb
-	call_level_lb, command_lb, current_line_lb
-	current_vel_lb, cycle_time_lb, debug_lb
-	delay_left_lb, distance_to_go_lb, echo_serial_number_lb
-	enabled_lb, estop_lb, exec_state_lb
-	feed_hold_enabled_lb, feed_override_lb, file_lb
-	flood_lb, g5x_index_lb, gcodes_lb
-	ini_filename_lb, inpos_lb, probing_lb
-	input_timeout_lb, interp_state_lb, queue_lb
-	interpreter_errcode_lb, joints_lb, kinematics_type_lb
-	linear_units_lb, lube_lb, lube_level_lb
-	max_acceleration_lb, max_velocity_lb, mcodes_lb
-	mist_lb, motion_line_lb, motion_mode_lb
-	motion_type_lb, optional_stop_lb, paused_lb
-	pocket_prepped_lb, probe_tripped_lb, probe_val_lb
-	probed_position_lb, program_units_lb, queue_full_lb
-	rapid_override_lb, read_line_lb, rotation_xy_lb
-	settings_lb, spindles_lb, state_lb
-	task_mode_lb, task_paused_lb, task_state_lb
-	tool_from_pocket_lb, tool_in_spindle_lb, tool_offset_lb
+	acceleration_lb - returns float
+	reflects the INI entry [TRAJ]DEFAULT_ACCELERATION
+
+	active_queue_lb - returns integer
+	number of motions blending
+
+	actual_position_lb - returns tuple of floats
+	current trajectory position, (x y z a b c u v w) in machine units
+
+	adaptive_feed_enabled_lb - returns boolean
+	status of adaptive feedrate override
+
+	ain_lb - returns tuple of floats
+	current value of the analog input pins
+
+	angular_units_lb - returns float
+	machine angular units per deg, reflects [TRAJ]ANGULAR_UNITS
+
+	aout_lb - returns tuple of floats
+	current value of the analog output pins
+
+	axis_lb - returns tuple of dicts
+	reflecting current axis values
+
+	axis_mask_lb - returns integer
+	sum of the axes by [TRAJ]COORDINATES X=1, Y=2, Z=4, A=8, B=16, C=32, U=64, V=128, W=256
+
+	block_delete_lb - returns boolean
+	block delete current status
+
+	call_level_lb - returns integer
+	current subroutine depth. - 0 If not in a subroutine
+
+	command_lb - returns string
+	currently executing command
+
+	current_line_lb - returns integer
+	currently executing line
+
+	current_vel_lb - returns float
+	current velocity in user units per second
+
+	cycle_time_lb - returns float
+	thread period
+
+	debug_lb - returns integer
+	debug flag from the INI file
+
+	delay_left_lb - returns float
+	remaining time on G4 dwell command in seconds
+
+	din_lb - returns tuple of integers
+	current value of the digital input pins
+
+	distance_to_go_lb - returns float
+	remaining distance of current move as reported by trajectory planner
+
+	echo_serial_number_lb - returns integer
+	The serial number of the last completed command sent by a UI to task.
+	All commands carry a serial number. Once the command has been executed,
+	its serial number is reflected in echo_serial_number
+
+	enabled_lb - returns boolean
+	trajectory planner enabled flag
+
+	estop_lb - returns integer
+	Returns either STATE_ESTOP = 1) or not = 0)
+
+	exec_state_lb - returns integer
+	task execution state. One of EXEC_ERROR = 1, EXEC_DONE = 2,
+	EXEC_WAITING_FOR_MOTION = 3, EXEC_WAITING_FOR_MOTION_QUEUE = 4,
+	EXEC_WAITING_FOR_IO = 5, EXEC_WAITING_FOR_MOTION_AND_IO = 7,
+	EXEC_WAITING_FOR_DELAY = 8, EXEC_WAITING_FOR_SYSTEM_CMD = 9,
+	EXEC_WAITING_FOR_SPINDLE_ORIENTED = 10). 
+
+	feed_hold_enabled_lb - returns boolean
+	enable flag for feed hold
+
+	feed_override_lb - returns boolean
+	 enable flag for feed override
+
+	file_lb - returns string
+	currently loaded G-code filename with path
+
+	flood_lb - returns integer
+	Flood status, either FLOOD_OFF = 0) or FLOOD_ON = 1)
+
+	g5x_index_lb - g5x_index
+	currently active coordinate system, G54=1, G55=2 etc
+
+	g5x_offset_lb - returns tuple of floats
+	offsets of the currently active coordinate system X, Y, Z, U, V, W, A, B, C
+
+	gcodes_lb - returns tuple of integers
+	Active G-codes for each modal group.
+	The integer values reflect the nominal G-code numbers multiplied by 10.
+	(Examples: 10 = G1, 430 = G43, 923 = G92.3) 
+
+	homed - returns tuple of integers
+	currently homed joints, 0 = not homed, 1 = homed 
+
+	id - returns integer
+	currently executing motion id
+
+	ini_filename_lb - returns string
+	path to the INI file passed to linuxcnc
+
+	inpos_lb - returns boolean
+	machine-in-position flag
+
+	input_timeout_lb - returns boolean
+	flag for M66 timer in progress
+
+	interp_state_lb - returns integer
+	current state of RS274NGC interpreter. One of INTERP_IDLE = 1,
+	INTERP_READING = 2, INTERP_PAUSED = 3, INTERP_WAITING = 4
+
+	interpreter_errcode_lb - returns integer
+	current RS274NGC interpreter return code
+		INTERP_OK = 0,
+		INTERP_EXIT = 1,
+		INTERP_EXECUTE_FINISH = 2,
+		INTERP_ENDFILE = 3,
+		INTERP_FILE_NOT_OPEN = 4,
+		INTERP_ERROR = 5
+
+	joint - returns tuple of dicts
+	reflecting current joint values
+
+	joint_actual_position - returns tuple of floats
+	actual joint positions
+
+	joint_position - returns tuple of floats
+	desired joint positions
+
+	joints_lb - returns integer
+	number of joints. Reflects [KINS]JOINTS INI value
+
+	kinematics_type_lb - returns integer
+	The type of kinematics
+		KINEMATICS_IDENTITY = 1
+		KINEMATICS_FORWARD_ONLY = 2
+		KINEMATICS_INVERSE_ONLY = 3
+		KINEMATICS_BOTH = 4
+
+	limit - returns tuple of integers
+	axis limit masks. minHardLimit=1, maxHardLimit=2, minSoftLimit=4, maxSoftLimit=8
+
+	linear_units_lb - returns float
+	machine linear units per mm, reflects [TRAJ]LINEAR_UNITS INI value
+
+	lube_lb - returns integer
+	lube on flag
+
+	lube_level_lb - returns integer
+	reflects iocontrol.0.lube_level
+
+	max_acceleration_lb - returns float
+	maximum acceleration. Reflects [TRAJ]MAX_ACCELERATION
+
+	max_velocity_lb - returns float
+	maximum velocity. Reflects the current maximum velocity. If not modified by
+	halui.max-velocity or similar it should reflect [TRAJ]MAX_VELOCITY
+
+	mcodes_lb - returns tuple of 10 integers
+	currently active M-codes
+
+	mist_lb - returns integer
+	Mist status, either MIST_OFF = 0 or MIST_ON = 1
+
+	motion_line_lb - returns integer
+	source line number motion is currently executing
+
+	motion_mode_lb - returns integer
+	This is the mode of the Motion controller.
+		TRAJ_MODE_FREE = 1
+		TRAJ_MODE_COORD = 2
+		TRAJ_MODE_TELEOP = 3
+
+	motion_type_lb - returns integer
+	The type of the currently executing motion. One of:
+		MOTION_TYPE_TRAVERSE = 1
+		MOTION_TYPE_FEED = 2
+		MOTION_TYPE_ARC = 3
+		MOTION_TYPE_TOOLCHANGE = 4
+		MOTION_TYPE_PROBING = 5
+		MOTION_TYPE_INDEXROTARY = 6
+		Or 0 if no motion is currently taking place.
+
+	optional_stop_lb - returns integer
+	option stop flag
+
+	paused_lb - returns boolean
+	motion paused flag
+
+	pocket_prepped_lb - returns integer
+	A Tx command completed, and this pocket is prepared. -1 if no prepared pocket
+
+	position - returns tuple of floats
+	trajectory position
+
+	probe_tripped_lb - returns boolean
+	True if probe has tripped
+
+	probe_val_lb - returns integer
+	reflects value of the motion.probe-input pin
+
+	probed_position_lb - returns tuple of floats
+	position where probe tripped
+
+	probing_lb - returns boolean
+	True if a probe operation is in progress
+
+	program_units_lb - returns integer
+		CANON_UNITS_INCHES = 1,
+		CANON_UNITS_MM = 2,
+		CANON_UNITS_CM = 3
+
+	queue_lb - 
+
+	queue_full_lb - 
+
+	rapid_override_lb - 
+
+	read_line_lb - 
+
+	rotation_xy_lb - 
+
+	settings_lb - 
+
+	spindles_lb - 
+
+	state_lb - 
+
+	task_mode_lb - 
+
+	task_paused_lb - 
+
+	task_state_lb - 
+
+	tool_from_pocket_lb - 
+
+	tool_in_spindle_lb - 
+
+	tool_offset_lb - 
 
 .. note:: You don't have to use all the labels; only use the ones you need.
 

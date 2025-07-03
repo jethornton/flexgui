@@ -28,6 +28,7 @@ Features
 * Tool Change Controls
 * Coordinate System Controls
 * HAL Buttons, Spinboxes, Sliders, Labels and LCDs
+* HAL I/O Controls
 * Touch Screen Controls and Popups
 
 Acronyms
