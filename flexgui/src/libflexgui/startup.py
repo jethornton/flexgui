@@ -668,7 +668,7 @@ def setup_status_labels(parent):
 		7: 'EXEC_WAITING_FOR_MOTION_AND_IO', 8: 'EXEC_WAITING_FOR_DELAY',
 		9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED',},
 	'estop': {0: False, 1: True},
-	'flood': {0: 'Flood OFF', 1: 'Flood ON'},
+	'flood': {0: 'OFF', 1: 'ON'},
 	'mist': {0: 'Mist OFF', 1: 'Mist ON'},
 	'g5x_index': {1: 'G54', 2: 'G55', 3: 'G56', 4: 'G57', 5: 'G58', 6: 'G59',
 		7: 'G59.1', 8: 'G59.2', 9: 'G59.3'},
