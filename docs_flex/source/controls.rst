@@ -77,7 +77,7 @@ will be used if found. The default text is `Power Off` and
 .. image:: /images/power-01.png
    :align: center
 
-.. note:: To have two words be above and below insert a \n between the words.
+.. note:: To have two words be above and below insert a backslasgh and n between the words.
 
 .. image:: /images/estop-02.png
    :align: center

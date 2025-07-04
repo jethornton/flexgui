@@ -269,33 +269,66 @@ of the following.
 		CANON_UNITS_MM = 2,
 		CANON_UNITS_CM = 3
 
-	queue_lb - 
+	queue_lb - returns integer
+	current size of the trajectory planner queue
 
-	queue_full_lb - 
+	queue_full_lb - returns boolean
+	the trajectory planner queue is full
 
-	rapid_override_lb - 
+	rapid_override_lb - returns percent
+	rapid override percent
 
-	read_line_lb - 
+	rapidrate_lb - returns float
+	rapid override scale, 1.0 = 100%
 
-	rotation_xy_lb - 
+	read_line_lb - returns integer
+	line the RS274NGC interpreter is currently reading
 
-	settings_lb - 
+	rotation_xy_lb - returns float
+	current XY rotation angle around Z axis
 
-	spindles_lb - 
+	settings_lb - returns tuple of floats
+	current interpreter settings
+	settings[0] = sequence number
+	settings[1] = feed rate
+	settings[2] = speed
+	settings[3] = G64 P blend tolerance
+	settings[4] = G64 Q naive CAM tolerance
 
-	state_lb - 
+	spindles_lb - returns tuple of dicts
+	returns the current spindle status
 
-	task_mode_lb - 
+	state_lb - returns integer
+	current command execution status
+	One of RCS_DONE = 1, RCS_EXEC = 2, RCS_ERROR = 3
 
-	task_paused_lb - 
+	task_mode_lb - returns integer
+	current task mode
+	One of  MODE_MANUAL = 1, MODE_AUTO = 2, MODE_MDI = 3
 
-	task_state_lb - 
+	task_paused_lb - returns integer
+	task paused flag, not paused = 0, paused = 1
 
-	tool_from_pocket_lb - 
+	task_state_lb - returns integer
+	current task state
+	One of STATE_ESTOP = 1, STATE_ESTOP_RESET = 2, STATE_OFF = 3 STATE_ON = 4
+	STATE_OFF is never seen
 
-	tool_in_spindle_lb - 
+	tool_in_spindle_lb - returns integer
+	current tool number in spindle (0 if no tool loaded)
 
-	tool_offset_lb - 
+	tool_from_pocket_lb - returns integer
+	pocket number for the currently loaded tool (0 if no tool loaded)
+
+	tool_offset_lb - returns tuple of floats
+	offset values of the current tool
+
+	tool_table_lb - returns tuple of tool_results
+	list of tool entries. Each entry is a sequence of the following fields: id,
+	xoffset, yoffset, zoffset, aoffset, boffset, coffset, uoffset, voffset,
+	woffset, diameter, frontangle, backangle, orientation. The id and orientation
+	are integers and the rest are floats.
+	If id = -1 no tools are in the tool table.
 
 .. note:: You don't have to use all the labels; only use the ones you need.
 
