@@ -47,7 +47,8 @@ Status Labels
 -------------
 
 Status Labels are created by adding a QLabel and changing the Object Name to one
-of the following.
+of the following. Some status labels use a dictionary to look up the name instead
+of displaying the integer the name is displayed.
 
 .. code-block:: text
 
@@ -60,6 +61,11 @@ of the following.
 
 	actual_position_lb - returns tuple of floats
 	current trajectory position, (x y z a b c u v w) in machine units
+
+See the `Axis Position <#axis-position-labels>`_ labels for individual axis
+positions.
+
+.. code-block:: text
 
 	adaptive_feed_enabled_lb - returns boolean
 	status of adaptive feedrate override
@@ -153,6 +159,11 @@ of the following.
 	homed - returns tuple of integers
 	currently homed joints, 0 = not homed, 1 = homed 
 
+See the `Axis Homed <#axis-homed-labels>`_ labels for individual axis home
+status.
+
+.. code-block:: text
+
 	id - returns integer
 	currently executing motion id
 
@@ -180,6 +191,11 @@ of the following.
 
 	joint - returns tuple of dicts
 	reflecting current joint values
+
+See the `Joint Status <#joint-status-labels>`_ labels for individual joint
+status items.
+
+.. code-block:: text
 
 	joint_actual_position - returns tuple of floats
 	actual joint positions
@@ -351,8 +367,8 @@ float
 .. note:: The Axis velocity label only reports back `jogging` speed; use the
    joint velocity label for `linear` speed.
 
-Joint Status
-------------
+Joint Status Labels
+-------------------
 
 The Joint status contains status items for 16 joints. Replace the `n` with
 the number of the joint. Joint numbers start at 0 and go through 15
@@ -380,6 +396,9 @@ Special Labels
 
 Run from line label `start_line_lb`
 
+Axis Position Labels
+--------------------
+
 Axis machine position labels (no offsets.) Returns a float
 
 .. csv-table:: Machine Absolute Position Status Labels
@@ -403,6 +422,7 @@ Axis position labels `including` all offsets. Returns a float
 	dro_lb_u, dro_lb_v, dro_lb_w
 
 Axis Distance to Go labels
+--------------------------
 
 .. csv-table:: Distance to Go Labels
    :width: 100%
@@ -413,7 +433,8 @@ Axis Distance to Go labels
 	dtg_lb_a, dtg_lb_b, dtg_lb_c
 	dtg_lb_u, dtg_lb_v, dtg_lb_w
 
-Axis-is-homed labels
+Axis Homed Labels
+-----------------
 
 .. csv-table:: Axis Homed Labels
    :width: 100%
@@ -423,6 +444,9 @@ Axis-is-homed labels
 	home_lb_0, home_lb_1, home_lb_2
 	home_lb_3, home_lb_4, home_lb_5
 	home_lb_6, home_lb_7, home_lb_8
+
+Offset Labels
+-------------
 
 Offsets for the currently active G5x coordinate system. Returns a float
 
