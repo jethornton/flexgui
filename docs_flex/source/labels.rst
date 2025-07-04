@@ -52,7 +52,8 @@ of the following.
 .. code-block:: text
 
 	acceleration_lb - returns float
-	reflects the INI entry [TRAJ]DEFAULT_ACCELERATION
+	reflects the INI entry [TRAJ]DEFAULT_LINEAR_ACCELERATION, if that entry is not
+	found it returns 1e+99
 
 	active_queue_lb - returns integer
 	number of motions blending
@@ -119,12 +120,12 @@ of the following.
 	estop_lb - returns integer
 	Returns either STATE_ESTOP = 1) or not = 0)
 
-	exec_state_lb - returns integer
+	exec_state_lb - returns integer that is used to lookup the state name.
 	task execution state. One of EXEC_ERROR = 1, EXEC_DONE = 2,
 	EXEC_WAITING_FOR_MOTION = 3, EXEC_WAITING_FOR_MOTION_QUEUE = 4,
 	EXEC_WAITING_FOR_IO = 5, EXEC_WAITING_FOR_MOTION_AND_IO = 7,
 	EXEC_WAITING_FOR_DELAY = 8, EXEC_WAITING_FOR_SYSTEM_CMD = 9,
-	EXEC_WAITING_FOR_SPINDLE_ORIENTED = 10). 
+	EXEC_WAITING_FOR_SPINDLE_ORIENTED = 10).
 
 	feed_hold_enabled_lb - returns boolean
 	enable flag for feed hold
@@ -135,10 +136,10 @@ of the following.
 	file_lb - returns string
 	currently loaded G-code filename with path
 
-	flood_lb - returns integer
+	flood_lb - returns integer that is used to lookup the state of OFF or ON
 	Flood status, either FLOOD_OFF = 0) or FLOOD_ON = 1)
 
-	g5x_index_lb - g5x_index
+	g5x_index_lb - returns integer that is used to lookup the coordinate system name
 	currently active coordinate system, G54=1, G55=2 etc
 
 	g5x_offset_lb - returns tuple of floats
@@ -164,11 +165,11 @@ of the following.
 	input_timeout_lb - returns boolean
 	flag for M66 timer in progress
 
-	interp_state_lb - returns integer
+	interp_state_lb - returns integer that is used to lookup the state name
 	current state of RS274NGC interpreter. One of INTERP_IDLE = 1,
 	INTERP_READING = 2, INTERP_PAUSED = 3, INTERP_WAITING = 4
 
-	interpreter_errcode_lb - returns integer
+	interpreter_errcode_lb - returns integer that is used to lookup the error name
 	current RS274NGC interpreter return code
 		INTERP_OK = 0,
 		INTERP_EXIT = 1,
@@ -189,7 +190,7 @@ of the following.
 	joints_lb - returns integer
 	number of joints. Reflects [KINS]JOINTS INI value
 
-	kinematics_type_lb - returns integer
+	kinematics_type_lb - returns integer that is used to lookup the kinematics name
 	The type of kinematics
 		KINEMATICS_IDENTITY = 1
 		KINEMATICS_FORWARD_ONLY = 2
@@ -224,13 +225,13 @@ of the following.
 	motion_line_lb - returns integer
 	source line number motion is currently executing
 
-	motion_mode_lb - returns integer
+	motion_mode_lb - returns integer that is used to lookup the motion mode name
 	This is the mode of the Motion controller.
 		TRAJ_MODE_FREE = 1
 		TRAJ_MODE_COORD = 2
 		TRAJ_MODE_TELEOP = 3
 
-	motion_type_lb - returns integer
+	motion_type_lb - returns integer that is used to lookup the motion type name
 	The type of the currently executing motion. One of:
 		MOTION_TYPE_TRAVERSE = 1
 		MOTION_TYPE_FEED = 2
@@ -264,7 +265,7 @@ of the following.
 	probing_lb - returns boolean
 	True if a probe operation is in progress
 
-	program_units_lb - returns integer
+	program_units_lb - returns integer that is used to lookup the units name
 		CANON_UNITS_INCHES = 1,
 		CANON_UNITS_MM = 2,
 		CANON_UNITS_CM = 3
@@ -298,18 +299,18 @@ of the following.
 	spindles_lb - returns tuple of dicts
 	returns the current spindle status
 
-	state_lb - returns integer
+	state_lb - returns integer that is used to lookup the state name
 	current command execution status
 	One of RCS_DONE = 1, RCS_EXEC = 2, RCS_ERROR = 3
 
-	task_mode_lb - returns integer
+	task_mode_lb - returns integer that is used to lookup the task mode name
 	current task mode
 	One of  MODE_MANUAL = 1, MODE_AUTO = 2, MODE_MDI = 3
 
 	task_paused_lb - returns integer
 	task paused flag, not paused = 0, paused = 1
 
-	task_state_lb - returns integer
+	task_state_lb - returns integer that is used to lookup the task state name
 	current task state
 	One of STATE_ESTOP = 1, STATE_ESTOP_RESET = 2, STATE_OFF = 3 STATE_ON = 4
 	STATE_OFF is never seen
