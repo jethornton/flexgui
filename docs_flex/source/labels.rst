@@ -73,7 +73,7 @@ positions.
 	ain_lb - returns tuple of floats
 	current value of the analog input pins
 
-	angular_units_lb - returns float
+	angular_units_lb - returns float - precision can be set
 	machine angular units per deg, reflects [TRAJ]ANGULAR_UNITS
 
 	aout_lb - returns tuple of floats
@@ -97,22 +97,22 @@ positions.
 	current_line_lb - returns integer
 	currently executing line
 
-	current_vel_lb - returns float
+	current_vel_lb - returns float - precision can be set
 	current velocity in user units per second
 
-	cycle_time_lb - returns float
+	cycle_time_lb - returns float - precision can be set
 	thread period
 
 	debug_lb - returns integer
 	debug flag from the INI file
 
-	delay_left_lb - returns float
+	delay_left_lb - returns float - precision can be set
 	remaining time on G4 dwell command in seconds
 
 	din_lb - returns tuple of integers
 	current value of the digital input pins
 
-	distance_to_go_lb - returns float
+	distance_to_go_lb - returns float - precision can be set
 	remaining distance of current move as reported by trajectory planner
 
 	echo_serial_number_lb - returns integer
@@ -216,7 +216,7 @@ status items.
 	limit - returns tuple of integers
 	axis limit masks. minHardLimit=1, maxHardLimit=2, minSoftLimit=4, maxSoftLimit=8
 
-	linear_units_lb - returns float
+	linear_units_lb - returns float - precision can be set
 	machine linear units per mm, reflects [TRAJ]LINEAR_UNITS INI value
 
 	lube_lb - returns integer
@@ -225,10 +225,10 @@ status items.
 	lube_level_lb - returns integer
 	reflects iocontrol.0.lube_level
 
-	max_acceleration_lb - returns float
+	max_acceleration_lb - returns float - precision can be set
 	maximum acceleration. Reflects [TRAJ]MAX_ACCELERATION
 
-	max_velocity_lb - returns float
+	max_velocity_lb - returns float - precision can be set
 	maximum velocity. Reflects the current maximum velocity. If not modified by
 	halui.max-velocity or similar it should reflect [TRAJ]MAX_VELOCITY
 
@@ -295,13 +295,13 @@ status items.
 	rapid_override_lb - returns percent
 	rapid override percent
 
-	rapidrate_lb - returns float
+	rapidrate_lb - returns float - precision can be set
 	rapid override scale, 1.0 = 100%
 
 	read_line_lb - returns integer
 	line the RS274NGC interpreter is currently reading
 
-	rotation_xy_lb - returns float
+	rotation_xy_lb - returns float - precision can be set
 	current XY rotation angle around Z axis
 
 	settings_lb - returns tuple of floats

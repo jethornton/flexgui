@@ -364,6 +364,7 @@ def update(parent):
 			parent.settings_speed_lb.setText(f'S{int(parent.status.settings[2])}')
 		parent.status_speed_setting = parent.status.settings[2]
 
+	# status labels
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
 		if value in parent.stat_dict:
@@ -372,6 +373,10 @@ def update(parent):
 				getattr(parent, f'{key}').setText(f'{parent.stat_dict[value][stat_value]}')
 		else:
 			getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value}")}')
+
+	# status float labels
+	for key, value in parent.status_float_labels.items():
+		getattr(parent, f'{key}_lb').setText(f'{getattr(parent.status, key):.{value}f}')
 
 	if 'gcodes_lb' in parent.children:
 		g_codes = []
@@ -504,10 +509,6 @@ def update(parent):
 		vel_2 = getattr(parent, 'status').joint[value[2]]['velocity']
 		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
 		getattr(parent, key).setText(f'{vel * 60:.{value[3]}f}')
-
-	# units
-	for key, value in parent.status_units.items():
-		getattr(parent, f'{key}').setText(f'{getattr(parent.status, value[0]):.{value[1]}f}')
 
 	# override items label : status item
 	for label, stat in parent.overrides.items():
