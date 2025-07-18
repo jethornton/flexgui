@@ -689,19 +689,19 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
-	status_items = ['acceleration', 'active_queue', 'actual_position', 'ain',
-	'aout', 'axis', 'adaptive_feed_enabled', 'angular_units',
+	status_items = ['active_queue', 'actual_position', 'ain',
+	'aout', 'axis', 'adaptive_feed_enabled',
 	'axis_mask', 'block_delete', 'call_level', 'command', 'current_line',
-	'current_vel', 'cycle_time', 'debug', 'delay_left', 'din', 'distance_to_go',
+	'debug', 'din',
 	'echo_serial_number', 'enabled', 'estop', 'exec_state', 'feed_hold_enabled',
 	'feed_override_enabled', 'flood', 'g5x_index', 'g5x_offset', 'homed', 'id',
 	'ini_filename', 'inpos', 'input_timeout', 'interp_state',
 	'interpreter_errcode', 'joint', 'joint_actual_position', 'joints',
-	'kinematics_type', 'lube', 'lube_level', 'max_acceleration', 'max_velocity',
+	'kinematics_type', 'lube', 'lube_level',
 	'mist', 'motion_line', 'motion_mode', 'motion_type', 'optional_stop',
 	'paused', 'pocket_prepped', 'probe_tripped', 'probe_val', 'probed_position',
-	'probing', 'program_units', 'queue', 'queue_full', 'rapidrate', 'read_line',
-	'rotation_xy', 'settings', 'spindle', 'spindles', 'state', 'task_mode',
+	'probing', 'program_units', 'queue', 'queue_full', 'read_line',
+	'settings', 'spindle', 'spindles', 'state', 'task_mode',
 	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
 	'tool_offset', 'tool_table']
 
@@ -710,6 +710,18 @@ def setup_status_labels(parent):
 	for item in status_items: # iterate the status items list
 		if f'{item}_lb' in parent.children: # if the label is found
 			parent.status_labels[f'{item}_lb'] = item # add the status and label
+
+	parent.status_float_labels = {}
+	status_float_items = ['acceleration', 'angular_units', 'current_vel',
+	'cycle_time', 'delay_left', 'distance_to_go', 'linear_units',
+	'max_acceleration', 'max_velocity', 'rapidrate', 'rotation_xy',
+	]
+
+	for item in status_float_items: # iterate the status items list
+		if f'{item}_lb' in parent.children: # if the label is found
+			p = getattr(parent, f'{item}_lb').property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.status_float_labels[item] = p # item & precision
 
 	parent.status_position = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
@@ -789,11 +801,6 @@ def setup_status_labels(parent):
 		p = p if p is not None else parent.default_precision
 		if None not in (joint_0, joint_1, joint_2): # check for None or False
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
-
-	parent.status_units = {}
-	if 'linear_units_lb' in parent.children:
-		p = parent.linear_units_lb.property('precision') or parent.default_precision
-		parent.status_units['linear_units_lb'] = ['linear_units', p]
 
 	# check for joint labels in ui
 	# these return 16 joints
