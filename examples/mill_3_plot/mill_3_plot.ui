@@ -999,12 +999,12 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="min_jog_vel_lb">
+      <widget class="QLabel" name="min_velocity_lb">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>210</y>
-         <width>32</width>
+         <width>46</width>
          <height>21</height>
         </rect>
        </property>
@@ -1015,12 +1015,12 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="max_jog_vel_lb">
+      <widget class="QLabel" name="max_velocity_lb">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>180</x>
          <y>210</y>
-         <width>31</width>
+         <width>46</width>
          <height>21</height>
         </rect>
        </property>
