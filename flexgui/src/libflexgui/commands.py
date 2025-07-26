@@ -155,24 +155,25 @@ def get_jog_mode(parent):
 def jog(parent):
 	if jog_check(parent):
 		vel = parent.jog_vel_sl.value() / 60
+		jog_command = parent.sender().objectName().split('_')
 
-	jog_command = parent.sender().objectName().split('_')
-	joint = int(jog_command[-1])
-	increment = parent.jog_modes_cb.currentData()
-	if 'minus' in jog_command:
-		vel = -vel
+		if 'minus' in jog_command:
+			vel = -vel
 
-	jjogmode = get_jog_mode(parent)
-	if parent.sender().isDown():
-		if increment:
-			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
+		joint = int(jog_command[-1])
+		increment = parent.jog_modes_cb.currentData()
+
+		jjogmode = get_jog_mode(parent)
+		if parent.sender().isDown():
+			if increment:
+				parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
+			else:
+				parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
 		else:
-			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
-	else:
-		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
-		if 'override_limits_cb' in parent.children:
-			parent.override_limits_cb.setChecked(False)
-			parent.override_limits_cb.setEnabled(False)
+			parent.command.jog(emc.JOG_STOP, jjogmode, joint)
+			if 'override_limits_cb' in parent.children:
+				parent.override_limits_cb.setChecked(False)
+				parent.override_limits_cb.setEnabled(False)
 
 def jog_selected(parent):
 	if jog_check(parent):
