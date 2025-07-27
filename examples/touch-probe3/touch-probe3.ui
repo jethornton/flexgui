@@ -333,7 +333,7 @@ Off</string>
         <string>Jog Y +</string>
        </property>
       </widget>
-      <widget class="QLabel" name="min_velocity_lb">
+      <widget class="QLabel" name="min_jog_vel_lb">
        <property name="geometry">
         <rect>
          <x>11</x>
@@ -381,7 +381,7 @@ Off</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="max_velocity_lb">
+      <widget class="QLabel" name="max_jog_vel_lb">
        <property name="geometry">
         <rect>
          <x>140</x>
