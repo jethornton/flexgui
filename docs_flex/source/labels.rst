@@ -232,6 +232,14 @@ status items.
 	maximum velocity. Reflects the current maximum velocity. If not modified by
 	halui.max-velocity or similar it should reflect [TRAJ]MAX_VELOCITY
 
+	min_jog_vel_lb - returns int
+	minimum jog velocity slider setting. Reflects the [DISPLAY] MIN_LINEAR_VELOCITY
+	setting in user units per minute.
+
+	max_jog_vel_lb - returns int
+	maximum jog velocity slider setting. Reflects the [DISPLAY] MAX_LINEAR_VELOCITY
+	setting in user units per minute.
+
 	mcodes_lb - returns tuple of 10 integers
 	currently active M-codes
 
