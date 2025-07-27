@@ -159,7 +159,15 @@ def set_homed_enable(parent):
 			getattr(parent, item).setEnabled(True)
 
 def update_jog_lb(parent):
-	parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()} {parent.units}/min')
+	val = parent.jog_vel_sl.value()
+	if val > 0:
+		parent.jog_vel_lb.setText(f'{val} {parent.units}/min')
+		for item in parent.jog_buttons:
+			getattr(parent, item).setEnabled(True)
+	elif val == 0:
+		parent.jog_vel_lb.setText('N/A')
+		for item in parent.jog_buttons:
+			getattr(parent, item).setEnabled(False)
 
 def copy_errors(parent):
 	qclip = QApplication.clipboard()
