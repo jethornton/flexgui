@@ -1040,12 +1040,15 @@ def setup_jog(parent):
 	if 'jog_vel_sl' in parent.children:
 		min_jog_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
 
-		if min_jog_vel:
+		if float(min_jog_vel) > 0:
 			int_min_jog_vel = int(float(min_jog_vel) * 60)
 			parent.jog_vel_sl.setMinimum(int_min_jog_vel)
 			if int_min_jog_vel == 0:
-				msg = ('The [DISPLAY] MIN_LINEAR_VELOCITY setting is less\n'
-				'than 1 unit per minute. It will be set to 0.')
+				msg = ('The [DISPLAY] MIN_LINEAR_VELOCITY\n'
+				f'setting is {float(min_jog_vel)} units per second.\n'
+				f'Calculating for units per minute {float(min_jog_vel)} x 60 = {float(min_jog_vel) * 60}\n'
+				'results in less than 1 unit per minute.\n'
+				'The jog slider uses integers only so it will be set to 0.')
 				dialogs.info_msg_ok(parent, msg, 'INI Configuration')
 
 		max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
