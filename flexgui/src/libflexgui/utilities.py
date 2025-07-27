@@ -162,8 +162,10 @@ def update_jog_lb(parent):
 	val = parent.jog_vel_sl.value()
 	if val > 0:
 		parent.jog_vel_lb.setText(f'{val} {parent.units}/min')
-		for item in parent.jog_buttons:
-			getattr(parent, item).setEnabled(True)
+		parent.status.poll()
+		if parent.status.task_state == emc.STATE_ON:
+			for item in parent.jog_buttons:
+				getattr(parent, item).setEnabled(True)
 	elif val == 0:
 		parent.jog_vel_lb.setText('N/A')
 		for item in parent.jog_buttons:
