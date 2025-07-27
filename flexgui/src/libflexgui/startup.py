@@ -1009,28 +1009,27 @@ def setup_mdi(parent):
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
 
 def setup_jog(parent):
-	jog_buttons = {}
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
-	jog_buttons = []
+	parent.jog_buttons = []
 	for i in range(16):
 		if f'jog_plus_pb_{i}' in parent.children:
-			jog_buttons.append(f'jog_plus_pb_{i}')
+			parent.jog_buttons.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.children:
-			jog_buttons.append(f'jog_minus_pb_{i}')
+			parent.jog_buttons.append(f'jog_minus_pb_{i}')
 
-	if len(jog_buttons) > 0:
+	if len(parent.jog_buttons) > 0:
 		for item in required_jog_items:
 			# don't make the connection if all required widgets are not present
 			if item not in parent.children:
 				msg = (f'{item} is required to jog\n but was not found.\n'
 					'Jog Buttons will be disabled.')
 				dialogs.warn_msg_ok(parent, msg, 'Missing Item')
-				for item in jog_buttons:
+				for item in parent.jog_buttons:
 					getattr(parent, item).setEnabled(False)
 				return
 
 		# ok to connect if we get this far
-		for item in jog_buttons: # connect jog buttons
+		for item in parent.jog_buttons: # connect jog buttons
 			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
 			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
 			parent.state_estop[item] = False

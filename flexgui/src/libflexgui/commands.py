@@ -121,7 +121,7 @@ def set_motion_teleop(parent, value):
 	parent.command.wait_complete()
 	parent.status.poll()
 
-def jog_check(parent):
+def jog_check(parent): # FIXME no longer used so delete it
 	if 'jog_vel_sl' in parent.children:
 		if parent.jog_vel_sl.value() > 0.0:
 			return True
@@ -153,27 +153,26 @@ def get_jog_mode(parent):
 	return jjogmode
 
 def jog(parent):
-	if jog_check(parent):
-		vel = parent.jog_vel_sl.value() / 60
-		jog_command = parent.sender().objectName().split('_')
+	vel = parent.jog_vel_sl.value() / 60
+	jog_command = parent.sender().objectName().split('_')
 
-		if 'minus' in jog_command:
-			vel = -vel
+	if 'minus' in jog_command:
+		vel = -vel
 
-		joint = int(jog_command[-1])
-		increment = parent.jog_modes_cb.currentData()
+	joint = int(jog_command[-1])
+	increment = parent.jog_modes_cb.currentData()
 
-		jjogmode = get_jog_mode(parent)
-		if parent.sender().isDown():
-			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
-			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
+	jjogmode = get_jog_mode(parent)
+	if parent.sender().isDown():
+		if increment:
+			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
 		else:
-			parent.command.jog(emc.JOG_STOP, jjogmode, joint)
-			if 'override_limits_cb' in parent.children:
-				parent.override_limits_cb.setChecked(False)
-				parent.override_limits_cb.setEnabled(False)
+			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
+	else:
+		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
+		if 'override_limits_cb' in parent.children:
+			parent.override_limits_cb.setChecked(False)
+			parent.override_limits_cb.setEnabled(False)
 
 def jog_selected(parent):
 	if jog_check(parent):
