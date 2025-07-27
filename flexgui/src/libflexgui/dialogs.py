@@ -129,12 +129,12 @@ def find(parent):
 	print(result)
 
 
-def info_msg_ok(parent, text, title=None):
+def info_msg_ok(parent, msg, title=None):
 	# dialogs.info_msg_ok(parent, msg, 'title'
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Information)
 	msg_box.setWindowTitle(title)
-	msg_box.setText(text)
+	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
 	if parent.theme: # use the theme
@@ -150,12 +150,12 @@ def info_msg_ok(parent, text, title=None):
 	else:
 		return False
 
-def error_msg_ok(parent, text, title=None): # plain error message
+def error_msg_ok(parent, msg, title=None): # plain error message
 	# dialogs.error_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
-	msg_box.setText(text)
+	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
 	returnValue = msg_box.exec()
@@ -164,12 +164,12 @@ def error_msg_ok(parent, text, title=None): # plain error message
 	else:
 		return False
 
-def warn_msg_ok(parent, text, title=None):
+def warn_msg_ok(parent, msg, title=None):
 	# dialogs.warn_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
-	msg_box.setText(text)
+	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
 	if parent.theme: # use the theme
@@ -185,12 +185,12 @@ def warn_msg_ok(parent, text, title=None):
 	else:
 		return False
 
-def warn_msg_yes_no(parent, text, title=None):
+def warn_msg_yes_no(parent, msg, title=None):
 	# dialogs.warn_msg_yes_no(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
-	msg_box.setText(text)
+	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
 	if parent.theme: # use the theme
@@ -206,12 +206,12 @@ def warn_msg_yes_no(parent, text, title=None):
 	else:
 		return False
 
-def critical_msg_ok(parent, text, title=None):
+def critical_msg_ok(parent, msg, title=None):
 	# dialogs.critical_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Critical)
 	msg_box.setWindowTitle(title)
-	msg_box.setText(text)
+	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
 	if parent.theme: # use the theme
