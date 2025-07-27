@@ -3084,7 +3084,7 @@ ENABLE</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="min_velocity_lb">
+      <widget class="QLabel" name="min_jog_vel_lb">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -3100,7 +3100,7 @@ ENABLE</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="max_velocity_lb">
+      <widget class="QLabel" name="max_jog_vel_lb">
        <property name="geometry">
         <rect>
          <x>190</x>
