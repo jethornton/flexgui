@@ -1038,17 +1038,30 @@ def setup_jog(parent):
 			parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.children:
-		min_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
-		if min_vel:
-			parent.jog_vel_sl.setMinimum(int(float(min_vel) * 60))
+		min_jog_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
 
-		max_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
-		if max_vel:
-			parent.jog_vel_sl.setMaximum(int(float(max_vel) * 60))
+		if min_jog_vel:
+			int_min_jog_vel = int(float(min_jog_vel) * 60)
+			parent.jog_vel_sl.setMinimum(int_min_jog_vel)
+			if int_min_jog_vel == 0:
+				msg = ('The [DISPLAY] MIN_LINEAR_VELOCITY setting is less\n'
+				'than 1 unit per minute. It will be set to 0.')
+				dialogs.info_msg_ok(parent, msg, 'INI Configuration')
+
+		max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
+		if max_jog_vel:
+			parent.jog_vel_sl.setMaximum(int(float(max_jog_vel) * 60))
 
 		default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
 		if default_vel:
 			parent.jog_vel_sl.setValue(int(float(default_vel) * 60))
+
+		if 'min_jog_vel_lb' in parent.children:
+			if min_jog_vel:
+				parent.min_jog_vel_lb.setText(f'{int(float(min_jog_vel) * 60)}')
+		if 'max_jog_vel_lb' in parent.children:
+			if max_jog_vel:
+				parent.max_jog_vel_lb.setText(f'{int(float(max_jog_vel) * 60)}')
 
 		if 'jog_vel_lb' in parent.children:
 			parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
@@ -1105,6 +1118,7 @@ def setup_jog(parent):
 							f'{item} is not a valid jog increment\n'
 							'and will not be added to the jog options.')
 						dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
