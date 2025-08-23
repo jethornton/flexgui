@@ -20,3 +20,5 @@ One of the example configurations
 [Flex GUI Documents](https://gnipsel.com/linuxcnc/flexgui/index.html)
 
 [Flex QSS Builder Documents](https://gnipsel.com/linuxcnc/flexqss/index.html)
+
+Keyboard jogging is being tested at 
