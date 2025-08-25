@@ -163,6 +163,7 @@ def jog(parent):
 	increment = parent.jog_modes_cb.currentData()
 
 	jjogmode = get_jog_mode(parent)
+	print(f'jjogmode {jjogmode}')
 	if parent.sender().isDown():
 		if increment:
 			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
@@ -182,7 +183,6 @@ def jog_selected(parent):
 		vel = parent.jog_vel_sl.value() / 60
 		if 'minus' in dir_name:
 			vel = -vel
-			print('minus')
 		joint = int(joint_name[-1])
 		increment = parent.jog_modes_cb.currentData()
 		jjogmode = get_jog_mode(parent)
