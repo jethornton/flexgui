@@ -1,0 +1,331 @@
+#!/usr/bin/env python3
+
+import os, sys, subprocess, psutil
+
+# disable cache usage must be before any local imports
+sys.dont_write_bytecode = True
+
+from functools import partial
+
+from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.uic import loadUi
+from PyQt6.QtCore import Qt, QTimer, QEvent
+from PyQt6.QtGui import QKeyEvent
+
+import linuxcnc, hal
+
+from libflexgui import read_ini
+from libflexgui import startup
+from libflexgui import status
+from libflexgui import dialogs
+from libflexgui import utilities
+from libflexgui import shutdown
+
+class flexgui(QMainWindow):
+	def __init__(self):
+		super().__init__()
+
+		self.flex_version = '1.2.2'
+		try:
+			import psutil
+		except Exception as err:
+			msg = ('An error occurred trying import psutil\n'
+			f'{err}\n'
+			'To install psutil use the following command\n'
+			'sudo apt install python3-psutil')
+			dialogs.error_msg_ok(self, msg, 'Error')
+			sys.exit()
+
+		# verify that flexgui is loaded by emc
+		parent_pid = os.getppid()
+		parent_process = psutil.Process(parent_pid)
+		parent_name = parent_process.name()
+		if parent_name != 'linuxcnc':
+			msg = ('Flex GUI must be called from\n'
+			'the LinuxCNC ini file.')
+			dialogs.error_msg_ok(self, msg, 'Error')
+			sys.exit()
+
+		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+		# set the library path
+		if self.path == '/usr/bin':
+			self.lib_path = '/usr/lib/libflexgui'
+			self.gui_path = '/usr/lib/libflexgui'
+
+		# connect to linuxcnc
+		self.status = linuxcnc.stat()
+		self.status.poll()
+		# initalize exec_state and task_state which is checked in status.py
+		self.exec_state = self.status.exec_state
+		self.task_state = self.status.task_state
+		self.task_mode = self.status.task_mode
+		self.interp_state = self.status.interp_state
+		self.motion_mode = self.status.motion_mode
+		self.state = self.status.state
+		self.command = linuxcnc.command()
+		self.error = linuxcnc.error_channel()
+		self.flood_state = self.status.flood
+		self.mist_state = self.status.mist
+		self.tool_in_spindle = self.status.tool_in_spindle
+		self.status_speed_setting = self.status.settings[2] # spindle speed
+		self.help_dialog = None
+
+		self.home_dir = os.path.expanduser('~')
+
+		# setup hal components
+		self.halcomp = hal.component('flexhal')
+		self.toolcomp = hal.component('tool-change')
+
+		# get connection to the ini file
+		# FIXME set the ini_path first then create the inifile object
+		self.inifile = False
+		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
+			if sys.argv[i].endswith('.ini'):
+				self.ini_path = sys.argv[i]
+				self.inifile = linuxcnc.ini(sys.argv[i])
+				self.config_path = os.path.split(sys.argv[i])[0]
+				break
+		if not self.inifile: # otherwise it's running with axis for testing
+			self.inifile = linuxcnc.ini(self.status.ini_filename)
+			self.ini_path = self.status.ini_filename
+			self.config_path = os.path.split(self.status.ini_filename)[0]
+
+		#gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
+		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
+
+		# find and load the gui
+		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
+		if gui_file: # gui is in the ini file
+			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
+			if not os.path.isfile(gui_path): # gui not found
+				gui_path = os.path.join(self.gui_path, 'flex_default.ui')
+				gui_file = 'flex_default.ui'
+		else: # no gui specified
+			gui_path = os.path.join(self.gui_path, 'flex_default.ui')
+			gui_file = 'flex_default.ui'
+
+		loadUi(gui_path, self)
+		machine = self.inifile.find('EMC', 'MACHINE') or False
+		if machine:
+			self.setWindowTitle(f'{machine} Flex GUI V{self.flex_version}')
+		else:
+			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
+
+		# check for a resources.py file with images for the stylesheet
+		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
+		if resources_file: # import the resources file
+			try:
+				sys.path.append(self.config_path)
+				import resources
+			except:
+				msg = (f'The resources file {resources_file} was\n'
+					'not found, check for file name resources.py.')
+				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
+
+		# check for theme and input type or a qss file
+		self.theme = self.inifile.find('DISPLAY', 'THEME') or False
+		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
+
+		stylesheet = False
+		if self.theme and qss_file:
+			msg = (f'The THEME {self.theme} and QSS {qss_file}\n'
+				'were both found in the ini file.\n'
+				f'the QSS {qss_file} will not be used.\n'
+				'Only one can be specified in the ini.')
+			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
+		if self.theme:
+			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
+			if self.theme in valid_themes:
+				stylesheet = os.path.join(self.lib_path, f'{self.theme}.qss')
+				from libflexgui import resources
+
+		elif qss_file: # use a local qss file
+			stylesheet = os.path.join(self.config_path, qss_file)
+
+		if stylesheet:
+			if os.path.isfile(stylesheet):
+				with open(stylesheet, 'r') as f:
+					self.setStyleSheet(f.read())
+			else:
+				msg = (f'The Stylesheet {stylesheet}\n'
+					'was not found.')
+				dialogs.warn_msg_ok(parent, msg, 'INI Error')
+
+		# get ini values if any
+		read_ini.read(self)
+
+		# get a list of axis letters in the configuration
+		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
+		axis_map = f'{self.status.axis_mask:09b}'
+		self.axis_letters = []
+		for i, a in enumerate(reversed(axis_map)):
+			if a == '1':
+				self.axis_letters.append(axis_list[i])
+
+		self.axis_count = self.status.axis_mask.bit_count()
+
+		startup.set_screen(self)
+		startup.setup_vars(self)
+		startup.setup_led_buttons(self)
+		startup.find_children(self)
+		startup.update_check(self)
+		startup.setup_plot(self)
+		startup.setup_enables(self)
+		startup.setup_buttons(self)
+		startup.setup_menus(self)
+		startup.setup_actions(self)
+		startup.setup_status_labels(self)
+		startup.setup_list_widgets(self)
+		startup.setup_plain_text_edits(self)
+		startup.setup_stacked_widgets(self)
+		startup.setup_spin_boxes(self)
+		startup.setup_line_edits(self)
+		startup.setup_spindle(self)
+		startup.setup_jog(self)
+		startup.setup_jog_selected(self)
+		startup.setup_probing(self)
+		startup.setup_mdi(self)
+		startup.setup_mdi_buttons(self)
+		startup.setup_set_var(self)
+		startup.setup_watch_var(self)
+		startup.setup_tools(self)
+		startup.setup_hal(self)
+		startup.setup_touchoff(self)
+		startup.setup_sliders(self)
+		startup.setup_overrides(self)
+		startup.setup_defaults(self)
+		startup.setup_tool_change(self)
+		startup.setup_toolbar(self)
+		startup.setup_fsc(self)
+		startup.setup_dsf(self)
+		startup.setup_help(self)
+		# loading the post gui files can only happen once
+		startup.load_postgui(self)
+
+		startup.set_status(self)
+
+		self.user_timer = QTimer()
+		startup.setup_import(self) # do this after user timer is created
+
+		# setup and start the status update timer every 0.01 second
+		self.timer = QTimer()
+		self.timer.timeout.connect(partial(status.update, self))
+		self.timer.start(10) # milliseconds
+
+		# var update timer
+		self.var_timer = QTimer(self)
+		self.var_timer.setSingleShot(True)
+		self.var_timer.timeout.connect(partial(utilities.sync_var_file, self))
+
+		# setup the var file watch timer
+		self.var_watch_timer = QTimer(self)
+		self.var_watch_timer.timeout.connect(partial(utilities.var_file_watch, self))
+		self.var_mod_time = 0.0
+		self.var_watch_timer.start(100) # milliseconds
+
+		# test timer
+		self.one_second_timer = QTimer(self)
+		self.one_second_timer.start(1000) # milliseconds
+
+
+		# set the inital screen size
+		if screen_size:
+			if screen_size.lower() == 'minimized':
+				self.showMinimized()
+			if screen_size.lower() == 'normal':
+				self.showNormal()
+			if screen_size.lower() == 'maximized':
+				self.showMaximized()
+			elif screen_size.lower() == 'full':
+				self.showFullScreen()
+		else:
+			self.show()
+
+		# install event filter on self I think
+		#self.installEventFilter(self)
+		#self.key = Qt.Key.Key_unknown
+
+	# this can import a module from a file for resources.py in a config dir
+	def module_from_file(self, module_name, file_path):
+		spec = importlib.util.spec_from_file_location(module_name, file_path)
+		module = importlib.util.module_from_spec(spec)
+		spec.loader.exec_module(module)
+		return module
+
+	def resizeEvent(self, event):
+		if 'window_size_lb' in self.children:
+			width = self.geometry().width()
+			height =  self.geometry().height()
+			self.window_size_lb.setText(f'{width}x{height}')
+		QMainWindow.resizeEvent(self, event)
+
+	'''
+	def keyPressEvent(self, event: QKeyEvent):
+		k = event.key()
+		txt = event.text()
+		alt_modifier = (event.modifiers() == Qt.KeyboardModifier.AltModifier)
+		print(k, txt, alt_modifier, k==Qt.Key.Key_H)
+
+	def keyPressEvent(self, event):
+		if isinstance(event, QKeyEvent):
+			key_text = event.text()
+			print(f"Last Key Pressed: {key_text}")
+
+	Qt.Key.Key_Left 0x01000012
+	Qt.Key.Key_Up 0x01000013
+	Qt.Key.Key_Right 0x01000014
+	Qt.Key.Key_Down 0x01000015
+	Qt.Key.Key_PageUp 0x01000016
+	Qt.Key.Key_PageDown 0x01000017
+
+
+
+	def keyPressEvent(self, event):
+		if isinstance(event, QKeyEvent):
+			key_text = event.text()
+			print(f"Last Key Pressed: {key_text}")
+
+	def keyReleaseEvent(self, event):
+		if isinstance(event, QKeyEvent):
+			key_text = event.text()
+			print(f"Key Released: {key_text}")
+	'''
+
+	def eventFilter(self, source, event):
+		'''
+		if event.type() == QEvent.Type.KeyPress:
+			#print(f'KeyPress self.key {self.key} event.key() {event.key()}')
+			if self.key != event.key():
+				print(f'Key Press: {event.key()} [{source}]')
+				self.key = event.key()
+		elif event.type() == QEvent.Type.KeyRelease:
+			if event.type() != QEvent.Type.KeyPress:
+				print(f'Key Release: {event.key()} [{source}]')
+				self.key = Qt.Key.Key_unknown
+		'''
+
+
+
+			#print(f'KeyRelease self.key {self.key} event.key() {event.key()}')
+			#
+			#
+
+		if source.objectName() in self.number_le and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.numbers(self, source)
+		elif source.objectName() in self.nccode_le and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.gcode(self, source)
+		elif source.objectName() in self.keyboard_le and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.keyboard(self, source)
+		elif source.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
+			dialogs.spinbox_numbers(self, source.parent())
+		return super().eventFilter(source, event)
+
+	def closeEvent(self, event):
+		shutdown.save_settings(self)
+		if self.help_dialog is not None:
+			self.help_dialog.close()
+
+app = QApplication(sys.argv)
+gui = flexgui()
+sys.exit(app.exec())

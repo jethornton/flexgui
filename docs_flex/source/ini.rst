@@ -71,6 +71,8 @@ To use a custom .qss style sheet you created named `lightflex.qss`
 
 For more information on style sheets see :doc:`style`
 
+.. _jog-increments:
+
 Jog Increments
 --------------
 

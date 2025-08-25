@@ -185,24 +185,63 @@ Axis Index
 	V 7
 	W 8
 
-Jog Controls
-------------
-`Jog Controls Tutorial <https://youtu.be/ReVeEB5tEYM>`_
+Jogging
+=======
 
 Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`. If either
-is not found, Jog Buttons will be disabled. This type of jog controls provides
-a button for each axis and jog direction.
+is not found, Jogging will be disabled.
 
-.. csv-table:: Jog Widgets
+Jogging increments are from the ini entry `INCREMENTS` in the [DISPLAY] section.
+See :ref:`Jog Increments <jog-increments>` for more information.
+
+.. csv-table:: Required Jog Widgets
+   :width: 100%
+   :align: left
+
+	**Function**, **Widget**, **Name**
+	Jog Velocity Slider, QSlider, jog_vel_sl
+	Jog Mode Selector, QComboBox, jog_modes_cb
+
+The Jog Velocity Label shows the current jog velocity setting from the Jog
+Velocity Slider
+
+.. csv-table:: Optional Jog Widgets
+   :width: 100%
+   :align: left
+
+	**Function**, **Widget**, **Name**
+	Jog Velocity Label, QLabel, jog_vel_lb
+
+Keyboard Jogging
+----------------
+
+To enable keyboard jogging a QCheckbox is used. When checked the right/left
+arrow keys jog the X axis and the up/down arrow keys jog the Y axis and the
+page up/down keys jog the Z axis. When not checked the keys function as normal
+keys.
+
+.. csv-table:: Keyboard Jogging
+   :width: 100%
+   :align: left
+
+	**Function**, **Widget**, **Name**
+	Jog Enable, QCheckBox, keyboard_jog_cb
+
+
+Jog Button Controls
+-------------------
+`Jog Controls Tutorial <https://youtu.be/ReVeEB5tEYM>`_
+
+
+This type of jog controls provides a button for each axis and jog direction.
+
+.. csv-table:: Jog Button Widgets
    :width: 100%
    :align: left
 
 	**Function**, **Widget**, **Name**
 	Jog Plus Axis (0-8), QPushButton, jog_plus_pb_(0-8)
 	Jog Minus Axis (0-8), QPushButton, jog_minus_pb_(0-8)
-	Jog Velocity Slider, QSlider, jog_vel_sl
-	Jog Velocity Label, QLabel, jog_vel_lb
-	Jog Mode Selector, QComboBox, jog_modes_cb
 
 .. note:: Jog Plus/Minus buttons use the `Axis Index`_. So `Jog Y Plus` is
    `jog_plus_pb_1`.
