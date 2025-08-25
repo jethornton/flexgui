@@ -852,6 +852,22 @@ Off</string>
        </property>
       </widget>
      </widget>
+     <widget class="QCheckBox" name="keyboard_jog_cb">
+      <property name="geometry">
+       <rect>
+        <x>45</x>
+        <y>390</y>
+        <width>166</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Enable Keyboard Jog</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
