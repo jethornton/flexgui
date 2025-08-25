@@ -79,10 +79,6 @@ class KeyboardJog(QObject):
 				window.keyboard_jogging = False
 				return True  # Consume the event, preventing QTabWidget from processing it
 
-				#elif event.isAutoRepeat():
-				#	if event.key() == Qt.Key.Key_Left or event.key() == Qt.Key.Key_Right:
-				#		return True
-		# need to check for jog key shortcuts
 		'''
 		elif event.type() == QEvent.Type.ShortcutOverride:
 			if not event.isAutoRepeat():
