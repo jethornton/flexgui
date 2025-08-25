@@ -30,7 +30,7 @@ class KeyboardJog(QObject):
 		super().__init__()
 	def eventFilter(self, source, event):
 		# jog events check for state estop and release if keyboard_jogging is true
-		if event.type() == QEvent.Type.KeyPress and window.keyboard_jog_cb.isChecked():
+		if event.type() == QEvent.Type.KeyPress and window.enable_kb_jogging:
 			if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
 				if window.keyboard_jogging:
 					return True  # Consume the event
@@ -67,7 +67,7 @@ class KeyboardJog(QObject):
 						window.keyboard_jogging = True
 						return True  # Consume the event
 
-		elif event.type() == QEvent.Type.KeyRelease and window.keyboard_jog_cb.isChecked():
+		elif event.type() == QEvent.Type.KeyRelease and window.enable_kb_jogging:
 			if not event.isAutoRepeat() and window.keyboard_jogging:
 				match event.key():
 					case Qt.Key.Key_Left | Qt.Key.Key_Right:

@@ -158,6 +158,12 @@ def set_homed_enable(parent):
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
 
+def jog_toggled(parent):
+	if parent.sender().isChecked():
+		parent.enable_kb_jogging = True
+	else:
+		parent.enable_kb_jogging = False
+
 def update_jog_lb(parent):
 	val = parent.jog_vel_sl.value()
 	if val > 0:

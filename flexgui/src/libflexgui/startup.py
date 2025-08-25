@@ -1009,6 +1009,18 @@ def setup_mdi(parent):
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
 
 def setup_jog(parent):
+	# keyboard jog
+
+	if 'keyboard_jog_cb' in parent.children:
+		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
+		if parent.keyboard_jog_cb.isChecked():
+			parent.enable_kb_jogging = True
+		else:
+			parent.enable_kb_jogging = False
+	else:
+			parent.enable_kb_jogging = False
+
+
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
 	for i in range(16):
