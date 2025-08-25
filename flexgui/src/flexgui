@@ -23,8 +23,6 @@ from libflexgui import keyboard_jog
 from libflexgui import utilities
 from libflexgui import shutdown
 
-#def jog(parent, action, axis=None, direction=None):
-
 class KeyboardJog(QObject):
 	def __init__(self, window):
 		super().__init__()
@@ -39,13 +37,13 @@ class KeyboardJog(QObject):
 						#print(f'Qt.Key.Key_Left {event.key()}')
 						keyboard_jog.jog(window, True, 0, 'neg')
 						window.keyboard_jogging = True
-						return True  # Consume the event, preventing QTabWidget from processing it
+						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_Right:
 						#print(f'Qt.Key.Key_Right {event.key()}')
 						keyboard_jog.jog(window, True, 0, 'pos')
 						window.keyboard_jogging = True
 						event.ignore() # Ignore right arrow key event
-						return True  # Consume the event, preventing QTabWidget from processing it
+						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_Up:
 						#print(f'Qt.Key.Key_Up {event.key()}')
 						keyboard_jog.jog(window, True, 1, 'pos')
@@ -77,35 +75,7 @@ class KeyboardJog(QObject):
 					case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
 						keyboard_jog.jog(window, False, 2)
 				window.keyboard_jogging = False
-				return True  # Consume the event, preventing QTabWidget from processing it
-
-		'''
-		elif event.type() == QEvent.Type.ShortcutOverride:
-			if not event.isAutoRepeat():
-				print(f'ShortcutOverride {event.key()}')
-				if event.key() == Qt.Key.Key_Up:
-					window.key_lb.setText('ShortcutOverride Key_Up')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_Down:
-					window.key_lb.setText('ShortcutOverride Key_Down')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_PageUp:
-					window.key_lb.setText('ShortcutOverride Key_PageUp')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_PageDown:
-					window.key_lb.setText('ShortcutOverride Key_PageDown')
-					return True  # Consume the event
-				if event.key() == Qt.Key.Key_Left:
-					window.key_lb.setText('ShortcutOverride Key_Left')
-					return True  # Consume the event, preventing QTabWidget from processing it
-				elif event.key() == Qt.Key.Key_Right:
-					window.key_lb.setText('ShortcutOverride Key_Right')
-					print('ShortcutOverride Key_Right')
-					return True  # Consume the event, preventing QTabWidget from processing it
-				elif event.isAutoRepeat():
-					if event.key() == Qt.Key.Key_Left or event.key() == Qt.Key.Key_Right:
-						return True
-		'''
+				return True  # Consume the event
 
 		if event.type() == QEvent.Type.MouseButtonRelease:
 			if source.objectName() in window.number_le:
