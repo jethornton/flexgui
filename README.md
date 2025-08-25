@@ -12,6 +12,7 @@ Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 * Most Python status items are supported
 * Plotter with controls
 * Probing with safety for spindle and run controls and MDI controls
+* Keyboard Jogging
 * Add custom Python code
 
 One of the example configurations
