@@ -121,19 +121,6 @@ def set_motion_teleop(parent, value):
 	parent.command.wait_complete()
 	parent.status.poll()
 
-def jog_check(parent): # FIXME no longer used so delete it
-	if 'jog_vel_sl' in parent.children:
-		if parent.jog_vel_sl.value() > 0.0:
-			return True
-		else:
-			msg = ('Can not jog at Zero Velocity!')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
-			return False
-	else:
-		msg = ('Can not jog without a\njog velocity slider.')
-		dialogs.warn_msg_ok(msg, 'Error')
-		return False
-
 def get_jog_mode(parent):
 	parent.status.poll()
 	if parent.status.kinematics_type == emc.KINEMATICS_IDENTITY and utilities.all_homed(parent):
