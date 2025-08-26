@@ -294,11 +294,6 @@ def action_estop(parent): # actionEstop
 			if 'flex_E_Stop' in parent.children:
 				parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
 
-		if parent.power_off_color: # if False just don't bother
-			if 'power_pb' in parent.children:
-				parent.power_pb.setStyleSheet(parent.power_off_color)
-			if 'flex_Power' in parent.children:
-				parent.flex_Power.setStyleSheet(parent.power_off_color)
 
 		if parent.probe_enable_off_color: # if False just don't bother
 			if 'probing_enable_pb' in parent.children:
@@ -311,11 +306,6 @@ def action_power(parent): # actionPower
 			if parent.override_limits_cb.isChecked():
 				parent.command. override_limits()
 		parent.command.state(emc.STATE_ON)
-		if parent.power_on_color: # if False just don't bother
-			if 'power_pb' in parent.children:
-				parent.power_pb.setStyleSheet(parent.power_on_color)
-			if 'flex_Power' in parent.children:
-				parent.flex_Power.setStyleSheet(parent.power_on_color)
 	else:
 		parent.command.state(emc.STATE_OFF)
 		if parent.power_off_color: # if False just don't bother

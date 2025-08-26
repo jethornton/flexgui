@@ -85,6 +85,11 @@ def update(parent):
 				parent.estop_pb.led = True
 			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = False
+			if parent.power_off_color: # if False just don't bother
+				if 'power_pb' in parent.children:
+					parent.power_pb.setStyleSheet(parent.power_off_color)
+				if 'flex_Power' in parent.children:
+					parent.flex_Power.setStyleSheet(parent.power_off_color)
 			if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
 				parent.probing_enable_pb.led = False
 
@@ -97,6 +102,11 @@ def update(parent):
 				getattr(parent, key).setText(value)
 			if 'flex_Power' in parent.children:
 				parent.flex_Power.setStyleSheet(parent.selected_style)
+			if parent.power_on_color: # if False just don't bother
+				if 'power_pb' in parent.children:
+					parent.power_pb.setStyleSheet(parent.power_on_color)
+				if 'flex_Power' in parent.children:
+					parent.flex_Power.setStyleSheet(parent.power_on_color)
 
 			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
