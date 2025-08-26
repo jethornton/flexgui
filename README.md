@@ -22,4 +22,3 @@ One of the example configurations
 
 [Flex QSS Builder Documents](https://gnipsel.com/linuxcnc/flexqss/index.html)
 
-Keyboard jogging is being tested at https://github.com/jethornton/flexgui2
