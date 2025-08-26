@@ -1959,15 +1959,15 @@ def setup_hal(parent):
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
 
-				if button_name != 'tool_changed_pb':
-					parent.state_estop[button_name] = False
-					# FIXME should a hal pin button be disabled when power is off
+				parent.state_estop[button_name] = False
+				# FIXME should a hal pin button be disabled when power is off
+				if button.property('state_on') == 'False':
 					parent.state_estop_reset[button_name] = False
 
-					if button.property('required') == 'homed':
-						parent.home_required.append(button_name)
-					else:
-						parent.state_on[button_name] = True
+				if button.property('required') == 'homed':
+					parent.home_required.append(button_name)
+				else:
+					parent.state_on[button_name] = True
 
 	if len(hal_spinboxes) > 0: # setup hal spinboxes
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
