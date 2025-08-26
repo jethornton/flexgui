@@ -1592,8 +1592,7 @@ def setup_hal(parent):
 				if hal_type == hal.HAL_BIT:
 					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
 					#hal_io_checkboxes.append(child)
-				else: # FIXME make error a popup
-					print(f'error {pin_name} {hal_type}')
+				else:
 					msg = (f'The {child_name} has a hal_type of {hal_type}\n'
 					'Only a hal_type of HAL_BIT can be used with\n'
 					'a QCheckBox')
@@ -1606,24 +1605,31 @@ def setup_hal(parent):
 						msg = (f'The QPushButton {child_name} must be\n'
 						'set to checkable to be a IO button.')
 						dialogs.error_msg_ok(parent, msg, 'Error')
-				else: # FIXME make error a popup
-					print(f'error {pin_name} {hal_type}')
+				else:
+					msg = (f'The QPushButton hal_type must be\n'
+					'set to hal.HAL_BIT.')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 			elif isinstance(child, QRadioButton):
 				if hal_type == hal.HAL_BIT:
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
-				else: # FIXME make error a popup
-					print(f'error {pin_name} {hal_type}')
-
+				else:
+					msg = (f'The QRadioButton hal_type must be\n'
+					'set to hal.HAL_BIT.')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 			elif isinstance(child, QSpinBox):
 				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
-				else: # FIXME make error a popup
-					print(f'error {pin_name} {hal_type}')
+				else:
+					msg = (f'The QSpinBox hal_type must be\n'
+					'set to hal.HAL_S32 or hal.HAL_U32.')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 			elif isinstance(child, QDoubleSpinBox):
 				if hal_type == hal.HAL_FLOAT:
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
-				else: # FIXME make error a popup
-					print(f'error {pin_name} {hal_type}')
+				else:
+					msg = (f'The QDoubleSpinBox hal_type must be\n'
+					'set to hal.HAL_FLOAT.')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 
 			parent.hal_io[child_name] = pin_name
 			if child.property('variable') is not None:
@@ -1955,6 +1961,7 @@ def setup_hal(parent):
 
 				if button_name != 'tool_changed_pb':
 					parent.state_estop[button_name] = False
+					# FIXME should a hal pin button be disabled when power is off
 					parent.state_estop_reset[button_name] = False
 
 					if button.property('required') == 'homed':
