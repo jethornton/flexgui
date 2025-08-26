@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1242</width>
-    <height>889</height>
+    <height>926</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1212,76 +1212,7 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="10">
-        <widget class="QPushButton" name="quit_pb">
-         <property name="text">
-          <string>Quit</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="run_pb">
-         <property name="text">
-          <string>Run</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QPushButton" name="stop_pb">
-         <property name="text">
-          <string>Stop</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="step_pb">
-         <property name="text">
-          <string>Step</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="pause_pb">
-         <property name="text">
-          <string>Pause</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="power_pb">
-         <property name="text">
-          <string>Power</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QPushButton" name="resume_pb">
-         <property name="text">
-          <string>Resume</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="estop_pb">
-         <property name="text">
-          <string>E Stop</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="9">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="8">
         <widget class="QPushButton" name="pushButton">
          <property name="text">
           <string>G0 X0 Y0</string>
@@ -1294,7 +1225,62 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="7">
+       <item row="0" column="3">
+        <widget class="QPushButton" name="step_pb">
+         <property name="text">
+          <string>Step</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="estop_pb">
+         <property name="text">
+          <string>E Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pause_pb">
+         <property name="text">
+          <string>Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="10">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="6">
+        <widget class="QPushButton" name="stop_pb">
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="resume_pb">
+         <property name="text">
+          <string>Resume</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="11">
+        <widget class="QPushButton" name="quit_pb">
+         <property name="text">
+          <string>Quit</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1306,6 +1292,45 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="run_pb">
+         <property name="text">
+          <string>Run</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="power_pb">
+         <property name="text">
+          <string>Power</string>
+         </property>
+         <property name="on_text" stdset="0">
+          <string>PWR ON</string>
+         </property>
+         <property name="off_text" stdset="0">
+          <string>PWR OFF</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Z Limit</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>z-limit</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_BIT</string>
+         </property>
+         <property name="hal_dir" stdset="0">
+          <string>HAL_OUT</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
