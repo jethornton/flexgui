@@ -27,6 +27,17 @@ pin prefixed with `flexhal.` A pin_name of my-button would be in HAL
 	hal_type, HAL_BIT
 	hal_dir, HAL_OUT
 
+Optionally the button can be disabled when the power is off by adding one more
+property.
+
+.. csv-table:: HAL Option
+   :width: 100%
+   :align: center
+
+	**Property Name**, **Pin Value**
+	state_on, False
+
+
 .. _SpinBoxTag:
 
 Spinbox
