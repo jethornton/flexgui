@@ -1961,7 +1961,7 @@ def setup_hal(parent):
 
 				parent.state_estop[button_name] = False
 				# FIXME should a hal pin button be disabled when power is off
-				if button.property('state_on') == 'False':
+				if button.property('state_off') == 'disabled':
 					parent.state_estop_reset[button_name] = False
 
 				if button.property('required') == 'homed':
