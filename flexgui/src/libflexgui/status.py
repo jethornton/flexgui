@@ -52,6 +52,16 @@ def update(parent):
 			for key, value in parent.state_estop_checked.items():
 				getattr(parent, key).setChecked(value)
 
+			if parent.estop_open_color: # if False just don't bother
+				if 'estop_pb' in parent.children:
+					parent.estop_pb.setStyleSheet(parent.estop_open_color)
+				if 'flex_E_Stop' in parent.children:
+					parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
+
+			if parent.probe_enable_off_color: # if False just don't bother
+				if 'probing_enable_pb' in parent.children:
+					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+
 			# FIXME there must be a better way to show the toolbar toolbuttons
 			if 'flex_E_Stop' in parent.children:
 				parent.flex_E_Stop.setStyleSheet(parent.selected_style)
@@ -76,6 +86,22 @@ def update(parent):
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
 
+			if parent.estop_closed_color: # if False just don't bother
+				if 'estop_pb' in parent.children:
+					parent.estop_pb.setStyleSheet(parent.estop_closed_color)
+				if 'flex_E_Stop' in parent.children:
+					parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
+
+			if parent.power_off_color: # if False just don't bother
+				if 'power_pb' in parent.children:
+					parent.power_pb.setStyleSheet(parent.power_off_color)
+				if 'flex_Power' in parent.children:
+					parent.flex_Power.setStyleSheet(parent.power_off_color)
+
+			if parent.probe_enable_off_color: # if False just don't bother
+				if 'probing_enable_pb' in parent.children:
+					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+
 			if 'flex_E_Stop' in parent.children:
 				parent.flex_E_Stop.setStyleSheet(parent.deselected_style)
 			if 'flex_Power' in parent.children:
@@ -85,13 +111,6 @@ def update(parent):
 				parent.estop_pb.led = True
 			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = False
-			if parent.power_off_color: # if False just don't bother
-				if 'power_pb' in parent.children:
-					parent.power_pb.setStyleSheet(parent.power_off_color)
-				if 'flex_Power' in parent.children:
-					parent.flex_Power.setStyleSheet(parent.power_off_color)
-			if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
-				parent.probing_enable_pb.led = False
 
 		# e stop closed power on
 		if parent.status.task_state == emc.STATE_ON:
