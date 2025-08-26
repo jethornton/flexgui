@@ -35,7 +35,7 @@ property.
    :align: center
 
 	**Property Name**, **Pin Value**
-	state_on, False
+	state_off, disabled
 
 
 .. _SpinBoxTag:
