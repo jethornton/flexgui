@@ -1643,9 +1643,9 @@ def setup_hal(parent):
 
 	for child in children:
 		if child.property('function') == 'hal_pin':
-			if isinstance(child, QAbstractButton):
+			if isinstance(child, QAbstractButton): # QCheckBox, QPushButton, QRadioButton, and QToolButton
 				hal_buttons.append(child)
-			elif isinstance(child, QAbstractSpinBox):
+			elif isinstance(child, QAbstractSpinBox): # QDateTimeEdit, QDoubleSpinBox, and QSpinBox
 				hal_spinboxes.append(child)
 			elif isinstance(child, QSlider):
 				hal_sliders.append(child)
