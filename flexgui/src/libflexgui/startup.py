@@ -1010,16 +1010,15 @@ def setup_mdi(parent):
 
 def setup_jog(parent):
 	# keyboard jog
-
 	if 'keyboard_jog_cb' in parent.children:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
 			parent.enable_kb_jogging = True
 		else:
 			parent.enable_kb_jogging = False
-	else:
-			parent.enable_kb_jogging = False
-
+	#else:
+	#		parent.enable_kb_jogging = False
+	print(f'parent.enable_kb_jogging {parent.enable_kb_jogging}')
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
@@ -1133,7 +1132,6 @@ def setup_jog(parent):
 							f'{item} is not a valid jog increment\n'
 							'and will not be added to the jog options.')
 						dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -1381,10 +1379,6 @@ def setup_tools(parent):
 		if item in parent.children:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append(item)
-
-	# tool touch off
-	# home required for tool touch off buttons
-	# check to see if any tool touch off buttons are in the ui
 
 	if 'tool_touchoff_le' in parent.children:
 		parent.tool_touchoff_le.setText('0')
@@ -1667,7 +1661,6 @@ def setup_hal(parent):
 		elif child.property('function') == 'hal_msl':
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
-
 
 	if len(hal_lcds) > 0: # setup hal labels
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
@@ -1960,7 +1953,6 @@ def setup_hal(parent):
 					button.released.connect(lambda pin=pin: (pin.set(False)))
 
 				parent.state_estop[button_name] = False
-				# FIXME should a hal pin button be disabled when power is off
 				if button.property('state_off') == 'disabled':
 					parent.state_estop_reset[button_name] = False
 
