@@ -115,6 +115,19 @@ def run_mdi(parent, cmd=''):
 		msg = 'No MDI command was found!'
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 
+def jog_check(parent):
+	if 'jog_vel_sl' in parent.children:
+		if parent.jog_vel_sl.value() > 0.0:
+			return True
+		else:
+			msg = ('Can not jog at Zero Velocity!')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
+			return False
+	else:
+		msg = ('Can not jog without a\njog velocity slider.')
+		dialogs.warn_msg_ok(msg, 'Error')
+		return False
+
 def set_motion_teleop(parent, value):
 	# 1:teleop, 0: joint
 	parent.command.teleop_enable(value)
