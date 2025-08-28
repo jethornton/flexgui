@@ -19,7 +19,7 @@ from libflexgui import read_ini
 from libflexgui import startup
 from libflexgui import status
 from libflexgui import dialogs
-from libflexgui import keyboard_jog
+from libflexgui import commands
 from libflexgui import utilities
 from libflexgui import shutdown
 
@@ -35,33 +35,33 @@ class KeyboardJog(QObject):
 				if not event.isAutoRepeat():
 					if event.key() == Qt.Key.Key_Left:
 						#print(f'Qt.Key.Key_Left {event.key()}')
-						keyboard_jog.jog(window, True, 0, 'neg')
+						commands.keyboard_jog(window, True, 0, 'neg')
 						window.keyboard_jogging = True
 						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_Right:
 						#print(f'Qt.Key.Key_Right {event.key()}')
-						keyboard_jog.jog(window, True, 0, 'pos')
+						commands.keyboard_jog(window, True, 0, 'pos')
 						window.keyboard_jogging = True
 						event.ignore() # Ignore right arrow key event
 						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_Up:
 						#print(f'Qt.Key.Key_Up {event.key()}')
-						keyboard_jog.jog(window, True, 1, 'pos')
+						commands.keyboard_jog(window, True, 1, 'pos')
 						window.keyboard_jogging = True
 						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_Down:
 						#print(f'Qt.Key.Key_Down {event.key()}')
-						keyboard_jog.jog(window, True, 1, 'neg')
+						commands.keyboard_jog(window, True, 1, 'neg')
 						window.keyboard_jogging = True
 						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_PageUp:
 						#print(f'Qt.Key.Key_PageUp {event.key()}')
-						keyboard_jog.jog(window, True, 2, 'pos')
+						commands.keyboard_jog(window, True, 2, 'pos')
 						window.keyboard_jogging = True
 						return True  # Consume the event
 					elif event.key() == Qt.Key.Key_PageDown:
 						#print(f'Qt.Key.Key_PageDown {event.key()}')
-						keyboard_jog.jog(window, True, 2, 'neg')
+						commands.keyboard_jog(window, True, 2, 'neg')
 						window.keyboard_jogging = True
 						return True  # Consume the event
 
@@ -69,11 +69,11 @@ class KeyboardJog(QObject):
 			if not event.isAutoRepeat() and window.keyboard_jogging:
 				match event.key():
 					case Qt.Key.Key_Left | Qt.Key.Key_Right:
-						keyboard_jog.jog(window, False, 0)
+						commands.keyboard_jog(window, False, 0)
 					case Qt.Key.Key_Up | Qt.Key.Key_Down:
-						keyboard_jog.jog(window, False, 1)
+						commands.keyboard_jog(window, False, 1)
 					case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
-						keyboard_jog.jog(window, False, 2)
+						commands.keyboard_jog(window, False, 2)
 				window.keyboard_jogging = False
 				return True  # Consume the event
 
