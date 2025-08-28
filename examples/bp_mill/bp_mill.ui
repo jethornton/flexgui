@@ -460,7 +460,7 @@
            <item row="2" column="0">
             <widget class="QPushButton" name="jog_minus_pb_0">
              <property name="text">
-              <string>&gt;</string>
+              <string>&lt;</string>
              </property>
             </widget>
            </item>
@@ -523,7 +523,7 @@
            <item row="1" column="0">
             <widget class="QPushButton" name="jog_plus_pb_0">
              <property name="text">
-              <string>&lt;</string>
+              <string>&gt;</string>
              </property>
             </widget>
            </item>
