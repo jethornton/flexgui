@@ -1016,9 +1016,6 @@ def setup_jog(parent):
 			parent.enable_kb_jogging = True
 		else:
 			parent.enable_kb_jogging = False
-	#else:
-	#		parent.enable_kb_jogging = False
-	print(f'parent.enable_kb_jogging {parent.enable_kb_jogging}')
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
