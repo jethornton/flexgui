@@ -19,7 +19,7 @@ Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 * Keyboard Jogging
 * Add custom Python code
 
-** What's new in 1.3.0 **
+**What's new in 1.3.0**
 * Keyboard Jogging
 * HAL buttons and check boxes work with power off unless set to be disabled
 
