@@ -8,6 +8,8 @@ Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 
 **No Programming Required!**
 
+**Drag Widgets onto the Main Window and change their name and you're done**
+
 * No complicated Qt Designer installs as it uses normal widgets
 * No minimum required widgets
 * Widget object names are used to connect the code to the widget
