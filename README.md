@@ -6,7 +6,7 @@ A flexible GUI for LinuxCNC
 
 Flex GUI is a tool to build exactly the GUI you want for LinuxCNC.
 
-** No Programming Required! **
+**No Programming Required!**
 
 * No complicated Qt Designer installs as it uses normal widgets
 * No minimum required widgets
