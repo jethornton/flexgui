@@ -128,102 +128,65 @@ def jog_check(parent):
 		dialogs.warn_msg_ok(msg, 'Error')
 		return False
 
-def set_motion_teleop(parent, value):
-	# 1:teleop, 0: joint
-	parent.command.teleop_enable(value)
-	parent.command.wait_complete()
-	parent.status.poll()
+def set_jog_override(parent):
+	if 'override_limits_cb' in parent.children:
+		parent.override_limits_cb.setChecked(False)
+		parent.override_limits_cb.setEnabled(False)
 
-def get_jog_mode(parent):
-	parent.status.poll()
-	if parent.status.kinematics_type == emc.KINEMATICS_IDENTITY and utilities.all_homed(parent):
-		teleop_mode = 1
-		jjogmode = False
-	else:
-		# check motion_mode since other guis (halui) could alter it
-		if parent.status.motion_mode == emc.TRAJ_MODE_FREE:
-			teleop_mode = 0
-			jjogmode = True
-		else:
-			teleop_mode = 1
-			jjogmode = False
-	if ((jjogmode and parent.status.motion_mode != emc.TRAJ_MODE_FREE)
-		or (not jjogmode and parent.status.motion_mode != emc.TRAJ_MODE_TELEOP) ):
-		set_motion_teleop(parent, teleop_mode)
-	return jjogmode
-
-def jog(parent):
-	vel = parent.jog_vel_sl.value() / 60
+def jog(parent): # only do jog check if button is down
 	jog_command = parent.sender().objectName().split('_')
-
+	joint = int(jog_command[-1])
+	increment = parent.jog_modes_cb.currentData()
+	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
+	vel = parent.jog_vel_sl.value() / 60
 	if 'minus' in jog_command:
 		vel = -vel
 
-	joint = int(jog_command[-1])
-	increment = parent.jog_modes_cb.currentData()
-
-	jjogmode = get_jog_mode(parent)
-	print(f'jjogmode {jjogmode}')
 	if parent.sender().isDown():
-		if increment:
-			parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
-		else:
-			parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
+		if jog_check(parent):
+			if increment:
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, vel, increment)
+			else:
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, vel)
 	else:
-		parent.command.jog(emc.JOG_STOP, jjogmode, joint)
-		if 'override_limits_cb' in parent.children:
-			parent.override_limits_cb.setChecked(False)
-			parent.override_limits_cb.setEnabled(False)
+		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
+		set_jog_override(parent)
 
 def jog_selected(parent):
-	if jog_check(parent):
-		joint_name = parent.axes_group.checkedButton().objectName().split('_')
-		dir_name = parent.sender().objectName()
+	joint = int(parent.axes_group.checkedButton().objectName().split('_')[-1])
+	direction = parent.sender().objectName().split('_')[-1]
+	vel = parent.jog_vel_sl.value() / 60
+	if direction == 'minus':
+		vel = -vel
+	increment = parent.jog_modes_cb.currentData()
+	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 
-		vel = parent.jog_vel_sl.value() / 60
-		if 'minus' in dir_name:
-			vel = -vel
-		joint = int(joint_name[-1])
-		increment = parent.jog_modes_cb.currentData()
-		jjogmode = get_jog_mode(parent)
-
-		if parent.sender().isDown():
+	if parent.sender().isDown():
+		if jog_check(parent):
 			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, jjogmode, joint, vel, increment)
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, vel, increment)
 			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, jjogmode, joint, vel)
-		else:
-			parent.command.jog(emc.JOG_STOP, jjogmode, joint)
-			if 'override_limits_cb' in parent.children:
-				parent.override_limits_cb.setChecked(False)
-				parent.override_limits_cb.setEnabled(False)
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, vel)
+	else:
+		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
+		set_jog_override(parent)
 
 def keyboard_jog(parent, action, axis, direction=None):
 	vel = parent.jog_vel_sl.value() / 60
+	increment = parent.jog_modes_cb.currentData()
 	if direction == 'neg':
 		vel = -vel
-	if parent.status.motion_mode == emc.TRAJ_MODE_FREE:
-		teleop_mode = 0
-		joint_jog = True
-	else: # all axes are homed
-		teleop_mode = 1
-		joint_jog = False
+	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 
 	if parent.status.task_mode == emc.MODE_MANUAL and action:
-
-		# set teleop mode
-		parent.command.teleop_enable(teleop_mode)
-		parent.command.wait_complete()
-
-		# set distance if jog_modes_cb.currenData() is not false
-		distance = parent.jog_modes_cb.currentData()
-		if distance:
-			parent.command.jog(emc.JOG_INCREMENT, joint_jog, axis, vel, distance)
-		else:
-			parent.command.jog(emc.JOG_CONTINUOUS, joint_jog, axis, vel)
+		if jog_check(parent):
+			if increment:
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis, vel, increment)
+			else:
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, axis, vel)
 	else:
-		parent.command.jog(emc.JOG_STOP, joint_jog, axis)
-
+		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis)
+		set_jog_override(parent)
 
 def mdi_button(parent, button):
 	mdi_command = button.property('command')
