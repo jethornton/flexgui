@@ -1,5 +1,5 @@
-net tool-changed flexhal.tool-changed => iocontrol.0.tool-changed
 
+net tool-changed flexhal.tool-changed => iocontrol.0.tool-changed
 setp flexhal.test-reader-u32 24
 setp flexhal.test-reader-s32 -36
 setp flexhal.test-reader-float 123.456

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>967</width>
+    <width>850</width>
     <height>735</height>
    </rect>
   </property>
@@ -72,75 +72,8 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>File</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="1">
-         <widget class="QPushButton" name="edit_pb">
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="open_pb">
-          <property name="text">
-           <string>Open</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="save_as_pb">
-          <property name="text">
-           <string>Save As</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="6">
-         <widget class="QPlainTextEdit" name="gcode_pte">
-          <property name="font">
-           <font>
-            <family>Latin Modern Mono</family>
-            <pointsize>14</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="reload_pb">
-          <property name="text">
-           <string>Reload</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QLabel" name="start_line_lb">
-          <property name="text">
-           <string>N/A</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="label_46">
-          <property name="text">
-           <string>RFL &gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
         <string>Homing</string>
@@ -264,6 +197,73 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>File</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="edit_pb">
+          <property name="text">
+           <string>Edit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="open_pb">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="save_as_pb">
+          <property name="text">
+           <string>Save As</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="6">
+         <widget class="QPlainTextEdit" name="gcode_pte">
+          <property name="font">
+           <font>
+            <family>Latin Modern Mono</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="reload_pb">
+          <property name="text">
+           <string>Reload</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QLabel" name="start_line_lb">
+          <property name="text">
+           <string>N/A</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>RFL &gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_13">
        <attribute name="title">
         <string>Plot</string>
@@ -273,64 +273,7 @@
          <widget class="QFrame" name="plot_widget"/>
         </item>
         <item row="1" column="1">
-         <widget class="QGroupBox" name="groupBox_20">
-          <property name="maximumSize">
-           <size>
-            <width>170</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>DRO</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_39">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="view_dro_cb">
-             <property name="text">
-              <string>View DRO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QCheckBox" name="view_lathe_radius_cb">
-             <property name="text">
-              <string>View Lathe Radius</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="view_offsets_cb">
-             <property name="text">
-              <string>View Offsets</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="view_dtg_cb">
-             <property name="text">
-              <string>View DTG</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="view_velocity_cb">
-             <property name="text">
-              <string>View Velocity</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QCheckBox" name="view_overlay_cb">
-             <property name="text">
-              <string>View Overlay</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QGroupBox" name="groupBox_6">
+         <widget class="QTabWidget" name="tabWidget_6">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -345,64 +288,167 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>160</width>
+            <width>200</width>
             <height>16777215</height>
            </size>
           </property>
-          <property name="title">
-           <string>Program</string>
+          <property name="currentIndex">
+           <number>0</number>
           </property>
-          <layout class="QGridLayout" name="gridLayout_33">
-           <item row="8" column="0">
-            <widget class="QCheckBox" name="view_tool_cb">
-             <property name="text">
-              <string>View Tool</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QCheckBox" name="view_rapids_cb">
-             <property name="text">
-              <string>View Rapids</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="view_live_plot_cb">
-             <property name="text">
-              <string>View Live Plot</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="view_limits_cb">
-             <property name="text">
-              <string>View Limits</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QCheckBox" name="view_program_cb">
-             <property name="text">
-              <string>View Program</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="view_extents_option_cb">
-             <property name="text">
-              <string>View Ext Option</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QCheckBox" name="view_metric_units_cb">
-             <property name="text">
-              <string>View Metric Units</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QWidget" name="tab_18">
+           <attribute name="title">
+            <string>Views</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QPushButton" name="view_p_pb">
+              <property name="text">
+               <string>View Perspective</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="view_x_pb">
+              <property name="text">
+               <string>View X</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="view_y_pb">
+              <property name="text">
+               <string>View Y</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="view_y2_pb">
+              <property name="text">
+               <string>View Y2</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="view_z_pb">
+              <property name="text">
+               <string>View Z</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="view_z2_pb">
+              <property name="text">
+               <string>View Z2</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tabWidget_6Page1" native="true">
+           <attribute name="title">
+            <string>Limits</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QCheckBox" name="view_limits_cb">
+              <property name="text">
+               <string>View Limits</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_extents_option_cb">
+              <property name="text">
+               <string>View Ext Option</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_live_plot_cb">
+              <property name="text">
+               <string>View Live Plot</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_metric_units_cb">
+              <property name="text">
+               <string>View Metric Units</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_program_cb">
+              <property name="text">
+               <string>View Program</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_rapids_cb">
+              <property name="text">
+               <string>View Rapids</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_tool_cb">
+              <property name="text">
+               <string>View Tool</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_17">
+           <attribute name="title">
+            <string>DRO</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QCheckBox" name="view_dro_cb">
+              <property name="text">
+               <string>View DRO</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_dtg_cb">
+              <property name="text">
+               <string>View DTG</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_velocity_cb">
+              <property name="text">
+               <string>View Velocity</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_offsets_cb">
+              <property name="text">
+               <string>View Offsets</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_lathe_radius_cb">
+              <property name="text">
+               <string>View Lathe Radius</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_overlay_cb">
+              <property name="text">
+               <string>View Overlay</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -1034,24 +1080,17 @@
            <string>Tool Change</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_18">
-           <item row="0" column="1">
+           <item row="1" column="0">
             <widget class="QPushButton" name="tool_change_pb">
              <property name="text">
               <string>Change Tool</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QComboBox" name="tool_change_cb">
-             <property name="option" stdset="0">
-              <string>description</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
+           <item row="1" column="1">
             <widget class="QPushButton" name="tool_changed_pb">
              <property name="text">
-              <string>PushButton</string>
+              <string>Tool Changed</string>
              </property>
              <property name="function" stdset="0">
               <string>hal_pin</string>
@@ -1064,6 +1103,13 @@
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QComboBox" name="tool_change_cb">
+             <property name="option" stdset="0">
+              <string>description</string>
              </property>
             </widget>
            </item>
@@ -2644,7 +2690,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>967</width>
+     <width>850</width>
      <height>24</height>
     </rect>
    </property>
