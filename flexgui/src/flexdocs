@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+import subprocess
+
+pdf_path = '/usr/share/doc/flexgui/flexgui.pdf.gz'
+subprocess.Popen(["xdg-open", pdf_path])

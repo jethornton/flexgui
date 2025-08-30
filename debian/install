@@ -2,6 +2,7 @@ flexgui/src/flexgui usr/bin
 flexgui/src/flexcopy usr/bin
 flexgui/src/flexqrc usr/bin
 flexgui/src/flexqss usr/bin
+flexgui/src/flexdocs usr/bin
 
 flexgui/*.desktop usr/share/applications
 
