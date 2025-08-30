@@ -1,6 +1,7 @@
 This is a 3 axis mill simulated hardware example for touch screens
 touch_1.ini is 1000x800
 touch_2.ini is 1024x768
+touch_led.ini uses led buttons
 
 2560×1440 (QHD) – high-end monitors
 1920×1080 (Full HD) – Widely used for desktop monitors
