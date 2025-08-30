@@ -1,0 +1,1 @@
+net x-limit-test flexhal.x-limit => joint.0.pos-lim-sw-in
