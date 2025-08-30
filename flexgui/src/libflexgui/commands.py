@@ -256,21 +256,12 @@ def tool_change(parent):
 			parent.command.mdi(mdi_command)
 			if 'tool_changed_pb' in parent.children:
 				parent.tool_changed_pb.setEnabled(True)
-				#parent.tool_changed_pb.setText('Press when Done')
-				#tool_timer = threading.Timer(0.1, tool_check, args=[parent])
-				#tool_timer.start()
-
 	else:
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
 
 def tool_changed(parent):
-	print(f'tool change {parent.sender().objectName()}')
 	parent.tool_changed_pb.setEnabled(False)
-	#count = 0
-	#parent.status.poll()
-	#print(parent.new_tool_number)
-	#print(parent.status.tool_in_spindle)
 
 	def tool_check(parent):
 		parent.status.poll()
