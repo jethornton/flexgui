@@ -94,36 +94,23 @@ class flexgui(QMainWindow):
 		super().__init__()
 
 		self.flex_version = '1.3.0'
-		try:
-			import psutil
-		except Exception as err:
-			msg = ('An error occurred trying import psutil\n'
-			f'{err}\n'
-			'To install psutil use the following command\n'
-			'sudo apt install python3-psutil')
-			dialogs.error_msg_ok(self, msg, 'Error')
-			sys.exit()
 
-		# verify that flexgui is loaded by emc
-		parent_pid = os.getppid()
-		parent_process = psutil.Process(parent_pid)
-		parent_name = parent_process.name()
-		if parent_name != 'linuxcnc':
+		# connect to linuxcnc
+		self.status = emc.stat()
+		try:
+			self.status.poll()
+		except:
 			msg = ('Flex GUI must be called from\n'
 			'the LinuxCNC ini file.')
 			dialogs.error_msg_ok(self, msg, 'Error')
 			sys.exit()
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
-
 		# set the library path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 			self.gui_path = '/usr/lib/libflexgui'
 
-		# connect to linuxcnc
-		self.status = emc.stat()
-		self.status.poll()
 		# initalize exec_state and task_state which is checked in status.py
 		self.exec_state = self.status.exec_state
 		self.task_state = self.status.task_state
@@ -146,21 +133,18 @@ class flexgui(QMainWindow):
 		self.halcomp = hal.component('flexhal')
 		self.toolcomp = hal.component('tool-change')
 
-		# get connection to the ini file
-		# FIXME set the ini_path first then create the inifile object
-		self.inifile = False
 		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
 			if sys.argv[i].endswith('.ini'):
 				self.ini_path = sys.argv[i]
 				self.inifile = emc.ini(sys.argv[i])
 				self.config_path = os.path.split(sys.argv[i])[0]
 				break
-		if not self.inifile: # otherwise it's running with axis for testing
-			self.inifile = emc.ini(self.status.ini_filename)
-			self.ini_path = self.status.ini_filename
-			self.config_path = os.path.split(self.status.ini_filename)[0]
+		else: # no match was found
+			msg = ('Flex GUI must be called from\n'
+			'the LinuxCNC ini file.')
+			dialogs.error_msg_ok(self, msg, 'Error')
+			sys.exit()
 
-		#gui = self.inifile.find('DISPLAY', 'DISPLAY') or False
 		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
 
 		# find and load the gui
