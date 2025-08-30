@@ -1552,7 +1552,6 @@ def setup_watch_var(parent):
 					getattr(parent, key).setText(f'{float(line.split()[1]):.{value[1]}f}')
 
 def setup_hal(parent):
-	hal_io_checkboxes = []
 	hal_labels = []
 	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
@@ -1586,7 +1585,6 @@ def setup_hal(parent):
 			if isinstance(child, QCheckBox): # QCheckBox, QPushButton, QRadioButton & QToolButton
 				if hal_type == hal.HAL_BIT:
 					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
-					#hal_io_checkboxes.append(child)
 				else:
 					msg = (f'The {child_name} has a hal_type of {hal_type}\n'
 					'Only a hal_type of HAL_BIT can be used with\n'
@@ -1956,6 +1954,8 @@ def setup_hal(parent):
 				parent.state_estop[button_name] = False
 				if button.property('state_off') == 'disabled':
 					parent.state_estop_reset[button_name] = False
+				else:
+					parent.state_estop_reset[button_name] = True
 
 				if button.property('required') == 'homed':
 					parent.home_required.append(button_name)
