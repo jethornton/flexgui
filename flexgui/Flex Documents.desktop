@@ -3,10 +3,11 @@ Version=1.0
 Type=Application
 Name=Flex Documents
 Comment=Flex Documents
-Exec=open /usr/share/doc/flexgui/flexgui.pdf.gz
+Exec=flexdocs
 Icon=linuxcncicon
 Categories=Development;Engineering;X-CNC;
 Terminal=false
 StartupNotify=true
 GenericName=Flex Documents
 
+Name[en_US]=Flex Documents
