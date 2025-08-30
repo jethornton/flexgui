@@ -8,7 +8,7 @@ Icon=linuxcncicon
 Categories=Development;Engineering;X-CNC;
 Terminal=false
 StartupNotify=true
-StartupWMClass=flexss
+StartupWMClass=flexqss
 GenericName=Flex QSS Builder
 
 Name[en_US]=Flex QSS Builder
