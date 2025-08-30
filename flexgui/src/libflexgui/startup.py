@@ -1377,6 +1377,10 @@ def setup_tools(parent):
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append(item)
 
+	if 'tool_changed_pb' in parent.children:
+		parent.tool_changed_pb.setEnabled(False)
+		parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
+
 	if 'tool_touchoff_le' in parent.children:
 		parent.tool_touchoff_le.setText('0')
 		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
@@ -1956,7 +1960,8 @@ def setup_hal(parent):
 				if button.property('required') == 'homed':
 					parent.home_required.append(button_name)
 				else:
-					parent.state_on[button_name] = True
+					if button_name != 'tool_changed_pb':
+						parent.state_on[button_name] = True
 
 	if len(hal_spinboxes) > 0: # setup hal spinboxes
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
@@ -2157,7 +2162,7 @@ def setup_plot(parent):
 			case 'z2' if 'flex_View_Z2' in parent.children:
 				parent.flex_View_Z2.setStyleSheet(parent.selected_style)
 			case _:
-				print('view not found')
+				print('default view not found')
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
