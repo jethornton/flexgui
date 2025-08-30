@@ -591,7 +591,7 @@ def update(parent):
 		else:
 			getattr(parent, item).setText('0')
 
-	# current tool information FIXME add precision
+	# current tool info
 	if parent.current_tool_info != parent.status.tool_table[0]:
 		for key, value in parent.current_tool_intergers.items():
 			tr = parent.status.tool_table[0]
