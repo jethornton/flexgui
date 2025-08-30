@@ -54,3 +54,4 @@ net zenable joint.2.amp-enable-out => stepgen.2.enable
 net estop-out <= iocontrol.0.user-enable-out
 net estop-out => iocontrol.0.emc-enable-in
 
+net tool-prepare iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
