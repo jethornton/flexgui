@@ -8,33 +8,6 @@ from libflexgui import utilities
 
 def read(parent):
 
-	# FIXME remove these tests 6-1-25
-	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
-		msg = ('The colors for E Stop and Power buttons\n'
-		'has been moved to the [FLEXGUI] section\n'
-		'of the ini file.\n'
-		'See the INI Settings section of the\n'
-		'documents for more information.')
-		dialogs.warn_msg_ok(parent, msg, 'Update the INI file')
-
-	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
-		'Check the Plotter section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key TOUCH_FILE_WIDTH needs to be in the [FLEXGUI] section\n'
-		'Check the Plotter section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key MANUAL_TOOL_CHANGE needs to be in the [FLEXGUI] section\n'
-		'Check the Tools section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
