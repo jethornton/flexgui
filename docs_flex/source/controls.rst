@@ -36,7 +36,7 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 	Home a Joint (0-8), home_pb_(0-8)
 	Unhome All Joints, unhome_all_pb
 	Unhome a Joint (0-8), unhome_pb_(0-8)
-	Zero an Axis, zero_(axis letter)_pb
+	Clear an Axis Offset, clear_(axis letter)_pb
 	Manual Mode, manual_mode_pb
 	Flood Toggle, flood_pb
 	Mist Toggle, mist_pb
@@ -144,7 +144,9 @@ the index or any one of the 9 coordinate systems with (1-9).
 
 To clear the G92 coordinate system use 10 as the index.
 
-.. csv-table:: Coordinate System Buttons
+To clear the current G54x coordinate system rotation use 11 as the index.
+
+.. csv-table:: Clear Coordinate System Offsets
    :width: 100%
    :align: center
 
@@ -152,6 +154,16 @@ To clear the G92 coordinate system use 10 as the index.
 	Clear Current G5x, clear_coord_0
 	Clear G5x Coordinate System, clear_coord_(1-9)
 	Clear G92 Coordinate System, clear_coord_10
+	Clear Current G5x Rotation clear_coord_11
+
+To clear an axis offset in the current G5x coordinate system use the following.
+
+.. csv-table:: Clear Axis Offsets
+   :width: 100%
+   :align: center
+
+	**Control Function**, **Object Name**
+	Clear Current G5x X axis, clear_(axis letter)_pb
 
 Options
 -------
