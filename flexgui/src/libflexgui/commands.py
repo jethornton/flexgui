@@ -214,6 +214,19 @@ def change_cs(parent):
 		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
+def clear_axis_offset(parent, axis):
+	print(parent.sender().objectName())
+	#def zero_axis(parent):
+	mdi_command = f'G10 L20 P0 {axis}0'
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(mdi_command)
+		parent.command.wait_complete()
+		parent.command.mode(emc.MODE_MANUAL)
+		parent.command.wait_complete()
+
 def clear_cs(parent):
 	cs = parent.sender().objectName().split("_")[-1]
 	axes = ''
@@ -330,17 +343,6 @@ def tool_touchoff(parent):
 	else:
 		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
-
-def zero_axis(parent, axis):
-	mdi_command = f'G10 L20 P0 {axis}0'
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_MDI:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-		parent.command.mdi(mdi_command)
-		parent.command.wait_complete()
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
 
 def spindle(parent, value=0):
 	# spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)

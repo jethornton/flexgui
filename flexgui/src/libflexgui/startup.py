@@ -396,9 +396,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'run_mdi_pb': 'run_mdi',
 	}
 
-	for i in range(11):
-		command_buttons[f'clear_coord_{i}'] = 'clear_cs'
-
 	for key, value in command_buttons.items():
 		if key in parent.children:
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
@@ -461,6 +458,16 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, item).clicked.connect(partial(commands.change_cs, parent))
 			parent.home_required.append(item)
 
+	# Clear coordinate system buttons
+	for i in range(12):
+		name = f'clear_coord_{i}'
+		if name in parent.children:
+			button = getattr(parent, name)
+			button.clicked.connect(partial(commands.clear_cs, parent))
+			parent.state_estop[name] = False
+			parent.state_estop_reset[name] = False
+			parent.home_required.append(name)
+
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
 		'block_delete_pb': 'block_delete_toggle',
@@ -477,12 +484,14 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'feed_override_pb' in parent.children:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
-	# zero axis button setup
+	# clear axis offset button setup
 	for axis in AXES:
-		name = f'zero_{axis}_pb'
+		name = f'clear_{axis}_pb'
 		if name in parent.children:
 			button = getattr(parent, name)
-			button.clicked.connect(partial(commands.zero_axis, parent, axis.upper()))
+			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
+			parent.state_estop[name] = False
+			parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
 
 	# override preset buttons
