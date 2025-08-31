@@ -453,9 +453,12 @@ def setup_buttons(parent): # connect buttons to functions
 
 	# change coordinate system buttons
 	for i in range(1, 10):
-		item = f'change_cs_{i}'
-		if item in parent.children:
-			getattr(parent, item).clicked.connect(partial(commands.change_cs, parent))
+		name = f'change_cs_{i}'
+		if name in parent.children:
+			button = getattr(parent, name)
+			button.clicked.connect(partial(commands.change_cs, parent))
+			parent.state_estop[name] = False
+			parent.state_estop_reset[name] = False
 			parent.home_required.append(item)
 
 	# Clear coordinate system buttons
