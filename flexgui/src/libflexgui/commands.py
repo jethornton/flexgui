@@ -216,7 +216,6 @@ def change_cs(parent):
 
 def clear_axis_offset(parent, axis):
 	print(parent.sender().objectName())
-	#def zero_axis(parent):
 	mdi_command = f'G10 L20 P0 {axis}0'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
@@ -252,7 +251,6 @@ def tool_change(parent):
 		if 'tool_change_cb' in parent.children:
 			if parent.new_tool_number in tools:
 				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
-
 	else: # using tool change cb
 		parent.new_tool_number = parent.tool_change_cb.currentData()
 	if parent.new_tool_number not in tools:
@@ -495,9 +493,5 @@ def spindle_override_preset(parent):
 	parent.command.spindleoverride(float(value / 100))
 	parent.command.wait_complete()
 	print(float(value / 100))
-
-
-
-
 
 

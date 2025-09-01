@@ -312,7 +312,6 @@ class flexgui(QMainWindow):
 			self.window_size_lb.setText(f'{width}x{height}')
 		QMainWindow.resizeEvent(self, event)
 
-
 	def closeEvent(self, event):
 		shutdown.save_settings(self)
 		if self.help_dialog is not None:

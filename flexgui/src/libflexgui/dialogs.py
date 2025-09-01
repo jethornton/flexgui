@@ -299,7 +299,6 @@ def about_dialog(parent):
 	buttonBox = QDialogButtonBox()
 	buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Ok)
 	buttonBox.setCenterButtons(True)
-	#buttonBox.addButton("Credits", QDialogButtonBox.ActionRole)
 	buttonBox.accepted.connect(dialog_box.close)
 	layout.addWidget(buttonBox)
 
@@ -322,7 +321,6 @@ def quick_reference_dialog(parent):
 		shortcutsLabel.setText('  \n'.join(parent.shortcuts))
 	else:
 		shortcutsLabel.setText('No Keyboard Shortcuts Found')
-	#shortcutsLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 	layout.addWidget(shortcutsLabel)
 
 	layout.addStretch()
