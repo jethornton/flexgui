@@ -259,12 +259,6 @@ def setup_enables(parent):
 		if item not in parent.children:
 			del parent.state_on[item]
 
-	''' LED
-	parent.state_on_names = {'estop_pb': 'E Stop Closed',
-		'actionE_Stop': 'E Stop Closed', 'power_pb': 'Power On',
-		'actionPower': 'Power On'}
-	'''
-
 	parent.state_on_names = {}
 	if 'estop_pb' in parent.children:
 		closed_text = parent.estop_pb.property('closed_text')
@@ -616,13 +610,6 @@ def setup_menus(parent):
 
 			if len(action.shortcut().toString()) > 0: # collect shortcuts for quick reference
 				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
-	'''
-	# special check for Homing, Unhoming and Clear Offsets in the menu
-	menus = parent.findChildren(QMenu)
-	for menu in menus: # menus is the top most menu like File Machine etc.
-		menu_list = menu.actions()
-		for index, action in enumerate(menu_list):
-	'''
 
 def setup_actions(parent): # setup menu actions
 	actions_dict = {
@@ -1106,7 +1093,6 @@ def setup_jog(parent):
 		# convert um to mm divide the length value by 1000
 
 		parent.jog_modes_cb.setView(QListView())
-		#parent.jog_modes_cb.setAlignment(Qt.AlignmentFlag.AlignRight);
 		parent.jog_modes_cb.addItem('Continuous', False)
 
 		machine_units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
@@ -1269,9 +1255,8 @@ def setup_spindle(parent):
 
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
-			#parent.status_spindle_overrides[f'override_{i}'] = f'spindle_override_{i}_lb'
 
-	# might think about this a bit...
+	# FIXME might think about this a bit...
 	parent.status_spindle_dir = {}
 	if 'spindle_direction_0_lb' in parent.children: 
 		parent.status_spindle_dir['spindle_direction_0_lb'] = ['direction']
@@ -1893,18 +1878,6 @@ def setup_hal(parent):
 				pin = getattr(parent, f'{pin_name}')
 				parent.hal_progressbars[progressbar_name] = pin_name
 
-	'''
-	HAL_BIT = 1
-	HAL_FLOAT = 2
-	HAL_S32 = 3
-	HAL_U32 = 4
-	HAL_IN = 16
-	HAL_OUT = 32
-	HAL_IO = 48
-	HAL_RO = 64
-	HAL_RW = 192
-	'''
-
 	if len(hal_buttons) > 0: # setup hal buttons and checkboxes
 		for button in hal_buttons:
 			button_name = button.objectName()
@@ -2267,9 +2240,6 @@ def setup_plot(parent):
 					parent.settings.endGroup()
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
-
-		#def setView(self,v,z,x,y,lat=None,lon=None):
-		#parent.plotter.setView('x', 0.0, 1.0, 0.0, None, None)
 
 		parent.plotter.update()
 

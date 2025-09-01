@@ -98,7 +98,6 @@ def load_file(parent, nc_code_file=None):
 		'was not found. Loading aborted!')
 		dialogs.warn_msg_ok(parent, msg, 'File Missing')
 
-
 def file_selector(parent): # touch screen file selector
 	item = parent.file_lw.currentItem().text()
 
@@ -316,7 +315,7 @@ def action_step(parent): # actionStep
 
 def action_pause(parent): # actionPause
 	if parent.status.task_mode == emc.MODE_AUTO: # program is running
-		#  sometimes the state can be RCS_ERROR so this does not work all the time
+		#  FIXME sometimes the state can be RCS_ERROR so this does not work all the time
 		# if parent.status.state == emc.RCS_EXEC:
 		parent.command.auto(emc.AUTO_PAUSE)
 

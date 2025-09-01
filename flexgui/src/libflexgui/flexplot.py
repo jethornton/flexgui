@@ -124,7 +124,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			trajcoordinates = self.inifile.find("TRAJ", "COORDINATES").lower().replace(" ","")
 		except:
 			trajcoordinates = "unknown"
-			#raise SystemExit("Missing [TRAJ]COORDINATES")
 		kinsmodule = self.inifile.find("KINS", "KINEMATICS")
 
 		self.logger = linuxcnc.positionlogger(linuxcnc.stat(),
@@ -330,7 +329,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 					   self.from_internal_linear_unit(self.get_foam_w()))
 			self.calculate_gcode_properties(canon)
 		except Exception as e:
-			#print (e)
 			self.gcode_properties = None
 		finally:
 			shutil.rmtree(td)
@@ -345,7 +343,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 	# monkey patched function from StatCanon class
 	def output_notify_message(self, message):
 		pass
-		#print("Preview Notify:", message)
 
 	# monkey patched function from Progress class
 	def emit_percent(self, percent):
@@ -717,14 +714,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 	# redraws the screen aprox every 100ms
 	def paintGL(self):
-		#GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
-		#GL.glLoadIdentity() # reset the model-view matrix
-		#GL.glTranslated(0.0, 0.0, -10.0)
-		#GL.glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0) # rotate on x
-		#GL.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0) # rotate on y
-		#GL.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0) # rotate on z
-
-
 		try:
 			if self.perspective:
 				self.redraw_perspective()
@@ -732,12 +721,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 				self.redraw_ortho()
 
 		except Exception as e:
-			#print'error',e
 			return
-			#genList = GL.glGenLists(1)
-			#self.draw_small_origin(genList)
-			#GL.glCallList(genList)
-			# display something - probably in QtDesigner
 			GL.glCallList(self.object)
 
 	
@@ -749,7 +733,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		GL.glViewport(0, 0, w, h) # left corner in pixels
 		if self.use_gradient_background:
 				GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
-				###
 				GL.glMatrixMode(GL.GL_PROJECTION)
 				GL.glLoadIdentity() # switch to identity (origin) matrix
 
@@ -778,8 +761,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		else:
 			# Clear the background and depth buffer.
-			#GL.glClearColor(*(self.colors['back'] + (0,)))
-			#GL.glClearColor(*((0,0,255) + (0,)))
 			GL.glClearColor(*((self.background_color) + (0,)))
 
 			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
@@ -799,8 +780,8 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		try:
 			self.redraw()
 		finally:
-			GL.glFlush()							   # Tidy up
-			GL.glPopMatrix()				   # Restore the matrix
+			GL.glFlush() # Tidy up
+			GL.glPopMatrix() # Restore the matrix
 
 	# override glcanon function
 	def redraw_ortho(self):
@@ -837,9 +818,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			GL.glPopMatrix()
 
 		else:
-			# Clear the background and depth buffer.
-			#GL.glClearColor(*(self.colors['back'] + (0,)))
-			#GL.glClearColor(*((0,0,255) + (0,)))
 			GL.glClearColor(*((self.background_color) + (0,)))
 			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
 
@@ -940,7 +918,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 				probe)
 		except Exception as e:
 			pass
-			#print('GcodeGraphics: set_color:',e)
 
 	####################################
 	# view controls
@@ -1028,9 +1005,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		self.rotateOrTranslate(self.xmouse + vertical, self.ymouse + horizontal)
 
 	def recordCurrentViewSettings(self):
-		#print('record',self.current_view,self.get_zoom_distance(),
-		#self.get_total_translation(),self.get_viewangle(),self.perspective)
-
 		# set flag that presets are valid
 		self._presetFlag = True
 		self._recordedView = 'p' if self.perspective == True else self.current_view
@@ -1043,9 +1017,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 				self._recordedTransY, self._lat, self._lon
 
 	def setRecordedView(self):
-		#print('set to:',self._recordedView,self._recordedDist,self._recordedTransX,
-		#		self._recordedTransY,self._lat,self._lon)
-
 		getattr(self, 'set_view_%s' % self._recordedView)()
 		self.set_zoom_distance(self._recordedDist)
 		self.panView(self._recordedTransX,self._recordedTransY)
@@ -1061,13 +1032,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 				self.get_viewangle()[0], self.get_viewangle()[1]
 
 	def presetViewSettings(self,v,z,x,y,lat=None,lon=None):
-		#print('Preset:',v,z,x,y,lat,lon)
-		# initialize variables for user view
-		#self.presetViewSettings(v=None,z=0,
-		#	x=0,y=0,lat=None,lon=None)
-		# allow anyone else to preset user view with better settings
-		#self._presetFlag = False
-
 		self._recordedView = v
 		self._recordedDist = z
 		self._recordedTransX = x

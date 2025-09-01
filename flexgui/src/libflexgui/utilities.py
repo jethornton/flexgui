@@ -142,6 +142,7 @@ def all_unhomed(parent):
 def home_all_check(parent):
 	parent.status.poll()
 	for i in range(parent.status.joints):
+		# FIXME move to read_ini.py
 		if parent.inifile.find(f'JOINT_{i}', 'HOME_SEQUENCE') is None:
 			return False
 	return True
