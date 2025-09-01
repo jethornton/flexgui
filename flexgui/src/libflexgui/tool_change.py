@@ -5,6 +5,8 @@ import hal
 from PyQt6.QtWidgets import QDialog
 from PyQt6.uic import loadUi
 
+# called by dialogs.manual_tool_change
+
 class app(QDialog):
 	def __init__(self):
 		super().__init__()

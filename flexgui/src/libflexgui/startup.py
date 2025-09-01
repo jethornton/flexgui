@@ -24,7 +24,6 @@ from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import flexplot
-from libflexgui import view
 from libflexgui import probe
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
@@ -968,6 +967,7 @@ def setup_spin_boxes(parent):
 			sb_child.installEventFilter(parent)
 
 def load_postgui(parent): # load post gui hal and tcl files if found
+	# FIXME move to read_ini.py
 	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
 	if postgui_halfiles is not None:
 		for f in postgui_halfiles:
@@ -1058,10 +1058,12 @@ def setup_jog(parent):
 				'The jog slider uses integers only so it will be set to 0.')
 				dialogs.info_msg_ok(parent, msg, 'INI Configuration')
 
+		# FIXME move to read_ini.py
 		max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
 		if max_jog_vel:
 			parent.jog_vel_sl.setMaximum(int(float(max_jog_vel) * 60))
 
+		# FIXME move to read_ini.py
 		default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
 		if default_vel:
 			parent.jog_vel_sl.setValue(int(float(default_vel) * 60))
@@ -1095,8 +1097,10 @@ def setup_jog(parent):
 		parent.jog_modes_cb.setView(QListView())
 		parent.jog_modes_cb.addItem('Continuous', False)
 
+		# FIXME move to read_ini.py
 		machine_units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 		units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
+		# FIXME move to read_ini.py
 		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
 		if increments:
@@ -1176,6 +1180,7 @@ def conv_to_decimal(data):
 
 def setup_spindle(parent):
 	# spindle defaults
+	# FIXME move to read_ini.py
 	default_rpm = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or False
 	if default_rpm:
 		parent.spindle_speed = int(default_rpm)
@@ -1199,11 +1204,14 @@ def setup_spindle(parent):
 				getattr(parent, key).setCheckable(True)
 
 	# get default values
+	# FIXME move to read_ini.py
 	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	if not increment:
+		# FIXME move to read_ini.py
 		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	parent.increment = int(increment) if increment else 10
 
+	# FIXME move to read_ini.py
 	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
 	if parent.min_rpm and utilities.is_int(parent.min_rpm): # found in the ini and a valid int
 		parent.min_rpm = int(parent.min_rpm)
@@ -1212,6 +1220,7 @@ def setup_spindle(parent):
 	else:
 		parent.min_rpm = 0
 
+	# FIXME move to read_ini.py
 	max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 	if max_rpm and utilities.is_int(max_rpm): # found in the ini and a valid int
 		parent.max_rpm = int(max_rpm)
@@ -1232,6 +1241,7 @@ def setup_spindle(parent):
 
 	if 'spindle_override_sl' in parent.children:
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
+		# FIXME move to read_ini.py
 		max_spindle_override = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or False
 		if not max_spindle_override: max_spindle_override = 1.0
 		max_spindle_override = int(float(max_spindle_override) * 100)
@@ -1416,6 +1426,7 @@ def setup_tools(parent):
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
+		# FIXME move to read_ini.py
 		max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or False
 		if not max_feed_override: max_feed_override = 1.0
 		parent.feed_override_sl.setMaximum(int(float(max_feed_override) * 100))
@@ -1443,6 +1454,7 @@ def setup_defaults(parent):
 		else:
 			parent.command.set_optional_stop(False)
 
+	# FIXME move to read_ini.py
 	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 	if open_file and open_file != '""':
 		actions.load_file(parent, open_file)
@@ -2125,6 +2137,7 @@ def setup_plot(parent):
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
 
+		# FIXME move to read_ini.py
 		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
 		parent.plotter._font = f'monospace bold {dro_font}'
 
@@ -2347,6 +2360,7 @@ def setup_dsf(parent): # drill speed and feed calculator
 				parent.number_le.append(item)
 
 def setup_import(parent):
+	# FIXME move to read_ini.py
 	if parent.inifile.findall('FLEX', 'IMPORT'):
 		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
 		'The key IMPORT has been changed to IMPORT_PYTHON\n'
