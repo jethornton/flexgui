@@ -2162,7 +2162,7 @@ def setup_plot(parent):
 			case 'z2' if 'flex_View_Z2' in parent.children:
 				parent.flex_View_Z2.setStyleSheet(parent.selected_style)
 			case _: # default view does not have a pushbutton
-				print('default view not found')
+				print('default view button not found')
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
