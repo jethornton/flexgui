@@ -312,50 +312,7 @@ class flexgui(QMainWindow):
 			self.window_size_lb.setText(f'{width}x{height}')
 		QMainWindow.resizeEvent(self, event)
 
-	'''
-	def keyPressEvent(self, event: QKeyEvent):
-		k = event.key()
-		txt = event.text()
-		alt_modifier = (event.modifiers() == Qt.KeyboardModifier.AltModifier)
-		print(k, txt, alt_modifier, k==Qt.Key.Key_H)
 
-	def keyPressEvent(self, event):
-		if isinstance(event, QKeyEvent):
-			key_text = event.text()
-			print(f"Last Key Pressed: {key_text}")
-
-	Qt.Key.Key_Left 0x01000012
-	Qt.Key.Key_Up 0x01000013
-	Qt.Key.Key_Right 0x01000014
-	Qt.Key.Key_Down 0x01000015
-	Qt.Key.Key_PageUp 0x01000016
-	Qt.Key.Key_PageDown 0x01000017
-
-
-
-	def keyPressEvent(self, event):
-		if isinstance(event, QKeyEvent):
-			key_text = event.text()
-			print(f"Last Key Pressed: {key_text}")
-
-	def keyReleaseEvent(self, event):
-		if isinstance(event, QKeyEvent):
-			key_text = event.text()
-			print(f"Key Released: {key_text}")
-	'''
-
-	'''
-	def eventFilter(self, source, event):
-		if source.objectName() in self.number_le and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.numbers(self, source)
-		elif source.objectName() in self.nccode_le and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.gcode(self, source)
-		elif source.objectName() in self.keyboard_le and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.keyboard(self, source)
-		elif source.objectName() in self.touch_sb and event.type() == QEvent.Type.MouseButtonRelease:
-			dialogs.spinbox_numbers(self, source.parent())
-		return super().eventFilter(source, event)
-	'''
 	def closeEvent(self, event):
 		shutdown.save_settings(self)
 		if self.help_dialog is not None:
