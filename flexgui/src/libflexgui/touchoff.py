@@ -3,6 +3,8 @@ import sys, os
 from PyQt6.QtWidgets import QDialog
 from PyQt6.uic import loadUi
 
+# called by dialogs.touchoff_selected
+
 class app(QDialog):
 	def __init__(self):
 		super().__init__()

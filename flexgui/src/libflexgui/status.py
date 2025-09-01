@@ -169,8 +169,6 @@ def update(parent):
 		# this sets up home related items
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
 			#print('status update TRAJ_MODE_TELEOP')
-			# all joints are homed
-			#print('All Homed')
 			if not parent.probing:
 				for item in parent.home_required:
 					getattr(parent, item).setEnabled(True)
@@ -179,8 +177,6 @@ def update(parent):
 					getattr(parent, item).setEnabled(True)
 		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
 			#print('status update TRAJ_MODE_FREE')
-			# a joint is not homed
-			#print('All NOT Homed')
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
@@ -604,7 +600,6 @@ def update(parent):
 		parent.current_tool_info = parent.status.tool_table[0]
 
 	# handle errors
-	#if parent.status.state == parent.emc.RCS_ERROR:
 	error = parent.error.poll()
 	if error:
 		kind, text = error
