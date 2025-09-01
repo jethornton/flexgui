@@ -2144,8 +2144,10 @@ def setup_plot(parent):
 		if parent.plot_background_color:
 			parent.plotter.background_color = parent.plot_background_color
 
+		# set view in plotter to default view
 		parent.plotter.current_view = parent.default_view
 
+		# set view push button for current view selected
 		match parent.default_view:
 			case 'p' if 'flex_View_P' in parent.children:
 				parent.flex_View_P.setStyleSheet(parent.selected_style)
@@ -2159,7 +2161,7 @@ def setup_plot(parent):
 				parent.flex_View_Z.setStyleSheet(parent.selected_style)
 			case 'z2' if 'flex_View_Z2' in parent.children:
 				parent.flex_View_Z2.setStyleSheet(parent.selected_style)
-			case _:
+			case _: # default view does not have a pushbutton
 				print('default view not found')
 
 		#key object name, value[0] function, value[1] plot function
