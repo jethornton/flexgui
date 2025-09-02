@@ -1,7 +1,7 @@
 from math import sqrt
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
-from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox
+from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox, QSlider
 
 import linuxcnc as emc
 import hal
@@ -467,8 +467,10 @@ def update(parent):
 		value = hal.get_value(f'flexhal.{value}')
 		if isinstance(getattr(parent, key), QAbstractSpinBox):
 			getattr(parent, key).setValue(value)
-		if isinstance(getattr(parent, key), QCheckBox):
+		elif isinstance(getattr(parent, key), QCheckBox):
 			getattr(parent, key).setChecked(value)
+		elif isinstance(getattr(parent, key), QSlider):
+			getattr(parent, key).setValue(value)
 
 	for key, value in parent.hal_floats.items():
 		# label [status item, precision]
