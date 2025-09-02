@@ -183,7 +183,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
@@ -391,6 +391,13 @@ you can also force that home is required</string>
         <string>HAL IO</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>flexhal.hal-io-s32-sb</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="1">
          <widget class="QSpinBox" name="spinBox_2">
           <property name="minimum">
@@ -410,17 +417,22 @@ you can also force that home is required</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>flexhal.hal-io-cb</string>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox">
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>flexhal.hal-io-s32-sb</string>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-dsb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_FLOAT</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_IO</string>
           </property>
          </widget>
         </item>
@@ -428,6 +440,40 @@ you can also force that home is required</string>
          <widget class="QLabel" name="label_13">
           <property name="text">
            <string>flexhal.hal-io-u32-sb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Run Programs Show HAL and add
+ the HALpins to the watch window
+in the HAL command box you can use setp
+ to change a value and see the object
+change in the GUI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="spinBox_3">
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-u32-sb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_U32</string>
+          </property>
+          <property name="hal_dir" stdset="0">
+           <string>HAL_IO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_20">
+          <property name="text">
+           <string>HAL Pin Name</string>
           </property>
          </widget>
         </item>
@@ -457,24 +503,23 @@ you can also force that home is required</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="2">
-         <widget class="QLabel" name="label_9">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_10">
           <property name="text">
-           <string>Run Programs Show HAL and add
- the HALpins to the watch window
-in the HAL command box you can use setp
- to change a value and see the object
-change in the GUI</string>
+           <string>flexhal.hal-io-cb</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
-         <widget class="QSpinBox" name="spinBox_3">
+        <item row="5" column="1">
+         <widget class="QSlider" name="horizontalSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
           <property name="function" stdset="0">
            <string>hal_io</string>
           </property>
           <property name="pin_name" stdset="0">
-           <string>hal-io-u32-sb</string>
+           <string>hal-io-slider</string>
           </property>
           <property name="hal_type" stdset="0">
            <string>HAL_U32</string>
@@ -484,29 +529,10 @@ change in the GUI</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="doubleSpinBox">
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_io</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>hal-io-dsb</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_FLOAT</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_IO</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_20">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>HAL Pin Name</string>
+           <string>flexhal.hal-io-slider</string>
           </property>
          </widget>
         </item>
