@@ -1581,6 +1581,8 @@ def setup_hal(parent):
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
+	##### HAL_IO #####
+
 	for child in children:
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()
@@ -1591,7 +1593,7 @@ def setup_hal(parent):
 			hal_dir = getattr(hal, f'{hal_dir}')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
-			if isinstance(child, QCheckBox): # QCheckBox, QPushButton, QRadioButton & QToolButton
+			if isinstance(child, QCheckBox):
 				if hal_type == hal.HAL_BIT:
 					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
 				else:
@@ -1632,8 +1634,16 @@ def setup_hal(parent):
 					msg = (f'The QDoubleSpinBox hal_type must be\n'
 					'set to hal.HAL_FLOAT.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
+			elif isinstance(child, QSlider):
+				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
+					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+				else:
+					msg = (f'The QSlider hal_type must be\n'
+					'set to hal.HAL_S32 or hal.HAL_U32.')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 
 			parent.hal_io[child_name] = pin_name
+
 			if child.property('variable') is not None:
 				var = child.property('variable')
 				found = False
@@ -2360,6 +2370,13 @@ def setup_dsf(parent): # drill speed and feed calculator
 			for item in dsf_items:
 				getattr(parent.dsf_calc, f'{item}').installEventFilter(parent)
 				parent.number_le.append(item)
+
+def setup_tpc(parent): # three point center calculator
+	if 'tpc_container' in parent.children:
+		from libflexgui import tpc
+		parent.tpc_calc = tpc.tpc_calc(parent)
+		layout = QVBoxLayout(parent.tpc_container)
+		layout.addWidget(parent.tpc_calc)
 
 def setup_import(parent):
 	# FIXME move to read_ini.py
