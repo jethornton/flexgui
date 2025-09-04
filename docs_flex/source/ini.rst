@@ -277,3 +277,17 @@ following to the FLEXGUI section.
 
 	[FLEXGUI]
 	TOUCH_FILE_WIDTH = True
+
+Plotter
+^^^^^^^
+
+The font size for the plotter can be set in the ini by adding the following to
+the FLEXGUI section. The font size must be an integer.
+
+::
+
+	[FLEXGUI]
+	DRO_FONT_SIZE = 12
+
+
+

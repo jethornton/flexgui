@@ -143,5 +143,5 @@ The live plot can be cleared from the menu with this menu item.
 DRO
 ---
 
-The font size can be set in the ini file by adding in the [DISPLAY] section 
+The font size can be set in the ini file by adding in the [FLEXGUI] section 
 DRO_FONT_SIZE = n where n is an integer. The default size is 12.
