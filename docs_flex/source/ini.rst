@@ -289,5 +289,11 @@ the FLEXGUI section. The font size must be an integer.
 	[FLEXGUI]
 	DRO_FONT_SIZE = 12
 
+To add a manual tool change popup to add the following to the ini file in the
+[FLEXGUI] section.
+::
+
+	[FLEXGUI]
+	MANUAL_TOOL_CHANGE = True
 
 
