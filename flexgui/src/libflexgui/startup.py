@@ -2166,7 +2166,7 @@ def setup_plot(parent):
 				'it will be removed so get it changed.')
 			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
 		else: # look in the new spot
-			dro_font = self.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
+			dro_font = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
 
 		parent.plotter._font = f'monospace bold {dro_font}'
 
