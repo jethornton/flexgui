@@ -209,6 +209,14 @@ The plotter orientation can be set to one of the following x, x2, y, y2, z, or p
 	[DISPLAY]
 	VIEW = x
 
+The font size for the plotter can be set in the ini by adding the following to
+the FLEXGUI section. The font size must be an integer.
+
+::
+
+	[FLEXGUI]
+	DRO_FONT_SIZE = 12
+
 Colors
 ^^^^^^
 
@@ -277,17 +285,6 @@ following to the FLEXGUI section.
 
 	[FLEXGUI]
 	TOUCH_FILE_WIDTH = True
-
-Plotter
-^^^^^^^
-
-The font size for the plotter can be set in the ini by adding the following to
-the FLEXGUI section. The font size must be an integer.
-
-::
-
-	[FLEXGUI]
-	DRO_FONT_SIZE = 12
 
 To add a manual tool change popup to add the following to the ini file in the
 [FLEXGUI] section.
