@@ -1,0 +1,1 @@
+net probe-trip flexhal.probe-trip => motion.probe-input
