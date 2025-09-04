@@ -8,6 +8,44 @@ from libflexgui import utilities
 
 def read(parent):
 
+	# ***** Test for old entries *****
+	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key TOUCH_FILE_WIDTH needs to be in the [FLEXGUI] section\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key MANUAL_TOOL_CHANGE needs to be in the [FLEXGUI] section\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.findall('FLEX', 'IMPORT'):
+		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
+		'The key IMPORT has been changed to IMPORT_PYTHON\n'
+		'Check Python section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('DISPLAY', 'THEME'):
+		msg = ('THEME has been moved to the [FLEXGUI]\n'
+			'section of the ini file.\n'
+			'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('DISPLAY', 'QSS'):
+		msg = ('QSS has been moved to the [FLEXGUI]\n'
+			'section of the ini file.\n'
+			'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
