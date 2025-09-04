@@ -8,8 +8,11 @@ INI Settings
 
 .. _using_flexgui:
 
-Using Flex GUI
---------------
+[DISPLAY]
+---------
+
+Flex GUI
+^^^^^^^^
 
 To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to
 ::
@@ -27,54 +30,8 @@ with its `filename`:
 
 	GUI = my-file-name.ui
 
-.. _installed_themes:
-
-Themes
-------
-
-Themes are just style sheets that get applied to the widgets. The theme files
-are in the themes directory of the example files if you want to copy and
-customize one of the themes.
-::
-
-	blue.qss
-	blue-touch.qss
-	dark.qss
-	dark-touch.qss
-	keyboard.qss
-	touch.qss
-
-To use a built-in theme with no color changes choose one of the
-following
-::
-
-	THEME = touch
-	THEME = keyboard
-
-To use a built in theme with coloring choose one of the following
-::
-
-	THEME = blue
-	THEME = blue-touch
-	THEME = dark
-	THEME = dark-touch
-
-.. note:: Touch themes use tabs set to South for rounding and non touch use tabs
-   set to North.
-
-.. note:: THEME is checked first then QSS so the first entry found is used.
-
-To use a custom .qss style sheet you created named `lightflex.qss`
-::
-
-	QSS = lightflex.qss
-
-For more information on style sheets see :doc:`style`
-
-.. _jog-increments:
-
 Jog Increments
---------------
+^^^^^^^^^^^^^^
 
 The following settings can be used in the [DISPLAY] section of the ini file to
 preset jog items
@@ -94,9 +51,8 @@ preset jog items
    labels cm, mm, um, inch, in or mil. If no unit labels are found the the
    configuration units are used.
 
-
 Startup File
-------------
+^^^^^^^^^^^^
 
 To automatically open a NC file on startup, add the OPEN_FILE key with any
 valid path. Use ~/ as a shortcut to the users home directory. Use ./ to indicate
@@ -113,7 +69,7 @@ that the file is in the configuration directory
 	OPEN_FILE = ../welcome.ngc
 
 File Location
--------------
+^^^^^^^^^^^^^
 
 Likewise, to specify a default location for NC files, add the PROGRAM_PREFIX
 item.
@@ -128,7 +84,7 @@ item.
 	PROGRAM_PREFIX = ../
 
 Tool Table Editor
------------------
+^^^^^^^^^^^^^^^^^
 
 To specify a different tool table editor add an entry to the [DISPLAY] section.
 If no entry is found then the default tool editor is used
@@ -145,19 +101,6 @@ column specifiers separated by a space.
 If no entry is found then the axes in the configuration and diameter are shown.
 Tool, Pocket and Comment are always shown.
 
-Resource File
--------------
-
-To use a .py resource file (to add images to buttons with your qss stylesheet)
-place the .py resource file in the configuration directory and add the
-following line to the .ini file
-::
-
-	RESOURCES = resources.py
-
-See the section on Resources for more info.
-
-
 File Extensions
 ---------------
 
@@ -169,8 +112,72 @@ extensions must be in the format `*.ext` with the asterisk and dot
 
 	EXTENSIONS = *.nc, *.G-code, *.ngc, *.txt
 
+[FLEXGUI]
+---------
+
+.. _installed_themes:
+
+Themes
+^^^^^^
+
+Themes are just style sheets that get applied to the widgets. The theme files
+are in the themes directory of the example files if you want to copy and
+customize one of the themes.
+::
+
+	blue.qss
+	blue-touch.qss
+	dark.qss
+	dark-touch.qss
+	keyboard.qss
+	touch.qss
+
+To use a built-in theme with no color changes add one of the following to the
+[FLEXGUI] section of the ini file.
+::
+
+	THEME = touch
+	THEME = keyboard
+
+To use a built in theme with coloring add one of the following to the
+[FLEXGUI] section of the ini file.
+::
+
+	THEME = blue
+	THEME = blue-touch
+	THEME = dark
+	THEME = dark-touch
+
+.. note:: Touch themes use tabs set to South for rounding and non touch use tabs
+   set to North.
+
+.. note:: THEME is checked first then QSS so the first entry found is used.
+
+To use a custom .qss style sheet you created add the name of the stylesheet to
+the QSS option in [FLEXGUI] section of the ini file.
+::
+
+	QSS = name_of_stylesheet.qss
+
+For more information on style sheets see :doc:`style`
+
+.. _jog-increments:
+
+
+Resource File
+^^^^^^^^^^^^^
+
+To use a .py resource file (to add images to buttons with your qss stylesheet)
+place the .py resource file in the configuration directory and add the
+following line to the .ini file
+::
+
+	RESOURCES = resources.py
+
+See the section on Resources for more info.
+
 Screen Size
------------
+^^^^^^^^^^^
 
 To control the initial size of the screen, add either:
 ::
@@ -185,7 +192,7 @@ To control the initial size of the screen, add either:
    close the application. As a last-resort, pressing ALT-F4 will close it.
 
 Plotter
--------
+^^^^^^^
 
 The plotter background color can be set in the [FLEXGUI] section of the ini. The
 value is the Red,Greed,Blue color numbers from 0 to 1 with no space. So an entry
@@ -203,7 +210,7 @@ The plotter orientation can be set to one of the following x, x2, y, y2, z, or p
 	VIEW = x
 
 Colors
-------
+^^^^^^
 
 The E-Stop can have a static color for Open and Closed.
 
@@ -231,7 +238,7 @@ file. See the :doc:`style` section for more info.
 .. _led_defaults:
 
 LED Defaults
-------------
+^^^^^^^^^^^^
 
 LED buttons can have defaults set in the ini file. This makes it easier to have
 consistent LED size, position and colors. These options go in the [FLEXGUI]
@@ -260,7 +267,7 @@ The Diameter and Offset values are whole numbers only.
 For more information on LED buttons see :ref:`led_buttons`
 
 Touch Screens
--------------
+^^^^^^^^^^^^^
 
 Options for touch screen users.
 
