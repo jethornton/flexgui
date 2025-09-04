@@ -2158,7 +2158,16 @@ def setup_plot(parent):
 		layout.addWidget(parent.plotter)
 
 		# FIXME move to read_ini.py
-		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or '12'
+		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or False
+		if dro_font:
+			msg = ('DRO_FONT_SIZE has been moved to the [FLEXGUI]\n'
+				'section of the ini file.\n'
+				'For now it will still work but soon\n'
+				'it will be removed so get it changed.')
+			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
+		else: # look in the new spot
+			dro_font = self.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
+
 		parent.plotter._font = f'monospace bold {dro_font}'
 
 		if parent.plot_background_color:
