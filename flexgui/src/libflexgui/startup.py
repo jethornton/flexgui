@@ -310,6 +310,7 @@ def setup_enables(parent):
 			'open_pb': False, 'reload_pb': False,
 			'run_pb': False, 'run_from_line_pb': False,
 			'step_pb': False, 'pause_pb': True,
+			'jog_selected_plus': False, 'jog_selected_minus': False,
 			'resume_pb': False, 'run_mdi_pb': False,
 			'home_all_pb': False,'actionRun': False,
 			'actionOpen': False, 'menuRecent': False, 'actionReload': False,
@@ -1461,6 +1462,7 @@ def setup_defaults(parent):
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
+	#print('setup_probing')
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.children:
