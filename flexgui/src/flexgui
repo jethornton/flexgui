@@ -176,6 +176,7 @@ class flexgui(QMainWindow):
 					'not found, check for file name resources.py.')
 				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
+		# FIXME this was changed on 9-4-25 in 1.3.0 so remove after a few months
 		# check for theme and input type or a qss file
 		self.theme = self.inifile.find('DISPLAY', 'THEME') or False
 		if self.theme:
