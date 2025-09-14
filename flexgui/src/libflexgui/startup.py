@@ -2398,12 +2398,6 @@ def setup_tpc(parent): # three point center calculator
 		layout.addWidget(parent.tpc_calc)
 
 def setup_import(parent):
-	# FIXME move to read_ini.py
-	if parent.inifile.findall('FLEX', 'IMPORT'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key IMPORT has been changed to IMPORT_PYTHON\n'
-		'Check the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 	modules = parent.inifile.findall('FLEXGUI', 'IMPORT_PYTHON') or False
 	if modules:
 		for module_name in modules:
