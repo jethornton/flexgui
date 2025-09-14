@@ -2401,16 +2401,23 @@ def setup_import(parent):
 	modules = parent.inifile.findall('FLEXGUI', 'IMPORT_PYTHON') or False
 	if modules:
 		for module_name in modules:
-			try:
-				sys.path.append(parent.config_path)
-				module = importlib.import_module(module_name)
-				module.startup(parent)
-			except Exception as e:
-				print(traceback.format_exc())
-				msg = (f'The file {module_name} was\n'
-					'not found, check for file name\n'
-					'or there was an error in the imported\n'
-					'module code.')
+			module_path = os.path.join(parent.config_path, f'{module_name}.py')
+			if os.path.exists(module_path):
+				try:
+					sys.path.append(parent.config_path)
+					module = importlib.import_module(module_name)
+					module.startup(parent)
+				except Exception as e:
+					print(traceback.format_exc())
+					msg = (f'The python file\n'
+					f'{module_path}\n'
+					'has an error in the module code.\n'
+					f'{traceback.format_exc()}')
+					dialogs.warn_msg_ok(parent, msg, 'Import Failed')
+			else:
+				msg = (f'The python file\n'
+				f'{module_path}\n'
+				'was not found.\n')
 				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
 def setup_help(parent):
