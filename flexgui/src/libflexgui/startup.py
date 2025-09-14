@@ -968,15 +968,19 @@ def setup_spin_boxes(parent):
 			sb_child.installEventFilter(parent)
 
 def load_postgui(parent): # load post gui hal and tcl files if found
-	# FIXME move to read_ini.py
-	postgui_halfiles = parent.inifile.findall("HAL", "POSTGUI_HALFILE") or None
-	if postgui_halfiles is not None:
-		for f in postgui_halfiles:
-			if f.lower().endswith('.tcl'):
-				res = os.spawnvp(os.P_WAIT, "haltcl", ["haltcl", "-i", parent.ini_path, f])
+	if parent.postgui_halfiles:
+		for f in parent.postgui_halfiles:
+			if os.path.exists(os.path.join(parent.config_path, f)):
+				if f.lower().endswith('.tcl'):
+					res = os.spawnvp(os.P_WAIT, "haltcl", ["haltcl", "-i", parent.ini_path, f])
+				else:
+					res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
+				if res: raise SystemExit(res)
 			else:
-				res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
-			if res: raise SystemExit(res)
+				msg = (f'The POSTGUI_HALFILE\n'
+				f'{os.path.join(parent.config_path, f)}\n'
+				'was not found in the configuration directory.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_mdi(parent):
 	# mdi_command_le and run_mdi_pb are required to run mdi commands

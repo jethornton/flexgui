@@ -109,6 +109,9 @@ def read(parent):
 	# ***** [RS274NGC] Section *****
 	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
 
+	# ***** [HAL] Section *****
+	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
+
 	# ***** [FLEXGUI] Section *****
 	# check for LED defaults in the ini file
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
