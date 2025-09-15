@@ -32,6 +32,10 @@ EXEC_STATES = {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
 	7: 'EXEC_WAITING_FOR_MOTION_AND_IO', 8: 'EXEC_WAITING_FOR_DELAY',
 	9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED', }
 MOTION_MODES = {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'}
+MOTION_TYPES = {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
+	2: 'MOTION_TYPE_FEED', 3: 'MOTION_TYPE_ARC', 4: 'MOTION_TYPE_TOOLCHANGE',
+	5: 'MOTION_TYPE_PROBING', 6: 'MOTION_TYPE_INDEXROTARY'}
+
 STATES = {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'}
 
 def update(parent):
@@ -184,6 +188,11 @@ def update(parent):
 
 		parent.motion_mode = parent.status.motion_mode
 
+	# **** MOTION TYPE ****
+	if parent.motion_type != parent.status.motion_type:
+		print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]}')
+		parent.motion_type = parent.status.motion_type
+
 	# **** INTERP STATE ****
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
@@ -330,7 +339,7 @@ def update(parent):
 	# **** STATE ****
 	# state RCS_DONE, RCS_EXEC, RCS_ERROR
 	if parent.state != parent.status.state:
-		#print(f'STATE: {STATES[parent.status.state]}')
+		print(f'STATE: {STATES[parent.status.state]}')
 		parent.state = parent.status.state
 
 	# **** MDI CHANGE ****
