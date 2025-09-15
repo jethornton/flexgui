@@ -76,7 +76,7 @@ def read(parent):
 
 	# ***** [FLEXGUI] Section *****
 
-	# check for theme
+	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
 	# ***** Test for old entries *****
@@ -115,6 +115,18 @@ def read(parent):
 			'section of the ini file.\n'
 			'Check the INI section of the Documents for correct INI entries.')
 		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	# check for QSS
+	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
+
+	# test for both THEME and QSS
+	if parent.theme and parent.qss_file:
+		msg = (f'The THEME {self.theme} and QSS {parent.qss_file}\n'
+			'were both found in the ini file.\n'
+			f'the QSS {parent.qss_file} will not be used.\n'
+			'Only one can be specified in the ini.')
+		dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
+		parent.qss_file = False
 
 	# check for LED defaults in the ini file
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
