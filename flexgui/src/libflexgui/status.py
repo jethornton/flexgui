@@ -193,7 +193,9 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
 				#print('status update INTERP_IDLE MODE_AUTO')
 				parent.command.mode(emc.MODE_MANUAL)
+				print('status.py 195 parent.command.mode(emc.MODE_MANUAL)')
 				parent.command.wait_complete()
+				print('status.py 198 parent.command.wait_complete()')
 				#print(f'{TASK_MODES[parent.status.task_mode]}')
 
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
@@ -201,11 +203,15 @@ def update(parent):
 				if parent.tool_button:
 					parent.tool_button = False
 					parent.command.mode(emc.MODE_MANUAL)
+					print('status.py 205 parent.command.mode(emc.MODE_MANUAL)')
 					parent.command.wait_complete()
+					print('status.py 207 parent.command.wait_complete()')
 				elif parent.tool_changed:
 					parent.tool_changed = False
 					parent.command.mode(emc.MODE_MANUAL)
+					print('status.py 212 parent.command.mode(emc.MODE_MANUAL)')
 					parent.command.wait_complete()
+					print('status.py 214 parent.command.wait_complete()')
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
