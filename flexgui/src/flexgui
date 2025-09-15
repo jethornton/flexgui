@@ -167,6 +167,9 @@ class flexgui(QMainWindow):
 		else:
 			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
 
+		# get ini values if any before trying to use them
+		read_ini.read(self)
+
 		# check for a resources.py file with images for the stylesheet
 		resources_file = self.inifile.find('DISPLAY', 'RESOURCES') or False
 		if resources_file: # import the resources file
@@ -178,18 +181,7 @@ class flexgui(QMainWindow):
 					'not found, check for file name resources.py.')
 				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
-		# FIXME this was changed on 9-4-25 in 1.3.0 so remove after a few months
-		# check for theme and input type or a qss file
-		self.theme = self.inifile.find('DISPLAY', 'THEME') or False
-		if self.theme:
-			msg = ('Theme has been moved to the [FLEXGUI]\n'
-				'section of the ini file.\n'
-				'For now it will still work but soon\n'
-				'it will be removed so get it changed.')
-			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
-		else: # look in the new spot
-			self.theme = self.inifile.find('FLEXGUI', 'THEME') or False
-
+		# THEME is now loaded in read_ini.py
 
 		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
 		if qss_file:
@@ -225,9 +217,6 @@ class flexgui(QMainWindow):
 				msg = (f'The Stylesheet {stylesheet}\n'
 					'was not found.')
 				dialogs.warn_msg_ok(parent, msg, 'INI Error')
-
-		# get ini values if any
-		read_ini.read(self)
 
 		# get a list of axis letters in the configuration
 		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
