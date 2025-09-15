@@ -117,6 +117,7 @@ class flexgui(QMainWindow):
 		self.task_mode = self.status.task_mode
 		self.interp_state = self.status.interp_state
 		self.motion_mode = self.status.motion_mode
+		self.motion_type = self.status.motion_type
 		self.state = self.status.state
 		self.command = emc.command()
 		self.error = emc.error_channel()
@@ -182,32 +183,16 @@ class flexgui(QMainWindow):
 				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
 		# THEME is now loaded in read_ini.py
-
-		qss_file = self.inifile.find('DISPLAY', 'QSS') or False
-		if qss_file:
-			msg = ('QSS has been moved to the [FLEXGUI]\n'
-				'section of the ini file.\n'
-				'For now it will still work but soon\n'
-				'it will be removed so get it changed.')
-			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
-		else: # look in the new spot
-			qss_file = self.inifile.find('FLEXGUI', 'QSS') or False
+		# QSS is not loaded in read_ini.py
 
 		stylesheet = False
-		if self.theme and qss_file:
-			msg = (f'The THEME {self.theme} and QSS {qss_file}\n'
-				'were both found in the ini file.\n'
-				f'the QSS {qss_file} will not be used.\n'
-				'Only one can be specified in the ini.')
-			dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
 		if self.theme:
 			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
 			if self.theme in valid_themes:
 				stylesheet = os.path.join(self.lib_path, f'{self.theme}.qss')
 				from libflexgui import resources
-
-		elif qss_file: # use a local qss file
-			stylesheet = os.path.join(self.config_path, qss_file)
+		elif self.qss_file: # use a local qss file
+			stylesheet = os.path.join(self.config_path, self.qss_file)
 
 		if stylesheet:
 			if os.path.isfile(stylesheet):
