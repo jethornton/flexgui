@@ -8,6 +8,36 @@ INI Settings
 
 .. _using_flexgui:
 
+[EMC]
+-----
+
+The optional DEBUG key in the [EMC] section can be used to show various levels
+of debug information. The DEBUG key is not required.
+::
+
+	DEBUG = option number
+
+Debug Options
+::
+
+	EMC_DEBUG_CONFIG               2
+	EMC_DEBUG_VERSIONS             8
+	EMC_DEBUG_TASK_ISSUE          10
+	EMC_DEBUG_NML                 40
+	EMC_DEBUG_MOTION_TIME         80
+	EMC_DEBUG_INTERP             100
+	EMC_DEBUG_RCS                200
+	EMC_DEBUG_INTERP_LIST        800
+	EMC_DEBUG_IOCONTROL         1000
+	EMC_DEBUG_OWORD             2000
+	EMC_DEBUG_REMAP             4000
+	EMC_DEBUG_PYTHON            8000
+	EMC_DEBUG_NAMEDPARAM       10000
+	EMC_DEBUG_GDBONSIGNAL      20000
+	EMC_DEBUG_STATE_TAGS       80000
+	EMC_DEBUG_UNCONDITIONAL 40000000
+	EMC_DEBUG_ALL           7FFFFFFF
+
 [DISPLAY]
 ---------
 
