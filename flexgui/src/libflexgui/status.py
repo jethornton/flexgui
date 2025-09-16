@@ -44,7 +44,7 @@ def update(parent):
 	# **** TASK STATE ****
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		print(f'TASK STATE: {TASK_STATES[parent.status.task_state]} Motion Line {parent.status.motion_line}')
+		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
 
 		# e stop open
 		if parent.status.task_state == emc.STATE_ESTOP:
@@ -169,7 +169,7 @@ def update(parent):
 	# **** MOTION MODE ****
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
-		print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]} Motion Line {parent.status.motion_line}')
+		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
 		# this sets up home related items
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
 			#print('status update TRAJ_MODE_TELEOP')
@@ -190,21 +190,21 @@ def update(parent):
 
 	# **** MOTION TYPE ****
 	if parent.motion_type != parent.status.motion_type:
-		print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]} Motion Line {parent.status.motion_line}')
+		#print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]}')
 		parent.motion_type = parent.status.motion_type
 
 	# **** INTERP STATE ****
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]} Motion Line {parent.status.motion_line}')
+		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
 
 		if parent.status.interp_state == emc.INTERP_IDLE:
 			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
 				#print('status update INTERP_IDLE MODE_AUTO')
 				parent.command.mode(emc.MODE_MANUAL)
-				print('status.py 195 parent.command.mode(emc.MODE_MANUAL) Motion Line {parent.status.motion_line}')
+				#print('status.py 195 parent.command.mode(emc.MODE_MANUAL)')
 				parent.command.wait_complete()
-				print('status.py 198 parent.command.wait_complete()')
+				#print('status.py 198 parent.command.wait_complete()')
 				#print(f'{TASK_MODES[parent.status.task_mode]}')
 
 			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
@@ -212,15 +212,15 @@ def update(parent):
 				if parent.tool_button:
 					parent.tool_button = False
 					parent.command.mode(emc.MODE_MANUAL)
-					print('status.py 205 parent.command.mode(emc.MODE_MANUAL) Motion Line {parent.status.motion_line}')
+					#print('status.py 205 parent.command.mode(emc.MODE_MANUAL)')
 					parent.command.wait_complete()
-					print('status.py 207 parent.command.wait_complete()')
+					#print('status.py 207 parent.command.wait_complete()')
 				elif parent.tool_changed:
 					parent.tool_changed = False
 					parent.command.mode(emc.MODE_MANUAL)
-					print('status.py 212 parent.command.mode(emc.MODE_MANUAL) Motion Line {parent.status.motion_line}')
+					#print('status.py 212 parent.command.mode(emc.MODE_MANUAL)')
 					parent.command.wait_complete()
-					print('status.py 214 parent.command.wait_complete()')
+					#print('status.py 214 parent.command.wait_complete()')
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
@@ -261,7 +261,7 @@ def update(parent):
 	# **** TASK MODE ****
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]} Motion Line {parent.status.motion_line}')
+		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = True
@@ -330,7 +330,7 @@ def update(parent):
 	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
-		print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]} Motion Line {parent.status.motion_line}')
+		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
 		if parent.status.exec_state == emc.EXEC_WAITING_FOR_MOTION:
 			for key, value in parent.program_running.items():
 				getattr(parent, key).setEnabled(value)
@@ -339,7 +339,7 @@ def update(parent):
 	# **** STATE ****
 	# state RCS_DONE, RCS_EXEC, RCS_ERROR
 	if parent.state != parent.status.state:
-		print(f'STATE: {STATES[parent.status.state]} Motion Line {parent.status.motion_line}')
+		#print(f'STATE: {STATES[parent.status.state]}')
 		parent.state = parent.status.state
 
 	# **** MDI CHANGE ****
