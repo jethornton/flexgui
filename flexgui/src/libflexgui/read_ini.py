@@ -80,6 +80,12 @@ def read(parent):
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
 	# ***** Test for old entries *****
+	if parent.inifile.find('DISPLAY', 'RESOURCES'):
+		msg = ('The [DISPLAY] section has been changed to [FLEXGUI]\n'
+		'The key RESOURCES needs to be in the [FLEXGUI] section\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
 		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
 		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
@@ -115,6 +121,9 @@ def read(parent):
 			'section of the ini file.\n'
 			'Check the INI section of the Documents for correct INI entries.')
 		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	# check for a RESOURCES
+	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 
 	# check for QSS
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
