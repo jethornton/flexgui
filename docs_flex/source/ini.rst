@@ -12,7 +12,7 @@ INI Settings
 -----
 
 The optional DEBUG key in the [EMC] section can be used to show various levels
-of debug information. The DEBUG key is not required.
+of debug information when running in a terminal. The DEBUG key is not required.
 ::
 
 	DEBUG = option number
