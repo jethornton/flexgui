@@ -169,11 +169,11 @@ def read(parent):
 
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file:
-		msg = (f'The THEME {self.theme} and QSS {parent.qss_file}\n'
+		msg = (f'The THEME {parent.theme} and QSS {parent.qss_file}\n'
 			'were both found in the ini file.\n'
 			f'the QSS {parent.qss_file} will not be used.\n'
 			'Only one can be specified in the ini.')
-		dialogs.warn_msg_ok(self, msg, 'INI Configuration ERROR!')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 		parent.qss_file = False
 
 	# check for LED defaults in the ini file
