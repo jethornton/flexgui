@@ -66,11 +66,9 @@ def read(parent):
 		parent.default_view = 'p'
 
 	# get spindle increment
-	# FIXME move to read_ini.py
-	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
+	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:
-		# FIXME move to read_ini.py
-		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
+		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	parent.increment = int(increment) if increment else 10
 
 	# ***** [EMCIO] Section *****
