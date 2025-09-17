@@ -80,15 +80,48 @@ def read(parent):
 	# ***** [HAL] Section *****
 	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
 
-	# ***** [FLEXGUI] Section *****
+	# ***** [SPINDLE_0] Section *****
+	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+	parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 
+	# ***** [FLEXGUI] Section *****
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
 	# ***** Test for old entries *****
 	if parent.inifile.find('DISPLAY', 'RESOURCES'):
-		msg = ('The [DISPLAY] section has been changed to [FLEXGUI]\n'
+		msg = ('The key RESOURCES has been moved from the [DISPLAY] section\n'
 		'The key RESOURCES needs to be in the [FLEXGUI] section\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('DISPLAY', 'SIZE'):
+		msg = ('The key SIZE has been moved from the [DISPLAY] section\n'
+		'The key SIZE needs to be in the [FLEXGUI] section\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
+		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
+		'The key ESTOP_OPEN is now ESTOP_OPEN_COLOR\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED'):
+		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
+		'The key ESTOP_CLOSED is now ESTOP_CLOSED_COLOR\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('FLEX_COLORS', 'POWER_OFF'):
+		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
+		'The key POWER_OFF is now POWER_OFF_COLOR\n'
+		'Check the INI section of the Documents for correct INI entries.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('FLEX_COLORS', 'POWER_ON'):
+		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
+		'The key POWER_ON is now POWER_ON_COLOR\n'
 		'Check the INI section of the Documents for correct INI entries.')
 		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
