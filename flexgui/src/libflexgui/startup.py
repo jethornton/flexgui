@@ -1208,14 +1208,6 @@ def setup_spindle(parent):
 			if key in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, key).setCheckable(True)
 
-	# get default values
-	# FIXME move to read_ini.py
-	increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-	if not increment:
-		# FIXME move to read_ini.py
-		increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-	parent.increment = int(increment) if increment else 10
-
 	# FIXME move to read_ini.py
 	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
 	if parent.min_rpm and utilities.is_int(parent.min_rpm): # found in the ini and a valid int
