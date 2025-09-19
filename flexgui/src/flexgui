@@ -310,20 +310,7 @@ class flexgui(QMainWindow):
 		if self.help_dialog is not None:
 			self.help_dialog.close()
 
-
 app = QApplication(sys.argv)
-
-if __name__ != "__main__":
-	window = flexgui()
-	sys.exit(app.exec())
-else: # trying to run flexgui from a terminal
-	msg = ('Flex GUI must be called from\n'
-	'the LinuxCNC ini file.')
-	msg_box = QMessageBox()
-	msg_box.setIcon(QMessageBox.Icon.Warning)
-	msg_box.setWindowTitle('Error')
-	msg_box.setText(msg)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
-	msg_box.exec()
-	sys.exit()
+window = flexgui()
+sys.exit(app.exec())
 
