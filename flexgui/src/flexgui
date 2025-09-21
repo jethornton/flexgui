@@ -213,6 +213,7 @@ class flexgui(QMainWindow):
 		startup.set_screen(self)
 		startup.setup_vars(self)
 		startup.setup_led_buttons(self)
+		startup.setup_hal_leds(self)
 		startup.find_children(self)
 		startup.update_check(self)
 		startup.setup_plot(self)

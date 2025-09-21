@@ -21,8 +21,8 @@ class IndicatorButton(QPushButton):
 		size = self.rect()
 		x_center = size.width() - ((self._diameter / 2) + self._right_offset)
 		y_center = (self._diameter / 2) + self._top_offset
-		on_color = QColor(0, 255, 0, 255)
-		off_color = QColor(125, 0, 0, 255)
+		#on_color = QColor(0, 255, 0, 255)
+		#off_color = QColor(125, 0, 0, 255)
 		x = size.width() - self._diameter - self._right_offset
 		y = self._top_offset
 		gradient = QRadialGradient(x + self._diameter / 2, y + self._diameter / 2,
@@ -57,10 +57,10 @@ class IndicatorLabel(QLabel):
 
 	def __init__(self, **kwargs):
 		super().__init__()
-		self.setText(kwargs['text'])
+		#self.setText(kwargs['text'])
 		self._diameter = kwargs['diameter']
-		self._top_offset = kwargs['top_offset']
-		self._right_offset = kwargs['right_offset']
+		#self._top_offset = kwargs['top_offset']
+		#self._right_offset = kwargs['right_offset']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
 
@@ -68,12 +68,12 @@ class IndicatorLabel(QLabel):
 		super().paintEvent(event)
 		painter = QPainter(self)
 		size = self.rect()
-		x_center = size.width() - ((self._diameter / 2) + self._right_offset)
-		y_center = (self._diameter / 2) + self._top_offset
+		x_center = size.width() / 2
+		y_center = size.height() / 2
 		on_color = QColor(0, 255, 0, 255)
 		off_color = QColor(125, 0, 0, 255)
-		x = size.width() - self._diameter - self._right_offset
-		y = self._top_offset
+		x = size.width() - self._diameter
+		y = size.height() - self._diameter
 		gradient = QRadialGradient(x + self._diameter / 2, y + self._diameter / 2,
 			self._diameter * 0.4, self._diameter * 0.4, self._diameter * 0.4)
 		gradient.setColorAt(0, Qt.GlobalColor.white)
