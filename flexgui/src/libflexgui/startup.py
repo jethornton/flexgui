@@ -81,6 +81,59 @@ def setup_led_buttons(parent): # LED
 			new_button.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
+def setup_hal_leds(parent):
+	for child in parent.findChildren(QLabel):
+		if child.property('hal_led'):
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['diameter'] = int(child.property('diameter')) or 10
+			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
+			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
+			led_dict['function'] = child.property('function')
+			# set old object function to none so the hal pin is not duplicated
+			child.setProperty('function', 'none')
+			led_dict['hal_type'] = child.property('hal_type')
+			led_dict['hal_dir'] = child.property('hal_dir')
+			led_dict['pin_name'] = child.property('pin_name')
+
+			new_button = led.IndicatorLabel(**led_dict)
+			new_button.setProperty('function', led_dict['function'])
+			new_button.setProperty('hal_type', led_dict['hal_type'])
+			new_button.setProperty('hal_dir', led_dict['hal_dir'])
+			new_button.setProperty('pin_name', led_dict['pin_name'])
+
+			# determine layout or not
+			layout = child.parent().layout()
+			if layout:
+				index = layout.indexOf(child)
+				if index != -1:
+					if isinstance(layout, QGridLayout):
+						row, column, rowspan, columnspan = layout.getItemPosition(index)
+						layout.addWidget(new_button, row, column, rowspan, columnspan)
+					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
+						layout.removeWidget(child)
+						layout.insertWidget(index, new_button)
+			else:
+				#geometry = child.geometry()
+				#child_parent = child.parent()
+				new_button.setParent(child.parent())
+				new_button.setGeometry(child.geometry())
+			child.deleteLater()
+			new_button.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_button) # give the new button the old name
+
+			#pin_name = child.property('pin_name')
+			hal_type = getattr(parent, led_dict['name']).property('hal_type')
+			print(f'hal_type {hal_type}')
+			#hal_type = new_button.property('hal_type')
+			#hal_dir = new_button.property('hal_dir')
+			#on_color = new_button.property('on_color')
+			#off_color = new_button.property('off_color')
+			#hal_type = getattr(hal, f'{hal_type}')
+			#hal_dir = getattr(hal, f'{hal_dir}')
+
+
+
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
 	children = parent.findChildren(QWidget)
@@ -1671,14 +1724,15 @@ def setup_hal(parent):
 				hal_progressbar.append(child)
 			elif isinstance(child, QLCDNumber):
 				hal_lcds.append(child)
-		elif child.property('function') == 'hal_led':
-			if isinstance(child, QLabel):
-				hal_leds.append(child)
 		elif child.property('function') == 'hal_msl':
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
+		elif child.property('function') == 'hal_led':
+			if isinstance(child, QLabel):
+				hal_leds.append(child)
 
-	if len(hal_lcds) > 0: # setup hal labels
+	##### HAL LCD #####
+	if len(hal_lcds) > 0:
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for lcd in hal_lcds:
 			lcd_name = lcd.objectName()
@@ -1734,7 +1788,8 @@ def setup_hal(parent):
 				else:
 					parent.hal_readers[lcd_name] = pin_name
 
-	if len(hal_labels) > 0: # setup hal labels
+	##### HAL LABEL #####
+	if len(hal_labels) > 0:
 		valid_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for label in hal_labels:
 			label_name = label.objectName()
@@ -1793,7 +1848,8 @@ def setup_hal(parent):
 				else:
 					parent.hal_readers[label_name] = pin_name
 
-	if len(hal_ms_labels) > 0: # setup hal multi state labels
+	##### HAL MULTI STATE LABEL #####
+	if len(hal_ms_labels) > 0:
 		for item in hal_ms_labels:
 			msl_name = item.objectName()
 			pin_name = item.property('pin_name')
@@ -1849,7 +1905,8 @@ def setup_hal(parent):
 					i += 1
 				parent.hal_ms_labels[msl_name] = [pin_name, text_list]
 
-	if len(hal_progressbar) > 0: # setup hal progressbar
+	##### HAL PROGRESSBAR #####
+	if len(hal_progressbar) > 0:
 		valid_types = ['HAL_S32', 'HAL_U32', 'HAL_FLOAT']
 		for item in hal_progressbar:
 			progressbar_name = item.objectName()
@@ -1898,7 +1955,8 @@ def setup_hal(parent):
 				pin = getattr(parent, f'{pin_name}')
 				parent.hal_progressbars[progressbar_name] = pin_name
 
-	if len(hal_buttons) > 0: # setup hal buttons and checkboxes
+	##### HAL BUTTON & CHECKBOX #####
+	if len(hal_buttons) > 0:
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
@@ -1968,7 +2026,8 @@ def setup_hal(parent):
 					if button_name != 'tool_changed_pb':
 						parent.state_on[button_name] = True
 
-	if len(hal_spinboxes) > 0: # setup hal spinboxes
+	##### HAL SPINBOX #####
+	if len(hal_spinboxes) > 0:
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for spinbox in hal_spinboxes:
 			spinbox_name = spinbox.objectName()
@@ -2030,7 +2089,8 @@ def setup_hal(parent):
 				else:
 					parent.state_on[spinbox_name] = True
 
-	if len(hal_sliders) > 0: # setup hal sliders
+	##### HAL SLIDERS #####
+	if len(hal_sliders) > 0:
 		valid_types = ['HAL_S32', 'HAL_U32']
 		for slider in hal_sliders:
 			slider_name = slider.objectName()
@@ -2092,11 +2152,17 @@ def setup_hal(parent):
 				else:
 					parent.state_on[slider_name] = True
 
-	if len(hal_leds) > 0: # setup hal leds
+	##### HAL LED #####
+	if len(hal_leds) > 0:
 		for led in hal_leds:
-			hal_type = getattr(hal, f'{led.property("hal_type")}')
-			hal_dir = getattr(hal, f'{led.property("hal_dir")}')
 			pin_name = led.property('pin_name')
+			print(pin_name)
+			hal_type = led.property('hal_type')
+			hal_dir = led.property('hal_dir')
+			on_color = led.property('on_color')
+			off_color = led.property('off_color')
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, f'{hal_dir}')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	parent.halcomp.ready()
