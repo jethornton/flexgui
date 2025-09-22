@@ -169,7 +169,13 @@ LED
 ---
 A QLabel can be used as a HAL LED indicator by adding the following properties
 to a blank label. Colors are optional, if not supplied red for off and green
-for on will be used.
+for on will be used. The pin_name is the hal name the LED will have.
+
+The HAL LED needs to be connected in the postgui.hal file and can only be
+connected to a HAL pin of type bit with a HAL direction of OUT or a signal that
+is connected to a HAL pin of type bit with a HAL direction of OUT. Only one OUT
+direction can be connected to a signal while multiple IN directions can be
+connected to a signal.
 
 .. csv-table:: HAL LED
    :width: 100%
