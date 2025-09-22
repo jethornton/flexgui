@@ -487,6 +487,7 @@ def update(parent):
 		elif isinstance(getattr(parent, key), QSlider):
 			getattr(parent, key).setValue(value)
 
+	# update hal float labels
 	for key, value in parent.hal_floats.items():
 		# label [status item, precision]
 		hal_value = hal.get_value(f'flexhal.{value[0]}')
@@ -494,6 +495,10 @@ def update(parent):
 			getattr(parent, key).display(f'{hal_value:.{value[1]}f}')
 		else:
 			getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
+
+	# update hal led labels
+	for key, value in parent.hal_leds.items():
+		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
 
 	# homed status
 	for item in parent.home_status:

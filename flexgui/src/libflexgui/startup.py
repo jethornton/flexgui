@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox, QRadioButto
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
 from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
-from PyQt6.QtWidgets import QProgressBar, QButtonGroup
+from PyQt6.QtWidgets import QProgressBar, QButtonGroup, QFrame
 from PyQt6.QtGui import QAction, QColor
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -82,25 +82,31 @@ def setup_led_buttons(parent): # LED
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
 def setup_hal_leds(parent):
+	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
-		if child.property('hal_led'):
+		if child.property('hal_led'): # bool property
 			led_dict = {}
 			led_dict['name'] = child.objectName()
-			led_dict['diameter'] = int(child.property('diameter')) or 10
+			dia = child.property('diameter') or False
+			if dia:
+				led_dict['diameter'] = int(dia)
+			else: # use the label size
+				led_dict['diameter'] = min(child.width(), child.height())
 			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
+			led_dict['pin_name'] = child.property('pin_name')
 			led_dict['hal_type'] = child.property('hal_type')
 			led_dict['hal_dir'] = child.property('hal_dir')
-			led_dict['pin_name'] = child.property('pin_name')
 
-			new_button = led.IndicatorLabel(**led_dict)
-			new_button.setProperty('function', led_dict['function'])
-			new_button.setProperty('hal_type', led_dict['hal_type'])
-			new_button.setProperty('hal_dir', led_dict['hal_dir'])
-			new_button.setProperty('pin_name', led_dict['pin_name'])
+			new_led = led.IndicatorLabel(**led_dict)
+			new_led.setProperty('function', led_dict['function'])
+			new_led.setProperty('pin_name', led_dict['pin_name'])
+			new_led.setProperty('hal_type', led_dict['hal_type'])
+			new_led.setProperty('hal_dir', led_dict['hal_dir'])
+			#new_led.setFrameStyle(QFrame.Shape.Box)
 
 			# determine layout or not
 			layout = child.parent().layout()
@@ -109,26 +115,25 @@ def setup_hal_leds(parent):
 				if index != -1:
 					if isinstance(layout, QGridLayout):
 						row, column, rowspan, columnspan = layout.getItemPosition(index)
-						layout.addWidget(new_button, row, column, rowspan, columnspan)
+						layout.addWidget(new_led, row, column, rowspan, columnspan)
 					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
 						layout.removeWidget(child)
-						layout.insertWidget(index, new_button)
+						layout.insertWidget(index, new_led)
 			else:
 				#geometry = child.geometry()
 				#child_parent = child.parent()
-				new_button.setParent(child.parent())
-				new_button.setGeometry(child.geometry())
+				new_led.setParent(child.parent())
+				new_led.setGeometry(child.geometry())
 			child.deleteLater()
-			new_button.setObjectName(led_dict['name'])
-			setattr(parent, led_dict['name'], new_button) # give the new button the old name
+			new_led.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_led) # give the new button the old name
+			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
 
 			#pin_name = child.property('pin_name')
-			hal_type = getattr(parent, led_dict['name']).property('hal_type')
-			print(f'hal_type {hal_type}')
-			#hal_type = new_button.property('hal_type')
-			#hal_dir = new_button.property('hal_dir')
-			#on_color = new_button.property('on_color')
-			#off_color = new_button.property('off_color')
+			#hal_type = new_led.property('hal_type')
+			#hal_dir = new_led.property('hal_dir')
+			#on_color = new_led.property('on_color')
+			#off_color = new_led.property('off_color')
 			#hal_type = getattr(hal, f'{hal_type}')
 			#hal_dir = getattr(hal, f'{hal_dir}')
 
@@ -2152,11 +2157,10 @@ def setup_hal(parent):
 				else:
 					parent.state_on[slider_name] = True
 
-	##### HAL LED #####
+	##### HAL LED ##### FIXME add checks for correct data
 	if len(hal_leds) > 0:
 		for led in hal_leds:
 			pin_name = led.property('pin_name')
-			print(pin_name)
 			hal_type = led.property('hal_type')
 			hal_dir = led.property('hal_dir')
 			on_color = led.property('on_color')

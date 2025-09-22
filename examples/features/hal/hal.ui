@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>611</height>
+    <height>615</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,11 +183,11 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
-        <string>HAL Buttons</string>
+        <string> Buttons</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="3" column="1">
@@ -388,7 +388,7 @@ you can also force that home is required</string>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>HAL IO</string>
+        <string> IO</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="3" column="0">
@@ -535,6 +535,49 @@ change in the GUI</string>
            <string>flexhal.hal-io-slider</string>
           </property>
          </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>LED</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_10">
+        <item row="1" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_25">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>

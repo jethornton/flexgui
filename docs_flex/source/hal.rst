@@ -165,8 +165,29 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
 .. image:: /images/hal-msl.png
    :align: center
 
+LED
+---
+A QLabel can be used as a HAL LED indicator by adding the following properties
+to a blank label.
+
+.. csv-table:: HAL LED
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	Bool, hal_led, True
+	String, function, hal_led
+	Color, on_color, color of your choice
+	Color, off_color, color of your choice
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT
+	String, hal_dir, HAL_IN
+
+.. NOTE:: Select Other to get the list and select Color. You can copy and paste
+   the hex color value into the color picker. 
+
 LCD
------
+---
 
 A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in
 the post gui HAL file. The pin_name used will create a HAL pin prefixed with
