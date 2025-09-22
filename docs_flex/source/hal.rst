@@ -178,11 +178,11 @@ for on will be used.
 	**Property Type**, **Property Name**, **Pin Value**
 	Bool, hal_led, True
 	String, function, hal_led
-	Color, on_color, color of your choice
-	Color, off_color, color of your choice
 	String, pin_name, any unique name
 	String, hal_type, HAL_BIT
 	String, hal_dir, HAL_IN
+	Color, on_color, color of your choice
+	Color, off_color, color of your choice
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker. 
