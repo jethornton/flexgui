@@ -168,7 +168,8 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
 LED
 ---
 A QLabel can be used as a HAL LED indicator by adding the following properties
-to a blank label.
+to a blank label. Colors are optional, if not supplied red for off and green
+for on will be used.
 
 .. csv-table:: HAL LED
    :width: 100%
