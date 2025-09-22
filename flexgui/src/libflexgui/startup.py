@@ -1742,6 +1742,7 @@ def setup_hal(parent):
 		for lcd in hal_lcds:
 			lcd_name = lcd.objectName()
 			pin_name = lcd.property('pin_name')
+
 			if pin_name in dir(parent):
 				msg = (f'HAL LCD {lcd_name}\n'
 				f'pin name {pin_name}\n'
@@ -1801,6 +1802,7 @@ def setup_hal(parent):
 			pin_name = label.property('pin_name')
 			true_text = label.property('true_text')
 			false_text = label.property('false_text')
+
 			if pin_name in dir(parent):
 				msg = (f'HAL Label {label_name}\n'
 				f'pin name {pin_name}\n'
@@ -1858,6 +1860,7 @@ def setup_hal(parent):
 		for item in hal_ms_labels:
 			msl_name = item.objectName()
 			pin_name = item.property('pin_name')
+
 			if pin_name in dir(parent):
 				msg = (f'HAL Multi-State Label {label_name}\n'
 				f'pin name {pin_name}\n'
@@ -1916,6 +1919,7 @@ def setup_hal(parent):
 		for item in hal_progressbar:
 			progressbar_name = item.objectName()
 			pin_name = item.property('pin_name')
+
 			if pin_name in dir(parent):
 				msg = (f'HAL Label {label_name}\n'
 				f'pin name {pin_name}\n'
@@ -1965,6 +1969,7 @@ def setup_hal(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
+
 			if pin_name in dir(parent):
 				button.setEnabled(False)
 				msg = (f'HAL Button {button_name}\n'
@@ -2037,6 +2042,7 @@ def setup_hal(parent):
 		for spinbox in hal_spinboxes:
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
+
 			if pin_name in dir(parent):
 				spinbox.setEnabled(False)
 				msg = (f'HAL Spinbox {spinbox_name}\n'
@@ -2100,6 +2106,7 @@ def setup_hal(parent):
 		for slider in hal_sliders:
 			slider_name = slider.objectName()
 			pin_name = slider.property('pin_name')
+
 			if pin_name in dir(parent):
 				slider.setEnabled(False)
 				msg = (f'HAL Slider {slider_name}\n'
@@ -2160,14 +2167,55 @@ def setup_hal(parent):
 	##### HAL LED ##### FIXME add checks for correct data
 	if len(hal_leds) > 0:
 		for led in hal_leds:
+			led_name = led.objectName()
 			pin_name = led.property('pin_name')
+
+			if pin_name in dir(parent):
+				led.setEnabled(False)
+				msg = (f'HAL LED {led_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				f'The {led_name} LED will be disabled.'
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if led_name == pin_name:
+				led.setEnabled(False)
+				msg = (f'The object name {led_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {led_name} slider will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
 			hal_type = led.property('hal_type')
+			if hal_type != 'HAL_BIT':
+				led.setEnabled(False)
+				msg = (f'{hal_type} is not valid for a HAL LED\n'
+				', only HAL_BIT can be used.\n'
+				f'The {led_name} label will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
 			hal_dir = led.property('hal_dir')
+			if hal_dir != 'HAL_IN':
+				led.setEnabled(False)
+				msg = (f'{hal_dir} is not a valid\n'
+				'hal_dir for a HAL LED,\n'
+				'only HAL_IN can be used for hal_dir.\n'
+				f'The {led_name} slider will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+ 
 			on_color = led.property('on_color')
 			off_color = led.property('off_color')
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, f'{hal_dir}')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+			if None not in [pin_name, hal_type, hal_dir]:
+				hal_type = getattr(hal, f'{hal_type}')
+				hal_dir = getattr(hal, f'{hal_dir}')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.children:
