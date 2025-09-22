@@ -204,8 +204,8 @@ def read(parent):
 	parent.led_off_color = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR') or False
 	if parent.led_off_color: # convert string to QColor
 		parent.led_off_color = utilities.string_to_qcolor(parent, parent.led_off_color, 'LED_OFF_COLOR')
-	if not parent.led_off_color: # use default led on color
-		parent.led_off_color = QColor(125, 0, 0, 255)
+	if not parent.led_off_color: # use default led off color
+		parent.led_off_color = QColor(255, 0, 0, 255)
 
 	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
 	if parent.estop_open_color: # get a valid color string
