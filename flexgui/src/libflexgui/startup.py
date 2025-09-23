@@ -1160,15 +1160,12 @@ def setup_jog(parent):
 		parent.jog_modes_cb.setView(QListView())
 		parent.jog_modes_cb.addItem('Continuous', False)
 
-		# FIXME move to read_ini.py
-		machine_units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 		units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
-		# FIXME move to read_ini.py
-		increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
-		if increments:
+		# setup the jog increment combo box items
+		if parent.jog_increments:
 			incr_list = []
-			values = increments.split(',')
+			values = parent.jog_increments.split(',')
 			for item in values:
 				item = item.strip()
 				if item[-1].isdigit():
@@ -1180,7 +1177,7 @@ def setup_jog(parent):
 						if item.endswith(suffix):
 							distance = item.removesuffix(suffix).strip()
 							if utilities.is_float(distance):
-								converted_distance = conv_units(distance, suffix, machine_units)
+								converted_distance = conv_units(distance, suffix, parent.machine_units)
 								incr_list.append([item, converted_distance])
 								parent.jog_modes_cb.addItem(item, converted_distance)
 								break
