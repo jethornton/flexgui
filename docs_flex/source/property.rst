@@ -14,7 +14,7 @@ Next left click on the green plus sign in the Property Editor.
 .. image:: /images/property-02.png
    :align: center
 
-Select a string type as Flex GUI always uses a string type Dynamic Property.
+Typically Flex GUI uses a string type Dynamic Property with some exceptions.
 
 .. image:: /images/property-03.png
    :align: center

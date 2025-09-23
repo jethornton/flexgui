@@ -2,6 +2,22 @@ HAL Pins
 ========
 `HAL Tutorial <https://youtu.be/LU4914GyGXI>`_
 
+Creating widgets that connect to HAL (Hardware Abstract Layer) is as simple as
+adding a few Dynamic Properties. See :doc:`property` for step by step
+instructions to add a Dynamic Property.
+
+Typically the Dynamic Properties are String type with some exceptions being Bool
+and Color. Connections from Flex HAL objects to other HAL objects must be done
+in the file assigned to the POSTGUI_HALFILE variable in the [HAL] section
+typically named `postgui.hal`.
+::
+
+	[HAL]
+	HALFILE = main.hal
+	POSTGUI_HALFILE = postgui.hal
+
+The property `pin_name` defines the HAL pin name that is prefixed with
+`flexhal`. A pin_name of my-button would be `flexhal.my-button` in HAL.
 
 .. note:: Dynamic Property names are case sensitive and must be all lower case.
    Hal types and directions are case sensitive and must be all caps. The
@@ -12,10 +28,9 @@ HAL Pins
 Button
 ------
 
-Any QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
-adding four string type Dynamic Properties.  The pin_name used will create a HAL
-pin prefixed with `flexhal.` A pin_name of my-button would be in HAL
-`flexhal.my-button`. See :doc:`property`
+A QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
+adding four string type Dynamic Properties. A pin_name of my-button would be
+`flexhal.my-button` in HAL.
 
 .. csv-table:: HAL Push Button
    :width: 100%
@@ -27,26 +42,38 @@ pin prefixed with `flexhal.` A pin_name of my-button would be in HAL
 	hal_type, HAL_BIT
 	hal_dir, HAL_OUT
 
-Optionally the button can be disabled when the power is off by adding one more
-property.
+Optionally the button can be disabled when the power is off by adding a
+Dynamic Property named `state_off` and setting the value to `disabled`.
 
-.. csv-table:: HAL Option
+Optionally if the HAL button requires all joints to be homed before being
+enabled, you can specify that by adding a Dynamic Property named `required` and
+set the value to `homed`.
+
+.. csv-table:: HAL Button Options
    :width: 100%
    :align: center
 
 	**Property Name**, **Pin Value**
 	state_off, disabled
+	required, homed
 
+.. image:: /images/hal-09.png
+   :align: center
+
+.. warning:: By default, no QRadioButtons are checked unless you set one checked
+   in the Designer. Starting up with none checked could be a problem if you
+   expect one to be selected at startup.
 
 .. _SpinBoxTag:
 
 Spinbox
 -------
 
-Any QSpinBox or QDoubleSpinBox can be a HAL `number` pin by adding four string
+A QSpinBox or QDoubleSpinBox can be a HAL `number` pin by adding four string
 type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-spinbox would be in HAL `flexhal.my-spinbox`.
-
+`flexhal.` A pin_name of my-spinbox would be in HAL `flexhal.my-spinbox`. The
+spinbox is an Out type that will set the value of the HAL pin to match the
+value of the spinbox.
 
 .. csv-table:: HAL Spin Box
    :width: 100%
@@ -66,7 +93,10 @@ Slider
 
 A QSlider can be a HAL pin by adding these four string type Dynamic Properties.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
-my-slider would be in HAL `flexhal.my-slider`. See :doc:`property`
+my-slider would be in HAL `flexhal.my-slider`. A QSlider supports only integers
+so to connect it to a float HAL pin use conv_s32_float or conv_u32_float.
+
+See :doc:`property` for step by step instructions to add a Dynamic Property
 
 .. csv-table:: HAL Slider
    :width: 100%
@@ -126,7 +156,9 @@ Bool Label
 ----------
 
 A QLabel of hal_type HAL_BIT can have True and False text by adding two
-additional Dynamic Properties. See :doc:`property`
+additional Dynamic Properties.
+
+See :doc:`property` for step by step instructions to add a Dynamic Property
 
 .. csv-table:: HAL Bool Label
    :width: 100%
@@ -213,25 +245,6 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
 
-Pin Types::
-
-	HAL_BIT
-	HAL_FLOAT
-	HAL_S32
-	HAL_U32
-
-Pin Directions::
-
-	HAL_IN
-	HAL_OUT
-	HAL_IO
-
-Currently only `HAL_BIT` with `HAL_OUT` have been tested.
-
-.. warning:: By default, no QRadioButtons are checked unless you set one checked
-   in the Designer. Starting up with none checked could be a problem if you
-   expect one to be selected at startup.
-
 Progress Bar
 ------------
 
@@ -262,7 +275,8 @@ are not used by HAL controls in Flex GUI - it is the following that matters.
 
 Click on the widget to select it then click on the green plus sign in the
 Property Editor for that widget to add a Dynamic Property and select String.
-See :doc:`property`
+
+See :doc:`property` for step by step instructions to add a Dynamic Property
 
 .. image:: /images/hal-01.png
    :align: center
@@ -314,12 +328,17 @@ After installing Flex GUI, from the CNC menu, you can copy the Flex GUI examples
 and look at the hal-btn example.
 
 
-Homed Required
---------------
+HAL Pin Types::
 
-If the HAL button requires all joints to be homed before being enabled, you can
-specify that by adding a Dynamic Property named `required` and set the value to
-`homed`.
+	HAL_BIT
+	HAL_FLOAT
+	HAL_S32
+	HAL_U32
 
-.. image:: /images/hal-09.png
-   :align: center
+HAL Pin Directions::
+
+	HAL_IN
+	HAL_OUT
+	HAL_IO
+
+
