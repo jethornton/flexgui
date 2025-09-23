@@ -2164,7 +2164,7 @@ def setup_hal(parent):
 				else:
 					parent.state_on[slider_name] = True
 
-	##### HAL LED ##### FIXME add checks for correct data
+	##### HAL LED #####
 	if len(hal_leds) > 0:
 		for led in hal_leds:
 			led_name = led.objectName()
