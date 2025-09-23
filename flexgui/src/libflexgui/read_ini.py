@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import QColor
@@ -65,24 +65,14 @@ def read(parent):
 	else:
 		parent.default_view = 'p'
 
+		# FIXME move to read_ini.py
+		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
+
 	# get spindle increment
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
 	parent.increment = int(increment) if increment else 10
-
-	# ***** [EMCIO] Section *****
-	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
-
-	# ***** [RS274NGC] Section *****
-	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
-
-	# ***** [HAL] Section *****
-	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
-
-	# ***** [SPINDLE_0] Section *****
-	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
-	parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 
 	# ***** [FLEXGUI] Section *****
 	# check for theme must be done before using any dialogs
@@ -176,6 +166,9 @@ def read(parent):
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 		parent.qss_file = False
 
+	# check for screen size
+	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
+
 	# check for LED defaults in the ini file
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
 	if parent.led_diameter is None:
@@ -255,18 +248,36 @@ def read(parent):
 	else:
 		parent.touch_file_width = False
 
+	# check for keyboard jogging
 	parent.enable_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
 
+	# ***** [EMCIO] Section *****
+	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
+
+	# ***** [RS274NGC] Section *****
+	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
+
+	# ***** [HAL] Section *****
+	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
+
+	# ***** [SPINDLE_0] Section *****
+	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+	parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+
 	# ***** [TRAJ] Section *****
-	units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False # mm or inch
-	if units.lower() == 'inch':
-		parent.units = 'in'
-		parent.default_precision = 4
-	elif units.lower() == 'mm':
-		parent.units = 'mm'
-		parent.default_precision = 3
-	else:
-		parent.default_precision = 4
+	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
+	parent.units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
+	match parent.units:
+		case 'inch':
+			parent.default_precision = 4
+		case 'mm':
+			parent.default_precision = 3
+		case _:
+			parent.units = 'inch'
+			msg = ('[TRAJ] LINEAR_UNITS is a required\n'
+			'INI entry. LinuxCNC will close now.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+			sys.exit()
 
 	''' MAX_LINEAR_VELOCITY = 5.0 - The maximum velocity for any axis or coordinated
 	move, in machine units per second. The value shown equals 300 units per minute. '''
