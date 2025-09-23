@@ -1,12 +1,3 @@
-<meisterdippel@> How can i create a LED like widget ? to display boolean
-<JT-Shop> I will have to add that, good idea I like that
-<JT-Shop> like a Bool Label with a LED or just a HAL bool LED?
-<lcnc-relay> <meisterdippel@> i need only hal bool LED
-
 
 disable dro view controls if dro is not checked...
 
-<voiditswarranty@> good morning! Is there a way to create a button that works like the e-stop button does? The docs are clear on how to make an output button that controls a hal pin, but I need one that's bi-directional. Like a checkbox, if the pin is toggled from something other than the ui, the ui state updates. If the UI toggles instead, it toggles the pin. HAL_IO style. Previously I managed it by hand using the python import and polling...
-<lcnc-relay> ... state instead, rather than using a hal button, just wondering if there's an easier way, since I clearly was confused about how hal pins were connected before 🙂
-<lcnc-relay> <roguish> there are some youtubes on Flex too
-<lcnc-relay> <voiditswarranty@> yeah, they mostly just show single direction controls. button -> HAL_OUT, label <- HAL_IN, but nothing that can be done like HAL_IO. A use case is a pendant, if I have a button on the pendant that toggles a hal pin, I would like the checked/unchecked state of the checkbox or button to follow. And still be able to optionally use the checkbox or button instead of the pendant.
