@@ -146,8 +146,6 @@ class flexgui(QMainWindow):
 			dialogs.error_msg_ok(self, msg, 'Error')
 			sys.exit()
 
-		screen_size = self.inifile.find('DISPLAY', 'SIZE') or False
-
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		if gui_file: # gui is in the ini file
@@ -280,17 +278,17 @@ class flexgui(QMainWindow):
 		app.installEventFilter(self.keyboard_jog)
 
 		# set the inital screen size
-		if screen_size:
-			if screen_size.lower() == 'minimized':
+		match self.screen_size:
+			case 'minimized':
 				self.showMinimized()
-			if screen_size.lower() == 'normal':
+			case 'normal':
 				self.showNormal()
-			if screen_size.lower() == 'maximized':
+			case 'maximized':
 				self.showMaximized()
-			elif screen_size.lower() == 'full':
+			case 'full':
 				self.showFullScreen()
-		else:
-			self.show()
+			case _:
+				self.show()
 
 	# this can import a module from a file for resources.py in a config dir
 	def module_from_file(self, module_name, file_path):
