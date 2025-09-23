@@ -177,9 +177,6 @@ class flexgui(QMainWindow):
 					'not found, check for file name resources.py.')
 				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
 
-		# THEME is now loaded in read_ini.py
-		# QSS is not loaded in read_ini.py
-
 		stylesheet = False
 		if self.theme:
 			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
