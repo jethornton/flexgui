@@ -227,7 +227,7 @@ Plotter
 ^^^^^^^
 
 The plotter background color can be set in the [FLEXGUI] section of the ini. The
-value is the Red,Greed,Blue color numbers from 0 to 1 with no space. So an entry
+value is the Red,Green,Blue color numbers from 0 to 1 with no space. So an entry
 of 0.0,0.0,0.0 is black and 1.0,1.0,1.0 is white. Use a RGB 0-1 Color Picker to
 select the RGB values.
 ::
