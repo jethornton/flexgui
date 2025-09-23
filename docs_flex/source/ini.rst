@@ -77,7 +77,7 @@ preset jog items
 .. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be
    ignored.
 
-.. note:: Jog incremnts can have unit lables, the following are valid unit
+.. note:: Jog incremnts can have unit labels, the following are valid unit
    labels cm, mm, um, inch, in or mil. If no unit labels are found the the
    configuration units are used.
 
@@ -140,7 +140,7 @@ EXTENSIONS key with the desired extensions separated by a comma. The
 extensions must be in the format `*.ext` with the asterisk and dot
 ::
 
-	EXTENSIONS = *.nc, *.G-code, *.ngc, *.txt
+	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
 
 [FLEXGUI]
 ---------
@@ -209,13 +209,15 @@ See the section on Resources for more info.
 Screen Size
 ^^^^^^^^^^^
 
-To control the initial size of the screen, add either:
+To control the initial size of the screen, add of the following values.
 ::
 
 	SIZE = minimized
 	SIZE = normal
 	SIZE = maximized
 	SIZE = full
+
+.. NOTE:: the values are case sensitive
 
 .. warning:: Full size screen does not have any window controls. Make sure
    there is a way to close the GUI like an Exit button or you may not be able to
