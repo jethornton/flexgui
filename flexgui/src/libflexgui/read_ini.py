@@ -70,6 +70,9 @@ def read(parent):
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 
+	# set max feed override
+	parent.max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or 1.0
+
 	# get spindle increment
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:

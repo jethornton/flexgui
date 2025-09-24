@@ -1470,10 +1470,7 @@ def setup_tools(parent):
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.children:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
-		# FIXME move to read_ini.py
-		max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or False
-		if not max_feed_override: max_feed_override = 1.0
-		parent.feed_override_sl.setMaximum(int(float(max_feed_override) * 100))
+		parent.feed_override_sl.setMaximum(int(float(parent.max_feed_override) * 100))
 		parent.feed_override_sl.setValue(100)
 
 	if 'rapid_override_sl' in parent.children:
