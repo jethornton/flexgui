@@ -1285,10 +1285,7 @@ def setup_spindle(parent):
 
 	if 'spindle_override_sl' in parent.children:
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
-		# FIXME move to read_ini.py
-		max_spindle_override = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or False
-		if not max_spindle_override: max_spindle_override = 1.0
-		max_spindle_override = int(float(max_spindle_override) * 100)
+		max_spindle_override = int(float(parent.max_spindle_override) * 100)
 		parent.spindle_override_sl.setMaximum(max_spindle_override)
 		if max_spindle_override >= 100:
 			parent.spindle_override_sl.setValue(100)

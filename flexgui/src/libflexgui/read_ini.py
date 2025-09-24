@@ -73,6 +73,16 @@ def read(parent):
 	# set max feed override
 	parent.max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or 1.0
 
+	# set max spindle override
+	mso = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or '1.0'
+	if utilities.is_number(mso):
+		parent.max_spindle_override = float(mso)
+	else:
+		parent.max_spindle_override = 1.0
+		msg = (f'The INI value {mso} for [DISPLAY] MAX_SPINDLE_OVERRIDE\n'
+		'did not evaluate to a number. 1.0 will be used')
+		dialogs.error_msg_ok(parent, msg, 'INI Error')
+
 	# get spindle increment
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:
