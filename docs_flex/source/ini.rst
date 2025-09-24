@@ -132,7 +132,7 @@ If no entry is found then the axes in the configuration and diameter are shown.
 Tool, Pocket and Comment are always shown.
 
 File Extensions
----------------
+^^^^^^^^^^^^^^^
 
 The keyboard file dialog defaults to `*.ngc` and this ignores case. To
 specify the file extensions you want the file dialog to show, add an
