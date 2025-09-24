@@ -344,7 +344,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="tabWidget_6Page1" native="true">
+          <widget class="QWidget" name="tabWidget_6Page1">
            <attribute name="title">
             <string>Limits</string>
            </attribute>
@@ -509,7 +509,7 @@
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QLabel" name="rapidrate_lb">
+          <widget class="QLabel" name="rapid_override_lb">
            <property name="text">
             <string>TextLabel</string>
            </property>
