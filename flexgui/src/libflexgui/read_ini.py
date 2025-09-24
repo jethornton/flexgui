@@ -65,7 +65,6 @@ def read(parent):
 	else:
 		parent.default_view = 'p'
 
-		# FIXME move to read_ini.py
 		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
 	# get spindle increment
@@ -90,6 +89,12 @@ def read(parent):
 		'The key SIZE needs to be in the [FLEXGUI] section\n'
 		'Check the INI section of the Documents for correct INI entries.')
 		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE'):
+		msg = ('DRO_FONT_SIZE has been moved to the\n'
+			'[FLEXGUI] section of the ini file.\n'
+			'The default font size will be used')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 
 	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
 		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
@@ -250,6 +255,9 @@ def read(parent):
 
 	# check for keyboard jogging
 	parent.enable_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
+
+	# check for dro font size
+	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
 
 	# ***** [EMCIO] Section *****
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
