@@ -67,6 +67,9 @@ def read(parent):
 
 		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
+	# check for default jog velocity
+	parent.default_jog_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
+
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 
@@ -323,5 +326,7 @@ def read(parent):
 	''' MAX_LINEAR_VELOCITY = 5.0 - The maximum velocity for any axis or coordinated
 	move, in machine units per second. The value shown equals 300 units per minute. '''
 	parent.max_linear_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
+
+	parent.max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
 
 
