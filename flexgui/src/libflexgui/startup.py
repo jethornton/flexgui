@@ -1108,9 +1108,8 @@ def setup_jog(parent):
 			parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.children:
-		min_jog_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
-
-		if float(min_jog_vel) > 0:
+		# FIXME this is cornfusing
+		if float(parent.min_jog_vel) > 0:
 			int_min_jog_vel = int(float(min_jog_vel) * 60)
 			parent.jog_vel_sl.setMinimum(int_min_jog_vel)
 			if int_min_jog_vel == 0:
@@ -1128,11 +1127,11 @@ def setup_jog(parent):
 			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
 
 		if 'min_jog_vel_lb' in parent.children:
-			if min_jog_vel:
-				parent.min_jog_vel_lb.setText(f'{int(float(min_jog_vel) * 60)}')
+			if parent.min_jog_vel:
+				parent.min_jog_vel_lb.setText(f'{int(float(parent.min_jog_vel) * 60)}')
 		if 'max_jog_vel_lb' in parent.children:
-			if max_jog_vel:
-				parent.max_jog_vel_lb.setText(f'{int(float(max_jog_vel) * 60)}')
+			if parent.max_jog_vel:
+				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_jog_vel) * 60)}')
 
 		if 'jog_vel_lb' in parent.children:
 			parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
@@ -1173,7 +1172,7 @@ def setup_jog(parent):
 						if item.endswith(suffix):
 							distance = item.removesuffix(suffix).strip()
 							if utilities.is_float(distance):
-								converted_distance = conv_units(distance, suffix, parent.machine_units)
+								converted_distance = conv_units(distance, suffix, parent.units)
 								incr_list.append([item, converted_distance])
 								parent.jog_modes_cb.addItem(item, converted_distance)
 								break
@@ -1202,8 +1201,8 @@ def setup_jog_selected(parent):
 			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
 			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
-def conv_units(value, suffix, machine_units):
-	if machine_units == 'inch':
+def conv_units(value, suffix, units):
+	if units == 'inch':
 		if suffix == 'in' or suffix == 'inch':
 			return float(value)
 		elif suffix == 'mil':
@@ -1215,7 +1214,7 @@ def conv_units(value, suffix, machine_units):
 		elif suffix == 'um':
 			return float(value) / 25400
 
-	elif machine_units == 'mm':
+	elif units == 'mm':
 		if suffix == 'in' or suffix == 'inch':
 			return float(value) * 25.4
 		elif suffix == 'mil':
