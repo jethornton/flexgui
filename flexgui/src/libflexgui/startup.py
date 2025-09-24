@@ -1498,10 +1498,8 @@ def setup_defaults(parent):
 		else:
 			parent.command.set_optional_stop(False)
 
-	# FIXME move to read_ini.py
-	open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
-	if open_file and open_file != '""':
-		actions.load_file(parent, open_file)
+	if parent.open_file and parent.open_file != '""':
+		actions.load_file(parent, parent.open_file)
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
@@ -1536,7 +1534,7 @@ def setup_probing(parent):
 				'will be disabled. Did you name it\n'
 				'probing_enable_pb?')
 			dialogs.warn_msg_ok(parent, msg, 'Object Not Found!')
-	else: # no prob controls found
+	else: # no probe controls found
 		if 'probing_enable_pb' in parent.children:
 			msg = ('The Probing Enable Push Button\n'
 				'was found, but no probe controls\n'
@@ -1635,7 +1633,6 @@ def setup_hal(parent):
 		var_list = f.readlines()
 
 	##### HAL_IO #####
-
 	for child in children:
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()

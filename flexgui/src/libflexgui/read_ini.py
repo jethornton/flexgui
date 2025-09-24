@@ -67,6 +67,9 @@ def read(parent):
 
 		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
+	# check for default file to open
+	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
+
 	# get spindle increment
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:
