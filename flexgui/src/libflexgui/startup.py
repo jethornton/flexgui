@@ -1121,15 +1121,11 @@ def setup_jog(parent):
 				'The jog slider uses integers only so it will be set to 0.')
 				dialogs.info_msg_ok(parent, msg, 'INI Configuration')
 
-		# FIXME move to read_ini.py
-		max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
-		if max_jog_vel:
-			parent.jog_vel_sl.setMaximum(int(float(max_jog_vel) * 60))
+		if parent.max_jog_vel:
+			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
 
-		# FIXME move to read_ini.py
-		default_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
-		if default_vel:
-			parent.jog_vel_sl.setValue(int(float(default_vel) * 60))
+		if parent.default_jog_vel:
+			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
 
 		if 'min_jog_vel_lb' in parent.children:
 			if min_jog_vel:
