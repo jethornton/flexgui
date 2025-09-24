@@ -67,6 +67,10 @@ def read(parent):
 
 		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
+	# check for jog velocity min and max
+	parent.min_jog_vel = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
+	parent.max_jog_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
+
 	# check for default jog velocity
 	parent.default_jog_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
 
