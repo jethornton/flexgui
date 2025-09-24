@@ -70,8 +70,25 @@ def read(parent):
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 
+	# set default spindle speed
+	dss = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or 0
+	if utilities.is_int(dss):
+		parent.spindle_speed = int(dss)
+	else:
+		parent.spindle_speed = 0
+		msg = (f'The INI value {dss} for [DISPLAY] DEFAULT_SPINDLE_SPEED\n'
+		'did not evaluate to an integer. 0 will be used.')
+		dialogs.error_msg_ok(parent, msg, 'INI Error')
+
 	# set max feed override
-	parent.max_feed_override = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or 1.0
+	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
+	if utilities.is_number(mfo):
+		parent.max_feed_override = float(mfo)
+	else:
+		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE\n'
+		'did not evaluate to a number. LinuxCNC will shut down.')
+		dialogs.error_msg_ok(parent, msg, 'INI Error')
+		sys.exit()
 
 	# set max spindle override
 	mso = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or '1.0'

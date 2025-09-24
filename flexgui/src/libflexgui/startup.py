@@ -1240,12 +1240,6 @@ def conv_to_decimal(data):
 
 def setup_spindle(parent):
 	# spindle defaults
-	# FIXME move to read_ini.py
-	default_rpm = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or False
-	if default_rpm:
-		parent.spindle_speed = int(default_rpm)
-	else:
-		parent.spindle_speed = 0
 	if 'spindle_speed_lb' in parent.children:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	parent.min_rpm = 0
