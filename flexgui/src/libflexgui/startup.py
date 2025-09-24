@@ -2260,18 +2260,7 @@ def setup_plot(parent):
 		layout = QVBoxLayout(parent.plot_widget)
 		layout.addWidget(parent.plotter)
 
-		# FIXME move to read_ini.py
-		dro_font = parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE') or False
-		if dro_font:
-			msg = ('DRO_FONT_SIZE has been moved to the [FLEXGUI]\n'
-				'section of the ini file.\n'
-				'For now it will still work but soon\n'
-				'it will be removed so get it changed.')
-			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-		else: # look in the new spot
-			dro_font = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
-
-		parent.plotter._font = f'monospace bold {dro_font}'
+		parent.plotter._font = f'monospace bold {parent.dro_font_size}'
 
 		if parent.plot_background_color:
 			parent.plotter.background_color = parent.plot_background_color
