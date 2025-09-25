@@ -70,8 +70,9 @@ def read(parent):
 	# check for jog velocity min and max
 	mjv = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
 	if mjv: # there is a value
+		print(float(mjv) * 60)
 		if utilities.is_number(mjv): # convert from vel/sec to vel/min
-			parent.min_jog_vel = int(mjv * 60)
+			parent.min_jog_vel = int(float(mjv) * 60)
 		else:
 			parent.min_jog_vel = 0
 			msg = (f'The INI value {mjv} for [DISPLAY] MIN_LINEAR_VELOCITY\n'
@@ -80,8 +81,10 @@ def read(parent):
 	else:
 		parent.min_jog_vel = 0
 
+	 # FIXME set to int in read ini
 	parent.max_jog_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 
+	 # FIXME set to int in read ini
 	# check for default jog velocity
 	parent.default_jog_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
 
