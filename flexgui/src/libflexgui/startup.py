@@ -1108,17 +1108,7 @@ def setup_jog(parent):
 			parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.children:
-		# FIXME this is cornfusing
-		if float(parent.min_jog_vel) > 0:
-			int_min_jog_vel = int(float(min_jog_vel) * 60)
-			parent.jog_vel_sl.setMinimum(int_min_jog_vel)
-			if int_min_jog_vel == 0:
-				msg = ('The [DISPLAY] MIN_LINEAR_VELOCITY\n'
-				f'setting is {float(min_jog_vel)} units per second.\n'
-				f'Calculating for units per minute {float(min_jog_vel)} x 60 = {float(min_jog_vel) * 60}\n'
-				'results in less than 1 unit per minute.\n'
-				'The jog slider uses integers only so it will be set to 0.')
-				dialogs.info_msg_ok(parent, msg, 'INI Configuration')
+		parent.jog_vel_sl.setMinimum(int_min_jog_vel)
 
 		if parent.max_jog_vel:
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
