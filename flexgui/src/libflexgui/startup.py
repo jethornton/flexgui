@@ -1110,10 +1110,10 @@ def setup_jog(parent):
 	if 'jog_vel_sl' in parent.children:
 		parent.jog_vel_sl.setMinimum(parent.min_jog_vel)
 
-		if parent.max_jog_vel:
+		if parent.max_jog_vel: # FIXME set to int in read ini
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
 
-		if parent.default_jog_vel:
+		if parent.default_jog_vel: # FIXME set to int in read ini
 			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
 
 		if 'min_jog_vel_lb' in parent.children:
