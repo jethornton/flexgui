@@ -1108,7 +1108,7 @@ def setup_jog(parent):
 			parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.children:
-		parent.jog_vel_sl.setMinimum(int_min_jog_vel)
+		parent.jog_vel_sl.setMinimum(parent.min_jog_vel)
 
 		if parent.max_jog_vel:
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
