@@ -1,0 +1,5 @@
+This example has the minimum ini and hal entries needed to run LinuxCNC.
+
+It's a single axis stepper simulator.
+
+All items in the GUI are optional and added just to show a working minimal GUI.
