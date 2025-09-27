@@ -84,7 +84,7 @@ def read(parent):
 	 # FIXME set to int in read ini
 	parent.max_jog_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 
-	 # FIXME set to int in read ini
+	 # FIXME set to int in read ini this can also be in [TRAJ]
 	# check for default jog velocity
 	parent.default_jog_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
 
