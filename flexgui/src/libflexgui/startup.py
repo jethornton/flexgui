@@ -1995,7 +1995,8 @@ def setup_hal(parent):
 				if button.property('state_off') == 'disabled':
 					parent.state_estop_reset[button_name] = False
 				else:
-					parent.state_estop_reset[button_name] = True
+					if button_name != 'tool_changed_pb':
+						parent.state_estop_reset[button_name] = True
 
 				if button.property('required') == 'homed':
 					parent.home_required.append(button_name)
