@@ -350,7 +350,6 @@ def var_file_watch(parent):
 
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
-	print(parent.sender().property('pin_name'), value)
 
 def update_hal_spinbox(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
@@ -358,10 +357,10 @@ def update_hal_spinbox(parent, value):
 def update_hal_slider(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
-def help(parent):
+def help(parent): # FIXME is this used
 	print(parent.sender().property('file'))
 
-def set_hal_image(parent):
+def set_hal_image(parent): # FIXME is this used
 	print(parent.sender().objectName())
 
 def change_page(parent):
