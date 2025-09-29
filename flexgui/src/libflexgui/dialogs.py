@@ -29,7 +29,6 @@ def spinbox_numbers(parent, obj):
 			if isinstance(obj, QSpinBox): # return an int
 				obj.setValue(utilities.string_to_int(np.retval()))
 			elif isinstance(obj, QDoubleSpinBox): # return a float
-				print(utilities.string_to_float(np.retval()))
 				obj.setValue(utilities.string_to_float(np.retval()))
 
 def numbers(parent, obj):
@@ -126,8 +125,6 @@ def keyboard(parent, obj):
 def find(parent):
 	sr = search.FindDialog(parent)
 	result = sr.exec()
-	print(result)
-
 
 def info_msg_ok(parent, msg, title=None):
 	# dialogs.info_msg_ok(parent, msg, 'title'
