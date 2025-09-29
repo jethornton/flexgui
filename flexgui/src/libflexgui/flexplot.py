@@ -369,6 +369,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		props = {}
 		loaded_file = self._current_file
+		# FIXME this needs to be from read ini
 		max_speed = float(
 			self.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY")
 			or self.inifile.find("TRAJ","MAX_LINEAR_VELOCITY")
