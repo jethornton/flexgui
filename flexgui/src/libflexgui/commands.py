@@ -141,7 +141,6 @@ def jog(parent): # only do jog check if button is down
 	vel = parent.jog_vel_sl.value() / 60
 	if 'minus' in jog_command:
 		vel = -vel
-
 	if parent.sender().isDown():
 		if jog_check(parent):
 			if increment:
@@ -215,7 +214,6 @@ def change_cs(parent):
 		parent.command.wait_complete()
 
 def clear_axis_offset(parent, axis):
-	print(parent.sender().objectName())
 	mdi_command = f'G10 L20 P0 {axis}0'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
@@ -272,6 +270,8 @@ def tool_change(parent):
 		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
 
 def tool_changed(parent):
+	if parent.status.task_mode == emc.MODE_MDI:
+		parent.command.mode(emc.MODE_MANUAL)
 	parent.tool_changed_pb.setEnabled(False)
 
 	def tool_check(parent):
@@ -480,18 +480,15 @@ def feed_override_preset(parent):
 	value = int(parent.sender().objectName().split('_')[-1])
 	parent.command.feedrate(float(value / 100))
 	parent.command.wait_complete()
-	print(float(value / 100))
 
 def rapid_override_preset(parent):
 	value = int(parent.sender().objectName().split('_')[-1])
 	parent.command.rapidrate(float(value / 100))
 	parent.command.wait_complete()
-	print(float(value / 100))
 
 def spindle_override_preset(parent):
 	value = int(parent.sender().objectName().split('_')[-1])
 	parent.command.spindleoverride(float(value / 100))
 	parent.command.wait_complete()
-	print(float(value / 100))
 
 
