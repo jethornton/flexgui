@@ -357,12 +357,6 @@ def update_hal_spinbox(parent, value):
 def update_hal_slider(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
-def help(parent): # FIXME is this used
-	print(parent.sender().property('file'))
-
-def set_hal_image(parent): # FIXME is this used
-	print(parent.sender().objectName())
-
 def change_page(parent):
 	object_name = parent.sender().property('change_page')
 	index = int(parent.sender().property('index'))
