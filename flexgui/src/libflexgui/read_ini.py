@@ -8,6 +8,19 @@ from libflexgui import utilities
 
 def read(parent):
 
+	# ***** Various Sections *****
+	parent.max_jog_vel = float(
+		parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY")
+		or parent.inifile.find("TRAJ","MAX_LINEAR_VELOCITY")
+		or False)
+	#if not parent.max_jog_vel:
+	# FIXME
+
+
+	#parent.max_linear_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
+
+
+
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -70,7 +83,6 @@ def read(parent):
 	# check for jog velocity min and max
 	mjv = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
 	if mjv: # there is a value
-		print(float(mjv) * 60)
 		if utilities.is_number(mjv): # convert from vel/sec to vel/min
 			parent.min_jog_vel = int(float(mjv) * 60)
 		else:
@@ -80,9 +92,6 @@ def read(parent):
 			dialogs.error_msg_ok(parent, msg, 'INI Error')
 	else:
 		parent.min_jog_vel = 0
-
-	 # FIXME set to int in read ini
-	parent.max_jog_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
 
 	 # FIXME set to int in read ini this can also be in [TRAJ]
 	# check for default jog velocity
@@ -343,8 +352,16 @@ def read(parent):
 
 	''' MAX_LINEAR_VELOCITY = 5.0 - The maximum velocity for any axis or coordinated
 	move, in machine units per second. The value shown equals 300 units per minute. '''
+	'''
+	# MAX_LINEAR_VELOCITY can be in [DISPLAY] as well but [TRAJ] takes precedence
+	if parent.max_linear_vel: # warn about which entry takes precedence
+		msg = ('The [DISPLAY] section contains MAX_LINEAR_VELOCITY\n'
+			'the [TRAJ] MAX_LINEAR_VELOCITY is the required entry\n'
+			'by LinuxCNC and that one will be used')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+
 	parent.max_linear_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
 
 	parent.max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
-
+	'''
 
