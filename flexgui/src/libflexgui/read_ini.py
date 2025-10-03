@@ -7,19 +7,24 @@ from libflexgui import dialogs
 from libflexgui import utilities
 
 def read(parent):
+	# check for theme must be done before using any dialogs
+	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
-	# ***** Various Sections *****
-	parent.max_jog_vel = float(
+	# ***** Multiple Sections *****
+	parent.min_jog_vel = (
+		parent.inifile.find("DISPLAY","MIN_LINEAR_VELOCITY")
+		or parent.inifile.find("TRAJ","MIN_LINEAR_VELOCITY")
+		or False)
+
+	parent.default_jog_vel = (
+		parent.inifile.find("DISPLAY","DEFAULT_LINEAR_VELOCITY")
+		or parent.inifile.find("TRAJ","DEFAULT_LINEAR_VELOCITY")
+		or False)
+
+	parent.max_jog_vel = (
 		parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY")
 		or parent.inifile.find("TRAJ","MAX_LINEAR_VELOCITY")
 		or False)
-	#if not parent.max_jog_vel:
-	# FIXME
-
-
-	#parent.max_linear_vel = parent.inifile.find('DISPLAY', 'MAX_LINEAR_VELOCITY') or False
-
-
 
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
@@ -80,23 +85,6 @@ def read(parent):
 
 		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
-	# check for jog velocity min and max
-	mjv = parent.inifile.find('DISPLAY', 'MIN_LINEAR_VELOCITY') or False
-	if mjv: # there is a value
-		if utilities.is_number(mjv): # convert from vel/sec to vel/min
-			parent.min_jog_vel = int(float(mjv) * 60)
-		else:
-			parent.min_jog_vel = 0
-			msg = (f'The INI value {mjv} for [DISPLAY] MIN_LINEAR_VELOCITY\n'
-			'did not evaluate to a number. 0 will be used.')
-			dialogs.error_msg_ok(parent, msg, 'INI Error')
-	else:
-		parent.min_jog_vel = 0
-
-	 # FIXME set to int in read ini this can also be in [TRAJ]
-	# check for default jog velocity
-	parent.default_jog_vel = parent.inifile.find('DISPLAY', 'DEFAULT_LINEAR_VELOCITY') or False
-
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 
@@ -137,8 +125,6 @@ def read(parent):
 	parent.increment = int(increment) if increment else 10
 
 	# ***** [FLEXGUI] Section *****
-	# check for theme must be done before using any dialogs
-	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
 	# ***** Test for old entries *****
 	if parent.inifile.find('DISPLAY', 'RESOURCES'):

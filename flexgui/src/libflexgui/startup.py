@@ -1108,20 +1108,36 @@ def setup_jog(parent):
 			parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.children:
-		parent.jog_vel_sl.setMinimum(parent.min_jog_vel)
+		if parent.min_jog_vel:
+			parent.jog_vel_sl.setMinimum(int(float(parent.min_jog_vel) * 60))
+			if 'min_jog_vel_lb' in parent.children:
+				parent.min_jog_vel_lb.setText(f'{int(float(parent.min_jog_vel) * 60)}')
 
-		if parent.max_jog_vel: # FIXME set to int in read ini
-			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
-
-		if parent.default_jog_vel: # FIXME set to int in read ini
+		if parent.default_jog_vel:
 			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
 
-		if 'min_jog_vel_lb' in parent.children:
-			if parent.min_jog_vel:
-				parent.min_jog_vel_lb.setText(f'{int(float(parent.min_jog_vel) * 60)}')
-		if 'max_jog_vel_lb' in parent.children:
-			if parent.max_jog_vel:
+		if parent.max_jog_vel:
+			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
+			if 'max_jog_vel_lb' in parent.children:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_jog_vel) * 60)}')
+		else:
+			if parent.joint_count > 0:
+				maxjv = []
+				for i in range(parent.joint_count):
+					maxjv.append(parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY'))
+				parent.max_jog_vel = min(maxjv)
+				parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
+				msg = ('The INI keys DISPLAY MAX_LINEAR_VELOCITY\n'
+				'or TRAJ MAX_LINEAR_VELOCITY were not found.\n'
+				'The jog slider maximum will be set to the\n'
+				'lowest joint maximum velocity')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+			else:
+				msg = ('An error occoured in LinuxCNC\n'
+				'no joints were reported.\n'
+				'Can not set the max jog velocity\n'
+				'for the jog slider')
+				dialogs.warn_msg_ok(parent, msg, 'Unknon Error')
 
 		if 'jog_vel_lb' in parent.children:
 			parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
