@@ -164,6 +164,18 @@ class flexgui(QMainWindow):
 		else:
 			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
 
+		# get a list of axis letters in the configuration
+		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
+		axis_map = f'{self.status.axis_mask:09b}'
+		self.axis_letters = []
+		for i, a in enumerate(reversed(axis_map)):
+			if a == '1':
+				self.axis_letters.append(axis_list[i])
+
+		# get the number of axes and joints
+		self.axis_count = self.status.axis_mask.bit_count()
+		self.joint_count = self.status.joints
+
 		# get ini values if any before trying to use them
 		read_ini.read(self)
 
@@ -194,16 +206,6 @@ class flexgui(QMainWindow):
 				msg = (f'The Stylesheet {stylesheet}\n'
 					'was not found.')
 				dialogs.warn_msg_ok(parent, msg, 'INI Error')
-
-		# get a list of axis letters in the configuration
-		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
-		axis_map = f'{self.status.axis_mask:09b}'
-		self.axis_letters = []
-		for i, a in enumerate(reversed(axis_map)):
-			if a == '1':
-				self.axis_letters.append(axis_list[i])
-
-		self.axis_count = self.status.axis_mask.bit_count()
 
 		startup.set_screen(self)
 		startup.setup_vars(self)
