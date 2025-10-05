@@ -417,6 +417,7 @@ def update(parent):
 		parent.spindle_direction = parent.status.spindle[0]['direction']
 
 	# FIXME I don't think this does anything any more
+	'''
 	if parent.status_speed_setting != parent.status.settings[2]:
 		parent.spindle_speed = int(parent.status.settings[2])
 		print(f'parent.spindle_speed {parent.spindle_speed}')
@@ -427,6 +428,7 @@ def update(parent):
 			parent.spindle_speed_lcd.setText(str(parent.spindle_speed))
 		if 'settings_speed_lb' in parent.children:
 			parent.settings_speed_lb.setText(f'S{int(parent.status.settings[2])}')
+	'''
 
 	for key, value in parent.status_spindles.items():
 		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
