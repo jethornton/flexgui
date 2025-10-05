@@ -393,20 +393,19 @@ def update(parent):
 					parent.mist_pb.led = True
 		parent.mist_state = parent.status.mist
 
-	# **** SPINDLE SPEED SETTINGS **** FIXME this is broken now
-	# spindle[0]['brake']
+	# **** SPINDLE SETTINGS ****
+	# spindle brake
 	if parent.spindle_brake != parent.status.spindle[0]['brake']:
-		match parent.status.spindle[0]['brake']:
-			case b if b == 1:
-				parent.spindle_brake_0_lb.setText('On')
-			case b if b == 0:
-				parent.spindle_brake_0_lb.setText('Off')
+		if 'spindle_brake_0_lb' in parent.children:
+			match parent.status.spindle[0]['brake']:
+				case b if b == 1:
+					parent.spindle_brake_0_lb.setText('On')
+				case b if b == 0:
+					parent.spindle_brake_0_lb.setText('Off')
 		parent.spindle_brake = parent.status.spindle[0]['brake']
 
-
-	# spindle[0]['direction']
+	# spindle direction
 	if parent.spindle_direction != parent.status.spindle[0]['direction']:
-		print(f'dir changed {parent.status.spindle[0]["direction"]}')
 		if 'spindle_direction_0_lb' in parent.children:
 			match parent.status.spindle[0]['direction']:
 				case s if s == 1:
@@ -417,6 +416,7 @@ def update(parent):
 					parent.spindle_direction_0_lb.setText('Off')
 		parent.spindle_direction = parent.status.spindle[0]['direction']
 
+	# FIXME I don't think this does anything any more
 	if parent.status_speed_setting != parent.status.settings[2]:
 		parent.spindle_speed = int(parent.status.settings[2])
 		print(f'parent.spindle_speed {parent.spindle_speed}')
@@ -428,30 +428,6 @@ def update(parent):
 		if 'settings_speed_lb' in parent.children:
 			parent.settings_speed_lb.setText(f'S{int(parent.status.settings[2])}')
 
-		# spindle direction
-		'''
-		parent.status_speed_setting = parent.status.settings[2]
-		'''
-
-	'''
-	if parent.spindle_speed != parent.status.spindle[0]['speed']:
-		# FIXME
-		speed = parent.status.spindle[0]['speed']
-		print('speed changed')
-			parent.spindle_speed = parent.status.spindle[0]['speed']
-
-
-	for key, value in parent.status_spindle_dir.items():
-		if parent.status.spindle[0]['speed'] > 0:
-			direction = 'Fwd'
-		elif parent.status.spindle[0]['speed'] < 0:
-			direction = 'Rev'
-		elif parent.status.spindle[0]['speed'] == 0:
-			direction = 'Off'
-		getattr(parent, f'{key}').setText(direction)
-	'''
-
-	# spindle s.spindle[0]['brake'] FIXME this over writes spindle direction label
 	for key, value in parent.status_spindles.items():
 		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
 

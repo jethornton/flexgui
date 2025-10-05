@@ -1241,11 +1241,14 @@ def conv_to_decimal(data):
 
 def setup_spindle(parent):
 	parent.spindle_brake = parent.status.spindle[0]['brake']
-	parent.spindle_direction = parent.status.spindle[0]['direction']
+	if 'spindle_brake_0_lb' in parent.children:
+		parent.spindle_brake_0_lb.setText('On')
 
-	#parent.status_spindle_dir = {}
+	parent.spindle_direction = parent.status.spindle[0]['direction']
 	if 'spindle_direction_0_lb' in parent.children:
 		parent.spindle_direction_0_lb.setText('Off')
+
+	#parent.status_spindle_dir = {}
 	#	parent.status_spindle_dir['spindle_direction_0_lb'] = ['direction']
 
 	# spindle defaults
