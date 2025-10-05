@@ -1240,6 +1240,14 @@ def conv_to_decimal(data):
 		return float(data)
 
 def setup_spindle(parent):
+	parent.spindle_brake = parent.status.spindle[0]['brake']
+	parent.spindle_direction = parent.status.spindle[0]['direction']
+
+	#parent.status_spindle_dir = {}
+	if 'spindle_direction_0_lb' in parent.children:
+		parent.spindle_direction_0_lb.setText('Off')
+	#	parent.status_spindle_dir['spindle_direction_0_lb'] = ['direction']
+
 	# spindle defaults
 	if 'spindle_speed_lb' in parent.children:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
@@ -1285,8 +1293,8 @@ def setup_spindle(parent):
 		if max_spindle_override >= 100:
 			parent.spindle_override_sl.setValue(100)
 
-	# check for spindle labels in the ui
-	spindle_items = ['brake', 'direction', 'enabled', 'homed',
+	# check for spindle labels in the ui direction is handled differently
+	spindle_items = ['enabled', 'homed',
 	'orient_fault', 'orient_state', 'override', 'override_enabled']
 	parent.status_spindles = {}
 	parent.status_spindle_overrides = {}
@@ -1301,11 +1309,6 @@ def setup_spindle(parent):
 
 		if f'spindle_override_{i}_lb' in parent.children:
 			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
-
-	# FIXME might think about this a bit...
-	parent.status_spindle_dir = {}
-	if 'spindle_direction_0_lb' in parent.children: 
-		parent.status_spindle_dir['spindle_direction_0_lb'] = ['direction']
 
 	parent.status_spindle_speed = {}
 	if 'spindle_speed_0_lb' in parent.children:
