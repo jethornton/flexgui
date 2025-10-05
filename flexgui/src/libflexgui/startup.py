@@ -1281,10 +1281,10 @@ def setup_spindle(parent):
 
 	if 'spindle_speed_sb' in parent.children:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
+		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 
 	if 'spindle_speed_setting_lb' in parent.children:
 		parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
