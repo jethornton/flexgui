@@ -393,16 +393,93 @@ def update(parent):
 					parent.mist_pb.led = True
 		parent.mist_state = parent.status.mist
 
-	# **** SPINDLE SPEED SETTINGS ****
+	# **** SPINDLE SPEED SETTINGS **** FIXME this is broken now
+	# spindle[0]['brake']
+	if parent.spindle_brake != parent.status.spindle[0]['brake']:
+		match parent.status.spindle[0]['brake']:
+			case b if b == 1:
+				parent.spindle_brake_0_lb.setText('On')
+			case b if b == 0:
+				parent.spindle_brake_0_lb.setText('Off')
+		parent.spindle_brake = parent.status.spindle[0]['brake']
+
+
+	# spindle[0]['direction']
+	if parent.spindle_direction != parent.status.spindle[0]['direction']:
+		print(f'dir changed {parent.status.spindle[0]["direction"]}')
+		if 'spindle_direction_0_lb' in parent.children:
+			match parent.status.spindle[0]['direction']:
+				case s if s == 1:
+					parent.spindle_direction_0_lb.setText('Fwd')
+				case s if s == -1:
+					parent.spindle_direction_0_lb.setText('Rev')
+				case s if s == 0:
+					parent.spindle_direction_0_lb.setText('Off')
+		parent.spindle_direction = parent.status.spindle[0]['direction']
+
 	if parent.status_speed_setting != parent.status.settings[2]:
 		parent.spindle_speed = int(parent.status.settings[2])
+		print(f'parent.spindle_speed {parent.spindle_speed}')
+		# spindle speed labels
 		if 'spindle_speed_sb' in parent.children:
 			parent.spindle_speed_sb.setValue(parent.spindle_speed)
 		if 'spindle_speed_lcd' in parent.children:
 			parent.spindle_speed_lcd.setText(str(parent.spindle_speed))
 		if 'settings_speed_lb' in parent.children:
 			parent.settings_speed_lb.setText(f'S{int(parent.status.settings[2])}')
+
+		# spindle direction
+		'''
 		parent.status_speed_setting = parent.status.settings[2]
+		'''
+
+	'''
+	if parent.spindle_speed != parent.status.spindle[0]['speed']:
+		# FIXME
+		speed = parent.status.spindle[0]['speed']
+		print('speed changed')
+			parent.spindle_speed = parent.status.spindle[0]['speed']
+
+
+	for key, value in parent.status_spindle_dir.items():
+		if parent.status.spindle[0]['speed'] > 0:
+			direction = 'Fwd'
+		elif parent.status.spindle[0]['speed'] < 0:
+			direction = 'Rev'
+		elif parent.status.spindle[0]['speed'] == 0:
+			direction = 'Off'
+		getattr(parent, f'{key}').setText(direction)
+	'''
+
+	# spindle s.spindle[0]['brake'] FIXME this over writes spindle direction label
+	for key, value in parent.status_spindles.items():
+		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
+
+	# spindle speed
+	for key, value in parent.status_spindle_speed.items():
+		getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value]):.0f}')
+
+	# spindle lcd
+	for key, value in parent.status_spindle_lcd.items():
+		getattr(parent, key).display(f'{getattr(parent, "status").spindle[0][value]:.0f}')
+
+	# spindle override parent.spindle[0]['override']
+	for key, value in parent.status_spindle_overrides.items():
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").spindle[value]["override"] * 100:.0f}%')
+
+	# spindle actual speed
+	for item in parent.spindle_actual_speed:
+		override = parent.spindle_override_sl.value() / 100
+		commanded_rpm = abs(parent.status.spindle[0]['speed'])
+		override_rpm = commanded_rpm * override
+		if override_rpm >= parent.min_rpm:
+			getattr(parent, item).setText(f'{override_rpm:.0f}')
+		elif override_rpm > 0:
+			getattr(parent, item).setText(f'{parent.min_rpm:.0f}')
+		else:
+			getattr(parent, item).setText('0')
+
+
 
 	# status labels
 	# key is label and value is status item
@@ -570,44 +647,6 @@ def update(parent):
 	# aio ain_0_lb aout_0_lb aio[0] aout[0]
 	for key, value in parent.status_aio.items():
 		getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value[0]}")[value[1]]:.{value[2]}f}')
-
-	# spindle s.spindle[0]['brake']
-	for key, value in parent.status_spindles.items():
-		getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
-
-	# spindle speed
-	for key, value in parent.status_spindle_speed.items():
-		getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value]):.0f}')
-
-	# spindle lcd
-	for key, value in parent.status_spindle_lcd.items():
-		getattr(parent, key).display(f'{getattr(parent, "status").spindle[0][value]:.0f}')
-
-	# spindle override parent.spindle[0]['override']
-	for key, value in parent.status_spindle_overrides.items():
-		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").spindle[value]["override"] * 100:.0f}%')
-
-	# spindle direction
-	for key, value in parent.status_spindle_dir.items():
-		if parent.status.spindle[0]['speed'] > 0:
-			direction = 'Fwd'
-		elif parent.status.spindle[0]['speed'] < 0:
-			direction = 'Rev'
-		elif parent.status.spindle[0]['speed'] == 0:
-			direction = 'Off'
-		getattr(parent, f'{key}').setText(direction)
-
-	# spindle actual speed
-	for item in parent.spindle_actual_speed:
-		override = parent.spindle_override_sl.value() / 100
-		commanded_rpm = abs(parent.status.spindle[0]['speed'])
-		override_rpm = commanded_rpm * override
-		if override_rpm >= parent.min_rpm:
-			getattr(parent, item).setText(f'{override_rpm:.0f}')
-		elif override_rpm > 0:
-			getattr(parent, item).setText(f'{parent.min_rpm:.0f}')
-		else:
-			getattr(parent, item).setText('0')
 
 	# current tool info
 	if parent.current_tool_info != parent.status.tool_table[0]:
