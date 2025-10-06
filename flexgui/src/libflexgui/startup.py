@@ -535,7 +535,7 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	# set the button checked states
-	parent.status.poll()
+	#parent.status.poll()
 	if 'feed_override_pb' in parent.children:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
@@ -827,7 +827,7 @@ def setup_status_labels(parent):
 	# check for axis labels in the ui
 	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
 	# label axis_n_velocity_lb
-	parent.status.poll()
+	#parent.status.poll()
 
 	parent.status_axes = {} # create an empty dictionary
 	for i in range(parent.axis_count):
@@ -873,7 +873,7 @@ def setup_status_labels(parent):
 				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
 
 	# joint velocity joint_velocity_n_lb parent.status.joint[0]['velocity']
-	parent.status.poll()
+	#parent.status.poll()
 	parent.joint_vel_sec = {}
 	for i in range(parent.status.joints):
 		if f'joint_vel_sec_{i}_lb' in parent.children: # if the label is found
@@ -945,7 +945,7 @@ def setup_status_labels(parent):
 	parent.current_tool_info = ()
 
 	if 'file_lb' in parent.children:
-		parent.status.poll()
+		#parent.status.poll()
 		gcode_file = parent.status.file or False
 		if gcode_file:
 			parent.file_lb.setText(os.path.basename(gcode_file))
@@ -987,7 +987,7 @@ def setup_plain_text_edits(parent):
 		parent.gcode_pte.ensureCursorVisible()
 		parent.gcode_pte.viewport().installEventFilter(parent)
 		parent.gcode_pte.cursorPositionChanged.connect(partial(utilities.update_qcode_pte, parent))
-		parent.status.poll()
+		#parent.status.poll()
 		parent.last_line = parent.status.motion_line
 		parent.gcode_pte.textChanged.connect(partial(utilities.nc_code_changed, parent))
 
@@ -1240,16 +1240,8 @@ def conv_to_decimal(data):
 		return float(data)
 
 def setup_spindle(parent):
-	parent.spindle_brake = parent.status.spindle[0]['brake']
-	if 'spindle_brake_0_lb' in parent.children:
-		parent.spindle_brake_0_lb.setText('On')
-
-	parent.spindle_direction = parent.status.spindle[0]['direction']
-	if 'spindle_direction_0_lb' in parent.children:
-		parent.spindle_direction_0_lb.setText('Off')
-
-	#parent.status_spindle_dir = {}
-	#	parent.status_spindle_dir['spindle_direction_0_lb'] = ['direction']
+	# create spindle tuple
+	parent.status_spindle = ()
 
 	# spindle defaults
 	if 'spindle_speed_lb' in parent.children:
@@ -1297,12 +1289,9 @@ def setup_spindle(parent):
 			parent.spindle_override_sl.setValue(100)
 
 	# check for spindle labels in the ui direction is handled differently
-	spindle_items = ['enabled', 'homed',
-	'orient_fault', 'orient_state', 'override', 'override_enabled']
+	spindle_items = ['homed', 'orient_fault', 'orient_state', 'override', 'override_enabled']
 	parent.status_spindles = {}
-	parent.status_spindle_overrides = {}
-	parent.status_spindle_lcd = {}
-	parent.status.poll()
+	#parent.status.poll()
 
 	 # only look for the num of spindles configured
 	for i in range(parent.status.spindles):
@@ -1310,13 +1299,15 @@ def setup_spindle(parent):
 			if f'spindle_{item}_{i}_lb' in parent.children:
 				parent.status_spindles[f'spindle_{item}_{i}_lb'] = item
 
-		if f'spindle_override_{i}_lb' in parent.children:
-			parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
+	parent.status_spindle_overrides = {}
+	if f'spindle_override_{i}_lb' in parent.children:
+		parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
 
 	parent.status_spindle_speed = {}
 	if 'spindle_speed_0_lb' in parent.children:
 		parent.status_spindle_speed['spindle_speed_0_lb'] = 'speed'
 
+	parent.status_spindle_lcd = {}
 	if 'spindle_speed_0_lcd' in parent.children:
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
 
@@ -2512,7 +2503,7 @@ def setup_help(parent):
 			child.clicked.connect(partial(dialogs.help_dialog, parent))
 
 def set_status(parent): # this is only used if running from a terminal
-	parent.status.poll()
+	#parent.status.poll()
 	if parent.status.task_state == emc.STATE_ESTOP:
 		for key, value in parent.state_estop.items():
 			getattr(parent, key).setEnabled(value)
