@@ -1473,7 +1473,7 @@ def setup_sliders(parent):
 		parent.max_vel_sl.setMaximum(max_units_min)
 		parent.max_vel_sl.setValue(max_units_min)
 
-def setup_overrides(parent):
+def setup_overrides(parent): # jog limit switch override checkbox
 	if 'override_limits_cb' in parent.children:
 		parent.override_limits_cb.setEnabled(False)
 

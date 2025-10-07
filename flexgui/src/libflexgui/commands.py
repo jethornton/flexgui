@@ -343,8 +343,11 @@ def tool_touchoff(parent):
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
 def spindle(parent, value=0):
-	# spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
-	# Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE, SPINDLE_DECREASE, or SPINDLE_CONSTANT]
+	'''
+	spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
+	Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE,
+	SPINDLE_DECREASE, or SPINDLE_CONSTANT]
+	'''
 
 	sender_name = parent.sender().objectName()
 	parent.status.poll()
