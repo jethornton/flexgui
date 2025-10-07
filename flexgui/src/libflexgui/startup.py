@@ -788,6 +788,14 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
+	# G Code label
+	if 'gcodes_lb' in parent.children:
+		parent.g_codes = ()
+
+	# M Code label
+	if 'mcodes_lb' in parent.children:
+		parent.m_codes = ()
+
 	# DRO labels
 	parent.status_dro = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
