@@ -990,6 +990,7 @@ def setup_list_widgets(parent):
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
+	parent.motion_line = -1
 	if 'gcode_pte' in parent.children:
 		parent.gcode_pte.setCenterOnScroll(True)
 		parent.gcode_pte.ensureCursorVisible()
