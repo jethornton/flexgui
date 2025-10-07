@@ -470,23 +470,30 @@ def update(parent):
 	for key, value in parent.status_float_labels.items():
 		getattr(parent, f'{key}_lb').setText(f'{getattr(parent.status, key):.{value}f}')
 
-	if 'gcodes_lb' in parent.children:
-		g_codes = []
-		for i in parent.status.gcodes[1:]:
-			if i == -1: continue
-			if i % 10 == 0:
-				g_codes.append(f'G{(i/10):.0f}')
-			else:
-				g_codes.append(f'G{(i/10):.0f}.{i%10}')
-		parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
+	# G codes only update when they change
+	if parent.g_codes != parent.status.gcodes:
+		if 'gcodes_lb' in parent.children:
+			g_codes = []
+			for i in parent.status.gcodes[1:]:
+				if i == -1: continue
+				if i % 10 == 0:
+					g_codes.append(f'G{(i/10):.0f}')
+				else:
+					g_codes.append(f'G{(i/10):.0f}.{i%10}')
+			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
+		parent.g_codes = parent.status.gcodes
 
-	if 'mcodes_lb' in parent.children:
-		m_codes = []
-		for i in parent.status.mcodes[1:]:
-			if i == -1: continue
-			m_codes.append(f'M{i}')
-		parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
+	# FIXME only update if m codes changed
+	if parent.m_codes != parent.status.mcodes:
+		if 'mcodes_lb' in parent.children:
+			m_codes = []
+			for i in parent.status.mcodes[1:]:
+				if i == -1: continue
+				m_codes.append(f'M{i}')
+			parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
+		parent.m_codes = parent.status.mcodes
 
+	# FIXME only update if motion line changes
 	# update gcode_pte
 	if 'gcode_pte' in parent.children:
 		motion_line = parent.status.motion_line
