@@ -483,7 +483,7 @@ def update(parent):
 			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
 		parent.g_codes = parent.status.gcodes
 
-	# FIXME only update if m codes changed
+	# M codes only update when they change
 	if parent.m_codes != parent.status.mcodes:
 		if 'mcodes_lb' in parent.children:
 			m_codes = []
@@ -493,16 +493,16 @@ def update(parent):
 			parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
 		parent.m_codes = parent.status.mcodes
 
-	# FIXME only update if motion line changes
-	# update gcode_pte
-	if 'gcode_pte' in parent.children:
-		motion_line = parent.status.motion_line
-		if motion_line != parent.last_line:
-			cursor = parent.gcode_pte.textCursor()
-			cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(motion_line))
-			cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
-			parent.gcode_pte.setTextCursor(cursor)
-			parent.last_line = motion_line
+	# update gcode_pte only if motion line changes
+	if parent.motion_line != parent.status.motion_line:
+		parent.motion_line != parent.status.motion_line
+		if 'gcode_pte' in parent.children:
+			if parent.motion_line != parent.last_line:
+				cursor = parent.gcode_pte.textCursor()
+				cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(parent.motion_line))
+				cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
+				parent.gcode_pte.setTextCursor(cursor)
+				parent.last_line = parent.motion_line
 
 	# update hal labels key is label name and value is pin name
 	for key, value in parent.hal_readers.items():
