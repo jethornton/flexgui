@@ -156,7 +156,7 @@ positions.
 	The integer values reflect the nominal G-code numbers multiplied by 10.
 	(Examples: 10 = G1, 430 = G43, 923 = G92.3) 
 
-	homed - returns tuple of integers
+	homed_lb - returns tuple of integers
 	currently homed joints, 0 = not homed, 1 = homed 
 
 See the `Axis Homed <#axis-homed-labels>`_ labels for individual axis home
@@ -164,7 +164,7 @@ status.
 
 .. code-block:: text
 
-	id - returns integer
+	id_lb - returns integer
 	currently executing motion id
 
 	ini_filename_lb - returns string
