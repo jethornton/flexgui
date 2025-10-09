@@ -791,10 +791,14 @@ def setup_status_labels(parent):
 	# G Code label
 	if 'gcodes_lb' in parent.children:
 		parent.g_codes = ()
+	else:
+		parent.g_codes = False
 
 	# M Code label
 	if 'mcodes_lb' in parent.children:
 		parent.m_codes = ()
+	else:
+		parent.m_codes = False
 
 	# DRO labels
 	parent.status_dro = {} # create an empty dictionary
