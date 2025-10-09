@@ -463,8 +463,10 @@ def update(parent):
 			stat_value = getattr(parent.status, f'{value}')
 			if stat_value in parent.stat_dict[value]:
 				getattr(parent, f'{key}').setText(f'{parent.stat_dict[value][stat_value]}')
-		else:
+		elif value != 'id': # FIXME temp fix for id
 			getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value}")}')
+		else:
+			getattr(parent, f'{key}').setText('N/A}')
 
 	# status float labels
 	for key, value in parent.status_float_labels.items():
