@@ -1136,10 +1136,9 @@ def setup_jog(parent):
 					maxjv.append(parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY'))
 				parent.max_jog_vel = min(maxjv)
 				parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
-				msg = ('The INI keys DISPLAY MAX_LINEAR_VELOCITY\n'
-				'or TRAJ MAX_LINEAR_VELOCITY were not found.\n'
-				'The jog slider maximum will be set to the\n'
-				'lowest joint maximum velocity')
+				msg = ('The DISPLAY key MAX_LINEAR_VELOCITY\n'
+				'was not found. The jog slider maximum will\n'
+				'be set to the lowest joint maximum velocity')
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 			else:
 				msg = ('An error occoured in LinuxCNC\n'
@@ -1477,10 +1476,16 @@ def setup_sliders(parent):
 		parent.rapid_override_sl.setValue(100)
 
 	if 'max_vel_sl' in parent.children:
-		parent.max_vel_sl.valueChanged.connect(partial(utilities.max_velocity, parent))
-		max_units_min = int(float(parent.max_linear_vel) * 60)
-		parent.max_vel_sl.setMaximum(max_units_min)
-		parent.max_vel_sl.setValue(max_units_min)
+		if parent.max_linear_vel:
+			parent.max_vel_sl.valueChanged.connect(partial(utilities.max_velocity, parent))
+			max_units_min = int(float(parent.max_linear_vel) * 60)
+			parent.max_vel_sl.setMaximum(max_units_min)
+			parent.max_vel_sl.setValue(max_units_min)
+		else:
+			msg = ('The [TRAJ] section key MAX_LINEAR_VELOCITY\n'
+				'was not found. The max_linear_vel slider will be disabled\n')
+			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			parent.max_vel_sl.setEnabled(False)
 
 def setup_overrides(parent): # jog limit switch override checkbox
 	if 'override_limits_cb' in parent.children:

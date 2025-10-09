@@ -10,22 +10,6 @@ def read(parent):
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
-	# ***** Multiple Sections *****
-	parent.min_jog_vel = (
-		parent.inifile.find("DISPLAY","MIN_LINEAR_VELOCITY")
-		or parent.inifile.find("TRAJ","MIN_LINEAR_VELOCITY")
-		or False)
-
-	parent.default_jog_vel = (
-		parent.inifile.find("DISPLAY","DEFAULT_LINEAR_VELOCITY")
-		or parent.inifile.find("TRAJ","DEFAULT_LINEAR_VELOCITY")
-		or False)
-
-	parent.max_jog_vel = (
-		parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY")
-		or parent.inifile.find("TRAJ","MAX_LINEAR_VELOCITY")
-		or False)
-
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -83,20 +67,19 @@ def read(parent):
 	else:
 		parent.default_view = 'p'
 
-		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
+	parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 
-	# set default spindle speed
-	dss = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or 0
-	if utilities.is_int(dss):
-		parent.spindle_speed = int(dss)
-	else:
-		parent.spindle_speed = 0
-		msg = (f'The INI value {dss} for [DISPLAY] DEFAULT_SPINDLE_SPEED\n'
-		'did not evaluate to an integer. 0 will be used.')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
+	# minimum jog velocity
+	parent.min_jog_vel = parent.inifile.find("DISPLAY","MIN_LINEAR_VELOCITY") or False
+
+	# default jog velocity
+	parent.default_jog_vel = parent.inifile.find("DISPLAY","DEFAULT_LINEAR_VELOCITY") or False
+
+	# maximum jog velocity
+	parent.max_jog_vel = parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY") or False
 
 	# set max feed override
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
@@ -107,6 +90,16 @@ def read(parent):
 		'did not evaluate to a number. LinuxCNC will shut down.')
 		dialogs.error_msg_ok(parent, msg, 'INI Error')
 		sys.exit()
+
+	# set default spindle speed
+	dss = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or 0
+	if utilities.is_int(dss):
+		parent.spindle_speed = int(dss)
+	else:
+		parent.spindle_speed = 0
+		msg = (f'The INI value {dss} for [DISPLAY] DEFAULT_SPINDLE_SPEED\n'
+		'did not evaluate to an integer. 0 will be used.')
+		dialogs.error_msg_ok(parent, msg, 'INI Error')
 
 	# set max spindle override
 	mso = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or '1.0'
@@ -336,18 +329,7 @@ def read(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 			sys.exit()
 
-	''' MAX_LINEAR_VELOCITY = 5.0 - The maximum velocity for any axis or coordinated
-	move, in machine units per second. The value shown equals 300 units per minute. '''
-	'''
-	# MAX_LINEAR_VELOCITY can be in [DISPLAY] as well but [TRAJ] takes precedence
-	if parent.max_linear_vel: # warn about which entry takes precedence
-		msg = ('The [DISPLAY] section contains MAX_LINEAR_VELOCITY\n'
-			'the [TRAJ] MAX_LINEAR_VELOCITY is the required entry\n'
-			'by LinuxCNC and that one will be used')
-		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-
+	# The maximum velocity for any axis or coordinated move, in machine units per second.
 	parent.max_linear_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
 
-	parent.max_jog_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
-	'''
 
