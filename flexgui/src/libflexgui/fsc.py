@@ -2,6 +2,7 @@
 
 import os, sys
 from math import pi
+from functools import partial
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.uic import loadUi
@@ -10,7 +11,7 @@ from libflexgui import utilities
 from libflexgui import dialogs
 
 class fs_calc(QWidget):
-	def __init__(self):
+	def __init__(self, parent):
 		super().__init__()
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		if self.path == '/usr/bin':
@@ -22,12 +23,12 @@ class fs_calc(QWidget):
 		self.fsc_cl_lb.setText('')
 		self.fsc_feed_lb.setText('')
 		self.fsc_sfm_lb.setText('')
-		self.fsc_calc_cl_pb.clicked.connect(self.calc_cl)
-		self.fsc_calc_fr_pb.clicked.connect(self.calc_fr)
-		self.fsc_calc_sfm_pb.clicked.connect(self.calc_sfm)
+		self.fsc_calc_cl_pb.clicked.connect(partial(self.calc_cl, parent))
+		self.fsc_calc_fr_pb.clicked.connect(partial(self.calc_fr, parent))
+		self.fsc_calc_sfm_pb.clicked.connect(partial(self.calc_sfm, parent))
 		self.fsc_units_pb.clicked.connect(self.units)
 
-	def check_cl(self):
+	def check_cl(self, parent):
 		if self.fsc_chip_load_le.text() == '':
 			msg = ('Chip Load can not be blank')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -39,10 +40,10 @@ class fs_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def check_feed(self):
+	def check_feed(self, parent):
 		if self.fsc_feed_le.text() == '':
 			msg = ('Feed can not be blank')
-			dialogs.warn_msg_ok(msg, 'Error')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 		if utilities.is_float(self.fsc_feed_le.text()):
 			return float(self.fsc_feed_le.text())
@@ -51,7 +52,7 @@ class fs_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def check_rpm(self):
+	def check_rpm(self, parent):
 		if self.fsc_rpm_le.text() == '':
 			msg = ('RPM can not be blank')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -63,7 +64,7 @@ class fs_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def check_flutes(self):
+	def check_flutes(self, parent):
 		if self.fsc_flutes_le.text() == '':
 			msg = ('Flutes can not be blank')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -75,7 +76,7 @@ class fs_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def check_dia(self):
+	def check_dia(self, parent):
 		if self.fsc_diameter_le.text() == '':
 			msg = ('Diameter can not be blank')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -87,14 +88,14 @@ class fs_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def calc_cl(self):
-		feed = self.check_feed()
+	def calc_cl(self, parent):
+		feed = self.check_feed(parent)
 		if not feed:
 			return
-		rpm = self.check_rpm()
+		rpm = self.check_rpm(parent)
 		if not rpm:
 			return
-		flutes = self.check_flutes()
+		flutes = self.check_flutes(parent)
 		if not flutes:
 			return
 
@@ -107,14 +108,14 @@ class fs_calc(QWidget):
 			cl = (feed * 1000) / (rpm * flutes)
 			self.fsc_cl_lb.setText(f'{cl:.3f} mm/PT')
 
-	def calc_fr(self):
-		cl = self.check_cl()
+	def calc_fr(self, parent):
+		cl = self.check_cl(parent)
 		if not cl:
 			return
-		rpm = self.check_rpm()
+		rpm = self.check_rpm(parent)
 		if not rpm:
 			return
-		flutes = self.check_flutes()
+		flutes = self.check_flutes(parent)
 		if not flutes:
 			return
 
@@ -126,11 +127,11 @@ class fs_calc(QWidget):
 			feed = (cl * (rpm * flutes)) / 1000
 			self.fsc_feed_lb.setText(f'{feed:.2f} MPM')
 
-	def calc_sfm(self):
-		dia = self.check_dia()
+	def calc_sfm(self, parent):
+		dia = self.check_dia(parent)
 		if not dia:
 			return
-		rpm = self.check_rpm()
+		rpm = self.check_rpm(parent)
 		if not rpm:
 			return
 
