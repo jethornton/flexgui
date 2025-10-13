@@ -1304,14 +1304,13 @@ def setup_spindle(parent):
 	#parent.status.poll()
 
 	 # only look for the num of spindles configured
-	for i in range(parent.status.spindles):
-		for item in spindle_items:
-			if f'spindle_{item}_{i}_lb' in parent.children:
-				parent.status_spindles[f'spindle_{item}_{i}_lb'] = item
+	for item in spindle_items:
+		if f'spindle_{item}_0_lb' in parent.children:
+			parent.status_spindles[f'spindle_{item}_{i}_lb'] = item
 
 	parent.status_spindle_overrides = {}
-	if f'spindle_override_{i}_lb' in parent.children:
-		parent.status_spindle_overrides[f'spindle_override_{i}_lb'] = i
+	if f'spindle_override_0_lb' in parent.children:
+		parent.status_spindle_overrides[f'spindle_override_0_lb'] = 0
 
 	parent.status_spindle_speed = {}
 	if 'spindle_speed_0_lb' in parent.children:
