@@ -766,6 +766,22 @@ def setup_status_labels(parent):
 		if f'{item}_lb' in parent.children: # if the label is found
 			parent.status_labels[f'{item}_lb'] = item # add the status and label
 
+	# check for joint labels in ui
+	# these return 16 joints
+	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
+	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
+	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
+	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
+	'output', 'override_limits']
+	parent.status_joints = {} # create an empty dictionary
+	for i in range(16):
+		for item in joint_items:
+			if f'joint_{item}_{i}_lb' in parent.children:
+				parent.status_joints[f'joint_{item}_{i}_lb'] = f'joint[{i}]["{item}"]'
+
+	for key, value in parent.status_joints.items():
+		print(key, value)
+
 	parent.status_float_labels = {}
 	status_float_items = ['acceleration', 'angular_units', 'current_vel',
 	'cycle_time', 'delay_left', 'distance_to_go', 'linear_units',
@@ -868,19 +884,6 @@ def setup_status_labels(parent):
 		p = p if p is not None else parent.default_precision
 		if None not in (joint_0, joint_1, joint_2): # check for None or False
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
-
-	# check for joint labels in ui
-	# these return 16 joints
-	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
-	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
-	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
-	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
-	'output', 'override_limits']
-	parent.status_joints = {} # create an empty dictionary
-	for i in range(16):
-		for item in joint_items:
-			if f'joint_{item}_{i}_lb' in parent.children:
-				parent.status_joints[f'{item}_{i}'] = f'joint_{item}_{i}_lb'
 
 	# joint velocity joint_velocity_n_lb parent.status.joint[0]['velocity']
 	#parent.status.poll()
