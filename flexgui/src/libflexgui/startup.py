@@ -1306,7 +1306,7 @@ def setup_spindle(parent):
 	 # only look for the num of spindles configured
 	for item in spindle_items:
 		if f'spindle_{item}_0_lb' in parent.children:
-			parent.status_spindles[f'spindle_{item}_{i}_lb'] = item
+			parent.status_spindles[f'spindle_{item}_0_lb'] = item
 
 	parent.status_spindle_overrides = {}
 	if f'spindle_override_0_lb' in parent.children:
