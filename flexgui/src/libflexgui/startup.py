@@ -768,7 +768,10 @@ def setup_status_labels(parent):
 
 	# check for joint labels in ui
 	# these return 16 joints
-	joint_items = ['backlash', 'enabled', 'fault', 'ferror_current',
+	# FIXME  backlash float - Backlash in machine units. configuration parameter,
+	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
+
+	joint_items = ['enabled', 'fault', 'ferror_current',
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
@@ -776,8 +779,8 @@ def setup_status_labels(parent):
 	parent.status_joints = {} # create an empty dictionary
 	for i in range(16):
 		for item in joint_items:
-			if f'joint_{item}_{i}_lb' in parent.children:
-				parent.status_joints[f'joint_{item}_{i}_lb'] = f'joint[{i}]["{item}"]'
+			if f'joint_{i}_{item}_lb' in parent.children:
+				parent.status_joints[f'joint_{i}_{item}_lb'] = f'joint[{i}][{item}]'
 
 	for key, value in parent.status_joints.items():
 		print(key, value)
@@ -2463,7 +2466,7 @@ def setup_plot(parent):
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.children:
 		from libflexgui import fsc
-		parent.fsc_calc = fsc.fs_calc()
+		parent.fsc_calc = fsc.fs_calc(parent)
 		layout = QVBoxLayout(parent.fsc_container)
 		layout.addWidget(parent.fsc_calc)
 		if parent.fsc_container.property('input') == 'number':
@@ -2475,7 +2478,7 @@ def setup_fsc(parent): # mill feed and speed calculator
 def setup_dsf(parent): # drill speed and feed calculator
 	if 'dsf_container' in parent.children:
 		from libflexgui import dsf
-		parent.dsf_calc = dsf.dsf_calc()
+		parent.dsf_calc = dsf.dsf_calc(parent)
 		layout = QVBoxLayout(parent.dsf_container)
 		layout.addWidget(parent.dsf_calc)
 		if parent.dsf_container.property('input') == 'number':
