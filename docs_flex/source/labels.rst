@@ -386,18 +386,18 @@ the number of the joint. Joint numbers start at 0 and go through 15
    :align: center
    :widths: 60 60
 
-	joint_backlash_n_lb, joint_input_n_lb
-	joint_min_position_limit_n_lb, joint_enabled_n_lb
-	joint_jointType_n_lb, joint_in_soft_limit_n_lb
-	joint_fault_n_lb, joint_max_ferror_n_lb
-	joint_output_n_lb, joint_ferror_current_n_lb
-	joint_max_hard_limit_n_lb, joint_override_limits_n_lb
-	joint_ferror_highmark_n_lb, joint_max_position_limit_n_lb
-	joint_units_n_lb, joint_homed_n_lb
-	joint_max_soft_limit_n_lb, joint_vel_sec_n_lb
-	joint_vel_min_n_lb, joint_homing_n_lb
-	joint_min_ferror_n_lb, joint_inpos_n_lb
-	joint_min_hard_limit_n_lb,
+	joint_n_backlash_lb, joint_n_input_lb
+	joint_n_min_position_limit_lb, joint_n_enabled_lb
+	joint_n_jointType_lb, joint_n_in_soft_limit_lb
+	joint_n_fault_lb, joint_n_max_ferror_lb
+	joint_n_output_lb, joint_n_ferror_current_lb
+	joint_n_max_hard_limit_lb, joint_n_override_limits_lb
+	joint_n_ferror_highmark_lb, joint_n_max_position_limit_lb
+	joint_n_units_lb, joint_n_homed_lb
+	joint_n_max_soft_limit_lb, joint_n_vel_sec_lb
+	joint_n_vel_min_lb, joint_n_homing_lb
+	joint_n_min_ferror_lb, joint_n_inpos_lb
+	joint_n_min_hard_limit_lb,
 
 Special Labels
 --------------
