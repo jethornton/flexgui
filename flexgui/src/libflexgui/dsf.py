@@ -2,6 +2,7 @@
 
 import os, sys
 from math import pi
+from functools import partial
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.uic import loadUi
@@ -36,18 +37,19 @@ Also, you want to leave 2%-3% of the hole diameter for the reamer
 '''
 
 class dsf_calc(QWidget):
-	def __init__(self):
+	def __init__(self, parent):
 		super().__init__()
+		print(parent)
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
 		else:
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 		loadUi(os.path.join(self.lib_path, 'dsf.ui'), self)
-
 		self.units = 'Inch'
 		self.dsf_units_pb.clicked.connect(self.change_units)
-		self.dfs_calculate_pb.clicked.connect(self.calculate)
+		self.dfs_calculate_pb.clicked.connect(partial(self.calculate, parent))
+		#self.dfs_calculate_pb.clicked.connect(self.calculate)
 		self.dsf_feed_lb.setText('')
 		self.dsf_drill_lb.setText('')
 		self.dsf_ream_lb.setText('')
@@ -55,7 +57,7 @@ class dsf_calc(QWidget):
 		self.dfs_diameter_le.setText('')
 		self.dfs_surface_speed_le.setText('')
 
-	def check_dia(self):
+	def check_dia(self, parent):
 		if self.dfs_diameter_le.text() == '':
 			msg = ('Diameter can not be blank')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -67,7 +69,7 @@ class dsf_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def check_speed(self):
+	def check_speed(self, parent):
 		if self.dfs_surface_speed_le.text() == '':
 			msg = ('Surface Speed can not be blank')
 			dialogs.warn_msg_ok(parent, msg, 'Error')
@@ -79,11 +81,11 @@ class dsf_calc(QWidget):
 			dialogs.warn_msg_ok(parent, msg, 'Error')
 			return False
 
-	def calculate(self):
-		dia = self.check_dia()
+	def calculate(self, parent):
+		dia = self.check_dia(parent)
 		if not dia:
 			return
-		surface_speed = self.check_speed()
+		surface_speed = self.check_speed(parent)
 		if not surface_speed:
 			return
 
