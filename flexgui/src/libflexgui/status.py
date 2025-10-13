@@ -538,15 +538,19 @@ def update(parent):
 		value = hal.get_value(f'flexhal.{value}')
 		getattr(parent, key).setValue(int(value))
 
-	# update hal io
+	# update hal io FIXME this is handled in utilities
+	'''
 	for key, value in parent.hal_io.items():
 		value = hal.get_value(f'flexhal.{value}')
-		if isinstance(getattr(parent, key), QAbstractSpinBox):
+		if isinstance(getattr(parent, key), QSpinBox):
+			getattr(parent, key).setValue(value)
+		elif isinstance(getattr(parent, key), QDoubleSpinBox):
 			getattr(parent, key).setValue(value)
 		elif isinstance(getattr(parent, key), QCheckBox):
 			getattr(parent, key).setChecked(value)
 		elif isinstance(getattr(parent, key), QSlider):
 			getattr(parent, key).setValue(value)
+		'''
 
 	# update hal float labels
 	for key, value in parent.hal_floats.items():
