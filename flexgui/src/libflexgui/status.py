@@ -473,9 +473,10 @@ def update(parent):
 		getattr(parent, f'{key}_lb').setText(f'{getattr(parent.status, key):.{value}f}')
 
 	# joint status items
-	#for key, value in parent.status_joints.items():
+	for key, value in parent.status_joints.items():
 	#	value = 'joint[0]["enabled"]'
 	#	getattr(parent, f'{key}').setText(f'{getattr(parent.status, value)}')
+		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[0][value]}')
 
 	# G codes only update when they change
 	if parent.g_codes != parent.status.gcodes:

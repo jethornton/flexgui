@@ -775,15 +775,13 @@ def setup_status_labels(parent):
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
-	'output', 'override_limits']
+	'output', 'override_limits', 'units', 'velocity']
+
 	parent.status_joints = {} # create an empty dictionary
 	for i in range(16):
 		for item in joint_items:
 			if f'joint_{i}_{item}_lb' in parent.children:
-				parent.status_joints[f'joint_{i}_{item}_lb'] = f'joint[{i}][{item}]'
-
-	for key, value in parent.status_joints.items():
-		print(key, value)
+				parent.status_joints[f'joint_{i}_{item}_lb'] = item
 
 	parent.status_float_labels = {}
 	status_float_items = ['acceleration', 'angular_units', 'current_vel',
