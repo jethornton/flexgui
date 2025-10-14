@@ -386,18 +386,87 @@ the number of the joint. Joint numbers start at 0 and go through 15
    :align: center
    :widths: 60 60
 
-	joint_n_backlash_lb, joint_n_input_lb
-	joint_n_min_position_limit_lb, joint_n_enabled_lb
-	joint_n_jointType_lb, joint_n_in_soft_limit_lb
-	joint_n_fault_lb, joint_n_max_ferror_lb
-	joint_n_output_lb, joint_n_ferror_current_lb
-	joint_n_max_hard_limit_lb, joint_n_override_limits_lb
-	joint_n_ferror_highmark_lb, joint_n_max_position_limit_lb
-	joint_n_units_lb, joint_n_homed_lb
-	joint_n_max_soft_limit_lb, joint_n_vel_sec_lb
-	joint_n_vel_min_lb, joint_n_homing_lb
-	joint_n_min_ferror_lb, joint_n_inpos_lb
-	joint_n_min_hard_limit_lb,
+	joint_n_backlash_lb, joint_n_enabled_lb
+	joint_n_fault_lb, joint_n_ferror_current_lb
+	joint_n_ferror_highmark_lb, joint_n_homed_lb
+	joint_n_homing_lb, joint_n_min_soft_limit_lb
+	joint_n_inpos_lb, joint_n_input_lb
+	joint_n_jointType_lb, joint_n_max_ferror_lb
+	joint_n_max_hard_limit_lb, joint_n_max_position_limit_lb
+	joint_n_max_soft_limit_lb, joint_n_min_ferror_lb
+	joint_n_min_hard_limit_lb, joint_n_min_position_limit_lb
+	joint_n_output_lb, joint_n_override_limits_lb
+	joint_n_units_lb, joint_n_vel_min_lb
+	joint_n_vel_sec_lb
+
+backlash
+
+    (returns float) - Backlash in machine units. configuration parameter, reflects [JOINT_n]BACKLASH.
+enabled
+
+    (returns integer) - non-zero means enabled.
+fault
+
+    (returns integer) - non-zero means axis amp fault.
+ferror_current
+
+    (returns float) - current following error.
+ferror_highmark
+
+    (returns float) - magnitude of max following error.
+homed
+
+    (returns integer) - non-zero means has been homed.
+homing
+
+    (returns integer) - non-zero means homing in progress.
+inpos
+
+    (returns integer) - non-zero means in position.
+input
+
+    (returns float) - current input position.
+jointType
+
+    (returns integer) - type of axis configuration parameter, reflects [JOINT_n]TYPE. LINEAR=1, ANGULAR=2. See Joint INI configuration for details.
+max_ferror
+
+    (returns float) - maximum following error. configuration parameter, reflects [JOINT_n]FERROR.
+max_hard_limit
+
+    (returns integer) - non-zero means max hard limit exceeded.
+max_position_limit
+
+    (returns float) - maximum limit (soft limit) for joint motion, in machine units. configuration parameter, reflects [JOINT_n]MAX_LIMIT.
+max_soft_limit
+
+    non-zero means max_position_limit was exceeded, int
+min_ferror
+
+    (returns float) - configuration parameter, reflects [JOINT_n]MIN_FERROR.
+min_hard_limit
+
+    (returns integer) - non-zero means min hard limit exceeded.
+min_position_limit
+
+    (returns float) - minimum limit (soft limit) for joint motion, in machine units. configuration parameter, reflects [JOINT_n]MIN_LIMIT.
+min_soft_limit
+
+    (returns integer) - non-zero means min_position_limit was exceeded.
+output
+
+    (returns float) - commanded output position.
+override_limits
+
+    (returns integer) - non-zero means limits are overridden.
+units
+
+    (returns float) - joint units per mm, or per degree for angular joints.
+    (joint units are the same as machine units, unless set otherwise by the configuration parameter [JOINT_n]UNITS)
+velocity
+
+    (returns float) - current velocity.
+
 
 Special Labels
 --------------
