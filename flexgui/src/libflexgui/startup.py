@@ -767,21 +767,36 @@ def setup_status_labels(parent):
 			parent.status_labels[f'{item}_lb'] = item # add the status and label
 
 	# check for joint labels in ui
-	# these return 16 joints
-	# FIXME  backlash float - Backlash in machine units. configuration parameter,
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
+
+	for i in range(int(parent.joints)):
+		if f'joint_{i}_backlash_lb' in parent.children:
+			backlash = parent.inifile.find(f'JOINT_{i}', 'BACKLASH') or False
+			if backlash:
+				getattr(parent, f'joint_{i}_backlash_lb').setText(backlash)
+			else:
+				getattr(parent, f'joint_{i}_backlash_lb').setText('N/A')
 
 	joint_items = ['enabled', 'fault', 'ferror_current',
 	'ferror_highmark', 'homed', 'homing', 'inpos', 'input', 'jointType',
 	'max_ferror', 'max_hard_limit', 'max_position_limit', 'max_soft_limit',
 	'min_ferror', 'min_hard_limit', 'min_position_limit', 'min_soft_limit',
-	'output', 'override_limits', 'units', 'velocity']
+	'output', 'override_limits']
 
 	parent.status_joints = {} # create an empty dictionary
-	for i in range(16):
+	for i in range(int(parent.joints)):
 		for item in joint_items:
 			if f'joint_{i}_{item}_lb' in parent.children:
 				parent.status_joints[f'joint_{i}_{item}_lb'] = item
+
+	joint_number_items = ['units', 'velocity']
+	parent.status_joint_prec = {}
+	for i in range(int(parent.joints)):
+		for item in joint_number_items:
+			if f'joint_{item}_{i}_lb' in parent.children: # if the label is found
+				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
+				p = p if p is not None else parent.default_precision
+				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
 	parent.status_float_labels = {}
 	status_float_items = ['acceleration', 'angular_units', 'current_vel',
@@ -901,15 +916,6 @@ def setup_status_labels(parent):
 			p = getattr(parent, f'joint_vel_min_{i}_lb').property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.joint_vel_min[f'joint_vel_min_{i}_lb'] = [i, p] # add the label, tuple position & precision
-
-	joint_number_items = ['units', 'velocity']
-	parent.status_joint_prec = {}
-	for i in range(16):
-		for item in joint_number_items:
-			if f'joint_{item}_{i}_lb' in parent.children: # if the label is found
-				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
-				p = p if p is not None else parent.default_precision
-				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
 
 	override_items = {'feed_override_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
 
@@ -1096,7 +1102,7 @@ def setup_jog(parent):
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
-	for i in range(16):
+	for i in range(int(parent.joints)):
 		if f'jog_plus_pb_{i}' in parent.children:
 			parent.jog_buttons.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.children:
@@ -1136,9 +1142,9 @@ def setup_jog(parent):
 			if 'max_jog_vel_lb' in parent.children:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_jog_vel) * 60)}')
 		else:
-			if parent.joint_count > 0:
+			if int(parent.joints) > 0:
 				maxjv = []
-				for i in range(parent.joint_count):
+				for i in range(int(parent.joints)):
 					maxjv.append(parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY'))
 				parent.max_jog_vel = min(maxjv)
 				parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))

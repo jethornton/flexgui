@@ -174,7 +174,7 @@ class flexgui(QMainWindow):
 
 		# get the number of axes and joints
 		self.axis_count = self.status.axis_mask.bit_count()
-		self.joint_count = self.status.joints
+		#self.joints = self.status.joints
 
 		# get ini values if any before trying to use them
 		read_ini.read(self)
