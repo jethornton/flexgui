@@ -889,7 +889,13 @@ def setup_status_labels(parent):
 		joint_1 = parent.two_vel_lb.property('joint_1')
 		p = getattr(parent, f'two_vel_lb').property('precision')
 		p = p if p is not None else parent.default_precision
-		if None not in (joint_0, joint_1): # check for None or False
+		if len(set([joint_0, joint_1])) != 2 or None in (joint_0, joint_1):
+			msg = ('The two joint velocity label has property errors.\n'
+			'See the Velocity Labels section of the\n'
+			'Labels Documents for correct configuration.')
+			dialogs.error_msg_ok(parent, msg, 'Property Error')
+			parent.two_vel_lb.setText('ERROR!')
+		else:
 			parent.two_vel['two_vel_lb'] = [joint_0, joint_1, p]
 
 	# three joint velocity
@@ -900,7 +906,13 @@ def setup_status_labels(parent):
 		joint_2 = parent.three_vel_lb.property('joint_2')
 		p = getattr(parent, f'three_vel_lb').property('precision')
 		p = p if p is not None else parent.default_precision
-		if None not in (joint_0, joint_1, joint_2): # check for None or False
+		if len(set([joint_0, joint_1, joint_2])) != 3 or None in (joint_0, joint_1, joint_2):
+			msg = ('The three joint velocity label has property errors.\n'
+			'See the Velocity Labels section of the\n'
+			'Labels Documents for correct configuration.')
+			dialogs.error_msg_ok(parent, msg, 'Property Error')
+			parent.three_vel_lb.setText('ERROR!')
+		else:
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
 
 	# joint velocity joint_velocity_n_lb parent.status.joint[0]['velocity']
