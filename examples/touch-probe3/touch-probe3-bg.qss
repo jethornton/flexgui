@@ -9,6 +9,40 @@ QMenu, QLabel, QPlainTextEdit#gcode_pte {
 	color: white;
 	border-color: #051a39;
 	}
+QRadioButton {
+	background-color: #121212;
+	color: white;
+	border-color: #051a39;
+	}
+
+QRadioButton::indicator {
+    width: 10px; /* Set the width of the indicator */
+    height: 10px; /* Set the height of the indicator */
+    border-radius: 4px; /* Make it circular (half of width/height) */
+    border: 2px solid gray; /* Default border for the indicator */
+}
+
+QRadioButton::indicator:unchecked {
+    background-color: rgba(0, 96, 192, 60%); /* white;  Background for unchecked state */
+}
+
+QRadioButton::indicator:checked {
+    background-color: lightblue; /* Background for checked state */
+    border: 2px solid lightgreen  /* darkblue;  Border for checked state */
+}
+
+QRadioButton::indicator:hover {
+    border: 2px solid lightgray; /* Border on hover */
+}
+
+QRadioButton::indicator:checked:hover {
+    border: 2px solid lightblue; /* Border on hover when checked */
+}
+
+QRadioButton::indicator:pressed {
+    background-color:  lightgray; /* Background when pressed */
+}
+
 QPlainTextEdit#gcode_pte {
     border: 1px solid white;
 	background-color: rgba(0, 96, 192, 60%);
@@ -228,7 +262,6 @@ QToolButton { /* all types of tool button */
 	border-radius: 10px;
 	}
 
-/* ################################# */
 QToolButton#flex_Stop:hover {
 	background-color: rgba(192, 0, 0, 40%); color: white;
 	}

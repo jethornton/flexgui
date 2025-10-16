@@ -23,3 +23,6 @@ o<bolt_hole_pattern> call
 o<bolt_hole_pattern> call
 o<bolt_hole_pattern> call
 o<bolt_hole_countersink_pattern> call
+M7
+M8
+M9
