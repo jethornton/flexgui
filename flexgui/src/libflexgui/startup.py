@@ -46,7 +46,6 @@ def setup_vars(parent):
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
 
-
 def setup_led_buttons(parent): # LED
 	# find led buttons and get any custom properties
 	for child in parent.findChildren(QPushButton):
@@ -136,8 +135,6 @@ def setup_hal_leds(parent):
 			#off_color = new_led.property('off_color')
 			#hal_type = getattr(hal, f'{hal_type}')
 			#hal_dir = getattr(hal, f'{hal_dir}')
-
-
 
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
@@ -766,6 +763,21 @@ def setup_status_labels(parent):
 		if f'{item}_lb' in parent.children: # if the label is found
 			parent.status_labels[f'{item}_lb'] = item # add the status and label
 
+	# status exponent labels
+
+	# status float labels
+	parent.status_float_labels = {}
+	status_float_items = ['acceleration', 'angular_units', 'current_vel',
+	'cycle_time', 'delay_left', 'distance_to_go', 'linear_units',
+	'max_acceleration', 'max_velocity', 'rapidrate', 'rotation_xy',
+	]
+
+	for item in status_float_items: # iterate the status items list
+		if f'{item}_lb' in parent.children: # if the label is found
+			p = getattr(parent, f'{item}_lb').property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.status_float_labels[item] = p # item & precision
+
 	# check for joint labels in ui
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
 
@@ -789,26 +801,16 @@ def setup_status_labels(parent):
 			if f'joint_{i}_{item}_lb' in parent.children:
 				parent.status_joints[f'joint_{i}_{item}_lb'] = item
 
+	# joint float labels key is item value is [joint, precision]
+	# joint[1]["homed"]
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
 	for i in range(int(parent.joints)):
 		for item in joint_number_items:
-			if f'joint_{item}_{i}_lb' in parent.children: # if the label is found
-				p = getattr(parent, f'joint_{item}_{i}_lb').property('precision')
+			if f'joint_{i}_{item}_lb' in parent.children: # if the label is found
+				p = getattr(parent, f'joint_{i}_{item}_lb').property('precision')
 				p = p if p is not None else parent.default_precision
-				parent.status_joint_prec[f'{item}_{i}'] = [i, p] # add the label, tuple position & precision
-
-	parent.status_float_labels = {}
-	status_float_items = ['acceleration', 'angular_units', 'current_vel',
-	'cycle_time', 'delay_left', 'distance_to_go', 'linear_units',
-	'max_acceleration', 'max_velocity', 'rapidrate', 'rotation_xy',
-	]
-
-	for item in status_float_items: # iterate the status items list
-		if f'{item}_lb' in parent.children: # if the label is found
-			p = getattr(parent, f'{item}_lb').property('precision')
-			p = p if p is not None else parent.default_precision
-			parent.status_float_labels[item] = p # item & precision
+				parent.status_joint_prec[item] = [i, p] # add the label, tuple position & precision
 
 	parent.status_position = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
