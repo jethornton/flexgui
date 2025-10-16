@@ -11,4 +11,6 @@ net cycle-minutes 	flexhal.timer0_min <= time.0.minutes
 net cycle-hours 	flexhal.timer0_hrs <= time.0.hours
 
 net spindle-cmd-rpm-abs => flexhal.spindle_rpm
+net flood_pin iocontrol.0.coolant-flood => flexhal.flood
+net mist_pin iocontrol.0.coolant-mist => flexhal.mist
 
