@@ -455,7 +455,6 @@ def update(parent):
 
 		parent.status_spindle = parent.status.spindle
 
-
 	# status labels
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
@@ -477,6 +476,10 @@ def update(parent):
 	#	value = 'joint[0]["enabled"]'
 	#	getattr(parent, f'{key}').setText(f'{getattr(parent.status, value)}')
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[0][value]}')
+
+	# joint status items with precision key is item value is [joint, precision]
+	for key, value in parent.status_joint_prec.items():
+		getattr(parent, f'joint_{value[0]}_{key}_lb').setText(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
 
 	# G codes only update when they change
 	if parent.g_codes != parent.status.gcodes:
