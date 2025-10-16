@@ -26,3 +26,6 @@ o<bolt_hole_countersink_pattern> call
 M7
 M8
 M9
+M7
+M8
+M9
