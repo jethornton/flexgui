@@ -813,7 +813,7 @@ Off</string>
         <number>0</number>
        </property>
        <property name="joint_1" stdset="0">
-        <number>0</number>
+        <number>1</number>
        </property>
       </widget>
       <widget class="QLabel" name="three_vel_lb">
@@ -832,10 +832,10 @@ Off</string>
         <number>0</number>
        </property>
        <property name="joint_1" stdset="0">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="joint_2" stdset="0">
-        <number>0</number>
+        <number>2</number>
        </property>
       </widget>
       <widget class="QLabel" name="label_118">
