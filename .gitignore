@@ -5,3 +5,4 @@ debian/.debhelper
 debian/files
 debian/flexgui*
 debian/debhelper-build-stamp
+*.bak
