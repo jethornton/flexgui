@@ -467,6 +467,10 @@ def update(parent):
 		else:
 			getattr(parent, f'{key}').setText('N/A}')
 
+	# status exponent labels key is the label and value is the status item
+	for key, value in parent.status_exponent_labels.items():
+		getattr(parent, f'{key}').setText(f'{getattr(parent.status, value):e}')
+
 	# status float labels
 	for key, value in parent.status_float_labels.items():
 		getattr(parent, f'{key}_lb').setText(f'{getattr(parent.status, key):.{value}f}')
