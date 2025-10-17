@@ -764,13 +764,17 @@ def setup_status_labels(parent):
 			parent.status_labels[f'{item}_lb'] = item # add the status and label
 
 	# status exponent labels
+	parent.status_exponent_labels = {}
+	status_exponent_items = ['acceleration', 'max_acceleration', 'max_velocity']
+	for item in status_exponent_items: # iterate the status items list
+		if f'{item}_lb' in parent.children: # if the label is found
+			parent.status_exponent_labels[f'{item}_lb'] = item # label & item
 
 	# status float labels
 	parent.status_float_labels = {}
-	status_float_items = ['acceleration', 'angular_units', 'current_vel',
+	status_float_items = ['angular_units', 'current_vel',
 	'cycle_time', 'delay_left', 'distance_to_go', 'linear_units',
-	'max_acceleration', 'max_velocity', 'rapidrate', 'rotation_xy',
-	]
+	'rapidrate', 'rotation_xy']
 
 	for item in status_float_items: # iterate the status items list
 		if f'{item}_lb' in parent.children: # if the label is found
@@ -1151,10 +1155,18 @@ def setup_jog(parent):
 		if parent.default_jog_vel:
 			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
 
-		if parent.max_jog_vel:
+		if parent.max_jog_vel: # FIXME check for TRAJ MAX_LINEAR_VELOCITY
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
 			if 'max_jog_vel_lb' in parent.children:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_jog_vel) * 60)}')
+		elif parent.max_linear_vel:
+			parent.jog_vel_sl.setMaximum(int(float(parent.max_linear_vel) * 60))
+			if 'max_jog_vel_lb' in parent.children:
+				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_linear_vel) * 60)}')
+			msg = ('The DISPLAY key MAX_LINEAR_VELOCITY\n'
+			'was not found. The TRAJ key MAX_LINEAR_VELOCITY\n'
+			'will be used to set the maximum jog velocity slider.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
 			if int(parent.joints) > 0:
 				maxjv = []
