@@ -1467,13 +1467,13 @@
               <string>MDI Button</string>
              </property>
              <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_0" stdset="0">
-              <string>hal-mdi-01, HAL_BIT, HAL_OUT</string>
+              <string>mdi</string>
              </property>
              <property name="required" stdset="0">
               <string>homed</string>
+             </property>
+             <property name="command" stdset="0">
+              <string>G0 X0 Y0</string>
              </property>
             </widget>
            </item>

@@ -1,9 +1,9 @@
-# Mon Oct 07 11:43:40 CDT 2024
+# Fri Oct 17 13:09:33 CDT 2025
 #
 # This file:    ./remap_cmds.hal
 # Created by:   /usr/share/linuxcnc/hallib/basic_sim.tcl
 # With options: 
-# From inifile: /home/john/linuxcnc/configs/remap/remap.ini
+# From inifile: /home/john/github/flexgui/examples/remap/remap.ini
 # Halfiles:     LIB:basic_sim.tcl
 #
 # This file contains the hal commands produced by basic_sim.tcl
