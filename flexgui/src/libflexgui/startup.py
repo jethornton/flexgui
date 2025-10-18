@@ -747,15 +747,14 @@ def setup_status_labels(parent):
 	'adaptive_feed_enabled', 'axis_mask', 'block_delete', 'call_level', 'command',
 	'current_line', 'debug', 'din', 'echo_serial_number', 'enabled', 'estop',
 	'exec_state', 'feed_hold_enabled', 'feed_override_enabled', 'flood',
-	'g5x_index', 'g5x_offset', 'homed', 'id', 'ini_filename', 'inpos',
-	'input_timeout', 'interp_state', 'interpreter_errcode', 'joint',
-	'joint_actual_position', 'joints', 'kinematics_type', 'lube', 'lube_level',
-	'mist', 'motion_line', 'motion_mode', 'motion_type', 'optional_stop',
-	'paused', 'pocket_prepped', 'probe_tripped', 'probe_val', 'probed_position',
-	'probing', 'program_units', 'queue', 'queue_full', 'read_line',
-	'settings', 'spindle', 'spindles', 'state', 'task_mode',
-	'task_paused', 'task_state', 'tool_in_spindle', 'tool_from_pocket',
-	'tool_offset', 'tool_table']
+	'g5x_index', 'g5x_offset', 'homed', 'ini_filename', 'inpos', 'input_timeout',
+	'interp_state', 'interpreter_errcode', 'joint', 'joint_actual_position',
+	'joints', 'kinematics_type', 'lube', 'lube_level', 'mist', 'motion_line',
+	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
+	'probe_tripped', 'probe_val', 'probed_position', 'probing', 'program_units',
+	'queue', 'queue_full', 'read_line', 'settings', 'spindle', 'spindles',
+	'state', 'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
+	'tool_from_pocket', 'tool_offset', 'tool_table']
 
 	# check for status labels in the ui key is label and value is status item
 	parent.status_labels = {} # create an empty dictionary
@@ -1155,7 +1154,7 @@ def setup_jog(parent):
 		if parent.default_jog_vel:
 			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
 
-		if parent.max_jog_vel: # FIXME check for TRAJ MAX_LINEAR_VELOCITY
+		if parent.max_jog_vel:
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
 			if 'max_jog_vel_lb' in parent.children:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_jog_vel) * 60)}')
