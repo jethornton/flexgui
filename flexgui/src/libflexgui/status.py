@@ -462,10 +462,11 @@ def update(parent):
 			stat_value = getattr(parent.status, f'{value}')
 			if stat_value in parent.stat_dict[value]:
 				getattr(parent, f'{key}').setText(f'{parent.stat_dict[value][stat_value]}')
-		elif value != 'id': # FIXME temp fix for id
-			getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value}")}')
 		else:
-			getattr(parent, f'{key}').setText('N/A}')
+			getattr(parent, f'{key}').setText(f'{getattr(parent.status, f"{value}")}')
+
+	#	elif value != 'id': # FIXME temp fix for id
+	# id (returns integer) - currently executing motion id.
 
 	# status exponent labels key is the label and value is the status item
 	for key, value in parent.status_exponent_labels.items():
@@ -535,10 +536,7 @@ def update(parent):
 			getattr(parent, key).setText(f'{value[1][state]}')
 
 	# update hal bool labels
-	# key is label name
-	# value[0] is pin name
-	# value[1] is true text
-	# value[2] is false text
+	# key is label name, value[0] is pin name, value[1] is true text, value[2] is false text
 	for key, value in parent.hal_bool_labels.items():
 		state = hal.get_value(f'flexhal.{value[0]}')
 		if state:
@@ -550,20 +548,6 @@ def update(parent):
 	for key, value in parent.hal_progressbars.items():
 		value = hal.get_value(f'flexhal.{value}')
 		getattr(parent, key).setValue(int(value))
-
-	# update hal io FIXME this is handled in utilities
-	'''
-	for key, value in parent.hal_io.items():
-		value = hal.get_value(f'flexhal.{value}')
-		if isinstance(getattr(parent, key), QSpinBox):
-			getattr(parent, key).setValue(value)
-		elif isinstance(getattr(parent, key), QDoubleSpinBox):
-			getattr(parent, key).setValue(value)
-		elif isinstance(getattr(parent, key), QCheckBox):
-			getattr(parent, key).setChecked(value)
-		elif isinstance(getattr(parent, key), QSlider):
-			getattr(parent, key).setValue(value)
-		'''
 
 	# update hal float labels
 	for key, value in parent.hal_floats.items():
