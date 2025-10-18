@@ -164,9 +164,6 @@ status.
 
 .. code-block:: text
 
-	id_lb - returns integer
-	currently executing motion id
-
 	ini_filename_lb - returns string
 	path to the INI file passed to linuxcnc
 
@@ -399,74 +396,59 @@ the number of the joint. Joint numbers start at 0 and go through 15
 	joint_n_units_lb, joint_n_vel_min_lb
 	joint_n_vel_sec_lb
 
-backlash
+Joint Descriptions
+^^^^^^^^^^^^^^^^^^
 
-    (returns float) - Backlash in machine units. configuration parameter, reflects [JOINT_n]BACKLASH.
-enabled
+backlash (returns float) - Backlash in machine units. configuration parameter,
+reflects [JOINT_n]BACKLASH.
 
-    (returns integer) - non-zero means enabled.
-fault
+enabled (returns integer) - non-zero means enabled
 
-    (returns integer) - non-zero means axis amp fault.
-ferror_current
+fault (returns integer) - non-zero means axis amp fault.
 
-    (returns float) - current following error.
-ferror_highmark
+ferror_current (returns float) - current following error.
 
-    (returns float) - magnitude of max following error.
-homed
+ferror_highmark (returns float) - magnitude of max following error.
 
-    (returns integer) - non-zero means has been homed.
-homing
+homed (returns integer) - non-zero means has been homed.
 
-    (returns integer) - non-zero means homing in progress.
-inpos
+homing (returns integer) - non-zero means homing in progress.
 
-    (returns integer) - non-zero means in position.
-input
+inpos(returns integer) - non-zero means in position.
 
-    (returns float) - current input position.
-jointType
+input (returns float) - current input position.
 
-    (returns integer) - type of axis configuration parameter, reflects [JOINT_n]TYPE. LINEAR=1, ANGULAR=2. See Joint INI configuration for details.
-max_ferror
+jointType (returns integer) - type of axis configuration parameter, reflects
+[JOINT_n]TYPE. LINEAR=1, ANGULAR=2. See Joint INI configuration for details.
 
-    (returns float) - maximum following error. configuration parameter, reflects [JOINT_n]FERROR.
-max_hard_limit
+max_ferror (returns float) - maximum following error. configuration parameter,
+reflects [JOINT_n]FERROR.
 
-    (returns integer) - non-zero means max hard limit exceeded.
-max_position_limit
+max_hard_limit (returns integer) - non-zero means max hard limit exceeded.
 
-    (returns float) - maximum limit (soft limit) for joint motion, in machine units. configuration parameter, reflects [JOINT_n]MAX_LIMIT.
-max_soft_limit
+max_position_limit (returns float) - maximum limit (soft limit) for joint
+motion, in machine units. configuration parameter, reflects [JOINT_n]MAX_LIMIT.
 
-    non-zero means max_position_limit was exceeded, int
-min_ferror
+max_soft_limit non-zero means max_position_limit was exceeded, int
 
-    (returns float) - configuration parameter, reflects [JOINT_n]MIN_FERROR.
-min_hard_limit
+min_ferror (returns float) - configuration parameter, reflects [JOINT_n]MIN_FERROR.
 
-    (returns integer) - non-zero means min hard limit exceeded.
-min_position_limit
+min_hard_limit (returns integer) - non-zero means min hard limit exceeded.
 
-    (returns float) - minimum limit (soft limit) for joint motion, in machine units. configuration parameter, reflects [JOINT_n]MIN_LIMIT.
-min_soft_limit
+min_position_limit (returns float) - minimum limit (soft limit) for joint
+motion, in machine units. configuration parameter, reflects [JOINT_n]MIN_LIMIT.
 
-    (returns integer) - non-zero means min_position_limit was exceeded.
-output
+min_soft_limit (returns integer) - non-zero means min_position_limit was exceeded.
 
-    (returns float) - commanded output position.
-override_limits
+output (returns float) - commanded output position.
 
-    (returns integer) - non-zero means limits are overridden.
-units
+override_limits (returns integer) - non-zero means limits are overridden.
 
-    (returns float) - joint units per mm, or per degree for angular joints.
-    (joint units are the same as machine units, unless set otherwise by the configuration parameter [JOINT_n]UNITS)
-velocity
+units (returns float) - joint units per mm, or per degree for angular joints.
+(joint units are the same as machine units, unless set otherwise by the 
+configuration parameter [JOINT_n]UNITS)
 
-    (returns float) - current velocity.
-
+velocity (returns float) - current velocity.
 
 Special Labels
 --------------
