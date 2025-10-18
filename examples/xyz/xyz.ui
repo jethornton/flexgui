@@ -1956,21 +1956,7 @@
        <string>Info</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="task_state_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="file_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
+       <item row="1" column="4">
         <widget class="QLabel" name="motion_line_lb">
          <property name="text">
           <string>0</string>
@@ -1980,15 +1966,39 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="2" colspan="3">
-        <widget class="QLabel" name="motion_mode_lb">
+       <item row="1" column="3">
+        <widget class="QLabel" name="label_38">
+         <property name="text">
+          <string>Motion Line</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Current Line</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="current_line_lb">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="3" colspan="2">
+        <widget class="QLabel" name="motion_type_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="2" colspan="3">
-        <widget class="QLabel" name="exec_state_lb">
+       <item row="3" column="3" colspan="2">
+        <widget class="QLabel" name="motion_mode_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -2001,6 +2011,13 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QLabel" name="task_state_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="0" colspan="2">
         <widget class="QLabel" name="task_mode_lb">
          <property name="text">
@@ -2008,34 +2025,24 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="2" colspan="3">
-        <widget class="QLabel" name="motion_type_lb">
+       <item row="5" column="0" colspan="2">
+        <widget class="QLabel" name="exec_state_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="label_37">
+        <widget class="QLabel" name="file_lb">
          <property name="text">
-          <string>Current Line</string>
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="current_line_lb">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_15">
          <property name="text">
-          <string>0</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="label_38">
-         <property name="text">
-          <string>Motion Line</string>
+          <string>File</string>
          </property>
         </widget>
        </item>
