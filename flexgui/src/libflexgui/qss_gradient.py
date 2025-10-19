@@ -94,7 +94,6 @@ def apply_style(parent):
 
 def index_changed(parent, index):
 	data = parent.gradiant_direction.itemData(index)
-	print(f"Selected item: {parent.gradiant_direction.currentText()}, Data: {data}")
 
 
 	'''

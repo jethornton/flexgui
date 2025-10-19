@@ -39,7 +39,6 @@ Also, you want to leave 2%-3% of the hole diameter for the reamer
 class dsf_calc(QWidget):
 	def __init__(self, parent):
 		super().__init__()
-		print(parent)
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
