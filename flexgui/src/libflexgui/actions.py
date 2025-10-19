@@ -12,11 +12,13 @@ from libflexgui import select
 
 def load_file(parent, nc_code_file=None):
 	# File load buttons don't pass a file name it has to be read from the property
+	load_file_btn = False
 	if not nc_code_file: # function called by a file load button
 		if parent.sender() is not None:
 			if parent.sender().property('function') == 'load_file':
 				if parent.sender().property('filename'):
 					nc_code_file = parent.sender().property('filename')
+					load_file_btn = True
 				else:
 					msg = ('The property filename\n'
 					'was not found. Loading aborted!')
@@ -46,7 +48,7 @@ def load_file(parent, nc_code_file=None):
 		if 'start_line_lb' in parent.children:
 			parent.start_line_lb.setText('0')
 
-		if parent.sender() is None: # called by menu or file open button
+		if not load_file_btn: # called by menu or file open button
 			# get recent files from settings
 			keys = parent.settings.allKeys()
 			file_list = []
@@ -60,6 +62,7 @@ def load_file(parent, nc_code_file=None):
 			file_list.insert(0, nc_code_file)
 			# trim the list to 10
 			file_list = file_list[:10]
+			print(f'file_list {file_list}')
 
 			# add files back into settings
 			parent.settings.beginGroup('recent_files')
