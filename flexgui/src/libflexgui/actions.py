@@ -33,11 +33,11 @@ def load_file(parent, nc_code_file=None):
 		if 'plot_widget' in parent.children:
 			parent.plotter.clear_live_plotter()
 
-		text = open(nc_code_file).read()
 		if 'gcode_pte' in parent.children:
+			text = open(nc_code_file).read()
 			parent.gcode_pte.setPlainText(text)
-		base = os.path.basename(nc_code_file)
 		if 'file_lb' in parent.children:
+			base = os.path.basename(nc_code_file)
 			parent.file_lb.setText(base)
 
 		# update controls
