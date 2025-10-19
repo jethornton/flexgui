@@ -6,7 +6,7 @@ set ::ratio 0.3
 set ::old_w_leftf 160
 set ::watchlist {
 }
-set ::workmode watchhal
+set ::workmode showhal
 set ::watchInterval 100
 set ::col1_width 100
 set ::ffmts 
