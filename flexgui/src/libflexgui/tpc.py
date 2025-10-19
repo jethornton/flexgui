@@ -22,7 +22,6 @@ class tpc_calc(QWidget):
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 		loadUi(os.path.join(self.lib_path, 'tpc.ui'), self)
 		image_path = os.path.join(self.lib_path, 'tpc.jpg')
-		print(image_path)
 		pixmap = QPixmap(image_path)
 		self.tpc_lb.setPixmap(pixmap)
 		self.tpc_lb.setScaledContents(True)
