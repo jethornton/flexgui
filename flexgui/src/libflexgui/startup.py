@@ -84,6 +84,15 @@ def setup_hal_leds(parent):
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
 		if child.property('hal_led'): # bool property
+			# FIXME clean this up after testing, diameter is set in led.py
+			#print(f'child.width() {child.width()} child.height() {child.height()}')
+			size_hint = child.sizeHint()
+			#print(f'size_hint.width() {size_hint.width()} size_hint.height() {size_hint.height()}')
+			size = child.size()
+			#print(f'size.width() {size.width()} size.height() {size.height()}')
+
+
+			#print(f'child.margin() {child.margin()}')
 			led_dict = {}
 			led_dict['name'] = child.objectName()
 			dia = child.property('diameter') or False
@@ -91,6 +100,15 @@ def setup_hal_leds(parent):
 				led_dict['diameter'] = int(dia)
 			else: # use the label size
 				led_dict['diameter'] = min(child.width(), child.height())
+
+			margins = child.contentsMargins()
+			margin = max((margins.left() + margins.right()), (margins.top() + margins.bottom()))
+			edge_margin = child.property('edge_margin')
+			if edge_margin:
+				led_dict['margin'] = max(margin, edge_margin)
+			else:
+				led_dict['margin'] = margin
+
 			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
 			led_dict['function'] = child.property('function')

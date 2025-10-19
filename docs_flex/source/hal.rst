@@ -221,6 +221,7 @@ connected to a signal.
 	String, hal_dir, HAL_IN
 	Color, on_color, color of your choice
 	Color, off_color, color of your choice
+	Int, edge_margin, space between circle and edge of the label
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker. 
