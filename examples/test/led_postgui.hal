@@ -1,0 +1,1 @@
+net led-toggle flexhal.led-1 <= flexhal.led-check
