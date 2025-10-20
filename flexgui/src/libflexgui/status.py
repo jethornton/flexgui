@@ -555,8 +555,12 @@ def update(parent):
 		else:
 			getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
 
-	# update hal led labels
+	# update hal leds
 	for key, value in parent.hal_leds.items():
+		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
+
+	# update hal led labels
+	for key, value in parent.hal_led_labels.items():
 		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
 
 	# homed status

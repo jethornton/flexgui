@@ -46,7 +46,7 @@ def setup_vars(parent):
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
 
-def setup_led_buttons(parent): # LED
+def setup_hal_led_buttons(parent): # LED QPushButtons
 	# find led buttons and get any custom properties
 	for child in parent.findChildren(QPushButton):
 		if child.property('led_indicator'):
@@ -80,7 +80,54 @@ def setup_led_buttons(parent): # LED
 			new_button.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
-def setup_hal_leds(parent):
+def setup_hal_led_labels(parent): # LED labels
+	parent.hal_led_labels = {}
+	for child in parent.findChildren(QLabel):
+		if child.property('hal_led_label'): # bool property
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['text'] = child.text()
+			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
+			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
+			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
+			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
+			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
+
+			led_dict['function'] = child.property('function')
+			# set old object function to none so the hal pin is not duplicated
+			child.setProperty('function', 'none')
+			led_dict['pin_name'] = child.property('pin_name')
+			led_dict['hal_type'] = child.property('hal_type')
+			led_dict['hal_dir'] = child.property('hal_dir')
+
+			new_label = led.IndicatorLabel(**led_dict)
+			new_label.setProperty('function', led_dict['function'])
+			new_label.setProperty('pin_name', led_dict['pin_name'])
+			new_label.setProperty('hal_type', led_dict['hal_type'])
+			new_label.setProperty('hal_dir', led_dict['hal_dir'])
+
+			# determine layout or not
+			layout = child.parent().layout()
+			if layout:
+				index = layout.indexOf(child)
+				if index != -1:
+					if isinstance(layout, QGridLayout):
+						row, column, rowspan, columnspan = layout.getItemPosition(index)
+						layout.addWidget(new_label, row, column, rowspan, columnspan)
+					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
+						layout.removeWidget(child)
+						layout.insertWidget(index, new_label)
+			else:
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_label.setParent(child_parent)
+				new_label.setGeometry(geometry)
+			child.deleteLater()
+			new_label.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_label) # give the new button the old name
+			parent.hal_led_labels[led_dict['name']] = led_dict['pin_name']
+
+def setup_hal_leds(parent): # LED
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
 		if child.property('hal_led'): # bool property
@@ -90,7 +137,6 @@ def setup_hal_leds(parent):
 			#print(f'size_hint.width() {size_hint.width()} size_hint.height() {size_hint.height()}')
 			size = child.size()
 			#print(f'size.width() {size.width()} size.height() {size.height()}')
-
 
 			#print(f'child.margin() {child.margin()}')
 			led_dict = {}
@@ -111,6 +157,7 @@ def setup_hal_leds(parent):
 
 			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
+
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
@@ -118,7 +165,7 @@ def setup_hal_leds(parent):
 			led_dict['hal_type'] = child.property('hal_type')
 			led_dict['hal_dir'] = child.property('hal_dir')
 
-			new_led = led.IndicatorLabel(**led_dict)
+			new_led = led.Indicator(**led_dict)
 			new_led.setProperty('function', led_dict['function'])
 			new_led.setProperty('pin_name', led_dict['pin_name'])
 			new_led.setProperty('hal_type', led_dict['hal_type'])
