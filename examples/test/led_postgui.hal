@@ -1,1 +1,2 @@
 net led-toggle flexhal.led-1 <= flexhal.led-check
+net led-label-toggle flexhal.led-label <= flexhal.flood-label
