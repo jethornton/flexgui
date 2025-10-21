@@ -1,12 +1,13 @@
 Building a GUI
 ==============
 
-If you have not copied the examples from the CNC menu select Copy Flex Examples.
-This will put the Flex examples in linuxcnc/configs/flex_examples.
+After installing Flex GUI if you have not copied the examples from the CNC menu
+select Copy Flex Examples. This will put the Flex examples in the directory
+linuxcnc/configs/flex_examples.
 
-The starters have all the files needed to run a simulation without complicated
-code. The starters have a very simple GUI to start, just enough to show you that
-they work.
+The starters have all the files needed to run a simulation without any coding
+needed. The starters have a very simple GUI to start, just enough to show you
+that they work.
 
 Copy a Starter
 --------------
@@ -19,7 +20,7 @@ to the linuxcnc/configs directory.
 * Edit the .ini file and change the GUI to the name of your .ui file.
 * Edit the MIN_LIMIT and MAX_LIMIT for each axis and joint to match your machine
 * From the CNC menu select LinuxCNC and pick your configuration, check Create
-  Desktop Shortcut then clidk OK to run your configuration.
+  Desktop Shortcut then click OK to run your configuration.
 
 .. figure:: /images/build-01.png
    :align: center

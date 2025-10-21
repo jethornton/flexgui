@@ -197,8 +197,8 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
 .. image:: /images/hal-msl.png
    :align: center
 
-LED
----
+HAL LED
+-------
 A QLabel can be used as a HAL LED indicator by adding the following properties
 to a blank label. Colors are optional, if not supplied red for off and green
 for on will be used. The pin_name is the hal name the LED will have.
@@ -226,8 +226,8 @@ connected to a signal.
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
 
-LED Label
----------
+HAL LED Label
+-------------
 
 Similar to the HAL LED except the LED is in the upper right corner so the label
 can have text. If On/Off colors are not specified then Red will be Off and Green
