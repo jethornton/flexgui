@@ -95,7 +95,8 @@ LED Buttons
 .. important:: This is implmented in version 1.2.0.
 
 Some push buttons can have a LED to indicate on and off states. The LED is added
-to the push button with a Bool type Dynamic Property called `led_indicator`.
+to the push button with a Bool type Dynamic Property called `led_indicator`. All
+other properties are optional.
 
 .. csv-table:: LED Buttons
    :width: 100%
@@ -116,20 +117,20 @@ to the push button with a Bool type Dynamic Property called `led_indicator`.
 
 Adding the Bool type Dynamic Property `led_indicator` to one of the above
 control buttons will add the default LED to that button. Each control button can
-have different options.
+have different options. If On/Off colors are not specified then Red will be Off
+and Green will be On.
 
 .. csv-table:: LED Button Dynamic Properties
    :width: 100%
    :align: center
 
-	**Property Name**, **Type**, **Function**
-	led_indicator, Bool, Creates a LED
-	led_diameter, Int, Sets the Diameter of the LED in pixels
-	led_right_offset, Int, Sets the offset from the right edge in pixels
-	led_top_offset, Int, Sets the offset from the top edge in pixels
-	led_on_color, Color, Sets the color of the LED when on
-	led_off_color, Color, Sets the color of the LED when off
-
+	**Property Type**, **Property Name**, **Function**
+	Bool, led_indicator, Creates a LED
+	Int, led_diameter, Sets the Diameter of the LED in pixels
+	Int, led_right_offset, Sets the offset from the right edge in pixels
+	Int, led_top_offset, Sets the offset from the top edge in pixels
+	Color, led_on_color, Sets the color of the LED when on
+	Color, led_off_color, Sets the color of the LED when off
 
 To change the LED default options they can be set in the INI file.
 See :ref:`led_defaults`
