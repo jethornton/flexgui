@@ -126,14 +126,14 @@ places with different file names. Only one Help dialog can be open at a time.
    :width: 100%
    :align: left
 
-	**Property Name**, **Type**, **Value**
-	function, string, help
-	file, string, file name
-	topic, string, title of topic
-	x_pos, string, x location of upper left corner
-	y_pos, string, y location of upper left corner
-	horz_size, string, width
-	vert_size, string, height
+	**Property Type**, **Property Name**, **Value**
+	String, function, help
+	String, file, file name
+	String, topic, title of topic
+	String, x_pos, x location of upper left corner
+	String, y_pos, y location of upper left corner
+	String, horz_size, width
+	String, vert_size, height
 
 .. note:: The x_pos is from the left edge of the screen and the y_pos is from
    the top of the screen.

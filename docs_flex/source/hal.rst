@@ -36,11 +36,11 @@ adding four string type Dynamic Properties. A pin_name of my-button would be
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_BIT
-	hal_dir, HAL_OUT
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT
+	String, hal_dir, HAL_OUT
 
 Optionally the button can be disabled when the power is off by adding a
 Dynamic Property named `state_off` and setting the value to `disabled`.
@@ -53,9 +53,9 @@ set the value to `homed`.
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	state_off, disabled
-	required, homed
+	**Property Type**, **Property Name**, **Pin Value**
+	String, state_off, disabled
+	String, required, homed
 
 .. image:: /images/hal-09.png
    :align: center
@@ -79,11 +79,11 @@ value of the spinbox.
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	hal_dir, HAL_OUT
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	String, hal_dir, HAL_OUT
 
 .. note:: A QSpinBox can only be HAL_S32 or HAL_U32 data type. A QDoubleSpinBox
    can only be HAL_FLOAT data type.
@@ -102,11 +102,11 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_S32 or HAL_U32
-	hal_dir, HAL_OUT
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_S32 or HAL_U32
+	String, hal_dir, HAL_OUT
 
 HAL I/O
 -------
@@ -124,13 +124,13 @@ QSlider can be a HAL I/O object.
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_io
-	pin_name, any unique name
-	hal_type, HAL_BIT for a QCheckBox or QPushButton
-	hal_type, HAL_FLOAT for a QDoubleSpinBox
-	hal_type, HAL_S32 or HAL_U32 for a QSpinBox or QSlider
-	hal_dir, HAL_IO
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_io
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT for a QCheckBox or QPushButton
+	String, hal_type, HAL_FLOAT for a QDoubleSpinBox
+	String, hal_type, HAL_S32 or HAL_U32 for a QSpinBox or QSlider
+	String, hal_dir, HAL_IO
 
 Label
 -----
@@ -143,11 +143,11 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
-	hal_dir, HAL_IN
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
+	String, hal_dir, HAL_IN
 
 .. note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
@@ -164,13 +164,13 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_BIT
-	hal_dir, HAL_IN
-	true_text, text to display when True
-	false_text, text to display when False
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT
+	String, hal_dir, HAL_IN
+	String, true_text, text to display when True
+	String, false_text, text to display when False
 
 .. image:: /images/hal-bool-label-01.png
    :align: center
@@ -185,12 +185,12 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_msl
-	pin_name, any unique name
-	hal_type, HAL_U32
-	hal_dir, HAL_IN
-	text_n, text to display when value is equal to n
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_msl
+	String, pin_name, any unique name
+	String, hal_type, HAL_U32
+	String, hal_dir, HAL_IN
+	String, text_n, text to display when value is equal to n
 
 .. note:: The text values must start at 0 and be sequencial.
 
@@ -224,7 +224,30 @@ connected to a signal.
 	Int, edge_margin, space between circle and edge of the label
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
-   the hex color value into the color picker. 
+   the hex color value into the color picker.
+
+LED Label
+---------
+
+Similar to the HAL LED except the LED is in the upper right corner so the label
+can have text. If On/Off colors are not specified then Red will be Off and Green
+will be On.
+
+.. csv-table:: HAL LED Label
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	Bool, hal_led_label, True
+	String, function, hal_led
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT
+	String, hal_dir, HAL_IN
+	Color, led_on_color, color of your choice
+	Color, led_off_color, color of your choice
+	led_diameter
+	led_right_offset
+	led_top_offset
 
 LCD
 ---
@@ -237,11 +260,11 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	hal_dir, HAL_IN
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	String, hal_dir, HAL_IN
 
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
@@ -257,11 +280,11 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
    :width: 100%
    :align: center
 
-	**Property Name**, **Pin Value**
-	function, hal_pin
-	pin_name, any unique name
-	hal_type, HAL_S32 or HAL_U32
-	hal_dir, HAL_IN
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_S32 or HAL_U32
+	String, hal_dir, HAL_IN
 
 Step by Step
 ------------
