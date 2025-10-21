@@ -88,8 +88,8 @@ def setup_hal_led_labels(parent): # LED labels
 			led_dict['name'] = child.objectName()
 			led_dict['text'] = child.text()
 			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
-			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
 			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
+			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 
