@@ -62,7 +62,6 @@ def load_file(parent, nc_code_file=None):
 			file_list.insert(0, nc_code_file)
 			# trim the list to 10
 			file_list = file_list[:10]
-			print(f'file_list {file_list}')
 
 			# add files back into settings
 			parent.settings.beginGroup('recent_files')
@@ -71,7 +70,7 @@ def load_file(parent, nc_code_file=None):
 				parent.settings.setValue(str(i), item)
 			parent.settings.endGroup()
 
-			# clear the recent menu
+			# clear recent menu
 			if parent.findChild(QMenu, 'menuRecent'):
 				parent.menuRecent.clear()
 				# add the recent files from settings
