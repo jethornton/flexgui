@@ -1122,7 +1122,7 @@ def setup_line_edits(parent):
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
 	for child in parent.findChildren(QAbstractSpinBox):
-		if child.property('input') == 'number': # enable the number pad
+		if child.property('input') == 'number' or parent.touch_spinbox: # enable the number pad
 			sb_child = child.findChild(QLineEdit)
 			sb_child.setObjectName(f'{child.objectName()}_child')
 			parent.touch_sb.append(sb_child.objectName())

@@ -216,6 +216,9 @@ def read(parent):
 	# check for screen size
 	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
 
+	# check for touch screen defaults
+	parent.touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or False
+
 	# check for LED defaults in the ini file
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
 	if parent.led_diameter is None:

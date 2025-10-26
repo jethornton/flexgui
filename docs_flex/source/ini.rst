@@ -318,6 +318,13 @@ following to the FLEXGUI section.
 	[FLEXGUI]
 	TOUCH_FILE_WIDTH = True
 
+Add popup keypad to all spin boxes.
+::
+
+	[FLEXGUI]
+	TOUCH_SPINBOX = True
+
+
 To add a manual tool change popup to add the following to the ini file in the
 [FLEXGUI] section.
 ::
