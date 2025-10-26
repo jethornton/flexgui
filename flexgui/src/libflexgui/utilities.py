@@ -38,7 +38,7 @@ def is_number(string):
 def string_to_int(string):
 	if '.' in string:
 		string, digits = string.split('.')
-		return int(string)
+	return int(string)
 
 def string_to_float(string):
 	try:
