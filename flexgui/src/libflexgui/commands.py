@@ -193,10 +193,10 @@ def mdi_button(parent, button):
 		parent.mdi_command = mdi_command
 		parent.status.poll()
 		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MDI:
+			if parent.status.task_mode == emc.MODE_MANUAL:
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
+				parent.command.mdi(mdi_command)
 
 def change_cs(parent):
 	cs = parent.sender().objectName()[-1]
