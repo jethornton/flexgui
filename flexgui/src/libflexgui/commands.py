@@ -107,13 +107,24 @@ def run_mdi(parent, cmd=''):
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MDI:
+			if parent.status.task_mode == emc.MODE_MANUAL:
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
+				parent.command.mdi(mdi_command)
 	else:
 		msg = 'No MDI command was found!'
 		dialogs.warn_msg_ok(parent, msg, 'Error')
+
+def mdi_button(parent, button):
+	mdi_command = button.property('command')
+	if mdi_command:
+		parent.mdi_command = mdi_command
+		parent.status.poll()
+		if parent.status.task_state == emc.STATE_ON:
+			if parent.status.task_mode == emc.MODE_MANUAL:
+				parent.command.mode(emc.MODE_MDI)
+				parent.command.wait_complete()
+				parent.command.mdi(mdi_command)
 
 def jog_check(parent):
 	if 'jog_vel_sl' in parent.children:
@@ -186,17 +197,6 @@ def keyboard_jog(parent, action, axis, direction=None):
 	else:
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis)
 		set_jog_override(parent)
-
-def mdi_button(parent, button):
-	mdi_command = button.property('command')
-	if mdi_command:
-		parent.mdi_command = mdi_command
-		parent.status.poll()
-		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MDI:
-				parent.command.mode(emc.MODE_MDI)
-				parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
 
 def change_cs(parent):
 	cs = parent.sender().objectName()[-1]
