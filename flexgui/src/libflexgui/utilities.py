@@ -348,6 +348,29 @@ def var_file_watch(parent):
 					getattr(parent, key).setValue(float(line.split()[1]))
 		parent.var_mod_time = var_current_time
 
+def io_watch(parent):
+	for key, value in parent.hal_io_check.items():
+		checked_state = getattr(parent, key).isChecked()
+		hal_state = getattr(parent.halcomp, value)
+		if checked_state != hal_state:
+			getattr(parent, key).setChecked(hal_state)
+
+	for key, value in parent.hal_io_int.items():
+		int_value = getattr(parent, key).value()
+		hal_value = getattr(parent.halcomp, value)
+		if int_value != hal_value:
+			getattr(parent, key).setValue(hal_value)
+
+	for key, value in parent.hal_io_float.items():
+		float_value = getattr(parent, key).value()
+		hal_value = getattr(parent.halcomp, value)
+		if float_value != hal_value:
+			getattr(parent, key).setValue(hal_value)
+
+		#print(key, value)
+		#print(f'{key} {getattr(parent, key).isChecked()}')
+		#print(f'hal value {getattr(parent.halcomp, value)}')
+
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
