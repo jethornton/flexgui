@@ -4,4 +4,7 @@ setp flexhal.test-reader-u32 24
 setp flexhal.test-reader-s32 -36
 setp flexhal.test-reader-float 123.456
 setp flexhal.test-reader-bit True
-
+setp flexhal.hal-io-button True
+setp flexhal.hal-io-checkbox True
+setp flexhal.hal-io-spinbox 10
+setp flexhal.hal-io-dbl-spinbox 1.2
