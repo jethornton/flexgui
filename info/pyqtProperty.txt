@@ -1,0 +1,47 @@
+
+pyqtProperty (or QtCore.Property in PySide6) in PyQt6 allows the declaration of
+properties that behave as both Qt and Python properties. This enables seamless
+integration with Qt's meta-object system, including features like QML bindings,
+QPropertyAnimation, and the ability to be manipulated through QMetaProperty.
+
+Key aspects of pyqtProperty:
+
+    Getter and Setter Functions:
+    You define getter and setter methods in Python for the property, which are
+    then exposed to the Qt environment.
+    NOTIFY Signal:
+    An optional NOTIFY signal can be specified. This signal is emitted whenever
+    the property's value changes, allowing other parts of your application
+    (or QML) to react to these changes. The NOTIFY signal should take zero or
+    one parameter of the same type as the property, representing the new value.
+    It should only be emitted when the property's value truly changes to avoid
+    unnecessary updates.
+
+Integration with Qt's Property System:
+    This allows the property to be animated using QPropertyAnimation, inspected
+    and modified via QMetaProperty, and bound in QML.
+
+Example Usage (conceptual):
+Python
+
+from PyQt6.QtCore import QObject, pyqtProperty, pyqtSignal
+
+class MyObject(QObject):
+    value_changed = pyqtSignal(int)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._value = 0
+
+    @pyqtProperty(int, notify=value_changed)
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        if self._value != new_value:
+            self._value = new_value
+            self.value_changed.emit(new_value)
+
+# You can then interact with 'value' as a regular Python property
+# and it will also be accessible and observable within Qt's framework.

@@ -1,0 +1,112 @@
+from PyQt5.QtCore import QObject, pyqtProperty
+
+class MyObject(QObject):
+    def __init__(self):
+        super().__init__()
+        self._my_value = 0
+
+    def get_my_value(self):
+        print("Getter called!")
+        return self._my_value
+
+    def set_my_value(self, value):
+        print(f"Setter called with value: {value}")
+        if isinstance(value, int):
+            self._my_value = value
+        else:
+            print("Warning: Value must be an integer.")
+
+    # Define the pyqtProperty with getter and setter
+    my_property = pyqtProperty(int, get_my_value, set_my_value)
+
+# Usage
+obj = MyObject()
+print(obj.my_property)  # Calls get_my_value()
+obj.my_property = 10    # Calls set_my_value(10)
+print(obj.my_property)  # Calls get_my_value()
+obj.my_property = "hello" # Calls set_my_value("hello") and prints warning
+
+
+In PyQt, pyqtProperty (or QtCore.Property in PySide) allows the creation of properties
+ that behave like both Python attributes and Qt properties, enabling integration with Qt's
+ meta-object system and tools like Qt Designer. Getters and setters are fundamental components
+ of how these properties function.
+Getters (fget):
+
+    The getter function is responsible for retrieving the value of the property.
+    When you access the pyqtProperty as if it were a regular attribute (e.g., instance.my_property),
+ the getter function associated with that property is automatically invoked.
+ 
+ 
+Setters (fset):
+
+    The setter function is responsible for setting or modifying the value of the property.
+    When you assign a value to the pyqtProperty (e.g., instance.my_property = new_value), 
+    the setter function is automatically invoked with the new value as an argument.
+    The setter function often includes logic for validation, type checking, or performing 
+    other actions before updating the underlying data.
+
+
+With
+pyqtProperty, the getter and setter functions don't know the name of the
+ property automatically; you explicitly tell the decorator which functions
+ to use. This can be done either by passing them as arguments to the
+ pyqtProperty function or by using the decorator syntax, which Python
+ handles by associating the decorators with the function they are decorating.
+ 
+Using the pyqtProperty function
+When used as a function, pyqtProperty is passed the getter and setter
+ functions as arguments. The name of the property is defined by the
+ variable you assign the result to
+
+from PyQt5.QtCore import QObject, pyqtProperty
+
+class MyObject(QObject):
+    def __init__(self):
+        super().__init__()
+        self._value = 0
+
+    # The getter function can have any name
+    def get_my_value(self):
+        return self._value
+
+    # The setter function can have any name
+    def set_my_value(self, value):
+        self._value = value
+
+    # Define the property by assigning pyqtProperty to a variable
+    # The variable name ('myValue') is the name of the property
+    myValue = pyqtProperty(int, get_my_value, set_my_value)
+
+obj = MyObject()
+obj.myValue = 10  # This calls set_my_value()
+print(obj.myValue) # This calls get_my_value()
+
+The decorator for a PyQt property is
+@pyqtProperty(). It works similarly to the standard @property
+ decorator in Python but has the added functionality of registering
+ the property with Qt's meta-object system. This makes the property
+ discoverable and usable by other parts of the Qt framework, such a
+s QML, Qt Designer, and QPropertyAnimation. 
+
+How to use the @pyqtProperty decorator
+Using @pyqtProperty() is a multi-step process for defining the
+ getter, setter, and notifier methods, especially when you nee
+d a read-write property. 
+
+    Import the decorator: You must import the pyqtProperty class
+ from the QtCore module.
+
+class MyObject(QObject):
+    def __init__(self):
+        super().__init__()
+        self._value = 0
+
+    @pyqtProperty(int)  # The type of the property is required
+    def value(self):
+        return self._value
+
+
+
+
+
