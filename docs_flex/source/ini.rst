@@ -304,7 +304,7 @@ The Diameter and Offset values are whole numbers only.
 	LED_ON_COLOR = 0, 255, 0
 	LED_OFF_COLOR= 125, 0, 0, 255
 
-For more information on LED buttons see :ref:`led_buttons`
+For more information on LED buttons see :ref:`LedButtons`
 
 Touch Screens
 ^^^^^^^^^^^^^
