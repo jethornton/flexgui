@@ -47,19 +47,25 @@ def setup_vars(parent):
 	parent.deselected_style = 'border-color: transparent;'
 
 def setup_hal_led_buttons(parent): # LED QPushButtons
-	# find led buttons and get any custom properties
+	# find led buttons and get all properties
 	for child in parent.findChildren(QPushButton):
-		if child.property('led_indicator'):
+		if child.property('led_button'):
 			led_dict = {}
 			led_dict['name'] = child.objectName()
 			led_dict['text'] = child.text()
+			skip_names = ['diameter', 'right_offset', 'top_offset', 'on_color', 'off_color']
+			# get dynamic properties that are not specific to led
+			for prop_name_bytes in child.dynamicPropertyNames():
+				prop_name = prop_name_bytes.data().decode('utf-8')
+				prop_value = child.property(prop_name)
+				if prop_name not in skip_names: # add other properties not specific to led
+					led_dict[prop_name] = prop_value
 			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
 			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
 			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-
-			new_button = led.IndicatorButton(**led_dict)
+			new_button = led.LEDButton(**led_dict)
 			# determine layout or not
 			layout = child.parent().layout()
 			if layout:
@@ -79,6 +85,68 @@ def setup_hal_led_buttons(parent): # LED QPushButtons
 			child.deleteLater()
 			new_button.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
+			#getattr(parent, led_dict['name']).pressed.connect(partial(led.)) FIXME
+
+
+
+	# find led buttons and get any custom properties
+	for child in parent.findChildren(QPushButton):
+		if child.property('led_indicator'):
+			btn_dict = {}
+			btn_dict['name'] = child.objectName()
+			btn_dict['text'] = child.text()
+			skip_names = ['diameter', 'right_offset', 'top_offset', 'on_color', 'off_color']
+			# get dynamic properties that are not specific to led
+			for prop_name_bytes in child.dynamicPropertyNames():
+				prop_name = prop_name_bytes.data().decode('utf-8')
+				prop_value = child.property(prop_name)
+				if prop_name not in skip_names: # add other properties not specific to led
+					btn_dict[prop_name] = prop_value
+			btn_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
+			btn_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
+			btn_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
+			btn_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
+			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
+			new_button = led.IndicatorButton(**btn_dict)
+
+			'''
+			if child.objectName() == 'probing_enable_pb':
+				for key, value in btn_dict.items():
+					print(key, value)
+
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['text'] = child.text()
+			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
+			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
+			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
+			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
+			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
+
+			new_button = led.IndicatorButton(**led_dict)
+			'''
+
+			# determine layout or not
+			layout = child.parent().layout()
+			if layout:
+				index = layout.indexOf(child)
+				if index != -1:
+					if isinstance(layout, QGridLayout):
+						row, column, rowspan, columnspan = layout.getItemPosition(index)
+						layout.addWidget(new_button, row, column, rowspan, columnspan)
+					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
+						layout.removeWidget(child)
+						layout.insertWidget(index, new_button)
+			else:
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_button.setParent(child_parent)
+				new_button.setGeometry(geometry)
+			child.deleteLater()
+			new_button.setObjectName(btn_dict['name'])
+			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
+			#new_button.setObjectName(led_dict['name'])
+			#setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
 def setup_hal_led_labels(parent): # LED labels
 	parent.hal_led_labels = {}
@@ -1620,6 +1688,8 @@ def setup_probing(parent):
 			parent.state_estop_reset_checked['probing_enable_pb'] = False
 
 			parent.probing_enable_pb.setCheckable(True)
+			#print(f'parent.probing_enable_pb.isCheckable() {parent.probing_enable_pb.isCheckable()}')
+
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
 			on_text = parent.probing_enable_pb.property('on_text')
@@ -1722,6 +1792,10 @@ def setup_hal(parent):
 	hal_leds = []
 	hal_progressbar = []
 	parent.hal_io = {}
+	parent.hal_io_check = {}
+	parent.hal_io_int = {}
+	parent.hal_io_float = {}
+
 	parent.hal_readers = {}
 	parent.hal_ms_labels = {}
 	parent.hal_bool_labels = {}
@@ -1733,7 +1807,18 @@ def setup_hal(parent):
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
-	##### HAL_IO #####
+	##### HAL_IO ##### FIXME read changes from the hal pin and update the thing
+	'''
+	QAbstractButton Inherited By: QCheckBox, QPushButton, QRadioButton, and QToolButton
+	setChecked(bool) isChecked()
+	
+	QAbstractSpinBox Inherited By: QDateTimeEdit, QDoubleSpinBox, and QSpinBox
+	QSpinBox setValue(int val) QDoubleSpinBox setValue(double val) value()
+	
+	QAbstractSlider Inherited By: QDial, QScrollBar, and QSlider
+	setValue(int) value()
+	'''
+
 	for child in children:
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()
@@ -1747,15 +1832,18 @@ def setup_hal(parent):
 			if isinstance(child, QCheckBox):
 				if hal_type == hal.HAL_BIT:
 					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
+					parent.hal_io_check[child_name] = pin_name
 				else:
 					msg = (f'The {child_name} has a hal_type of {hal_type}\n'
 					'Only a hal_type of HAL_BIT can be used with\n'
 					'a QCheckBox')
 					dialogs.error_msg_ok(parent, msg, 'Error')
+
 			elif isinstance(child, QPushButton):
 				if hal_type == hal.HAL_BIT:
 					if child.isCheckable():
 						child.toggled.connect(partial(utilities.update_hal_io, parent))
+						parent.hal_io_check[child_name] = pin_name
 					else:
 						msg = (f'The QPushButton {child_name} must be\n'
 						'set to checkable to be a IO button.')
@@ -1764,23 +1852,28 @@ def setup_hal(parent):
 					msg = (f'The QPushButton hal_type must be\n'
 					'set to hal.HAL_BIT.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
-			elif isinstance(child, QRadioButton):
+
+			elif isinstance(child, QRadioButton): # FIXME this doesn't get updated from hal yet
 				if hal_type == hal.HAL_BIT:
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
 				else:
 					msg = (f'The QRadioButton hal_type must be\n'
 					'set to hal.HAL_BIT.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
+
 			elif isinstance(child, QSpinBox):
 				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+					parent.hal_io_int[child_name] = pin_name
 				else:
 					msg = (f'The QSpinBox hal_type must be\n'
 					'set to hal.HAL_S32 or hal.HAL_U32.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
+
 			elif isinstance(child, QDoubleSpinBox):
 				if hal_type == hal.HAL_FLOAT:
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+					parent.hal_io_float[child_name] = pin_name
 				else:
 					msg = (f'The QDoubleSpinBox hal_type must be\n'
 					'set to hal.HAL_FLOAT.')
@@ -1795,6 +1888,8 @@ def setup_hal(parent):
 
 			parent.hal_io[child_name] = pin_name
 
+			# FIXME I don't think this belongs here
+			'''
 			if child.property('variable') is not None:
 				var = child.property('variable')
 				found = False
@@ -1809,6 +1904,7 @@ def setup_hal(parent):
 					f'the QDoubleSpinBox {item.objectName()}\n'
 					'will not contain any value.')
 					dialogs.warn_msg_ok(parent, msg, 'Error')
+			'''
 
 	for child in children:
 		if child.property('function') == 'hal_pin':
@@ -2116,6 +2212,7 @@ def setup_hal(parent):
 					# set the hal pin default
 					setattr(parent.halcomp, pin_name, button.isChecked())
 				else:
+					#print(f'not checkable {button_name}')
 					button.pressed.connect(lambda pin=pin: (pin.set(True)))
 					button.released.connect(lambda pin=pin: (pin.set(False)))
 

@@ -267,8 +267,13 @@ class flexgui(QMainWindow):
 		# setup the var file watch timer
 		self.var_watch_timer = QTimer(self)
 		self.var_watch_timer.timeout.connect(partial(utilities.var_file_watch, self))
-		self.var_mod_time = 0.0
+		self.var_mod_time = 0.0 # used to watch the file modification time
 		self.var_watch_timer.start(100) # milliseconds
+
+		# setup the i/o watch timer
+		self.io_watch_timer = QTimer(self)
+		self.io_watch_timer.timeout.connect(partial(utilities.io_watch, self))
+		self.io_watch_timer.start(1000) # milliseconds
 
 		# test timer
 		self.one_second_timer = QTimer(self)
