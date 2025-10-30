@@ -87,7 +87,7 @@ This is how the above looks in the GUI
 .. image:: /images/estop-03.png
    :align: center
 
-.. _led_buttons:
+.. _LedButtons:
 
 LED Buttons
 -----------
@@ -115,10 +115,10 @@ other properties are optional.
 	Mist, mist_pb, Turns on the mist coolant
 	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
 
-Adding the Bool type Dynamic Property `led_indicator` to one of the above
-control buttons will add the default LED to that button. Each control button can
-have different options. If On/Off colors are not specified then Red will be Off
-and Green will be On.
+Adding the Bool type Dynamic Property `led_indicator` to the above control
+buttons will add the default LED to that button. Each control button can have
+different options. If On/Off colors are not specified then Red will be Off and
+Green will be On.
 
 .. csv-table:: LED Button Dynamic Properties
    :width: 100%

@@ -42,6 +42,9 @@ This is what the button would look like with the above settings.
 .. image:: /images/probe-01.png
    :align: center
 
+The Probe Enable button can have a LED indicator. See :ref:`LedButtons` for
+information on LED buttons
+
 Function
 --------
 
