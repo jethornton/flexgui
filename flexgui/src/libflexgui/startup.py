@@ -1856,6 +1856,7 @@ def setup_hal(parent):
 			elif isinstance(child, QRadioButton): # FIXME this doesn't get updated from hal yet
 				if hal_type == hal.HAL_BIT:
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
+					parent.hal_io_check[child_name] = pin_name
 				else:
 					msg = (f'The QRadioButton hal_type must be\n'
 					'set to hal.HAL_BIT.')
