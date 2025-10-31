@@ -117,8 +117,8 @@ output pin. The HAL I/O will stay synchronized with the pin it's connected to.
 
 .. NOTE The connected pins must be of the same HAL type.
 
-A QPushButton (set to checkable), QCheckBox, QSpinBox, QDoubleSpinBox or a
-QSlider can be a HAL I/O object.
+A QPushButton (set to checkable), QCheckBox, QRadioButton, QSpinBox,
+QDoubleSpinBox or a QSlider can be a HAL I/O object.
 
 .. csv-table:: HAL I/O
    :width: 100%
@@ -127,7 +127,7 @@ QSlider can be a HAL I/O object.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_io
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT for a QCheckBox or QPushButton
+	String, hal_type, HAL_BIT for a QCheckBox, QPushButton or QRadioButton
 	String, hal_type, HAL_FLOAT for a QDoubleSpinBox
 	String, hal_type, HAL_S32 or HAL_U32 for a QSpinBox or QSlider
 	String, hal_dir, HAL_IO
