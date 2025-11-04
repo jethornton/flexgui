@@ -173,6 +173,7 @@ def update(parent):
 		# this sets up home related items
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
 			#print('status update TRAJ_MODE_TELEOP')
+			# FIXME releasing estop enables home required hal buttons
 			if not parent.probing:
 				for item in parent.home_required:
 					getattr(parent, item).setEnabled(True)
