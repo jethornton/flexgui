@@ -299,6 +299,7 @@ from this point on use parent.children to get the widgets because the LED
 widgets are no longer QPushButton for example but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
+	# FIXME change children to child_names
 	parent.children = []
 	parent.child_names = []
 	children = parent.findChildren(QWidget)

@@ -43,6 +43,8 @@ def home(parent):
 				getattr(parent, item).setEnabled(True)
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
+			if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
+				parent.home_all_pb.led = True
 
 def home_all(parent):
 	parent.status.poll()
@@ -57,6 +59,9 @@ def home_all(parent):
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(True)
 	utilities.set_homed_enable(parent)
+	# FIXME find a better way to handle the leds
+	if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
+		parent.home_all_pb.led = True
 
 def unhome(parent):
 	parent.status.poll()
@@ -81,6 +86,9 @@ def unhome(parent):
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(True)
 
+		if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
+			parent.home_all_pb.led = False
+
 def unhome_all(parent):
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
@@ -97,6 +105,8 @@ def unhome_all(parent):
 		getattr(parent, item).setEnabled(False)
 	for item in parent.home_required:
 		getattr(parent, item).setEnabled(False)
+	if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
+		parent.home_all_pb.led = False
 
 def run_mdi(parent, cmd=''):
 	if cmd:
