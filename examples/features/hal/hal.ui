@@ -138,6 +138,9 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
          <property name="text">
           <string>Home All</string>
          </property>
+         <property name="led_indicator" stdset="0">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
