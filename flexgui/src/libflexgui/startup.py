@@ -97,7 +97,6 @@ def setup_hal_led_buttons(parent):
 				new_button.setGeometry(geometry)
 
 			# copy dynamic properties
-			#dynamic_props = child.dynamicPropertyNames()
 			for prop_name_bytearray in child.dynamicPropertyNames():
 				prop_name = prop_name_bytearray.data().decode('utf-8')
 				prop_value = child.property(prop_name)
@@ -1819,6 +1818,7 @@ def setup_hal(parent):
 	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
 	hal_spinboxes = []
+	hal_dbl_spinboxes = []
 	hal_sliders = []
 	hal_lcds = []
 	hal_leds = []
@@ -1885,26 +1885,16 @@ def setup_hal(parent):
 				if button_name != 'tool_changed_pb':
 					parent.state_estop_reset[button_name] = True
 
+			# FIXME enable estop and the button is enabled
 			if button.property('required') == 'homed':
 				parent.home_required.append(button_name)
 			else:
 				if button_name != 'tool_changed_pb':
 					parent.state_on[button_name] = True
 
-	##### HAL_IO ##### FIXME read changes from the hal pin and update the thing
-	'''
-	QAbstractButton Inherited By: QCheckBox, QPushButton, QRadioButton, and QToolButton
-	setChecked(bool) isChecked()
-	
-	QAbstractSpinBox Inherited By: QDateTimeEdit, QDoubleSpinBox, and QSpinBox
-	QSpinBox setValue(int val) QDoubleSpinBox setValue(double val) value()
-	
-	QAbstractSlider Inherited By: QDial, QScrollBar, and QSlider
-	setValue(int) value()
-	'''
+	##### HAL_IO #####
 
 	children = parent.findChildren(QWidget)
-
 	for child in children:
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()
@@ -1939,7 +1929,7 @@ def setup_hal(parent):
 					'set to hal.HAL_BIT.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
 
-			elif isinstance(child, QRadioButton): # FIXME this doesn't get updated from hal yet
+			elif isinstance(child, QRadioButton):
 				if hal_type == hal.HAL_BIT:
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_check[child_name] = pin_name
@@ -1975,30 +1965,14 @@ def setup_hal(parent):
 
 			parent.hal_io[child_name] = pin_name
 
-			# FIXME I don't think this belongs here
-			'''
-			if child.property('variable') is not None:
-				var = child.property('variable')
-				found = False
-				for line in var_list:
-					if line.startswith(var):
-						child.setValue(float(line.split()[1]))
-						found = True
-						break
-				if not found:
-					msg = (f'The variable {var} was not found\n'
-					f'in the variables file {parent.var_file}\n'
-					f'the QDoubleSpinBox {item.objectName()}\n'
-					'will not contain any value.')
-					dialogs.warn_msg_ok(parent, msg, 'Error')
-			'''
-
 	for child in children:
 		if child.property('function') == 'hal_pin':
 			if isinstance(child, QAbstractButton): # QCheckBox, QPushButton, QRadioButton, and QToolButton
 				hal_buttons.append(child)
-			elif isinstance(child, QAbstractSpinBox): # QDateTimeEdit, QDoubleSpinBox, and QSpinBox
+			elif isinstance(child, QSpinBox):
 				hal_spinboxes.append(child)
+			elif isinstance(child, QDoubleSpinBox):
+				hal_dbl_spinboxes.append(child)
 			elif isinstance(child, QSlider):
 				hal_sliders.append(child)
 			elif isinstance(child, QLabel):
@@ -2013,6 +1987,163 @@ def setup_hal(parent):
 		elif child.property('function') == 'hal_led':
 			if isinstance(child, QLabel):
 				hal_leds.append(child)
+
+	##### HAL BUTTON & CHECKBOX #####
+	if len(hal_buttons) > 0:
+		for button in hal_buttons:
+			button_name = button.objectName()
+			pin_name = button.property('pin_name')
+
+			if pin_name is None:
+				button.setEnabled(False)
+				msg = (f'HAL Button {button_name}\n'
+				f'pin name {pin_name}\n'
+				'is blank or missing\n'
+				'The HAL pin can not be created.'
+				f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				button.setEnabled(False)
+				msg = (f'HAL Button {button_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if button_name == pin_name:
+				button.setEnabled(False)
+				msg = (f'The object name {button_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, 'HAL_OUT')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			pin = getattr(parent, f'{pin_name}')
+
+			if button.isCheckable():
+				button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+				# set the hal pin default
+				setattr(parent.halcomp, pin_name, button.isChecked())
+			else:
+				button.pressed.connect(lambda pin=pin: (pin.set(True)))
+				button.released.connect(lambda pin=pin: (pin.set(False)))
+
+			parent.state_estop[button_name] = False
+			if button.property('state_off') == 'disabled':
+				parent.state_estop_reset[button_name] = False
+			else:
+				if button_name != 'tool_changed_pb':
+					parent.state_estop_reset[button_name] = True
+
+			if button.property('required') == 'homed':
+				parent.home_required.append(button_name)
+			else:
+				if button_name != 'tool_changed_pb':
+					parent.state_on[button_name] = True
+
+	##### HAL SPINBOX ##### FIXME this home required works as expected...
+	if len(hal_spinboxes) > 0:
+		valid_types = ['HAL_S32', 'HAL_U32']
+		for spinbox in hal_spinboxes:
+			spinbox_name = spinbox.objectName()
+			pin_name = spinbox.property('pin_name')
+
+			if pin_name in dir(parent):
+				spinbox.setEnabled(False)
+				msg = (f'HAL Spinbox {spinbox_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {spinbox_name} spinbox will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if spinbox_name == pin_name:
+				spinbox.setEnabled(False)
+				msg = (f'The object name {spinbox_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {spinbox_name} spinbox will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = spinbox.property('hal_type')
+			if hal_type not in valid_types:
+				spinbox.setEnabled(False)
+				msg = (f'{hal_type} is not valid\n'
+				'for a HAL spinbox, only\n'
+				'HAL_S32 or HAL_U32\n'
+				f'The {spinbox_name} spinbox will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, 'HAL_OUT')
+			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+			# set the default value of the spin box to the hal pin
+			setattr(parent.halcomp, pin_name, spinbox.value())
+			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
+			parent.state_estop[spinbox_name] = False
+			parent.state_estop_reset[spinbox_name] = False
+			if parent.probe_controls: # make sure the probing_enable_pb is there
+				if spinbox_name.startswith('probe_'): # don't enable it when power is on
+					parent.probe_controls.append(spinbox_name)
+			elif spinbox.property('required') == 'homed':
+				parent.home_required.append(spinbox_name)
+			else:
+				parent.state_on[spinbox_name] = True
+
+	##### HAL Double Spinboxes #####
+	if len(hal_dbl_spinboxes) > 0:
+		for spinbox in hal_dbl_spinboxes:
+			spinbox_name = spinbox.objectName()
+			pin_name = spinbox.property('pin_name')
+
+			if pin_name in dir(parent):
+				spinbox.setEnabled(False)
+				msg = (f'HAL Spinbox {spinbox_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {spinbox_name} spinbox will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if spinbox_name == pin_name:
+				spinbox.setEnabled(False)
+				msg = (f'The object name {spinbox_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {spinbox_name} spinbox will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_FLOAT')
+			hal_dir = getattr(hal, 'HAL_OUT')
+			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+			# set the default value of the spin box to the hal pin
+			setattr(parent.halcomp, pin_name, spinbox.value())
+			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
+			parent.state_estop[spinbox_name] = False
+			parent.state_estop_reset[spinbox_name] = False
+			if parent.probe_controls: # make sure the probing_enable_pb is there
+				if spinbox_name.startswith('probe_'): # don't enable it when power is on
+					parent.probe_controls.append(spinbox_name)
+			elif spinbox.property('required') == 'homed':
+				parent.home_required.append(spinbox_name)
+			else:
+				parent.state_on[spinbox_name] = True
 
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
@@ -2241,144 +2372,6 @@ def setup_hal(parent):
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				pin = getattr(parent, f'{pin_name}')
 				parent.hal_progressbars[progressbar_name] = pin_name
-
-	##### HAL BUTTON & CHECKBOX #####
-	if len(hal_buttons) > 0:
-		for button in hal_buttons:
-			button_name = button.objectName()
-			pin_name = button.property('pin_name')
-
-			if pin_name in dir(parent):
-				button.setEnabled(False)
-				msg = (f'HAL Button {button_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.'
-				f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if button_name == pin_name:
-				button.setEnabled(False)
-				msg = (f'The object name {button_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_type = button.property('hal_type')
-			if hal_type != 'HAL_BIT':
-				button.setEnabled(False)
-				msg = (f'{hal_type} is not a valid\n'
-				'hal_type for a HAL Button,\n'
-				'only HAL_BIT can be used for hal_type.\n'
-				f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_dir = button.property('hal_dir')
-			if hal_dir != 'HAL_OUT':
-				button.setEnabled(False)
-				msg = (f'{hal_dir} is not a valid\n'
-				'hal_dir for a HAL Button,\n'
-				'only HAL_OUT can be used for hal_dir.\n'
-				f'The {button_name} button will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			if None not in [pin_name, hal_type, hal_dir]:
-				hal_type = getattr(hal, f'{hal_type}')
-				hal_dir = getattr(hal, f'{hal_dir}')
-				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-				pin = getattr(parent, f'{pin_name}')
-
-				if button.isCheckable():
-					button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
-					# set the hal pin default
-					setattr(parent.halcomp, pin_name, button.isChecked())
-				else:
-					#print(f'not checkable {button_name}')
-					button.pressed.connect(lambda pin=pin: (pin.set(True)))
-					button.released.connect(lambda pin=pin: (pin.set(False)))
-
-				parent.state_estop[button_name] = False
-				if button.property('state_off') == 'disabled':
-					parent.state_estop_reset[button_name] = False
-				else:
-					if button_name != 'tool_changed_pb':
-						parent.state_estop_reset[button_name] = True
-
-				if button.property('required') == 'homed':
-					parent.home_required.append(button_name)
-				else:
-					if button_name != 'tool_changed_pb':
-						parent.state_on[button_name] = True
-
-	##### HAL SPINBOX #####
-	if len(hal_spinboxes) > 0:
-		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
-		for spinbox in hal_spinboxes:
-			spinbox_name = spinbox.objectName()
-			pin_name = spinbox.property('pin_name')
-
-			if pin_name in dir(parent):
-				spinbox.setEnabled(False)
-				msg = (f'HAL Spinbox {spinbox_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.'
-				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_type = spinbox.property('hal_type')
-			if hal_type not in valid_types:
-				spinbox.setEnabled(False)
-				msg = (f'{hal_type} is not valid\n'
-				'for a HAL spinbox, only\n'
-				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
-				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_dir = spinbox.property('hal_dir')
-			if hal_dir != 'HAL_OUT':
-				spinbox.setEnabled(False)
-				msg = (f'{hal_dir} is not a valid\n'
-				'hal_dir for a HAL Spinbox,\n'
-				'only HAL_OUT can be used for hal_dir.\n'
-				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			if None not in [pin_name, hal_type, hal_dir]:
-				hal_type = getattr(hal, f'{hal_type}')
-				hal_dir = getattr(hal, f'{hal_dir}')
-				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
-				# set the default value of the spin box to the hal pin
-				setattr(parent.halcomp, pin_name, spinbox.value())
-				spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
-				parent.state_estop[spinbox_name] = False
-				parent.state_estop_reset[spinbox_name] = False
-				if parent.probe_controls: # make sure the probing_enable_pb is there
-					if spinbox_name.startswith('probe_'): # don't enable it when power is on
-						parent.probe_controls.append(spinbox_name)
-				elif spinbox.property('required') == 'homed':
-					parent.home_required.append(spinbox_name)
-				else:
-					parent.state_on[spinbox_name] = True
 
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
