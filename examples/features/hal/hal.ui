@@ -79,6 +79,23 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
        <string>Status</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
+       <item row="2" column="0">
+        <widget class="QLabel" name="task_mode_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" rowspan="2">
+        <widget class="QLabel" name="hal_comp_name_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="task_state_lb">
          <property name="text">
@@ -93,13 +110,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="task_mode_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QLabel" name="label_7">
          <property name="text">
@@ -107,13 +117,10 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
          </property>
         </widget>
        </item>
-       <item row="1" column="1" rowspan="2">
-        <widget class="QLabel" name="hal_comp_name_lb">
+       <item row="3" column="0">
+        <widget class="QLabel" name="motion_mode_lb">
          <property name="text">
           <string>TextLabel</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -183,7 +190,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
@@ -200,12 +207,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
           </property>
           <property name="pin_name" stdset="0">
            <string>check-me</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_BIT</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_OUT</string>
           </property>
          </widget>
         </item>
@@ -295,12 +296,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
           <property name="pin_name" stdset="0">
            <string>hal-check</string>
           </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_BIT</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_OUT</string>
-          </property>
          </widget>
         </item>
         <item row="7" column="0">
@@ -311,7 +306,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QPushButton" name="abutton">
+         <widget class="QPushButton" name="must_home_btn">
           <property name="text">
            <string>Must Home HAL</string>
           </property>
@@ -320,12 +315,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
           </property>
           <property name="pin_name" stdset="0">
            <string>must_home</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_BIT</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_OUT</string>
           </property>
           <property name="required" stdset="0">
            <string>homed</string>
