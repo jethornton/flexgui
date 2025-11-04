@@ -66,6 +66,21 @@ set the value to `homed`.
 
 .. _SpinBoxTag:
 
+HAL LED Button
+--------------
+
+A QPushButton can be a HAL LED button by adding two dynamic properties. The
+`pin_name` property will be the HAL pin name you use to connect the button state
+in the postgui.hal file. The button can be momentary or checkable.
+
+.. csv-table:: HAL LED Button Dynamic Properties
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_led_button
+	String, pin_name, any unique name
+
 Spinbox
 -------
 

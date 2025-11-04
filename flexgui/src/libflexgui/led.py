@@ -16,6 +16,9 @@ class LEDButton(QPushButton):
 		self._right_offset = kwargs['right_offset']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
+		self.clicked.connect(lambda checked: self.set_led(checked))
+		self.pressed.connect(lambda: self.set_led(True))
+		self.released.connect(lambda: self.set_led(False))
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
@@ -42,28 +45,9 @@ class LEDButton(QPushButton):
 			painter.setPen(self._off_color)
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
 
-	@pyqtProperty(int, notify=value_changed)
-	def value(self):
-		return self._led
-
-	@value.setter
-	def value(self, new_value):
-		if self._led != new_value:
-			self._led = new_value
-			self.value_changed.emit(new_value)
-
-
-	'''
-	def setLed(self, val):
+	def set_led(self, val):
 		self._led = val
 		self.update()
-
-	def getLed(self):
-		self.update()
-		return self._led
-
-	led = pyqtProperty(bool, getLed, setLed)
-	'''
 
 # A QPushButton with a LED in the upper right corner
 class IndicatorButton(QPushButton):
