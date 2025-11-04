@@ -25,12 +25,12 @@ The property `pin_name` defines the HAL pin name that is prefixed with
 
 .. note:: Hal pin names can containe a-z, A-Z, 0-9, underscore _, or dash -.
 
-Button
-------
+HAL Button
+----------
 
 A QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
-adding four string type Dynamic Properties. A pin_name of my-button would be
-`flexhal.my-button` in HAL.
+adding two string type Dynamic Properties. A pin_name of my-button would be
+`flexhal.my-button` in HAL. HAL pins can be connected in the postgui.hal file.
 
 .. csv-table:: HAL Push Button
    :width: 100%
@@ -39,8 +39,6 @@ adding four string type Dynamic Properties. A pin_name of my-button would be
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT
-	String, hal_dir, HAL_OUT
 
 Optionally the button can be disabled when the power is off by adding a
 Dynamic Property named `state_off` and setting the value to `disabled`.
@@ -81,10 +79,10 @@ in the postgui.hal file. The button can be momentary or checkable.
 	String, function, hal_led_button
 	String, pin_name, any unique name
 
-Spinbox
--------
+HAL Spinbox
+-----------
 
-A QSpinBox or QDoubleSpinBox can be a HAL `number` pin by adding four string
+A QSpinBox can be a HAL `number` pin by adding three string
 type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
 `flexhal.` A pin_name of my-spinbox would be in HAL `flexhal.my-spinbox`. The
 spinbox is an Out type that will set the value of the HAL pin to match the
@@ -97,11 +95,24 @@ value of the spinbox.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	String, hal_dir, HAL_OUT
+	String, hal_type, HAL_S32 or HAL_U32
 
-.. note:: A QSpinBox can only be HAL_S32 or HAL_U32 data type. A QDoubleSpinBox
-   can only be HAL_FLOAT data type.
+HAL Double Spinbox
+------------------
+
+A QDoubleSpinBox can be a HAL `number` pin by adding two string
+type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-spinbox would be in HAL `flexhal.my-spinbox`. The
+spinbox is an Out type that will set the value of the HAL pin to match the
+value of the spinbox.
+
+.. csv-table:: HAL Spin Box
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
 
 Slider
 ------
