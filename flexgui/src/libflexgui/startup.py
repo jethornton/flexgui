@@ -19,6 +19,7 @@ import hal
 import traceback
 
 from libflexgui import led
+from libflexgui.led import LEDButton
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
@@ -46,10 +47,19 @@ def setup_vars(parent):
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
 
-def setup_hal_led_buttons(parent): # LED QPushButtons
+def setup_hal_led_buttons(parent):
+	##### HAL LED QPushButtons #####
 	# find led buttons and get all properties
 	for child in parent.findChildren(QPushButton):
-		if child.property('led_button'):
+		if child.property('function') == 'hal_led_button':
+			if child.property('pin_name') is None:
+				msg = (f'The HAL LED Button {child.objectName()}\n'
+				f'with this text {child.text()}\n'
+				'is missing the Dynamic Property pin_name\n'
+				'or it is blank. The Button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'title')
+				child.setEnabled(False)
+				continue
 			led_dict = {}
 			led_dict['name'] = child.objectName()
 			led_dict['text'] = child.text()
@@ -65,7 +75,10 @@ def setup_hal_led_buttons(parent): # LED QPushButtons
 			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-			new_button = led.LEDButton(**led_dict)
+			new_button = LEDButton(**led_dict)
+			new_button.setStyleSheet(child.styleSheet())
+			new_button.setSizePolicy(child.sizePolicy())
+			new_button.setCheckable(child.isCheckable())
 			# determine layout or not
 			layout = child.parent().layout()
 			if layout:
@@ -82,14 +95,20 @@ def setup_hal_led_buttons(parent): # LED QPushButtons
 				child_parent = child.parent()
 				new_button.setParent(child_parent)
 				new_button.setGeometry(geometry)
+
+			# copy dynamic properties
+			#dynamic_props = child.dynamicPropertyNames()
+			for prop_name_bytearray in child.dynamicPropertyNames():
+				prop_name = prop_name_bytearray.data().decode('utf-8')
+				prop_value = child.property(prop_name)
+				# Set the property on the new button
+				new_button.setProperty(prop_name, prop_value)
+
 			child.deleteLater()
 			new_button.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
-			#getattr(parent, led_dict['name']).pressed.connect(partial(led.)) FIXME
 
-
-
-	# find led buttons and get any custom properties
+	##### LED Indicator QPushButton #####
 	for child in parent.findChildren(QPushButton):
 		if child.property('led_indicator'):
 			btn_dict = {}
@@ -148,7 +167,7 @@ def setup_hal_led_buttons(parent): # LED QPushButtons
 			#new_button.setObjectName(led_dict['name'])
 			#setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
-def setup_hal_led_labels(parent): # LED labels
+def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
 		if child.property('hal_led_label'): # bool property
@@ -190,6 +209,13 @@ def setup_hal_led_labels(parent): # LED labels
 				child_parent = child.parent()
 				new_label.setParent(child_parent)
 				new_label.setGeometry(geometry)
+
+			#for name_bytes in child.dynamicPropertyNames():
+			#	name = name_bytes.data().decode("utf-8")
+			#	value = child.property(name_bytes)
+			#	print(f"{name}: {value}")
+
+
 			child.deleteLater()
 			new_label.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_label) # give the new button the old name
@@ -269,12 +295,18 @@ def setup_hal_leds(parent): # LED
 			#hal_type = getattr(hal, f'{hal_type}')
 			#hal_dir = getattr(hal, f'{hal_dir}')
 
+'''
+from this point on use parent.children to get the widgets because the LED
+widgets are no longer QPushButton for example but led.LEDButton for example
+'''
 def find_children(parent): # get the object names of all widgets
 	parent.children = []
+	parent.child_names = []
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.objectName():
 			parent.children.append(child.objectName())
+			parent.child_names.append(child.objectName())
 	parent.actions = parent.findChildren(QAction)
 	for action in parent.actions:
 		if action.objectName():
@@ -711,7 +743,7 @@ def setup_buttons(parent): # connect buttons to functions
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
-			# add to enable disables
+			# FIXME add to enable disables
 
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
@@ -1801,11 +1833,63 @@ def setup_hal(parent):
 	parent.hal_bool_labels = {}
 	parent.hal_progressbars = {}
 	parent.hal_floats = {}
-	children = parent.findChildren(QWidget)
 
 	var_file = os.path.join(parent.config_path, parent.var_file)
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
+
+	##### HAL_LED_BUTTONS ##### these are not QPushButtons but LEDButton
+	for button in parent.findChildren(LEDButton):
+
+		if button.property('function') == 'hal_led_button':
+			button_name = button.objectName()
+			pin_name = button.property('pin_name')
+
+			if pin_name in dir(parent):
+				button.setEnabled(False)
+				msg = (f'HAL Button {button_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if button_name == pin_name:
+				button.setEnabled(False)
+				msg = (f'The object name {button_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, 'HAL_OUT')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			pin = getattr(parent, f'{pin_name}')
+
+			if button.isCheckable():
+				button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+				# set the hal pin default
+				setattr(parent.halcomp, pin_name, button.isChecked())
+			else:
+				button.pressed.connect(lambda pin=pin: (pin.set(True)))
+				button.released.connect(lambda pin=pin: (pin.set(False)))
+
+			parent.state_estop[button_name] = False
+			if button.property('state_off') == 'disabled':
+				parent.state_estop_reset[button_name] = False
+			else:
+				if button_name != 'tool_changed_pb':
+					parent.state_estop_reset[button_name] = True
+
+			if button.property('required') == 'homed':
+				parent.home_required.append(button_name)
+			else:
+				if button_name != 'tool_changed_pb':
+					parent.state_on[button_name] = True
 
 	##### HAL_IO ##### FIXME read changes from the hal pin and update the thing
 	'''
@@ -1818,6 +1902,8 @@ def setup_hal(parent):
 	QAbstractSlider Inherited By: QDial, QScrollBar, and QSlider
 	setValue(int) value()
 	'''
+
+	children = parent.findChildren(QWidget)
 
 	for child in children:
 		if child.property('function') == 'hal_io':

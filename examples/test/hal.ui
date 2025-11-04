@@ -20,7 +20,7 @@
       <x>20</x>
       <y>100</y>
       <width>221</width>
-      <height>281</height>
+      <height>371</height>
      </rect>
     </property>
     <property name="title">
@@ -74,6 +74,22 @@
        </property>
        <property name="hal_dir" stdset="0">
         <string>HAL_OUT</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>hal_led_button</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Broken HAL LED Button</string>
        </property>
        <property name="function" stdset="0">
         <string>hal_led_button</string>
