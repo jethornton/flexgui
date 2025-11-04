@@ -1,0 +1,3 @@
+net connect-1 flexhal.hal-led-btn-checkable => flexhal.hal-label-1
+net connect-2 flexhal.hal-led-btn => flexhal.hal-label-2
+net connect-2 flexhal.hal-label-3

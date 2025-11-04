@@ -36,7 +36,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>HAL LED Button</string>
+        <string>HAL LED Button Checkable</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -51,7 +51,7 @@
         <string>HAL_OUT</string>
        </property>
        <property name="function" stdset="0">
-        <string>hal_led_buttont</string>
+        <string>hal_led_button</string>
        </property>
       </widget>
      </item>
@@ -138,8 +138,8 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>100</y>
+      <x>550</x>
+      <y>350</y>
       <width>133</width>
       <height>191</height>
      </rect>
@@ -281,6 +281,129 @@
     <property name="text">
      <string>Quit</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>120</y>
+      <width>141</width>
+      <height>311</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>GroupBox</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="hal_led_label" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="pin_name" stdset="0">
+        <string>hal-label-1</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_IN</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>hal_led</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="hal_led_label" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="pin_name" stdset="0">
+        <string>hal-label-2</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_IN</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>hal_led</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="hal_led_label" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="pin_name" stdset="0">
+        <string>hal-label-3</string>
+       </property>
+       <property name="hal_type" stdset="0">
+        <string>HAL_BIT</string>
+       </property>
+       <property name="hal_dir" stdset="0">
+        <string>HAL_IN</string>
+       </property>
+       <property name="function" stdset="0">
+        <string>hal_led</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
