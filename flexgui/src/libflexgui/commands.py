@@ -33,6 +33,8 @@ def home(parent):
 			getattr(parent, f'actionHome_{joint}').setEnabled(False)
 		if f'home_pb_{joint}' in parent.home_controls:
 			getattr(parent, f'home_pb_{joint}').setEnabled(False)
+			if hasattr(getattr(parent, f'home_pb_{joint}'), 'led'):
+				getattr(parent, f'home_pb_{joint}').led = True
 		if f'actionUnhome_{joint}' in parent.unhome_controls:
 			getattr(parent, f'actionUnhome_{joint}').setEnabled(True)
 		if f'unhome_pb_{joint}' in parent.unhome_controls:
@@ -56,6 +58,8 @@ def home_all(parent):
 	parent.command.home(-1)
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
+		if hasattr(getattr(parent, item), 'led'):
+			getattr(parent, item).led = True
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(True)
 	utilities.set_homed_enable(parent)
@@ -75,6 +79,8 @@ def unhome(parent):
 			getattr(parent, f'actionHome_{joint}').setEnabled(True)
 		if f'home_pb_{joint}' in parent.home_controls:
 			getattr(parent, f'home_pb_{joint}').setEnabled(True)
+			if hasattr(getattr(parent, f'home_pb_{joint}'), 'led'):
+				getattr(parent, f'home_pb_{joint}').led = False
 		if f'actionUnhome_{joint}' in parent.unhome_controls:
 			getattr(parent, f'actionUnhome_{joint}').setEnabled(False)
 		if f'unhome_pb_{joint}' in parent.unhome_controls:
@@ -96,9 +102,10 @@ def unhome_all(parent):
 	parent.command.unhome(-1)
 	if 'run_mdi_pb' in parent.children:
 		parent.run_mdi_pb.setEnabled(False)
-
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(True)
+		if hasattr(getattr(parent, item), 'led'):
+			getattr(parent, item).led = False
 	for item in parent.unhome_controls:
 		getattr(parent, item).setEnabled(False)
 	for item in parent.run_controls:
