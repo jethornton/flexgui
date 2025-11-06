@@ -127,23 +127,6 @@ def setup_hal_led_buttons(parent):
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			new_button = led.IndicatorButton(**btn_dict)
 
-			'''
-			if child.objectName() == 'probing_enable_pb':
-				for key, value in btn_dict.items():
-					print(key, value)
-
-			led_dict = {}
-			led_dict['name'] = child.objectName()
-			led_dict['text'] = child.text()
-			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
-			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
-			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
-			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
-			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-
-			new_button = led.IndicatorButton(**led_dict)
-			'''
-
 			# determine layout or not
 			layout = child.parent().layout()
 			if layout:
@@ -160,11 +143,17 @@ def setup_hal_led_buttons(parent):
 				child_parent = child.parent()
 				new_button.setParent(child_parent)
 				new_button.setGeometry(geometry)
+
+			# copy dynamic properties
+			for prop_name_bytearray in child.dynamicPropertyNames():
+				prop_name = prop_name_bytearray.data().decode('utf-8')
+				prop_value = child.property(prop_name)
+				# Set the property on the new button
+				new_button.setProperty(prop_name, prop_value)
+
 			child.deleteLater()
 			new_button.setObjectName(btn_dict['name'])
 			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
-			#new_button.setObjectName(led_dict['name'])
-			#setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
 def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 	parent.hal_led_labels = {}
