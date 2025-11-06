@@ -577,11 +577,12 @@ def update(parent):
 		getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
 	# axis position including offsets
-	for key, value in parent.status_dro.items(): # key is label value tuple position & precision
+	for key, value in parent.status_dro.items(): # key is label value list position & precision
 		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]
 		g92_offset = getattr(parent, "status").g92_offset[value[0]]
+		g43_offset = getattr(parent, "status").tool_offset[value[0]]
 		machine_position = getattr(parent, "status").position[value[0]]
-		relative_position = machine_position - (g5x_offset + g92_offset)
+		relative_position = machine_position - (g5x_offset + g92_offset + g43_offset)
 		getattr(parent, f'{key}').setText(f'{relative_position:.{value[1]}f}')
 
 	# axis g5x offset
