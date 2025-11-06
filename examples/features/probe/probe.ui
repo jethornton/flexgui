@@ -328,6 +328,15 @@ HAL</string>
          <property name="text">
           <string>Enable</string>
          </property>
+         <property name="led_indicator" stdset="0">
+          <bool>true</bool>
+         </property>
+         <property name="on_text" stdset="0">
+          <string>Disable</string>
+         </property>
+         <property name="off_text" stdset="0">
+          <string>Enable</string>
+         </property>
         </widget>
        </item>
        <item row="0" column="1">
