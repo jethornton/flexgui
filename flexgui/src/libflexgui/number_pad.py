@@ -28,6 +28,9 @@ class number_pad(QDialog):
 		for i in range(10):
 			getattr(self, f'num_pb_{i}').clicked.connect(self.post)
 
+		# Variable to store the position
+		self.exit_pos = None
+
 	def post(self):
 		txt = self.numbers_lb.text()
 		self.numbers_lb.setText(f'{txt}{self.sender().objectName()[-1]}')
@@ -53,4 +56,10 @@ class number_pad(QDialog):
 			return self.numbers_lb.text()
 		except:
 			return False
+
+	def moveEvent(self, event):
+		# This method is called when the dialog moves.
+		self.exit_pos = self.pos()
+		super().moveEvent(event) # Call the base class implementation
+
 
