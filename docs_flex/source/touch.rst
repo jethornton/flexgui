@@ -32,6 +32,13 @@ Now you just drag the action into the tool bar to create a new tool bar button
 Another option is to just use QPushButtons in a QFrame, as every menu action
 has a QPushButton as well that executes the same function.
 
+Popup Keypads
+-------------
+
+If you drag a popup keypad to a different location, next time you use the keypad
+for that object the popup keypad will remember the last location and move to
+that location.
+
 MDI
 ---
 
