@@ -2202,13 +2202,16 @@ def setup_hal(parent):
 			true_text = label.property('true_text')
 			false_text = label.property('false_text')
 
-			if pin_name in dir(parent):
-				msg = (f'HAL Label {label_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
-				continue
+			# Allow multiple pins to request the same pin_name
+			# Later, we will only allow the hal pin to be created once.
+
+			# if pin_name in dir(parent):
+			# 	msg = (f'HAL Label {label_name}\n'
+			# 	f'pin name {pin_name}\n'
+			# 	'is already used in Flex GUI\n'
+			# 	'The HAL pin can not be created.')
+			# 	dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+			# 	continue
 
 			hal_type = label.property('hal_type')
 			if hal_type not in valid_types:
@@ -2239,20 +2242,23 @@ def setup_hal(parent):
 				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if None not in [pin_name, hal_type, hal_dir]:
+			# Only create the pin if its not already created
+			if None not in [pin_name, hal_type, hal_dir] and pin_name not in dir(parent):
+				print(f"Adding pin for {pin_name} {hal_type} {hal_dir}")
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-				pin = getattr(parent, f'{pin_name}')
-				# if hal type is float add it to hal_float with precision
-				if hal_type == 2: # HAL_FLOAT
-					p = label.property('precision')
-					p = p if p is not None else parent.default_precision
-					parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
-				elif true_text and false_text:
-					parent.hal_bool_labels[label_name] = [pin_name, true_text, false_text]
-				else:
-					parent.hal_readers[label_name] = pin_name
+				# pin = getattr(parent, f'{pin_name}')     # This seems to be unused
+
+			# if hal type is float add it to hal_float with precision
+			if hal_type == 2: # HAL_FLOAT
+				p = label.property('precision')
+				p = p if p is not None else parent.default_precision
+				parent.hal_floats[f'{label_name}'] = [pin_name, p] # label ,status item, precision
+			elif true_text and false_text:
+				parent.hal_bool_labels[label_name] = [pin_name, true_text, false_text]
+			else:
+				parent.hal_readers[label_name] = pin_name
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
@@ -2433,15 +2439,18 @@ def setup_hal(parent):
 			led_name = led.objectName()
 			pin_name = led.property('pin_name')
 
-			if pin_name in dir(parent):
-				led.setEnabled(False)
-				msg = (f'HAL LED {led_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.')
-				f'The {led_name} LED will be disabled.'
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
-				continue
+			# Allow multiple pins to request the same pin_name
+			# Later, we will only allow the hal pin to be created once.
+
+			# if pin_name in dir(parent):
+			# 	led.setEnabled(False)
+			# 	msg = (f'HAL LED {led_name}\n'
+			# 	f'pin name {pin_name}\n'
+			# 	'is already used in Flex GUI\n'
+			# 	'The HAL pin can not be created.')
+			# 	f'The {led_name} LED will be disabled.'
+			# 	dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+			# 	continue
 
 			if led_name == pin_name:
 				led.setEnabled(False)
@@ -2475,7 +2484,8 @@ def setup_hal(parent):
 			on_color = led.property('on_color')
 			off_color = led.property('off_color')
 
-			if None not in [pin_name, hal_type, hal_dir]:
+			if None not in [pin_name, hal_type, hal_dir] and pin_name not in dir(parent):
+				print(f"Adding pin for {pin_name} {hal_type} {hal_dir}")
 				hal_type = getattr(hal, f'{hal_type}')
 				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
