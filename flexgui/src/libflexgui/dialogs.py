@@ -20,25 +20,31 @@ from libflexgui import search
 
 def spinbox_numbers(parent, obj):
 	if obj.isEnabled():
-		np = number_pad.number_pad()
+		dialog = number_pad.number_pad()
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 		with open(stylesheet,'r') as fh:
-			np.setStyleSheet(fh.read())
-		result = np.exec()
+			dialog.setStyleSheet(fh.read())
+		result = dialog.exec()
 		if result:
 			if isinstance(obj, QSpinBox): # return an int
-				obj.setValue(utilities.string_to_int(np.retval()))
+				obj.setValue(utilities.string_to_int(dialog.retval()))
 			elif isinstance(obj, QDoubleSpinBox): # return a float
-				obj.setValue(utilities.string_to_float(np.retval()))
+				obj.setValue(utilities.string_to_float(dialog.retval()))
 
 def numbers(parent, obj):
-	np = number_pad.number_pad()
+	dialog = number_pad.number_pad()
 	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as fh:
-		np.setStyleSheet(fh.read())
-	result = np.exec()
+		dialog.setStyleSheet(fh.read())
+	if parent.settings.contains(f'POPUP/{obj.objectName()}'):
+		dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+
+	result = dialog.exec()
 	if result:
-		obj.setText(np.retval())
+		obj.setText(dialog.retval())
+
+	if dialog.exit_pos is not None: # save last position
+		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
 def gcode(parent, obj):
 	gp = gcode_pad.gcode_pad()
