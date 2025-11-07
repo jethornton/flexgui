@@ -2242,11 +2242,22 @@ def setup_hal(parent):
 				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, f'{hal_dir}')
+			
 			# Only create the pin if its not already created
-			if None not in [pin_name, hal_type, hal_dir] and pin_name not in dir(parent):
+			if pin_name in dir(parent):
+				pin = getattr(parent, f'{pin_name}')
+				if pin.get_type() != hal_type or pin.get_dir() != hal_dir:
+					label.setEnabled(False)
+					msg = (f'An existing HAL pin named {pin_name}\n'
+						'exists, but has a different type or direction.\n'
+						'The HAL object will not be created\n'
+						'and the label will be disabled.')
+					dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+					continue
+			elif None not in [pin_name, hal_type, hal_dir]:
 				print(f"Adding pin for {pin_name} {hal_type} {hal_dir}")
-				hal_type = getattr(hal, f'{hal_type}')
-				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				# pin = getattr(parent, f'{pin_name}')     # This seems to be unused
 
@@ -2484,10 +2495,22 @@ def setup_hal(parent):
 			on_color = led.property('on_color')
 			off_color = led.property('off_color')
 
-			if None not in [pin_name, hal_type, hal_dir] and pin_name not in dir(parent):
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, f'{hal_dir}')
+			
+			# Only create the pin if its not already created
+			if pin_name in dir(parent):
+				pin = getattr(parent, f'{pin_name}')
+				if pin.get_type() != hal_type or pin.get_dir() != hal_dir:
+					label.setEnabled(False)
+					msg = (f'An existing HAL pin named {pin_name}\n'
+						'exists, but has a different type or direction.\n'
+						'The HAL object will not be created\n'
+						'and the label will be disabled.')
+					dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+					continue
+			elif None not in [pin_name, hal_type, hal_dir]:
 				print(f"Adding pin for {pin_name} {hal_type} {hal_dir}")
-				hal_type = getattr(hal, f'{hal_type}')
-				hal_dir = getattr(hal, f'{hal_dir}')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	parent.halcomp.ready()
