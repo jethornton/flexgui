@@ -60,6 +60,23 @@ def gcode(parent, obj):
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+
+		result = dialog.exec()
+		if result:
+			obj.setText(dialog.retval())
+
+	if dialog.exit_pos is not None: # save last position
+		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+
+def keyboard(parent, obj):
+	if obj.isEnabled():
+		dialog = keyboard_pad.keyboard_pad()
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(stylesheet,'r') as fh:
+			dialog.setStyleSheet(fh.read())
+		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+
 		result = dialog.exec()
 		if result:
 			obj.setText(dialog.retval())
@@ -133,12 +150,6 @@ def tool_touchoff_selected(parent):
 			parent.command.mdi(command)
 			parent.command.wait_complete()
 			parent.command.mode(emc.MODE_MANUAL)
-
-def keyboard(parent, obj):
-	kb = keyboard_pad.keyboard_pad()
-	result = kb.exec()
-	if result:
-		obj.setText(kb.retval())
 
 def find(parent):
 	sr = search.FindDialog(parent)
