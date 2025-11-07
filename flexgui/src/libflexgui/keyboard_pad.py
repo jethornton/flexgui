@@ -33,6 +33,9 @@ class keyboard_pad(QDialog):
 			if item.objectName().startswith('key_'):
 				getattr(self, f'{item.objectName()}').clicked.connect(self.post)
 
+		# Variable to store the position
+		self.exit_pos = None
+
 	def post(self):
 		txt = self.keyboard_lb.text()
 		self.keyboard_lb.setText(f'{txt}{self.sender().text()}')
@@ -57,4 +60,9 @@ class keyboard_pad(QDialog):
 			return(self.keyboard_lb.text())
 		except:
 			return False
+
+	def moveEvent(self, event):
+		# This method is called when the dialog moves.
+		self.exit_pos = self.pos()
+		super().moveEvent(event) # Call the base class implementation
 

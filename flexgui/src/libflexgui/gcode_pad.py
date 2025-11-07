@@ -32,6 +32,9 @@ class gcode_pad(QDialog):
 			elif item.objectName().startswith('back_'):
 				getattr(self, f'{item.objectName()}').clicked.connect(self.back)
 
+		# Variable to store the position
+		self.exit_pos = None
+
 	def next(self):
 		self.letters_sw.setCurrentIndex(self.letters_sw.currentIndex() + 1)
 
@@ -55,4 +58,9 @@ class gcode_pad(QDialog):
 			return(self.gcode_lb.text())
 		except:
 			return False
+
+	def moveEvent(self, event):
+		# This method is called when the dialog moves.
+		self.exit_pos = self.pos()
+		super().moveEvent(event) # Call the base class implementation
 

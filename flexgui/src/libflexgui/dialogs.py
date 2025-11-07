@@ -24,36 +24,48 @@ def spinbox_numbers(parent, obj):
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 		with open(stylesheet,'r') as fh:
 			dialog.setStyleSheet(fh.read())
+		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
 		result = dialog.exec()
-		if result:
+		if result and utilities.is_number(dialog.retval()):
 			if isinstance(obj, QSpinBox): # return an int
 				obj.setValue(utilities.string_to_int(dialog.retval()))
 			elif isinstance(obj, QDoubleSpinBox): # return a float
 				obj.setValue(utilities.string_to_float(dialog.retval()))
 
-def numbers(parent, obj):
-	dialog = number_pad.number_pad()
-	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as fh:
-		dialog.setStyleSheet(fh.read())
-	if parent.settings.contains(f'POPUP/{obj.objectName()}'):
-		dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
-
-	result = dialog.exec()
-	if result:
-		obj.setText(dialog.retval())
-
 	if dialog.exit_pos is not None: # save last position
 		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
+def numbers(parent, obj):
+	if obj.isEnabled():
+		dialog = number_pad.number_pad()
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(stylesheet,'r') as fh:
+			dialog.setStyleSheet(fh.read())
+		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+
+		result = dialog.exec()
+		if result and utilities.is_number(dialog.retval()):
+			obj.setText(dialog.retval())
+
+		if dialog.exit_pos is not None: # save last position
+			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+
 def gcode(parent, obj):
-	gp = gcode_pad.gcode_pad()
-	stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as fh:
-		gp.setStyleSheet(fh.read())
-	result = gp.exec()
-	if result:
-		obj.setText(gp.retval())
+	if obj.isEnabled():
+		dialog = gcode_pad.gcode_pad()
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(stylesheet,'r') as fh:
+			dialog.setStyleSheet(fh.read())
+		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+		result = dialog.exec()
+		if result:
+			obj.setText(dialog.retval())
+
+	if dialog.exit_pos is not None: # save last position
+		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
 def manual_tool_change(parent):
 	tc = tool_change.app()
