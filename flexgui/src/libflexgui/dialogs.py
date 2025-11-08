@@ -33,8 +33,8 @@ def spinbox_numbers(parent, obj):
 			elif isinstance(obj, QDoubleSpinBox): # return a float
 				obj.setValue(utilities.string_to_float(dialog.retval()))
 
-	if dialog.exit_pos is not None: # save last position
-		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+		if dialog.exit_pos is not None: # save last position
+			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
 def numbers(parent, obj):
 	if obj.isEnabled():
@@ -65,8 +65,8 @@ def gcode(parent, obj):
 		if result:
 			obj.setText(dialog.retval())
 
-	if dialog.exit_pos is not None: # save last position
-		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+		if dialog.exit_pos is not None: # save last position
+			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
 def keyboard(parent, obj):
 	if obj.isEnabled():
@@ -81,8 +81,8 @@ def keyboard(parent, obj):
 		if result:
 			obj.setText(dialog.retval())
 
-	if dialog.exit_pos is not None: # save last position
-		parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+		if dialog.exit_pos is not None: # save last position
+			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
 def manual_tool_change(parent):
 	tc = tool_change.app()
