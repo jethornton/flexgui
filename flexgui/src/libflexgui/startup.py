@@ -173,7 +173,7 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
 		if child.property('hal_led_label'): # bool property
-			if child.property('pin_name') is None:
+			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The LED will be disabled.')
@@ -243,7 +243,7 @@ def setup_hal_leds(parent): # LED
 	for child in parent.findChildren(QLabel):
 		if child.property('hal_led'): # bool property
 
-			if child.property('pin_name') is None:
+			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The LED will be disabled.')
@@ -2023,10 +2023,10 @@ def setup_hal(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
-
-			if pin_name is None:
+			if pin_name in [None, '']:
 				button.setEnabled(False)
 				msg = (f'The HAL Button {button_name}\n'
+				f'with the text {button.text()}\n'
 				f'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {button_name} button will be disabled.')
@@ -2086,7 +2086,7 @@ def setup_hal(parent):
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				spinbox.setEnabled(False)
 				msg = (f'HAL SPINBOX {spinbox_name}\n'
 				'pin name is blank or missing\n'
@@ -2147,7 +2147,7 @@ def setup_hal(parent):
 			spinbox_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				spinbox.setEnabled(False)
 				msg = (f'HAL SPINBOX {spinbox_name}\n'
 				'pin name is blank or missing\n'
@@ -2199,7 +2199,7 @@ def setup_hal(parent):
 			lcd_name = lcd.objectName()
 			pin_name = lcd.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				lcd.setEnabled(False)
 				msg = (f'HAL LCD {lcd_name}\n'
 				'pin name is blank or missing\n'
@@ -2259,7 +2259,7 @@ def setup_hal(parent):
 			true_text = label.property('true_text')
 			false_text = label.property('false_text')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				label.setEnabled(False)
 				msg = (f'HAL LABEL {label_name}\n'
 				'pin name is blank or missing\n'
@@ -2317,7 +2317,7 @@ def setup_hal(parent):
 			msl_name = label.objectName()
 			pin_name = label.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				label.setEnabled(False)
 				msg = (f'HAL MULTI STATE LABEL {msl_name}\n'
 				'pin name is blank or missing\n'
@@ -2376,7 +2376,7 @@ def setup_hal(parent):
 			progressbar_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				progressbar.setEnabled(False)
 				msg = (f'HAL PROGRESSBAR {progressbar_name}\n'
 				'pin name is blank or missing\n'
@@ -2427,7 +2427,7 @@ def setup_hal(parent):
 			slider_name = slider.objectName()
 			pin_name = slider.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				slider.setEnabled(False)
 				msg = (f'HAL SLIDER {slider_name}\n'
 				'pin name is blank or missing\n'
@@ -2488,7 +2488,7 @@ def setup_hal(parent):
 			led_name = led.objectName()
 			pin_name = led.property('pin_name')
 
-			if pin_name == None:
+			if pin_name in [None, '']:
 				led.setEnabled(False)
 				msg = (f'HAL LED {led_name}\n'
 				'pin name is blank or missing\n'
