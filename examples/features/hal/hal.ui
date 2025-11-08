@@ -193,11 +193,11 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
-        <string> Buttons</string>
+        <string> HAL</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="3" column="1">
@@ -535,19 +535,13 @@ change in the GUI</string>
         <string>LED</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
-        <item row="0" column="0">
+        <item row="0" column="1">
          <widget class="QLabel" name="label_25">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>150</width>
-            <height>150</height>
-           </size>
           </property>
           <property name="frameShape">
            <enum>QFrame::Box</enum>
@@ -569,6 +563,39 @@ change in the GUI</string>
           </property>
           <property name="hal_dir" stdset="0">
            <string>HAL_IN</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLCDNumber" name="lcdNumber">
+          <property name="mode">
+           <enum>QLCDNumber::Dec</enum>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_FLOAT</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-lcd</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLCDNumber" name="lcdNumber_2">
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-lcd-2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLCDNumber" name="lcdNumber_3">
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
           </property>
          </widget>
         </item>
