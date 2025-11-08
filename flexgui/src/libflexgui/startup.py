@@ -1925,15 +1925,24 @@ def setup_hal(parent):
 	##### HAL_IO #####
 	# FIXME check for no pin_name
 	# FIXME use HAL_IO for direction
+	# FIXME create the hal pin for each type of widget
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()
 			pin_name = child.property('pin_name')
+			if pin_name in [None, '']:
+				child.setEnabled(False)
+				msg = (f'The HAL I/O {child_name}\n'
+				f'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {child_name} button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
 			hal_type = child.property('hal_type')
-			hal_dir = child.property('hal_dir')
 			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, f'{hal_dir}')
+			hal_dir = getattr(hal, 'HAL_IO')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 			if isinstance(child, QCheckBox):
