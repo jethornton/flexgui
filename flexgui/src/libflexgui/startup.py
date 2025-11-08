@@ -52,14 +52,14 @@ def setup_hal_led_buttons(parent):
 	# find led buttons and get all properties
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'hal_led_button':
-			if child.property('pin_name') is None:
+			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED Button {child.objectName()}\n'
 				f'with this text {child.text()}\n'
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The Button will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
-				child.property['function'] = ''
+				child.setProperty('function', '')
 				continue
 
 			led_dict = {}
