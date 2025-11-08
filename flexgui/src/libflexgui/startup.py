@@ -2486,7 +2486,6 @@ def setup_hal(parent):
 	if len(hal_leds) > 0:
 		for led in hal_leds:
 			led_name = led.objectName()
-			print(f'led_name {led_name}')
 			pin_name = led.property('pin_name')
 
 			if pin_name == None:
