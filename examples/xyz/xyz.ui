@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1004</width>
-    <height>735</height>
+    <height>749</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -818,7 +818,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -2914,6 +2914,13 @@
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
             <widget class="QSpinBox" name="spinBox_3">
+             <property name="input" stdset="0">
+              <string>number</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
              <property name="input" stdset="0">
               <string>number</string>
              </property>
