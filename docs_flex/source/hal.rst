@@ -117,7 +117,7 @@ value of the spinbox.
 Slider
 ------
 
-A QSlider can be a HAL pin by adding these four string type Dynamic Properties.
+A QSlider can be a HAL pin by adding these three string type Dynamic Properties.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
 my-slider would be in HAL `flexhal.my-slider`. A QSlider supports only integers
 so to connect it to a float HAL pin use conv_s32_float or conv_u32_float.
@@ -132,7 +132,6 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
-	String, hal_dir, HAL_OUT
 
 HAL I/O
 -------
@@ -173,7 +172,6 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
-	String, hal_dir, HAL_IN
 
 .. note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
@@ -193,8 +191,6 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT
-	String, hal_dir, HAL_IN
 	String, true_text, text to display when True
 	String, false_text, text to display when False
 
@@ -214,8 +210,6 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_msl
 	String, pin_name, any unique name
-	String, hal_type, HAL_U32
-	String, hal_dir, HAL_IN
 	String, text_n, text to display when value is equal to n
 
 .. note:: The text values must start at 0 and be sequencial.
@@ -243,8 +237,6 @@ connected to a signal.
 	Bool, hal_led, True
 	String, function, hal_led
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT
-	String, hal_dir, HAL_IN
 	Color, on_color, color of your choice
 	Color, off_color, color of your choice
 	Int, edge_margin, space between circle and edge of the label
@@ -309,7 +301,6 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
-	String, hal_dir, HAL_IN
 
 Step by Step
 ------------
