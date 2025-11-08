@@ -2261,10 +2261,6 @@ def setup_hal(parent):
 
 			if pin_name == None:
 				label.setEnabled(False)
-				msg = (f'{hal_type} is not valid for a HAL Label\n'
-				', only HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32\n'
-				f'can be used. The {label_name} label will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				msg = (f'HAL LABEL {label_name}\n'
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
@@ -2272,15 +2268,15 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			hal_dir = label.property('hal_dir')
-			if hal_dir != 'HAL_IN':
-			if pin_name in dir(parent):
-				msg = (f'HAL Label {label_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
+			# Allow multiple pins to request the same pin_name
+			# Later, we will only allow the hal pin to be created once.
+			# if pin_name in dir(parent):
+			# 	msg = (f'HAL Label {label_name}\n'
+			# 	f'pin name {pin_name}\n'
+			# 	'is already used in Flex GUI\n'
+			# 	'The HAL pin can not be created.')
+			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+			# 	continue
 
 			hal_type = label.property('hal_type')
 			if hal_type not in valid_types:
@@ -2519,15 +2515,17 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if pin_name in dir(parent):
-				led.setEnabled(False)
-				msg = (f'HAL LED {led_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.\n')
-				f'The {led_name} LED will be disabled.'
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
+			# Allow multiple pins to request the same pin_name
+			# Later, we will only allow the hal pin to be created once.
+			# if pin_name in dir(parent):
+			# 	led.setEnabled(False)
+			# 	msg = (f'HAL LED {led_name}\n'
+			# 	f'pin name {pin_name}\n'
+			# 	'is already used in Flex GUI\n'
+			# 	'The HAL pin can not be created.\n')
+			# 	f'The {led_name} LED will be disabled.'
+			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+			# 	continue
 
 			if led_name == pin_name:
 				led.setEnabled(False)
