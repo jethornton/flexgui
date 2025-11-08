@@ -2300,7 +2300,7 @@ def setup_hal(parent):
 				continue
 
 			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, f'{hal_dir}')
+			hal_dir = getattr(hal, 'HAL_IN')
 			
 			# Only create the pin if its not already created
 			if pin_name in dir(parent):
@@ -2538,23 +2538,22 @@ def setup_hal(parent):
 
 			on_color = led.property('on_color')
 			off_color = led.property('off_color')
-
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, f'{hal_dir}')
 			
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, f'HAL_IN')
+
 			# Only create the pin if its not already created
 			if pin_name in dir(parent):
 				pin = getattr(parent, f'{pin_name}')
 				if pin.get_type() != hal_type or pin.get_dir() != hal_dir:
-					label.setEnabled(False)
+					led.setEnabled(False)
 					msg = (f'An existing HAL pin named {pin_name}\n'
 						'exists, but has a different type or direction.\n'
 						'The HAL object will not be created\n'
-						'and the label will be disabled.')
+						'and the LED will be disabled.')
 					dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 					continue
 			elif None not in [pin_name, hal_type, hal_dir]:
-				print(f"Adding pin for {pin_name} {hal_type} {hal_dir}")
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	parent.halcomp.ready()
