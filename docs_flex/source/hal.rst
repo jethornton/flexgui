@@ -290,7 +290,6 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	String, hal_dir, HAL_IN
 
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
