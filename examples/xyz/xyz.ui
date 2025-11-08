@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1004</width>
-    <height>749</height>
+    <height>783</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -818,7 +818,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1299,6 +1299,25 @@
         </property>
         <property name="hal_dir" stdset="0">
          <string>HAL_OUT</string>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>160</y>
+          <width>66</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="function" stdset="0">
+         <string>set_var</string>
+        </property>
+        <property name="variable" stdset="0">
+         <string>1000</string>
+        </property>
+        <property name="input" stdset="0">
+         <string>number</string>
         </property>
        </widget>
       </widget>
