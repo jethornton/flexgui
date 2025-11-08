@@ -789,7 +789,7 @@ after 1/2 second</string>
            <string>hal_pin</string>
           </property>
           <property name="pin_name" stdset="0">
-           <string/>
+           <string>hal-test</string>
           </property>
          </widget>
         </item>
@@ -859,7 +859,7 @@ after 1/2 second</string>
            <string>hal_led_button</string>
           </property>
           <property name="pin_name" stdset="0">
-           <string/>
+           <string>hal-test6</string>
           </property>
          </widget>
         </item>
