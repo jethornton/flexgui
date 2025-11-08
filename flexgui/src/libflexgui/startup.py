@@ -2323,9 +2323,7 @@ def setup_hal(parent):
 					dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 					continue
 			elif None not in [pin_name, hal_type, hal_dir]:
-				print(f"Adding pin for {pin_name} {hal_type} {hal_dir}")
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-				# pin = getattr(parent, f'{pin_name}')     # This seems to be unused
 
 			# if hal type is float add it to hal_float with precision
 			if hal_type == 2: # HAL_FLOAT
