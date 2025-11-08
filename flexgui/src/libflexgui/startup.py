@@ -2142,31 +2142,32 @@ def setup_hal(parent):
 			lcd_name = lcd.objectName()
 			pin_name = lcd.property('pin_name')
 
+			if pin_name == None:
+				lcd.setEnabled(False)
+				msg = (f'HAL LCD {lcd_name}\n'
+				'does not have a pin_name\n'
+				'The HAL pin can not be created.\n'
+				f'The {lcd_name} will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
 			if pin_name in dir(parent):
+				lcd.setEnabled(False)
 				msg = (f'HAL LCD {lcd_name}\n'
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.')
+				'The HAL pin can not be created.\n'
+				f'The {lcd_name} will be disabled.')
 				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = lcd.property('hal_type')
 			if hal_type not in valid_types:
 				lcd.setEnabled(False)
-				msg = (f'{hal_type} is not valid\n'
-				'for a HAL LCD, only\n'
-				'HAL_FLOAT or HAL_S32 or HAL_U32\n'
-				f'can be used. The {lcd_name} will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_dir = lcd.property('hal_dir')
-			if hal_dir != 'HAL_IN':
-				lcd.setEnabled(False)
-				msg = (f'{hal_dir} is not a valid\n'
-				'hal_dir for a HAL LCD Display,\n'
-				'only HAL_IN can be used for hal_dir.\n'
-				f'The {lcd_name} LCD will be disabled.')
+				msg = (f'{hal_type} is not a valid type\n'
+				'for a HAL LCD, only HAL_FLOAT or \n'
+				'HAL_S32 or HAL_U32 can be used.\n'
+				f'The {lcd_name} will be disabled.')
 				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
@@ -2180,18 +2181,18 @@ def setup_hal(parent):
 				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if None not in [pin_name, hal_type, hal_dir]:
-				hal_type = getattr(hal, f'{hal_type}')
-				hal_dir = getattr(hal, f'{hal_dir}')
-				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-				pin = getattr(parent, f'{pin_name}')
-				# if hal type is float add it to hal_float with precision
-				if hal_type == 2: # HAL_FLOAT
-					p = lcd.property('precision')
-					p = p if p is not None else parent.default_precision
-					parent.hal_floats[f'{lcd_name}'] = [pin_name, p] # lcd ,status item, precision
-				else:
-					parent.hal_readers[lcd_name] = pin_name
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			pin = getattr(parent, f'{pin_name}')
+			# if hal type is float add it to hal_float with precision
+			if hal_type == 2: # HAL_FLOAT
+				p = lcd.property('precision')
+				p = p if p is not None else parent.default_precision
+				parent.hal_floats[f'{lcd_name}'] = [pin_name, p] # lcd ,status item, precision
+			else:
+				parent.hal_readers[lcd_name] = pin_name
+		print('done lcd')
 
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
