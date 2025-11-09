@@ -47,6 +47,34 @@ def setup_vars(parent):
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
 
+def find_widget_index(layout, target_widget):
+	print(f'layout {layout.itemAt(2)}')
+	for i in range(layout.count()):
+		item = layout.itemAt(i)
+		if item.widget() == target_widget:
+			print(f'item.widget() {item.widget()}')
+			return i
+		elif item.layout() is not None:
+			# Recursively search in nested layouts
+			nested_index = find_widget_index(item.layout(), target_widget)
+			if nested_index is not None:
+				print(f'i {i}')
+				return f"{layout} layout at index {i}, widget at index {nested_index}"
+	return None
+
+def find_widget_layout(layout, target_widget):
+	for i in range(layout.count()):
+		item = layout.itemAt(i)
+		if item.widget() == target_widget:
+			return layout
+		elif item.layout() is not None:
+			# Recursively search in nested layouts
+			nested_index = find_widget_layout(item.layout(), target_widget)
+			if nested_index is not None:
+				return item.layout()
+	return None
+
+
 def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
 	# find led buttons and get all properties
@@ -113,16 +141,6 @@ def setup_hal_led_buttons(parent):
 	##### LED Indicator QPushButton #####
 	for child in parent.findChildren(QPushButton):
 		if child.property('led_indicator'):
-			'''
-			if child.property('pin_name') is None:
-				msg = (f'The HAL LED Button {child.objectName()}\n'
-				f'with this text {child.text()}\n'
-				'is missing the Dynamic Property pin_name\n'
-				'or it is blank. The Button will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				child.setEnabled(False)
-				continue
-			'''
 			btn_dict = {}
 			btn_dict['name'] = child.objectName()
 			btn_dict['text'] = child.text()
@@ -140,18 +158,12 @@ def setup_hal_led_buttons(parent):
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			new_button = led.IndicatorButton(**btn_dict)
 
-			# determine layout or not
 			layout = child.parent().layout()
-			if layout:
-				index = layout.indexOf(child)
-				if index != -1:
-					if isinstance(layout, QGridLayout):
-						row, column, rowspan, columnspan = layout.getItemPosition(index)
-						layout.addWidget(new_button, row, column, rowspan, columnspan)
-					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
-						layout.removeWidget(child)
-						layout.insertWidget(index, new_button)
-			else:
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_button)
+			else: # widget is not in a layout
 				geometry = child.geometry()
 				child_parent = child.parent()
 				new_button.setParent(child_parent)
@@ -167,7 +179,6 @@ def setup_hal_led_buttons(parent):
 			child.deleteLater()
 			new_button.setObjectName(btn_dict['name'])
 			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
-
 
 def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 	parent.hal_led_labels = {}
