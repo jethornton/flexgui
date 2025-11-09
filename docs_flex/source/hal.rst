@@ -261,10 +261,10 @@ will be On.
 	String, pin_name, any unique name
 	Color, led_on_color, color of your choice
 	Color, led_off_color, color of your choice
-	led_diameter
-	led_right_offset
-	led_top_offset
-
+	Int, led_diameter, diameter of led
+	Int, led_right_offset, offset from right edge
+	Int, led_top_offset, offset from top edge
+ 
 LCD
 ---
 
