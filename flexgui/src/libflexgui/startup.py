@@ -109,18 +109,13 @@ def setup_hal_led_buttons(parent):
 			new_button.setStyleSheet(child.styleSheet())
 			new_button.setSizePolicy(child.sizePolicy())
 			new_button.setCheckable(child.isCheckable())
-			# determine layout or not
+
 			layout = child.parent().layout()
-			if layout:
-				index = layout.indexOf(child)
-				if index != -1:
-					if isinstance(layout, QGridLayout):
-						row, column, rowspan, columnspan = layout.getItemPosition(index)
-						layout.addWidget(new_button, row, column, rowspan, columnspan)
-					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
-						layout.removeWidget(child)
-						layout.insertWidget(index, new_button)
-			else:
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_button)
+			else: # widget is not in a layout
 				geometry = child.geometry()
 				child_parent = child.parent()
 				new_button.setParent(child_parent)
@@ -136,7 +131,6 @@ def setup_hal_led_buttons(parent):
 			child.deleteLater()
 			new_button.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
-
 
 	##### LED Indicator QPushButton #####
 	for child in parent.findChildren(QPushButton):
@@ -213,27 +207,17 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
 			led_dict['pin_name'] = child.property('pin_name')
-			#led_dict['hal_type'] = child.property('hal_type')
-			#led_dict['hal_dir'] = child.property('hal_dir')
 
 			new_label = led.IndicatorLabel(**led_dict)
 			new_label.setProperty('function', led_dict['function'])
 			new_label.setProperty('pin_name', led_dict['pin_name'])
-			#new_label.setProperty('hal_type', led_dict['hal_type'])
-			#new_label.setProperty('hal_dir', led_dict['hal_dir'])
 
-			# determine layout or not
 			layout = child.parent().layout()
-			if layout:
-				index = layout.indexOf(child)
-				if index != -1:
-					if isinstance(layout, QGridLayout):
-						row, column, rowspan, columnspan = layout.getItemPosition(index)
-						layout.addWidget(new_label, row, column, rowspan, columnspan)
-					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
-						layout.removeWidget(child)
-						layout.insertWidget(index, new_label)
-			else:
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_label)
+			else: # widget is not in a layout
 				geometry = child.geometry()
 				child_parent = child.parent()
 				new_label.setParent(child_parent)
@@ -293,44 +277,26 @@ def setup_hal_leds(parent): # LED
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
 			led_dict['pin_name'] = child.property('pin_name')
-			#led_dict['hal_type'] = child.property('hal_type')
-			#led_dict['hal_dir'] = child.property('hal_dir')
 
 			new_led = led.Indicator(**led_dict)
 			new_led.setProperty('function', led_dict['function'])
 			new_led.setProperty('pin_name', led_dict['pin_name'])
-			#new_led.setProperty('hal_type', led_dict['hal_type'])
-			#new_led.setProperty('hal_dir', led_dict['hal_dir'])
-			#new_led.setFrameStyle(QFrame.Shape.Box)
 
-			# determine layout or not
 			layout = child.parent().layout()
-			if layout:
-				index = layout.indexOf(child)
-				if index != -1:
-					if isinstance(layout, QGridLayout):
-						row, column, rowspan, columnspan = layout.getItemPosition(index)
-						layout.addWidget(new_led, row, column, rowspan, columnspan)
-					elif isinstance(layout, (QVBoxLayout, QHBoxLayout)):
-						layout.removeWidget(child)
-						layout.insertWidget(index, new_led)
-			else:
-				#geometry = child.geometry()
-				#child_parent = child.parent()
-				new_led.setParent(child.parent())
-				new_led.setGeometry(child.geometry())
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_led)
+			else: # widget is not in a layout
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_led.setParent(child_parent)
+				new_led.setGeometry(geometry)
+
 			child.deleteLater()
 			new_led.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_led) # give the new button the old name
 			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
-
-			#pin_name = child.property('pin_name')
-			#hal_type = new_led.property('hal_type')
-			#hal_dir = new_led.property('hal_dir')
-			#on_color = new_led.property('on_color')
-			#off_color = new_led.property('off_color')
-			#hal_type = getattr(hal, f'{hal_type}')
-			#hal_dir = getattr(hal, f'{hal_dir}')
 
 '''
 from this point on use parent.child_names to get the widgets because the LED
