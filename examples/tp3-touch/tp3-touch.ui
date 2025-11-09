@@ -165,32 +165,6 @@
           <property name="text">
            <string>E Stop</string>
           </property>
-          <property name="led_indicator" stdset="0">
-           <bool>false</bool>
-          </property>
-          <property name="led_diameter" stdset="0">
-           <number>15</number>
-          </property>
-          <property name="led_right_offset" stdset="0">
-           <number>6</number>
-          </property>
-          <property name="led_top_offset" stdset="0">
-           <number>6</number>
-          </property>
-          <property name="on_color" stdset="0">
-           <color>
-            <red>255</red>
-            <green>255</green>
-            <blue>0</blue>
-           </color>
-          </property>
-          <property name="off_color" stdset="0">
-           <color>
-            <red>222</red>
-            <green>24</green>
-            <blue>24</blue>
-           </color>
-          </property>
          </widget>
         </item>
         <item>
@@ -203,32 +177,6 @@
           </property>
           <property name="text">
            <string>Power</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>false</bool>
-          </property>
-          <property name="led_diameter" stdset="0">
-           <number>15</number>
-          </property>
-          <property name="led_right_offset" stdset="0">
-           <number>6</number>
-          </property>
-          <property name="led_top_offset" stdset="0">
-           <number>6</number>
-          </property>
-          <property name="led_on_color" stdset="0">
-           <color>
-            <red>255</red>
-            <green>255</green>
-            <blue>0</blue>
-           </color>
-          </property>
-          <property name="led_off_color" stdset="0">
-           <color>
-            <red>222</red>
-            <green>24</green>
-            <blue>24</blue>
-           </color>
           </property>
          </widget>
         </item>
@@ -1110,32 +1058,6 @@
               <property name="text">
                <string>PROBE 
  ENABLE   </string>
-              </property>
-              <property name="led_indicator" stdset="0">
-               <bool>false</bool>
-              </property>
-              <property name="led_diameter" stdset="0">
-               <number>15</number>
-              </property>
-              <property name="led_right_offset" stdset="0">
-               <number>6</number>
-              </property>
-              <property name="led_top_offset" stdset="0">
-               <number>6</number>
-              </property>
-              <property name="led_on_color" stdset="0">
-               <color>
-                <red>249</red>
-                <green>240</green>
-                <blue>107</blue>
-               </color>
-              </property>
-              <property name="led_off_color" stdset="0">
-               <color>
-                <red>222</red>
-                <green>24</green>
-                <blue>24</blue>
-               </color>
               </property>
              </widget>
             </item>
@@ -9393,7 +9315,7 @@ THREADS</string>
   </action>
  </widget>
  <resources>
-  <include location="../mill-touch/resources.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
