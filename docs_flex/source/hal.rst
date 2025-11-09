@@ -259,8 +259,6 @@ will be On.
 	Bool, hal_led_label, True
 	String, function, hal_led
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT
-	String, hal_dir, HAL_IN
 	Color, led_on_color, color of your choice
 	Color, led_off_color, color of your choice
 	led_diameter
