@@ -152,10 +152,7 @@ QDoubleSpinBox or a QSlider can be a HAL I/O object.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_io
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT for a QCheckBox, QPushButton or QRadioButton
-	String, hal_type, HAL_FLOAT for a QDoubleSpinBox
 	String, hal_type, HAL_S32 or HAL_U32 for a QSpinBox or QSlider
-	String, hal_dir, HAL_IO
 
 Label
 -----
