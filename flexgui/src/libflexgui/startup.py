@@ -105,6 +105,7 @@ def setup_hal_led_buttons(parent):
 			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
+			led_dict['shape'] = child.property('led_shape') or "round"
 			new_button = LEDButton(**led_dict)
 			new_button.setStyleSheet(child.styleSheet())
 			new_button.setSizePolicy(child.sizePolicy())
@@ -150,6 +151,7 @@ def setup_hal_led_buttons(parent):
 			btn_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
 			btn_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
+			btn_dict['shape'] = child.property('led_shape') or "ROUND"
 			new_button = led.IndicatorButton(**btn_dict)
 
 			layout = child.parent().layout()
@@ -202,7 +204,7 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-
+			led_dict['shape'] = child.property('led_shape') or "round"
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
@@ -272,7 +274,7 @@ def setup_hal_leds(parent): # LED
 
 			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
-
+			led_dict['shape'] = child.property('led_shape') or "round"
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')

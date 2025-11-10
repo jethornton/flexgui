@@ -240,6 +240,9 @@ connected to a signal.
 	Color, on_color, color of your choice
 	Color, off_color, color of your choice
 	Int, edge_margin, space between circle and edge of the label
+	String, led_shape, 'round' (default), 'rectangular', or 'square'  
+
+Choosing 'rectangular' for LED shape will fill the entire control as one giant indicator.
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
