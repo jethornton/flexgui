@@ -169,7 +169,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <item row="2" column="2" rowspan="3" colspan="3">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page1">
        <attribute name="title">
@@ -191,12 +191,34 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>334</width>
+          <height>85</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Run Programs Show HAL and add
+ the HALpins to the watch window
+in the HAL command box you can use setp
+ to change a value and see the object
+change in the GUI</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </item>
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
@@ -386,10 +408,19 @@ you can also force that home is required</string>
         <string> IO</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_12">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pushButton_3">
           <property name="text">
-           <string>flexhal.hal-io-s32-sb</string>
+           <string>HAL I/O Button</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-btn</string>
           </property>
          </widget>
         </item>
@@ -407,45 +438,12 @@ you can also force that home is required</string>
           <property name="hal_type" stdset="0">
            <string>HAL_S32</string>
           </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_IO</string>
-          </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="doubleSpinBox">
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_io</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>hal-io-dsb</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_FLOAT</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_IO</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_13">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_20">
           <property name="text">
-           <string>flexhal.hal-io-u32-sb</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0" colspan="2">
-         <widget class="QLabel" name="label_9">
-          <property name="text">
-           <string>Run Programs Show HAL and add
- the HALpins to the watch window
-in the HAL command box you can use setp
- to change a value and see the object
-change in the GUI</string>
+           <string>HAL Pin Name</string>
           </property>
          </widget>
         </item>
@@ -460,41 +458,12 @@ change in the GUI</string>
           <property name="hal_type" stdset="0">
            <string>HAL_U32</string>
           </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_IO</string>
-          </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_20">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>HAL Pin Name</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_2">
-          <property name="text">
-           <string>I/O Check Box</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_io</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>hal-io-cb</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_BIT</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_IO</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>flexhal.hal-io-dsb</string>
+           <string>flexhal.hal-io-slider</string>
           </property>
          </widget>
         </item>
@@ -502,6 +471,13 @@ change in the GUI</string>
          <widget class="QLabel" name="label_10">
           <property name="text">
            <string>flexhal.hal-io-cb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>flexhal.hal-io-dsb</string>
           </property>
          </widget>
         </item>
@@ -519,17 +495,80 @@ change in the GUI</string>
           <property name="hal_type" stdset="0">
            <string>HAL_U32</string>
           </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_IO</string>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>flexhal.hal-io-u32-sb</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_24">
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox_2">
           <property name="text">
-           <string>flexhal.hal-io-slider</string>
+           <string>I/O Check Box</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-cb</string>
           </property>
          </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>flexhal.hal-io-s32-sb</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox">
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-dsb</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_FLOAT</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QRadioButton" name="radioButton_2">
+            <property name="text">
+             <string>HAL I/O RB</string>
+            </property>
+            <property name="function" stdset="0">
+             <string>hal_io</string>
+            </property>
+            <property name="pin_name" stdset="0">
+             <string>hal-io-rb-1</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton">
+            <property name="text">
+             <string>HAL I/O RB</string>
+            </property>
+            <property name="function" stdset="0">
+             <string>hal_io</string>
+            </property>
+            <property name="pin_name" stdset="0">
+             <string>hal-io-rb-2</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -538,6 +577,38 @@ change in the GUI</string>
         <string>LED</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
+        <item row="2" column="1">
+         <widget class="QLCDNumber" name="lcdNumber">
+          <property name="mode">
+           <enum>QLCDNumber::Dec</enum>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_FLOAT</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-lcd</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_32">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="hal_led" stdset="0">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_led</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>dbl-led</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_25">
           <property name="sizePolicy">
@@ -569,38 +640,6 @@ change in the GUI</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLCDNumber" name="lcdNumber">
-          <property name="mode">
-           <enum>QLCDNumber::Dec</enum>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_pin</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_FLOAT</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>hal-lcd</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_32">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="hal_led" stdset="0">
-           <bool>true</bool>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_led</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>dbl-led</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_33">
           <property name="text">
@@ -614,6 +653,19 @@ change in the GUI</string>
           </property>
           <property name="pin_name" stdset="0">
            <string>dbl-led</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_led_button</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-led-btn</string>
           </property>
          </widget>
         </item>
