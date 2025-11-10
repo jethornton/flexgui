@@ -1852,7 +1852,15 @@ def setup_hal(parent):
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
 
-			# FIXME check for no pin_name
+			if pin_name in [None, '']:
+				button.setEnabled(False)
+				msg = (f'The HAL LED Button {button_name}\n'
+				f'with the text {button.text()}\n'
+				f'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {button_name} button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
 
 			if pin_name in dir(parent):
 				button.setEnabled(False)
@@ -2011,6 +2019,7 @@ def setup_hal(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
+
 			if pin_name in [None, '']:
 				button.setEnabled(False)
 				msg = (f'The HAL Button {button_name}\n'
