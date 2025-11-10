@@ -48,6 +48,9 @@ def numbers(parent, obj):
 		result = dialog.exec()
 		if result and utilities.is_number(dialog.retval()):
 			obj.setText(dialog.retval())
+			if obj.property("return_button") in parent.children:
+				getattr(parent, obj.property('return_button')).animateClick()
+				
 
 		if dialog.exit_pos is not None: # save last position
 			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
@@ -64,7 +67,9 @@ def gcode(parent, obj):
 		result = dialog.exec()
 		if result:
 			obj.setText(dialog.retval())
-
+			if obj.property("return_button") in parent.children:
+				getattr(parent, obj.property('return_button')).animateClick()
+	
 		if dialog.exit_pos is not None: # save last position
 			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
@@ -80,7 +85,9 @@ def keyboard(parent, obj):
 		result = dialog.exec()
 		if result:
 			obj.setText(dialog.retval())
-
+			if obj.property("return_button") in parent.children:
+				getattr(parent, obj.property('return_button')).animateClick()
+	
 		if dialog.exit_pos is not None: # save last position
 			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
 
