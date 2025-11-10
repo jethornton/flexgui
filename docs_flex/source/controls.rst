@@ -132,6 +132,7 @@ Green will be On.
 	Int, led_top_offset, Sets the offset from the top edge in pixels
 	Color, led_on_color, Sets the color of the LED when on
 	Color, led_off_color, Sets the color of the LED when off
+	String, led_shape, 'round' (default) or 'square'  
 
 To change the LED default options they can be set in the INI file.
 See :ref:`led_defaults`
