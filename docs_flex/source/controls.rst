@@ -118,8 +118,8 @@ other properties are optional.
 
 Adding the Bool type Dynamic Property `led_indicator` to the above control
 buttons will add the default LED to that button. Each control button can have
-different options. If On/Off colors are not specified then Red will be Off and
-Green will be On.
+different options. The default colors are Red when Off and Green when On. The
+default shape is round.
 
 .. csv-table:: LED Button Dynamic Properties
    :width: 100%
@@ -127,12 +127,13 @@ Green will be On.
 
 	**Property Type**, **Property Name**, **Function**
 	Bool, led_indicator, Creates a LED
+	, Optional
 	Int, led_diameter, Sets the Diameter of the LED in pixels
 	Int, led_right_offset, Sets the offset from the right edge in pixels
 	Int, led_top_offset, Sets the offset from the top edge in pixels
 	Color, led_on_color, Sets the color of the LED when on
 	Color, led_off_color, Sets the color of the LED when off
-	String, led_shape, 'round' (default) or 'square'  
+	String, led_shape, square
 
 To change the LED default options they can be set in the INI file.
 See :ref:`led_defaults`
