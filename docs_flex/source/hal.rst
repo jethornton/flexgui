@@ -69,7 +69,8 @@ HAL LED Button
 
 A QPushButton can be a HAL LED button by adding two dynamic properties. The
 `pin_name` property will be the HAL pin name you use to connect the button state
-in the postgui.hal file. The button can be momentary or checkable.
+in the postgui.hal file. The button can be momentary or checkable. The default
+colors are Red when Off and Green when On. The default shape is round.
 
 .. csv-table:: HAL LED Button Dynamic Properties
    :width: 100%
@@ -78,6 +79,8 @@ in the postgui.hal file. The button can be momentary or checkable.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_led_button
 	String, pin_name, any unique name
+	, Optional
+	String, led_shape, square
 
 HAL Spinbox
 -----------
@@ -217,8 +220,8 @@ Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
 HAL LED
 -------
 A QLabel can be used as a HAL LED indicator by adding the following properties
-to a blank label. Colors are optional, if not supplied red for off and green
-for on will be used. The pin_name is the hal name the LED will have.
+to a blank label. The default colors are Red when Off and Green when On. The
+pin_name is the hal name the LED will have. The default shape is round.
 
 The HAL LED needs to be connected in the postgui.hal file and can only be
 connected to a HAL pin of type bit with a HAL direction of OUT or a signal that
@@ -234,10 +237,11 @@ connected to a signal.
 	Bool, hal_led, True
 	String, function, hal_led
 	String, pin_name, any unique name
+	, Optional
 	Color, on_color, color of your choice
 	Color, off_color, color of your choice
 	Int, edge_margin, space between circle and edge of the label
-	String, led_shape, 'round' (default), 'rectangular', or 'square'  
+	String, led_shape, square
 
 Choosing 'rectangular' for LED shape will fill the entire control as one giant indicator.
 
@@ -248,8 +252,8 @@ HAL LED Label
 -------------
 
 Similar to the HAL LED except the LED is in the upper right corner so the label
-can have text. If On/Off colors are not specified then Red will be Off and Green
-will be On.
+can have text. The default colors are Red when Off and Green when On. The
+default shape is round.
 
 .. csv-table:: HAL LED Label
    :width: 100%
@@ -259,12 +263,15 @@ will be On.
 	Bool, hal_led_label, True
 	String, function, hal_led
 	String, pin_name, any unique name
+	, Optional
 	Color, led_on_color, color of your choice
 	Color, led_off_color, color of your choice
 	Int, led_diameter, diameter of led
 	Int, led_right_offset, offset from right edge
 	Int, led_top_offset, offset from top edge
- 
+	String, led_shape, square
+
+
 LCD
 ---
 
