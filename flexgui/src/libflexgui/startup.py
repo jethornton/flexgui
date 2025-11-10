@@ -1910,14 +1910,11 @@ def setup_hal(parent):
 					parent.state_on[button_name] = True
 
 	##### HAL_IO #####
-	# FIXME check for no pin_name
-	# FIXME use HAL_IO for direction
-	# FIXME create the hal pin for each type of widget
-	children = parent.findChildren(QWidget)
-	for child in children:
+	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()
 			pin_name = child.property('pin_name')
+
 			if pin_name in [None, '']:
 				child.setEnabled(False)
 				msg = (f'The HAL I/O {child_name}\n'
@@ -1927,71 +1924,46 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			hal_type = child.property('hal_type')
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, 'HAL_IO')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-
 			if isinstance(child, QCheckBox):
-				if hal_type == hal.HAL_BIT:
-					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
-					parent.hal_io_check[child_name] = pin_name
-				else:
-					msg = (f'The {child_name} has a hal_type of {hal_type}\n'
-					'Only a hal_type of HAL_BIT can be used with\n'
-					'a QCheckBox')
-					dialogs.error_msg_ok(parent, msg, 'Error')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
+				child.stateChanged.connect(partial(utilities.update_hal_io, parent))
+				parent.hal_io_check[child_name] = pin_name
 
 			elif isinstance(child, QPushButton):
-				if hal_type == hal.HAL_BIT:
-					if child.isCheckable():
-						child.toggled.connect(partial(utilities.update_hal_io, parent))
-						parent.hal_io_check[child_name] = pin_name
-					else:
-						msg = (f'The QPushButton {child_name} must be\n'
-						'set to checkable to be a IO button.')
-						dialogs.error_msg_ok(parent, msg, 'Error')
-				else:
-					msg = (f'The QPushButton hal_type must be\n'
-					'set to hal.HAL_BIT.')
-					dialogs.error_msg_ok(parent, msg, 'Error')
-
-			elif isinstance(child, QRadioButton):
-				if hal_type == hal.HAL_BIT:
+				if child.isCheckable():
+					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_check[child_name] = pin_name
 				else:
-					msg = (f'The QRadioButton hal_type must be\n'
-					'set to hal.HAL_BIT.')
+					msg = (f'The QPushButton {child_name} must be\n'
+					'set to checkable to be a IO button.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
 
-			elif isinstance(child, QSpinBox):
-				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
+			elif isinstance(child, QRadioButton):
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
+				child.toggled.connect(partial(utilities.update_hal_io, parent))
+				parent.hal_io_check[child_name] = pin_name
+
+			elif isinstance(child, QSpinBox) or isinstance(child, QSlider):
+				hal_type = child.property('hal_type')
+				if hal_type in ['HAL_S32', 'HAL_U32']:
+					hal_type = getattr(hal, f'{hal_type}')
+					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal.HAL_IO))
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_int[child_name] = pin_name
 				else:
+					child.setEnabled(False)
 					msg = (f'The QSpinBox hal_type must be\n'
-					'set to hal.HAL_S32 or hal.HAL_U32.')
+					'set to HAL_S32 or HAL_U32.\n'
+					'The spinbox will be disabled')
 					dialogs.error_msg_ok(parent, msg, 'Error')
 
 			elif isinstance(child, QDoubleSpinBox):
-				if hal_type == hal.HAL_FLOAT:
-					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
-					parent.hal_io_float[child_name] = pin_name
-				else:
-					msg = (f'The QDoubleSpinBox hal_type must be\n'
-					'set to hal.HAL_FLOAT.')
-					dialogs.error_msg_ok(parent, msg, 'Error')
-			elif isinstance(child, QSlider):
-				if hal_type in [hal.HAL_S32, hal.HAL_U32]:
-					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
-				else:
-					msg = (f'The QSlider hal_type must be\n'
-					'set to hal.HAL_S32 or hal.HAL_U32.')
-					dialogs.error_msg_ok(parent, msg, 'Error')
-			parent.hal_io[child_name] = pin_name
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_FLOAT, hal.HAL_IO))
+				child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+				parent.hal_io_float[child_name] = pin_name
 
-	for child in children:
+	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_pin':
 			if isinstance(child, QAbstractButton): # QCheckBox, QPushButton, QRadioButton, and QToolButton
 				hal_buttons.append(child)
