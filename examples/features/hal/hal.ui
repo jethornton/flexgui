@@ -144,6 +144,9 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
          <property name="led_indicator" stdset="0">
           <bool>true</bool>
          </property>
+         <property name="led_shape" stdset="0">
+          <string>square</string>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
@@ -218,7 +221,7 @@ change in the GUI</string>
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
@@ -607,9 +610,28 @@ you can also force that home is required</string>
           <property name="pin_name" stdset="0">
            <string>dbl-led</string>
           </property>
+          <property name="led_shape" stdset="0">
+           <string>square</string>
+          </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_led_button</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-led-btn</string>
+          </property>
+          <property name="led_shape" stdset="0">
+           <string>square</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
          <widget class="QLabel" name="label_25">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -638,34 +660,8 @@ you can also force that home is required</string>
           <property name="hal_dir" stdset="0">
            <string>HAL_IN</string>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_33">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="hal_led" stdset="0">
-           <bool>true</bool>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_led</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>dbl-led</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_led_button</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>hal-led-btn</string>
+          <property name="led_shape" stdset="0">
+           <string>squared</string>
           </property>
          </widget>
         </item>

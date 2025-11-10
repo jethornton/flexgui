@@ -3,12 +3,6 @@ from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QEvent, QSize
 from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter, QColor, QBrush, QPainter
 from PyQt6.QtWidgets import QPushButton, QLabel
 
-# Some constants for use in this file
-LED_SHAPE_ROUND = 0
-LED_SHAPE_RECTANGULAR = 1
-LED_SHAPE_SQUARE = 2
-LED_RECTANGULAR_SHAPE_KEYS = ["rect", "rectangle", "rectangular", "square"]  # Most con
-
 # Standard gradients functions used by all LEDs
 def makeLinearGradient(size, x, y, color):
 	if size.width() > size.height():
@@ -53,7 +47,7 @@ class LEDButton(QPushButton):
 		self.clicked.connect(lambda checked: self.set_led(checked))
 		self.pressed.connect(lambda: self.set_led(True))
 		self.released.connect(lambda: self.set_led(False))
-		self._shape = LED_SHAPE_ROUND if kwargs['shape'].lower() not in LED_RECTANGULAR_SHAPE_KEYS else LED_SHAPE_RECTANGULAR
+		self._shape = kwargs['shape']
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
@@ -67,7 +61,7 @@ class LEDButton(QPushButton):
 		led_size = QSize(self._diameter, self._diameter)
 
 		color = self._on_color if self._led else self._off_color
-		if self._shape == LED_SHAPE_ROUND or led_size.width() == led_size.height():
+		if self._shape == 'round' or led_size.width() == led_size.height():
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
@@ -75,7 +69,7 @@ class LEDButton(QPushButton):
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 
-		if self._shape == LED_SHAPE_RECTANGULAR:
+		if self._shape == 'square':
 			painter.drawRect(int(x_center - (self._diameter / 2)), int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
 		else:
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
@@ -96,7 +90,7 @@ class IndicatorButton(QPushButton):
 		self._right_offset = kwargs['right_offset']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
-		self._shape = LED_SHAPE_ROUND if kwargs['shape'].lower() not in LED_RECTANGULAR_SHAPE_KEYS else LED_SHAPE_RECTANGULAR
+		self._shape = kwargs['shape']
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
@@ -110,7 +104,7 @@ class IndicatorButton(QPushButton):
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
 		color = self._on_color if self._led else self._off_color
-		if self._shape == LED_SHAPE_ROUND or led_size.width() == led_size.height():
+		if self._shape == 'round' or led_size.width() == led_size.height():
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
@@ -118,11 +112,10 @@ class IndicatorButton(QPushButton):
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 
-		if self._shape == LED_SHAPE_RECTANGULAR:
+		if self._shape == 'square':
 			painter.drawRect(int(x_center - (self._diameter / 2)), int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
 		else:
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
-
 
 	def setLed(self, val):
 		self._led = val
@@ -146,7 +139,7 @@ class IndicatorLabel(QLabel):
 		self._right_offset = kwargs['right_offset']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
-		self._shape = LED_SHAPE_ROUND if kwargs['shape'].lower() not in LED_RECTANGULAR_SHAPE_KEYS else LED_SHAPE_RECTANGULAR
+		self._shape = kwargs['shape']
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
@@ -161,7 +154,7 @@ class IndicatorLabel(QLabel):
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
 		color = self._on_color if self._led else self._off_color
-		if self._shape == LED_SHAPE_ROUND or led_size.width() == led_size.height():
+		if self._shape == 'round' or led_size.width() == led_size.height():
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
@@ -169,7 +162,7 @@ class IndicatorLabel(QLabel):
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 
-		if self._shape == LED_SHAPE_RECTANGULAR:		
+		if self._shape == 'square':
 			painter.drawRect(int(x_center - (self._diameter / 2)), int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
 		else:
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
@@ -194,12 +187,7 @@ class Indicator(QLabel):
 		self._margin = kwargs['margin']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
-		if kwargs['shape'].lower() == "square":
-			self._shape = LED_SHAPE_SQUARE
-		elif kwargs['shape'] in LED_RECTANGULAR_SHAPE_KEYS:
-			self._shape = LED_SHAPE_RECTANGULAR
-		else:
-			self._shape = LED_SHAPE_ROUND
+		self._shape = kwargs['shape']
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
@@ -214,27 +202,19 @@ class Indicator(QLabel):
 		y = y_center - (dia / 2)
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-		if self._shape in [LED_SHAPE_ROUND, LED_SHAPE_SQUARE]:
-			led_size = QSize(dia, dia)
-		else:
-			led_size = size
-
 		color = self._on_color if self._led else self._off_color
-		if self._shape in [LED_SHAPE_ROUND, LED_SHAPE_SQUARE] or led_size.width() == led_size.height():
+		if self._shape == 'round' or size.width() == size.height():
 			gradient = makeRadialGradient(size, x, y, dia, color)
 		else:
-			gradient = makeLinearGradient(led_size, 0, 0, color)
+			gradient = makeLinearGradient(size, 0, 0, color)
 		
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 
-		if self._shape == LED_SHAPE_RECTANGULAR:
+		if self._shape == 'square':
 			painter.drawRect(0,0,size.width(), size.height())
-		elif self._shape == LED_SHAPE_SQUARE:
-			painter.drawRect(int(x),int(y),led_size.width(), led_size.height())
 		else:
 			painter.drawEllipse(QPointF(x_center, y_center), dia / 2, dia / 2)
-
 
 	def setLed(self, val):
 		self._led = val
