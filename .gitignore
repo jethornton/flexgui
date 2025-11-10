@@ -7,3 +7,4 @@ debian/flexgui*
 debian/debhelper-build-stamp
 *.bak
 *halshow.preferences
+.DS_Store
