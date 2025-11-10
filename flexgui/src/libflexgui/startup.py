@@ -1225,6 +1225,9 @@ def setup_line_edits(parent):
 			parent.keyboard_le.append(child.objectName())
 			child.installEventFilter(parent)
 
+		if not child.objectName().startswith('mdi') and child.property('return_button') in parent.children:
+			child.returnPressed.connect(getattr(parent, child.property('return_button')).animateClick)
+
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
 	for child in parent.findChildren(QAbstractSpinBox):
