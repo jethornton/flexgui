@@ -26,7 +26,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_28">
+   <layout class="QGridLayout" name="gridLayout_29">
     <item row="0" column="0" rowspan="2">
      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="450,80,30,30">
       <property name="spacing">
@@ -165,6 +165,32 @@
           <property name="text">
            <string>E Stop</string>
           </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
+          <property name="led_diameter" stdset="0">
+           <number>15</number>
+          </property>
+          <property name="led_right_offset" stdset="0">
+           <number>6</number>
+          </property>
+          <property name="led_top_offset" stdset="0">
+           <number>6</number>
+          </property>
+          <property name="on_color" stdset="0">
+           <color>
+            <red>255</red>
+            <green>255</green>
+            <blue>0</blue>
+           </color>
+          </property>
+          <property name="off_color" stdset="0">
+           <color>
+            <red>222</red>
+            <green>24</green>
+            <blue>24</blue>
+           </color>
+          </property>
          </widget>
         </item>
         <item>
@@ -177,6 +203,32 @@
           </property>
           <property name="text">
            <string>Power</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
+          <property name="led_diameter" stdset="0">
+           <number>15</number>
+          </property>
+          <property name="led_right_offset" stdset="0">
+           <number>6</number>
+          </property>
+          <property name="led_top_offset" stdset="0">
+           <number>6</number>
+          </property>
+          <property name="led_on_color" stdset="0">
+           <color>
+            <red>255</red>
+            <green>255</green>
+            <blue>0</blue>
+           </color>
+          </property>
+          <property name="led_off_color" stdset="0">
+           <color>
+            <red>222</red>
+            <green>24</green>
+            <blue>24</blue>
+           </color>
           </property>
          </widget>
         </item>
@@ -413,7 +465,10 @@
      </layout>
     </item>
     <item row="0" column="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_39">
+     <layout class="QHBoxLayout" name="horizontalLayout_39" stretch="0,0">
+      <property name="spacing">
+       <number>1</number>
+      </property>
       <property name="leftMargin">
        <number>10</number>
       </property>
@@ -434,6 +489,12 @@
           <height>30</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Spindle RPM</string>
         </property>
@@ -445,6 +506,12 @@
          <size>
           <width>110</width>
           <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="font">
@@ -476,7 +543,82 @@
      </layout>
     </item>
     <item row="0" column="3">
-     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="50,25,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_52" stretch="0,0">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="Label_tool">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>DejaVu Sans</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tool:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="tool_in_spindle_lb">
+        <property name="minimumSize">
+         <size>
+          <width>60</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>DejaVu Sans</family>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="4">
+     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0">
+      <property name="spacing">
+       <number>1</number>
+      </property>
       <property name="leftMargin">
        <number>3</number>
       </property>
@@ -490,24 +632,17 @@
        <number>3</number>
       </property>
       <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QLabel" name="label_81">
         <property name="minimumSize">
          <size>
           <width>110</width>
           <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="text">
@@ -526,6 +661,12 @@
           <height>30</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -533,7 +674,7 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="2" colspan="2">
+    <item row="1" column="2" colspan="3">
      <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
       <property name="leftMargin">
        <number>5</number>
@@ -1028,9 +1169,9 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,1,1">
             <property name="spacing">
-             <number>20</number>
+             <number>6</number>
             </property>
             <property name="leftMargin">
              <number>5</number>
@@ -1052,6 +1193,12 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>500</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable for Probe routines - Disable this button to enable other MDI and run commands.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
@@ -1059,41 +1206,41 @@
                <string>PROBE 
  ENABLE   </string>
               </property>
+              <property name="function" stdset="0">
+               <string>hal_pin</string>
+              </property>
+              <property name="pin_name" stdset="0">
+               <string>probe-btn</string>
+              </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_52">
+             <layout class="QHBoxLayout" name="horizontalLayout_50" stretch="1,3,1,3">
               <property name="spacing">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="leftMargin">
-               <number>2</number>
+               <number>5</number>
               </property>
               <property name="topMargin">
-               <number>2</number>
+               <number>10</number>
               </property>
               <property name="rightMargin">
-               <number>2</number>
+               <number>5</number>
               </property>
               <property name="bottomMargin">
-               <number>2</number>
+               <number>1</number>
               </property>
               <item>
-               <widget class="QLabel" name="Label_tool">
+               <widget class="QLabel" name="label_120">
                 <property name="minimumSize">
                  <size>
-                  <width>80</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>30</height>
                  </size>
                 </property>
-                <property name="font">
-                 <font>
-                  <family>DejaVu Sans</family>
-                  <pointsize>14</pointsize>
-                 </font>
-                </property>
                 <property name="text">
-                 <string>Tool:</string>
+                 <string>Flood</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1101,21 +1248,114 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="tool_in_spindle_lb">
+               <widget class="QLabel" name="flood_led">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="hal_led" stdset="0">
+                 <bool>true</bool>
+                </property>
+                <property name="function" stdset="0">
+                 <string>hal_led</string>
+                </property>
+                <property name="pin_name" stdset="0">
+                 <string>flood</string>
+                </property>
+                <property name="hal_type" stdset="0">
+                 <string>HAL_BIT</string>
+                </property>
+                <property name="hal_dir" stdset="0">
+                 <string>HAL_IN</string>
+                </property>
+                <property name="on_color" stdset="0">
+                 <color>
+                  <red>51</red>
+                  <green>209</green>
+                  <blue>122</blue>
+                 </color>
+                </property>
+                <property name="off_color" stdset="0">
+                 <color>
+                  <red>222</red>
+                  <green>24</green>
+                  <blue>24</blue>
+                 </color>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_122">
                 <property name="minimumSize">
                  <size>
                   <width>60</width>
-                  <height>50</height>
+                  <height>30</height>
                  </size>
                 </property>
-                <property name="font">
-                 <font>
-                  <family>DejaVu Sans</family>
-                  <pointsize>18</pointsize>
-                 </font>
+                <property name="text">
+                 <string>Mist</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="mist_led">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string/>
+                </property>
+                <property name="hal_led" stdset="0">
+                 <bool>true</bool>
+                </property>
+                <property name="function" stdset="0">
+                 <string>hal_led</string>
+                </property>
+                <property name="pin_name" stdset="0">
+                 <string>mist</string>
+                </property>
+                <property name="hal_type" stdset="0">
+                 <string>HAL_BIT</string>
+                </property>
+                <property name="hal_dir" stdset="0">
+                 <string>HAL_IN</string>
+                </property>
+                <property name="on_color" stdset="0">
+                 <color>
+                  <red>51</red>
+                  <green>209</green>
+                  <blue>122</blue>
+                 </color>
+                </property>
+                <property name="off_color" stdset="0">
+                 <color>
+                  <red>222</red>
+                  <green>24</green>
+                  <blue>24</blue>
+                 </color>
                 </property>
                </widget>
               </item>
@@ -1131,8 +1371,14 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>120</width>
+                <width>0</width>
                 <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>500</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="text">
@@ -1148,7 +1394,7 @@
          <attribute name="title">
           <string>DRO</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_29">
+         <layout class="QGridLayout" name="gridLayout_28">
           <item row="0" column="0">
            <widget class="QGroupBox" name="groupBox_17">
             <property name="minimumSize">
@@ -2722,7 +2968,20 @@
             <property name="title">
              <string>Probing</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_18" stretch="1,18,1,1,12,1">
+            <layout class="QVBoxLayout" name="verticalLayout_18" stretch="1,1,18,1,1,1,12,1">
+             <item>
+              <spacer name="verticalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_11">
                <property name="leftMargin">
@@ -3309,24 +3568,24 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="set_angle">
+                <widget class="QPushButton" name="set_Y">
                  <property name="minimumSize">
                   <size>
-                   <width>95</width>
+                   <width>80</width>
                    <height>0</height>
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Set coordinate offset angle after probing.</string>
+                  <string>Zero Y offset to the current position</string>
                  </property>
                  <property name="text">
-                  <string>Set Angle</string>
+                  <string>Set Y</string>
                  </property>
                  <property name="function" stdset="0">
                   <string>mdi</string>
                  </property>
                  <property name="command" stdset="0">
-                  <string>G10 L2 P0  R#1005</string>
+                  <string>G10 L20 P0 Y 0</string>
                  </property>
                 </widget>
                </item>
@@ -3353,24 +3612,24 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="set_Y">
+                <widget class="QPushButton" name="set_angle">
                  <property name="minimumSize">
                   <size>
-                   <width>80</width>
+                   <width>95</width>
                    <height>0</height>
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Zero Y offset to the current position</string>
+                  <string>Set coordinate offset angle after probing.</string>
                  </property>
                  <property name="text">
-                  <string>Set Y</string>
+                  <string>Set Angle</string>
                  </property>
                  <property name="function" stdset="0">
                   <string>mdi</string>
                  </property>
                  <property name="command" stdset="0">
-                  <string>G10 L20 P0 Y 0</string>
+                  <string>G10 L2 P0  R#1005</string>
                  </property>
                 </widget>
                </item>
@@ -3397,6 +3656,19 @@
                 </widget>
                </item>
               </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_21">
@@ -3920,7 +4192,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_23">
                <property name="spacing">
-                <number>150</number>
+                <number>1</number>
                </property>
                <property name="leftMargin">
                 <number>5</number>
@@ -3940,8 +4212,8 @@
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A simulated probe trip button. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
-                  <string>Probe 
-SET</string>
+                  <string>Probe Set
+ for Sim</string>
                  </property>
                  <property name="function" stdset="0">
                   <string>hal_pin</string>
@@ -3955,6 +4227,66 @@ SET</string>
                  <property name="hal_dir" stdset="0">
                   <string>HAL_OUT</string>
                  </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="frame">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <widget class="QLabel" name="label_131">
+                  <property name="geometry">
+                   <rect>
+                    <x>5</x>
+                    <y>5</y>
+                    <width>136</width>
+                    <height>50</height>
+                   </rect>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Probe Enabled</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                 <widget class="QLabel" name="label_132">
+                  <property name="geometry">
+                   <rect>
+                    <x>141</x>
+                    <y>5</y>
+                    <width>50</width>
+                    <height>50</height>
+                   </rect>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>xxxxxx</string>
+                  </property>
+                  <property name="hal_led" stdset="0">
+                   <bool>true</bool>
+                  </property>
+                  <property name="function" stdset="0">
+                   <string>hal_led</string>
+                  </property>
+                  <property name="pin_name" stdset="0">
+                   <string>probe-enable-led</string>
+                  </property>
+                 </widget>
                 </widget>
                </item>
                <item>
