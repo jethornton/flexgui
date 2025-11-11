@@ -14,6 +14,10 @@ To enable a popup add a Dynamic string type Property to the `mdi_command_le`
 QLineEdit and name it `input` and set the value to either `nccode` or
 `keyboard`.
 
+Note, QLineEdit widgets with object names that begin with 'mdi' do not respond
+to the `return_button` dynamic property as the keyboard and mouse behavior
+of these objects are handled internally by FlexGUI.
+
 Dynamic Property
 
 .. image:: /images/dynamic-property-01.png
