@@ -1233,7 +1233,7 @@ def setup_line_edits(parent):
 			parent.keyboard_le.append(child.objectName())
 			child.installEventFilter(parent)
 
-		if not child.objectName().startswith('mdi') and child.property('return_button') in parent.children:
+		if not child.objectName().startswith('mdi') and child.property('return_button') in parent.child_names:
 			child.returnPressed.connect(getattr(parent, child.property('return_button')).animateClick)
 
 def setup_spin_boxes(parent):
