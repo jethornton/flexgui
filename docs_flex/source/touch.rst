@@ -98,9 +98,9 @@ A QLineEdit can have a popup entry for numbers, G codes, or a full keyboard.
 Add a Dynamic Property named `input` and set the value to one of these
 `number`, `nccode`, or `keyboard`.
 
-Optionally, the popup handles QLineEdit objects with the the `return_button`
-dynamic property.  When a value is saved using a touch popup, a click event 
-will be to the target button.
+Optionally, a QLineEdit can have a String type Dynamic Property `return_button`
+with the objectName of a QPushButton that you want to receive a click event when
+the Save button is pressed using a touch popup.
 
 File Navigator
 --------------
