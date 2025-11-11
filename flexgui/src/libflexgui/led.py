@@ -14,18 +14,19 @@ def makeLinearGradient(size, x, y, color):
 		start_x = x + (size.width() / 2.0)
 		start_y = y
 		end_x = start_x
-		end_y = y + size.height()			
+		end_y = y + size.height()
+
 	gradient = QLinearGradient(start_x, start_y, end_x, end_y)
 
 	gradient.setColorAt(0.0, color)
 	gradient.setColorAt(0.3, color)
-	gradient.setColorAt(0.4, Qt.GlobalColor.white)
-	gradient.setColorAt(1.0, color)	
+	gradient.setColorAt(0.9, color)
+	gradient.setColorAt(1.0, Qt.GlobalColor.white)
 	return gradient
 
 def makeRadialGradient(size, x, y, diameter, color):
 	gradient = QRadialGradient(x + diameter / 2, y + diameter / 2,
-				diameter * 0.5, diameter * 0.9, diameter * 0.2)
+		diameter * 0.5, diameter * 0.9, diameter * 0.2)
 	gradient.setColorAt(0, Qt.GlobalColor.white)
 	gradient.setColorAt(1, color)
 	return gradient
@@ -61,7 +62,7 @@ class LEDButton(QPushButton):
 		led_size = QSize(self._diameter, self._diameter)
 
 		color = self._on_color if self._led else self._off_color
-		if self._shape == 'round' or led_size.width() == led_size.height():
+		if self._shape == 'round':
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
@@ -70,9 +71,11 @@ class LEDButton(QPushButton):
 		painter.setPen(color)
 
 		if self._shape == 'square':
-			painter.drawRect(int(x_center - (self._diameter / 2)), int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
+			painter.drawRect(int(x_center - (self._diameter / 2)),
+				int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
 		else:
-			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
+			painter.drawEllipse(QPointF(x_center, y_center),
+				self._diameter / 2, self._diameter / 2)
 
 	def set_led(self, val):
 		self._led = val
@@ -104,7 +107,7 @@ class IndicatorButton(QPushButton):
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
 		color = self._on_color if self._led else self._off_color
-		if self._shape == 'round' or led_size.width() == led_size.height():
+		if self._shape == 'round':
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
