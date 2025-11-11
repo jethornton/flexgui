@@ -57,27 +57,27 @@ def update(parent):
 				getattr(parent, key).setChecked(value)
 
 			if parent.estop_open_color: # if False just don't bother
-				if 'estop_pb' in parent.children:
+				if 'estop_pb' in parent.child_names:
 					parent.estop_pb.setStyleSheet(parent.estop_open_color)
-				if 'flex_E_Stop' in parent.children:
+				if 'flex_E_Stop' in parent.child_names:
 					parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
 
 			if parent.probe_enable_off_color: # if False just don't bother
-				if 'probing_enable_pb' in parent.children:
+				if 'probing_enable_pb' in parent.child_names:
 					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
 			# FIXME there must be a better way to show the toolbar toolbuttons
-			if 'flex_E_Stop' in parent.children:
+			if 'flex_E_Stop' in parent.child_names:
 				parent.flex_E_Stop.setStyleSheet(parent.selected_style)
-			if 'flex_Power' in parent.children:
+			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.deselected_style)
 
 			# FIXME find a better way to set leds when estop is tripped
-			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
+			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
 				parent.estop_pb.led = False
-			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
+			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = False
-			if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
+			if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 				parent.probing_enable_pb.led = False
 
 		# e stop closed power off
@@ -91,29 +91,29 @@ def update(parent):
 				getattr(parent, key).setChecked(value)
 
 			if parent.estop_closed_color: # if False just don't bother
-				if 'estop_pb' in parent.children:
+				if 'estop_pb' in parent.child_names:
 					parent.estop_pb.setStyleSheet(parent.estop_closed_color)
-				if 'flex_E_Stop' in parent.children:
+				if 'flex_E_Stop' in parent.child_names:
 					parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
 
 			if parent.power_off_color: # if False just don't bother
-				if 'power_pb' in parent.children:
+				if 'power_pb' in parent.child_names:
 					parent.power_pb.setStyleSheet(parent.power_off_color)
-				if 'flex_Power' in parent.children:
+				if 'flex_Power' in parent.child_names:
 					parent.flex_Power.setStyleSheet(parent.power_off_color)
 
 			if parent.probe_enable_off_color: # if False just don't bother
-				if 'probing_enable_pb' in parent.children:
+				if 'probing_enable_pb' in parent.child_names:
 					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
-			if 'flex_E_Stop' in parent.children:
+			if 'flex_E_Stop' in parent.child_names:
 				parent.flex_E_Stop.setStyleSheet(parent.deselected_style)
-			if 'flex_Power' in parent.children:
+			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.deselected_style)
 
-			if 'estop_pb' in parent.children and hasattr(parent.estop_pb, 'led'):
+			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
 				parent.estop_pb.led = True
-			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
+			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = False
 
 		# e stop closed power on
@@ -123,18 +123,18 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
-			if 'flex_Power' in parent.children:
+			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.selected_style)
 			if parent.power_on_color: # if False just don't bother
-				if 'power_pb' in parent.children:
+				if 'power_pb' in parent.child_names:
 					parent.power_pb.setStyleSheet(parent.power_on_color)
-				if 'flex_Power' in parent.children:
+				if 'flex_Power' in parent.child_names:
 					parent.flex_Power.setStyleSheet(parent.power_on_color)
 
-			if 'power_pb' in parent.children and hasattr(parent.power_pb, 'led'):
+			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
 			if parent.status.task_mode == emc.MODE_MANUAL:
-				if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+				if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 					parent.manual_mode_pb.led = True
 
 			if utilities.all_homed(parent):
@@ -225,7 +225,7 @@ def update(parent):
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
-			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
 				parent.run_pb.led = True
 
 			if parent.status.interp_state == emc.INTERP_WAITING:
@@ -241,14 +241,14 @@ def update(parent):
 			#print('INTERP_PAUSED MODE_AUTO')
 			for key, value in parent.program_paused.items():
 				getattr(parent, key).setEnabled(value)
-			if 'pause_pb' in parent.children and hasattr(parent.pause_pb, 'led'):
+			if 'pause_pb' in parent.child_names and hasattr(parent.pause_pb, 'led'):
 				parent.pause_pb.led = True
-			if 'resume_pb' in parent.children and hasattr(parent.resume_pb, 'led'):
+			if 'resume_pb' in parent.child_names and hasattr(parent.resume_pb, 'led'):
 				parent.resume_pb.led = True
 		else: # not paused
-			if 'pause_pb' in parent.children and hasattr(parent.pause_pb, 'led'):
+			if 'pause_pb' in parent.child_names and hasattr(parent.pause_pb, 'led'):
 				parent.pause_pb.led = False
-			if 'resume_pb' in parent.children and hasattr(parent.resume_pb, 'led'):
+			if 'resume_pb' in parent.child_names and hasattr(parent.resume_pb, 'led'):
 				parent.resume_pb.led = False
 
 		if parent.status.interp_state == emc.INTERP_READING:
@@ -264,36 +264,36 @@ def update(parent):
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
-			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = True
-			if 'mdi_mode_pb' in parent.children and hasattr(parent.mdi_mode_pb, 'led'):
+			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
 				parent.mdi_mode_pb.led = False
-			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
+			if 'auto_mode_pb' in parent.child_names and hasattr(parent.auto_mode_pb, 'led'):
 				parent.auto_mode_pb.led = False
-			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
 				parent.run_pb.led = False
 			# enable flood and mist buttons
 
 		if parent.status.task_mode == emc.MODE_MDI:
-			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = False
-			if 'mdi_mode_pb' in parent.children and hasattr(parent.mdi_mode_pb, 'led'):
+			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
 				parent.mdi_mode_pb.led = True
-			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
+			if 'auto_mode_pb' in parent.child_names and hasattr(parent.auto_mode_pb, 'led'):
 				parent.auto_mode_pb.led = False
-			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
 				parent.run_pb.led = False
 			for item in parent.probe_controls:
 				getattr(parent, item).setEnabled(False)
 
 		if parent.status.task_mode == emc.MODE_AUTO:
-			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = False
-			if 'mdi_mode_pb' in parent.children and hasattr(parent.mdi_mode_pb, 'led'):
+			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
 				parent.mdi_mode_pb.led = False
-			if 'auto_mode_pb' in parent.children and hasattr(parent.auto_mode_pb, 'led'):
+			if 'auto_mode_pb' in parent.child_names and hasattr(parent.auto_mode_pb, 'led'):
 				parent.auto_mode_pb.led = True
-			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
 				parent.run_pb.led = True
 			# disable flood and mist buttons
 
@@ -318,9 +318,9 @@ def update(parent):
 									getattr(parent, item).setEnabled(True)
 
 		if parent.status.task_mode == emc.MODE_MANUAL:
-			if 'manual_mode_pb' in parent.children and hasattr(parent.manual_mode_pb, 'led'):
+			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = True
-			if 'run_pb' in parent.children and hasattr(parent.run_pb, 'led'):
+			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
 				parent.run_pb.led = False
 
 		parent.task_mode = parent.status.task_mode
@@ -361,7 +361,7 @@ def update(parent):
 	# **** TOOL IN SPINDLE CHANGE ****
 	if parent.tool_in_spindle != parent.status.tool_in_spindle:
 		tool = parent.status.tool_in_spindle
-		if 'touchoff_selected_tool_pb' in parent.children:
+		if 'touchoff_selected_tool_pb' in parent.child_names:
 			if tool > 0:
 				parent.touchoff_selected_tool_pb.setEnabled(True)
 			else:
@@ -370,7 +370,7 @@ def update(parent):
 
 	# **** FLOOD_OFF or FLOOD_ON **** 
 	if parent.flood_state != parent.status.flood:
-		if 'flood_pb' in parent.children:
+		if 'flood_pb' in parent.child_names:
 			if parent.status.flood == emc.FLOOD_OFF:
 				parent.flood_pb.setChecked(False)
 				if hasattr(parent.flood_pb, 'led'):
@@ -383,7 +383,7 @@ def update(parent):
 
 	# **** MIST_OFF or MIST_ON ****
 	if parent.mist_state != parent.status.mist:
-		if 'mist_pb' in parent.children: 
+		if 'mist_pb' in parent.child_names: 
 			if parent.status.mist == emc.MIST_OFF:
 				parent.mist_pb.setChecked(False)
 				if hasattr(parent.mist_pb, 'led'):
@@ -399,7 +399,7 @@ def update(parent):
 	if parent.status_spindle != parent.status.spindle:
 
 		# spindle brake
-		if 'spindle_brake_0_lb' in parent.children:
+		if 'spindle_brake_0_lb' in parent.child_names:
 			match parent.status.spindle[0]['brake']:
 				case b if b == 1:
 					parent.spindle_brake_0_lb.setText('On')
@@ -408,7 +408,7 @@ def update(parent):
 		parent.spindle_brake = parent.status.spindle[0]['brake']
 
 		# spindle direction
-		if 'spindle_direction_0_lb' in parent.children:
+		if 'spindle_direction_0_lb' in parent.child_names:
 			match parent.status.spindle[0]['direction']:
 				case s if s == 1:
 					parent.spindle_direction_0_lb.setText('Fwd')
@@ -419,7 +419,7 @@ def update(parent):
 		parent.spindle_direction = parent.status.spindle[0]['direction']
 
 		# spindle enabled
-		if 'spindle_enabled_0_lb' in parent.children:
+		if 'spindle_enabled_0_lb' in parent.child_names:
 			match parent.status.spindle[0]['enabled']:
 				case s if s == 0:
 					parent.spindle_enabled_0_lb.setText('False')
@@ -486,7 +486,7 @@ def update(parent):
 
 	# G codes only update when they change
 	if parent.g_codes != parent.status.gcodes:
-		if 'gcodes_lb' in parent.children:
+		if 'gcodes_lb' in parent.child_names:
 			g_codes = []
 			for i in parent.status.gcodes[1:]:
 				if i == -1: continue
@@ -499,7 +499,7 @@ def update(parent):
 
 	# M codes only update when they change
 	if parent.m_codes != parent.status.mcodes:
-		if 'mcodes_lb' in parent.children:
+		if 'mcodes_lb' in parent.child_names:
 			m_codes = []
 			for i in parent.status.mcodes[1:]:
 				if i == -1: continue
@@ -510,7 +510,7 @@ def update(parent):
 	# update gcode_pte only if motion line changes
 	if parent.motion_line != parent.status.motion_line:
 		parent.motion_line != parent.status.motion_line
-		if 'gcode_pte' in parent.children:
+		if 'gcode_pte' in parent.child_names:
 			if parent.motion_line != parent.last_line:
 				cursor = parent.gcode_pte.textCursor()
 				cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(parent.motion_line))
@@ -656,25 +656,25 @@ def update(parent):
 			error_type = 'Error'
 		else:
 			error_type = 'Info'
-		if 'override_limits_cb' in parent.children:
+		if 'override_limits_cb' in parent.child_names:
 			if 'limit switch error' in text:
 				parent.override_limits_cb.setEnabled(True)
 		if error_type == 'Info':
-			if 'info_pte' in parent.children:
+			if 'info_pte' in parent.child_names:
 				parent.info_pte.appendPlainText(error_type)
 				parent.info_pte.appendPlainText(text)
-			elif 'errors_pte' in parent.children:
+			elif 'errors_pte' in parent.child_names:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
 				parent.errors_pte.setFocus()
-				if 'statusbar' in parent.children:
+				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error')
 		elif error_type == 'Error':
-			if 'errors_pte' in parent.children:
+			if 'errors_pte' in parent.child_names:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
 				parent.errors_pte.setFocus()
-				if 'statusbar' in parent.children:
+				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error')
 
 
