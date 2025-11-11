@@ -310,31 +310,34 @@ widgets are no longer QPushButton for example but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
 	# FIXME change children to child_names
-	parent.children = []
+	#parent.children = []
 	parent.child_names = []
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.objectName():
-			parent.children.append(child.objectName())
+			#parent.children.append(child.objectName())
 			parent.child_names.append(child.objectName())
 	parent.actions = parent.findChildren(QAction)
 	for action in parent.actions:
 		if action.objectName():
-			parent.children.append(action.objectName())
-			if 'toolBar' in parent.children:
+			#parent.children.append(action.objectName())
+			parent.child_names.append(action.objectName())
+			if 'toolBar' in parent.child_names:
 				widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
 				# make sure the action is in the tool bar
 				if parent.toolBar.widgetForAction(action) is not None:
 					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
 					setattr(parent, widget_name, parent.toolBar.widgetForAction(action))
-					parent.children.append(widget_name)
+					#parent.children.append(widget_name)
+					parent.child_names.append(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
 		if menu.objectName():
-			parent.children.append(menu.objectName())
+			#parent.children.append(menu.objectName())
+			parent.child_names.append(menu.objectName())
 
 def update_check(parent):
-	if 'feedrate_lb' in parent.children:
+	if 'feedrate_lb' in parent.child_names:
 		msg = ('The Feed Override Percent Label object name\n'
 		'feedrate_lb has been changed to feed_override_lb.\n'
 		'Change the name in the ui file.\n'
@@ -347,7 +350,7 @@ def setup_enables(parent):
 	parent.state_estop_checked = {}
 	parent.state_estop_reset_checked = {}
 	# disable home all if home sequence is not found
-	if 'home_all_pb' in parent.children:
+	if 'home_all_pb' in parent.child_names:
 		if not utilities.home_all_check(parent):
 			parent.home_all_pb.setEnabled(False)
 
@@ -384,7 +387,7 @@ def setup_enables(parent):
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.state_estop[item]
 
 	''' LED
@@ -394,19 +397,19 @@ def setup_enables(parent):
 	'''
 
 	parent.state_estop_names = {}
-	if 'estop_pb' in parent.children:
+	if 'estop_pb' in parent.child_names:
 		open_text = parent.estop_pb.property('open_text')
 		if open_text is not None:
 			parent.state_estop_names['estop_pb'] = open_text
 
-	if 'power_pb' in parent.children:
+	if 'power_pb' in parent.child_names:
 		off_text = parent.power_pb.property('off_text')
 		if off_text is not None:
 			parent.state_estop_names['power_pb'] = off_text
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_names):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.state_estop_names[item]
 
 	# STATE_ESTOP_RESET enable power
@@ -441,7 +444,7 @@ def setup_enables(parent):
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_reset):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.state_estop_reset[item]
 
 	''' LED
@@ -452,19 +455,19 @@ def setup_enables(parent):
 	'''
 
 	parent.state_estop_reset_names = {}
-	if 'estop_pb' in parent.children:
+	if 'estop_pb' in parent.child_names:
 		closed_text = parent.estop_pb.property('closed_text')
 		if closed_text is not None:
 			parent.state_estop_reset_names['estop_pb'] = closed_text
 
-	if 'power_pb' in parent.children:
+	if 'power_pb' in parent.child_names:
 		off_text = parent.power_pb.property('off_text')
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_reset_names):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.state_estop_reset_names[item]
 
 	# STATE_ON home, jog, spindle
@@ -485,23 +488,23 @@ def setup_enables(parent):
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.state_on[item]
 
 	parent.state_on_names = {}
-	if 'estop_pb' in parent.children:
+	if 'estop_pb' in parent.child_names:
 		closed_text = parent.estop_pb.property('closed_text')
 		if closed_text is not None:
 			parent.state_on_names['estop_pb'] = closed_text
 
-	if 'power_pb' in parent.children:
+	if 'power_pb' in parent.child_names:
 		on_text = parent.power_pb.property('on_text')
 		if on_text is not None:
 			parent.state_on_names['power_pb'] = on_text
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on_names):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.state_on_names[item]
 
 	# run controls used to enable/disable when not running a program
@@ -515,7 +518,7 @@ def setup_enables(parent):
 		run_items.append(f'touchoff_pb_{item}')
 	parent.run_controls = []
 	for item in run_items:
-		if item in parent.children:
+		if item in parent.child_names:
 			parent.run_controls.append(item)
 
 	home_items = []
@@ -525,7 +528,7 @@ def setup_enables(parent):
 		home_items.append(f'home_pb_{i}')
 	parent.home_controls = []
 	for item in home_items:
-		if item in parent.children:
+		if item in parent.child_names:
 			parent.home_controls.append(item)
 
 	unhome_items = ['unhome_all_pb']
@@ -533,7 +536,7 @@ def setup_enables(parent):
 		unhome_items.append(f'unhome_pb_{i}')
 	parent.unhome_controls = []
 	for item in unhome_items:
-		if item in parent.children:
+		if item in parent.child_names:
 			parent.unhome_controls.append(item)
 
 	parent.program_running = {
@@ -571,7 +574,7 @@ def setup_enables(parent):
 
 	# remove any items not found in the gui
 	for item in list(parent.program_running):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.program_running[item]
 
 	parent.program_paused = {
@@ -590,7 +593,7 @@ def setup_enables(parent):
 
 	# remove any items not found in the gui
 	for item in list(parent.program_paused):
-		if item not in parent.children:
+		if item not in parent.child_names:
 			del parent.program_paused[item]
 
 	# file items if not loaded disable
@@ -599,12 +602,12 @@ def setup_enables(parent):
 
 	parent.file_edit_items = []
 	for item in file_items:
-		if item in parent.children:
+		if item in parent.child_names:
 			parent.file_edit_items.append(item)
 
 	if parent.status.file:
 		text = open(parent.status.file).read()
-		if 'gcode_pte' in parent.children:
+		if 'gcode_pte' in parent.child_names:
 			parent.gcode_pte.setPlainText(text)
 	else:
 		for item in parent.file_edit_items:
@@ -621,7 +624,7 @@ def setup_buttons(parent): # connect buttons to functions
 	}
 
 	for key, value in command_buttons.items():
-		if key in parent.children:
+		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	action_buttons = {
@@ -653,22 +656,22 @@ def setup_buttons(parent): # connect buttons to functions
 	}
 
 	for key, value in action_buttons.items():
-		if key in parent.children:
+		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
-	if 'errors_pte' in parent.children:
-		if 'clear_errors_pb' in parent.children:
+	if 'errors_pte' in parent.child_names:
+		if 'clear_errors_pb' in parent.child_names:
 			parent.clear_errors_pb.clicked.connect(partial(utilities.clear_errors, parent))
 
-		if 'copy_errors_pb' in parent.children:
+		if 'copy_errors_pb' in parent.child_names:
 			parent.copy_errors_pb.clicked.connect(partial(utilities.copy_errors, parent))
 
-	if 'clear_info_pb' in parent.children:
-		if 'info_pte' in parent.children:
+	if 'clear_info_pb' in parent.child_names:
+		if 'info_pte' in parent.child_names:
 			parent.clear_info_pb.clicked.connect(partial(utilities.clear_info, parent))
 
 	# touch off coordinate system combo box
-	if 'touchoff_system_cb' in parent.children:
+	if 'touchoff_system_cb' in parent.child_names:
 		parent.touchoff_system_cb.setView(QListView())
 		coordinate_systems = {'Current': 0, 'G54': 1, 'G55': 2, 'G56': 3, 'G57': 4,
 			'G58': 5, 'G59': 6, 'G59.1': 7, 'G59.2': 8, 'G59.3': 9}
@@ -678,7 +681,7 @@ def setup_buttons(parent): # connect buttons to functions
 	# change coordinate system buttons
 	for i in range(1, 10):
 		name = f'change_cs_{i}'
-		if name in parent.children:
+		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.change_cs, parent))
 			parent.state_estop[name] = False
@@ -688,7 +691,7 @@ def setup_buttons(parent): # connect buttons to functions
 	# Clear coordinate system buttons
 	for i in range(12):
 		name = f'clear_coord_{i}'
-		if name in parent.children:
+		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_cs, parent))
 			parent.state_estop[name] = False
@@ -701,20 +704,20 @@ def setup_buttons(parent): # connect buttons to functions
 		'feed_override_pb': 'feed_override_toggle',
 }
 	for key, value in checkable_buttons.items():
-		if key in parent.children: # make sure checkable is set to true
+		if key in parent.child_names: # make sure checkable is set to true
 			if not getattr(parent, key).isCheckable():
 				getattr(parent, key).setCheckable(True)
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	# set the button checked states
 	#parent.status.poll()
-	if 'feed_override_pb' in parent.children:
+	if 'feed_override_pb' in parent.child_names:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
 	# clear axis offset button setup
 	for axis in AXES:
 		name = f'clear_{axis}_pb'
-		if name in parent.children:
+		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
 			parent.state_estop[name] = False
@@ -722,7 +725,7 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.home_required.append(name)
 
 	# override preset buttons
-	for item in parent.children:
+	for item in parent.child_names:
 		if item.startswith('feed_percent_'):
 			button = getattr(parent, item)
 			button.clicked.connect(partial(commands.feed_override_preset, parent))
@@ -734,19 +737,19 @@ def setup_buttons(parent): # connect buttons to functions
 			button.clicked.connect(partial(commands.spindle_override_preset, parent))
 
 	# nc code search
-	if 'search_pb' in parent.children:
+	if 'search_pb' in parent.child_names:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
 
 	# set button background colors if needed
 	if parent.estop_open_color: # if False just don't bother
-		if 'estop_pb' in parent.children:
+		if 'estop_pb' in parent.child_names:
 			parent.estop_pb.setStyleSheet(parent.estop_open_color)
-		if 'flex_E_Stop' in parent.children:
+		if 'flex_E_Stop' in parent.child_names:
 			parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
 	if parent.power_off_color: # if False just don't bother
-		if 'power_pb' in parent.children:
+		if 'power_pb' in parent.child_names:
 			parent.power_pb.setStyleSheet(parent.power_off_color)
-		if 'flex_Power' in parent.children:
+		if 'flex_Power' in parent.child_names:
 			parent.flex_Power.setStyleSheet(parent.power_off_color)
 
 	# file open buttons
@@ -765,7 +768,7 @@ def setup_menus(parent):
 				if index + 1 < len(menu_list):
 					parent.menuRecent = QMenu('Recent', parent)
 					parent.menuRecent.setObjectName('menuRecent')
-					parent.children.append('menuRecent')
+					parent.child_names.append('menuRecent')
 					parent.menuFile.insertMenu(menu_list[index + 1], parent.menuRecent)
 					# if any files have been opened add them
 					keys = parent.settings.allKeys()
@@ -872,21 +875,21 @@ def setup_actions(parent): # setup menu actions
 
 	# if an action is found connect it to the function
 	for key, value in actions_dict.items():
-		if key in parent.children:
+		if key in parent.child_names:
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
 
 	# special check for the classicladder editor
 	if not hal.component_exists("classicladder_rt"):
-		if 'actionLadder_Editor' in parent.children:
+		if 'actionLadder_Editor' in parent.child_names:
 			parent.actionLadder_Editor.setEnabled(False)
-		if 'edit_ladder_pb' in parent.children:
+		if 'edit_ladder_pb' in parent.child_names:
 			parent.edit_ladder_pb.setEnabled(False)
 
 	# special check for MDI
-	if 'mdi_history_lw' in parent.children:
-		if 'actionClear_MDI_History' in parent.children:
+	if 'mdi_history_lw' in parent.child_names:
+		if 'actionClear_MDI_History' in parent.child_names:
 			parent.actionClear_MDI_History.setEnabled(False)
-		if 'actionCopy_MDI_History' in parent.children:
+		if 'actionCopy_MDI_History' in parent.child_names:
 			parent.actionCopy_MDI_History.setEnabled(False)
 
 def setup_status_labels(parent):
@@ -934,14 +937,14 @@ def setup_status_labels(parent):
 	# check for status labels in the ui key is label and value is status item
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
-		if f'{item}_lb' in parent.children: # if the label is found
+		if f'{item}_lb' in parent.child_names: # if the label is found
 			parent.status_labels[f'{item}_lb'] = item # add the status and label
 
 	# status exponent labels
 	parent.status_exponent_labels = {}
 	status_exponent_items = ['acceleration', 'max_acceleration', 'max_velocity']
 	for item in status_exponent_items: # iterate the status items list
-		if f'{item}_lb' in parent.children: # if the label is found
+		if f'{item}_lb' in parent.child_names: # if the label is found
 			parent.status_exponent_labels[f'{item}_lb'] = item # label & item
 
 	# status float labels
@@ -951,7 +954,7 @@ def setup_status_labels(parent):
 	'rapidrate', 'rotation_xy']
 
 	for item in status_float_items: # iterate the status items list
-		if f'{item}_lb' in parent.children: # if the label is found
+		if f'{item}_lb' in parent.child_names: # if the label is found
 			p = getattr(parent, f'{item}_lb').property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_float_labels[item] = p # item & precision
@@ -960,7 +963,7 @@ def setup_status_labels(parent):
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
 
 	for i in range(int(parent.joints)):
-		if f'joint_{i}_backlash_lb' in parent.children:
+		if f'joint_{i}_backlash_lb' in parent.child_names:
 			backlash = parent.inifile.find(f'JOINT_{i}', 'BACKLASH') or False
 			if backlash:
 				getattr(parent, f'joint_{i}_backlash_lb').setText(backlash)
@@ -976,7 +979,7 @@ def setup_status_labels(parent):
 	parent.status_joints = {} # create an empty dictionary
 	for i in range(int(parent.joints)):
 		for item in joint_items:
-			if f'joint_{i}_{item}_lb' in parent.children:
+			if f'joint_{i}_{item}_lb' in parent.child_names:
 				parent.status_joints[f'joint_{i}_{item}_lb'] = item
 
 	# joint float labels key is item value is [joint, precision]
@@ -985,7 +988,7 @@ def setup_status_labels(parent):
 	parent.status_joint_prec = {}
 	for i in range(int(parent.joints)):
 		for item in joint_number_items:
-			if f'joint_{i}_{item}_lb' in parent.children: # if the label is found
+			if f'joint_{i}_{item}_lb' in parent.child_names: # if the label is found
 				p = getattr(parent, f'joint_{i}_{item}_lb').property('precision')
 				p = p if p is not None else parent.default_precision
 				parent.status_joint_prec[item] = [i, p] # add the label, tuple position & precision
@@ -993,19 +996,19 @@ def setup_status_labels(parent):
 	parent.status_position = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'actual_lb_{axis}'
-		if label in parent.children:
+		if label in parent.child_names:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
 	# G Code label
-	if 'gcodes_lb' in parent.children:
+	if 'gcodes_lb' in parent.child_names:
 		parent.g_codes = ()
 	else:
 		parent.g_codes = False
 
 	# M Code label
-	if 'mcodes_lb' in parent.children:
+	if 'mcodes_lb' in parent.child_names:
 		parent.m_codes = ()
 	else:
 		parent.m_codes = False
@@ -1014,7 +1017,7 @@ def setup_status_labels(parent):
 	parent.status_dro = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'dro_lb_{axis}'
-		if label in parent.children:
+		if label in parent.child_names:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_dro[f'{label}'] = [i, p] # add the label, tuple position & precision
@@ -1023,7 +1026,7 @@ def setup_status_labels(parent):
 	parent.status_g5x_offset = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'g5x_lb_{axis}'
-		if label in parent.children:
+		if label in parent.child_names:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_g5x_offset[f'{label}'] = [i, p] # add the label, tuple position & precision
@@ -1032,7 +1035,7 @@ def setup_status_labels(parent):
 	parent.status_g92 = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'g92_lb_{axis}'
-		if label in parent.children:
+		if label in parent.child_names:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_g92[f'{label}'] = [i, p] # add the label, tuple position & precision
@@ -1041,7 +1044,7 @@ def setup_status_labels(parent):
 	parent.status_dtg = {} # create an empty dictionary
 	for i, axis in enumerate(AXES):
 		label = f'dtg_lb_{axis}'
-		if label in parent.children:
+		if label in parent.child_names:
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_dtg[f'{label}'] = [i, p] # add the label, tuple position & precision
@@ -1055,14 +1058,14 @@ def setup_status_labels(parent):
 	for i in range(parent.axis_count):
 		for item in ['max_position_limit', 'min_position_limit', 'velocity']:
 			label = f'axis_{i}_{item}_lb'
-			if label in parent.children:
+			if label in parent.child_names:
 				p = getattr(parent, label).property('precision')
 				p = p if p is not None else parent.default_precision
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
 	# two joint velocity
 	parent.two_vel = {}
-	if 'two_vel_lb' in parent.children:
+	if 'two_vel_lb' in parent.child_names:
 		joint_0 = parent.two_vel_lb.property('joint_0')
 		joint_1 = parent.two_vel_lb.property('joint_1')
 		p = getattr(parent, f'two_vel_lb').property('precision')
@@ -1078,7 +1081,7 @@ def setup_status_labels(parent):
 
 	# three joint velocity
 	parent.three_vel = {}
-	if 'three_vel_lb' in parent.children:
+	if 'three_vel_lb' in parent.child_names:
 		joint_0 = parent.three_vel_lb.property('joint_0')
 		joint_1 = parent.three_vel_lb.property('joint_1')
 		joint_2 = parent.three_vel_lb.property('joint_2')
@@ -1097,14 +1100,14 @@ def setup_status_labels(parent):
 	#parent.status.poll()
 	parent.joint_vel_sec = {}
 	for i in range(parent.status.joints):
-		if f'joint_vel_sec_{i}_lb' in parent.children: # if the label is found
+		if f'joint_vel_sec_{i}_lb' in parent.child_names: # if the label is found
 			p = getattr(parent, f'joint_vel_sec_{i}_lb').property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.joint_vel_sec[f'joint_vel_sec_{i}_lb'] = [i, p] # add the label, tuple position & precision
 
 	parent.joint_vel_min = {}
 	for i in range(parent.status.joints):
-		if f'joint_vel_min_{i}_lb' in parent.children: # if the label is found
+		if f'joint_vel_min_{i}_lb' in parent.child_names: # if the label is found
 			p = getattr(parent, f'joint_vel_min_{i}_lb').property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.joint_vel_min[f'joint_vel_min_{i}_lb'] = [i, p] # add the label, tuple position & precision
@@ -1113,7 +1116,7 @@ def setup_status_labels(parent):
 
 	parent.overrides = {}
 	for label, stat in override_items.items():
-		if label in parent.children:
+		if label in parent.child_names:
 			parent.overrides[label] = stat
 
 	# dio din_0_lb dout_0_lb
@@ -1121,7 +1124,7 @@ def setup_status_labels(parent):
 	for i in range(64):
 		for item in ['din', 'dout']:
 			label = f'{item}_{i}_lb'
-			if label in parent.children:
+			if label in parent.child_names:
 				parent.status_dio[label] = [item, i] # add label and stat
 				parent.stat_dict[f'{item}[{i}]'] = {0: False, 1: True}
 
@@ -1130,7 +1133,7 @@ def setup_status_labels(parent):
 	for i in range(64):
 		for item in ['ain', 'aout']:
 			label = f'{item}_{i}_lb'
-			if label in parent.children:
+			if label in parent.child_names:
 				p = getattr(parent, f'{item}_{i}_lb').property('precision')
 				p = p if p is not None else parent.default_precision
 				parent.status_aio[label] = [item, i, p] # add label, stat and precision
@@ -1145,32 +1148,32 @@ def setup_status_labels(parent):
 		'frontangle', 'backangle']
 
 	for item in tool_table_intergers:
-		if f'tool_{item}_lb' in parent.children:
+		if f'tool_{item}_lb' in parent.child_names:
 			parent.current_tool_intergers[f'tool_{item}_lb'] = item
 
 	for item in tool_table_floats:
-		if f'tool_{item}_lb' in parent.children:
+		if f'tool_{item}_lb' in parent.child_names:
 			prec = getattr(parent, f'tool_{item}_lb').property('precision')
 			prec = prec if prec is not None else parent.default_precision
 			parent.current_tool_floats[f'tool_{item}_lb'] = [item, prec]
 
 	parent.current_tool_info = ()
 
-	if 'file_lb' in parent.children:
+	if 'file_lb' in parent.child_names:
 		#parent.status.poll()
 		gcode_file = parent.status.file or False
 		if gcode_file:
 			parent.file_lb.setText(os.path.basename(gcode_file))
-			if 'start_line_lb' in parent.children:
+			if 'start_line_lb' in parent.child_names:
 				parent.start_line_lb.setText('0')
 		else:
 			parent.file_lb.setText('N/A')
-			if 'start_line_lb' in parent.children:
+			if 'start_line_lb' in parent.child_names:
 				parent.start_line_lb.setText('n/a')
 
 	parent.home_status = []
 	for i in range(9):
-		if f'home_lb_{i}' in parent.children:
+		if f'home_lb_{i}' in parent.child_names:
 			parent.home_status.append(f'home_lb_{i}')
 
 	for item in parent.home_status:
@@ -1179,23 +1182,23 @@ def setup_status_labels(parent):
 		else:
 			getattr(parent, item).setText('')
 
-	if 'settings_speed_lb' in parent.children:
+	if 'settings_speed_lb' in parent.child_names:
 		parent.status_settings = {'settings_speed_lb': 2}
 		parent.settings_speed_lb.setText(f'S{parent.status.settings[2]}')
 
-	if 'mdi_s_pb' in parent.children:
+	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
 		parent.home_required.append('mdi_s_pb')
 
 def setup_list_widgets(parent):
-	if 'file_lw' in parent.children:
+	if 'file_lw' in parent.child_names:
 		utilities.read_dir(parent) # this is called from actions as well
 		parent.file_lw.itemClicked.connect(partial(actions.file_selector, parent))
 
 def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	parent.motion_line = -1
-	if 'gcode_pte' in parent.children:
+	if 'gcode_pte' in parent.child_names:
 		parent.gcode_pte.setCenterOnScroll(True)
 		parent.gcode_pte.ensureCursorVisible()
 		parent.gcode_pte.viewport().installEventFilter(parent)
@@ -1259,8 +1262,8 @@ def setup_mdi(parent):
 	# parent.mdi_command is tested in status.py so it must exist
 	parent.mdi_command = ''
 
-	if 'run_mdi_pb' in parent.children:
-		if 'mdi_command_le' in parent.children: # we are good to go
+	if 'run_mdi_pb' in parent.child_names:
+		if 'mdi_command_le' in parent.child_names: # we are good to go
 			if parent.mdi_command_le.property('input') == 'nccode':
 			 parent.nccode_le.append('mdi_command_le')
 			 parent.mdi_command_le.installEventFilter(parent)
@@ -1273,7 +1276,7 @@ def setup_mdi(parent):
 		else: # missing mdi_command_le
 			parent.run_mdi_pb.setEnabled(False)
 
-	if 'mdi_history_lw' in parent.children:
+	if 'mdi_history_lw' in parent.child_names:
 		path = os.path.dirname(parent.status.ini_filename)
 		mdi_file = os.path.join(path, 'mdi_history.txt')
 		if os.path.exists(mdi_file): # load mdi history
@@ -1285,7 +1288,7 @@ def setup_mdi(parent):
 
 def setup_jog(parent):
 	# keyboard jog
-	if 'keyboard_jog_cb' in parent.children:
+	if 'keyboard_jog_cb' in parent.child_names:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
 			parent.enable_kb_jogging = True
@@ -1295,15 +1298,15 @@ def setup_jog(parent):
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
 	for i in range(int(parent.joints)):
-		if f'jog_plus_pb_{i}' in parent.children:
+		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.jog_buttons.append(f'jog_plus_pb_{i}')
-		if f'jog_minus_pb_{i}' in parent.children:
+		if f'jog_minus_pb_{i}' in parent.child_names:
 			parent.jog_buttons.append(f'jog_minus_pb_{i}')
 
 	if len(parent.jog_buttons) > 0:
 		for item in required_jog_items:
 			# don't make the connection if all required widgets are not present
-			if item not in parent.children:
+			if item not in parent.child_names:
 				msg = (f'{item} is required to jog\n but was not found.\n'
 					'Jog Buttons will be disabled.')
 				dialogs.warn_msg_ok(parent, msg, 'Missing Item')
@@ -1320,10 +1323,10 @@ def setup_jog(parent):
 			parent.state_on[item] = True
 			parent.program_running[item] = False
 
-	if 'jog_vel_sl' in parent.children:
+	if 'jog_vel_sl' in parent.child_names:
 		if parent.min_jog_vel:
 			parent.jog_vel_sl.setMinimum(int(float(parent.min_jog_vel) * 60))
-			if 'min_jog_vel_lb' in parent.children:
+			if 'min_jog_vel_lb' in parent.child_names:
 				parent.min_jog_vel_lb.setText(f'{int(float(parent.min_jog_vel) * 60)}')
 
 		if parent.default_jog_vel:
@@ -1331,11 +1334,11 @@ def setup_jog(parent):
 
 		if parent.max_jog_vel:
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
-			if 'max_jog_vel_lb' in parent.children:
+			if 'max_jog_vel_lb' in parent.child_names:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_jog_vel) * 60)}')
 		elif parent.max_linear_vel:
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_linear_vel) * 60))
-			if 'max_jog_vel_lb' in parent.children:
+			if 'max_jog_vel_lb' in parent.child_names:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_linear_vel) * 60)}')
 			msg = ('The DISPLAY key MAX_LINEAR_VELOCITY\n'
 			'was not found. The TRAJ key MAX_LINEAR_VELOCITY\n'
@@ -1359,7 +1362,7 @@ def setup_jog(parent):
 				'for the jog slider')
 				dialogs.warn_msg_ok(parent, msg, 'Unknon Error')
 
-		if 'jog_vel_lb' in parent.children:
+		if 'jog_vel_lb' in parent.child_names:
 			parent.jog_vel_sl.valueChanged.connect(partial(utilities.update_jog_lb, parent))
 			parent.jog_vel_lb.setText(f'{parent.jog_vel_sl.value()}')
 			utilities.update_jog_lb(parent)
@@ -1416,14 +1419,14 @@ def setup_jog(parent):
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
 	for i in range(9):
-		if f'axis_select_{i}' in parent.children:
+		if f'axis_select_{i}' in parent.child_names:
 			parent.axes_group.addButton(getattr(parent, f'axis_select_{i}'))
 	if len(parent.axes_group.buttons()) > 0:
 		parent.axes_group.buttons()[0].setChecked(True)
-		if 'jog_selected_plus' in parent.children:
+		if 'jog_selected_plus' in parent.child_names:
 			parent.jog_selected_plus.pressed.connect(partial(commands.jog_selected, parent))
 			parent.jog_selected_plus.released.connect(partial(commands.jog_selected, parent))
-		if 'jog_selected_minus' in parent.children:
+		if 'jog_selected_minus' in parent.child_names:
 			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
 			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
@@ -1464,7 +1467,7 @@ def setup_spindle(parent):
 	parent.status_spindle = ()
 
 	# spindle defaults
-	if 'spindle_speed_lb' in parent.children:
+	if 'spindle_speed_lb' in parent.child_names:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	parent.min_rpm = 0
 
@@ -1476,7 +1479,7 @@ def setup_spindle(parent):
 	'spindle_minus_pb': 'spindle',
 	}
 	for key, value in spindle_buttons.items():
-		if key in parent.children:
+		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 			if key in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, key).setCheckable(True)
@@ -1491,17 +1494,17 @@ def setup_spindle(parent):
 	else:
 		parent.max_rpm = 1000
 
-	if 'spindle_speed_sb' in parent.children:
+	if 'spindle_speed_sb' in parent.child_names:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setSingleStep(parent.increment)
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 
-	if 'spindle_speed_setting_lb' in parent.children:
+	if 'spindle_speed_setting_lb' in parent.child_names:
 		parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
 
-	if 'spindle_override_sl' in parent.children:
+	if 'spindle_override_sl' in parent.child_names:
 		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
 		max_spindle_override = int(float(parent.max_spindle_override) * 100)
 		parent.spindle_override_sl.setMaximum(max_spindle_override)
@@ -1515,31 +1518,31 @@ def setup_spindle(parent):
 
 	 # only look for the num of spindles configured
 	for item in spindle_items:
-		if f'spindle_{item}_0_lb' in parent.children:
+		if f'spindle_{item}_0_lb' in parent.child_names:
 			parent.status_spindles[f'spindle_{item}_0_lb'] = item
 
 	parent.status_spindle_overrides = {}
-	if f'spindle_override_0_lb' in parent.children:
+	if f'spindle_override_0_lb' in parent.child_names:
 		parent.status_spindle_overrides[f'spindle_override_0_lb'] = 0
 
 	parent.status_spindle_speed = {}
-	if 'spindle_speed_0_lb' in parent.children:
+	if 'spindle_speed_0_lb' in parent.child_names:
 		parent.status_spindle_speed['spindle_speed_0_lb'] = 'speed'
 
 	parent.status_spindle_lcd = {}
-	if 'spindle_speed_0_lcd' in parent.children:
+	if 'spindle_speed_0_lcd' in parent.child_names:
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
 
 	# special spindle labels
 	parent.spindle_actual_speed = []
 	# only add the actual speed if the override slider is there
 	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_sl']
-	if all(x in parent.children for x in spindle_actual_speed):
+	if all(x in parent.child_names for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
-	if 'touchoff_le' in parent.children:
+	if 'touchoff_le' in parent.child_names:
 		parent.touchoff_le.setText('0')
 		if parent.touchoff_le.property('input') == 'number': # enable the number pad
 			parent.touchoff_le.installEventFilter(parent)
@@ -1548,10 +1551,10 @@ def setup_touchoff(parent):
 	# setup touch off buttons
 	for axis in AXES:
 		item = f'touchoff_pb_{axis}'
-		if item in parent.children:
+		if item in parent.child_names:
 			source = getattr(parent, item).property('source')
 			if source is None:
-				if 'touchoff_le' in parent.children: # check for touchoff_le
+				if 'touchoff_le' in parent.child_names: # check for touchoff_le
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					parent.home_required.append(item)
 				else:
@@ -1562,7 +1565,7 @@ def setup_touchoff(parent):
 					'has the name of the QLineEdit to be used.')
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			else: # property source is found
-				if source in parent.children:
+				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					parent.home_required.append(item)
 				else: # the source was not found
@@ -1572,9 +1575,9 @@ def setup_touchoff(parent):
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 
 	# setup Axis style touch off buttons
-	if 'touchoff_selected_pb' in parent.children:
+	if 'touchoff_selected_pb' in parent.child_names:
 		for i in range(9):
-			if f'axis_select_{i}' in parent.children:
+			if f'axis_select_{i}' in parent.child_names:
 				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
 				break
 
@@ -1583,10 +1586,10 @@ def setup_tools(parent):
 	# tool change using a combo box
 	tool_change_required = ['tool_change_pb', 'tool_change_cb']
 	# test to see if any tool change items are in the ui
-	if set(tool_change_required) & set(parent.children):
+	if set(tool_change_required) & set(parent.child_names):
 		# test to make sure all items required are in the ui
-		if not all(item in parent.children for item in tool_change_required):
-			missing_items = list(sorted(set(tool_change_required) - set(parent.children)))
+		if not all(item in parent.child_names for item in tool_change_required):
+			missing_items = list(sorted(set(tool_change_required) - set(parent.child_names)))
 			missing = ' '.join(missing_items)
 			msg = ('Tool change requires both\n'
 				'the tool_change_cb combo box\n'
@@ -1632,15 +1635,15 @@ def setup_tools(parent):
 	parent.tool_button = False
 	for i in range(100):
 		item = f'tool_change_pb_{i}'
-		if item in parent.children:
+		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 			parent.home_required.append(item)
 
-	if 'tool_changed_pb' in parent.children:
+	if 'tool_changed_pb' in parent.child_names:
 		parent.tool_changed_pb.setEnabled(False)
 		parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
 
-	if 'tool_touchoff_le' in parent.children:
+	if 'tool_touchoff_le' in parent.child_names:
 		parent.tool_touchoff_le.setText('0')
 		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
 			parent.tool_touchoff_le.installEventFilter(parent)
@@ -1648,10 +1651,10 @@ def setup_tools(parent):
 
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
-		if item in parent.children:
+		if item in parent.child_names:
 			source = getattr(parent, item).property('source')
 			if source is None: # check for tool_touchoff_le
-				if 'tool_touchoff_le' in parent.children:
+				if 'tool_touchoff_le' in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.home_required.append(item)
 				else:
@@ -1662,7 +1665,7 @@ def setup_tools(parent):
 					'has the name of the QLineEdit to be used.')
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			else: # property source is found
-				if source in parent.children:
+				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.home_required.append(item)
 				else: # the source was not found
@@ -1672,21 +1675,21 @@ def setup_tools(parent):
 					dialogs.warn_msg_ok(msg, 'Source Name Error')
 
 	# Axis style tool touch off
-	if 'tool_touchoff_selected_pb' in parent.children:
+	if 'tool_touchoff_selected_pb' in parent.child_names:
 		parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
 
 def setup_sliders(parent):
-	if 'feed_override_sl' in parent.children:
+	if 'feed_override_sl' in parent.child_names:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
 		parent.feed_override_sl.setMaximum(int(float(parent.max_feed_override) * 100))
 		parent.feed_override_sl.setValue(100)
 
-	if 'rapid_override_sl' in parent.children:
+	if 'rapid_override_sl' in parent.child_names:
 		parent.rapid_override_sl.valueChanged.connect(partial(utilities.rapid_override, parent))
 		parent.rapid_override_sl.setMaximum(100)
 		parent.rapid_override_sl.setValue(100)
 
-	if 'max_vel_sl' in parent.children:
+	if 'max_vel_sl' in parent.child_names:
 		if parent.max_linear_vel:
 			parent.max_vel_sl.valueChanged.connect(partial(utilities.max_velocity, parent))
 			max_units_min = int(float(parent.max_linear_vel) * 60)
@@ -1699,11 +1702,11 @@ def setup_sliders(parent):
 			parent.max_vel_sl.setEnabled(False)
 
 def setup_overrides(parent): # jog limit switch override checkbox
-	if 'override_limits_cb' in parent.children:
+	if 'override_limits_cb' in parent.child_names:
 		parent.override_limits_cb.setEnabled(False)
 
 def setup_defaults(parent):
-	if 'optional_stop_pb' in parent.children:
+	if 'optional_stop_pb' in parent.child_names:
 		if parent.optional_stop_pb.isChecked():
 			parent.command.set_optional_stop(True)
 		else:
@@ -1717,13 +1720,13 @@ def setup_probing(parent):
 	#print('setup_probing')
 	parent.probing = False
 	parent.probe_controls = []
-	for child in parent.children:
+	for child in parent.child_names:
 		if child.startswith('probe_') and not isinstance(child, QLabel):
 			if not isinstance(parent.findChild(QWidget, child), QLabel):
 				getattr(parent, child).setEnabled(False)
 				parent.probe_controls.append(child)
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
-		if 'probing_enable_pb' in parent.children:
+		if 'probing_enable_pb' in parent.child_names:
 			parent.state_estop['probing_enable_pb'] = False
 			parent.state_estop_reset['probing_enable_pb'] = False
 			parent.state_estop_checked['probing_enable_pb'] = False
@@ -1748,7 +1751,7 @@ def setup_probing(parent):
 				'probing_enable_pb?')
 			dialogs.warn_msg_ok(parent, msg, 'Object Not Found!')
 	else: # no probe controls found
-		if 'probing_enable_pb' in parent.children:
+		if 'probing_enable_pb' in parent.child_names:
 			msg = ('The Probing Enable Push Button\n'
 				'was found, but no probe controls\n'
 				'were found. The button will be set\n'
@@ -2528,7 +2531,7 @@ def setup_hal(parent):
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	parent.halcomp.ready()
-	if 'hal_comp_name_lb' in parent.children:
+	if 'hal_comp_name_lb' in parent.child_names:
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
 
 def setup_tool_change(parent):
@@ -2562,11 +2565,11 @@ def setup_tool_change(parent):
 		hal.connect('tool-change.change','tool-change')
 
 def setup_toolbar(parent):
-	if 'flex_E_Stop' in parent.children:
+	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
 
 def setup_plot(parent):
-	if 'plot_widget' in parent.children:
+	if 'plot_widget' in parent.child_names:
 		# add the plotter to the container
 		from libflexgui import flexplot
 		parent.plotter = flexplot.emc_plot(parent)
@@ -2583,17 +2586,17 @@ def setup_plot(parent):
 
 		# set view push button for current view selected
 		match parent.default_view:
-			case 'p' if 'flex_View_P' in parent.children:
+			case 'p' if 'flex_View_P' in parent.child_names:
 				parent.flex_View_P.setStyleSheet(parent.selected_style)
-			case 'x' if 'flex_View_X' in parent.children:
+			case 'x' if 'flex_View_X' in parent.child_names:
 				parent.flex_View_X.setStyleSheet(parent.selected_style)
-			case 'y' if 'flex_View_Y' in parent.children:
+			case 'y' if 'flex_View_Y' in parent.child_names:
 				parent.flex_View_Y.setStyleSheet(parent.selected_style)
-			case 'y2' if 'flex_View_Y2' in parent.children:
+			case 'y2' if 'flex_View_Y2' in parent.child_names:
 				parent.flex_View_Y2.setStyleSheet(parent.selected_style)
-			case 'z' if 'flex_View_Z' in parent.children:
+			case 'z' if 'flex_View_Z' in parent.child_names:
 				parent.flex_View_Z.setStyleSheet(parent.selected_style)
-			case 'z2' if 'flex_View_Z2' in parent.children:
+			case 'z2' if 'flex_View_Z2' in parent.child_names:
 				parent.flex_View_Z2.setStyleSheet(parent.selected_style)
 			case _: # default view does not have a pushbutton
 				print('default view button not found')
@@ -2616,7 +2619,7 @@ def setup_plot(parent):
 		}
 
 		for key, value in plot_actions.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value[0]}'), parent))
 				getattr(parent, key).setCheckable(True)
 				if parent.settings.contains(f'PLOT/{key}'):
@@ -2647,7 +2650,7 @@ def setup_plot(parent):
 
 		# if a checkbox is found connect it to the function
 		for key, value in view_checkboxes.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
 				if parent.settings.contains(f'PLOT/{key}'):
 					state = True if parent.settings.value(f'PLOT/{key}') == 'true' else False
@@ -2677,7 +2680,7 @@ def setup_plot(parent):
 
 		# if a pushbutton is found connect it to the function
 		for key, value in view_pushbuttons.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				getattr(parent, f'{key}').clicked.connect(partial(getattr(actions, f'{value[0]}'), parent))
 				getattr(parent, f'{key}').setCheckable(True)
 				if parent.settings.contains(f'PLOT/{key}'):
@@ -2707,7 +2710,7 @@ def setup_plot(parent):
 		}
 
 		for key, value in view_controls.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				button = getattr(parent, key)
 				if len(value) == 3:
 					method, vertical, horizontal = value
@@ -2731,7 +2734,7 @@ def setup_plot(parent):
 
 		# this connects the view buttons to the plotter
 		for key, value in views.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				button = getattr(parent, key)
 				button.clicked.connect(lambda _, v=value: (
 					parent.plotter.makeCurrent(),
@@ -2746,7 +2749,7 @@ def setup_plot(parent):
 		}
 
 		for key, value in action_view_controls.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				action = getattr(parent, key)
 				action.triggered.connect(lambda _, m=value: (
 					getattr(parent.plotter, m)()))
@@ -2762,7 +2765,7 @@ def setup_plot(parent):
 		}
 
 		for key, value in view_actions.items():
-			if key in parent.children:
+			if key in parent.child_names:
 				action = getattr(parent, key)
 				action.triggered.connect(lambda _, v=value: (
 					parent.plotter.makeCurrent(),
@@ -2772,7 +2775,7 @@ def setup_plot(parent):
 				))
 
 def setup_fsc(parent): # mill feed and speed calculator
-	if 'fsc_container' in parent.children:
+	if 'fsc_container' in parent.child_names:
 		from libflexgui import fsc
 		parent.fsc_calc = fsc.fs_calc(parent)
 		layout = QVBoxLayout(parent.fsc_container)
@@ -2784,7 +2787,7 @@ def setup_fsc(parent): # mill feed and speed calculator
 				parent.number_le.append(item)
 
 def setup_dsf(parent): # drill speed and feed calculator
-	if 'dsf_container' in parent.children:
+	if 'dsf_container' in parent.child_names:
 		from libflexgui import dsf
 		parent.dsf_calc = dsf.dsf_calc(parent)
 		layout = QVBoxLayout(parent.dsf_container)
@@ -2796,7 +2799,7 @@ def setup_dsf(parent): # drill speed and feed calculator
 				parent.number_le.append(item)
 
 def setup_tpc(parent): # three point center calculator
-	if 'tpc_container' in parent.children:
+	if 'tpc_container' in parent.child_names:
 		from libflexgui import tpc
 		parent.tpc_calc = tpc.tpc_calc(parent)
 		layout = QVBoxLayout(parent.tpc_container)
