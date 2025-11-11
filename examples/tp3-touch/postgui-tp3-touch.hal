@@ -17,5 +17,10 @@ net touch-probe flexhal.probe_trigger_pin => motion.probe-input
 net spindle-cmd-rpm-abs => flexhal.spindle_rpm
 #net spindle-cmd-rpm-abs => flexhal.spindle_rpm_lcd
 
-#net flood_pin iocontrol.0.coolant-flood => flexhal.flood
-#net mist_pin iocontrol.0.coolant-mist => flexhal.mist
+net flood_pin iocontrol.0.coolant-flood => flexhal.flood
+#net flood_pin => flexhal.flood-label
+
+net mist_pin iocontrol.0.coolant-mist => flexhal.mist
+#net mist_pin => flexhal.mist-label
+
+net probe_enable_pin flexhal.probe-btn => flexhal.probe-enable-led 
