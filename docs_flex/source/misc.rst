@@ -1,6 +1,14 @@
 Miscellaneous Items
 ===================
 
+Line Edit
+---------
+
+A QLineEdit can trigger a click event on a QPushButton by pressing the Enter key
+or if a touch screen popup keypad is used when Save is pressed. Add a String
+Type Dynamic Property called `return_button` with the value being the object
+name of the QPushButton.
+
 File Selector
 -------------
 

@@ -130,9 +130,9 @@ Dynamic Property named `source` to the tool touch off button and set the value
 to the name of the QLineEdit that is the source for that touch off button.
 See :doc:`property`
 
-Optionally, a QLineEdit can also have a dynamic property `return_button` with the
-objectName of a button.  When the return button is pressed, or when a value is
-saved using a touch popup, a click event will be to the target button.
+Optionally, a QLineEdit can also have a dynamic property `return_button` with
+the objectName of a QPushButton that you want to receive a click event when the
+Enter Key is pressed, or when a value is saved using a touch popup.
 
 .. image:: /images/tools-08.png
    :align: center
