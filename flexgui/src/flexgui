@@ -246,6 +246,7 @@ class flexgui(QMainWindow):
 		startup.setup_dsf(self)
 		startup.setup_tpc(self)
 		startup.setup_help(self)
+		startup.setup_tabs(self)
 		# loading the post gui files can only happen once
 		startup.load_postgui(self)
 

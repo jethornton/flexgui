@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
 from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
 from PyQt6.QtWidgets import QProgressBar, QButtonGroup, QFrame
+from PyQt6.QtWidgets import QTabWidget
 from PyQt6.QtGui import QAction, QColor
 from PyQt6.QtCore import QSettings
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
@@ -2838,3 +2839,9 @@ def set_status(parent): # this is only used if running from a terminal
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
 
+
+def setup_tabs(parent):
+	# Pull focus away from other controls (QLineEdits)
+	# When a tab is changed.
+	for child in parent.findChildren(QTabWidget):
+		child.tabBarClicked.connect(parent.setFocus)
