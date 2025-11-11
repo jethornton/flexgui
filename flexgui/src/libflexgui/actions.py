@@ -32,20 +32,20 @@ def load_file(parent, nc_code_file=None):
 	if os.path.isfile(nc_code_file):
 		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
-		if 'plot_widget' in parent.children:
+		if 'plot_widget' in parent.child_names:
 			parent.plotter.clear_live_plotter()
 
-		if 'gcode_pte' in parent.children:
+		if 'gcode_pte' in parent.child_names:
 			text = open(nc_code_file).read()
 			parent.gcode_pte.setPlainText(text)
-		if 'file_lb' in parent.children:
+		if 'file_lb' in parent.child_names:
 			base = os.path.basename(nc_code_file)
 			parent.file_lb.setText(base)
 
 		# update controls
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(True)
-		if 'start_line_lb' in parent.children:
+		if 'start_line_lb' in parent.child_names:
 			parent.start_line_lb.setText('0')
 
 		if not load_file_btn: # called by menu or file open button
@@ -88,10 +88,10 @@ def load_file(parent, nc_code_file=None):
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(True)
 
-		if 'save_pb' in parent.children:
+		if 'save_pb' in parent.child_names:
 			if hasattr(parent.save_pb, 'led'):
 				parent.save_pb.led = False
-		if 'reload_pb' in parent.children:
+		if 'reload_pb' in parent.child_names:
 			if hasattr(parent.reload_pb, 'led'):
 				parent.reload_pb.led = False
 
@@ -156,17 +156,17 @@ def action_reload(parent): # actionReload
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 		parent.command.program_open(gcode_file)
-		if 'plot_widget' in parent.children:
+		if 'plot_widget' in parent.child_names:
 			parent.plotter.clear_live_plotter()
 			parent.plotter.update()
 			parent.plotter.load(gcode_file)
-		if 'gcode_pte' in parent.children:
+		if 'gcode_pte' in parent.child_names:
 			with open(gcode_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
-		if 'save_pb' in parent.children:
+		if 'save_pb' in parent.child_names:
 			if hasattr(parent.save_pb, 'led'):
 				parent.save_pb.led = False
-		if 'reload_pb' in parent.children:
+		if 'reload_pb' in parent.child_names:
 			if hasattr(parent.reload_pb, 'led'):
 				parent.reload_pb.led = False
 
@@ -180,10 +180,10 @@ def action_save(parent): # actionSave
 	nc_code = text.splitlines()
 	with open(current_nccode_file, 'w') as f:
 		f.writelines(line + "\n" for line in nc_code)
-	if 'save_pb' in parent.children:
+	if 'save_pb' in parent.child_names:
 		if hasattr(parent.save_pb, 'led'):
 			parent.save_pb.led = False
-	if 'reload_pb' in parent.children:
+	if 'reload_pb' in parent.child_names:
 		if hasattr(parent.reload_pb, 'led'):
 			parent.reload_pb.led = True
 
@@ -236,7 +236,7 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.wait_complete()
 	parent.status.poll()
 
-	if 'tool_change_cb' in parent.children:
+	if 'tool_change_cb' in parent.child_names:
 		parent.tool_change_cb.clear()
 		# tool change with description
 		if parent.tool_change_cb.property('option') == 'description':
@@ -286,7 +286,7 @@ def action_estop(parent): # actionEstop
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
-		if 'override_limits_cb' in parent.children:
+		if 'override_limits_cb' in parent.child_names:
 			if parent.override_limits_cb.isChecked():
 				parent.command. override_limits()
 		parent.command.state(emc.STATE_ON)
@@ -298,12 +298,12 @@ def action_run(parent, line = 0): # actionRun
 		if parent.status.task_mode != emc.MODE_AUTO:
 			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
-		if 'start_line_lb' in parent.children:
+		if 'start_line_lb' in parent.child_names:
 			parent.start_line_lb.setText('0')
 		parent.command.auto(emc.AUTO_RUN, line)
 
 def action_run_from_line(parent): # actionRun_from_Line
-	if 'gcode_pte' in parent.children:
+	if 'gcode_pte' in parent.child_names:
 		cursor = parent.gcode_pte.textCursor()
 		selected_block = cursor.blockNumber() # get current block number
 		action_run(parent, selected_block)

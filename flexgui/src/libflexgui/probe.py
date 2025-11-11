@@ -10,7 +10,7 @@ def toggle(parent):
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(True)
 		parent.spindle_speed = 0
-		if 'spindle_speed_lb' in parent.children:
+		if 'spindle_speed_lb' in parent.child_names:
 			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 		parent.command.spindle(emc.SPINDLE_OFF)
 
@@ -20,7 +20,7 @@ def toggle(parent):
 		if None not in [on_text, off_text]:
 			btn.setText(on_text)
 
-		if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
+		if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 			parent.probing_enable_pb.led = True
 
 		if parent.probe_enable_on_color:
@@ -37,7 +37,7 @@ def toggle(parent):
 		if None not in [on_text, off_text]:
 			btn.setText(off_text)
 
-		if 'probing_enable_pb' in parent.children and hasattr(parent.probing_enable_pb, 'led'):
+		if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 			parent.probing_enable_pb.led = False
 
 		if parent.probe_enable_off_color:

@@ -100,7 +100,7 @@ def unhome_all(parent):
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.unhome(-1)
-	if 'run_mdi_pb' in parent.children:
+	if 'run_mdi_pb' in parent.child_names:
 		parent.run_mdi_pb.setEnabled(False)
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(True)
@@ -119,7 +119,7 @@ def run_mdi(parent, cmd=''):
 	if cmd:
 		mdi_command = cmd
 	else:
-		if 'mdi_command_le' in parent.children:
+		if 'mdi_command_le' in parent.child_names:
 			mdi_command = parent.mdi_command_le.text()
 	if mdi_command:
 		parent.mdi_command = mdi_command
@@ -144,7 +144,7 @@ def mdi_button(parent, button):
 				parent.command.mdi(mdi_command)
 
 def jog_check(parent):
-	if 'jog_vel_sl' in parent.children:
+	if 'jog_vel_sl' in parent.child_names:
 		if parent.jog_vel_sl.value() > 0.0:
 			return True
 		else:
@@ -157,7 +157,7 @@ def jog_check(parent):
 		return False
 
 def set_jog_override(parent):
-	if 'override_limits_cb' in parent.children:
+	if 'override_limits_cb' in parent.child_names:
 		parent.override_limits_cb.setChecked(False)
 		parent.override_limits_cb.setEnabled(False)
 
@@ -263,7 +263,7 @@ def tool_change(parent):
 	if parent.sender().objectName().split('_')[-1].isdigit(): # tool button
 		parent.new_tool_number = int(parent.sender().objectName().split('_')[-1])
 		parent.tool_button = True
-		if 'tool_change_cb' in parent.children:
+		if 'tool_change_cb' in parent.child_names:
 			if parent.new_tool_number in tools:
 				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
 	else: # using tool change cb
@@ -280,7 +280,7 @@ def tool_change(parent):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
-			if 'tool_changed_pb' in parent.children:
+			if 'tool_changed_pb' in parent.child_names:
 				parent.tool_changed_pb.setEnabled(True)
 	else:
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
@@ -305,7 +305,7 @@ def tool_changed(parent):
 	tool_timer.start()
 
 def touchoff(parent):
-	if 'touchoff_system_cb' in parent.children:
+	if 'touchoff_system_cb' in parent.child_names:
 		coordinate_system = parent.touchoff_system_cb.currentData()
 	else:
 		coordinate_system = 0
@@ -315,7 +315,7 @@ def touchoff(parent):
 	if btn.property('source') is not None:
 		source = btn.property('source')
 		offset = getattr(parent, source).text()
-	elif 'touchoff_le' in parent.children:
+	elif 'touchoff_le' in parent.child_names:
 		offset = parent.touchoff_le.text()
 
 	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
@@ -337,7 +337,7 @@ def tool_touchoff(parent):
 	if btn.property('source') is not None:
 		source = btn.property('source')
 		offset = getattr(parent, source).text()
-	elif 'tool_touchoff_le' in parent.children:
+	elif 'tool_touchoff_le' in parent.child_names:
 		offset = parent.tool_touchoff_le.text()
 
 	if offset == '':
@@ -385,7 +385,7 @@ def spindle(parent, value=0):
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(parent.spindle_speed))
 			if hasattr(parent.spindle_fwd_pb, 'led'):
 				parent.spindle_fwd_pb.led = True
-			if 'spindle_rev_pb' in parent.children:
+			if 'spindle_rev_pb' in parent.child_names:
 				parent.spindle_rev_pb.setChecked(False)
 				if hasattr(parent.spindle_rev_pb, 'led'):
 					parent.spindle_rev_pb.led = False
@@ -400,18 +400,18 @@ def spindle(parent, value=0):
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(parent.spindle_speed))
 			if hasattr(parent.spindle_rev_pb, 'led'):
 				parent.spindle_rev_pb.led = True
-			if 'spindle_fwd_pb' in parent.children:
+			if 'spindle_fwd_pb' in parent.child_names:
 				parent.spindle_fwd_pb.setChecked(False)
 				if hasattr(parent.spindle_fwd_pb, 'led'):
 					parent.spindle_fwd_pb.led = False
 
 	elif sender_name == 'spindle_stop_pb':
 		parent.command.spindle(emc.SPINDLE_OFF)
-		if 'spindle_fwd_pb' in parent.children:
+		if 'spindle_fwd_pb' in parent.child_names:
 			parent.spindle_fwd_pb.setChecked(False)
 			if hasattr(parent.spindle_fwd_pb, 'led'):
 				parent.spindle_fwd_pb.led = False
-		if 'spindle_rev_pb' in parent.children:
+		if 'spindle_rev_pb' in parent.child_names:
 			parent.spindle_rev_pb.setChecked(False)
 			if hasattr(parent.spindle_rev_pb, 'led'):
 				parent.spindle_rev_pb.led = False
@@ -420,35 +420,35 @@ def spindle(parent, value=0):
 		if (parent.spindle_speed + parent.increment) <= parent.max_rpm:
 			parent.command.spindle(emc.SPINDLE_INCREASE)
 			parent.spindle_speed += parent.increment
-			if 'spindle_speed_sb' in parent.children:
+			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(parent.spindle_speed)
-			if 'spindle_speed_setting_lb' in parent.children:
+			if 'spindle_speed_setting_lb' in parent.child_names:
 				parent.spindle_speed_setting_lb.setText(f'{parent.spindle_speed}')
 
 	elif sender_name == 'spindle_minus_pb':
 		if (parent.spindle_speed - parent.increment) > 0: # it's ok
 			parent.command.spindle(emc.SPINDLE_DECREASE)
 			parent.spindle_speed -= parent.increment
-			if 'spindle_speed_sb' in parent.children:
+			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(parent.spindle_speed)
-			if 'spindle_speed_setting_lb' in parent.children:
+			if 'spindle_speed_setting_lb' in parent.child_names:
 				parent.spindle_speed_setting_lb.setText(f'{parent.spindle_speed}')
 		else:
 			parent.spindle_speed = 0
-			if 'spindle_fwd_pb' in parent.children:
+			if 'spindle_fwd_pb' in parent.child_names:
 				parent.spindle_fwd_pb.setChecked(False)
-			if 'spindle_rev_pb' in parent.children:
+			if 'spindle_rev_pb' in parent.child_names:
 				parent.spindle_rev_pb.setChecked(False)
 				parent.command.spindle(emc.SPINDLE_OFF)
 
 	elif  sender_name == 'mdi_s_pb':
 		run_mdi(parent, f'S{parent.spindle_speed}')
 
-	if 'spindle_speed_sb' in parent.children:
+	if 'spindle_speed_sb' in parent.child_names:
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
-	if 'spindle_speed_lb' in parent.children:
+	if 'spindle_speed_lb' in parent.child_names:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
-	if 'mdi_s_pb' in parent.children:
+	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.setText(f'MDI S{parent.spindle_speed}')
 
 def flood_toggle(parent):

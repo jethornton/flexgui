@@ -180,12 +180,12 @@ def update_jog_lb(parent):
 def copy_errors(parent):
 	qclip = QApplication.clipboard()
 	qclip.setText(parent.errors_pte.toPlainText())
-	if 'statusbar' in parent.children:
+	if 'statusbar' in parent.child_names:
 		parent.statusbar.showMessage('Errors copied to clipboard')
 
 def clear_errors(parent):
 	parent.errors_pte.clear()
-	if 'statusbar' in parent.children:
+	if 'statusbar' in parent.child_names:
 		parent.statusbar.clearMessage()
 
 def clear_info(parent):
@@ -197,11 +197,11 @@ def ok_for_mdi(parent):
 
 
 def add_mdi(parent): # when you click on the mdi history list widget
-	if 'mdi_command_le' in parent.children:
+	if 'mdi_command_le' in parent.child_names:
 		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
 def update_mdi(parent):
-	if 'mdi_history_lw' in parent.children:
+	if 'mdi_history_lw' in parent.child_names:
 		rows = parent.mdi_history_lw.count()
 		if rows > 0:
 			last_item = parent.mdi_history_lw.item(rows - 1).text().strip()
@@ -216,7 +216,7 @@ def update_mdi(parent):
 				mdi_codes.append(parent.mdi_history_lw.item(index).text())
 			with open(mdi_file, 'w') as f:
 				f.write('\n'.join(mdi_codes))
-		if 'mdi_command_le' in parent.children:
+		if 'mdi_command_le' in parent.child_names:
 			parent.mdi_command_le.setText('')
 	parent.command.mode(emc.MODE_MANUAL)
 	parent.command.wait_complete()
@@ -234,7 +234,7 @@ def spindle_override(parent, value):
 def max_velocity(parent,value):
 	# maxvel(float) set maximum velocity
 	parent.command.maxvel(float(value / 60))
-	if 'max_vel_lb' in parent.children:
+	if 'max_vel_lb' in parent.child_names:
 		parent.max_vel_lb.setText(f'{value} {parent.units}/min')
 
 def update_qcode_pte(parent):
@@ -249,13 +249,13 @@ def update_qcode_pte(parent):
 		selection.cursor.clearSelection()
 		extraSelections.append(selection)
 	parent.gcode_pte.setExtraSelections(extraSelections)
-	if 'start_line_lb' in parent.children:
+	if 'start_line_lb' in parent.child_names:
 		cursor = parent.gcode_pte.textCursor()
 		selected_block = cursor.blockNumber() # get current block number
 		parent.start_line_lb.setText(f'{selected_block}')
 
 def nc_code_changed(parent):
-	if 'save_pb' in parent.children:
+	if 'save_pb' in parent.child_names:
 		if hasattr(parent.save_pb, 'led'):
 			parent.save_pb.led = True
 
@@ -281,7 +281,7 @@ def read_dir(parent): # touch screen file navigator
 
 def sync_checkboxes(parent, sender, receiver):
 	parent.settings.setValue(f'PLOT/{sender}',getattr(parent, sender).isChecked())
-	if receiver in parent.children:
+	if receiver in parent.child_names:
 		getattr(parent, receiver).setChecked(getattr(parent, sender).isChecked())
 		parent.settings.setValue(f'PLOT/{receiver}', getattr(parent, sender).isChecked())
 
@@ -296,21 +296,21 @@ def sync_toolbuttons(parent, view):
 	]
 
 	for t in view_toolbuttons:
-		if t in parent.children:
+		if t in parent.child_names:
 			getattr(parent, t).setStyleSheet(parent.deselected_style)
 
 	match view:
-		case 'p' if 'flex_View_P' in parent.children:
+		case 'p' if 'flex_View_P' in parent.child_names:
 			parent.flex_View_P.setStyleSheet(parent.selected_style)
-		case 'x' if 'flex_View_X' in parent.children:
+		case 'x' if 'flex_View_X' in parent.child_names:
 			parent.flex_View_X.setStyleSheet(parent.selected_style)
-		case 'y' if 'flex_View_Y' in parent.children:
+		case 'y' if 'flex_View_Y' in parent.child_names:
 			parent.flex_View_Y.setStyleSheet(parent.selected_style)
-		case 'y2' if 'flex_View_Y2' in parent.children:
+		case 'y2' if 'flex_View_Y2' in parent.child_names:
 			parent.flex_View_Y2.setStyleSheet(parent.selected_style)
-		case 'z' if 'flex_View_Z' in parent.children:
+		case 'z' if 'flex_View_Z' in parent.child_names:
 			parent.flex_View_Z.setStyleSheet(parent.selected_style)
-		case 'z2' if 'flex_View_Z2' in parent.children:
+		case 'z2' if 'flex_View_Z2' in parent.child_names:
 			parent.flex_View_Z2.setStyleSheet(parent.selected_style)
 		case _:
 			print('view not found')
