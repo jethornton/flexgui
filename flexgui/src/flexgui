@@ -304,7 +304,7 @@ class flexgui(QMainWindow):
 		return module
 
 	def resizeEvent(self, event):
-		if 'window_size_lb' in self.children:
+		if 'window_size_lb' in self.child_names:
 			width = self.geometry().width()
 			height =  self.geometry().height()
 			self.window_size_lb.setText(f'{width}x{height}')
