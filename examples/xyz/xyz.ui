@@ -818,7 +818,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1469,8 +1469,15 @@
            <string>Touch Off</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_29">
+           <item row="3" column="3">
+            <widget class="QLineEdit" name="touchoff_z"/>
+           </item>
            <item row="3" column="1">
-            <widget class="QLineEdit" name="touchoff_x"/>
+            <widget class="QLineEdit" name="touchoff_x">
+             <property name="return_button" stdset="0">
+              <string>touchoff_pb_x</string>
+             </property>
+            </widget>
            </item>
            <item row="2" column="2">
             <widget class="QPushButton" name="touchoff_pb_y">
@@ -1479,22 +1486,6 @@
              </property>
              <property name="source" stdset="0">
               <string>touchoff_y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QLineEdit" name="touchoff_y"/>
-           </item>
-           <item row="3" column="3">
-            <widget class="QLineEdit" name="touchoff_z"/>
-           </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="touchoff_pb_z">
-             <property name="text">
-              <string>Touch Off Z</string>
-             </property>
-             <property name="source" stdset="0">
-              <string>touchoff_z</string>
              </property>
             </widget>
            </item>
@@ -1508,13 +1499,36 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QComboBox" name="touchoff_system_cb"/>
-           </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_28">
              <property name="text">
               <string>Coordinate System</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QComboBox" name="touchoff_system_cb"/>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="touchoff_pb_z">
+             <property name="text">
+              <string>Touch Off Z</string>
+             </property>
+             <property name="source" stdset="0">
+              <string>touchoff_z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="touchoff_y"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Press Enter to trigger Touch Off X</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
