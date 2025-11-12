@@ -352,6 +352,8 @@ status items.
 	are integers and the rest are floats.
 	If id = -1 no tools are in the tool table.
 
+	units_lb - returns the current units
+
 .. note:: You don't have to use all the labels; only use the ones you need.
 
 Axis Status
