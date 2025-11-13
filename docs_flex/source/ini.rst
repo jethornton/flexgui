@@ -249,6 +249,12 @@ the FLEXGUI section. The font size must be an integer.
 	[FLEXGUI]
 	DRO_FONT_SIZE = 12
 
+The plotter DRO can be set to automatically change units when the program units
+G20/G21 change. Setting to `True` disables the manual unit change controls.
+::
+
+	PLOT_UNITS = True
+
 Colors
 ^^^^^^
 
