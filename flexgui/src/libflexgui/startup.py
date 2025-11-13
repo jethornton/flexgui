@@ -1002,17 +1002,11 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
-	# G Code label
-	if 'gcodes_lb' in parent.child_names:
-		parent.g_codes = ()
-	else:
-		parent.g_codes = False
+	# G Codes
+	parent.g_codes = ()
 
-	# M Code label
-	if 'mcodes_lb' in parent.child_names:
-		parent.m_codes = ()
-	else:
-		parent.m_codes = False
+	# M Codes label
+	parent.m_codes = ()
 
 	# DRO labels
 	parent.status_dro = {} # create an empty dictionary
