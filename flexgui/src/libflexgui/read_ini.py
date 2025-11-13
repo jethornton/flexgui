@@ -290,6 +290,8 @@ def read(parent):
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
 
+	parent.plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
+
 	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
 
 	parent.touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or False
@@ -324,6 +326,8 @@ def read(parent):
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
 	parent.units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
+	parent.default_metric = 3
+	parent.default_inch = 4
 	match parent.units:
 		case 'inch':
 			parent.default_precision = 4
