@@ -288,8 +288,7 @@ status items.
 
 	program_units_lb - returns integer that is used to lookup the units name
 		CANON_UNITS_INCHES = 1,
-		CANON_UNITS_MM = 2,
-		CANON_UNITS_CM = 3
+		CANON_UNITS_MM = 2
 
 	queue_lb - returns integer
 	current size of the trajectory planner queue
@@ -351,8 +350,6 @@ status items.
 	woffset, diameter, frontangle, backangle, orientation. The id and orientation
 	are integers and the rest are floats.
 	If id = -1 no tools are in the tool table.
-
-	units_lb - returns the current units
 
 .. note:: You don't have to use all the labels; only use the ones you need.
 
