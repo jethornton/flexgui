@@ -47,6 +47,7 @@ def setup_vars(parent):
 		border-color: gray;
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
+	parent.program_units = False
 
 def find_widget_index(layout, target_widget):
 	print(f'layout {layout.itemAt(2)}')
