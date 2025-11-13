@@ -1109,7 +1109,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_18">
            <attribute name="title">
@@ -1183,13 +1183,6 @@
              <widget class="QCheckBox" name="view_live_plot_cb">
               <property name="text">
                <string>View Live Plot</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="view_metric_units_cb">
-              <property name="text">
-               <string>View Metric Units</string>
               </property>
              </widget>
             </item>
@@ -3228,7 +3221,6 @@
     <addaction name="actionExtents_Option"/>
     <addaction name="actionLive_Plot"/>
     <addaction name="actionVelocity"/>
-    <addaction name="actionMetric_Units"/>
     <addaction name="actionProgram"/>
     <addaction name="actionRapids"/>
     <addaction name="actionTool"/>
@@ -3407,11 +3399,6 @@
   <action name="actionVelocity">
    <property name="text">
     <string>Velocity</string>
-   </property>
-  </action>
-  <action name="actionMetric_Units">
-   <property name="text">
-    <string>Metric Units</string>
    </property>
   </action>
   <action name="actionProgram">
