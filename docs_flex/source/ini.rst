@@ -255,6 +255,14 @@ G20/G21 change. Setting to `True` disables the manual unit change controls.
 
 	PLOT_UNITS = True
 
+DRO
+^^^
+
+To set the DRO labels to follow the program units add the following
+::
+
+	DRO_UNITS = True
+
 Colors
 ^^^^^^
 
