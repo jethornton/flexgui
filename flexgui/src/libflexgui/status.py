@@ -488,7 +488,6 @@ def update(parent):
 	if parent.g_codes != parent.status.gcodes:
 		if 'gcodes_lb' in parent.child_names:
 			g_codes = []
-			# skip the first one
 			for i in parent.status.gcodes[1:]:
 				if i == -1: continue
 				if i % 10 == 0:
@@ -496,11 +495,6 @@ def update(parent):
 				else:
 					g_codes.append(f'G{(i/10):.0f}.{i%10}')
 			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
-			if 'units_lb' in parent.child_names:
-				if 'G20' in g_codes:
-					parent.units_lb.setText('INCH')
-				elif 'G21' in g_codes:
-					parent.units_lb.setText('MM')
 		parent.g_codes = parent.status.gcodes
 
 	# M codes only update when they change
