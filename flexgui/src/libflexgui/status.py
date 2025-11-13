@@ -571,6 +571,14 @@ def update(parent):
 		else:
 			getattr(parent, item).setText('')
 
+	# plotter DRO FIXME only update if the program units change
+	if parent.plot_units:
+		if parent.status.program_units == 1: # inch program units
+			parent.plotter.metric_units = False
+		elif parent.status.program_units == 2: # metric program units
+			parent.plotter.metric_units = True
+		parent.plotter.update()
+
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
 		machine_position = getattr(parent, "status").position[value[0]]

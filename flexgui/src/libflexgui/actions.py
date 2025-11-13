@@ -442,22 +442,23 @@ def action_toggle_velocity(parent):
 		utilities.sync_checkboxes(parent, 'actionVelocity', 'view_velocity_pb')
 
 def action_toggle_metric_units(parent):
-	if parent.sender().isChecked():
-		parent.plotter.metric_units = True
-	else:
-		parent.plotter.metric_units = False
-	parent.plotter.update()
+	if not parent.plot_units:
+		if parent.sender().isChecked():
+			parent.plotter.metric_units = True
+		else:
+			parent.plotter.metric_units = False
+		parent.plotter.update()
 
-	name = parent.sender().objectName()
-	if name == 'view_metric_units_cb':
-		utilities.sync_checkboxes(parent, 'view_metric_units_cb', 'actionMetric_Units')
-		utilities.sync_checkboxes(parent, 'view_metric_units_cb', 'view_metric_units_pb')
-	elif name == 'view_metric_units_pb':
-		utilities.sync_checkboxes(parent, 'view_metric_units_pb', 'actionMetric_Units')
-		utilities.sync_checkboxes(parent, 'view_metric_units_pb', 'view_metric_units_cb')
-	elif name == 'actionMetric_Units':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_metric_units_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_metric_units_pb')
+		name = parent.sender().objectName()
+		if name == 'view_metric_units_cb':
+			utilities.sync_checkboxes(parent, 'view_metric_units_cb', 'actionMetric_Units')
+			utilities.sync_checkboxes(parent, 'view_metric_units_cb', 'view_metric_units_pb')
+		elif name == 'view_metric_units_pb':
+			utilities.sync_checkboxes(parent, 'view_metric_units_pb', 'actionMetric_Units')
+			utilities.sync_checkboxes(parent, 'view_metric_units_pb', 'view_metric_units_cb')
+		elif name == 'actionMetric_Units':
+			utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_metric_units_cb')
+			utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_metric_units_pb')
 
 def action_toggle_program(parent):
 	if parent.sender().isChecked():

@@ -2691,6 +2691,23 @@ def setup_plot(parent):
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
+		if parent.plot_units: # disable metric units
+			bitch = False
+			if 'view_metric_units_cb' in parent.child_names:
+				parent.view_metric_units_cb.setEnabled(False)
+				bitch = True
+			if 'view_metric_units_pb' in parent.child_names:
+				parent.view_metric_units_pb.setEnabled(False)
+				bitch = True
+			if 'actionMetric_Units' in parent.child_names:
+				parent.actionMetric_Units.setEnabled(False)
+				bitch = True
+			if bitch:
+				msg = ('The INI entry PLOT_UNITS = True\n'
+				'in the [FLEXGUI] section\n'
+				'disables any metric unit controls.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 		parent.plotter.update()
 
 		view_controls = {
