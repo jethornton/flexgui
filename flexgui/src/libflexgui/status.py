@@ -495,6 +495,12 @@ def update(parent):
 				else:
 					g_codes.append(f'G{(i/10):.0f}.{i%10}')
 			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
+			if 'G20' in g_codes:
+				parent.program_units = 'INCH'
+			else:
+				parent.program_units = 'MM'
+			if 'program_units_lb' in parent.child_names:
+				parent.program_units_lb.setText(parent.program_units)
 		parent.g_codes = parent.status.gcodes
 
 	# M codes only update when they change
@@ -570,6 +576,8 @@ def update(parent):
 			getattr(parent, item).setText('*')
 		else:
 			getattr(parent, item).setText('')
+
+	# program units workaround
 
 	# plotter DRO
 	if parent.plot_units and parent.program_units != parent.status.program_units:
