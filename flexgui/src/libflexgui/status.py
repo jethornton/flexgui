@@ -580,9 +580,7 @@ def update(parent):
 		else:
 			getattr(parent, item).setText('')
 
-	# program units workaround
-
-	# plotter DRO FIXME
+	# plotter DRO
 	if parent.auto_plot_units and parent.program_units != parent.plot_units:
 		if parent.program_units == 'INCH': # inch program units
 			parent.plotter.metric_units = False
