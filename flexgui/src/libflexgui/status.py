@@ -486,21 +486,24 @@ def update(parent):
 
 	# G codes only update when they change
 	if parent.g_codes != parent.status.gcodes:
-		if 'gcodes_lb' in parent.child_names:
-			g_codes = []
-			for i in parent.status.gcodes[1:]:
-				if i == -1: continue
-				if i % 10 == 0:
-					g_codes.append(f'G{(i/10):.0f}')
-				else:
-					g_codes.append(f'G{(i/10):.0f}.{i%10}')
-			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
-			if 'G20' in g_codes:
-				parent.program_units = 'INCH'
+		g_codes = []
+		for i in parent.status.gcodes[1:]:
+			if i == -1: continue
+			if i % 10 == 0:
+				g_codes.append(f'G{(i/10):.0f}')
 			else:
-				parent.program_units = 'MM'
-			if 'program_units_lb' in parent.child_names:
-				parent.program_units_lb.setText(parent.program_units)
+				g_codes.append(f'G{(i/10):.0f}.{i%10}')
+
+		if 'gcodes_lb' in parent.child_names:
+			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
+
+		if 'G20' in g_codes:
+			parent.program_units = 'INCH'
+		else:
+			parent.program_units = 'MM'
+		if 'program_units_lb' in parent.child_names:
+			parent.program_units_lb.setText(parent.program_units)
+
 		parent.g_codes = parent.status.gcodes
 
 	# M codes only update when they change
@@ -579,14 +582,14 @@ def update(parent):
 
 	# program units workaround
 
-	# plotter DRO
-	if parent.plot_units and parent.program_units != parent.status.program_units:
-		if parent.status.program_units == 1: # inch program units
+	# plotter DRO FIXME
+	if parent.auto_plot_units and parent.program_units != parent.plot_units:
+		if parent.program_units == 'INCH': # inch program units
 			parent.plotter.metric_units = False
-		elif parent.status.program_units == 2: # metric program units
+		elif parent.program_units == 'MM': # metric program units
 			parent.plotter.metric_units = True
 		parent.plotter.update()
-		parent.program_units = parent.status.program_units
+		parent.plot_units = parent.program_units
 
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
@@ -600,10 +603,10 @@ def update(parent):
 		machine_position = getattr(parent, "status").position[value[0]]
 		relative_position = machine_position - (g5x_offset + g92_offset + g43_offset)
 		# metric linear units with inch program units
-		if parent.status.linear_units == 1 and parent.status.program_units == 1 and parent.dro_units:
+		if parent.status.linear_units == 1 and parent.program_units == 'INCH' and parent.auto_dro_units:
 			getattr(parent, f'{key}').setText(f'{relative_position * 0.03937007874015748:.4f}')
 		# inch linear units with metric program units
-		elif parent.status.linear_units != 1 and parent.status.program_units == 2 and parent.dro_units:
+		elif parent.status.linear_units != 1 and parent.program_units == 'MM' and parent.auto_dro_units:
 			getattr(parent, f'{key}').setText(f'{relative_position * 25.4:.3f}')
 		# linear units and program units are the same
 		else:

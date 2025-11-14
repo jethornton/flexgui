@@ -48,6 +48,7 @@ def setup_vars(parent):
 		border-style: solid;'''
 	parent.deselected_style = 'border-color: transparent;'
 	parent.program_units = False
+	parent.plot_units = False
 
 def find_widget_index(layout, target_widget):
 	print(f'layout {layout.itemAt(2)}')
@@ -2691,7 +2692,7 @@ def setup_plot(parent):
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
-		if parent.plot_units: # disable metric units
+		if parent.auto_plot_units: # disable metric units
 			bitch = False
 			if 'view_metric_units_cb' in parent.child_names:
 				parent.view_metric_units_cb.setEnabled(False)
