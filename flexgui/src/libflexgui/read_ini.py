@@ -290,8 +290,8 @@ def read(parent):
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
 
-	parent.plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
-	parent.dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
+	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
+	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
 
 	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
 

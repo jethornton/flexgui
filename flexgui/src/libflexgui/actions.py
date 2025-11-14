@@ -442,7 +442,7 @@ def action_toggle_velocity(parent):
 		utilities.sync_checkboxes(parent, 'actionVelocity', 'view_velocity_pb')
 
 def action_toggle_metric_units(parent):
-	if not parent.plot_units:
+	if not parent.auto_plot_units:
 		if parent.sender().isChecked():
 			parent.plotter.metric_units = True
 		else:
