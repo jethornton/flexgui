@@ -917,7 +917,6 @@ def setup_status_labels(parent):
 	'motion_type': {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
 		2: 'MOTION_TYPE_FEED', 3: 'MOTION_TYPE_ARC', 4: 'MOTION_TYPE_TOOLCHANGE',
 		5: 'MOTION_TYPE_PROBING', 6: 'MOTION_TYPE_INDEXROTARY'},
-	'program_units': {1: 'INCH', 2: 'MM'},
 	'state': {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'},
 	'task_mode': {1: 'MODE_MANUAL', 2: 'MODE_AUTO', 3: 'MODE_MDI', },
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
@@ -931,9 +930,9 @@ def setup_status_labels(parent):
 	'interp_state', 'interpreter_errcode', 'joint', 'joint_actual_position',
 	'joints', 'kinematics_type', 'lube', 'lube_level', 'mist', 'motion_line',
 	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
-	'probe_tripped', 'probe_val', 'probed_position', 'probing', 'program_units',
-	'queue', 'queue_full', 'read_line', 'settings', 'spindle', 'spindles',
-	'state', 'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
+	'probe_tripped', 'probe_val', 'probed_position', 'probing', 'queue',
+	'queue_full', 'read_line', 'settings', 'spindle', 'spindles', 'state',
+	'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
 	'tool_from_pocket', 'tool_offset', 'tool_table']
 
 	# check for status labels in the ui key is label and value is status item
