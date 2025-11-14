@@ -1186,6 +1186,17 @@ def setup_status_labels(parent):
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
 		parent.home_required.append('mdi_s_pb')
 
+	# Special case in case you want to use the label to annotate
+	# multiple places in the UI.
+	parent.program_units_labels = []
+	for child in parent.child_names:
+		if child.startswith('program_units_lb'):
+			parent.program_units_labels.append(child)
+
+		# These don't change and only need to be set once during startup
+		if child.startswith('machine_units_lb'):
+			getattr(parent, child).setText(parent.units.upper())
+
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.child_names:
 		utilities.read_dir(parent) # this is called from actions as well
