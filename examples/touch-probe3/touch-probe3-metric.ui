@@ -216,7 +216,7 @@ Off</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -3005,7 +3005,7 @@ SET</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -3249,7 +3249,7 @@ SET</string>
           <number>3</number>
          </property>
          <property name="minimum">
-          <double>0.001000000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="maximum">
           <double>999.000000000000000</double>
@@ -3382,7 +3382,7 @@ SET</string>
           <double>999.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
           <double>-0.500000000000000</double>
@@ -3526,7 +3526,7 @@ SET</string>
           <double>999.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
           <double>0.100000000000000</double>
@@ -3921,10 +3921,10 @@ SET</string>
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>0.125000000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="maximum">
-          <double>0.750000000000000</double>
+          <double>50.000000000000000</double>
          </property>
          <property name="singleStep">
           <double>0.001000000000000</double>
@@ -4011,16 +4011,16 @@ SET</string>
           <number>3</number>
          </property>
          <property name="minimum">
-          <double>0.125000000000000</double>
+          <double>2.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>0.750000000000000</double>
+          <double>50.000000000000000</double>
          </property>
          <property name="singleStep">
           <double>0.001000000000000</double>
          </property>
          <property name="value">
-          <double>0.250000000000000</double>
+          <double>2.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -4455,7 +4455,7 @@ make more than one pass.</string>
           <number>-1</number>
          </property>
          <property name="decimals">
-          <number>0</number>
+          <number>2</number>
          </property>
          <property name="minimum">
           <double>0.000000000000000</double>
@@ -4464,10 +4464,10 @@ make more than one pass.</string>
           <double>99.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>1.000000000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="value">
-          <double>32.000000000000000</double>
+          <double>1.500000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -4486,7 +4486,7 @@ make more than one pass.</string>
           </rect>
          </property>
          <property name="text">
-          <string>PITCH _ TPI</string>
+          <string>PITCH _MM</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4711,7 +4711,7 @@ make more than one pass.</string>
           <double>999.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="value">
           <double>0.100000000000000</double>
@@ -4783,10 +4783,10 @@ greater than ZSTART</string>
           <double>999.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="value">
-          <double>10.000000000000000</double>
+          <double>30.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -4983,16 +4983,16 @@ greater than ZSTART</string>
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>0.015600000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="maximum">
-          <double>0.750000000000000</double>
+          <double>20.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.188000000000000</double>
+          <double>2.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -5073,16 +5073,16 @@ greater than ZSTART</string>
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>0.125000000000000</double>
+          <double>1.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>0.750000000000000</double>
+          <double>50.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.250000000000000</double>
+          <double>5.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -5632,7 +5632,7 @@ greater than ZSTART</string>
           <double>1.000000000000000</double>
          </property>
          <property name="value">
-          <double>60.000000000000000</double>
+          <double>200.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -5717,10 +5717,10 @@ greater than ZSTART</string>
           <double>999.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.100000000000000</double>
+          <double>2.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -5938,7 +5938,7 @@ greater than ZSTART</string>
           <number>-1</number>
          </property>
          <property name="decimals">
-          <number>0</number>
+          <number>2</number>
          </property>
          <property name="minimum">
           <double>0.000000000000000</double>
@@ -5947,10 +5947,10 @@ greater than ZSTART</string>
           <double>99.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>1.000000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>32.000000000000000</double>
+          <double>1.500000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -5969,7 +5969,7 @@ greater than ZSTART</string>
           </rect>
          </property>
          <property name="text">
-          <string>PITCH _ TPI</string>
+          <string>PITCH _ MM</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -6153,16 +6153,16 @@ greater than ZSTART</string>
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>0.001500000000000</double>
+          <double>0.100000000000000</double>
          </property>
          <property name="maximum">
-          <double>0.750000000000000</double>
+          <double>50.000000000000000</double>
          </property>
          <property name="singleStep">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.135000000000000</double>
+          <double>5.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -6353,7 +6353,7 @@ greater than ZSTART</string>
           <double>1.000000000000000</double>
          </property>
          <property name="value">
-          <double>3.000000000000000</double>
+          <double>5.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>
@@ -6406,7 +6406,7 @@ greater than ZSTART</string>
           <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.100000000000000</double>
+          <double>5.000000000000000</double>
          </property>
          <property name="function" stdset="0">
           <string>set_var</string>

@@ -1,9 +1,9 @@
-o<thread_mill> sub
+o<thread_mill_m> sub
 	o100 if [#5400 EQ 0]
 		(debug,Tool must be non zero)
 		M30
 	o100 endif
-	G20 G17
+	G21 G17
 	G0 G90 G53 Z0							; get out of everybody's way
 	G90 G0 X#2097 Y#2098					; int - move to center
 	F#2100	S#2101							; set feed & spindle rpm up front
@@ -137,31 +137,31 @@ o<thread_mill> sub
 	o113 endif
 	G0 G90 G53 Z0							; get out of everybody's way
 	M5										; don't forget the spindle
-o<thread_mill> endsub
+o<thread_mill_m> endsub
 M2
 
 ;	Parameters
-#2089	FORM = #INTERN0_EXTERN1
-#2090	DIR_RH1_LH0 is direction of thread RH THREAD = 0, LH THREAD = 1
-#2091	THREADS is threads per inch
-#2092	MAJOR_DIAMETER is major pitch diameter
-#2093	MINOR_DIAMETER is minor pitch diameter
-#2094	NO_OF_PASSES is the number of passes to create
-#2095	THREADMILL_D is diameter of the single point cutter
-#2096	FULL_THREADS how many full threads do you want
-#2097	CENTER_X locates the helix X center
-#2098	CENTER_Y locates the helix Y center
-#2099	START_Z locates the start of thread for Z (leadin move added above this)
-#2100	feedrate
-#2101	spindle rpm
-#2102	pitch calc
-#2103	total pitch
-#2104	first helix
-#2105	final helix
-#2106	od start calc
-#2107	pass count work var
-#2108	threadmill Radius
-#2109	Z-CLEAR	
+;#2089	FORM = #INTERN0_EXTERN1
+;#2090	DIR_RH1_LH0 is direction of thread RH THREAD = 0, LH THREAD = 1
+;#2091	THREADS is threads per inch
+;#2092	MAJOR_DIAMETER is major pitch diameter
+;#2093	MINOR_DIAMETER is minor pitch diameter
+;#2094	NO_OF_PASSES is the number of passes to create
+;#2095	THREADMILL_D is diameter of the single point cutter
+;#2096	FULL_THREADS how many full threads do you want
+;#2097	CENTER_X locates the helix X center
+;#2098	CENTER_Y locates the helix Y center
+;#2099	START_Z locates the start of thread for Z (leadin move added above this)
+;#2100	feedrate
+;#2101	spindle rpm
+;#2102	pitch calc
+;#2103	total pitch
+;#2104	first helix
+;#2105	final helix
+;#2106	od start calc
+;#2107	pass count work var
+;#2108	threadmill Radius
+;#2109	Z-CLEAR	
 
 
 
