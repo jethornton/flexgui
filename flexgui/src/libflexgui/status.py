@@ -501,8 +501,9 @@ def update(parent):
 			parent.program_units = 'INCH'
 		else:
 			parent.program_units = 'MM'
-		if 'program_units_lb' in parent.child_names:
-			parent.program_units_lb.setText(parent.program_units)
+		
+		for units_lb_name in parent.program_units_labels:
+			getattr(parent, units_lb_name).setText(parent.program_units)
 
 		parent.g_codes = parent.status.gcodes
 
