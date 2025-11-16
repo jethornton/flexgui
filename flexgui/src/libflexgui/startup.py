@@ -778,6 +778,14 @@ def setup_buttons(parent): # connect buttons to functions
 			child.clicked.connect(partial(actions.load_file, parent))
 			# FIXME add to enable disables
 
+	parent.flashing_buttons = []
+	for child in parent.findChildren(QPushButton):
+		if (child.isCheckable and 
+			child.property("flash_state") in ["checked", "unchecked"] and
+			child.objectName() not in parent.flashing_buttons):
+			# Not sure why I was getting dupes
+			parent.flashing_buttons.append(child.objectName())
+
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
 	parent.shortcuts = []

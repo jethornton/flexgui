@@ -113,6 +113,37 @@ To make a font bold use the font-weight, 400 is normal and 700 is bold.
 
 .. WARNING:: Any errors will make the rest of the stylesheet not apply.
 
+Flashing
+--------
+
+Checkable buttons, like estop_pb, power_pb, or hal_buttons that are checkable can flash when in one of the two states.  This is controlled by adding a `flash_state` property in Qt Designer to the desired checkable button.  The values for this property can be `checked` or `unchecked`
+
+When the button checked state (`isChecked()`) matches the state of the `flash_state`, the control will flashed by setting the `flashing` dynamic property.  This can be styled using QSS using a property selector:
+
+Example
+::
+
+	QPushButton#estop_pb {
+		font-size: 24px;
+		font-weight: 700;
+		background-color: yellow;
+		border-style: outset;
+		border-width: 5;
+		border-color: red;
+		border-radius: 10;
+	}
+
+	QPushButton#estop_pb:checked {
+		color: white;
+		background-color: red;
+		border-style: inset;
+		border-color: yellow;
+	}
+
+	QPushButton:!checked[flashing="True"] {
+		background-color: red;
+	}
+
 
 Examples
 --------
