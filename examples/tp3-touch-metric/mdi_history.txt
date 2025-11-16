@@ -1,0 +1,91 @@
+(debug, 2103 #2103)
+(debug, 2096 #2096)
+G90 G0 X0 Y0 Z0
+M7
+M8
+M9
+M7
+M8
+M9
+M7
+M8
+M9
+M7
+M8
+M7
+M8
+M9
+M7
+M8
+M9
+M7
+M8
+M7
+M9
+M7
+M8
+M7
+M8
+M7
+M8
+G90 G0 X0 Y0 Z0
+o<c_right_back_out> call
+G90 G0 X0 Y0 Z0
+G1 X0 Y0 Z0 F60
+G90 G0 X0 Y0 Z0
+G0 X1
+G90 G0 X0 Y0 Z0
+G90 G0 X0 Y0
+G90 G0 X0 Y0 Z0
+G90 G0 X0 Y0
+G90 G0 X0 Y0 Z0
+G0 G20 X1 Y1
+G90 G0 X0 Y0
+G0 G21 X1 Y1
+G90 G0 X0 Y0 Z0
+G0 G20 X1 Y1
+G21
+G20
+G90 G0 X0 Y0 Z0
+G90 G0 X0 Y0
+G10 L20 P0 X 0
+G10 L20 P0 Y 0
+G10 L20 P0 Z 0
+G90 G0 X0 Y0
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern> call
+G90 G0 X0 Y0 Z0
+M9
+M7
+M8
+M9
+o<bolt_hole_pattern> call
+o<bolt_hole_countersink_pattern> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern> call
+o<bolt_hole_countersink_pattern> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern_m> call
+o<bolt_hole_countersink_pattern_m> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern_m> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern_m> call
+o<bolt_hole_countersink_pattern_m> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern_m> call
+o<bolt_hole_countersink_pattern_m> call
+o<slot_mill_m> call
+G90 G0 X0 Y0 Z0
+M9
+G90 G0 X0 Y0 Z0
+M9
+o<bolt_hole_pattern_m> call
+o<bolt_hole_countersink_pattern_m> call
+o<slot_mill_m> call
+o<thread_mill_m> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern_m> call
+o<bolt_hole_countersink_pattern_m> call

@@ -1,0 +1,45 @@
+T1   P1   D+0.045000 Z-1.308157 ;#1 center drill
+T2   P2   D+0.031250 Z-0.596323 ;1/32" end mill
+T3   P3   D+0.062500 ;1/16" end mill
+T4   P4   D+0.093750 ;3/32" end mill
+T5   P5   D+0.125000 Z+0.016000 ;1/8" end mill
+T6   P6   D+0.156200 Z-0.731188 ;5/32" end mill
+T7   P7   D+0.187500 Z-0.000430 ;3/16" end mill
+T8   P8   D+0.187500 ;3/16" 60 deg end mill
+T9   P9   D+0.250000 Z+0.309600 ;1/4" roughing end mill
+T10  P10  D+0.250000 ;1/4" 2 flute end mill
+T11  P11  D+0.250000 Z+0.519500 ;1/4" 3 flute 60 deg end mill
+T12  P12  D+0.375000 Z+0.463307 ;3/8 60 deg end mill
+T13  P13  D+0.187500 ;3/16 ball mill
+T14  P14  D+0.250000 Z+0.336601 ;1/4" ball mill
+T15  P15  D+0.312500 Z+0.336601 ;5/16" ball mill
+T16  P16  D+1.125000 ;1 1/8" face mill
+T17  P17  D+2.500000 ;2 1/2" fly cutter
+T18  P18  D+0.201000 Z+2.564500 ;1/8"drill
+T19  P19  D+0.106500 Z+2.271700 ;1/16" drill
+T20  P20  D+0.375000 Z+2.665600 ;1/4" drill
+T21  P21  D+0.138000 Z+0.925429 ;6-32 tap
+T22  P22  D+0.164000 Z+0.198350 ;8-32 tap
+T23  P23  D+0.312500 Z+1.797340 ;5/16 reamer
+T24  P24  D+0.125000 ;1/8" ball mill
+T25  P25  D+0.375000 Z+0.212000 ;3/8 chamfer
+T26  P26  D+0.125000 Z+0.331608 ;1/8" ball mill
+T27  P27  D+0.002000 Z+0.519500 ;engraving bit
+T28  P28  D+0.135000 Z+0.469434 ;#10 thread mill
+T29  P29  D+0.180000 Z-2.056120 ;1/4" thread mill
+T30  P30  D+0.240000 Z+0.118777 ;5/16 thread mill
+T31  P31  D+0.290000 Z+0.719400 ;3/8 thread mill
+T32  P32  D+0.372000 Z+0.396546 ;1/2 thread mill
+T33  P33  D+0.490000 ;5/8 thread mill
+T34  P34  D+0.595000 Z+0.718511 ;3/4" thread mill
+T35  P35  D+0.595000 Z+0.804686 ;3/4" thread mill steel
+T36  P36  D+0.046000 Z+0.048370 ;1/16 corner rounding
+T37  P37  D+0.062500 ;3/32 corner rounding
+T38  P38  D+0.093000 Z-0.240563 ;1/8 corner rounding
+T39  P39  D+2.764000 Z-0.727775 ;slitting saw
+T40  P40  D+1.261000 ;slitting saw
+T41  P41  D+1.000000 Z+0.012800 ;1" woodruff key cutter
+T42  P42  D+0.093500 Z+2.184580 ;#42
+T43  P43  Z+2.352500 ;#22 drill
+T44  P44  ;3\16 drill
+T45  P45  D+0.500000 ;.500 dowel pin
