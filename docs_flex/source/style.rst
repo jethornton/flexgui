@@ -23,6 +23,37 @@ are good references to use when creating your own stylesheets.
    may not appear unless you set the border property to some value, even if
    border is set to none.
 
+Rules
+-----
+
+When multiple rules apply, QSS follows specificity rules similar to CSS. More
+specific selectors (e.g., those with pseudo-states or object names) take
+precedence. If specificity is equal, the last rule defined in the stylesheet
+takes precedence. In this example if a QPushButton state is hover or pressed or
+disabled the background-color will change.
+::
+
+	QPushButton {
+		background-color: lightgray;
+		color: black;
+		border: 1px solid gray;
+		padding: 5px;
+	}
+	QPushButton:hover {
+		background-color: lightblue;
+		color: white;
+	}
+	QPushButton:pressed {
+		background-color: darkblue;
+		border-style: inset;
+	}
+	QPushButton:disabled {
+		background-color: #cccccc;
+		color: #666666;
+	}
+
+
+
 Colors
 ------
 
@@ -36,6 +67,52 @@ red, green blue in hexadecimal number pairs from 00 to ff.
 	#0000ff
 	rgb(0, 0, 255) Blue
 	rgba(0, 0, 255, 25%) Light Blue
+
+Controls
+--------
+
+The E Stop and Power button styles are set in the qss stylesheet. To target the
+Estop button use `#estop_pb` to target the Power button use `#power_pb`.
+
+Example
+::
+
+	QPushButton#estop_pb {
+		font-size: 24px;
+		font-weight: 700;
+		background-color: yellow;
+		border-style: outset;
+		border-width: 5;
+		border-color: red;
+		border-radius: 10;
+	}
+	QPushButton#estop_pb:checked {
+		color: white;
+		background-color: red;
+		border-style: inset;
+		border-color: yellow;
+	}
+
+	QPushButton#power_pb {
+		font-size: 24px;
+		font-weight: 800;
+		background-color: red;
+		border-style: outset;
+		border-width: 5;
+		border-color: green;
+		border-radius: 10;
+	}
+	QPushButton#power_pb:checked {
+		color: white;
+		background-color: green;
+		border-style: inset;
+		border-color: black;
+	}
+
+To make a font bold use the font-weight, 400 is normal and 700 is bold.
+
+.. WARNING:: Any errors will make the rest of the stylesheet not apply.
+
 
 Examples
 --------

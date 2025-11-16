@@ -250,29 +250,46 @@ def read(parent):
 	if not parent.led_off_color: # use default led off color
 		parent.led_off_color = QColor(255, 0, 0, 255)
 
+	# FIXME remove this in 1.3.2
+	color_nag = False
 	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
 	if parent.estop_open_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.estop_open_color, 'ESTOP_OPEN_COLOR')
 		if color:
 			parent.estop_open_color = f'background-color: {color};'
+			color_nag = True
 
+	# FIXME remove this in 1.3.2
 	parent.estop_closed_color = parent.inifile.find('FLEXGUI', 'ESTOP_CLOSED_COLOR') or False
 	if parent.estop_closed_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.estop_closed_color, 'ESTOP_CLOSED_COLOR')
 		if color:
 			parent.estop_closed_color = f'background-color: {color};'
+			color_nag = True
 
+	# FIXME remove this in 1.3.2
 	parent.power_off_color = parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
 	if parent.power_off_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.power_off_color, 'POWER_OFF_COLOR')
 		if color:
 			parent.power_off_color = f'background-color: {color};'
+			color_nag = True
 
+	# FIXME remove this in 1.3.2
 	parent.power_on_color = parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
 	if parent.power_on_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.power_on_color, 'POWER_ON_COLOR')
 		if color:
 			parent.power_on_color = f'background-color: {color};'
+			color_nag = True
+
+	if color_nag:
+		msg = (f'The FLEXGUI E Stop and Power Colors\n'
+		'function from the ini file will be removed in v1.3.2.\n'
+		'Use the qss stylesheet to set this option.\n'
+		'See the Stylesheet Controls section of the\n'
+		'Documents for instructions.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 
 	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
 	if parent.probe_enable_on_color: # get a valid color string
