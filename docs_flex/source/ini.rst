@@ -266,6 +266,9 @@ To set the DRO labels to follow the program units add the following
 Colors
 ^^^^^^
 
+.. WARNING:: The colors has been moved to the qss stylesheet and this will be
+   removed in version 1.3.2 See the :doc:`style` for how to apply styles.
+
 The E-Stop can have a static color for Open and Closed.
 
 The Power Button can have a static color for Off and On.

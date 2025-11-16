@@ -37,6 +37,52 @@ red, green blue in hexadecimal number pairs from 00 to ff.
 	rgb(0, 0, 255) Blue
 	rgba(0, 0, 255, 25%) Light Blue
 
+Controls
+--------
+
+The E Stop and Power button styles are set in the qss stylesheet. To target the
+Estop button use `#estop_pb` to target the Power button use `#power_pb`.
+
+Example
+::
+
+	QPushButton#estop_pb {
+		font-size: 24px;
+		font-weight: 700;
+		background-color: yellow;
+		border-style: outset;
+		border-width: 5;
+		border-color: red;
+		border-radius: 10;
+	}
+	QPushButton#estop_pb:checked {
+		color: white;
+		background-color: red;
+		border-style: inset;
+		border-color: yellow;
+	}
+
+	QPushButton#power_pb {
+		font-size: 24px;
+		font-weight: 800;
+		background-color: red;
+		border-style: outset;
+		border-width: 5;
+		border-color: green;
+		border-radius: 10;
+	}
+	QPushButton#power_pb:checked {
+		color: white;
+		background-color: green;
+		border-style: inset;
+		border-color: black;
+	}
+
+To make a font bold use the font-weight, 400 is normal and 700 is bold.
+
+.. WARNING:: Any errors will make the rest of the stylesheet not apply.
+
+
 Examples
 --------
 
