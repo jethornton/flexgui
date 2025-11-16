@@ -165,6 +165,12 @@
           <property name="text">
            <string>E Stop</string>
           </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
           <property name="led_indicator" stdset="0">
            <bool>true</bool>
           </property>
@@ -177,18 +183,18 @@
           <property name="led_top_offset" stdset="0">
            <number>6</number>
           </property>
-          <property name="on_color" stdset="0">
+          <property name="led_on_color" stdset="0">
            <color>
-            <red>255</red>
+            <red>0</red>
             <green>255</green>
             <blue>0</blue>
            </color>
           </property>
-          <property name="off_color" stdset="0">
+          <property name="led_off_color" stdset="0">
            <color>
-            <red>222</red>
-            <green>24</green>
-            <blue>24</blue>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
            </color>
           </property>
          </widget>
@@ -218,7 +224,7 @@
           </property>
           <property name="led_on_color" stdset="0">
            <color>
-            <red>255</red>
+            <red>0</red>
             <green>255</green>
             <blue>0</blue>
            </color>
@@ -5786,7 +5792,7 @@
                     <widget class="QDoubleSpinBox" name="ops_st_angle">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5874,7 +5880,7 @@
                     <widget class="QDoubleSpinBox" name="ops_diam">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5914,7 +5920,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_start">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5954,7 +5960,7 @@
                     <widget class="QDoubleSpinBox" name="ops_center_y">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6010,7 +6016,7 @@
                     <widget class="QDoubleSpinBox" name="ops_center_x">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6072,7 +6078,7 @@
                     <widget class="QDoubleSpinBox" name="ops_holes">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6144,7 +6150,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_depth">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6216,7 +6222,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_depth_2">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6256,7 +6262,7 @@
                     <widget class="QDoubleSpinBox" name="ops_feed">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6267,7 +6273,7 @@
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>2</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
                       <double>0.000000000000000</double>
