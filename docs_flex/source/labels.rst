@@ -222,11 +222,11 @@ status items.
 	lube_level_lb - returns integer
 	reflects iocontrol.0.lube_level
 
-	machine_units_lb* - return string - "MM" or "INCH"
+	machine_units_lb - return string - "MM" or "INCH"
 	returns the machine's native units, reflects [TRAJ]LINEAR_UNITS INI value.
 	All labels with an object name that starts with `machine_units_lb` will be 
 	updated with this value, (eg. `machine_units_lb_1`) allowing the label to be 
-	used multiple times in the UI.  Updated once on start-up.
+	used multiple times in the UI. Updated once on start-up.
 
 	max_acceleration_lb - returns float - precision can be set
 	maximum acceleration. Reflects [TRAJ]MAX_ACCELERATION
@@ -296,7 +296,7 @@ status items.
 		CANON_UNITS_INCHES = 1,
 		CANON_UNITS_MM = 2
 
-	program_units_lb* - return string - "MM" or "INCH"
+	program_units_lb - return string - "MM" or "INCH"
 	returns the program's current units, reflects G20 and G21 mode.
 	All labels with an object name that starts with `program_units_lb` will be 
 	updated with this value, (eg. `program_units_lb_1`) allowing the label to be 
