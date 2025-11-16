@@ -219,9 +219,11 @@ def update(parent):
 				elif parent.tool_changed:
 					parent.tool_changed = False
 					parent.command.mode(emc.MODE_MANUAL)
-					#print('status.py 212 parent.command.mode(emc.MODE_MANUAL)')
 					parent.command.wait_complete()
-					#print('status.py 214 parent.command.wait_complete()')
+				else:
+					parent.command.mode(emc.MODE_MANUAL)
+					parent.command.wait_complete()
+
 
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
