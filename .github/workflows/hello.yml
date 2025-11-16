@@ -1,0 +1,11 @@
+name: Build for ARM
+
+jobs:
+  hello:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Print Hello World
+        run: 'echo "Hello World"'
