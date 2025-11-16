@@ -10,3 +10,4 @@ setp flexhal.hal-io-spinbox 10
 setp flexhal.hal-io-dbl-spinbox 1.2
 setp flexhal.hal-io-rb1 True
 
+net limit-tripped flexhal.trip => joint.0.neg-lim-sw-in

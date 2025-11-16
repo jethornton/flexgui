@@ -960,8 +960,20 @@
         </item>
         <item row="1" column="2">
          <widget class="QPushButton" name="estop_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>65</height>
+           </size>
+          </property>
           <property name="text">
-           <string>E Stop</string>
+           <string/>
           </property>
           <property name="open_text" stdset="0">
            <string>E Open</string>
@@ -974,10 +986,16 @@
         <item row="2" column="3">
          <widget class="QPushButton" name="pushButton_11">
           <property name="text">
-           <string>LED Button</string>
+           <string>Limit Error</string>
           </property>
-          <property name="led_button" stdset="0">
+          <property name="checkable">
            <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>trip</string>
           </property>
          </widget>
         </item>
@@ -999,8 +1017,26 @@
         </item>
         <item row="1" column="3">
          <widget class="QPushButton" name="power_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>65</height>
+           </size>
+          </property>
           <property name="text">
-           <string>Power</string>
+           <string/>
+          </property>
+          <property name="on_text" stdset="0">
+           <string>Energized</string>
+          </property>
+          <property name="off_text" stdset="0">
+           <string>Power Off</string>
           </property>
          </widget>
         </item>
