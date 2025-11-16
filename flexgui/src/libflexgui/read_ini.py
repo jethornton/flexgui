@@ -262,6 +262,39 @@ def read(parent):
 		if color:
 			parent.estop_closed_color = f'background-color: {color};'
 
+	qss_content = ""
+	if parent.qss_file:
+		try:
+			with open(parent.qss_file, 'r') as f:
+				qss_content += f.read()
+		except FileNotFoundError:
+			pass
+	if parent.theme:
+		try:
+			with open(parent.theme, 'r') as f:
+				qss_content += f.read()
+		except FileNotFoundError:
+			pass
+	print(qss_content)
+	if qss_content == "":
+		qss_content = False
+
+	if ((parent.estop_closed_color and not parent.estop_open_color) or
+		(parent.estop_open_color and not parent.estop_closed_color)):
+		msg = ('ESTOP_CLOSED_COLOR and ESTOP_OPEN_COLOR must both be present '
+			'in order for these configuration items to take effect.\n'
+			'These styles will not be applied to the E-Stop button.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if qss_content and parent.estop_closed_color and parent.estop_open_color:
+		if "estop_state" in qss_content:
+			msg = ('Style sheet contains `estop_state` styles while '
+			    'ESTOP_CLOSED_COLOR and ESTOP_OPEN_COLOR are '
+				'present in the INI file.\n'
+				'ESTOP_CLOSED_COLOR and ESTOP_OPEN_COLOR will override '
+				'the styles in the style sheet.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 	parent.power_off_color = parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
 	if parent.power_off_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.power_off_color, 'POWER_OFF_COLOR')
@@ -274,6 +307,21 @@ def read(parent):
 		if color:
 			parent.power_on_color = f'background-color: {color};'
 
+	if ((parent.power_on_color and not parent.power_off_color) or
+		(parent.power_off_color and not parent.power_on_color)):
+		msg = ('POWER_ON_COLOR and POWER_OFF_COLOR must both be present '
+			'in order for these configuration items to take effect.\n'
+			'These styles will not be applied to the Power button.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+	
+	if qss_content and parent.power_on_color and parent.power_off_color:
+		if "power_state" in qss_content:
+			msg = ('Style sheet contains `power_state` styles while '
+			    'POWER_ON_COLOR and POWER_OFF_COLOR are'
+				'present in the INI file.\n'
+				'POWER_ON_COLOR and POWER_OFF_COLOR will override '
+				'the styles in the style sheet.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
 	if parent.probe_enable_on_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.probe_enable_on_color, 'PROBE_ENABLE_ON_COLOR')
@@ -285,6 +333,22 @@ def read(parent):
 		color = utilities.string_to_rgba(parent, parent.probe_enable_off_color, 'PROBE_ENABLE_OFF_COLOR')
 		if color:
 			parent.probe_enable_off_color = f'background-color: {color};'
+
+	if ((parent.probe_enable_on_color and not parent.probe_enable_off_color) or
+		(parent.probe_enable_off_color and not parent.probe_enable_on_color)):
+		msg = ('PROBE_ENABLE_ON_COLOR and PROBE_ENABLE_OFF_COLOR must both be present '
+			'in order for these configuration items to take effect.\n'
+			'These styles will not be applied to the Power button.')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+	
+	if qss_content and parent.probe_enable_on_color and parent.probe_enable_off_color:
+		if "probe_enable_state" in qss_content:
+			msg = ('Style sheet contains `probe_enable_state` styles while'
+		    	'PROBE_ENABLE_ON_COLOR and PROBE_ENABLE_OFF_COLOR are '
+				'present in the INI file.\n'
+				'PROBE_ENABLE_ON_COLOR and PROBE_ENABLE_OFF_COLOR will override '
+				'the styles in the style sheet.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	parent.plot_background_color = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
 	if parent.plot_background_color:
