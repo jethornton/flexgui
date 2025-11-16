@@ -56,6 +56,11 @@ def update(parent):
 			for key, value in parent.state_estop_checked.items():
 				getattr(parent, key).setChecked(value)
 
+			if 'estop_pb' in parent.child_names:
+				parent.estop_pb.setChecked(False)
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.setChecked(False)
+
 			if parent.estop_open_color: # if False just don't bother
 				if 'estop_pb' in parent.child_names:
 					parent.estop_pb.setStyleSheet(parent.estop_open_color)
@@ -89,6 +94,9 @@ def update(parent):
 				getattr(parent, key).setText(value)
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
+
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.setChecked(False)
 
 			if parent.estop_closed_color: # if False just don't bother
 				if 'estop_pb' in parent.child_names:

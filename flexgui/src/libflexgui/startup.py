@@ -630,7 +630,6 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	action_buttons = {
-	'power_pb': 'action_power',
 	'run_pb': 'action_run',
 	'run_from_line_pb': 'action_run_from_line',
 	'step_pb': 'action_step',
@@ -669,6 +668,8 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.state_estop_reset_names['estop_pb'] = closed_text
 
 	if 'power_pb' in parent.child_names:
+		parent.power_pb.toggled.connect(partial(actions.action_power, parent))
+		parent.power_pb.setCheckable(True)
 		off_text = parent.power_pb.property('off_text')
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
