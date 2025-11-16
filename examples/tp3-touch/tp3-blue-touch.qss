@@ -112,6 +112,19 @@ QPushButton:disabled {
 	border-color: #808080;
 }
 
+/******************************************************/
+QPushButton:checked {
+	background-color: rgba(0, 192, 0, 40%); border none;
+	/* background-color: rgba(0, 192, 0, 90%); border none; */
+	border-style: inset;
+	}
+	
+QPushButton:unchecked {
+	background-color: darkgray; border none;
+	border-style: inset;
+	}	
+/******************************************************/
+
 /***** QAbstractSpinBox *****/
 /* QAbstractSpinBox > QLineEdit */
 /* QSpinBox::up-arrow:disabled */
