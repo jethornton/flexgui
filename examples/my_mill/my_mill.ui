@@ -1494,120 +1494,175 @@
        <attribute name="title">
         <string>Tools</string>
        </attribute>
-       <widget class="QGroupBox" name="groupBox_11">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>401</width>
-          <height>91</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Tool Change</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QComboBox" name="tool_change_cb"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="tool_change_pb">
-           <property name="text">
-            <string>Tool Change</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="tool_in_spindle_lb">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_12">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>120</y>
-          <width>362</width>
-          <height>73</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Tool Change Buttons</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_20">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="tool_change_pb_0">
-           <property name="text">
-            <string>Tool 0</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="tool_change_pb_1">
-           <property name="text">
-            <string>Tool 1</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="tool_change_pb_2">
-           <property name="text">
-            <string>Tool 2</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="tool_change_pb_3">
-           <property name="text">
-            <string>Tool 3</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_13">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>220</y>
-          <width>407</width>
-          <height>73</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Tool Touch Off</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_21">
-         <item row="0" column="0">
-          <widget class="QLineEdit" name="tool_touchoff_le"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="tool_touchoff_x">
-           <property name="text">
-            <string>X</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="tool_touchoff_y">
-           <property name="text">
-            <string>Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="tool_touchoff_z">
-           <property name="text">
-            <string>Z</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_34">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Tool Change</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QComboBox" name="tool_change_cb"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="tool_change_pb">
+             <property name="text">
+              <string>Tool Change</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="tool_in_spindle_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="3">
+         <widget class="QGroupBox" name="groupBox_22">
+          <property name="minimumSize">
+           <size>
+            <width>225</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>GroupBox</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_35">
+           <item row="4" column="0">
+            <widget class="QLabel" name="motion_type_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="motion_mode_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="interpreter_errcode_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="exec_state_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="task_state_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="state_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="interp_state_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="task_mode_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="title">
+           <string>Tool Change Buttons</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_20">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="tool_change_pb_0">
+             <property name="text">
+              <string>Tool 0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="tool_change_pb_2">
+             <property name="text">
+              <string>Tool 2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="tool_change_pb_1">
+             <property name="text">
+              <string>Tool 1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="tool_change_pb_3">
+             <property name="text">
+              <string>Tool 3</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_13">
+          <property name="title">
+           <string>Tool Touch Off</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_21">
+           <item row="0" column="0">
+            <widget class="QLineEdit" name="tool_touchoff_le"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="tool_touchoff_x">
+             <property name="text">
+              <string>X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="tool_touchoff_y">
+             <property name="text">
+              <string>Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="tool_touchoff_z">
+             <property name="text">
+              <string>Z</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_8">
        <attribute name="title">
@@ -1818,91 +1873,6 @@
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_8">
-          <property name="minimumSize">
-           <size>
-            <width>500</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>State and Mode Labels</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_24">
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_51">
-             <property name="text">
-              <string>motion_mode_lb</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="exec_state_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_52">
-             <property name="text">
-              <string>exec_state_lb</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="motion_mode_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_53">
-             <property name="text">
-              <string>interp_state_lb</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_54">
-             <property name="text">
-              <string>task_mode_lb</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="interp_state_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="task_mode_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_55">
-             <property name="text">
-              <string>task_state_lb</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="task_state_lb">
-             <property name="text">
-              <string>TextLabel</string>
              </property>
             </widget>
            </item>
