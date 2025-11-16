@@ -4451,7 +4451,7 @@
                       <number>3</number>
                      </property>
                      <property name="maximum">
-                      <double>100.000000000000000</double>
+                      <double>1000.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.100000000000000</double>
@@ -4549,10 +4549,10 @@
                       <number>3</number>
                      </property>
                      <property name="minimum">
-                      <double>-20.000000000000000</double>
+                      <double>-500.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>20.000000000000000</double>
+                      <double>500.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.010000000000000</double>
@@ -4589,7 +4589,7 @@
                       <double>0.150000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>4.000000000000000</double>
+                      <double>100.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.010000000000000</double>
@@ -4636,7 +4636,7 @@
                       <number>3</number>
                      </property>
                      <property name="maximum">
-                      <double>50.000000000000000</double>
+                      <double>2000.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.100000000000000</double>
@@ -4855,7 +4855,7 @@
                       <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.078700000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -4882,11 +4882,14 @@
                      <property name="decimals">
                       <number>3</number>
                      </property>
+                     <property name="maximum">
+                      <double>999.000000000000000</double>
+                     </property>
                      <property name="singleStep">
                       <double>0.001000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.250000000000000</double>
+                      <double>5.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -4930,10 +4933,10 @@
                       <number>3</number>
                      </property>
                      <property name="minimum">
-                      <double>-50.000000000000000</double>
+                      <double>-75.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>50.000000000000000</double>
+                      <double>75.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.010000000000000</double>
@@ -5016,7 +5019,7 @@
                       <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.500000000000000</double>
+                      <double>10.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -5060,13 +5063,13 @@
                       <number>3</number>
                      </property>
                      <property name="maximum">
-                      <double>99.989999999999995</double>
+                      <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.250000000000000</double>
+                      <double>10.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -5138,7 +5141,7 @@
                       <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.000000000000000</double>
+                      <double>25.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -5737,7 +5740,7 @@
                       <string>mdi</string>
                      </property>
                      <property name="command" stdset="0">
-                      <string>o&lt;bolt_hole_pattern&gt; call</string>
+                      <string>o&lt;bolt_hole_pattern_m&gt; call</string>
                      </property>
                     </widget>
                    </item>
@@ -5759,7 +5762,7 @@
                       <string>mdi</string>
                      </property>
                      <property name="command" stdset="0">
-                      <string>o&lt;bolt_hole_countersink_pattern&gt; call</string>
+                      <string>o&lt;bolt_hole_countersink_pattern_m&gt; call</string>
                      </property>
                     </widget>
                    </item>
@@ -5786,7 +5789,7 @@
                     <widget class="QDoubleSpinBox" name="ops_st_angle">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5874,7 +5877,7 @@
                     <widget class="QDoubleSpinBox" name="ops_diam">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5894,10 +5897,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>1.000000000000000</double>
+                      <double>25.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -5914,7 +5917,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_start">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5934,7 +5937,7 @@
                       <double>0.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -5954,7 +5957,7 @@
                     <widget class="QDoubleSpinBox" name="ops_center_y">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5974,7 +5977,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -6010,7 +6013,7 @@
                     <widget class="QDoubleSpinBox" name="ops_center_x">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6030,7 +6033,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -6072,7 +6075,7 @@
                     <widget class="QDoubleSpinBox" name="ops_holes">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6144,7 +6147,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_depth">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6164,10 +6167,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>-0.500000000000000</double>
+                      <double>-2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6216,7 +6219,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_depth_2">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6236,10 +6239,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>3.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6256,7 +6259,7 @@
                     <widget class="QDoubleSpinBox" name="ops_feed">
                      <property name="minimumSize">
                       <size>
-                       <width>165</width>
+                       <width>160</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6276,10 +6279,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>10.000000000000000</double>
+                      <double>100.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6404,10 +6407,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>3.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6454,16 +6457,16 @@
                       <number>3</number>
                      </property>
                      <property name="minimum">
-                      <double>0.125000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>0.750000000000000</double>
+                      <double>50.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.250000000000000</double>
+                      <double>3.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6516,7 +6519,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -6572,10 +6575,10 @@
                       <double>0.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>-0.250000000000000</double>
+                      <double>-2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6628,7 +6631,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -6684,10 +6687,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>10.000000000000000</double>
+                      <double>50.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6718,16 +6721,16 @@
                       <number>4</number>
                      </property>
                      <property name="minimum">
-                      <double>0.125000000000000</double>
+                      <double>0.500000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>0.750000000000000</double>
+                      <double>50.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.188000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -6872,7 +6875,7 @@
                         <string>mdi</string>
                        </property>
                        <property name="command" stdset="0">
-                        <string>o&lt;hole_mill&gt; call</string>
+                        <string>o&lt;hole_mill_m&gt; call</string>
                        </property>
                       </widget>
                      </item>
@@ -6993,7 +6996,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -7097,7 +7100,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -7169,10 +7172,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -7209,10 +7212,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -7249,7 +7252,7 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -7345,10 +7348,10 @@
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>10.000000000000000</double>
+                      <double>30.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -7370,7 +7373,7 @@
                       </size>
                      </property>
                      <property name="text">
-                      <string>PITCH _ TPI</string>
+                      <string>PITCH _ MM</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -7392,7 +7395,7 @@
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>0</number>
+                      <number>2</number>
                      </property>
                      <property name="minimum">
                       <double>0.000000000000000</double>
@@ -7401,10 +7404,10 @@
                       <double>99.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>1.000000000000000</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="value">
-                      <double>32.000000000000000</double>
+                      <double>1.500000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -7484,7 +7487,7 @@
                         <string>mdi</string>
                        </property>
                        <property name="command" stdset="0">
-                        <string>o&lt;rigid_tap&gt; call</string>
+                        <string>o&lt;rigid_tap_m&gt; call</string>
                        </property>
                       </widget>
                      </item>
@@ -7720,7 +7723,7 @@ greater than ZSTART</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -7767,19 +7770,19 @@ greater than ZSTART</string>
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>4</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
-                      <double>0.015600000000000</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>0.750000000000000</double>
+                      <double>20.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.188000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -7872,7 +7875,7 @@ greater than ZSTART</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -7920,7 +7923,7 @@ RPM</string>
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>4</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
                       <double>-999.000000000000000</double>
@@ -7929,10 +7932,10 @@ RPM</string>
                       <double>0.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>-0.100000000000000</double>
+                      <double>-2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -7976,19 +7979,19 @@ RPM</string>
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>4</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
-                      <double>0.125000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>0.750000000000000</double>
+                      <double>50.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.250000000000000</double>
+                      <double>5.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8041,10 +8044,10 @@ RPM</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8110,7 +8113,7 @@ RPM</string>
                       <widget class="QDoubleSpinBox" name="ops_slot_y2">
                        <property name="minimumSize">
                         <size>
-                         <width>160</width>
+                         <width>170</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -8130,7 +8133,7 @@ RPM</string>
                         <double>999.000000000000000</double>
                        </property>
                        <property name="singleStep">
-                        <double>0.001000000000000</double>
+                        <double>0.010000000000000</double>
                        </property>
                        <property name="value">
                         <double>0.000000000000000</double>
@@ -8166,7 +8169,7 @@ RPM</string>
                       <widget class="QDoubleSpinBox" name="ops_slot_x2">
                        <property name="minimumSize">
                         <size>
-                         <width>160</width>
+                         <width>170</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -8186,7 +8189,7 @@ RPM</string>
                         <double>999.000000000000000</double>
                        </property>
                        <property name="singleStep">
-                        <double>0.001000000000000</double>
+                        <double>0.010000000000000</double>
                        </property>
                        <property name="value">
                         <double>0.000000000000000</double>
@@ -8222,7 +8225,7 @@ RPM</string>
                       <widget class="QDoubleSpinBox" name="ops_slot_feed">
                        <property name="minimumSize">
                         <size>
-                         <width>160</width>
+                         <width>170</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -8242,10 +8245,10 @@ RPM</string>
                         <double>999.000000000000000</double>
                        </property>
                        <property name="singleStep">
-                        <double>0.001000000000000</double>
+                        <double>0.010000000000000</double>
                        </property>
                        <property name="value">
-                        <double>10.000000000000000</double>
+                        <double>30.000000000000000</double>
                        </property>
                        <property name="function" stdset="0">
                         <string>set_var</string>
@@ -8329,7 +8332,7 @@ RPM</string>
                           <string>mdi</string>
                          </property>
                          <property name="command" stdset="0">
-                          <string>o&lt;slot_mill&gt; call</string>
+                          <string>o&lt;slot_mill_m&gt; call</string>
                          </property>
                         </widget>
                        </item>
@@ -8467,7 +8470,7 @@ RPM</string>
                       <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>5.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8511,7 +8514,7 @@ RPM</string>
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>4</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
                       <double>0.000000000000000</double>
@@ -8523,7 +8526,7 @@ RPM</string>
                       <double>0.001000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.156000000000000</double>
+                      <double>3.141000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8595,7 +8598,7 @@ RPM</string>
                       <double>1.000000000000000</double>
                      </property>
                      <property name="value">
-                      <double>60.000000000000000</double>
+                      <double>200.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8664,7 +8667,7 @@ RPM</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -8695,19 +8698,19 @@ RPM</string>
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>4</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
-                      <double>0.001500000000000</double>
+                      <double>0.100000000000000</double>
                      </property>
                      <property name="maximum">
-                      <double>0.750000000000000</double>
+                      <double>50.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.001000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.135000000000000</double>
+                      <double>3.429000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8767,7 +8770,7 @@ RPM</string>
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>4</number>
+                      <number>3</number>
                      </property>
                      <property name="minimum">
                       <double>0.000000000000000</double>
@@ -8776,10 +8779,10 @@ RPM</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.190000000000000</double>
+                      <double>4.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -8832,7 +8835,7 @@ RPM</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
                       <double>0.000000000000000</double>
@@ -8872,10 +8875,10 @@ RPM</string>
                       <double>999.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>0.001000000000000</double>
+                      <double>0.010000000000000</double>
                      </property>
                      <property name="value">
-                      <double>0.100000000000000</double>
+                      <double>2.000000000000000</double>
                      </property>
                      <property name="function" stdset="0">
                       <string>set_var</string>
@@ -9007,7 +9010,7 @@ OF PASSES</string>
                         </size>
                        </property>
                        <property name="text">
-                        <string>PITCH _ TPI</string>
+                        <string>PITCH _ MM</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -9018,7 +9021,7 @@ OF PASSES</string>
                       <widget class="QDoubleSpinBox" name="ops_thread_int_ext">
                        <property name="minimumSize">
                         <size>
-                         <width>112</width>
+                         <width>116</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -9058,7 +9061,7 @@ OF PASSES</string>
                       <widget class="QDoubleSpinBox" name="ops_thread_full_threads">
                        <property name="minimumSize">
                         <size>
-                         <width>112</width>
+                         <width>116</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -9081,7 +9084,7 @@ OF PASSES</string>
                         <double>1.000000000000000</double>
                        </property>
                        <property name="value">
-                        <double>3.000000000000000</double>
+                        <double>5.000000000000000</double>
                        </property>
                        <property name="function" stdset="0">
                         <string>set_var</string>
@@ -9098,7 +9101,7 @@ OF PASSES</string>
                       <widget class="QDoubleSpinBox" name="ops_thread_passes">
                        <property name="minimumSize">
                         <size>
-                         <width>112</width>
+                         <width>116</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -9138,7 +9141,7 @@ OF PASSES</string>
                       <widget class="QDoubleSpinBox" name="ops_thread_tpi">
                        <property name="minimumSize">
                         <size>
-                         <width>112</width>
+                         <width>116</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -9149,7 +9152,7 @@ OF PASSES</string>
                         <number>-1</number>
                        </property>
                        <property name="decimals">
-                        <number>0</number>
+                        <number>2</number>
                        </property>
                        <property name="minimum">
                         <double>0.000000000000000</double>
@@ -9158,10 +9161,10 @@ OF PASSES</string>
                         <double>99.000000000000000</double>
                        </property>
                        <property name="singleStep">
-                        <double>1.000000000000000</double>
+                        <double>0.010000000000000</double>
                        </property>
                        <property name="value">
-                        <double>32.000000000000000</double>
+                        <double>1.500000000000000</double>
                        </property>
                        <property name="function" stdset="0">
                         <string>set_var</string>
@@ -9229,7 +9232,7 @@ THREADS</string>
                       <widget class="QDoubleSpinBox" name="ops_thread_rh_lh">
                        <property name="minimumSize">
                         <size>
-                         <width>112</width>
+                         <width>116</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -9321,7 +9324,7 @@ THREADS</string>
                         <string>mdi</string>
                        </property>
                        <property name="command" stdset="0">
-                        <string>o&lt;thread_mill&gt; call</string>
+                        <string>o&lt;thread_mill_m&gt; call</string>
                        </property>
                       </widget>
                      </item>
