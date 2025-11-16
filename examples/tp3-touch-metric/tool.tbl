@@ -1,0 +1,5 @@
+T1  P1  D0.045  ;#1 center drill
+T2  P2  D2  ;2mm endmill
+T3  P3  D3  ;3mm endmill
+T4  P4  D6  ;6mm endmill
+T5  P5  D8  ;8mm endmill

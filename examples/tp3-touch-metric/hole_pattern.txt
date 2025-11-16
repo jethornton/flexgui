@@ -1,0 +1,30 @@
+Select the proper drill and set the Z length offset ahead of this.
+
+To start over the active offset X0 Y0, leave Center X Center Y set to 0.
+Jog to X0 Y0 before beginning. Enter a value here to run the op
+at an offset from X0 Y0 using G92. This will be the pattern Diameter center.
+
+Pattern Z-CLEAR is the distance above Z-START for the drill cycles.
+
+Settings for the Counterbore and Rigid tap are independent
+of the settings in Hole Pattern excepting for the pattern.
+
+Z-CLEAR for the bore is set in it's own tab and is the start point
+for the helix. It will cut to the desired depth from Z0 regardless
+where Z-CLEAR is set above Z0.
+
+Pattern Z-DEPTH is the distance from the Z-CLEAR plane.
+
+Diameter is the circumference for the hole centers.
+
+Holes is the hole count in the circular array.
+
+Start Angle set to 0 starts at 0 deg starting on the right side going CCW.
+To have an offset angle for the starting hole enter the angle here.
+
+Pattern Z-START - moves to this depth before starting the drill cycle and
+should be at or below Z0 for the tool (negative). 
+
+Enter proper Speed & Feed for your drill. 
+For peck cycle G83 enter a Q word value. A zero Q word value selects
+the normal G81 drill cycle.

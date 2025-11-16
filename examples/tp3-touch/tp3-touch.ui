@@ -5720,28 +5720,6 @@
                     <number>2</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="pushButton_2">
-                     <property name="minimumSize">
-                      <size>
-                       <width>100</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="toolTip">
-                      <string>Set parameters for Counterbore &amp; Tap in BoreMill &amp; RigidTap tabs</string>
-                     </property>
-                     <property name="text">
-                      <string>RUN BORE / TAP</string>
-                     </property>
-                     <property name="function" stdset="0">
-                      <string>mdi</string>
-                     </property>
-                     <property name="command" stdset="0">
-                      <string>o&lt;bolt_hole_countersink_pattern&gt; call</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QPushButton" name="pushButton">
                      <property name="minimumSize">
                       <size>
@@ -5760,6 +5738,28 @@
                      </property>
                      <property name="command" stdset="0">
                       <string>o&lt;bolt_hole_pattern&gt; call</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>Set parameters for Counterbore &amp; Tap in BoreMill &amp; RigidTap tabs</string>
+                     </property>
+                     <property name="text">
+                      <string>RUN BORE / TAP</string>
+                     </property>
+                     <property name="function" stdset="0">
+                      <string>mdi</string>
+                     </property>
+                     <property name="command" stdset="0">
+                      <string>o&lt;bolt_hole_countersink_pattern&gt; call</string>
                      </property>
                     </widget>
                    </item>
@@ -5786,7 +5786,7 @@
                     <widget class="QDoubleSpinBox" name="ops_st_angle">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5874,7 +5874,7 @@
                     <widget class="QDoubleSpinBox" name="ops_diam">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5914,7 +5914,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_start">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -5954,7 +5954,7 @@
                     <widget class="QDoubleSpinBox" name="ops_center_y">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6010,7 +6010,7 @@
                     <widget class="QDoubleSpinBox" name="ops_center_x">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6072,7 +6072,7 @@
                     <widget class="QDoubleSpinBox" name="ops_holes">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6144,7 +6144,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_depth">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6216,7 +6216,7 @@
                     <widget class="QDoubleSpinBox" name="ops_z_depth_2">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6256,7 +6256,7 @@
                     <widget class="QDoubleSpinBox" name="ops_feed">
                      <property name="minimumSize">
                       <size>
-                       <width>160</width>
+                       <width>165</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -6267,7 +6267,7 @@
                       <number>-1</number>
                      </property>
                      <property name="decimals">
-                      <number>3</number>
+                      <number>2</number>
                      </property>
                      <property name="minimum">
                       <double>0.000000000000000</double>
