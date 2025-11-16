@@ -23,8 +23,15 @@ def toggle(parent):
 		if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 			parent.probing_enable_pb.led = True
 
-		if parent.probe_enable_on_color:
+		# Must have both otherwise you get stuck in the one you have
+		# with no way to change it back
+		if parent.probe_enable_on_color and parent.probe_enable_off_color:
 			parent.probing_enable_pb.setStyleSheet(parent.probe_enable_on_color)
+		else:
+			# Set some dynamic properties and trigger a refresh of the stylesheet
+			if 'probing_enable_pb' in parent.child_names:
+				parent.probing_enable_pb.setProperty('probe_enable_state', 'on')
+				parent.probing_enable_pb.setStyleSheet(parent.probing_enable_pb.styleSheet())
 
 	else: # probing is disabled
 		parent.probing = False
@@ -40,6 +47,13 @@ def toggle(parent):
 		if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 			parent.probing_enable_pb.led = False
 
-		if parent.probe_enable_off_color:
+		# Must have both otherwise you get stuck in the one you have
+		# with no way to change it back
+		if parent.probe_enable_off_color and parent.probe_enable_on_color:
 			parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+		else:
+			# Set some dynamic properties and trigger a refresh of the stylesheet
+			if 'probing_enable_pb' in parent.child_names:
+				parent.probing_enable_pb.setProperty('probe_enable_state', 'off')
+				parent.probing_enable_pb.setStyleSheet(parent.probing_enable_pb.styleSheet())
 

@@ -744,16 +744,37 @@ def setup_buttons(parent): # connect buttons to functions
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
 
 	# set button background colors if needed
-	if parent.estop_open_color: # if False just don't bother
+	# Must have both otherwise you get stuck in the one you have
+	# with no way to change it back
+	if parent.estop_open_color and parent.estop_closed_color: # if False just don't bother
 		if 'estop_pb' in parent.child_names:
 			parent.estop_pb.setStyleSheet(parent.estop_open_color)
 		if 'flex_E_Stop' in parent.child_names:
 			parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
-	if parent.power_off_color: # if False just don't bother
+	else:
+		# Set some dynamic properties and trigger a refresh of the stylesheet
+		if 'estop_pb' in parent.child_names:
+			parent.estop_pb.setProperty('estop_state', 'open')
+			parent.estop_pb.setStyleSheet(parent.estop_pb.styleSheet())
+		if 'flex_E_Stop' in parent.child_names:
+			parent.flex_E_Stop.setProperty('estop_state', 'open')
+			parent.flex_E_Stop.setStyleSheet(parent.flex_E_Stop.styleSheet())
+
+	# Must have both otherwise you get stuck in the one you have
+	# with no way to change it back	
+	if parent.power_off_color and parent.power_on_color: # if False just don't bother
 		if 'power_pb' in parent.child_names:
 			parent.power_pb.setStyleSheet(parent.power_off_color)
 		if 'flex_Power' in parent.child_names:
 			parent.flex_Power.setStyleSheet(parent.power_off_color)
+	else:
+		# Set some dynamic properties and trigger a refresh of the stylesheet
+		if 'estop_pb' in parent.child_names:
+			parent.estop_pb.setProperty('estop_state', 'closed')
+			parent.estop_pb.setStyleSheet(parent.estop_pb.styleSheet())
+		if 'flex_E_Stop' in parent.child_names:
+			parent.flex_E_Stop.setProperty('estop_state', 'closed')
+			parent.flex_E_Stop.setStyleSheet(parent.flex_E_Stop.styleSheet())
 
 	# file open buttons
 	for child in parent.findChildren(QPushButton):
@@ -1751,9 +1772,15 @@ def setup_probing(parent):
 			off_text = parent.probing_enable_pb.property('off_text')
 			if None not in [on_text, off_text]:
 				parent.probing_enable_pb.setText(off_text)
-			if parent.probe_enable_off_color:
-				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
+			# Must have both otherwise you get stuck in the one you have
+			# with no way to change it back
+			if parent.probe_enable_off_color and parent.probe_enable_on_color:
+				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+			else:
+				# Set some dynamic properties and trigger a refresh of the stylesheet
+				parent.probing_enable_pb.setProperty('probe_enable_state', 'off')
+				parent.probing_enable_pb.setStyleSheet(parent.probing_enable_pb.styleSheet())
 		else:
 			msg = ('The Probing Enable Push Button\n'
 				'was not found, all probe controls\n'
