@@ -23,6 +23,37 @@ are good references to use when creating your own stylesheets.
    may not appear unless you set the border property to some value, even if
    border is set to none.
 
+Rules
+-----
+
+When multiple rules apply, QSS follows specificity rules similar to CSS. More
+specific selectors (e.g., those with pseudo-states or object names) take
+precedence. If specificity is equal, the last rule defined in the stylesheet
+takes precedence. In this example if a QPushButton state is hover or pressed or
+disabled the background-color will change.
+::
+
+	QPushButton {
+		background-color: lightgray;
+		color: black;
+		border: 1px solid gray;
+		padding: 5px;
+	}
+	QPushButton:hover {
+		background-color: lightblue;
+		color: white;
+	}
+	QPushButton:pressed {
+		background-color: darkblue;
+		border-style: inset;
+	}
+	QPushButton:disabled {
+		background-color: #cccccc;
+		color: #666666;
+	}
+
+
+
 Colors
 ------
 
