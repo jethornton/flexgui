@@ -9,6 +9,9 @@ o<thread_mill> sub
 	F#2100	S#2101							; set feed & spindle rpm up front
 	M3										; spindle on
 	#2107 = #2094							; save pass count to temp var
+	o99 if [#2107 EQ 0]					; #2107 temp var for #2094
+		#2107 = 1							; must be at least one pass
+	o99 endif
 	#2108 = [#2095/2]						; get tool radius for leadin moves
 	#2102 = [1 / #2091]						; calculate pitch
 	o112 if [#2089 EQ 0]
