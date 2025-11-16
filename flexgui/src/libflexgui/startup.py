@@ -784,12 +784,12 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.flex_Power.setStyleSheet(parent.power_off_color)
 	else:
 		# Set some dynamic properties and trigger a refresh of the stylesheet
-		if 'estop_pb' in parent.child_names:
-			parent.estop_pb.setProperty('estop_state', 'closed')
-			parent.estop_pb.setStyleSheet(parent.estop_pb.styleSheet())
-		if 'flex_E_Stop' in parent.child_names:
-			parent.flex_E_Stop.setProperty('estop_state', 'closed')
-			parent.flex_E_Stop.setStyleSheet(parent.flex_E_Stop.styleSheet())
+		if 'power_pb' in parent.child_names:
+			parent.power_pb.setProperty('power_state', 'closed')
+			parent.power_pb.setStyleSheet(parent.power_pb.styleSheet())
+		if 'flex_Power' in parent.child_names:
+			parent.flex_Power.setProperty('power_state', 'closed')
+			parent.flex_Power.setStyleSheet(parent.flex_Power.styleSheet())
 
 	# file open buttons
 	for child in parent.findChildren(QPushButton):
