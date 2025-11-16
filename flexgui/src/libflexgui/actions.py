@@ -475,8 +475,8 @@ def action_toggle_program(parent):
 		utilities.sync_checkboxes(parent, 'view_program_pb', 'actionProgram')
 		utilities.sync_checkboxes(parent, 'view_program_pb', 'view_program_cb')
 	elif name == 'actionProgram':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_program_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_program_pb')
+		utilities.sync_checkboxes(parent, 'actionProgram', 'view_program_cb')
+		utilities.sync_checkboxes(parent, 'actionProgram', 'view_program_pb')
 
 def action_toggle_rapids(parent):
 	if parent.sender().isChecked():
@@ -493,8 +493,8 @@ def action_toggle_rapids(parent):
 		utilities.sync_checkboxes(parent, 'view_rapids_pb', 'actionRapids')
 		utilities.sync_checkboxes(parent, 'view_rapids_pb', 'view_rapids_cb')
 	elif name == 'actionRapids':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_rapids_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_rapids_pb')
+		utilities.sync_checkboxes(parent, 'actionRapids', 'view_rapids_cb')
+		utilities.sync_checkboxes(parent, 'actionRapids', 'view_rapids_pb')
 
 def action_toggle_tool(parent):
 	if parent.sender().isChecked():
@@ -511,8 +511,8 @@ def action_toggle_tool(parent):
 		utilities.sync_checkboxes(parent, 'view_tool_pb', 'actionTool')
 		utilities.sync_checkboxes(parent, 'view_tool_pb', 'view_tool_cb')
 	elif name == 'actionTool':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_tool_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_tool_pb')
+		utilities.sync_checkboxes(parent, 'actionTool', 'view_tool_cb')
+		utilities.sync_checkboxes(parent, 'actionTool', 'view_tool_pb')
 
 def action_toggle_lathe_radius(parent):
 	if parent.sender().isChecked():
@@ -529,8 +529,8 @@ def action_toggle_lathe_radius(parent):
 		utilities.sync_checkboxes(parent, 'view_lathe_radius_pb', 'actionLathe_Radius')
 		utilities.sync_checkboxes(parent, 'view_lathe_radius_pb', 'view_lathe_radius_cb')
 	elif name == 'actionLathe_Radius':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_lathe_radius_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_lathe_radius_pb')
+		utilities.sync_checkboxes(parent, 'actionLathe_Radius', 'view_lathe_radius_cb')
+		utilities.sync_checkboxes(parent, 'actionLathe_Radius', 'view_lathe_radius_pb')
 
 def action_toggle_dtg(parent):
 	if parent.sender().isChecked():
@@ -547,8 +547,8 @@ def action_toggle_dtg(parent):
 		utilities.sync_checkboxes(parent, 'view_dtg_pb', 'actionDTG')
 		utilities.sync_checkboxes(parent, 'view_dtg_pb', 'view_dtg_cb')
 	elif name == 'actionDTG':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_dtg_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_dtg_pb')
+		utilities.sync_checkboxes(parent, 'actionDTG', 'view_dtg_cb')
+		utilities.sync_checkboxes(parent, 'actionDTG', 'view_dtg_pb')
 
 def action_toggle_offsets(parent):
 	if parent.sender().isChecked():
@@ -565,8 +565,8 @@ def action_toggle_offsets(parent):
 		utilities.sync_checkboxes(parent, 'view_offsets_pb', 'actionOffsets')
 		utilities.sync_checkboxes(parent, 'view_offsets_pb', 'view_offsets_cb')
 	elif name == 'actionOffsets':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_offsets_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_offsets_pb')
+		utilities.sync_checkboxes(parent, 'actionOffsets', 'view_offsets_cb')
+		utilities.sync_checkboxes(parent, 'actionOffsets', 'view_offsets_pb')
 
 def action_toggle_overlay(parent):
 	if parent.sender().isChecked():
@@ -583,8 +583,8 @@ def action_toggle_overlay(parent):
 		utilities.sync_checkboxes(parent, 'view_overlay_pb', 'actionOverlay')
 		utilities.sync_checkboxes(parent, 'view_overlay_pb', 'view_overlay_cb')
 	elif name == 'actionOverlay':
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_overlay_cb')
-		utilities.sync_checkboxes(parent, 'actionMetric_Units', 'view_overlay_pb')
+		utilities.sync_checkboxes(parent, 'actionOverlay', 'view_overlay_cb')
+		utilities.sync_checkboxes(parent, 'actionOverlay', 'view_overlay_pb')
 
 def action_clear_live_plot(parent):
 	parent.plotter.clear_live_plotter()
