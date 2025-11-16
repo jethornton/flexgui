@@ -279,6 +279,7 @@ def action_quit(parent): # actionQuit
 	parent.close()
 
 def action_estop(parent): # actionEstop
+	print(f'sender {parent.sender().objectName()}')
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 	else:

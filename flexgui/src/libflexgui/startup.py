@@ -472,22 +472,6 @@ def setup_enables(parent):
 		}
 	'''
 
-	parent.state_estop_reset_names = {}
-	if 'estop_pb' in parent.child_names:
-		closed_text = parent.estop_pb.property('closed_text')
-		if closed_text is not None:
-			parent.state_estop_reset_names['estop_pb'] = closed_text
-
-	if 'power_pb' in parent.child_names:
-		off_text = parent.power_pb.property('off_text')
-		if off_text is not None:
-			parent.state_estop_reset_names['power_pb'] = off_text
-
-	# remove any items not found in the gui
-	for item in list(parent.state_estop_reset_names):
-		if item not in parent.child_names:
-			del parent.state_estop_reset_names[item]
-
 	# STATE_ON home, jog, spindle
 	parent.state_on = {
 		'power_pb': True, 'run_pb': False,
@@ -646,7 +630,6 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	action_buttons = {
-	'estop_pb': 'action_estop',
 	'power_pb': 'action_power',
 	'run_pb': 'action_run',
 	'run_from_line_pb': 'action_run_from_line',
@@ -676,6 +659,24 @@ def setup_buttons(parent): # connect buttons to functions
 	for key, value in action_buttons.items():
 		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+
+	parent.state_estop_reset_names = {}
+	if 'estop_pb' in parent.child_names:
+		parent.estop_pb.toggled.connect(partial(actions.action_estop, parent))
+		parent.estop_pb.setCheckable(True)
+		closed_text = parent.estop_pb.property('closed_text')
+		if closed_text is not None:
+			parent.state_estop_reset_names['estop_pb'] = closed_text
+
+	if 'power_pb' in parent.child_names:
+		off_text = parent.power_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_reset_names['power_pb'] = off_text
+
+	# remove any items not found in the gui
+	#for item in list(parent.state_estop_reset_names):
+	#	if item not in parent.child_names:
+	#		del parent.state_estop_reset_names[item]
 
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
