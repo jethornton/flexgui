@@ -260,8 +260,7 @@ default shape is round.
    :align: center
 
 	**Property Type**, **Property Name**, **Pin Value**
-	Bool, hal_led_label, True
-	String, function, hal_led
+	String, function, hal_led_label
 	String, pin_name, any unique name
 	, Optional
 	Color, led_on_color, color of your choice

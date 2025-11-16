@@ -21,6 +21,7 @@ import traceback
 
 from libflexgui import led
 from libflexgui.led import LEDButton
+from libflexgui.led import IndicatorLabel
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
@@ -184,7 +185,8 @@ def setup_hal_led_buttons(parent):
 def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
-		if child.property('hal_led_label'): # bool property
+		#if child.property('hal_led_label') or 
+		if child.property('function') == 'hal_led_label':
 			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property pin_name\n'
@@ -231,6 +233,15 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 				new_label.setParent(child_parent)
 				new_label.setGeometry(geometry)
 
+			# copy style from old label to new label
+			new_label.setAlignment(child.alignment())
+			new_label.setFrameShape(child.frameShape())
+			new_label.setFrameShadow(child.frameShadow())
+			new_label.setFont(child.font())
+			#print(child.font())
+
+			#print(child.alignment())
+
 			#for name_bytes in child.dynamicPropertyNames():
 			#	name = name_bytes.data().decode("utf-8")
 			#	value = child.property(name_bytes)
@@ -241,10 +252,14 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 			setattr(parent, led_dict['name'], new_label) # give the new label the old name
 			parent.hal_led_labels[led_dict['name']] = led_dict['pin_name']
 
+			#for key, value in led_dict.items():
+			#	print(key, value)
+
 def setup_hal_leds(parent): # LED
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
-		if child.property('hal_led'): # bool property
+		#if child.property('hal_led'): # bool property
+		if child.property('function') == 'hal_led':
 
 			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED {child.objectName()}\n'
@@ -1953,6 +1968,47 @@ def setup_hal(parent):
 				if button_name != 'tool_changed_pb':
 					parent.state_on[button_name] = True
 
+	##### HAL_LED_LABELS ##### these are not QLabel but IndicatorLabel
+	for button in parent.findChildren(IndicatorLabel):
+		if button.property('function') == 'hal_led_label':
+			button_name = button.objectName()
+			pin_name = button.property('pin_name')
+
+			if pin_name in [None, '']:
+				button.setEnabled(False)
+				msg = (f'The HAL LED Button {button_name}\n'
+				f'with the text {button.text()}\n'
+				f'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {button_name} button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				button.setEnabled(False)
+				msg = (f'HAL LED Button {button_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if button_name == pin_name:
+				button.setEnabled(False)
+				msg = (f'The object name {button_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+
 	##### HAL_IO #####
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_io':
@@ -2549,7 +2605,7 @@ def setup_hal(parent):
 
 			on_color = led.property('on_color')
 			off_color = led.property('off_color')
-			
+
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, f'HAL_IN')
 
