@@ -1,0 +1,26 @@
+QPushButton {
+	font-size: 12px;
+	font-weight: 700;
+	background-color: yellow;
+	border-style: outset;
+	border-width: 2;
+	border-color: red;
+	border-radius: 6;
+}
+
+QPushButton:checked[flashing="True"] {
+	color: white;
+	background-color: blue;
+	border-style: inset;
+	border-color: yellow;
+}
+
+QPushButton:pressed {
+	background-color: blue;
+}
+
+/*
+QPushButton:!checked[flashing="True"] {
+	background-color: red;
+}
+*/
