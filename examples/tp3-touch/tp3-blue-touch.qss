@@ -119,10 +119,34 @@ QPushButton:checked {
 	border-style: inset;
 	}
 	
-QPushButton:unchecked {
-	background-color: darkgray; border none;
-	border-style: inset;
-	}	
+QPushButton#estop_pb {
+         background-color: rgba(192, 0, 0, 80%);
+/*        background-color: green; */
+        border-style: outset;
+        border-width: 3;
+        border-color: grey;
+        border-radius: 10;
+}
+QPushButton#estop_pb:checked {
+        color: white;
+        background-color: rgba(0, 192, 0, 80%);
+        border-style: inset;
+/*        border-color: yellow; */
+}
+
+QPushButton#power_pb {
+       background-color: rgba(192, 0, 0, 80%);
+        border-style: outset;
+        border-width: 3;
+        border-color: grey;
+        border-radius: 10;
+}
+QPushButton#power_pb:checked {
+        color: white;
+        background-color: rgba(0, 192, 0, 80%);
+        border-style: inset;
+/*        border-color: grey; */
+}	
 /******************************************************/
 
 /***** QAbstractSpinBox *****/
