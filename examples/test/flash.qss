@@ -1,26 +1,46 @@
-QPushButton {
+QPushButton#estop_pb {
 	font-size: 12px;
 	font-weight: 700;
 	background-color: yellow;
 	border-style: outset;
 	border-width: 2;
 	border-color: red;
-	border-radius: 6;
+	border-radius: 5;
 }
 
-QPushButton:checked[flashing="True"] {
+QPushButton#estop_pb:pressed {
+	background-color: red;
+}
+
+QPushButton#estop_pb:checked {
 	color: white;
-	background-color: blue;
+	background-color: red;
 	border-style: inset;
 	border-color: yellow;
 }
 
-QPushButton:pressed {
-	background-color: blue;
-}
-
-/*
-QPushButton:!checked[flashing="True"] {
+QPushButton#estop_pb:!checked[flashing="True"] {
 	background-color: red;
 }
-*/
+
+QPushButton#power_pb {
+	font-size: 12px;
+	font-weight: 700;
+	background-color: yellow;
+	border-style: outset;
+	border-width: 2;
+	border-color: red;
+	border-radius: 5;
+}
+
+QPushButton#power_pb:checked {
+	color: white;
+	background-color: red;
+	border-style: inset;
+	border-color: yellow;
+}
+
+QPushButton#power_pb:!checked:enabled[flashing="True"] {
+	background-color: red;
+}
+
