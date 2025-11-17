@@ -406,6 +406,20 @@ def previous_page(parent):
 		getattr(parent, object_name).setCurrentIndex(pages)
 
 
-
-
-
+def flash_buttons(parent):
+	# Store a boolean that toggles on each execution
+	flash_buttons.value = not getattr(flash_buttons, 'value', False)
+	for name in parent.flashing_buttons:
+		flashing_state = getattr(parent, name).property('flash_state')
+		checked_state =  getattr(parent, name).isChecked()
+		if (flashing_state == "unchecked" and not checked_state or
+			flashing_state == "checked" and checked_state):
+			# This button is flashing.  Update the flashing propery
+			# and trigger a refresh of the style sheet.
+			getattr(parent, name).setProperty('flashing', str(flash_buttons.value))
+			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
+		elif getattr(parent, name).property('flashing') is not None:
+			# This button not flashing.  Clear the flashing propery
+			# and trigger a refresh of the style sheet.
+			getattr(parent, name).setProperty('flashing', None)
+			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
