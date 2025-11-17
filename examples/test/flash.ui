@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton_1">
+   <widget class="QPushButton" name="estop_pb">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -24,16 +24,16 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>E Stop</string>
     </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
     <property name="flash_state" stdset="0">
-     <string>checked</string>
+     <string>unchecked</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="power_pb">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -43,13 +43,13 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Power</string>
     </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
     <property name="flash_state" stdset="0">
-     <string>checked</string>
+     <string>unchecked</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
