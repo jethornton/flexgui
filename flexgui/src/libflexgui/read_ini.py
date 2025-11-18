@@ -343,16 +343,16 @@ def read(parent):
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
-	parent.units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	parent.default_metric = 3
 	parent.default_inch = 4
-	match parent.units:
+	match parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False:
 		case 'inch':
 			parent.default_precision = 4
+			parent.units = 'INCH'
 		case 'mm':
 			parent.default_precision = 3
+			parent.units = 'MM'
 		case _:
-			parent.units = 'inch'
 			msg = ('[TRAJ] LINEAR_UNITS is a required\n'
 			'INI entry. LinuxCNC will close now.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
