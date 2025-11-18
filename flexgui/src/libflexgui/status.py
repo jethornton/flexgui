@@ -538,13 +538,11 @@ def update(parent):
 				parent.gcode_pte.setTextCursor(cursor)
 				parent.last_line = parent.motion_line
 
-	# update hal labels key is label name and value is pin name
-	for key, reader in parent.hal_readers.items():
-		value = reader[0]
-		integer_digits = reader[1]
-		state = hal.get_value(f'flexhal.{value}')
-		if integer_digits is not None:
-			state = f"{state:0{integer_digits}d}"
+	# update hal labels key is label name and value[0] is pin name value[1] is digits
+	for key, value in parent.hal_readers.items():
+		state = hal.get_value(f'flexhal.{value[0]}')
+		if value[1] is not None:
+			state = f"{state:0{value[1]}d}"
 		if isinstance(getattr(parent, key), QLCDNumber):
 			getattr(parent, key).display(f'{state}')
 		else:
