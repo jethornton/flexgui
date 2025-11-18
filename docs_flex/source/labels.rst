@@ -226,7 +226,9 @@ status items.
 	returns the machine's native units, reflects [TRAJ]LINEAR_UNITS INI value.
 	All labels with an object name that starts with `machine_units_lb` will be 
 	updated with this value, (eg. `machine_units_lb_1`) allowing the label to be 
-	used multiple times in the UI. Updated once on start-up.
+	used multiple times in the UI. Updated once on start-up.  Add a dynamic
+	property `suffix` (string) to add a suffix, for example "/min" to display
+	"<machine units>/min"
 
 	max_acceleration_lb - returns float - precision can be set
 	maximum acceleration. Reflects [TRAJ]MAX_ACCELERATION

@@ -1220,7 +1220,9 @@ def setup_status_labels(parent):
 
 		# These don't change and only need to be set once during startup
 		if child.startswith('machine_units_lb'):
-			getattr(parent, child).setText(parent.units.upper())
+			units = parent.units.upper()
+			units = units + (getattr(parent, child).property("suffix") or "")
+			getattr(parent, child).setText(units)
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.child_names:
@@ -2300,7 +2302,8 @@ def setup_hal(parent):
 				p = p if p is not None else parent.default_precision
 				parent.hal_floats[f'{lcd_name}'] = [pin_name, p] # lcd ,status item, precision
 			else:
-				parent.hal_readers[lcd_name] = pin_name
+				integer_digits = lcd.property('integer_digits')
+				parent.hal_readers[lcd_name] = [pin_name, integer_digits]
 
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
@@ -2376,7 +2379,8 @@ def setup_hal(parent):
 			elif true_text and false_text:
 				parent.hal_bool_labels[label_name] = [pin_name, true_text, false_text]
 			else:
-				parent.hal_readers[label_name] = pin_name
+				integer_digits = label.property('integer_digits')
+				parent.hal_readers[label_name] = [pin_name, integer_digits]
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
