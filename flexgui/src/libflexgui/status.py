@@ -539,8 +539,12 @@ def update(parent):
 				parent.last_line = parent.motion_line
 
 	# update hal labels key is label name and value is pin name
-	for key, value in parent.hal_readers.items():
+	for key, reader in parent.hal_readers.items():
+		value = reader[0]
+		integer_digits = reader[1]
 		state = hal.get_value(f'flexhal.{value}')
+		if integer_digits is not None:
+			state = f"{state:0{integer_digits}d}"
 		if isinstance(getattr(parent, key), QLCDNumber):
 			getattr(parent, key).display(f'{state}')
 		else:
