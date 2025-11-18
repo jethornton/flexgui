@@ -192,6 +192,20 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="3">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Machine Units</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QLabel" name="machine_units_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -1037,6 +1051,19 @@
           </property>
           <property name="off_text" stdset="0">
            <string>Power Off</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLCDNumber" name="lcdNumber">
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-lcd</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_S32</string>
           </property>
          </widget>
         </item>
