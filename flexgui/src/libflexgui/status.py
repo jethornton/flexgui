@@ -661,8 +661,8 @@ def update(parent):
 		getattr(parent, key).setText(f'{vel * 60:.{value[3]}f}')
 
 	# override items label : status item
-	for label, stat in parent.overrides.items():
-		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
+	for key, value in parent.overrides.items():
+		getattr(parent, key).setText(f'{getattr(parent.status, f"{value}") * 100:.0f}%')
 
 	# dio din_0_lb din[0] dout_0_lb dout[0]
 	for key, value in parent.status_dio.items():
