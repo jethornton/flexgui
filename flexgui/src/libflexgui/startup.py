@@ -1138,7 +1138,7 @@ def setup_status_labels(parent):
 	parent.overrides = {}
 	for key, value in override_items.items():
 		if key in parent.child_names:
-			parent.overrides[label] = value
+			parent.overrides[key] = value
 
 	# dio din_0_lb dout_0_lb
 	parent.status_dio = {}
