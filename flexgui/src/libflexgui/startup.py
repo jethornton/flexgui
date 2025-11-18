@@ -1220,9 +1220,8 @@ def setup_status_labels(parent):
 
 		# These don't change and only need to be set once during startup
 		if child.startswith('machine_units_lb'):
-			units = parent.units.upper()
-			units = units + (getattr(parent, child).property("suffix") or "")
-			getattr(parent, child).setText(units)
+			suffix = getattr(parent, child).property('suffix') or ''
+			getattr(parent, child).setText(f'{parent.units}{suffix}')
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.child_names:
@@ -1468,7 +1467,7 @@ def setup_jog_selected(parent):
 			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
 def conv_units(value, suffix, units):
-	if units == 'inch':
+	if units == 'INCH':
 		if suffix == 'in' or suffix == 'inch':
 			return float(value)
 		elif suffix == 'mil':
@@ -1480,7 +1479,7 @@ def conv_units(value, suffix, units):
 		elif suffix == 'um':
 			return float(value) / 25400
 
-	elif units == 'mm':
+	elif units == 'MM':
 		if suffix == 'in' or suffix == 'inch':
 			return float(value) * 25.4
 		elif suffix == 'mil':
