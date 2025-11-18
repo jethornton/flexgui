@@ -1136,9 +1136,9 @@ def setup_status_labels(parent):
 	override_items = {'feed_override_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
 
 	parent.overrides = {}
-	for label, stat in override_items.items():
-		if label in parent.child_names:
-			parent.overrides[label] = stat
+	for key, value in override_items.items():
+		if key in parent.child_names:
+			parent.overrides[label] = value
 
 	# dio din_0_lb dout_0_lb
 	parent.status_dio = {}
