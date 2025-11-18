@@ -7,7 +7,8 @@ sys.dont_write_bytecode = True
 
 from functools import partial
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QPlainTextEdit
+from PyQt6.QtWidgets import QPlainTextEdit, QListWidget
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
 from PyQt6.QtGui import QKeyEvent
@@ -24,9 +25,44 @@ from libflexgui import utilities
 from libflexgui import shutdown
 
 class KeyboardJog(QObject):
+	# These widget types use the keyboard arrows for naviation
+	KEYBOARD_USER_TYPES = (
+		QLineEdit, 
+		QPlainTextEdit, 
+		QListWidget
+	)
+
 	def __init__(self, window):
+		self._keyboard_jog_state = window.enable_kb_jogging
 		super().__init__()
 	def eventFilter(self, source, event):
+		# If we are entering a text box, temporarily disable keyboard jogging
+		if event.type() == QEvent.Type.FocusIn:
+			if isinstance(source, self.KEYBOARD_USER_TYPES):
+				self._keyboard_jog_state = window.enable_kb_jogging # Save for later
+				if 'keyboard_jog_cb' in window.child_names:
+					getattr(window, 'keyboard_jog_cb').setChecked(False)
+
+		# If we are leaving a text box, re-enable keyboard jogging if necessary
+		if event.type() == QEvent.Type.FocusOut:
+			if isinstance(source, self.KEYBOARD_USER_TYPES):
+				if 'keyboard_jog_cb' in window.child_names:
+					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
+
+		if (event.type() == QEvent.Type.KeyPress and not window.enable_kb_jogging and
+			source.objectName() == 'mdi_command_le'):
+			if 'mdi_history_lw' in window.child_names:
+				mdi_list = getattr(window, 'mdi_history_lw')
+				mdi_count = mdi_list.count()
+				if mdi_count > 0:
+					current_row = mdi_list.currentRow() if mdi_list.currentRow() >= 0 else mdi_count					
+					if event.key() == Qt.Key.Key_Up:
+						if current_row - 1 >= 0:
+							mdi_list.setCurrentRow(current_row - 1)
+					elif event.key() == Qt.Key.Key_Down:
+						if current_row + 1 < mdi_count:
+							mdi_list.setCurrentRow(current_row + 1)
+
 		# jog events check for state estop and release if keyboard_jogging is true
 		if event.type() == QEvent.Type.KeyPress and window.enable_kb_jogging:
 			if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
@@ -81,6 +117,15 @@ class KeyboardJog(QObject):
 				dialogs.keyboard(window, source)
 			elif source.objectName() in window.touch_sb:
 				dialogs.spinbox_numbers(window, source.parent())
+
+		# When we click the window, clear the focus
+		if event.type() == QEvent.Type.MouseButtonPress:
+			# QListWidgets take focus in a child.  Hence the .parent() check
+			if (not isinstance(source, self.KEYBOARD_USER_TYPES) and 
+				not isinstance(source.parent(), self.KEYBOARD_USER_TYPES)):
+				focused = QApplication.focusWidget()
+				if isinstance(focused, self.KEYBOARD_USER_TYPES):
+					focused.clearFocus()
 
 		return super().eventFilter(source, event) # pass the event on if not used
 
