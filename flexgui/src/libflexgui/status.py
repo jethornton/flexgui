@@ -545,7 +545,7 @@ def update(parent):
 			state = f"{state:0{value[1]}d}"
 		if isinstance(getattr(parent, key), QLCDNumber):
 			getattr(parent, key).display(f'{state}')
-		else:
+		else: # it's a HAL Label
 			getattr(parent, key).setText(f'{state}')
 
 	# update multi state labels
