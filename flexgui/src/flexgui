@@ -28,49 +28,54 @@ class KeyboardJog(QObject):
 		super().__init__()
 	def eventFilter(self, source, event):
 		# jog events check for state estop and release if keyboard_jogging is true
-		if event.type() == QEvent.Type.KeyPress and window.enable_kb_jogging:
-			if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
-				if event.key() == Qt.Key.Key_Left:
-					if event.isAutoRepeat():
+		if event.type() == QEvent.Type.KeyPress:
+			if event.modifiers() & Qt.KeyboardModifier.ControlModifier or window.enable_kb_jogging:
+				if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
+					if event.key() == Qt.Key.Key_Left:
+						if event.isAutoRepeat():
+							return True  # Consume the event
+						commands.keyboard_jog(window, True, 0, 'neg')
 						return True  # Consume the event
-					commands.keyboard_jog(window, True, 0, 'neg')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_Right:
-					if event.isAutoRepeat():
+					elif event.key() == Qt.Key.Key_Right:
+						if event.isAutoRepeat():
+							return True  # Consume the event
+						commands.keyboard_jog(window, True, 0, 'pos')
 						return True  # Consume the event
-					commands.keyboard_jog(window, True, 0, 'pos')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_Up:
-					if event.isAutoRepeat():
+					elif event.key() == Qt.Key.Key_Up:
+						if event.isAutoRepeat():
+							return True  # Consume the event
+						commands.keyboard_jog(window, True, 1, 'pos')
 						return True  # Consume the event
-					commands.keyboard_jog(window, True, 1, 'pos')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_Down:
-					if event.isAutoRepeat():
+					elif event.key() == Qt.Key.Key_Down:
+						if event.isAutoRepeat():
+							return True  # Consume the event
+						commands.keyboard_jog(window, True, 1, 'neg')
 						return True  # Consume the event
-					commands.keyboard_jog(window, True, 1, 'neg')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_PageUp:
-					if event.isAutoRepeat():
+					elif event.key() == Qt.Key.Key_PageUp:
+						if event.isAutoRepeat():
+							return True  # Consume the event
+						commands.keyboard_jog(window, True, 2, 'pos')
 						return True  # Consume the event
-					commands.keyboard_jog(window, True, 2, 'pos')
-					return True  # Consume the event
-				elif event.key() == Qt.Key.Key_PageDown:
-					if event.isAutoRepeat():
+					elif event.key() == Qt.Key.Key_PageDown:
+						if event.isAutoRepeat():
+							return True  # Consume the event
+						commands.keyboard_jog(window, True, 2, 'neg')
 						return True  # Consume the event
-					commands.keyboard_jog(window, True, 2, 'neg')
-					return True  # Consume the event
 
-		elif event.type() == QEvent.Type.KeyRelease and window.enable_kb_jogging:
-			if not event.isAutoRepeat():# and window.keyboard_jogging:
-				match event.key():
-					case Qt.Key.Key_Left | Qt.Key.Key_Right:
-						commands.keyboard_jog(window, False, 0)
-					case Qt.Key.Key_Up | Qt.Key.Key_Down:
-						commands.keyboard_jog(window, False, 1)
-					case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
-						commands.keyboard_jog(window, False, 2)
-				return True  # Consume the event
+		elif event.type() == QEvent.Type.KeyRelease:
+			if window.status.task_state == emc.STATE_ON:
+				if event.key() == Qt.Key.Key_Control:
+					commands.keyboard_jog(window, False)
+			elif window.enable_kb_jogging:
+				if not event.isAutoRepeat():# and window.keyboard_jogging:
+					match event.key():
+						case Qt.Key.Key_Left | Qt.Key.Key_Right:
+							commands.keyboard_jog(window, False, 0)
+						case Qt.Key.Key_Up | Qt.Key.Key_Down:
+							commands.keyboard_jog(window, False, 1)
+						case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
+							commands.keyboard_jog(window, False, 2)
+					return True  # Consume the event
 
 		if event.type() == QEvent.Type.MouseButtonRelease:
 			if source.objectName() in window.number_le:
