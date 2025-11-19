@@ -8,7 +8,7 @@ sys.dont_write_bytecode = True
 from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QPlainTextEdit
-from PyQt6.QtWidgets import QPlainTextEdit, QListWidget
+from PyQt6.QtWidgets import QPlainTextEdit, QListWidget, QRadioButton
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
 from PyQt6.QtGui import QKeyEvent
@@ -29,7 +29,8 @@ class KeyboardJog(QObject):
 	KEYBOARD_USER_TYPES = (
 		QLineEdit, 
 		QPlainTextEdit, 
-		QListWidget
+		QListWidget,
+		QRadioButton
 	)
 
 	def __init__(self, window):
