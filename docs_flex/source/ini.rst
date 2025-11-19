@@ -349,4 +349,18 @@ To add a manual tool change popup to add the following to the ini file in the
 	[FLEXGUI]
 	MANUAL_TOOL_CHANGE = True
 
+Keyboard Jog
+^^^^^^^^^^^^
 
+By default, when keyboard jogging is enabled, the arrow keys will take precidence
+for jogging over other functions, like controlling the cursor in QTextLines.  This 
+behavior can be changed by adding the following to the ini file in the [FLEXGUI] 
+section.
+::
+
+	[FLEXGUI]
+	TEXT_ENTRY_KEYBOARD_JOG_DISABLE = True
+
+With this setting in the INI file, keyboard jogging will be temporarily disabled
+when entering a QTextLine, QPlainTextEdit, or QListWidget.  Keyboard jog will
+be restored to the previous state when leaving the control.

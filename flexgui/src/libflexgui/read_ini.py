@@ -321,6 +321,9 @@ def read(parent):
 	# check for keyboard jogging
 	parent.enable_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
 
+	# disable keyboard jog during text endry
+	parent.text_entry_keyboard_jog_disable = parent.inifile.find('FLEXGUI', 'TEXT_ENTRY_KEYBOARD_JOG_DISABLE') or False
+
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
 
