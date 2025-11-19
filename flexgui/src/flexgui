@@ -8,7 +8,8 @@ sys.dont_write_bytecode = True
 from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QPlainTextEdit
-from PyQt6.QtWidgets import QPlainTextEdit, QListWidget, QRadioButton
+from PyQt6.QtWidgets import QPlainTextEdit, QListWidget, QRadioButton, QTabWidget, QTabBar
+from PyQt6.QtWidgets import QComboBox, QListView
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
 from PyQt6.QtGui import QKeyEvent
@@ -26,11 +27,21 @@ from libflexgui import shutdown
 
 class KeyboardJog(QObject):
 	# These widget types use the keyboard arrows for naviation
-	KEYBOARD_USER_TYPES = (
+	JOG_DISABLE_TYPES = (
 		QLineEdit, 
 		QPlainTextEdit, 
 		QListWidget,
-		QRadioButton
+		QRadioButton,
+		QListView,
+		QComboBox
+	)
+	AVOID_TAKING_FOCUS_TYPES = (
+		QLineEdit, 
+		QPlainTextEdit, 
+		QListWidget,
+		QListView,
+		QRadioButton,
+		QTabBar
 	)
 
 	def __init__(self, window):
@@ -39,7 +50,7 @@ class KeyboardJog(QObject):
 	def eventFilter(self, source, event):
 		# If we are entering a text box, temporarily disable keyboard jogging
 		if event.type() == QEvent.Type.FocusIn and window.text_entry_keyboard_jog_disable:
-			if isinstance(source, self.KEYBOARD_USER_TYPES):
+			if isinstance(source, self.JOG_DISABLE_TYPES):
 				self._keyboard_jog_state = window.enable_kb_jogging # Save for later
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(False)
@@ -48,7 +59,7 @@ class KeyboardJog(QObject):
 
 		# If we are leaving a text box, re-enable keyboard jogging if necessary
 		if event.type() == QEvent.Type.FocusOut and window.text_entry_keyboard_jog_disable:
-			if isinstance(source, self.KEYBOARD_USER_TYPES):
+			if isinstance(source, self.JOG_DISABLE_TYPES):
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
 				else:
@@ -126,10 +137,10 @@ class KeyboardJog(QObject):
 		# When we click the window, clear the focus
 		if event.type() == QEvent.Type.MouseButtonPress and window.text_entry_keyboard_jog_disable:
 			# QListWidgets take focus in a child.  Hence the .parent() check
-			if (not isinstance(source, self.KEYBOARD_USER_TYPES) and 
-				not isinstance(source.parent(), self.KEYBOARD_USER_TYPES)):
+			if (not isinstance(source, self.AVOID_TAKING_FOCUS_TYPES) and 
+				not isinstance(source.parent(), self.AVOID_TAKING_FOCUS_TYPES)):
 				focused = QApplication.focusWidget()
-				if isinstance(focused, self.KEYBOARD_USER_TYPES):
+				if isinstance(focused, self.AVOID_TAKING_FOCUS_TYPES):
 					focused.clearFocus()
 
 		return super().eventFilter(source, event) # pass the event on if not used
