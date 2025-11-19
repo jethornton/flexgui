@@ -704,14 +704,17 @@ def update(parent):
 			elif 'errors_pte' in parent.child_names:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
-				parent.errors_pte.setFocus()
+				parent.errors_pte.TOUCH_SPINBOX()
 				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error')
 		elif error_type == 'Error':
 			if 'errors_pte' in parent.child_names:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
-				parent.errors_pte.setFocus()
+				# OLD: parent.errors_pte.setFocus()
+				# Get the vertical scrollbar
+				scrollbar = parent.errors_pte.verticalScrollBar()
+				scrollbar.setValue(scrollbar.maximum())
 				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error')
 
