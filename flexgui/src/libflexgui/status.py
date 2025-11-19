@@ -57,9 +57,10 @@ def update(parent):
 				getattr(parent, key).setChecked(value)
 
 			if 'estop_pb' in parent.child_names:
-				parent.estop_pb.setChecked(False)
-			if 'power_pb' in parent.child_names:
-				parent.power_pb.setChecked(False)
+				if parent.estop_pb.isChecked():
+					parent.estop_pb.blockSignals(True)
+					parent.estop_pb.setChecked(False)
+					parent.estop_pb.blockSignals(False)
 
 			if parent.estop_open_color: # if False just don't bother
 				if 'estop_pb' in parent.child_names:
@@ -95,8 +96,14 @@ def update(parent):
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
 
+			if 'estop_pb' in parent.child_names:
+				parent.estop_pb.blockSignals(True)
+				parent.estop_pb.setChecked(True)
+				parent.estop_pb.blockSignals(False)
 			if 'power_pb' in parent.child_names:
+				parent.power_pb.blockSignals(True)
 				parent.power_pb.setChecked(False)
+				parent.power_pb.blockSignals(False)
 
 			if parent.estop_closed_color: # if False just don't bother
 				if 'estop_pb' in parent.child_names:
@@ -131,6 +138,12 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
+
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.blockSignals(True)
+				parent.power_pb.setChecked(True)
+				parent.power_pb.blockSignals(False)
+
 			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.selected_style)
 			if parent.power_on_color: # if False just don't bother
