@@ -33,19 +33,25 @@ class KeyboardJog(QObject):
 	)
 
 	def __init__(self, window):
+		self._keyboard_jog_state = window.enable_kb_jogging
 		super().__init__()
 	def eventFilter(self, source, event):
 		# If we are entering a text box, temporarily disable keyboard jogging
-		if event.type() == QEvent.Type.FocusIn and window.text_entry_keyboard_jog_disable and window.enable_kb_jogging:
+		if event.type() == QEvent.Type.FocusIn and window.text_entry_keyboard_jog_disable:
 			if isinstance(source, self.KEYBOARD_USER_TYPES):
+				self._keyboard_jog_state = window.enable_kb_jogging # Save for later
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(False)
+				else:
+					self.enable_kb_jogging = False
 
 		# If we are leaving a text box, re-enable keyboard jogging if necessary
-		if event.type() == QEvent.Type.FocusOut and window.text_entry_keyboard_jog_disable and window.enable_kb_jogging:
+		if event.type() == QEvent.Type.FocusOut and window.text_entry_keyboard_jog_disable:
 			if isinstance(source, self.KEYBOARD_USER_TYPES):
 				if 'keyboard_jog_cb' in window.child_names:
-					getattr(window, 'keyboard_jog_cb').setChecked(True) # Restore
+					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
+				else:
+					self.enable_kb_jogging = self._keyboard_jog_state
 
 		if (event.type() == QEvent.Type.KeyPress and not window.enable_kb_jogging and
 			source.objectName() == 'mdi_command_le'):
