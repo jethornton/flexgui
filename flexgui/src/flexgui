@@ -33,21 +33,19 @@ class KeyboardJog(QObject):
 	)
 
 	def __init__(self, window):
-		self._keyboard_jog_state = window.enable_kb_jogging
 		super().__init__()
 	def eventFilter(self, source, event):
 		# If we are entering a text box, temporarily disable keyboard jogging
-		if event.type() == QEvent.Type.FocusIn:
+		if event.type() == QEvent.Type.FocusIn and window.text_entry_keyboard_jog_disable and window.enable_kb_jogging:
 			if isinstance(source, self.KEYBOARD_USER_TYPES):
-				self._keyboard_jog_state = window.enable_kb_jogging # Save for later
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(False)
 
 		# If we are leaving a text box, re-enable keyboard jogging if necessary
-		if event.type() == QEvent.Type.FocusOut:
+		if event.type() == QEvent.Type.FocusOut and window.text_entry_keyboard_jog_disable and window.enable_kb_jogging:
 			if isinstance(source, self.KEYBOARD_USER_TYPES):
 				if 'keyboard_jog_cb' in window.child_names:
-					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
+					getattr(window, 'keyboard_jog_cb').setChecked(True) # Restore
 
 		if (event.type() == QEvent.Type.KeyPress and not window.enable_kb_jogging and
 			source.objectName() == 'mdi_command_le'):
@@ -119,7 +117,7 @@ class KeyboardJog(QObject):
 				dialogs.spinbox_numbers(window, source.parent())
 
 		# When we click the window, clear the focus
-		if event.type() == QEvent.Type.MouseButtonPress:
+		if event.type() == QEvent.Type.MouseButtonPress and window.text_entry_keyboard_jog_disable:
 			# QListWidgets take focus in a child.  Hence the .parent() check
 			if (not isinstance(source, self.KEYBOARD_USER_TYPES) and 
 				not isinstance(source.parent(), self.KEYBOARD_USER_TYPES)):
