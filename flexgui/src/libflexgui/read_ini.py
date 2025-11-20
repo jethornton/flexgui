@@ -319,7 +319,7 @@ def read(parent):
 		parent.touch_file_width = False
 
 	# check for keyboard jogging
-	parent.enable_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
+	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
