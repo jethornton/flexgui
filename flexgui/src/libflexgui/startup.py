@@ -2133,9 +2133,8 @@ def setup_hal(parent):
 
 			if button.property('required') == 'homed':
 				parent.home_required.append(button_name)
-			else:
-				if button_name != 'tool_changed_pb':
-					parent.state_on[button_name] = True
+				if button_name in parent.state_estop_reset:
+					del parent.state_estop_reset[button_name]
 
 	##### HAL SPINBOX ##### FIXME this home required works as expected...
 	if len(hal_spinboxes) > 0:
