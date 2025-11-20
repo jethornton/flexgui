@@ -14,7 +14,62 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout"/>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="estop_pb">
+      <property name="text">
+       <string>E Stop</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="home_all_pb">
+      <property name="text">
+       <string>Home All</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="probing_enable_pb">
+      <property name="text">
+       <string>Probe Enable</string>
+      </property>
+      <property name="function" stdset="0">
+       <string>hal_pin</string>
+      </property>
+      <property name="pin_name" stdset="0">
+       <string>probe-enabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="power_pb">
+      <property name="text">
+       <string>Power </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QPushButton" name="probe_test">
+      <property name="text">
+       <string>Probe</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -39,6 +94,7 @@
     <property name="title">
      <string>Programs</string>
     </property>
+    <addaction name="actionShow_HAL"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -51,6 +107,11 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>Show HAL</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -2124,10 +2124,11 @@ def setup_hal(parent):
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
 			parent.state_estop[button_name] = False
+			special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 			if button.property('state_off') == 'disabled':
 				parent.state_estop_reset[button_name] = False
 			else:
-				if button_name != 'tool_changed_pb':
+				if button_name not in special_buttons:
 					parent.state_estop_reset[button_name] = True
 
 			if button.property('required') == 'homed':
