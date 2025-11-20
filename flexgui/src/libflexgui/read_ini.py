@@ -335,8 +335,8 @@ def read(parent):
 		parent.touch_file_width = False
 
 	# check for keyboard jogging
-	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
-	parent.enable_kb_jogging = to_bool(parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False)
+	parent.ctrl_kb_jogging = to_bool(parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False)
+	parent.no_ctrl_kb_jogging = to_bool(parent.inifile.find('FLEXGUI', 'NO_CTRL_KEYBOARD_JOGGING') or False)
 
 	# disable keyboard jog during text endry
 	parent.text_entry_keyboard_jog_disable = to_bool(parent.inifile.find('FLEXGUI', 'TEXT_ENTRY_KEYBOARD_JOG_DISABLE') or False)
