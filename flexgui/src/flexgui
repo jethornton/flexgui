@@ -81,7 +81,7 @@ class KeyboardJog(QObject):
 
 		# jog events check for state estop and release if keyboard_jogging is true
 		if event.type() == QEvent.Type.KeyPress and window.enable_kb_jogging:
-			if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+			if window.no_ctrl_kb_jogging or event.modifiers() & Qt.KeyboardModifier.ControlModifier:
 				if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
 					if event.key() == Qt.Key.Key_Left:
 						if event.isAutoRepeat():
