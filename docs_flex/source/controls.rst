@@ -14,41 +14,41 @@ with the joint number or axis index. More controls are in :doc:`tools`.
    :width: 100%
    :align: center
 
-	**Control Function**, **Object Name**
-	Open a G-code File, open_pb
-	Edit a G-code File, edit_pb
-	Reload a G-code File, reload_pb
-	Edit Tool Table, edit_tool_table_pb
-	Edit Ladder, edit_ladder_pb
-	Reload Tool Table, reload_tool_table_pb
-	Save, save_pb
-	Save As a New Name, save_as_pb
-	Quit the Program, quit_pb
-	E-Stop Toggle, estop_pb
-	Power Toggle, power_pb
-	Run a Loaded G-code File, run_pb
-	Run From Line, run_from_line_pb
-	Step one Logical Line, step_pb
-	Pause a Running Program, pause_pb
-	Resume a Paused Program, resume_pb
-	Stop a Running Program, stop_pb
-	Home All Joints, home_all_pb
-	Home a Joint (0-8), home_pb_(0-8)
-	Unhome All Joints, unhome_all_pb
-	Unhome a Joint (0-8), unhome_pb_(0-8)
-	Clear an Axis Offset, clear_(axis letter)_pb
-	Manual Mode, manual_mode_pb
+	**Control Name**, **Object Name**, **Function**
+	Open, open_pb, Open a G-code File
+	Edit, edit_pb, Edit a G-code File
+	Reload, reload_pb, Reload a G-code File
+	Edit Tool Table, edit_tool_table_pb, Edit the tool table
+	Edit Ladder, edit_ladder_pb, Open the Ladder Editor
+	Reload Tool Table, reload_tool_table_pb, Reload the tool table
+	Save, save_pb, Save the current file
+	Save As, save_as_pb, Save the current file as new name
+	Quit the Program, quit_pb, Exit the Program
+	E-Stop, estop_pb, Toggle the E-Stop state
+	Power Toggle, power_pb, Toggle the Power state
+	Run, run_pb, Run a Loaded G-code File
+	Run From Line, run_from_line_pb, Run from the current selected line
+	Step, step_pb, Run one Logical Line
+	Pause, pause_pb, Pause a Running Program
+	Resume, resume_pb, Resume a Paused Program
+	Stop, stop_pb, Stop a Running Program
+	Home All, home_all_pb, Home All Joints if possible
+	Home, home_pb_(0-8), Home a Joint (0-8)
+	Unhome All, unhome_all_pb, Unhome all Joints
+	Unhome, unhome_pb_(0-8), Unhome a Joint (0-8)
+	Clear an Axis Offset, clear_(axis letter)_pb, Clear axis offset in the current
+	Manual Mode, manual_mode_pb, Change to Manual mode
 	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
-	Flood Toggle, flood_pb
-	Mist Toggle, mist_pb
-	Clear Error History, clear_errors_pb
-	Copy Error History, copy_errors_pb
-	Clear Information History, clear_info_pb
-	Show HAL, show_hal_pb
-	HAL Meter, hal_meter_pb
-	HAL Scope, hal_scope_pb
-	Help About, about_pb
-	Quick Reference, quick_reference_pb
+	Flood, flood_pb, Toggle the flood output
+	Mist, mist_pb, Toggle the mist output
+	Clear Error History, clear_errors_pb, Clears the Errors text box
+	Copy Error History, copy_errors_pb, Copy the Errors to the clipboard
+	Clear Information History, clear_info_pb, Clears the Information text box
+	Show HAL, show_hal_pb, Runs the Show HAL program
+	HAL Meter, hal_meter_pb, Runs the HAL Meter program
+	HAL Scope, hal_scope_pb, Runs the HAL Scope program
+	Help About, about_pb, Opens the About dialog
+	Quick Reference, quick_reference_pb, Opens the Quick Reference Dialog
 
 .. note:: You don't have to use any of these controls; Flex GUI is flexible.
 
