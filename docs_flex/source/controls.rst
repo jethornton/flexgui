@@ -38,6 +38,7 @@ with the joint number or axis index. More controls are in :doc:`tools`.
 	Unhome a Joint (0-8), unhome_pb_(0-8)
 	Clear an Axis Offset, clear_(axis letter)_pb
 	Manual Mode, manual_mode_pb
+	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
 	Flood Toggle, flood_pb
 	Mist Toggle, mist_pb
 	Clear Error History, clear_errors_pb
