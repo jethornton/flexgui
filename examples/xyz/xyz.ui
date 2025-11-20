@@ -853,7 +853,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1347,17 +1347,11 @@
         <property name="text">
          <string>Probe  </string>
         </property>
-        <property name="led_indicator" stdset="0">
-         <bool>true</bool>
-        </property>
         <property name="pin_name" stdset="0">
          <string>probe-enable</string>
         </property>
-        <property name="hal_type" stdset="0">
-         <string>HAL_BIT</string>
-        </property>
-        <property name="hal_dir" stdset="0">
-         <string>HAL_OUT</string>
+        <property name="function" stdset="0">
+         <string>hal_pin</string>
         </property>
        </widget>
        <widget class="QPushButton" name="probe_right">
@@ -2451,16 +2445,6 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QCheckBox" name="keyboard_jog_cb">
-             <property name="text">
-              <string>Kb Jog</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
              </property>
             </widget>
            </item>

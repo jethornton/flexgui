@@ -371,6 +371,10 @@ def setup_enables(parent):
 	if 'home_all_pb' in parent.child_names:
 		if not utilities.home_all_check(parent):
 			parent.home_all_pb.setEnabled(False)
+			msg = ('All joints must have the HOME_SEQUENCE set\n'
+			'in order for the Home All button to function.\n'
+			'The Home All button will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	# STATE_ESTOP
 	parent.state_estop = {
@@ -1324,12 +1328,24 @@ def setup_mdi(parent):
 
 def setup_jog(parent):
 	# keyboard jog
-	if 'keyboard_jog_cb' in parent.child_names:
+	parent.enable_kb_jogging = False
+	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
 			parent.enable_kb_jogging = True
 		else:
 			parent.enable_kb_jogging = False
+	elif parent.ctrl_kb_jogging and not 'keyboard_jog_cb' in parent.child_names:
+		parent.enable_kb_jogging = True
+	elif 'keyboard_jog_cb' in parent.child_names and parent.ctrl_kb_jogging:
+		parent.keyboard_jog_cb.setEnabled(False)
+		parent.ctrl_kb_jogging = False
+		parent.enable_kb_jogging = False
+		msg = ('The Keyboard Jog QCheckBox keyboard_jog_cb\n'
+		'and the ini entry KEYBOARD_JOG were both found.\n'
+			'Only one type of keyboard jog can be used\n'
+			'The keyboard jog function will be disabled')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
@@ -2120,17 +2136,17 @@ def setup_hal(parent):
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
 			parent.state_estop[button_name] = False
+			special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 			if button.property('state_off') == 'disabled':
 				parent.state_estop_reset[button_name] = False
 			else:
-				if button_name != 'tool_changed_pb':
+				if button_name not in special_buttons:
 					parent.state_estop_reset[button_name] = True
 
 			if button.property('required') == 'homed':
 				parent.home_required.append(button_name)
-			else:
-				if button_name != 'tool_changed_pb':
-					parent.state_on[button_name] = True
+				if button_name in parent.state_estop_reset:
+					del parent.state_estop_reset[button_name]
 
 	##### HAL SPINBOX ##### FIXME this home required works as expected...
 	if len(hal_spinboxes) > 0:
