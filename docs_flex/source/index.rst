@@ -13,6 +13,7 @@ Flex GUI
    labels
    menu
    controls
+   jog
    plotter
    mdi
    spindle
