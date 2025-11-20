@@ -371,6 +371,10 @@ def setup_enables(parent):
 	if 'home_all_pb' in parent.child_names:
 		if not utilities.home_all_check(parent):
 			parent.home_all_pb.setEnabled(False)
+			msg = ('All joints must have the HOME_SEQUENCE set\n'
+			'in order for the Home All button to function.\n'
+			'The Home All button will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	# STATE_ESTOP
 	parent.state_estop = {
