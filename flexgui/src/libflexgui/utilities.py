@@ -160,9 +160,9 @@ def set_homed_enable(parent):
 
 def jog_toggled(parent):
 	if parent.sender().isChecked():
-		parent.enable_kb_jogging = True
+		parent.kb_jog_cb_enabled = True
 	else:
-		parent.enable_kb_jogging = False
+		parent.kb_jog_cb_enabled = False
 
 def update_jog_lb(parent):
 	val = parent.jog_vel_sl.value()
