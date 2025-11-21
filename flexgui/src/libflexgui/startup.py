@@ -1328,26 +1328,76 @@ def setup_mdi(parent):
 
 def setup_jog(parent):
 	# keyboard jog
-	parent.kb_jog_cb_enabled = False
-	parent.kb_jog_ctrl_enabled = False
-	#parent.cb_kb_jog = False
-	#enable_ctrl_kb_jog = False
-	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
+	parent.kb_jog_cb_enabled = False      # Used by event code to determine if normal jog enabled
+	parent.kb_jog_ctrl_enabled = False    # Used by event code to determine if CTRL jog enabled
+	parent.auto_kb_focus_handling = False # Tells event code to manage focus for text controls, etc
+
+	match parent.keyboard_jog_mode:
+		# TRUE = Disable checkbox, and use CTRL key for jog
+		case True:
+			parent.kb_jog_ctrl_enabled = True
+			parent.auto_kb_focus_handling = False
+			#print("Keyboard Job Mode: True (bool)")
+		case str() as s if s.strip().lower() == "true":
+			parent.kb_jog_ctrl_enabled = True
+			parent.auto_kb_focus_handling = False
+			#print("Keyboard Job Mode: True (string)")
+
+		# FALSE = Enable checkbox, and jog without CTRL key
+		case False:
+			parent.kb_jog_ctrl_enabled = False
+			parent.auto_kb_focus_handling = False
+			#print("Keyboard Job Mode: False (bool)")
+		case str() as s if s.strip().lower() == "false":
+			parent.kb_jog_ctrl_enabled = False
+			parent.auto_kb_focus_handling = False
+			#print("Keyboard Job Mode: False (string)")
+		case None:
+			parent.kb_jog_ctrl_enabled = False
+			parent.auto_kb_focus_handling = False
+			#print("Keyboard Job Mode: False (NoneType)")
+
+		# AUTO = Enable Checkbox, Use 
+		case str() as s if s.strip().lower() == "auto":
+			parent.kb_jog_ctrl_enabled = False
+			parent.auto_kb_focus_handling = True
+			#print("Keyboard Job Mode: Auto")
+		
+		# Everything else is an error
+		case _:
+			msg = ('Unkown value for the ini entry KEYBOARD_JOG.\n'
+				'Valid values are True, False, and Auto\n'
+				'The keyboard jog function will be disabled')
+			if 'keyboard_jog_cb' in parent.child_names:
+				parent.keyboard_jog_cb.setEnabled(False)
+				parent.keyboard_jog_cb.setChecked(False)
+			parent.kb_jog_ctrl_enabled = False
+			parent.kb_jog_cb_enabled = False
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if 'keyboard_jog_cb' in parent.child_names and not parent.kb_jog_ctrl_enabled:
+		# We have a jog checkbox, and we should, so hook it up and set the initial value
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
 			parent.kb_jog_cb_enabled = True
 		else:
 			parent.kb_jog_cb_enabled = False
-	elif parent.ctrl_kb_jogging and not 'keyboard_jog_cb' in parent.child_names:
-		parent.kb_jog_ctrl_enabled = True
-	elif 'keyboard_jog_cb' in parent.child_names and parent.ctrl_kb_jogging:
+	elif not parent.kb_jog_ctrl_enabled and not 'keyboard_jog_cb' in parent.child_names:
+		# In this configuraiton, there will be no keyboard jog 
+		# controls at all.  Not an error, but the configuration
+		# simply does not support keyboard jogging
+		#print("NO JOGGING!")
+		pass
+	elif 'keyboard_jog_cb' in parent.child_names and parent.kb_jog_ctrl_enabled:
 		parent.keyboard_jog_cb.setEnabled(False)
+		parent.keyboard_jog_cb.setChecked(False)
 		parent.kb_jog_ctrl_enabled = False
 		parent.kb_jog_cb_enabled = False
+		parent.auto_kb_focus_handling = False
 		msg = ('The Keyboard Jog QCheckBox keyboard_jog_cb\n'
 		'and the ini entry KEYBOARD_JOG were both found.\n'
-			'Only one type of keyboard jog can be used\n'
-			'The keyboard jog function will be disabled')
+		'Only one type of keyboard jog can be used\n'
+		'The keyboard jog function will be disabled')
 		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']

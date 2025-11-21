@@ -39,7 +39,7 @@ Keyboard jogging uses the following keys to jog the X, Y and Z axes.
 
 Keyboard jogging can jog more than one axis at the same time.
 
-There are two ways to enable keyboard jogging, the recommended way is to add the
+There are three ways to enable keyboard jogging, the recommended way is to add the
 following to the ini file.
 .. code html::
 
@@ -49,6 +49,9 @@ following to the ini file.
 When keyboard jogging is enabled in this manner either Ctrl key must be pressed
 before pressing one of the jog keys. If you release the Ctrl key all axes will
 stop jogging.
+
+.. note:: This method is recommended because keyboard jogging is kept separate
+   from keyboard navigation of the GUI by use of the CTRL key.
 
 The second way to enable keyboard jogging is to add a QCheckBox to turn keyboard
 jog on and off. Currently the jog keys work all the time when the QCheckBox is
@@ -61,6 +64,26 @@ checked.
 	**Function**, **Widget**, **Name**
 	Jog Enable, QCheckBox, keyboard_jog_cb
 
+.. note:: In this mode, the jog controls will respond to the use of the arrow 
+   keys, even when navigating within text entry controls.  Care must be taken
+   to prevent inadvertent jogging by accedentially using the arrow keys with 
+   the intent of moving the text cursor. 
+
+The third way to enable jeyboard jogging is similar to the previous case.  This
+mode, however, attempts to manage the keyboard focus in the GUI to prevent
+conflicts between jogging and text manipulation.
+
+.. code html::
+
+	[FLEXGUI]
+	KEYBOARD_JOG = Auto
+
+.. note:: This jog mode will temporarily disable keyboard jogging when a
+   text entry widget has focus, and will re-enable keyboard jogging when 
+   focus leaves the control.  Qt5 has various "focus policies" and options
+   for navigating the GUI using the keyboard.  Be sure that you understand
+   how these options interact with one another and test your GUI's 
+   configuration appropriately. 
 
 Jog Button Controls
 -------------------

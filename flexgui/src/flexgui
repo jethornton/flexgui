@@ -45,27 +45,27 @@ class KeyboardJog(QObject):
 	)
 
 	def __init__(self, window):
-		self._keyboard_jog_state = window.enable_kb_jogging
+		self._keyboard_jog_state = window.kb_jog_cb_enabled
 		super().__init__()
 	def eventFilter(self, source, event):
 		# If we are entering a text box, temporarily disable keyboard jogging
-		if event.type() == QEvent.Type.FocusIn and window.text_entry_keyboard_jog_disable:
+		if event.type() == QEvent.Type.FocusIn and window.auto_kb_focus_handling:
 			if isinstance(source, self.JOG_DISABLE_TYPES):
-				self._keyboard_jog_state = window.enable_kb_jogging # Save for later
+				self._keyboard_jog_state = window.kb_jog_cb_enabled # Save for later
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(False)
 				else:
-					self.enable_kb_jogging = False
+					window.kb_jog_cb_enabled = False
 
 		# If we are leaving a text box, re-enable keyboard jogging if necessary
-		if event.type() == QEvent.Type.FocusOut and window.text_entry_keyboard_jog_disable:
+		if event.type() == QEvent.Type.FocusOut and window.auto_kb_focus_handling:
 			if isinstance(source, self.JOG_DISABLE_TYPES):
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
 				else:
-					self.enable_kb_jogging = self._keyboard_jog_state
+					window.kb_jog_cb_enabled = self._keyboard_jog_state
 
-		if (event.type() == QEvent.Type.KeyPress and not window.enable_kb_jogging and
+		if (event.type() == QEvent.Type.KeyPress and not window.kb_jog_cb_enabled and
 			source.objectName() == 'mdi_command_le'):
 			if 'mdi_history_lw' in window.child_names:
 				mdi_list = getattr(window, 'mdi_history_lw')
@@ -152,7 +152,7 @@ class KeyboardJog(QObject):
 				dialogs.spinbox_numbers(window, source.parent())
 
 		# When we click the window, clear the focus
-		if event.type() == QEvent.Type.MouseButtonPress and window.text_entry_keyboard_jog_disable:
+		if event.type() == QEvent.Type.MouseButtonPress and window.auto_kb_focus_handling:
 			# QListWidgets take focus in a child.  Hence the .parent() check
 			if (not isinstance(source, self.AVOID_TAKING_FOCUS_TYPES) and 
 				not isinstance(source.parent(), self.AVOID_TAKING_FOCUS_TYPES)):
