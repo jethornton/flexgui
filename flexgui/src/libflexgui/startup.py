@@ -1328,19 +1328,22 @@ def setup_mdi(parent):
 
 def setup_jog(parent):
 	# keyboard jog
-	parent.enable_kb_jogging = False
+	parent.kb_jog_cb_enabled = False
+	parent.kb_jog_ctrl_enabled = False
+	#parent.cb_kb_jog = False
+	#enable_ctrl_kb_jog = False
 	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
-			parent.enable_kb_jogging = True
+			parent.kb_jog_cb_enabled = True
 		else:
-			parent.enable_kb_jogging = False
+			parent.kb_jog_cb_enabled = False
 	elif parent.ctrl_kb_jogging and not 'keyboard_jog_cb' in parent.child_names:
-		parent.enable_kb_jogging = True
+		parent.kb_jog_ctrl_enabled = True
 	elif 'keyboard_jog_cb' in parent.child_names and parent.ctrl_kb_jogging:
 		parent.keyboard_jog_cb.setEnabled(False)
-		parent.ctrl_kb_jogging = False
-		parent.enable_kb_jogging = False
+		parent.kb_jog_ctrl_enabled = False
+		parent.kb_jog_cb_enabled = False
 		msg = ('The Keyboard Jog QCheckBox keyboard_jog_cb\n'
 		'and the ini entry KEYBOARD_JOG were both found.\n'
 			'Only one type of keyboard jog can be used\n'

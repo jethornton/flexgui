@@ -80,9 +80,16 @@ class KeyboardJog(QObject):
 							mdi_list.setCurrentRow(current_row + 1)
 
 		# jog events check for state estop and release if keyboard_jogging is true
-		if event.type() == QEvent.Type.KeyPress and window.enable_kb_jogging:
-			if window.no_ctrl_kb_jogging or event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-				if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
+		# enable_ctrl_kb_jog or enable_cb_kb_jog
+		if event.type() == QEvent.Type.KeyPress:
+			if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
+				jog = False
+				if window.kb_jog_ctrl_enabled and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+					jog = True
+				elif window.kb_jog_cb_enabled:
+					jog = True
+
+				if jog:
 					if event.key() == Qt.Key.Key_Left:
 						if event.isAutoRepeat():
 							return True  # Consume the event
@@ -113,21 +120,26 @@ class KeyboardJog(QObject):
 							return True  # Consume the event
 						commands.keyboard_jog(window, True, 2, 'neg')
 						return True  # Consume the event
+				else:
+					return super().eventFilter(source, event) # pass the event on if not used
+			else:
+				return super().eventFilter(source, event) # pass the event on if not used
 
-		elif event.type() == QEvent.Type.KeyRelease and window.enable_kb_jogging:
-			# RCS_EXEC while jogging and RCS_DONE when finished
-			if window.status.task_state == emc.STATE_ON and window.enable_kb_jogging:
-				if not event.isAutoRepeat():# and window.keyboard_jogging:
-					match event.key():
-						case Qt.Key.Key_Left | Qt.Key.Key_Right:
-							commands.keyboard_jog(window, False, 0)
-						case Qt.Key.Key_Up | Qt.Key.Key_Down:
-							commands.keyboard_jog(window, False, 1)
-						case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
-							commands.keyboard_jog(window, False, 2)
-						case Qt.Key.Key_Control:
-							commands.keyboard_jog(window, False)
-					return True  # Consume the event
+		elif event.type() == QEvent.Type.KeyRelease:
+			if window.kb_jog_cb_enabled or window.kb_jog_ctrl_enabled:
+				# RCS_EXEC while jogging and RCS_DONE when finished
+				if window.status.task_state == emc.STATE_ON:
+					if not event.isAutoRepeat():# and window.keyboard_jogging:
+						match event.key():
+							case Qt.Key.Key_Left | Qt.Key.Key_Right:
+								commands.keyboard_jog(window, False, 0)
+							case Qt.Key.Key_Up | Qt.Key.Key_Down:
+								commands.keyboard_jog(window, False, 1)
+							case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
+								commands.keyboard_jog(window, False, 2)
+							case Qt.Key.Key_Control:
+								commands.keyboard_jog(window, False)
+						return True  # Consume the event
 
 		if event.type() == QEvent.Type.MouseButtonRelease:
 			if source.objectName() in window.number_le:
