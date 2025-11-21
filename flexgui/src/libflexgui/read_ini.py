@@ -6,22 +6,6 @@ from PyQt6.QtGui import QColor
 from libflexgui import dialogs
 from libflexgui import utilities
 
-def to_bool(value):
-    if value is None:
-        return False
-    if isinstance(value, bool):
-        return value
-    if isinstance(value, (int, float)):
-        return bool(value)
-    truthy = {'1', 'true', 'yes', 'y', 'on', 't'}
-    falsy  = {'0', 'false', 'no', 'n', 'off', 'f'}
-    val = str(value).strip().lower()
-    if val in truthy:
-        return True
-    if val in falsy:
-        return False
-    raise ValueError(f"Cannot convert {value!r} to boolean")
-
 def read(parent):
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
@@ -233,7 +217,7 @@ def read(parent):
 	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
 
 	# check for touch screen defaults
-	parent.touch_spinbox = to_bool(parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or False)
+	parent.touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or False
 
 	# check for LED defaults in the ini file
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
@@ -323,10 +307,10 @@ def read(parent):
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
 
-	parent.auto_plot_units = to_bool(parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False)
-	parent.auto_dro_units = to_bool(parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False)
+	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
+	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
 
-	parent.manual_tool_change = to_bool(parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False)
+	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
 
 	parent.touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or False
 	if parent.touch_file_width in ['True', 'true', '1']:
@@ -335,11 +319,7 @@ def read(parent):
 		parent.touch_file_width = False
 
 	# check for keyboard jogging
-	parent.ctrl_kb_jogging = to_bool(parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False)
-	parent.no_ctrl_kb_jogging = to_bool(parent.inifile.find('FLEXGUI', 'NO_CTRL_KEYBOARD_JOGGING') or False)
-
-	# disable keyboard jog during text endry
-	parent.text_entry_keyboard_jog_disable = to_bool(parent.inifile.find('FLEXGUI', 'TEXT_ENTRY_KEYBOARD_JOG_DISABLE') or False)
+	parent.keyboard_jog_mode = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
