@@ -3635,7 +3635,7 @@
                   <string>mdi</string>
                  </property>
                  <property name="command" stdset="0">
-                  <string>G10 L2 P0  R#1005</string>
+                  <string>G10 L2 P0  R#2018</string>
                  </property>
                 </widget>
                </item>
