@@ -3082,7 +3082,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_bar&gt; call</string>
+                    <string>o&lt;p_bar_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3107,7 +3107,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_right_front_out&gt; call</string>
+                    <string>o&lt;c_right_front_out_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3132,7 +3132,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_back&gt; call</string>
+                    <string>o&lt;p_back_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3157,7 +3157,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_left_front_out&gt; call</string>
+                    <string>o&lt;c_left_front_out_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3182,7 +3182,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_right&gt; call</string>
+                    <string>o&lt;p_right_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3207,7 +3207,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_left&gt;  call</string>
+                    <string>o&lt;p_left_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3232,7 +3232,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_right_back_out&gt; call</string>
+                    <string>o&lt;c_right_back_out_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3257,7 +3257,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_front&gt; call</string>
+                    <string>o&lt;p_front_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3282,7 +3282,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_left_back_out&gt; call</string>
+                    <string>o&lt;c_left_back_out_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3323,7 +3323,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_right_front_in&gt; call</string>
+                    <string>o&lt;c_right_front_in_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3348,7 +3348,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_right&gt; call</string>
+                    <string>o&lt;p_right_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3373,7 +3373,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_hole&gt;  call</string>
+                    <string>o&lt;p_hole_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3398,7 +3398,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_left&gt;  call</string>
+                    <string>o&lt;p_left_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3423,7 +3423,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_left_front_in&gt; call</string>
+                    <string>o&lt;c_left_front_in_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3448,7 +3448,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_front&gt; call</string>
+                    <string>o&lt;p_front_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3473,7 +3473,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_right_back_in&gt; call</string>
+                    <string>o&lt;c_right_back_in_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3498,7 +3498,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_back&gt;  call</string>
+                    <string>o&lt;p_back_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3523,7 +3523,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;c_left_back_in&gt; call</string>
+                    <string>o&lt;c_left_back_in_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3805,7 +3805,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_lx_in&gt; call</string>
+                    <string>o&lt;p_lx_in_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3830,7 +3830,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_lx_out&gt; call</string>
+                    <string>o&lt;p_lx_out_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3855,7 +3855,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_ly_in&gt;  call</string>
+                    <string>o&lt;p_ly_in_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3880,7 +3880,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_ly_out&gt;  call</string>
+                    <string>o&lt;p_ly_out_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3924,7 +3924,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_x_plus_flip&gt; call</string>
+                    <string>o&lt;p_angle_x_plus_m_flip&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3949,7 +3949,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_y_minus_flip&gt; call</string>
+                    <string>o&lt;p_angle_y_minus_m_flip&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -3974,7 +3974,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_x_minus_flip&gt;  call</string>
+                    <string>o&lt;p_angle_x_minus_m_flip&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -3999,7 +3999,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_y_plus_flip&gt;  call</string>
+                    <string>o&lt;p_angle_y_plus_m_flip&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -4043,7 +4043,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_x_plus&gt; call</string>
+                    <string>o&lt;p_angle_x_plus_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -4068,7 +4068,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_y_minus&gt; call</string>
+                    <string>o&lt;p_angle_y_minus_m&gt; call</string>
                    </property>
                   </widget>
                  </item>
@@ -4093,7 +4093,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_y_plus&gt;  call</string>
+                    <string>o&lt;p_angle_y_plus_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
@@ -4118,7 +4118,7 @@
                     <string>mdi</string>
                    </property>
                    <property name="command" stdset="0">
-                    <string>o&lt;p_angle_x_minus&gt;  call</string>
+                    <string>o&lt;p_angle_x_minus_m&gt;  call</string>
                    </property>
                   </widget>
                  </item>
