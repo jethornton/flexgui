@@ -9,7 +9,7 @@ from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QPlainTextEdit
 from PyQt6.QtWidgets import QPlainTextEdit, QListWidget, QRadioButton, QTabWidget, QTabBar
-from PyQt6.QtWidgets import QComboBox, QListView
+from PyQt6.QtWidgets import QComboBox, QListView, QSpinBox, QDoubleSpinBox
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
 from PyQt6.QtGui import QKeyEvent
@@ -33,7 +33,9 @@ class KeyboardJog(QObject):
 		QListWidget,
 		QRadioButton,
 		QListView,
-		QComboBox
+		QComboBox,
+		QSpinBox,
+		QDoubleSpinBox
 	)
 	AVOID_TAKING_FOCUS_TYPES = (
 		QLineEdit, 
@@ -41,7 +43,9 @@ class KeyboardJog(QObject):
 		QListWidget,
 		QListView,
 		QRadioButton,
-		QTabBar
+		QTabBar,
+		QSpinBox,
+		QDoubleSpinBox
 	)
 
 	def __init__(self, window):
