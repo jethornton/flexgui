@@ -213,31 +213,49 @@ def read(parent):
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 		parent.qss_file = False
 
-	# check for screen size
+	# check for screen size, a non valid entry will just use self.show()
 	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
 
-	# check for touch screen defaults
+	# check for touch screen defaults, anything other than true is false
 	parent.touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or False
+	if parent.touch_spinbox:
+		parent.touch_spinbox = parent.touch_spinbox.strip().lower() == "true"
 
-	# check for LED defaults in the ini file
-	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
-	if parent.led_diameter is None:
+	# check for LED defaults in the ini file, find returns a string must be an int
+	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER') or False
+	if not parent.led_diameter: # no value found
 		parent.led_diameter = 15
+	elif not utilities.is_int(parent.led_diameter): # not an int
+		msg = (f'The FLEXGUI LED_DIAMETER did not\n'
+			'evaluate to and integer value.\n'
+			'The LED_DIAMETER will be set to 15.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_diameter =  int(parent.led_diameter)
 
-	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
+	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET') or False
 	if parent.led_right_offset is None:
 		parent.led_right_offset = 5
+	elif not utilities.is_int(parent.led_right_offset): # not an int
+		msg = (f'The FLEXGUI LED_RIGHT_OFFSET did not\n'
+			'evaluate to and integer value.\n'
+			'The LED_RIGHT_OFFSET will be set to 15.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_right_offset =  int(parent.led_right_offset)
 
-	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
+	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET') or False
 	if parent.led_top_offset is None:
 		parent.led_top_offset = 5
+	elif not utilities.is_int(parent.led_top_offset): # not an int
+		msg = (f'The FLEXGUI LED_TOP_OFFSET did not\n'
+			'evaluate to and integer value.\n'
+			'The LED_TOP_OFFSET will be set to 15.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_top_offset =  int(parent.led_top_offset)
 
+	# Colors are checked for validity in string_to_qcolor
 	parent.led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
 	if parent.led_on_color: # convert string to QColor
 		parent.led_on_color = utilities.string_to_qcolor(parent, parent.led_on_color, 'LED_ON_COLOR')
@@ -303,6 +321,7 @@ def read(parent):
 		if color:
 			parent.probe_enable_off_color = f'background-color: {color};'
 
+	# FIXME check for a valid color string 0.0,0.0,0.0 to 1.0,1.0,1.0
 	parent.plot_background_color = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
 	if parent.plot_background_color:
 		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
@@ -311,6 +330,8 @@ def read(parent):
 	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
 
 	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
+	if parent.manual_tool_change:
+		parent.manual_tool_change = parent.manual_tool_change.strip().lower() == "true"
 
 	parent.touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or False
 	if parent.touch_file_width in ['True', 'true', '1']:
@@ -320,9 +341,20 @@ def read(parent):
 
 	# check for keyboard jogging
 	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
+	if parent.ctrl_kb_jogging:
+		parent.ctrl_kb_jogging = parent.ctrl_kb_jogging.strip().lower() == "true"
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
+	if not parent.dro_font_size: # no value found
+		parent.dro_font_size = 12
+	elif not utilities.is_int(parent.dro_font_size): # not an int
+		msg = (f'The FLEXGUI DRO_FONT_SIZE did not\n'
+			'evaluate to an integer value.\n'
+			'The DRO_FONT_SIZE will be set to 12.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+	else:
+		parent.dro_font_size =  int(parent.dro_font_size)
 
 	# ***** [EMCIO] Section *****
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
