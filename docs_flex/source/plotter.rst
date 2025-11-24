@@ -140,6 +140,28 @@ The live plot can be cleared from the menu with this menu item.
 	**Function**, **Menu Name**, **Object Name**
 	Clear Live Plot, Clear Live Plot, actionClear_Live_Plot
 
+The plotter can optionally display a grid when in orthogonal views. To configure the
+size of the grid, add a `GRIDS` item to the `[DISPLAY]` section of the INI file.
+Like the jog increments, it is a comma separated list of values:
+::
+
+	[DISPLAY]
+	GRIDS = 1in, 2in, 5in, 1/2, 10in, 10mm, 20mm, 50mm, 100mm
+
+The first item in the list will be considered the default and set when FlexGUI starts.
+If you wish disable grid by default, add a `0` item to the beginning of the list.
+
+These grid values will be added to a menu called `actionGrids`.  This
+menu can be part of the main menu bar, or added to a submenu.
+
+.. csv-table:: Plot Menu
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	**Function**, **Menu Name**, **Object Name**
+	Plotter Grid, Plotter Grid Gradations, actionGrids
+
 DRO
 ---
 
