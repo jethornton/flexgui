@@ -1,4 +1,4 @@
-from math import sqrt
+import math
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox, QSlider
@@ -37,6 +37,19 @@ MOTION_TYPES = {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
 	5: 'MOTION_TYPE_PROBING', 6: 'MOTION_TYPE_INDEXROTARY'}
 
 STATES = {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'}
+
+# Axes
+X = 0
+Y = 1
+Z = 2
+A = 3
+B = 4
+C = 5
+U = 6
+V = 7
+W = 8
+R = 9
+
 
 def update(parent):
 	parent.status.poll()
@@ -620,21 +633,39 @@ def update(parent):
 		machine_position = getattr(parent, "status").position[value[0]]
 		getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
+	positions = parent.status.position
+	positions = [(i-j) for i, j in zip(positions, parent.status.tool_offset)]
+	positions = [(i-j) for i, j in zip(positions, parent.status.g5x_offset)]
+	t = -parent.status.rotation_xy
+	t = math.radians(t)
+	_x = positions[X]
+	_y = positions[Y]
+	positions[X] = _x * math.cos(t) - _y * math.sin(t)
+	positions[Y] = _x * math.sin(t) + _y * math.cos(t)
+	positions = [(i-j) for i, j in zip(positions, parent.status.g92_offset)]
+
+	# label, tuple position & precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
+		position = positions[value[0]]
+
+
+		'''
 		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]
 		g92_offset = getattr(parent, "status").g92_offset[value[0]]
 		g43_offset = getattr(parent, "status").tool_offset[value[0]]
 		machine_position = getattr(parent, "status").position[value[0]]
 		relative_position = machine_position - (g5x_offset + g92_offset + g43_offset)
+		'''
+
 		# metric linear units with inch program units
 		if parent.status.linear_units == 1 and parent.program_units == 'INCH' and parent.auto_dro_units:
-			getattr(parent, f'{key}').setText(f'{relative_position * 0.03937007874015748:.4f}')
+			getattr(parent, f'{key}').setText(f'{position * 0.03937007874015748:.4f}')
 		# inch linear units with metric program units
 		elif parent.status.linear_units != 1 and parent.program_units == 'MM' and parent.auto_dro_units:
-			getattr(parent, f'{key}').setText(f'{relative_position * 25.4:.3f}')
+			getattr(parent, f'{key}').setText(f'{position * 25.4:.3f}')
 		# linear units and program units are the same
 		else:
-			getattr(parent, f'{key}').setText(f'{relative_position:.{value[1]}f}')
+			getattr(parent, f'{key}').setText(f'{position:.{value[1]}f}')
 
 	# axis g5x offset
 	for key, value in parent.status_g5x_offset.items(): # key is label value tuple position & precision
@@ -662,7 +693,7 @@ def update(parent):
 	for key, value in parent.two_vel.items():
 		vel_0 = getattr(parent, 'status').joint[value[0]]['velocity']
 		vel_1 = getattr(parent, 'status').joint[value[1]]['velocity']
-		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1))
+		vel = math.sqrt((vel_0 * vel_0) + (vel_1 * vel_1))
 		getattr(parent, key).setText(f'{vel * 60:.{value[2]}f}')
 
 	# three joint velocity
@@ -670,7 +701,7 @@ def update(parent):
 		vel_0 = getattr(parent, 'status').joint[value[0]]['velocity']
 		vel_1 = getattr(parent, 'status').joint[value[1]]['velocity']
 		vel_2 = getattr(parent, 'status').joint[value[2]]['velocity']
-		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
+		vel = math.sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
 		getattr(parent, key).setText(f'{vel * 60:.{value[3]}f}')
 
 	# override items label : status item
