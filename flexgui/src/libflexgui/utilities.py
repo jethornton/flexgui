@@ -3,7 +3,8 @@ from functools import partial
 
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
 
 import linuxcnc as emc
 
@@ -423,3 +424,19 @@ def flash_buttons(parent):
 			# and trigger a refresh of the style sheet.
 			getattr(parent, name).setProperty('flashing', None)
 			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
+
+def update_grid_size(parent, grid_size):
+	if 'plot_widget' in parent.child_names:
+		parent.plotter.grid_size = grid_size
+		parent.plotter.update()
+
+		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+		# Handle both top-level QMenu and QAction submenus.
+		if isinstance(menu, QAction):
+			menu = menu.menu()
+		if menu:
+			for action in menu.actions():
+				if action.data() == grid_size:
+					action.setChecked(True)
+				else:
+					action.setChecked(False)

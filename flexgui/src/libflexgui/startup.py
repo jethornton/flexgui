@@ -2889,6 +2889,80 @@ def setup_plot(parent):
 					utilities.sync_toolbuttons(parent, v)
 				))
 
+		# Setup GRIDS submenu
+		# Set defaults if no INI
+		default_grids = "0.5in, 1in, 2in, 5in, 10in" if parent.units == "INCH" else "10mm, 20mm, 50mm, 100mm, 250mm"
+
+		if 'plot_widget' in parent.child_names:
+			# Handle both a QMenu and QAction submenus
+			menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+			if parent.grids and not menu:
+				# If an INI setting and no GRIDS menu, show an error
+				msg = (f'GRIDS configuration found in the INI file. \n'
+					'No Grids menu was found to configure.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+			elif menu:
+				if not isinstance(menu, QMenu):
+					# If this action is in a submenu, for example inside "View"
+					if menu.menu():
+						menu = menu.menu()
+					else:
+						# Create and attach menu
+						new_menu = QMenu(menu.parent())
+						menu.setMenu(new_menu)
+						menu = new_menu
+
+				values = (parent.grids or default_grids).split(',')
+
+				# FIXME: This is the same logic as the jog increments
+				# Refactor the units/suffix handling into one function /FIXME
+				units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
+
+				# If no default has been set by the end, it means the first
+				# item in the list is 0.0 and it means the 'None' option is 
+				# the default.
+				default_has_been_set = False 
+				for index, item in enumerate(values):
+					item = item.strip()
+					grid_size = None
+					if item[-1].isdigit():
+						grid_size = conv_to_decimal(item)
+					else:
+						for suffix in units:
+							if item.endswith(suffix):
+								distance = item.removesuffix(suffix).strip()
+								if utilities.is_float(distance):
+									grid_size = conv_units(distance, suffix, parent.units)
+					
+					if grid_size: # If we have a valid grid_size and it is not 0.0
+						new_action = QAction(item, parent)
+						new_action.setData(grid_size)
+						new_action.setCheckable(True)
+						new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
+						menu.addAction(new_action)
+						if index == 0:
+							# This is the first item in the list, we consider it default.
+							# grid_size == 0.0 is filtered out, so if we don't set a 
+							# default after processing the list, then it means 0.0 is
+							# at index == 0, and we should make the `None` option the
+							# default later.
+							new_action.setChecked(True)
+							parent.plotter.grid_size = grid_size
+							parent.plotter.update()
+							default_has_been_set = True
+
+				current_actions = menu.actions()
+				if len(current_actions) > 0:
+					new_action = QAction("None", parent)
+					new_action.setData(0.0)
+					new_action.setCheckable(True)
+					new_action.triggered.connect(partial(utilities.update_grid_size, parent, 0.0))
+					menu.insertAction(current_actions[0], new_action)
+					if not default_has_been_set:
+						parent.plotter.grid_size = grid_size
+						parent.plotter.update()
+						new_action.setChecked(True)
+
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.child_names:
 		from libflexgui import fsc
