@@ -132,13 +132,47 @@ menu items that stay coordinated with the checkbox of the same option.
 
 The live plot can be cleared from the menu with this menu item.
 
-.. csv-table:: Plot Menu
+.. csv-table:: Clear Live Plot Menu
    :width: 100%
    :align: center
    :widths: 40 40 40
 
 	**Function**, **Menu Name**, **Object Name**
 	Clear Live Plot, Clear Live Plot, actionClear_Live_Plot
+
+Grids
+^^^^^
+
+The plotter can optionally display a grid when in orthogonal views. To add the
+option of grids add a menu item named `Grids`. The grid size selection will be
+added to the `Grids` menu item. The default grid sizes are based on the machine
+units.
+
+.. csv-table:: Plot Menu Grids
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	**Function**, **Menu Name**, **Object Name**
+	Plotter Grid, Grids, actionGrids
+
+To configure the size options of the grid, add a `GRIDS` item to the `[DISPLAY]`
+section of the INI file.
+
+The values are a comma separated list of values. The units if left out will be
+machine units. While you can mix units usually machine units are used. Units can
+be `in` or `mm` or left out.
+::
+
+	[DISPLAY]
+	GRIDS = 1/2, 1in, 2in, 4in, 8in
+	or
+	GRIDS = 10mm, 20mm, 50mm, 100mm
+
+The first item in the list will be considered the default and set when FlexGUI starts.
+If you wish disable grid by default, add a `0` item to the beginning of the list.
+
+The `Grids` menu can be part of the main menu bar, or added to a submenu.
 
 DRO
 ---

@@ -3,7 +3,8 @@ from functools import partial
 
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
 from PyQt6.QtWidgets import QWidget, QTabWidget, QStackedWidget, QScrollArea
 
 import linuxcnc as emc
@@ -425,6 +426,21 @@ def flash_buttons(parent):
 			getattr(parent, name).setProperty('flashing', None)
 			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
 
+def update_grid_size(parent, grid_size):
+	if 'plot_widget' in parent.child_names:
+		parent.plotter.grid_size = grid_size
+		parent.plotter.update()
+
+		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+		# Handle both top-level QMenu and QAction submenus.
+		if isinstance(menu, QAction):
+			menu = menu.menu()
+		if menu:
+			for action in menu.actions():
+				if action.data() == grid_size:
+					action.setChecked(True)
+				else:
+					action.setChecked(False)
 def reveal_widget(widget: QWidget):
     """Ensure the widget is visible (select tabs/pages, expand parents)
     without giving it focus.

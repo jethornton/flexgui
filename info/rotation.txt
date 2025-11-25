@@ -1,0 +1,68 @@
+import math
+X = 0
+Y = 1
+Z = 2
+A = 3
+B = 4
+C = 5
+U = 6
+V = 7
+W = 8
+R = 9
+
+            if self.get_show_commanded():
+                positions = s.position
+            else:
+                positions = s.actual_position
+
+            if self.get_show_relative():
+                positions = [(i-j) for i, j in zip(positions, s.tool_offset)]
+                positions = [(i-j) for i, j in zip(positions, s.g5x_offset)]
+
+                t = -s.rotation_xy
+                t = math.radians(t)
+                _x = positions[X]
+                _y = positions[Y]
+                positions[X] = _x * math.cos(t) - _y * math.sin(t)
+                positions[Y] = _x * math.sin(t) + _y * math.cos(t)
+                positions = [(i-j) for i, j in zip(positions, s.g92_offset)]
+            else:
+                positions = list(positions)
+
+            if self.get_a_axis_wrapped():
+                positions[3] = math.fmod(positions[3], 360.0)
+                if positions[3] < 0: positions[3] += 360.0
+
+            if self.get_b_axis_wrapped():
+                positions[4] = math.fmod(positions[4], 360.0)
+                if positions[4] < 0: positions[4] += 360.0
+
+            if self.get_c_axis_wrapped():
+                positions[5] = math.fmod(positions[5], 360.0)
+                if positions[5] < 0: positions[5] += 360.0
+
+            positions = self.to_internal_units(positions)
+            axisdtg = self.to_internal_units(s.dtg)
+            g5x_offset = self.to_internal_units(s.g5x_offset)
+            g92_offset = self.to_internal_units(s.g92_offset)
+            tlo_offset = self.to_internal_units(s.tool_offset)
+            dtg = self.to_internal_linear_unit(s.distance_to_go)
+
+            if self.get_show_metric():
+                positions = self.from_internal_units(positions, 1)
+                axisdtg = self.from_internal_units(axisdtg, 1)
+                g5x_offset = self.from_internal_units(g5x_offset, 1)
+                g92_offset = self.from_internal_units(g92_offset, 1)
+                tlo_offset = self.from_internal_units(tlo_offset, 1)
+                dtg *= 25.4
+                spd = spd * 25.4
+            spd = spd * 60
+            return self.dro_format(self.stat,spd,dtg,limit,homed,positions,
+                    axisdtg,g5x_offset,g92_offset,tlo_offset)
+        else:
+            return self.joint_dro_format(s,spd,self.get_num_joints(),limit, homed)
+
+    # N.B. no conversion here because joint positions are unitless
+    #      joint_mode and display_joint
+    # Note: this is overridden in other guis (then AXIS) for different dro behavior
+  
