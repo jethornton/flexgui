@@ -2890,7 +2890,14 @@ def setup_plot(parent):
 				))
 
 		# Setup GRIDS submenu
-		if parent.grids and 'plot_widget' in parent.child_names:
+		# Set defaults if no INI
+		if not parent.grids:
+			if parent.units == "INCH":
+				parent.grids = "1in, 2in, 5in, 10in"
+			else:
+				parent.grids = "10mm, 20mm, 50mm, 100mm"
+
+		if 'plot_widget' in parent.child_names:
 			# Handle both a QMenu and QAction submenus
 			menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
 			if not menu:
@@ -2908,6 +2915,7 @@ def setup_plot(parent):
 						new_menu = QMenu(menu.parent())
 						menu.setMenu(new_menu)
 						menu = new_menu
+
 				values = parent.grids.split(',')
 
 				# FIXME: This is the same logic as the jog increments
