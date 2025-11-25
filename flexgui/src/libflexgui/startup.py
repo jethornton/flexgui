@@ -2891,21 +2891,17 @@ def setup_plot(parent):
 
 		# Setup GRIDS submenu
 		# Set defaults if no INI
-		if not parent.grids:
-			if parent.units == "INCH":
-				parent.grids = "1in, 2in, 5in, 10in"
-			else:
-				parent.grids = "10mm, 20mm, 50mm, 100mm"
+		default_grids = "0.5in, 1in, 2in, 5in, 10in" if parent.units == "INCH" else "10mm, 20mm, 50mm, 100mm, 250mm"
 
 		if 'plot_widget' in parent.child_names:
 			# Handle both a QMenu and QAction submenus
 			menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-			if not menu:
-				# If no GRIDS menu, show an error
+			if parent.grids and not menu:
+				# If an INI setting and no GRIDS menu, show an error
 				msg = (f'GRIDS configuration found in the INI file. \n'
-					'No actionGrids menu was found to configure.')
+					'No Grids menu was found to configure.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			else:
+			elif menu:
 				if not isinstance(menu, QMenu):
 					# If this action is in a submenu, for example inside "View"
 					if menu.menu():
@@ -2916,7 +2912,7 @@ def setup_plot(parent):
 						menu.setMenu(new_menu)
 						menu = new_menu
 
-				values = parent.grids.split(',')
+				values = (parent.grids or default_grids).split(',')
 
 				# FIXME: This is the same logic as the jog increments
 				# Refactor the units/suffix handling into one function /FIXME
