@@ -156,7 +156,7 @@ units.
 	**Function**, **Menu Name**, **Object Name**
 	Plotter Grid, Grids, actionGrids
 
-To configure the size options of the grid, add a `GRIDS` item to the `[DISPLAY]`
+To configure the size options of the grid, add a `PLOT_GRID` item to the `[FLEXGUI]`
 section of the INI file.
 
 The values are a comma separated list of values. The units if left out will be
