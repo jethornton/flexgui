@@ -2891,7 +2891,7 @@ def setup_plot(parent):
 
 		# Setup GRIDS submenu
 		# Set defaults if no INI
-		default_grids = "0.5in, 1in, 2in, 5in, 10in" if parent.units == "INCH" else "10mm, 20mm, 50mm, 100mm, 250mm"
+		default_grids = "0.5in, 1in, 2in, 3in, 4in" if parent.units == "INCH" else "10mm, 20mm, 50mm, 100mm, 250mm"
 
 		# Handle both a QMenu and QAction submenus
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
@@ -2911,30 +2911,34 @@ def setup_plot(parent):
 					menu.setMenu(new_menu)
 					menu = new_menu
 
-			values = (parent.grids or default_grids).split(',')
 
 			# FIXME: This is the same logic as the jog increments
 			# Refactor the units/suffix handling into one function /FIXME
 			units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
 
 			# If no default has been set by the end, it means the first
-			# item in the list is 0.0 and it means the 'None' option is 
-			# the default.
+			# item in the list is 0.0 or it's not a valid entry and the 'None' option
+			# is  the default.
 			default_has_been_set = False 
 
-
-			for index, item in enumerate(values):
+			grid_settings = (parent.grids or default_grids).split(',')
+			for index, item in enumerate(grid_settings):
 				item = item.strip()
-				grid_size = None
-				if item[-1].isdigit():
-					grid_size = conv_to_decimal(item)
+				increment, suffix = utilities.is_valid_increment(parent, item)
+				if increment:
+					grid_size = conv_units(increment, suffix.lower(), parent.units)
 				else:
-					for suffix in units:
-						if item.endswith(suffix):
-							distance = item.removesuffix(suffix).strip()
-							if utilities.is_float(distance):
-								grid_size = conv_units(distance, suffix, parent.units)
-				
+					'''
+					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
+					f'{item} is not a valid unit and will not\n'
+					'be used.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					'''
+					continue
+				if utilities.is_number(item):
+					print(f'item {item + parent.units}')
+				else:
+					print(f'item {item}')
 				if grid_size: # If we have a valid grid_size and it is not 0.0
 					new_action = QAction(item, parent)
 					new_action.setData(grid_size)
