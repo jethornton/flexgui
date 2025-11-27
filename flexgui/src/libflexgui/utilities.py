@@ -1,4 +1,5 @@
-import os, shutil
+import os, shutil, re
+from string import digits
 from functools import partial
 
 from PyQt6.QtCore import Qt, QTimer
@@ -36,6 +37,73 @@ def is_number(string):
 			return True
 		except ValueError:
 			return False
+
+def is_fraction(item):
+	# strip trailing non digits
+	for i in range(len(item) - 1, -1, -1):
+		if item[i].isdigit():
+			fraction_string = item[:i+1]
+			#print(f'fraction {fraction_string}')
+			#print(f'len {len(fraction_string.split("/"))}')
+			break
+			#return False
+			#if len(number.split('/')) == 2:
+			#numerator, denominator = map(int, item[:i+1].split('/'))
+			#float_value = numerator / denominator
+			#return float_value
+		#return False
+
+	#print(f'before fraction_string {fraction_string}')
+	if len(fraction_string.split('/')) == 2: # might be a good number
+		match = re.match(r'(\d+)?\s*(\d+)/(\d+)', fraction_string)
+		#print(match)
+		if match:
+			whole_number = int(match.group(1)) if match.group(1) else 0
+			numerator = int(match.group(2))
+			denominator = int(match.group(3))
+			#print(f'whole_part {whole_part}')
+			#print(f'numerator {numerator}')
+			#print(f'denominator {denominator}')
+			#print(f'dec number {whole_number + (numerator / denominator)}')
+			return whole_number + (numerator / denominator)
+			#return whole_part + numerator / denominator
+	else:
+		return False
+
+def get_suffix(item):
+	return item.lstrip(digits)
+
+
+'''
+In Python, a function can return multiple values by separating them with commas
+in the return statement. When you return multiple values this way, Python
+implicitly packages them into a single tuple.
+
+Unpack the tuple into multiple variables: This is the most common and Pythonic
+way. List the variable names on the left side of the assignment operator,
+separated by commas, corresponding to the order of the returned values.
+'''
+
+def is_valid_increment(parent, item): # need to return value and suffix
+	if is_number(item): # there is no suffix
+		return item, parent.units
+
+	if '/' in item: # it might be a fraction
+		#for character in item:
+		fraction = is_fraction(item)
+		if fraction:
+			return fraction, 'inch'
+		else:
+			return False, False
+
+	units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
+	if item.endswith(tuple(units)): # test to see if it matches any units
+		for suffix in units:
+			if item.endswith(suffix):
+				increment = item.removesuffix(suffix).strip()
+				return increment, suffix
+	else: # not a valid increment
+		return False, False
 
 def string_to_int(string):
 	if '.' in string:
@@ -441,6 +509,7 @@ def update_grid_size(parent, grid_size):
 					action.setChecked(True)
 				else:
 					action.setChecked(False)
+
 def reveal_widget(widget: QWidget):
     """Ensure the widget is visible (select tabs/pages, expand parents)
     without giving it focus.
