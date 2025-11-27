@@ -52,17 +52,14 @@ def setup_vars(parent):
 	parent.plot_units = False
 
 def find_widget_index(layout, target_widget):
-	print(f'layout {layout.itemAt(2)}')
 	for i in range(layout.count()):
 		item = layout.itemAt(i)
 		if item.widget() == target_widget:
-			print(f'item.widget() {item.widget()}')
 			return i
 		elif item.layout() is not None:
 			# Recursively search in nested layouts
 			nested_index = find_widget_index(item.layout(), target_widget)
 			if nested_index is not None:
-				print(f'i {i}')
 				return f"{layout} layout at index {i}, widget at index {nested_index}"
 	return None
 
@@ -1439,37 +1436,14 @@ def setup_jog(parent):
 		parent.jog_modes_cb.setView(QListView())
 		parent.jog_modes_cb.addItem('Continuous', False)
 
-		units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
-
 		# setup the jog increment combo box items
 		if parent.jog_increments:
-			incr_list = []
-			values = parent.jog_increments.split(',')
-			for item in values:
+			for item in parent.jog_increments.split(','):
 				item = item.strip()
-				if item[-1].isdigit():
-					distance = conv_to_decimal(item) # if it's a fraction convert to decimal
-					incr_list.append([item, distance])
-					parent.jog_modes_cb.addItem(item, distance)
-				else:
-					for suffix in units:
-						if item.endswith(suffix):
-							distance = item.removesuffix(suffix).strip()
-							if utilities.is_float(distance):
-								converted_distance = conv_units(distance, suffix, parent.units)
-								incr_list.append([item, converted_distance])
-								parent.jog_modes_cb.addItem(item, converted_distance)
-								break
-							else:
-								msg = ('Malformed INCREMENTS value\n'
-									f'{distance}\n'
-									'may be missing comma seperators?')
-								dialogs.warn_msg_ok(parent, msg, 'Error')
-					else:
-						msg = ('INI section DISPLAY value INCREMENTS\n'
-							f'{item} is not a valid jog increment\n'
-							'and will not be added to the jog options.')
-						dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				increment, suffix = utilities.is_valid_increment(parent, item)
+				if increment:
+					jog_distance = conv_units(increment, suffix.lower(), parent.units)
+					parent.jog_modes_cb.addItem(item, jog_distance)
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -2911,16 +2885,7 @@ def setup_plot(parent):
 					menu.setMenu(new_menu)
 					menu = new_menu
 
-
-			# FIXME: This is the same logic as the jog increments
-			# Refactor the units/suffix handling into one function /FIXME
-			units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
-
-			# If no default has been set by the end, it means the first
-			# item in the list is 0.0 or it's not a valid entry and the 'None' option
-			# is  the default.
 			default_has_been_set = False 
-
 			grid_settings = (parent.grids or default_grids).split(',')
 			for index, item in enumerate(grid_settings):
 				item = item.strip()
@@ -2933,10 +2898,11 @@ def setup_plot(parent):
 					'be used.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 					continue
-				if utilities.is_number(item):
-					print(f'item {item + parent.units}')
-				else:
-					print(f'item {item}')
+
+				# If no default has been set by the end, it means the first
+				# item in the list is 0.0 or it's not a valid entry and the 'None'
+				# option is the default.
+
 				if grid_size: # If we have a valid grid_size and it is not 0.0
 					new_action = QAction(item, parent)
 					new_action.setData(grid_size)
@@ -2944,11 +2910,6 @@ def setup_plot(parent):
 					new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
 					menu.addAction(new_action)
 					if index == 0:
-						# This is the first item in the list, we consider it default.
-						# grid_size == 0.0 is filtered out, so if we don't set a 
-						# default after processing the list, then it means 0.0 is
-						# at index == 0, and we should make the `None` option the
-						# default later.
 						new_action.setChecked(True)
 						parent.plotter.grid_size = grid_size
 						parent.plotter.update()
