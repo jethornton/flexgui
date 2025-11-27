@@ -2928,12 +2928,10 @@ def setup_plot(parent):
 				if increment:
 					grid_size = conv_units(increment, suffix.lower(), parent.units)
 				else:
-					'''
 					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
 					f'{item} is not a valid unit and will not\n'
 					'be used.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-					'''
 					continue
 				if utilities.is_number(item):
 					print(f'item {item + parent.units}')
