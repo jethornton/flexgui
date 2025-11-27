@@ -75,7 +75,6 @@ def find_widget_layout(layout, target_widget):
 				return item.layout()
 	return None
 
-
 def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
 	# find led buttons and get all properties
@@ -235,27 +234,15 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 			new_label.setFrameShape(child.frameShape())
 			new_label.setFrameShadow(child.frameShadow())
 			new_label.setFont(child.font())
-			#print(child.font())
-
-			#print(child.alignment())
-
-			#for name_bytes in child.dynamicPropertyNames():
-			#	name = name_bytes.data().decode("utf-8")
-			#	value = child.property(name_bytes)
-			#	print(f"{name}: {value}")
 
 			child.deleteLater()
 			new_label.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_label) # give the new label the old name
 			parent.hal_led_labels[led_dict['name']] = led_dict['pin_name']
 
-			#for key, value in led_dict.items():
-			#	print(key, value)
-
 def setup_hal_leds(parent): # LED
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
-		#if child.property('hal_led'): # bool property
 		if child.property('function') == 'hal_led':
 
 			if child.property('pin_name') in [None, '']:
@@ -324,18 +311,14 @@ from this point on use parent.child_names to get the widgets because the LED
 widgets are no longer QPushButton for example but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
-	# FIXME change children to child_names
-	#parent.children = []
 	parent.child_names = []
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.objectName():
-			#parent.children.append(child.objectName())
 			parent.child_names.append(child.objectName())
 	parent.actions = parent.findChildren(QAction)
 	for action in parent.actions:
 		if action.objectName():
-			#parent.children.append(action.objectName())
 			parent.child_names.append(action.objectName())
 			if 'toolBar' in parent.child_names:
 				widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
@@ -343,12 +326,10 @@ def find_children(parent): # get the object names of all widgets
 				if parent.toolBar.widgetForAction(action) is not None:
 					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
 					setattr(parent, widget_name, parent.toolBar.widgetForAction(action))
-					#parent.children.append(widget_name)
 					parent.child_names.append(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
 		if menu.objectName():
-			#parent.children.append(menu.objectName())
 			parent.child_names.append(menu.objectName())
 
 def update_check(parent):
@@ -1440,10 +1421,10 @@ def setup_jog(parent):
 		if parent.jog_increments:
 			for item in parent.jog_increments.split(','):
 				item = item.strip()
-				increment, suffix = utilities.is_valid_increment(parent, item)
-				if increment:
-					jog_distance = conv_units(increment, suffix.lower(), parent.units)
-					parent.jog_modes_cb.addItem(item, jog_distance)
+				text, data, suffix = utilities.is_valid_increment(parent, item)
+				if data:
+					jog_distance = conv_units(data, suffix.lower(), parent.units)
+					parent.jog_modes_cb.addItem(text, jog_distance)
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -2865,7 +2846,8 @@ def setup_plot(parent):
 
 		# Setup GRIDS submenu
 		# Set defaults if no INI
-		default_grids = "0.5in, 1in, 2in, 3in, 4in" if parent.units == "INCH" else "10mm, 20mm, 50mm, 100mm, 250mm"
+		default_grids = "0.5 in, 1 in, 2 in, 3 in, 4 in"\
+			if parent.units == "INCH" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
 
 		# Handle both a QMenu and QAction submenus
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
@@ -2889,9 +2871,9 @@ def setup_plot(parent):
 			grid_settings = (parent.grids or default_grids).split(',')
 			for index, item in enumerate(grid_settings):
 				item = item.strip()
-				increment, suffix = utilities.is_valid_increment(parent, item)
-				if increment:
-					grid_size = conv_units(increment, suffix.lower(), parent.units)
+				text, data, suffix = utilities.is_valid_increment(parent, item)
+				if data:
+					grid_size = conv_units(data, suffix.lower(), parent.units)
 				else:
 					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
 					f'{item} is not a valid unit and will not\n'
@@ -2904,7 +2886,7 @@ def setup_plot(parent):
 				# option is the default.
 
 				if grid_size: # If we have a valid grid_size and it is not 0.0
-					new_action = QAction(item, parent)
+					new_action = QAction(text, parent)
 					new_action.setData(grid_size)
 					new_action.setCheckable(True)
 					new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
