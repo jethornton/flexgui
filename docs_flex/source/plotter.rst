@@ -161,11 +161,13 @@ section of the INI file.
 
 The values are a comma separated list of values. The units if left out will be
 machine units. While you can mix units usually machine units are used. Units can
-be `in` or `mm` or left out.
+be mm, cm, um, in, inch, mil or left out. A space can be between the distance
+and the units for better readability. Fractions are are in inch units and can be
+a whole number with a space then the fraction.
 ::
 
 	[DISPLAY]
-	GRIDS = 1/2, 1in, 2in, 4in, 8in
+	GRIDS = 1/2, 1 in, 1 1/2, 2 inch, 4in, 8in
 	or
 	GRIDS = 10mm, 20mm, 50mm, 100mm
 
