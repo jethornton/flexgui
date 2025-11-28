@@ -30,7 +30,6 @@ def is_int(string):
 def is_number(string):
 	try:
 		int(string)
-		print('number')
 		return True
 	except ValueError:
 		try:
@@ -42,7 +41,6 @@ def is_number(string):
 def is_fraction(item):
 	try:
 		Fraction(s)
-		print('fraction')
 		return True
 	except ValueError:
 		return False
@@ -372,8 +370,6 @@ def sync_toolbuttons(parent, view):
 			parent.flex_View_Z.setStyleSheet(parent.selected_style)
 		case 'z2' if 'flex_View_Z2' in parent.child_names:
 			parent.flex_View_Z2.setStyleSheet(parent.selected_style)
-		case _:
-			print('view not found')
 
 def var_value_changed(parent, value):
 	variable = parent.sender().property('variable')
@@ -426,10 +422,6 @@ def io_watch(parent):
 		hal_value = getattr(parent.halcomp, value)
 		if float_value != hal_value:
 			getattr(parent, key).setValue(hal_value)
-
-		#print(key, value)
-		#print(f'{key} {getattr(parent, key).isChecked()}')
-		#print(f'hal value {getattr(parent.halcomp, value)}')
 
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
