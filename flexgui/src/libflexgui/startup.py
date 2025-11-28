@@ -959,7 +959,7 @@ def setup_status_labels(parent):
 	# check for joint labels in ui
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
 
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		if f'joint_{i}_backlash_lb' in parent.child_names:
 			backlash = parent.inifile.find(f'JOINT_{i}', 'BACKLASH') or False
 			if backlash:
@@ -974,7 +974,7 @@ def setup_status_labels(parent):
 	'output', 'override_limits']
 
 	parent.status_joints = {} # create an empty dictionary
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		for item in joint_items:
 			if f'joint_{i}_{item}_lb' in parent.child_names:
 				parent.status_joints[f'joint_{i}_{item}_lb'] = item
@@ -983,7 +983,7 @@ def setup_status_labels(parent):
 	# joint[1]["homed"]
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		for item in joint_number_items:
 			if f'joint_{i}_{item}_lb' in parent.child_names: # if the label is found
 				p = getattr(parent, f'joint_{i}_{item}_lb').property('precision')
@@ -1318,7 +1318,7 @@ def setup_jog(parent):
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.jog_buttons.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.child_names:
@@ -1366,9 +1366,9 @@ def setup_jog(parent):
 			'will be used to set the maximum jog velocity slider.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
-			if int(parent.joints) > 0:
+			if parent.joints > 0:
 				maxjv = []
-				for i in range(int(parent.joints)):
+				for i in range(parent.joints):
 					maxjv.append(parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY'))
 				parent.max_jog_vel = min(maxjv)
 				parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
