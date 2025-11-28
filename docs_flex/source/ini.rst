@@ -61,12 +61,15 @@ Jog Increments
 ^^^^^^^^^^^^^^
 
 The following settings can be used in the [DISPLAY] section of the ini file to
-preset jog items
+preset jog items. While you can mix units usually machine units are used. Units
+can be mm, cm, um, in, inch, mil or left out. A space can be between the
+distance and the units for better readability. Fractions are are in inch units
+and can be a whole number with a space then the fraction.
 ::
 
-	INCREMENTS = 0.100, 0.010, 0.001
+	INCREMENTS = 1/2, 0.100, 0.010, 0.001
 	or
-	INCREMENTS = 1 inch, 0.5 in, 1 cm, 1 mm
+	INCREMENTS = 1 1/2, 1 inch, 0.5 in, 1 cm, 1 mm
 	MIN_LINEAR_VELOCITY = 0.1
 	MAX_LINEAR_VELOCITY = 1.0
 	DEFAULT_LINEAR_VELOCITY = 0.2
