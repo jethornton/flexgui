@@ -339,9 +339,9 @@ def read(parent):
 	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
 
 	# ***** [KINS] Section *****
-	# FIXME this might be better than status.joints which fails sometimes
 	parent.joints = parent.inifile.find('KINS', 'JOINTS') or False
-	print(type(parent.joints))
+	if parent.joints: # convert string to int
+		parent.joints = int(parent.joints)
 
 	# ***** [SPINDLE_0] Section *****
 	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
