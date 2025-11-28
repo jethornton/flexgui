@@ -268,7 +268,6 @@ def read(parent):
 	if not parent.led_off_color: # use default led off color
 		parent.led_off_color = QColor(255, 0, 0, 255)
 
-
 	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
 	if parent.probe_enable_on_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.probe_enable_on_color, 'PROBE_ENABLE_ON_COLOR')

@@ -141,11 +141,6 @@ def update(parent):
 
 			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.selected_style)
-			if parent.power_on_color: # if False just don't bother
-				if 'power_pb' in parent.child_names:
-					parent.power_pb.setStyleSheet(parent.power_on_color)
-				if 'flex_Power' in parent.child_names:
-					parent.flex_Power.setStyleSheet(parent.power_on_color)
 
 			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
