@@ -295,6 +295,8 @@ def read(parent):
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 					break
 				parent.plot_background_color = tuple(map(float, color_string.split(',')))
+	else:
+		parent.plot_background_color = False
 
 	parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
 	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
@@ -339,6 +341,7 @@ def read(parent):
 	# ***** [KINS] Section *****
 	# FIXME this might be better than status.joints which fails sometimes
 	parent.joints = parent.inifile.find('KINS', 'JOINTS') or False
+	print(type(parent.joints))
 
 	# ***** [SPINDLE_0] Section *****
 	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
