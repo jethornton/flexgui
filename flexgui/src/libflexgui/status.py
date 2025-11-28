@@ -75,12 +75,6 @@ def update(parent):
 					parent.estop_pb.setChecked(False)
 					parent.estop_pb.blockSignals(False)
 
-			if parent.estop_open_color: # if False just don't bother
-				if 'estop_pb' in parent.child_names:
-					parent.estop_pb.setStyleSheet(parent.estop_open_color)
-				if 'flex_E_Stop' in parent.child_names:
-					parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
-
 			if parent.probe_enable_off_color: # if False just don't bother
 				if 'probing_enable_pb' in parent.child_names:
 					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
