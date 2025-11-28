@@ -118,18 +118,6 @@ def update(parent):
 				parent.power_pb.setChecked(False)
 				parent.power_pb.blockSignals(False)
 
-			if parent.estop_closed_color: # if False just don't bother
-				if 'estop_pb' in parent.child_names:
-					parent.estop_pb.setStyleSheet(parent.estop_closed_color)
-				if 'flex_E_Stop' in parent.child_names:
-					parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
-
-			if parent.power_off_color: # if False just don't bother
-				if 'power_pb' in parent.child_names:
-					parent.power_pb.setStyleSheet(parent.power_off_color)
-				if 'flex_Power' in parent.child_names:
-					parent.flex_Power.setStyleSheet(parent.power_off_color)
-
 			if parent.probe_enable_off_color: # if False just don't bother
 				if 'probing_enable_pb' in parent.child_names:
 					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
