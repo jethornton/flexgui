@@ -742,18 +742,6 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'search_pb' in parent.child_names:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
 
-	# set button background colors if needed
-	if parent.estop_open_color: # if False just don't bother
-		if 'estop_pb' in parent.child_names:
-			parent.estop_pb.setStyleSheet(parent.estop_open_color)
-		if 'flex_E_Stop' in parent.child_names:
-			parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
-	if parent.power_off_color: # if False just don't bother
-		if 'power_pb' in parent.child_names:
-			parent.power_pb.setStyleSheet(parent.power_off_color)
-		if 'flex_Power' in parent.child_names:
-			parent.flex_Power.setStyleSheet(parent.power_off_color)
-
 	# file open buttons
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
