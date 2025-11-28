@@ -281,10 +281,20 @@ def read(parent):
 		if color:
 			parent.probe_enable_off_color = f'background-color: {color};'
 
-	# FIXME check for a valid color string 0.0,0.0,0.0 to 1.0,1.0,1.0
-	parent.plot_background_color = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
-	if parent.plot_background_color:
-		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
+	color_string = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
+	if color_string:
+		components = [c.strip() for c in color_string.split(',')]
+		if len(components) == 3:
+			for comp in components:
+				value = float(comp)
+				if not (0.0 <= value <= 1.0):
+					parent.plot_background_color = False
+					msg = ('The PLOT_BACKGROUND_COLOR in the\n'
+					f'FLEXGUI section {color_string} is not valid.\n'
+					'The plot background color will be black')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					break
+				parent.plot_background_color = tuple(map(float, color_string.split(',')))
 
 	parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
 	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
