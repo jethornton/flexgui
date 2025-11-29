@@ -9457,6 +9457,8 @@ THREADS</string>
     <addaction name="actionDTG"/>
     <addaction name="actionOffsets"/>
     <addaction name="actionOverlay"/>
+    <addaction name="separator"/>
+    <addaction name="actionGrids"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -9649,6 +9651,11 @@ THREADS</string>
   <action name="actionClear_Offsets">
    <property name="text">
     <string>Clear Offsets</string>
+   </property>
+  </action>
+  <action name="actionGrids">
+   <property name="text">
+    <string>Grids</string>
    </property>
   </action>
  </widget>
