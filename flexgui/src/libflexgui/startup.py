@@ -1413,6 +1413,11 @@ def setup_jog(parent):
 				if data:
 					jog_distance = conv_units(data, suffix.lower(), parent.units)
 					parent.jog_modes_cb.addItem(text, jog_distance)
+				else:
+					msg = ('The DISPLAY INCREMENTS entry in the ini\n'
+					f'> {item} < is not a valid unit and will not\n'
+					'be used.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -1715,7 +1720,6 @@ def setup_defaults(parent):
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
-	#print('setup_probing')
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.child_names:
@@ -1731,7 +1735,6 @@ def setup_probing(parent):
 			parent.state_estop_reset_checked['probing_enable_pb'] = False
 
 			parent.probing_enable_pb.setCheckable(True)
-			#print(f'parent.probing_enable_pb.isCheckable() {parent.probing_enable_pb.isCheckable()}')
 
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
@@ -2862,7 +2865,7 @@ def setup_plot(parent):
 					grid_size = conv_units(data, suffix.lower(), parent.units)
 				else:
 					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
-					f'{item} is not a valid unit and will not\n'
+					f'> {item} < is not a valid unit and will not\n'
 					'be used.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 					continue
