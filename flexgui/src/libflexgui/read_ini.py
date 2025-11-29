@@ -138,30 +138,6 @@ def read(parent):
 			'The default font size will be used')
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 
-	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key ESTOP_OPEN is now ESTOP_OPEN_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key ESTOP_CLOSED is now ESTOP_CLOSED_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX_COLORS', 'POWER_OFF'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key POWER_OFF is now POWER_OFF_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX_COLORS', 'POWER_ON'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key POWER_ON is now POWER_ON_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
 	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
 		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
 		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
