@@ -223,6 +223,8 @@ To control the initial size of the screen, add of the following values.
    there is a way to close the GUI like an Exit button or you may not be able to
    close the application. As a last-resort, pressing ALT-F4 will close it.
 
+.. _plotter:
+
 Plotter
 ^^^^^^^
 
@@ -243,7 +245,6 @@ The plotter orientation can be set to one of the following x, x2, y, y2, z, or p
 
 The font size for the plotter can be set in the ini by adding the following to
 the FLEXGUI section. The font size must be an integer.
-
 ::
 
 	[FLEXGUI]
@@ -254,6 +255,22 @@ G20/G21 change. Setting to `True` disables the manual unit change controls.
 ::
 
 	PLOT_UNITS = True
+
+The plot grid sizes are set in the ini file. Fraction and decimal numbers are
+valid. Fractions are always in Inch units. Valid suffixes are `mm`, `cm`, `um`,
+`in`, `inch`, `mil`. If fraction does not have a suffix then `inch` will be
+added as the suffix. If no suffix is found the the machine units suffix will be
+added. If the size does not have a valid suffix or is not a number it will be
+skipped and a warning will appear.
+::
+
+	PLOT_GRID = 1/2, 1 in, 1 1/2, 2 inch
+	or for metric
+	PLOT_GRID = 10mm, 20mm, 50mm, 100mm
+
+The first item in the list will be considered the default and set when FlexGUI
+starts. If you wish disable grid by default, add a `0` item to the beginning of
+the list.
 
 DRO
 ^^^
