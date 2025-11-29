@@ -245,7 +245,8 @@ connected to a signal.
 	Int, edge_margin, space between circle and edge of the label
 	String, led_shape, square
 
-Choosing 'rectangular' for LED shape will fill the entire control as one giant indicator.
+Choosing 'rectangular' for LED shape will fill the entire control as one giant
+indicator.
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
@@ -271,7 +272,6 @@ default shape is round.
 	Int, led_right_offset, offset from right edge
 	Int, led_top_offset, offset from top edge
 	String, led_shape, square
-
 
 LCD
 ---
@@ -374,7 +374,6 @@ Now you can connect the Flex HAL pin in the postgui.hal file like normal
 
 After installing Flex GUI, from the CNC menu, you can copy the Flex GUI examples
 and look at the hal-btn example.
-
 
 HAL Pin Types::
 

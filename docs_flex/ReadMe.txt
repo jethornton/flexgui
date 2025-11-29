@@ -11,3 +11,17 @@ make html
 
 To build the pdf
 make latexpdf
+
+Links
+See the :doc:`some_file_name` for more information.
+
+When using :ref: to link to a specific section, you need to define a label
+immediately before the section title in the target document.
+
+.. _my-section-label:
+
+My Section Title
+^^^^^^^^^^^^^^^^
+
+See :ref:`my-section-label`.
+
