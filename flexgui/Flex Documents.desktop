@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Flex Documents
-Comment=Flex Documents
+Comment=Documention for FlexGUI
 Exec=flexdocs
 Icon=linuxcncicon
 Categories=Development;Engineering;X-CNC;
