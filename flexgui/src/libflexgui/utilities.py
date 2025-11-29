@@ -51,6 +51,7 @@ def convert_fraction(item):
 		if item[i].isdigit():
 			fraction_string = item[:i+1]
 			break
+	suffix = item[i+1:].strip() if len(item[i+1:].strip()) > 0 else False
 
 	if len(fraction_string.split('/')) == 2: # might be a good number
 		match = re.match(r'(\d+)?\s*(\d+)/(\d+)', fraction_string)
@@ -58,9 +59,10 @@ def convert_fraction(item):
 			whole_number = int(match.group(1)) if match.group(1) else 0
 			numerator = int(match.group(2))
 			denominator = int(match.group(3))
-			return whole_number + (numerator / denominator)
+			# return the decimal number plus suffix
+			return whole_number + (numerator / denominator), suffix
 	else:
-		return False
+		return False, False
 
 '''
 In Python, a function can return multiple values by separating them with commas
@@ -78,8 +80,10 @@ def is_valid_increment(parent, item): # need to return text ,data and suffix
 
 	if '/' in item: # it might be a fraction
 		#for character in item:
-		fraction = convert_fraction(item)
-		if fraction:
+		fraction, suffix = convert_fraction(item)
+		if fraction and suffix:
+			return f'{item}', fraction, 'inch'
+		elif fraction and not suffix:
 			return f'{item} inch', fraction, 'inch'
 		else:
 			return False, False, False
