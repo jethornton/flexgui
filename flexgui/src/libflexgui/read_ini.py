@@ -10,6 +10,34 @@ def read(parent):
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
+	# make a list of lists with every old section/item and warn if found
+	old_ini_items = [
+	['FLEX_COLORS', 'ESTOP_OPEN'],
+	['FLEX_COLORS', 'ESTOP_CLOSED'],
+	['FLEX_COLORS', 'POWER_OFF'],
+	['FLEX_COLORS', 'POWER_ON'],
+	['FLEXGUI', 'ESTOP_OPEN_COLOR'],
+	['FLEXGUI', 'ESTOP_CLOSED_COLOR'],
+	['FLEXGUI', 'POWER_OFF_COLOR'],
+	['FLEXGUI', 'POWER_ON_COLOR'],
+	['DISPLAY', 'RESOURCES'],
+	['DISPLAY', 'SIZE'],
+	['DISPLAY', 'THEME'],
+	['DISPLAY', 'QSS'],
+	['DISPLAY', 'DRO_FONT_SIZE'],
+	['FLEX', 'PLOT_BACKGROUND_COLOR'],
+	['FLEX', 'TOUCH_FILE_WIDTH'],
+	['FLEX', 'MANUAL_TOOL_CHANGE'],
+	['FLEX', 'IMPORT'],
+	]
+	for item in old_ini_items:
+		if parent.inifile.find(item[0], item[1]):
+			msg = (f'The key {item[1]} has been moved from the\n'
+			f'[{item[0]}] section or is no longer used\n'
+			'by FlexGUI. Check the INI section of\n'
+			'the Documents for correct INI entries.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -118,61 +146,6 @@ def read(parent):
 	parent.increment = int(increment) if increment else 10
 
 	# ***** [FLEXGUI] Section *****
-
-	# ***** Test for old entries *****
-	if parent.inifile.find('DISPLAY', 'RESOURCES'):
-		msg = ('The key RESOURCES has been moved from the [DISPLAY] section\n'
-		'The key RESOURCES needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'SIZE'):
-		msg = ('The key SIZE has been moved from the [DISPLAY] section\n'
-		'The key SIZE needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE'):
-		msg = ('DRO_FONT_SIZE has been moved to the\n'
-			'[FLEXGUI] section of the ini file.\n'
-			'The default font size will be used')
-		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-
-	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key TOUCH_FILE_WIDTH needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key MANUAL_TOOL_CHANGE needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.findall('FLEX', 'IMPORT'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key IMPORT has been changed to IMPORT_PYTHON\n'
-		'Check Python section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'THEME'):
-		msg = ('THEME has been moved to the [FLEXGUI]\n'
-			'section of the ini file.\n'
-			'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'QSS'):
-		msg = ('QSS has been moved to the [FLEXGUI]\n'
-			'section of the ini file.\n'
-			'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	# check for a RESOURCES
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
