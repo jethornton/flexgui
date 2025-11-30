@@ -10,7 +10,8 @@ Typically the Dynamic Properties are String type with some exceptions being Bool
 and Color. Connections from Flex HAL objects to other HAL objects must be done
 in the file assigned to the POSTGUI_HALFILE variable in the [HAL] section
 typically named `postgui.hal`.
-::
+
+.. code-block:: text
 
 	[HAL]
 	HALFILE = main.hal
@@ -368,21 +369,26 @@ The pin names will all start with `flexhal` plus the unique name you gave them
    :align: center
 
 Now you can connect the Flex HAL pin in the postgui.hal file like normal
-::
+
+.. code-block:: text
 
 	net some-signal-name flexhal.hal-test-01 => some-other-pin-in
 
 After installing Flex GUI, from the CNC menu, you can copy the Flex GUI examples
 and look at the hal-btn example.
 
-HAL Pin Types::
+HAL Pin Types
+
+.. code-block:: text
 
 	HAL_BIT
 	HAL_FLOAT
 	HAL_S32
 	HAL_U32
 
-HAL Pin Directions::
+HAL Pin Directions
+
+.. code-block:: text
 
 	HAL_IN
 	HAL_OUT

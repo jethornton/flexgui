@@ -25,3 +25,6 @@ My Section Title
 
 See :ref:`my-section-label`.
 
+For code blocks a blank line before and after and the code is one tab indented]
+.. code-block:: text
+
