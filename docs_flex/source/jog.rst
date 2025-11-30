@@ -41,7 +41,8 @@ Keyboard jogging can jog more than one axis at the same time.
 
 There are two ways to enable keyboard jogging, the recommended way is to add the
 following to the ini file.
-.. code html::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	KEYBOARD_JOG = True
@@ -101,7 +102,8 @@ for Plus and Minus. Axes are 0-8 for X, Y, Z, A, B, C, U, V, W.
 
 Axis Index
 ----------
-::
+
+.. code-block:: text
 
 	X 0
 	Y 1

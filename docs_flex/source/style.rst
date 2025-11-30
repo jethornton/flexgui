@@ -3,7 +3,8 @@ StyleSheet
 
 You can use your own .qss style sheet by creating a valid .qss file in the
 configuration directory and setting it in the :doc:`ini`.
-::
+
+.. code-block:: text
 
 	[DISPLAY]
 	QSS = name_of_file.qss
@@ -31,7 +32,8 @@ specific selectors (e.g., those with pseudo-states or object names) take
 precedence. If specificity is equal, the last rule defined in the stylesheet
 takes precedence. In this example if a QPushButton state is hover or pressed or
 disabled the background-color will change.
-::
+
+.. code-block:: text
 
 	QPushButton {
 		background-color: lightgray;
@@ -60,7 +62,7 @@ Red, Green, Blue and A means Alpha or transparency. The alpha parameter is a
 number between 0.0 (fully transparent) and 1.0 (not transparent at all). Hex is
 red, green blue in hexadecimal number pairs from 00 to ff.
 
-.. code-block:: html
+.. code-block:: text
 
 	#0000ff
 	rgb(0, 0, 255) Blue
@@ -73,7 +75,7 @@ The style can be set in the qss stylesheet for an individual QPushButton by
 using the QPushButton object name. For example to target the E Stop button use
 `#estop_pb` to target the Power button use `#power_pb`.
 
-.. code-block:: html
+.. code-block:: text
 
 	QPushButton#estop_pb {
 		font-size: 24px;
@@ -134,7 +136,7 @@ that matches the `flash_state` value.
 To make the E Stop QPushButton flash when not checked the flash_state Dynamic
 Property must be set to `unchecked` and following example could be used.
 
-.. code-block:: html
+.. code-block:: text
 
 	QPushButton#estop_pb {
 		font-size: 12px;
@@ -162,7 +164,7 @@ In the above example the E Stop push button will flash if not checked.
 To make the Power QPushButton flash if not checked and enabledthe flash_state
 Dynamic Property must be set to `unchecked` and following example could be used.
 
-.. code-block:: html
+.. code-block:: text
 
 	QPushButton#power_pb {
 		font-size: 12px;
@@ -188,7 +190,7 @@ Dynamic Property must be set to `unchecked` and following example could be used.
 Examples
 --------
 
-.. code-block:: html
+.. code-block:: text
 
 	/* Set the background color for all QPushButtons, border is required * /
 	QPushButton {
@@ -229,9 +231,9 @@ Tool Bar Buttons
 ----------------
 
 A tool bar button created from a menu action can be styled by using the 
-QToolButton` selector:
+`QToolButton` selector:
 
-.. code-block:: html
+.. code-block:: text
 
 	QToolButton:hover {
 		background-color: rgba(255, 0, 0, 75%);
@@ -271,7 +273,7 @@ for that action. The tool bar button must exist in the tool bar.
 
 The syntax to select a tool bar button by name (here the flex_Quit button) is:
 
-.. code-block:: html
+.. code-block:: text
 
 	QToolButton#flex_Quit:hover {
 		background-color: rgba(255, 0, 0, 75%);
