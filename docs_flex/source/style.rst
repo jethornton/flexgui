@@ -118,8 +118,8 @@ Flashing
 --------
 
 Checkable buttons, like estop_pb, power_pb, or hal_buttons that are checkable
-can flash when either checked or not checked. To add flashing add one String
-type Dynamic Property to the QPushButton.
+can flash when either checked or not checked. To add flashing add the following
+Dynamic Property to the QPushButton.
 
 .. csv-table:: Flashing Push Button
    :width: 100%
@@ -191,6 +191,12 @@ Examples
 --------
 
 .. code-block:: text
+
+	/* Set the font size and weight 400 is normal and 700 is bold*/
+	QLabel {
+		font-size: 24px;
+		font-weight: 800;
+	}
 
 	/* Set the background color for all QPushButtons, border is required * /
 	QPushButton {

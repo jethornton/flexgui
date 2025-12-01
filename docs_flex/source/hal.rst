@@ -163,7 +163,7 @@ Label
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+`flexhal.` A pin_name of my-reader would be `flexhal.my-reader` in HAL.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -174,10 +174,31 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, pin_name, any unique name
 	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
 	, Optional
+	String, precision, Number of decimal digits for HAL_FLOAT type
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
-.. note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
-   `precision` with a value of the number of decimal digits.
+Average Float Label
+-------------------
+
+A QLabel can be used to monitor HAL float number pins and display an average of
+the number of samples. HAL connections must be made in the post gui HAL file.
+The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
+my-reader would be `flexhal.my-reader` in HAL. This could be useful to display
+RPM from a spindle encoder.
+
+.. csv-table:: HAL Label
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_avr_f
+	String, pin_name, any unique name
+	, Optional
+	Int, samples, The number of samples to use default is 10
+	String, precision, Number of decimal digits for HAL_FLOAT type
+	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
+
+.. WARNING:: HAL Average Label is a Work In Progress and may change or not work.
 
 Bool Label
 ----------
