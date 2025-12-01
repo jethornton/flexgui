@@ -2061,16 +2061,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if button_name == pin_name:
-				button.setEnabled(False)
-				msg = (f'The object name {button_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, 'HAL_OUT')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -2123,16 +2113,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = spinbox.property('hal_type')
 			if hal_type not in valid_types:
 				spinbox.setEnabled(False)
@@ -2182,16 +2162,6 @@ def setup_hal(parent):
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} spinbox will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = getattr(hal, 'HAL_FLOAT')
@@ -2246,16 +2216,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if lcd_name == pin_name:
-				lcd.setEnabled(False)
-				msg = (f'The object name {lcd_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the LCD will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -2287,15 +2247,14 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			# Allow multiple pins to request the same pin_name
-			# Later, we will only allow the hal pin to be created once.
-			# if pin_name in dir(parent):
-			# 	msg = (f'HAL Label {label_name}\n'
-			# 	f'pin name {pin_name}\n'
-			# 	'is already used in Flex GUI\n'
-			# 	'The HAL pin can not be created.')
-			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			# 	continue
+			# the pin_name can not be the same as a built in variable or object name
+			if pin_name in parent.directory:
+				msg = (f'HAL Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
 
 			hal_type = label.property('hal_type')
 			if hal_type not in valid_types:
@@ -2308,19 +2267,9 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if label_name == pin_name:
-				label.setEnabled(False)
-				msg = (f'The object name {label_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
-			
+
 			# Only create the pin if its not already created
 			if pin_name in dir(parent):
 				pin = getattr(parent, f'{pin_name}')
@@ -2346,6 +2295,7 @@ def setup_hal(parent):
 				integer_digits = label.property('integer_digits')
 				parent.hal_readers[label_name] = [pin_name, integer_digits]
 
+
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
 		for label in hal_ms_labels:
@@ -2367,16 +2317,6 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if msl_name == pin_name:
-				label.setEnabled(False)
-				msg = (f'The object name {msl_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			if label.property('text_0') == None:
@@ -2439,16 +2379,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if progressbar_name == pin_name:
-				progressbar.setEnabled(False)
-				msg = (f'The object name {progressbar_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the progressbar will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -2479,16 +2409,6 @@ def setup_hal(parent):
 				'The HAL pin can not be created.\n')
 				f'The {slider_name} slider will be disabled.'
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if slider_name == pin_name:
-				slider.setEnabled(False)
-				msg = (f'The object name {slider_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {slider_name} slider will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = slider.property('hal_type')
@@ -2532,26 +2452,15 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			# Allow multiple pins to request the same pin_name
-			# Later, we will only allow the hal pin to be created once.
-			# if pin_name in dir(parent):
-			# 	led.setEnabled(False)
-			# 	msg = (f'HAL LED {led_name}\n'
-			# 	f'pin name {pin_name}\n'
-			# 	'is already used in Flex GUI\n'
-			# 	'The HAL pin can not be created.\n')
-			# 	f'The {led_name} LED will be disabled.'
-			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			# 	continue
-
-			if led_name == pin_name:
+			# the pin_name can not be the same as a built in variable
+			if pin_name in parent.directory:
 				led.setEnabled(False)
-				msg = (f'The object name {led_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {led_name} slider will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				msg = (f'HAL LED {led_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.\n')
+				f'The {led_name} LED will be disabled.'
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			on_color = led.property('on_color')
