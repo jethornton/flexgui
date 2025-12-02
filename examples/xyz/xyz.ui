@@ -2037,6 +2037,9 @@
              <property name="precision" stdset="0">
               <number>0</number>
              </property>
+             <property name="rounding" stdset="0">
+              <number>1</number>
+             </property>
             </widget>
            </item>
           </layout>

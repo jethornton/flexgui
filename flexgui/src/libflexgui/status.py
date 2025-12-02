@@ -552,10 +552,18 @@ def update(parent):
 			getattr(parent, key).setText(f'{state}')
 
 	# update hal average float labels key is label name and value is pin name
+	# [pin_name, deque([0], maxlen=samples), p, _round]
 	for key, value in parent.hal_avr_float.items():
 		cur_val = hal.get_value(f'flexhal.{value[0]}')
 		value[1].append(cur_val)
-		getattr(parent, key).setText(f'{statistics.fmean(value[1]):.{value[2]}f}')
+		#stat = f'{statistics.fmean(value[1]):.{value[2]}f}'
+		stat = statistics.fmean(value[1])
+		rounding = value[3]
+		getattr(parent, key).setText(f'{round(stat, rounding):.{value[2]}f}')
+		#getattr(parent, key).setText(f'{round({statistics.fmean(value[1]):.{value[2]}f}, -{value[3]})}')
+
+	# update hal average int labels key is label name and value is pin name
+
 
 	# update multi state labels
 	# key is label name and value[0] is the pin name
@@ -630,7 +638,6 @@ def update(parent):
 	# label, tuple position & precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
 		position = positions[value[0]]
-
 
 		'''
 		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]
