@@ -554,7 +554,6 @@ def update(parent):
 	# update hal average float labels key is label name and value is pin name
 	for key, value in parent.hal_avr_float.items():
 		cur_val = hal.get_value(f'flexhal.{value[0]}')
-		print(value[1])
 		value[1].append(cur_val)
 		getattr(parent, key).setText(f'{statistics.fmean(value[1]):.{value[2]}f}')
 
