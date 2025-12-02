@@ -7,7 +7,8 @@ Installing the Qt Designer
 --------------------------
 
 In a terminal, install Qt Designer 5 with
-::
+
+.. code-block:: text
 
 	sudo apt install qttools5-dev-tools
 
@@ -83,12 +84,14 @@ Qt6 Designer
 ------------
 
 Qt6 Designer can be installed from a terminal with
-::
+
+.. code-block:: text
 
 	sudo apt install designer-qt6
 
 To run Qt6 Designer you must use the full path to the executable
-::
+
+.. code-block:: text
 
 	/usr/lib/qt6/bin/designer
 

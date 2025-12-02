@@ -10,7 +10,8 @@ Typically the Dynamic Properties are String type with some exceptions being Bool
 and Color. Connections from Flex HAL objects to other HAL objects must be done
 in the file assigned to the POSTGUI_HALFILE variable in the [HAL] section
 typically named `postgui.hal`.
-::
+
+.. code-block:: text
 
 	[HAL]
 	HALFILE = main.hal
@@ -162,7 +163,7 @@ Label
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+`flexhal.` A pin_name of my-reader would be `flexhal.my-reader` in HAL.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -172,9 +173,31 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
+	, Optional
+	String, precision, Number of decimal digits for HAL_FLOAT type
+	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
-.. note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
-   `precision` with a value of the number of decimal digits.
+Average Float Label
+-------------------
+
+A QLabel can be used to monitor HAL float number pins and display an average of
+the number of samples. HAL connections must be made in the post gui HAL file.
+The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
+my-reader would be `flexhal.my-reader` in HAL. This could be useful to display
+RPM from a spindle encoder.
+
+.. csv-table:: HAL Label
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_avr_f
+	String, pin_name, any unique name
+	, Optional
+	Int, samples, The number of samples to use default is 10
+	String, precision, Number of decimal digits for HAL_FLOAT type
+
+.. WARNING:: HAL Average Label is a Work In Progress and may change or not work.
 
 Bool Label
 ----------
@@ -243,7 +266,8 @@ connected to a signal.
 	Int, edge_margin, space between circle and edge of the label
 	String, led_shape, square
 
-Choosing 'rectangular' for LED shape will fill the entire control as one giant indicator.
+Choosing 'rectangular' for LED shape will fill the entire control as one giant
+indicator.
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
@@ -260,8 +284,7 @@ default shape is round.
    :align: center
 
 	**Property Type**, **Property Name**, **Pin Value**
-	Bool, hal_led_label, True
-	String, function, hal_led
+	String, function, hal_led_label
 	String, pin_name, any unique name
 	, Optional
 	Color, led_on_color, color of your choice
@@ -270,7 +293,6 @@ default shape is round.
 	Int, led_right_offset, offset from right edge
 	Int, led_top_offset, offset from top edge
 	String, led_shape, square
-
 
 LCD
 ---
@@ -287,6 +309,8 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	, Optional
+	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
@@ -365,22 +389,26 @@ The pin names will all start with `flexhal` plus the unique name you gave them
    :align: center
 
 Now you can connect the Flex HAL pin in the postgui.hal file like normal
-::
+
+.. code-block:: text
 
 	net some-signal-name flexhal.hal-test-01 => some-other-pin-in
 
 After installing Flex GUI, from the CNC menu, you can copy the Flex GUI examples
 and look at the hal-btn example.
 
+HAL Pin Types
 
-HAL Pin Types::
+.. code-block:: text
 
 	HAL_BIT
 	HAL_FLOAT
 	HAL_S32
 	HAL_U32
 
-HAL Pin Directions::
+HAL Pin Directions
+
+.. code-block:: text
 
 	HAL_IN
 	HAL_OUT

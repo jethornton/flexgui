@@ -396,6 +396,45 @@ QPushButton#stop_pb:pressed {
 	background-color: rgba(192, 0, 0, 80%); color: white; border none;
 	}
 
+/******************************************************/
+QPushButton:checked {
+	background-color: rgba(0, 192, 0, 40%); border none;
+	/* background-color: rgba(0, 192, 0, 90%); border none; */
+	border-style: inset;
+	}
+	
+QPushButton#estop_pb {
+         background-color: rgba(192, 0, 0, 80%);
+/*        background-color: green; */
+        border-style: outset;
+        border-width: 3;
+        border-color: grey;
+        border-radius: 10;
+}
+QPushButton#estop_pb:checked {
+        color: white;
+        background-color: rgba(0, 192, 0, 80%);
+        border-style: inset;
+/*        border-color: yellow; */
+}
+
+QPushButton#power_pb {
+       background-color: rgba(192, 0, 0, 80%);
+        border-style: outset;
+        border-width: 3;
+        border-color: grey;
+        border-radius: 10;
+}
+QPushButton#power_pb:checked {
+        color: white;
+        background-color: rgba(0, 192, 0, 80%);
+        border-style: inset;
+/*        border-color: grey; */
+}	
+/******************************************************/
+
+
+
 /* ********** Quit RED ********** */
 QPushButton#quit_pb:hover {
 	background-color: rgba(192, 0, 0, 40%); color: white;

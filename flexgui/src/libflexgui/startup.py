@@ -1,5 +1,6 @@
 import os, sys, shutil, re, importlib
 from functools import partial
+from collections import deque
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
@@ -21,6 +22,7 @@ import traceback
 
 from libflexgui import led
 from libflexgui.led import LEDButton
+from libflexgui.led import IndicatorLabel
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
@@ -51,17 +53,14 @@ def setup_vars(parent):
 	parent.plot_units = False
 
 def find_widget_index(layout, target_widget):
-	print(f'layout {layout.itemAt(2)}')
 	for i in range(layout.count()):
 		item = layout.itemAt(i)
 		if item.widget() == target_widget:
-			print(f'item.widget() {item.widget()}')
 			return i
 		elif item.layout() is not None:
 			# Recursively search in nested layouts
 			nested_index = find_widget_index(item.layout(), target_widget)
 			if nested_index is not None:
-				print(f'i {i}')
 				return f"{layout} layout at index {i}, widget at index {nested_index}"
 	return None
 
@@ -76,7 +75,6 @@ def find_widget_layout(layout, target_widget):
 			if nested_index is not None:
 				return item.layout()
 	return None
-
 
 def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
@@ -184,7 +182,8 @@ def setup_hal_led_buttons(parent):
 def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
-		if child.property('hal_led_label'): # bool property
+		#if child.property('hal_led_label') or 
+		if child.property('function') == 'hal_led_label':
 			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property pin_name\n'
@@ -231,10 +230,11 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 				new_label.setParent(child_parent)
 				new_label.setGeometry(geometry)
 
-			#for name_bytes in child.dynamicPropertyNames():
-			#	name = name_bytes.data().decode("utf-8")
-			#	value = child.property(name_bytes)
-			#	print(f"{name}: {value}")
+			# copy style from old label to new label
+			new_label.setAlignment(child.alignment())
+			new_label.setFrameShape(child.frameShape())
+			new_label.setFrameShadow(child.frameShadow())
+			new_label.setFont(child.font())
 
 			child.deleteLater()
 			new_label.setObjectName(led_dict['name'])
@@ -244,7 +244,7 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 def setup_hal_leds(parent): # LED
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
-		if child.property('hal_led'): # bool property
+		if child.property('function') == 'hal_led':
 
 			if child.property('pin_name') in [None, '']:
 				msg = (f'The HAL LED {child.objectName()}\n'
@@ -312,18 +312,14 @@ from this point on use parent.child_names to get the widgets because the LED
 widgets are no longer QPushButton for example but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
-	# FIXME change children to child_names
-	#parent.children = []
 	parent.child_names = []
 	children = parent.findChildren(QWidget)
 	for child in children:
 		if child.objectName():
-			#parent.children.append(child.objectName())
 			parent.child_names.append(child.objectName())
 	parent.actions = parent.findChildren(QAction)
 	for action in parent.actions:
 		if action.objectName():
-			#parent.children.append(action.objectName())
 			parent.child_names.append(action.objectName())
 			if 'toolBar' in parent.child_names:
 				widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
@@ -331,12 +327,10 @@ def find_children(parent): # get the object names of all widgets
 				if parent.toolBar.widgetForAction(action) is not None:
 					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
 					setattr(parent, widget_name, parent.toolBar.widgetForAction(action))
-					#parent.children.append(widget_name)
 					parent.child_names.append(widget_name)
 	menus = parent.findChildren(QMenu)
 	for menu in menus:
 		if menu.objectName():
-			#parent.children.append(menu.objectName())
 			parent.child_names.append(menu.objectName())
 
 def update_check(parent):
@@ -356,6 +350,10 @@ def setup_enables(parent):
 	if 'home_all_pb' in parent.child_names:
 		if not utilities.home_all_check(parent):
 			parent.home_all_pb.setEnabled(False)
+			msg = ('All joints must have the HOME_SEQUENCE set\n'
+			'in order for the Home All button to function.\n'
+			'The Home All button will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	# STATE_ESTOP
 	parent.state_estop = {
@@ -456,22 +454,6 @@ def setup_enables(parent):
 		'power_pb': 'Power Off', 'actionPower': 'Power Off'
 		}
 	'''
-
-	parent.state_estop_reset_names = {}
-	if 'estop_pb' in parent.child_names:
-		closed_text = parent.estop_pb.property('closed_text')
-		if closed_text is not None:
-			parent.state_estop_reset_names['estop_pb'] = closed_text
-
-	if 'power_pb' in parent.child_names:
-		off_text = parent.power_pb.property('off_text')
-		if off_text is not None:
-			parent.state_estop_reset_names['power_pb'] = off_text
-
-	# remove any items not found in the gui
-	for item in list(parent.state_estop_reset_names):
-		if item not in parent.child_names:
-			del parent.state_estop_reset_names[item]
 
 	# STATE_ON home, jog, spindle
 	parent.state_on = {
@@ -631,8 +613,6 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	action_buttons = {
-	'estop_pb': 'action_estop',
-	'power_pb': 'action_power',
 	'run_pb': 'action_run',
 	'run_from_line_pb': 'action_run_from_line',
 	'step_pb': 'action_step',
@@ -661,6 +641,26 @@ def setup_buttons(parent): # connect buttons to functions
 	for key, value in action_buttons.items():
 		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+
+	parent.state_estop_reset_names = {}
+	if 'estop_pb' in parent.child_names:
+		parent.estop_pb.toggled.connect(partial(actions.action_estop, parent))
+		parent.estop_pb.setCheckable(True)
+		closed_text = parent.estop_pb.property('closed_text')
+		if closed_text is not None:
+			parent.state_estop_reset_names['estop_pb'] = closed_text
+
+	if 'power_pb' in parent.child_names:
+		parent.power_pb.toggled.connect(partial(actions.action_power, parent))
+		parent.power_pb.setCheckable(True)
+		off_text = parent.power_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_reset_names['power_pb'] = off_text
+
+	# remove any items not found in the gui
+	#for item in list(parent.state_estop_reset_names):
+	#	if item not in parent.child_names:
+	#		del parent.state_estop_reset_names[item]
 
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
@@ -743,23 +743,19 @@ def setup_buttons(parent): # connect buttons to functions
 	if 'search_pb' in parent.child_names:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
 
-	# set button background colors if needed
-	if parent.estop_open_color: # if False just don't bother
-		if 'estop_pb' in parent.child_names:
-			parent.estop_pb.setStyleSheet(parent.estop_open_color)
-		if 'flex_E_Stop' in parent.child_names:
-			parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
-	if parent.power_off_color: # if False just don't bother
-		if 'power_pb' in parent.child_names:
-			parent.power_pb.setStyleSheet(parent.power_off_color)
-		if 'flex_Power' in parent.child_names:
-			parent.flex_Power.setStyleSheet(parent.power_off_color)
-
 	# file open buttons
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
 			# FIXME add to enable disables
+
+	parent.flashing_buttons = []
+	for child in parent.findChildren(QPushButton):
+		if (child.isCheckable and 
+			child.property("flash_state") in ["checked", "unchecked"] and
+			child.objectName() not in parent.flashing_buttons):
+			# Not sure why I was getting dupes
+			parent.flashing_buttons.append(child.objectName())
 
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
@@ -964,7 +960,7 @@ def setup_status_labels(parent):
 	# check for joint labels in ui
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
 
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		if f'joint_{i}_backlash_lb' in parent.child_names:
 			backlash = parent.inifile.find(f'JOINT_{i}', 'BACKLASH') or False
 			if backlash:
@@ -979,7 +975,7 @@ def setup_status_labels(parent):
 	'output', 'override_limits']
 
 	parent.status_joints = {} # create an empty dictionary
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		for item in joint_items:
 			if f'joint_{i}_{item}_lb' in parent.child_names:
 				parent.status_joints[f'joint_{i}_{item}_lb'] = item
@@ -988,7 +984,7 @@ def setup_status_labels(parent):
 	# joint[1]["homed"]
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		for item in joint_number_items:
 			if f'joint_{i}_{item}_lb' in parent.child_names: # if the label is found
 				p = getattr(parent, f'joint_{i}_{item}_lb').property('precision')
@@ -1111,9 +1107,9 @@ def setup_status_labels(parent):
 	override_items = {'feed_override_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
 
 	parent.overrides = {}
-	for label, stat in override_items.items():
-		if label in parent.child_names:
-			parent.overrides[label] = stat
+	for key, value in override_items.items():
+		if key in parent.child_names:
+			parent.overrides[key] = value
 
 	# dio din_0_lb dout_0_lb
 	parent.status_dio = {}
@@ -1195,7 +1191,8 @@ def setup_status_labels(parent):
 
 		# These don't change and only need to be set once during startup
 		if child.startswith('machine_units_lb'):
-			getattr(parent, child).setText(parent.units.upper())
+			suffix = getattr(parent, child).property('suffix') or ''
+			getattr(parent, child).setText(f'{parent.units}{suffix}')
 
 def setup_list_widgets(parent):
 	if 'file_lw' in parent.child_names:
@@ -1298,16 +1295,31 @@ def setup_mdi(parent):
 
 def setup_jog(parent):
 	# keyboard jog
-	if 'keyboard_jog_cb' in parent.child_names:
+	parent.kb_jog_cb_enabled = False
+	parent.kb_jog_ctrl_enabled = False
+	#parent.cb_kb_jog = False
+	#enable_ctrl_kb_jog = False
+	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
-			parent.enable_kb_jogging = True
+			parent.kb_jog_cb_enabled = True
 		else:
-			parent.enable_kb_jogging = False
+			parent.kb_jog_cb_enabled = False
+	elif parent.ctrl_kb_jogging and not 'keyboard_jog_cb' in parent.child_names:
+		parent.kb_jog_ctrl_enabled = True
+	elif 'keyboard_jog_cb' in parent.child_names and parent.ctrl_kb_jogging:
+		parent.keyboard_jog_cb.setEnabled(False)
+		parent.kb_jog_ctrl_enabled = False
+		parent.kb_jog_cb_enabled = False
+		msg = ('The Keyboard Jog QCheckBox keyboard_jog_cb\n'
+		'and the ini entry KEYBOARD_JOG were both found.\n'
+			'Only one type of keyboard jog can be used\n'
+			'The keyboard jog function will be disabled')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.jog_buttons.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.child_names:
@@ -1355,9 +1367,9 @@ def setup_jog(parent):
 			'will be used to set the maximum jog velocity slider.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
-			if int(parent.joints) > 0:
+			if parent.joints > 0:
 				maxjv = []
-				for i in range(int(parent.joints)):
+				for i in range(parent.joints):
 					maxjv.append(parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY'))
 				parent.max_jog_vel = min(maxjv)
 				parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
@@ -1394,37 +1406,19 @@ def setup_jog(parent):
 		parent.jog_modes_cb.setView(QListView())
 		parent.jog_modes_cb.addItem('Continuous', False)
 
-		units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
-
 		# setup the jog increment combo box items
 		if parent.jog_increments:
-			incr_list = []
-			values = parent.jog_increments.split(',')
-			for item in values:
+			for item in parent.jog_increments.split(','):
 				item = item.strip()
-				if item[-1].isdigit():
-					distance = conv_to_decimal(item) # if it's a fraction convert to decimal
-					incr_list.append([item, distance])
-					parent.jog_modes_cb.addItem(item, distance)
+				text, data, suffix = utilities.is_valid_increment(parent, item)
+				if data:
+					jog_distance = conv_units(data, suffix.lower(), parent.units)
+					parent.jog_modes_cb.addItem(text, jog_distance)
 				else:
-					for suffix in units:
-						if item.endswith(suffix):
-							distance = item.removesuffix(suffix).strip()
-							if utilities.is_float(distance):
-								converted_distance = conv_units(distance, suffix, parent.units)
-								incr_list.append([item, converted_distance])
-								parent.jog_modes_cb.addItem(item, converted_distance)
-								break
-							else:
-								msg = ('Malformed INCREMENTS value\n'
-									f'{distance}\n'
-									'may be missing comma seperators?')
-								dialogs.warn_msg_ok(parent, msg, 'Error')
-					else:
-						msg = ('INI section DISPLAY value INCREMENTS\n'
-							f'{item} is not a valid jog increment\n'
-							'and will not be added to the jog options.')
-						dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+					msg = ('The DISPLAY INCREMENTS entry in the ini\n'
+					f'> {item} < is not a valid unit and will not\n'
+					'be used.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -1441,7 +1435,7 @@ def setup_jog_selected(parent):
 			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
 def conv_units(value, suffix, units):
-	if units == 'inch':
+	if units == 'INCH':
 		if suffix == 'in' or suffix == 'inch':
 			return float(value)
 		elif suffix == 'mil':
@@ -1453,7 +1447,7 @@ def conv_units(value, suffix, units):
 		elif suffix == 'um':
 			return float(value) / 25400
 
-	elif units == 'mm':
+	elif units == 'MM':
 		if suffix == 'in' or suffix == 'inch':
 			return float(value) * 25.4
 		elif suffix == 'mil':
@@ -1727,7 +1721,6 @@ def setup_defaults(parent):
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
-	#print('setup_probing')
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.child_names:
@@ -1743,7 +1736,6 @@ def setup_probing(parent):
 			parent.state_estop_reset_checked['probing_enable_pb'] = False
 
 			parent.probing_enable_pb.setCheckable(True)
-			#print(f'parent.probing_enable_pb.isCheckable() {parent.probing_enable_pb.isCheckable()}')
 
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
@@ -1839,6 +1831,8 @@ def setup_watch_var(parent):
 
 def setup_hal(parent):
 	hal_labels = []
+	hal_avr_f_labels = [] # average float labels
+	hal_avr_i_labels = [] # average int labels
 	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
 	hal_spinboxes = []
@@ -1851,7 +1845,8 @@ def setup_hal(parent):
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
 	parent.hal_io_float = {}
-
+	parent.hal_avr_float = {}
+	parent.hal_avr_int = {}
 	parent.hal_readers = {}
 	parent.hal_ms_labels = {}
 	parent.hal_bool_labels = {}
@@ -1926,6 +1921,46 @@ def setup_hal(parent):
 				if button_name != 'tool_changed_pb':
 					parent.state_on[button_name] = True
 
+	##### HAL_LED_LABELS ##### these are not QLabel but IndicatorLabel
+	for button in parent.findChildren(IndicatorLabel):
+		if button.property('function') == 'hal_led_label':
+			button_name = button.objectName()
+			pin_name = button.property('pin_name')
+
+			if pin_name in [None, '']:
+				button.setEnabled(False)
+				msg = (f'The HAL LED Button {button_name}\n'
+				f'with the text {button.text()}\n'
+				f'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {button_name} button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				button.setEnabled(False)
+				msg = (f'HAL LED Button {button_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if button_name == pin_name:
+				button.setEnabled(False)
+				msg = (f'The object name {button_name}\n'
+					'can not be the same as the\n'
+					f'pin name {pin_name}.\n'
+					'The HAL object will not be created\n'
+					f'The {button_name} button will be disabled.')
+				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
 	##### HAL_IO #####
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_io':
@@ -1996,6 +2031,12 @@ def setup_hal(parent):
 				hal_progressbar.append(child)
 			elif isinstance(child, QLCDNumber):
 				hal_lcds.append(child)
+		elif child.property('function') == 'hal_avr_f':
+			if isinstance(child, QLabel):
+				hal_avr_f_labels.append(child)
+		elif child.property('function') == 'hal_avr_i':
+			if isinstance(child, QLabel):
+				hal_avr_i_labels.append(child)
 		elif child.property('function') == 'hal_msl':
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
@@ -2029,16 +2070,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if button_name == pin_name:
-				button.setEnabled(False)
-				msg = (f'The object name {button_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, 'HAL_OUT')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -2053,17 +2084,17 @@ def setup_hal(parent):
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
 			parent.state_estop[button_name] = False
+			special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 			if button.property('state_off') == 'disabled':
 				parent.state_estop_reset[button_name] = False
 			else:
-				if button_name != 'tool_changed_pb':
+				if button_name not in special_buttons:
 					parent.state_estop_reset[button_name] = True
 
 			if button.property('required') == 'homed':
 				parent.home_required.append(button_name)
-			else:
-				if button_name != 'tool_changed_pb':
-					parent.state_on[button_name] = True
+				if button_name in parent.state_estop_reset:
+					del parent.state_estop_reset[button_name]
 
 	##### HAL SPINBOX ##### FIXME this home required works as expected...
 	if len(hal_spinboxes) > 0:
@@ -2089,16 +2120,6 @@ def setup_hal(parent):
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} spinbox will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = spinbox.property('hal_type')
@@ -2150,16 +2171,6 @@ def setup_hal(parent):
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} spinbox will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = getattr(hal, 'HAL_FLOAT')
@@ -2214,27 +2225,18 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if lcd_name == pin_name:
-				lcd.setEnabled(False)
-				msg = (f'The object name {lcd_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the LCD will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			# pin = getattr(parent, f'{pin_name}')
 			# if hal type is float add it to hal_float with precision
 			if hal_type == 2: # HAL_FLOAT
 				p = lcd.property('precision')
 				p = p if p is not None else parent.default_precision
 				parent.hal_floats[f'{lcd_name}'] = [pin_name, p] # lcd ,status item, precision
 			else:
-				parent.hal_readers[lcd_name] = pin_name
+				integer_digits = lcd.property('integer_digits')
+				parent.hal_readers[lcd_name] = [pin_name, integer_digits]
 
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
@@ -2254,15 +2256,14 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			# Allow multiple pins to request the same pin_name
-			# Later, we will only allow the hal pin to be created once.
-			# if pin_name in dir(parent):
-			# 	msg = (f'HAL Label {label_name}\n'
-			# 	f'pin name {pin_name}\n'
-			# 	'is already used in Flex GUI\n'
-			# 	'The HAL pin can not be created.')
-			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			# 	continue
+			# the pin_name can not be the same as a built in variable or object name
+			if pin_name in parent.directory:
+				msg = (f'HAL Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
 
 			hal_type = label.property('hal_type')
 			if hal_type not in valid_types:
@@ -2275,19 +2276,9 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if label_name == pin_name:
-				label.setEnabled(False)
-				msg = (f'The object name {label_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
-			
+
 			# Only create the pin if its not already created
 			if pin_name in dir(parent):
 				pin = getattr(parent, f'{pin_name}')
@@ -2310,7 +2301,61 @@ def setup_hal(parent):
 			elif true_text and false_text:
 				parent.hal_bool_labels[label_name] = [pin_name, true_text, false_text]
 			else:
-				parent.hal_readers[label_name] = pin_name
+				integer_digits = label.property('integer_digits')
+				parent.hal_readers[label_name] = [pin_name, integer_digits]
+
+	##### HAL AVERAGE FLOAT LABEL #####
+	if len(hal_avr_f_labels) > 0:
+		#valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
+		for label in hal_avr_f_labels:
+			label_name = label.objectName()
+			pin_name = label.property('pin_name')
+			samples = label.property('samples') or 10
+			print(samples)
+
+			if pin_name in [None, '']:
+				label.setEnabled(False)
+				msg = (f'HAL Average Label {label_name}\n'
+				'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				label.setEnabled(False)
+				msg = (f'HAL Average Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			hal_type = label.property('hal_type')
+			if hal_type not in valid_types:
+				label.setEnabled(False)
+				msg = (
+				f'{hal_type} is not valid type for a\n'
+				' HAL Average Label. Valid types are\n'
+				'HAL_FLOAT, HAL_S32 or HAL_U32\n'
+				f'The {label_name} label will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_FLOAT')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+			p = label.property('precision')
+			p = p if p is not None else parent.default_precision
+
+			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=samples), p]
+
+	# FIXME add hal_avr_i_labels
+	##### HAL AVERAGE INT LABEL #####
+	# parent.hal_avr_int = {}
+
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
@@ -2335,16 +2380,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if msl_name == pin_name:
-				label.setEnabled(False)
-				msg = (f'The object name {msl_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			if label.property('text_0') == None:
 				label.setEnabled(False)
 				msg = (f'HAL MULTI STATE LABEL {msl_name}\n'
@@ -2359,7 +2394,7 @@ def setup_hal(parent):
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			#pin = getattr(parent, f'{pin_name}')
 			text = ''
 			text_list = []
 			i = 0
@@ -2405,20 +2440,10 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if progressbar_name == pin_name:
-				progressbar.setEnabled(False)
-				msg = (f'The object name {progressbar_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the progressbar will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			# pin = getattr(parent, f'{pin_name}')
 			parent.hal_progressbars[progressbar_name] = pin_name
 
 	##### HAL SLIDERS #####
@@ -2445,16 +2470,6 @@ def setup_hal(parent):
 				'The HAL pin can not be created.\n')
 				f'The {slider_name} slider will be disabled.'
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if slider_name == pin_name:
-				slider.setEnabled(False)
-				msg = (f'The object name {slider_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {slider_name} slider will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = slider.property('hal_type')
@@ -2498,31 +2513,20 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			# Allow multiple pins to request the same pin_name
-			# Later, we will only allow the hal pin to be created once.
-			# if pin_name in dir(parent):
-			# 	led.setEnabled(False)
-			# 	msg = (f'HAL LED {led_name}\n'
-			# 	f'pin name {pin_name}\n'
-			# 	'is already used in Flex GUI\n'
-			# 	'The HAL pin can not be created.\n')
-			# 	f'The {led_name} LED will be disabled.'
-			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			# 	continue
-
-			if led_name == pin_name:
+			# the pin_name can not be the same as a built in variable
+			if pin_name in parent.directory:
 				led.setEnabled(False)
-				msg = (f'The object name {led_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {led_name} slider will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				msg = (f'HAL LED {led_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.\n')
+				f'The {led_name} LED will be disabled.'
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			on_color = led.property('on_color')
 			off_color = led.property('off_color')
-			
+
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, f'HAL_IN')
 
@@ -2608,8 +2612,6 @@ def setup_plot(parent):
 				parent.flex_View_Z.setStyleSheet(parent.selected_style)
 			case 'z2' if 'flex_View_Z2' in parent.child_names:
 				parent.flex_View_Z2.setStyleSheet(parent.selected_style)
-			case _: # default view does not have a pushbutton
-				print('default view button not found')
 
 		#key object name, value[0] function, value[1] plot function
 		plot_actions = {
@@ -2800,6 +2802,71 @@ def setup_plot(parent):
 					parent.plotter.set_current_view(),
 					utilities.sync_toolbuttons(parent, v)
 				))
+
+		# Setup GRIDS submenu
+		# Set defaults if no INI
+		default_grids = "0.5 in, 1 in, 2 in, 3 in, 4 in"\
+			if parent.units == "INCH" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
+
+		# Handle both a QMenu and QAction submenus
+		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+		if parent.grids and not menu:
+			# If an INI setting and no GRIDS menu, show an error
+			msg = (f'GRIDS configuration found in the INI file. \n'
+				'No Grids menu was found to configure.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		elif menu:
+			if not isinstance(menu, QMenu):
+				# If this action is in a submenu, for example inside "View"
+				if menu.menu():
+					menu = menu.menu()
+				else:
+					# Create and attach menu
+					new_menu = QMenu(menu.parent())
+					menu.setMenu(new_menu)
+					menu = new_menu
+
+			default_has_been_set = False 
+			grid_settings = (parent.grids or default_grids).split(',')
+			for index, item in enumerate(grid_settings):
+				item = item.strip()
+				text, data, suffix = utilities.is_valid_increment(parent, item)
+				if data:
+					grid_size = conv_units(data, suffix.lower(), parent.units)
+				else:
+					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
+					f'> {item} < is not a valid unit and will not\n'
+					'be used.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					continue
+
+				# If no default has been set by the end, it means the first
+				# item in the list is 0.0 or it's not a valid entry and the 'None'
+				# option is the default.
+
+				if grid_size: # If we have a valid grid_size and it is not 0.0
+					new_action = QAction(text, parent)
+					new_action.setData(grid_size)
+					new_action.setCheckable(True)
+					new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
+					menu.addAction(new_action)
+					if index == 0:
+						new_action.setChecked(True)
+						parent.plotter.grid_size = grid_size
+						parent.plotter.update()
+						default_has_been_set = True
+
+			current_actions = menu.actions()
+			if len(current_actions) > 0:
+				new_action = QAction("None", parent)
+				new_action.setData(0.0)
+				new_action.setCheckable(True)
+				new_action.triggered.connect(partial(utilities.update_grid_size, parent, 0.0))
+				menu.insertAction(current_actions[0], new_action)
+				if not default_has_been_set:
+					parent.plotter.grid_size = grid_size
+					parent.plotter.update()
+					new_action.setChecked(True)
 
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.child_names:

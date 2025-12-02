@@ -1,9 +1,12 @@
-import os, shutil
+import os, shutil, re
+from string import digits
+from fractions import Fraction
 from functools import partial
 
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
 
 import linuxcnc as emc
 
@@ -34,6 +37,65 @@ def is_number(string):
 			return True
 		except ValueError:
 			return False
+
+def is_fraction(item):
+	try:
+		Fraction(s)
+		return True
+	except ValueError:
+		return False
+
+def convert_fraction(item):
+	# strip trailing non digits
+	for i in range(len(item) - 1, -1, -1):
+		if item[i].isdigit():
+			fraction_string = item[:i+1]
+			break
+	suffix = item[i+1:].strip() if len(item[i+1:].strip()) > 0 else False
+
+	if len(fraction_string.split('/')) == 2: # might be a good number
+		match = re.match(r'(\d+)?\s*(\d+)/(\d+)', fraction_string)
+		if match:
+			whole_number = int(match.group(1)) if match.group(1) else 0
+			numerator = int(match.group(2))
+			denominator = int(match.group(3))
+			# return the decimal number plus suffix
+			return whole_number + (numerator / denominator), suffix
+	else:
+		return False, False
+
+'''
+In Python, a function can return multiple values by separating them with commas
+in the return statement. When you return multiple values this way, Python
+implicitly packages them into a single tuple.
+
+Unpack the tuple into multiple variables: This is the most common and Pythonic
+way. List the variable names on the left side of the assignment operator,
+separated by commas, corresponding to the order of the returned values.
+'''
+
+def is_valid_increment(parent, item): # need to return text ,data and suffix
+	if is_number(item): # there is no suffix and it's a valid number
+		return f'{item} {parent.units.lower()}', item, parent.units
+
+	if '/' in item: # it might be a fraction
+		#for character in item:
+		fraction, suffix = convert_fraction(item)
+		if fraction and suffix:
+			return f'{item}', fraction, 'inch'
+		elif fraction and not suffix:
+			return f'{item} inch', fraction, 'inch'
+		else:
+			return False, False, False
+
+	units = ['mm', 'cm', 'um', 'in', 'inch', 'mil']
+	if item.endswith(tuple(units)): # test to see if it matches any units
+		for suffix in units:
+			if item.endswith(suffix):
+				increment = item.removesuffix(suffix).strip()
+				return item, increment, suffix
+	else: # not a valid increment
+		return False, False, False
 
 def string_to_int(string):
 	if '.' in string:
@@ -160,9 +222,9 @@ def set_homed_enable(parent):
 
 def jog_toggled(parent):
 	if parent.sender().isChecked():
-		parent.enable_kb_jogging = True
+		parent.kb_jog_cb_enabled = True
 	else:
-		parent.enable_kb_jogging = False
+		parent.kb_jog_cb_enabled = False
 
 def update_jog_lb(parent):
 	val = parent.jog_vel_sl.value()
@@ -312,8 +374,6 @@ def sync_toolbuttons(parent, view):
 			parent.flex_View_Z.setStyleSheet(parent.selected_style)
 		case 'z2' if 'flex_View_Z2' in parent.child_names:
 			parent.flex_View_Z2.setStyleSheet(parent.selected_style)
-		case _:
-			print('view not found')
 
 def var_value_changed(parent, value):
 	variable = parent.sender().property('variable')
@@ -367,10 +427,6 @@ def io_watch(parent):
 		if float_value != hal_value:
 			getattr(parent, key).setValue(hal_value)
 
-		#print(key, value)
-		#print(f'{key} {getattr(parent, key).isChecked()}')
-		#print(f'hal value {getattr(parent.halcomp, value)}')
-
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
@@ -406,6 +462,36 @@ def previous_page(parent):
 		getattr(parent, object_name).setCurrentIndex(pages)
 
 
+def flash_buttons(parent):
+	# Store a boolean that toggles on each execution
+	flash_buttons.value = not getattr(flash_buttons, 'value', False)
+	for name in parent.flashing_buttons:
+		flashing_state = getattr(parent, name).property('flash_state')
+		checked_state =  getattr(parent, name).isChecked()
+		if (flashing_state == "unchecked" and not checked_state or
+			flashing_state == "checked" and checked_state):
+			# This button is flashing.  Update the flashing propery
+			# and trigger a refresh of the style sheet.
+			getattr(parent, name).setProperty('flashing', str(flash_buttons.value))
+			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
+		elif getattr(parent, name).property('flashing') is not None:
+			# This button not flashing.  Clear the flashing propery
+			# and trigger a refresh of the style sheet.
+			getattr(parent, name).setProperty('flashing', None)
+			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
 
+def update_grid_size(parent, grid_size):
+	if 'plot_widget' in parent.child_names:
+		parent.plotter.grid_size = grid_size
+		parent.plotter.update()
 
-
+		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+		# Handle both top-level QMenu and QAction submenus.
+		if isinstance(menu, QAction):
+			menu = menu.menu()
+		if menu:
+			for action in menu.actions():
+				if action.data() == grid_size:
+					action.setChecked(True)
+				else:
+					action.setChecked(False)

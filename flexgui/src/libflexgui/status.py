@@ -1,4 +1,4 @@
-from math import sqrt
+import math, statistics
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox, QSlider
@@ -38,6 +38,19 @@ MOTION_TYPES = {0: 'MOTION_TYPE_NONE', 1: 'MOTION_TYPE_TRAVERSE',
 
 STATES = {1: 'RCS_DONE', 2: 'RCS_EXEC', 3: 'RCS_ERROR'}
 
+# Axes
+X = 0
+Y = 1
+Z = 2
+A = 3
+B = 4
+C = 5
+U = 6
+V = 7
+W = 8
+R = 9
+
+
 def update(parent):
 	parent.status.poll()
 
@@ -56,11 +69,11 @@ def update(parent):
 			for key, value in parent.state_estop_checked.items():
 				getattr(parent, key).setChecked(value)
 
-			if parent.estop_open_color: # if False just don't bother
-				if 'estop_pb' in parent.child_names:
-					parent.estop_pb.setStyleSheet(parent.estop_open_color)
-				if 'flex_E_Stop' in parent.child_names:
-					parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
+			if 'estop_pb' in parent.child_names:
+				if parent.estop_pb.isChecked():
+					parent.estop_pb.blockSignals(True)
+					parent.estop_pb.setChecked(False)
+					parent.estop_pb.blockSignals(False)
 
 			if parent.probe_enable_off_color: # if False just don't bother
 				if 'probing_enable_pb' in parent.child_names:
@@ -90,17 +103,14 @@ def update(parent):
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
 
-			if parent.estop_closed_color: # if False just don't bother
-				if 'estop_pb' in parent.child_names:
-					parent.estop_pb.setStyleSheet(parent.estop_closed_color)
-				if 'flex_E_Stop' in parent.child_names:
-					parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
-
-			if parent.power_off_color: # if False just don't bother
-				if 'power_pb' in parent.child_names:
-					parent.power_pb.setStyleSheet(parent.power_off_color)
-				if 'flex_Power' in parent.child_names:
-					parent.flex_Power.setStyleSheet(parent.power_off_color)
+			if 'estop_pb' in parent.child_names:
+				parent.estop_pb.blockSignals(True)
+				parent.estop_pb.setChecked(True)
+				parent.estop_pb.blockSignals(False)
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.blockSignals(True)
+				parent.power_pb.setChecked(False)
+				parent.power_pb.blockSignals(False)
 
 			if parent.probe_enable_off_color: # if False just don't bother
 				if 'probing_enable_pb' in parent.child_names:
@@ -123,13 +133,14 @@ def update(parent):
 				getattr(parent, key).setEnabled(value)
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
+
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.blockSignals(True)
+				parent.power_pb.setChecked(True)
+				parent.power_pb.blockSignals(False)
+
 			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.selected_style)
-			if parent.power_on_color: # if False just don't bother
-				if 'power_pb' in parent.child_names:
-					parent.power_pb.setStyleSheet(parent.power_on_color)
-				if 'flex_Power' in parent.child_names:
-					parent.flex_Power.setStyleSheet(parent.power_on_color)
 
 			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
@@ -530,13 +541,22 @@ def update(parent):
 				parent.gcode_pte.setTextCursor(cursor)
 				parent.last_line = parent.motion_line
 
-	# update hal labels key is label name and value is pin name
+	# update hal labels key is label name and value[0] is pin name value[1] is digits
 	for key, value in parent.hal_readers.items():
-		state = hal.get_value(f'flexhal.{value}')
+		state = hal.get_value(f'flexhal.{value[0]}')
+		if value[1] is not None:
+			state = f"{state:0{value[1]}d}"
 		if isinstance(getattr(parent, key), QLCDNumber):
 			getattr(parent, key).display(f'{state}')
-		else:
+		else: # it's a HAL Label
 			getattr(parent, key).setText(f'{state}')
+
+	# update hal average float labels key is label name and value is pin name
+	for key, value in parent.hal_avr_float.items():
+		cur_val = hal.get_value(f'flexhal.{value[0]}')
+		print(value[1])
+		value[1].append(cur_val)
+		getattr(parent, key).setText(f'{statistics.fmean(value[1]):.{value[2]}f}')
 
 	# update multi state labels
 	# key is label name and value[0] is the pin name
@@ -597,21 +617,39 @@ def update(parent):
 		machine_position = getattr(parent, "status").position[value[0]]
 		getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
+	positions = parent.status.position
+	positions = [(i-j) for i, j in zip(positions, parent.status.tool_offset)]
+	positions = [(i-j) for i, j in zip(positions, parent.status.g5x_offset)]
+	t = -parent.status.rotation_xy
+	t = math.radians(t)
+	_x = positions[X]
+	_y = positions[Y]
+	positions[X] = _x * math.cos(t) - _y * math.sin(t)
+	positions[Y] = _x * math.sin(t) + _y * math.cos(t)
+	positions = [(i-j) for i, j in zip(positions, parent.status.g92_offset)]
+
+	# label, tuple position & precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
+		position = positions[value[0]]
+
+
+		'''
 		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]
 		g92_offset = getattr(parent, "status").g92_offset[value[0]]
 		g43_offset = getattr(parent, "status").tool_offset[value[0]]
 		machine_position = getattr(parent, "status").position[value[0]]
 		relative_position = machine_position - (g5x_offset + g92_offset + g43_offset)
+		'''
+
 		# metric linear units with inch program units
 		if parent.status.linear_units == 1 and parent.program_units == 'INCH' and parent.auto_dro_units:
-			getattr(parent, f'{key}').setText(f'{relative_position * 0.03937007874015748:.4f}')
+			getattr(parent, f'{key}').setText(f'{position * 0.03937007874015748:.4f}')
 		# inch linear units with metric program units
 		elif parent.status.linear_units != 1 and parent.program_units == 'MM' and parent.auto_dro_units:
-			getattr(parent, f'{key}').setText(f'{relative_position * 25.4:.3f}')
+			getattr(parent, f'{key}').setText(f'{position * 25.4:.3f}')
 		# linear units and program units are the same
 		else:
-			getattr(parent, f'{key}').setText(f'{relative_position:.{value[1]}f}')
+			getattr(parent, f'{key}').setText(f'{position:.{value[1]}f}')
 
 	# axis g5x offset
 	for key, value in parent.status_g5x_offset.items(): # key is label value tuple position & precision
@@ -639,7 +677,7 @@ def update(parent):
 	for key, value in parent.two_vel.items():
 		vel_0 = getattr(parent, 'status').joint[value[0]]['velocity']
 		vel_1 = getattr(parent, 'status').joint[value[1]]['velocity']
-		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1))
+		vel = math.sqrt((vel_0 * vel_0) + (vel_1 * vel_1))
 		getattr(parent, key).setText(f'{vel * 60:.{value[2]}f}')
 
 	# three joint velocity
@@ -647,12 +685,12 @@ def update(parent):
 		vel_0 = getattr(parent, 'status').joint[value[0]]['velocity']
 		vel_1 = getattr(parent, 'status').joint[value[1]]['velocity']
 		vel_2 = getattr(parent, 'status').joint[value[2]]['velocity']
-		vel = sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
+		vel = math.sqrt((vel_0 * vel_0) + (vel_1 * vel_1) + (vel_2 * vel_2))
 		getattr(parent, key).setText(f'{vel * 60:.{value[3]}f}')
 
 	# override items label : status item
-	for label, stat in parent.overrides.items():
-		getattr(parent, label).setText(f'{getattr(parent.status, f"{stat}") * 100:.0f}%')
+	for key, value in parent.overrides.items():
+		getattr(parent, key).setText(f'{getattr(parent.status, f"{value}") * 100:.0f}%')
 
 	# dio din_0_lb din[0] dout_0_lb dout[0]
 	for key, value in parent.status_dio.items():

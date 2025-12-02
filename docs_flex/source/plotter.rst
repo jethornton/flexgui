@@ -132,13 +132,32 @@ menu items that stay coordinated with the checkbox of the same option.
 
 The live plot can be cleared from the menu with this menu item.
 
-.. csv-table:: Plot Menu
+.. csv-table:: Clear Live Plot Menu
    :width: 100%
    :align: center
    :widths: 40 40 40
 
 	**Function**, **Menu Name**, **Object Name**
 	Clear Live Plot, Clear Live Plot, actionClear_Live_Plot
+
+Grids
+-----
+
+The plotter can optionally display a grid when in orthogonal views. To add the
+option of grids add a menu item named `Grids`. The grid size selection will be
+added to the `Grids` menu item. The default grid sizes are based on the machine
+units. The `Grids` menu can be part of the main menu bar, or added to a submenu.
+
+.. csv-table:: Plot Menu Grids
+   :width: 100%
+   :align: center
+   :widths: 40 40 40
+
+	**Function**, **Menu Name**, **Object Name**
+	Plotter Grid, Grids, actionGrids
+
+To configure the size options of the grid see the :ref:`plotter` section of the
+ini configuration documents.
 
 DRO
 ---
