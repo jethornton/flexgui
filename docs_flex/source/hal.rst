@@ -181,12 +181,22 @@ Average Float Label
 -------------------
 
 A QLabel can be used to monitor HAL float number pins and display an average of
-the number of samples. HAL connections must be made in the post gui HAL file.
-The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
-my-reader would be `flexhal.my-reader` in HAL. This could be useful to display
-RPM from a spindle encoder. To stop the display from bouncing around the
-`rounding` option can be used to round the number. Use 1 to round to the nearest
-tens and 2 to round to the nearest hundreds, etc.
+the number of samples. The sample stack is LIFO so a new value pushes the oldest
+value out of the stack. This could be useful to display RPM from a spindle
+encoder or any numeric value that changes.
+
+The `samples` option can change the number of samples that are averaged out to
+help smooth the display output.
+
+The `rounding` option can be used to round the number. Use 1 to round to the
+nearest tenth and 2 to round to the nearest hundred, etc.
+
+The `precision` option is used to set the number of decimal places. Set to 0
+to not have any decimal places.
+
+HAL connections must be made in the post gui HAL file. The pin_name used will
+create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
+`flexhal.my-reader` in HAL.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -197,10 +207,8 @@ tens and 2 to round to the nearest hundreds, etc.
 	String, pin_name, any unique name
 	, Optional
 	Int, samples, The number of samples to use default is 10
-	Int, precision, Number of decimal digits for HAL_FLOAT type
-	Int, rounding, 1 to nearst 10, 2 to nearest 100
-
-.. WARNING:: HAL Average Label is a Work In Progress and may change or not work.
+	Int, rounding, number of digits to the left of the decimal to round
+	Int, precision, Number of decimal digits
 
 Bool Label
 ----------
