@@ -25,7 +25,7 @@ class gcode_pad(QDialog):
 		self.backspace_pb.clicked.connect(self.backspace)
 
 		for item in self.findChildren(QPushButton):
-			if item.objectName().startswith('char_'):
+			if item.objectName().startswith('key_'):
 				getattr(self, f'{item.objectName()}').clicked.connect(self.post)
 			elif item.objectName().startswith('next_'):
 				getattr(self, f'{item.objectName()}').clicked.connect(self.next)
