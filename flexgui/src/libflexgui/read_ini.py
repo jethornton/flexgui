@@ -153,6 +153,11 @@ def read(parent):
 	# check for QSS
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
 
+	# check for popup QSS
+	default_touch_qss = os.path.join(parent.lib_path, 'touch.qss')
+	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or default_touch_qss
+	print(parent.touch_qss_file)
+
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file:
 		msg = (f'The THEME {parent.theme} and QSS {parent.qss_file}\n'

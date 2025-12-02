@@ -21,8 +21,8 @@ from libflexgui import search
 def spinbox_numbers(parent, obj):
 	if obj.isEnabled():
 		dialog = number_pad.number_pad()
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-		with open(stylesheet,'r') as fh:
+		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
@@ -39,8 +39,8 @@ def spinbox_numbers(parent, obj):
 def numbers(parent, obj):
 	if obj.isEnabled():
 		dialog = number_pad.number_pad()
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-		with open(stylesheet,'r') as fh:
+		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
@@ -50,7 +50,6 @@ def numbers(parent, obj):
 			obj.setText(dialog.retval())
 			if obj.property("return_button") in parent.child_names:
 				getattr(parent, obj.property('return_button')).animateClick()
-				
 
 		if dialog.exit_pos is not None: # save last position
 			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
@@ -58,8 +57,8 @@ def numbers(parent, obj):
 def gcode(parent, obj):
 	if obj.isEnabled():
 		dialog = gcode_pad.gcode_pad()
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-		with open(stylesheet,'r') as fh:
+		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
@@ -76,8 +75,8 @@ def gcode(parent, obj):
 def keyboard(parent, obj):
 	if obj.isEnabled():
 		dialog = keyboard_pad.keyboard_pad()
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-		with open(stylesheet,'r') as fh:
+		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
