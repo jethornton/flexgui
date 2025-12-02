@@ -196,7 +196,6 @@ RPM from a spindle encoder.
 	, Optional
 	Int, samples, The number of samples to use default is 10
 	String, precision, Number of decimal digits for HAL_FLOAT type
-	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
 .. WARNING:: HAL Average Label is a Work In Progress and may change or not work.
 
