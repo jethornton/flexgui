@@ -2311,7 +2311,6 @@ def setup_hal(parent):
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')
 			samples = label.property('samples') or 10
-			print(samples)
 
 			if pin_name in [None, '']:
 				label.setEnabled(False)
