@@ -361,10 +361,21 @@ The Diameter and Offset values are whole numbers only.
 
 For more information on LED buttons see :ref:`LedButtons`
 
+.. _touch_ini:
+
 Touch Screens
 ^^^^^^^^^^^^^
 
 Options for touch screen users.
+
+To set the style sheet used by the popup number pad, NC code pad and popup
+keyboard add the following to the FLEXGUI section with the name of the QSS
+stylesheet to use.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	TOUCH_QSS = somefile.qss
 
 Set the touch screen file chooser to automatically adjust the width by adding the
 following to the FLEXGUI section.
