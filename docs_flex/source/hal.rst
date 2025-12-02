@@ -184,7 +184,9 @@ A QLabel can be used to monitor HAL float number pins and display an average of
 the number of samples. HAL connections must be made in the post gui HAL file.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
 my-reader would be `flexhal.my-reader` in HAL. This could be useful to display
-RPM from a spindle encoder.
+RPM from a spindle encoder. To stop the display from bouncing around the
+`rounding` option can be used to round the number. Use 1 to round to the nearest
+tens and 2 to round to the nearest hundreds, etc.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -195,7 +197,8 @@ RPM from a spindle encoder.
 	String, pin_name, any unique name
 	, Optional
 	Int, samples, The number of samples to use default is 10
-	String, precision, Number of decimal digits for HAL_FLOAT type
+	Int, precision, Number of decimal digits for HAL_FLOAT type
+	Int, rounding, 1 to nearst 10, 2 to nearest 100
 
 .. WARNING:: HAL Average Label is a Work In Progress and may change or not work.
 

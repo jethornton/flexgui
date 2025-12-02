@@ -2310,7 +2310,10 @@ def setup_hal(parent):
 		for label in hal_avr_f_labels:
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')
-			samples = label.property('samples') or 10
+			s = label.property('samples') or 10
+			r = label.property('rounding') or 0
+			if r > 0:
+				r = -r
 
 			if pin_name in [None, '']:
 				label.setEnabled(False)
@@ -2331,19 +2334,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			'''
-			hal_type = label.property('hal_type')
-			if hal_type not in valid_types:
-				label.setEnabled(False)
-				msg = (
-				f'{hal_type} is not valid type for a\n'
-				' HAL Average Label. Valid types are\n'
-				'HAL_FLOAT, HAL_S32 or HAL_U32\n'
-				f'The {label_name} label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-			'''
-
 			hal_type = getattr(hal, 'HAL_FLOAT')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -2351,7 +2341,12 @@ def setup_hal(parent):
 			p = label.property('precision')
 			p = p if p is not None else parent.default_precision
 
-			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=samples), p]
+			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=s), p, r]
+			for i in range(len(parent.hal_avr_float)):
+				for key, value in parent.hal_avr_float.items():
+					print(key)
+					for item in value:
+						print(item, type(item))
 
 	# FIXME add hal_avr_i_labels
 	##### HAL AVERAGE INT LABEL #####
