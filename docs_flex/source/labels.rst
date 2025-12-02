@@ -226,7 +226,9 @@ status items.
 	returns the machine's native units, reflects [TRAJ]LINEAR_UNITS INI value.
 	All labels with an object name that starts with `machine_units_lb` will be 
 	updated with this value, (eg. `machine_units_lb_1`) allowing the label to be 
-	used multiple times in the UI. Updated once on start-up.
+	used multiple times in the UI. Updated once on start-up.  Add a dynamic
+	property `suffix` (string) to add a suffix, for example "/min" to display
+	"<machine units>/min"
 
 	max_acceleration_lb - returns float - precision can be set
 	maximum acceleration. Reflects [TRAJ]MAX_ACCELERATION
@@ -328,8 +330,15 @@ status items.
 	settings[3] = G64 P blend tolerance
 	settings[4] = G64 Q naive CAM tolerance
 
-	spindles_lb - returns tuple of dicts
+	spindle_lb - returns tuple of dicts
 	returns the current spindle status
+
+See the :doc:`spindle` section for individual spindle status items
+
+.. code-block:: text
+
+	spindles_lb - returns integer
+	returns number of spindles in [TRAJ] SPINDLES
 
 	state_lb - returns integer that is used to lookup the state name
 	current command execution status

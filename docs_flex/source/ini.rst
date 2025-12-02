@@ -3,9 +3,6 @@ INI Settings
 
 `Video Tutorial <https://youtu.be/JQXG9I7fwSo>`_
 
-.. note:: The following Flex GUI settings are all located in the [DISPLAY]
-   section of your LinuxCNC .ini file.
-
 .. _using_flexgui:
 
 [EMC]
@@ -18,7 +15,8 @@ of debug information when running in a terminal. The DEBUG key is not required.
 	DEBUG = option number
 
 Debug Options
-::
+
+.. code-block:: text
 
 	EMC_DEBUG_CONFIG               2
 	EMC_DEBUG_VERSIONS             8
@@ -45,7 +43,8 @@ Flex GUI
 ^^^^^^^^
 
 To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to
-::
+
+.. code-block:: text
 
 	DISPLAY = flexgui
 
@@ -56,7 +55,8 @@ If no GUI is specified then the default GUI will be used.
 
 To use your .ui file (created with Qt Designer), add a GUI key to the .ini
 with its `filename`:
-::
+
+.. code-block:: text
 
 	GUI = my-file-name.ui
 
@@ -64,12 +64,16 @@ Jog Increments
 ^^^^^^^^^^^^^^
 
 The following settings can be used in the [DISPLAY] section of the ini file to
-preset jog items
-::
+preset jog items. While you can mix units usually machine units are used. Units
+can be mm, cm, um, in, inch, mil or left out. A space can be between the
+distance and the units for better readability. Fractions are are in inch units
+and can be a whole number with a space then the fraction.
 
-	INCREMENTS = 0.100, 0.010, 0.001
+.. code-block:: text
+
+	INCREMENTS = 1/2, 0.100, 0.010, 0.001
 	or
-	INCREMENTS = 1 inch, 0.5 in, 1 cm, 1 mm
+	INCREMENTS = 1 1/2, 1 inch, 0.5 in, 1 cm, 1 mm
 	MIN_LINEAR_VELOCITY = 0.1
 	MAX_LINEAR_VELOCITY = 1.0
 	DEFAULT_LINEAR_VELOCITY = 0.2
@@ -103,7 +107,8 @@ File Location
 
 Likewise, to specify a default location for NC files, add the PROGRAM_PREFIX
 item.
-::
+
+.. code-block:: text
 
 	PROGRAM_PREFIX = /home/john/linuxcnc/configs/myconfig
 	or
@@ -118,13 +123,15 @@ Tool Table Editor
 
 To specify a different tool table editor add an entry to the [DISPLAY] section.
 If no entry is found then the default tool editor is used
-::
+
+.. code-block:: text
 
 	TOOL_EDITOR = tooledit
 
 To control the columns displayed by the default tool editor add any of the valid
 column specifiers separated by a space. 
-::
+
+.. code-block:: text
 
 	TOOL_EDITOR = tooledit x y z a b c u v w diam front back orien
 
@@ -138,7 +145,8 @@ The keyboard file dialog defaults to `*.ngc` and this ignores case. To
 specify the file extensions you want the file dialog to show, add an
 EXTENSIONS key with the desired extensions separated by a comma. The
 extensions must be in the format `*.ext` with the asterisk and dot
-::
+
+.. code-block:: text
 
 	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
 
@@ -153,7 +161,8 @@ Themes
 Themes are just style sheets that get applied to the widgets. The theme files
 are in the themes directory of the example files if you want to copy and
 customize one of the themes.
-::
+
+.. code-block:: text
 
 	blue.qss
 	blue-touch.qss
@@ -164,14 +173,16 @@ customize one of the themes.
 
 To use a built-in theme with no color changes add one of the following to the
 [FLEXGUI] section of the ini file.
-::
+
+.. code-block:: text
 
 	THEME = touch
 	THEME = keyboard
 
 To use a built in theme with coloring add one of the following to the
 [FLEXGUI] section of the ini file.
-::
+
+.. code-block:: text
 
 	THEME = blue
 	THEME = blue-touch
@@ -185,7 +196,8 @@ To use a built in theme with coloring add one of the following to the
 
 To use a custom .qss style sheet you created add the name of the stylesheet to
 the QSS option in [FLEXGUI] section of the ini file.
-::
+
+.. code-block:: text
 
 	QSS = name_of_stylesheet.qss
 
@@ -210,7 +222,8 @@ Screen Size
 ^^^^^^^^^^^
 
 To control the initial size of the screen, add of the following values.
-::
+
+.. code-block:: text
 
 	SIZE = minimized
 	SIZE = normal
@@ -223,6 +236,8 @@ To control the initial size of the screen, add of the following values.
    there is a way to close the GUI like an Exit button or you may not be able to
    close the application. As a last-resort, pressing ALT-F4 will close it.
 
+.. _plotter:
+
 Plotter
 ^^^^^^^
 
@@ -230,13 +245,15 @@ The plotter background color can be set in the [FLEXGUI] section of the ini. The
 value is the Red,Green,Blue color numbers from 0 to 1 with no space. So an entry
 of 0.0,0.0,0.0 is black and 1.0,1.0,1.0 is white. Use a RGB 0-1 Color Picker to
 select the RGB values.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	PLOT_BACKGROUND_COLOR = 0.0,0.0,0.0
 
 The plotter orientation can be set to one of the following x, x2, y, y2, z, or p.
-::
+
+.. code-block:: text
 
 	[DISPLAY]
 	VIEW = x
@@ -244,27 +261,49 @@ The plotter orientation can be set to one of the following x, x2, y, y2, z, or p
 The font size for the plotter can be set in the ini by adding the following to
 the FLEXGUI section. The font size must be an integer.
 
-::
+.. code-block:: text
 
 	[FLEXGUI]
 	DRO_FONT_SIZE = 12
 
 The plotter DRO can be set to automatically change units when the program units
 G20/G21 change. Setting to `True` disables the manual unit change controls.
-::
+
+.. code-block:: text
 
 	PLOT_UNITS = True
+
+The plot grid sizes are set in the ini file. Fraction and decimal numbers are
+valid. Fractions are always in Inch units. Valid suffixes are `mm`, `cm`, `um`,
+`in`, `inch`, `mil`. If fraction does not have a suffix then `inch` will be
+added as the suffix. If no suffix is found the the machine units suffix will be
+added. If the size does not have a valid suffix or is not a number it will be
+skipped and a warning will appear.
+
+.. code-block:: text
+
+	PLOT_GRID = 1/2, 1 in, 1 1/2, 2 inch
+	or for metric
+	PLOT_GRID = 10mm, 20mm, 50mm, 100mm
+
+The first item in the list will be considered the default and set when FlexGUI
+starts. If you wish disable grid by default, add a `0` item to the beginning of
+the list.
 
 DRO
 ^^^
 
 To set the DRO labels to follow the program units add the following
-::
+
+.. code-block:: text
 
 	DRO_UNITS = True
 
 Colors
 ^^^^^^
+
+.. WARNING:: The colors has been moved to the qss stylesheet and this will be
+   removed in version 1.3.2 See the :doc:`style` for how to apply styles.
 
 The E-Stop can have a static color for Open and Closed.
 
@@ -273,7 +312,8 @@ The Power Button can have a static color for Off and On.
 Create a key in the ini file called FLEXGUI and use the following to 
 control the static color of these items. The value can be any valid color 
 specification in the RGB, RGBA or Hex color format.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	ESTOP_OPEN_COLOR = 128, 255, 128
@@ -309,7 +349,8 @@ while 255 represents a fully opaque color. If Alpha is ommitted then it's set to
 fully opaque or 255.
 
 The Diameter and Offset values are whole numbers only.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	LED_DIAMETER = 15
@@ -320,20 +361,33 @@ The Diameter and Offset values are whole numbers only.
 
 For more information on LED buttons see :ref:`LedButtons`
 
+.. _touch_ini:
+
 Touch Screens
 ^^^^^^^^^^^^^
 
 Options for touch screen users.
 
+To set the style sheet used by the popup number pad, NC code pad and popup
+keyboard add the following to the FLEXGUI section with the name of the QSS
+stylesheet to use.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	TOUCH_QSS = somefile.qss
+
 Set the touch screen file chooser to automatically adjust the width by adding the
 following to the FLEXGUI section.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	TOUCH_FILE_WIDTH = True
 
 Add popup keypad to all spin boxes.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	TOUCH_SPINBOX = True
@@ -341,7 +395,8 @@ Add popup keypad to all spin boxes.
 
 To add a manual tool change popup to add the following to the ini file in the
 [FLEXGUI] section.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	MANUAL_TOOL_CHANGE = True

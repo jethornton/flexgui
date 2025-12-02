@@ -146,16 +146,16 @@ Closed</string>
     </property>
     <property name="led_on_color" stdset="0">
      <color>
-      <red>255</red>
+      <red>0</red>
       <green>255</green>
       <blue>0</blue>
      </color>
     </property>
     <property name="led_off_color" stdset="0">
      <color>
-      <red>222</red>
-      <green>24</green>
-      <blue>24</blue>
+      <red>255</red>
+      <green>0</green>
+      <blue>0</blue>
      </color>
     </property>
    </widget>
@@ -193,16 +193,16 @@ Off</string>
     </property>
     <property name="led_on_color" stdset="0">
      <color>
-      <red>51</red>
-      <green>209</green>
-      <blue>122</blue>
+      <red>0</red>
+      <green>255</green>
+      <blue>0</blue>
      </color>
     </property>
     <property name="led_off_color" stdset="0">
      <color>
-      <red>222</red>
-      <green>24</green>
-      <blue>24</blue>
+      <red>255</red>
+      <green>0</green>
+      <blue>0</blue>
      </color>
     </property>
    </widget>
@@ -1893,7 +1893,7 @@ Style</string>
         <string>mdi</string>
        </property>
        <property name="command" stdset="0">
-        <string>G10 L2 P0  R#1005</string>
+        <string>G10 L2 P0  R#2018</string>
        </property>
       </widget>
       <widget class="QPushButton" name="zero_angle">
@@ -7946,6 +7946,8 @@ ERROR</string>
     <addaction name="actionDTG"/>
     <addaction name="actionOffsets"/>
     <addaction name="actionOverlay"/>
+    <addaction name="separator"/>
+    <addaction name="actionGrids"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -8138,6 +8140,11 @@ ERROR</string>
   <action name="actionClear_Offsets">
    <property name="text">
     <string>Clear Offsets</string>
+   </property>
+  </action>
+  <action name="actionGrids">
+   <property name="text">
+    <string>Grids</string>
    </property>
   </action>
  </widget>

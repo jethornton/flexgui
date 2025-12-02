@@ -38,28 +38,28 @@ min-width: 50
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="1" column="0">
-        <widget class="QPushButton" name="char_G">
+        <widget class="QPushButton" name="key_G">
          <property name="text">
           <string>G</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="char_Z">
+        <widget class="QPushButton" name="key_Z">
          <property name="text">
           <string>Z</string>
          </property>
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QPushButton" name="char_T">
+        <widget class="QPushButton" name="key_T">
          <property name="text">
           <string>T</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
-        <widget class="QPushButton" name="char_M">
+        <widget class="QPushButton" name="key_M">
          <property name="text">
           <string>M</string>
          </property>
@@ -73,49 +73,49 @@ min-width: 50
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="char_Y">
+        <widget class="QPushButton" name="key_Y">
          <property name="text">
           <string>Y</string>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="char_X">
+        <widget class="QPushButton" name="key_X">
          <property name="text">
           <string>X</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QPushButton" name="char_S">
+        <widget class="QPushButton" name="key_S">
          <property name="text">
           <string>S</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QPushButton" name="char_F">
+        <widget class="QPushButton" name="key_F">
          <property name="text">
           <string>F</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="char_I">
+        <widget class="QPushButton" name="key_I">
          <property name="text">
           <string>I</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="char_J">
+        <widget class="QPushButton" name="key_J">
          <property name="text">
           <string>J</string>
          </property>
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QPushButton" name="char_K">
+        <widget class="QPushButton" name="key_K">
          <property name="text">
           <string>K</string>
          </property>
@@ -126,14 +126,14 @@ min-width: 50
      <widget class="QWidget" name="page_2">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="1" column="0">
-        <widget class="QPushButton" name="char_U">
+        <widget class="QPushButton" name="key_U">
          <property name="text">
           <string>U</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="char_B">
+        <widget class="QPushButton" name="key_B">
          <property name="text">
           <string>B</string>
          </property>
@@ -147,56 +147,56 @@ min-width: 50
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="char_A">
+        <widget class="QPushButton" name="key_A">
          <property name="text">
           <string>A</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QPushButton" name="char_R">
+        <widget class="QPushButton" name="key_R">
          <property name="text">
           <string>R</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="char_C">
+        <widget class="QPushButton" name="key_C">
          <property name="text">
           <string>C</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="char_P">
+        <widget class="QPushButton" name="key_P">
          <property name="text">
           <string>P</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QPushButton" name="char_V">
+        <widget class="QPushButton" name="key_V">
          <property name="text">
           <string>V</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="char_L">
+        <widget class="QPushButton" name="key_L">
          <property name="text">
           <string>L</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
-        <widget class="QPushButton" name="char_W">
+        <widget class="QPushButton" name="key_W">
          <property name="text">
           <string>W</string>
          </property>
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QPushButton" name="char_caret">
+        <widget class="QPushButton" name="key_caret">
          <property name="text">
           <string>^</string>
          </property>
@@ -223,84 +223,84 @@ min-width: 50
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
-       <widget class="QPushButton" name="char_7">
+       <widget class="QPushButton" name="key_7">
         <property name="text">
          <string>7</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="char_8">
+       <widget class="QPushButton" name="key_8">
         <property name="text">
          <string>8</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QPushButton" name="char_4">
+       <widget class="QPushButton" name="key_4">
         <property name="text">
          <string>4</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QPushButton" name="char_2">
+       <widget class="QPushButton" name="key_2">
         <property name="text">
          <string>2</string>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QPushButton" name="char_3">
+       <widget class="QPushButton" name="key_3">
         <property name="text">
          <string>3</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QPushButton" name="char_5">
+       <widget class="QPushButton" name="key_5">
         <property name="text">
          <string>5</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="char_9">
+       <widget class="QPushButton" name="key_9">
         <property name="text">
          <string>9</string>
         </property>
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QPushButton" name="char_dash">
+       <widget class="QPushButton" name="key_dash">
         <property name="text">
          <string>-</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QPushButton" name="char_0">
+       <widget class="QPushButton" name="key_0">
         <property name="text">
          <string>0</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="char_1">
+       <widget class="QPushButton" name="key_1">
         <property name="text">
          <string>1</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QPushButton" name="char_6">
+       <widget class="QPushButton" name="key_6">
         <property name="text">
          <string>6</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QPushButton" name="char_dot">
+       <widget class="QPushButton" name="key_dot">
         <property name="text">
          <string>.</string>
         </property>

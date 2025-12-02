@@ -10,6 +10,34 @@ def read(parent):
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
+	# make a list of lists with every old section/item and warn if found
+	old_ini_items = [
+	['FLEX_COLORS', 'ESTOP_OPEN'],
+	['FLEX_COLORS', 'ESTOP_CLOSED'],
+	['FLEX_COLORS', 'POWER_OFF'],
+	['FLEX_COLORS', 'POWER_ON'],
+	['FLEXGUI', 'ESTOP_OPEN_COLOR'],
+	['FLEXGUI', 'ESTOP_CLOSED_COLOR'],
+	['FLEXGUI', 'POWER_OFF_COLOR'],
+	['FLEXGUI', 'POWER_ON_COLOR'],
+	['DISPLAY', 'RESOURCES'],
+	['DISPLAY', 'SIZE'],
+	['DISPLAY', 'THEME'],
+	['DISPLAY', 'QSS'],
+	['DISPLAY', 'DRO_FONT_SIZE'],
+	['FLEX', 'PLOT_BACKGROUND_COLOR'],
+	['FLEX', 'TOUCH_FILE_WIDTH'],
+	['FLEX', 'MANUAL_TOOL_CHANGE'],
+	['FLEX', 'IMPORT'],
+	]
+	for item in old_ini_items:
+		if parent.inifile.find(item[0], item[1]):
+			msg = (f'The key {item[1]} has been moved from the\n'
+			f'[{item[0]}] section or is no longer used\n'
+			'by FlexGUI. Check the INI section of\n'
+			'the Documents for correct INI entries.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -119,90 +147,16 @@ def read(parent):
 
 	# ***** [FLEXGUI] Section *****
 
-	# ***** Test for old entries *****
-	if parent.inifile.find('DISPLAY', 'RESOURCES'):
-		msg = ('The key RESOURCES has been moved from the [DISPLAY] section\n'
-		'The key RESOURCES needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'SIZE'):
-		msg = ('The key SIZE has been moved from the [DISPLAY] section\n'
-		'The key SIZE needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'DRO_FONT_SIZE'):
-		msg = ('DRO_FONT_SIZE has been moved to the\n'
-			'[FLEXGUI] section of the ini file.\n'
-			'The default font size will be used')
-		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-
-	if parent.inifile.find('FLEX_COLORS', 'ESTOP_OPEN'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key ESTOP_OPEN is now ESTOP_OPEN_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX_COLORS', 'ESTOP_CLOSED'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key ESTOP_CLOSED is now ESTOP_CLOSED_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX_COLORS', 'POWER_OFF'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key POWER_OFF is now POWER_OFF_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX_COLORS', 'POWER_ON'):
-		msg = ('The [FLEX_COLORS] section has been changed to [FLEXGUI]\n'
-		'The key POWER_ON is now POWER_ON_COLOR\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'PLOT_BACKGROUND_COLOR'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key PLOT_BACKGROUND_COLOR needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'TOUCH_FILE_WIDTH'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key TOUCH_FILE_WIDTH needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('FLEX', 'MANUAL_TOOL_CHANGE'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key MANUAL_TOOL_CHANGE needs to be in the [FLEXGUI] section\n'
-		'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.findall('FLEX', 'IMPORT'):
-		msg = ('The [FLEX] section has been changed to [FLEXGUI]\n'
-		'The key IMPORT has been changed to IMPORT_PYTHON\n'
-		'Check Python section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'THEME'):
-		msg = ('THEME has been moved to the [FLEXGUI]\n'
-			'section of the ini file.\n'
-			'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	if parent.inifile.find('DISPLAY', 'QSS'):
-		msg = ('QSS has been moved to the [FLEXGUI]\n'
-			'section of the ini file.\n'
-			'Check the INI section of the Documents for correct INI entries.')
-		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
 	# check for a RESOURCES
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 
 	# check for QSS
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
+
+	# check for popup QSS
+	default_touch_qss = os.path.join(parent.lib_path, 'touch.qss')
+	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or default_touch_qss
+	print(parent.touch_qss_file)
 
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file:
@@ -213,31 +167,49 @@ def read(parent):
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 		parent.qss_file = False
 
-	# check for screen size
+	# check for screen size, a non valid entry will just use self.show()
 	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
 
-	# check for touch screen defaults
+	# check for touch screen defaults, anything other than true is false
 	parent.touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or False
+	if parent.touch_spinbox:
+		parent.touch_spinbox = parent.touch_spinbox.strip().lower() == "true"
 
-	# check for LED defaults in the ini file
-	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER')
-	if parent.led_diameter is None:
+	# check for LED defaults in the ini file, find returns a string must be an int
+	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER') or False
+	if not parent.led_diameter: # no value found
 		parent.led_diameter = 15
+	elif not utilities.is_int(parent.led_diameter): # not an int
+		msg = (f'The FLEXGUI LED_DIAMETER did not\n'
+			'evaluate to and integer value.\n'
+			'The LED_DIAMETER will be set to 15.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_diameter =  int(parent.led_diameter)
 
-	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
+	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET') or False
 	if parent.led_right_offset is None:
 		parent.led_right_offset = 5
+	elif not utilities.is_int(parent.led_right_offset): # not an int
+		msg = (f'The FLEXGUI LED_RIGHT_OFFSET did not\n'
+			'evaluate to and integer value.\n'
+			'The LED_RIGHT_OFFSET will be set to 15.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_right_offset =  int(parent.led_right_offset)
 
-	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
+	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET') or False
 	if parent.led_top_offset is None:
 		parent.led_top_offset = 5
+	elif not utilities.is_int(parent.led_top_offset): # not an int
+		msg = (f'The FLEXGUI LED_TOP_OFFSET did not\n'
+			'evaluate to and integer value.\n'
+			'The LED_TOP_OFFSET will be set to 15.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_top_offset =  int(parent.led_top_offset)
 
+	# Colors are checked for validity in string_to_qcolor
 	parent.led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
 	if parent.led_on_color: # convert string to QColor
 		parent.led_on_color = utilities.string_to_qcolor(parent, parent.led_on_color, 'LED_ON_COLOR')
@@ -249,30 +221,6 @@ def read(parent):
 		parent.led_off_color = utilities.string_to_qcolor(parent, parent.led_off_color, 'LED_OFF_COLOR')
 	if not parent.led_off_color: # use default led off color
 		parent.led_off_color = QColor(255, 0, 0, 255)
-
-	parent.estop_open_color = parent.inifile.find('FLEXGUI', 'ESTOP_OPEN_COLOR') or False
-	if parent.estop_open_color: # get a valid color string
-		color = utilities.string_to_rgba(parent, parent.estop_open_color, 'ESTOP_OPEN_COLOR')
-		if color:
-			parent.estop_open_color = f'background-color: {color};'
-
-	parent.estop_closed_color = parent.inifile.find('FLEXGUI', 'ESTOP_CLOSED_COLOR') or False
-	if parent.estop_closed_color: # get a valid color string
-		color = utilities.string_to_rgba(parent, parent.estop_closed_color, 'ESTOP_CLOSED_COLOR')
-		if color:
-			parent.estop_closed_color = f'background-color: {color};'
-
-	parent.power_off_color = parent.inifile.find('FLEXGUI', 'POWER_OFF_COLOR') or False
-	if parent.power_off_color: # get a valid color string
-		color = utilities.string_to_rgba(parent, parent.power_off_color, 'POWER_OFF_COLOR')
-		if color:
-			parent.power_off_color = f'background-color: {color};'
-
-	parent.power_on_color = parent.inifile.find('FLEXGUI', 'POWER_ON_COLOR') or False
-	if parent.power_on_color: # get a valid color string
-		color = utilities.string_to_rgba(parent, parent.power_on_color, 'POWER_ON_COLOR')
-		if color:
-			parent.power_on_color = f'background-color: {color};'
 
 	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
 	if parent.probe_enable_on_color: # get a valid color string
@@ -286,14 +234,30 @@ def read(parent):
 		if color:
 			parent.probe_enable_off_color = f'background-color: {color};'
 
-	parent.plot_background_color = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
-	if parent.plot_background_color:
-		parent.plot_background_color = tuple(map(float, parent.plot_background_color.split(',')))
+	color_string = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
+	if color_string:
+		components = [c.strip() for c in color_string.split(',')]
+		if len(components) == 3:
+			for comp in components:
+				value = float(comp)
+				if not (0.0 <= value <= 1.0):
+					parent.plot_background_color = False
+					msg = ('The PLOT_BACKGROUND_COLOR in the\n'
+					f'FLEXGUI section {color_string} is not valid.\n'
+					'The plot background color will be black')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					break
+				parent.plot_background_color = tuple(map(float, color_string.split(',')))
+	else:
+		parent.plot_background_color = False
 
+	parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
 	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
 	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
 
 	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
+	if parent.manual_tool_change:
+		parent.manual_tool_change = parent.manual_tool_change.strip().lower() == "true"
 
 	parent.touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or False
 	if parent.touch_file_width in ['True', 'true', '1']:
@@ -302,10 +266,21 @@ def read(parent):
 		parent.touch_file_width = False
 
 	# check for keyboard jogging
-	parent.enable_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
+	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
+	if parent.ctrl_kb_jogging:
+		parent.ctrl_kb_jogging = parent.ctrl_kb_jogging.strip().lower() == "true"
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
+	if not parent.dro_font_size: # no value found
+		parent.dro_font_size = 12
+	elif not utilities.is_int(parent.dro_font_size): # not an int
+		msg = (f'The FLEXGUI DRO_FONT_SIZE did not\n'
+			'evaluate to an integer value.\n'
+			'The DRO_FONT_SIZE will be set to 12.')
+		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+	else:
+		parent.dro_font_size =  int(parent.dro_font_size)
 
 	# ***** [EMCIO] Section *****
 	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
@@ -317,8 +292,9 @@ def read(parent):
 	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
 
 	# ***** [KINS] Section *****
-	# FIXME this might be better than status.joints which fails sometimes
 	parent.joints = parent.inifile.find('KINS', 'JOINTS') or False
+	if parent.joints: # convert string to int
+		parent.joints = int(parent.joints)
 
 	# ***** [SPINDLE_0] Section *****
 	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
@@ -326,16 +302,16 @@ def read(parent):
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
-	parent.units = parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False
 	parent.default_metric = 3
 	parent.default_inch = 4
-	match parent.units:
+	match parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False:
 		case 'inch':
 			parent.default_precision = 4
+			parent.units = 'INCH'
 		case 'mm':
 			parent.default_precision = 3
+			parent.units = 'MM'
 		case _:
-			parent.units = 'inch'
 			msg = ('[TRAJ] LINEAR_UNITS is a required\n'
 			'INI entry. LinuxCNC will close now.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
