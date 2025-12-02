@@ -1,0 +1,108 @@
+name: Build and Release .deb packages
+
+# Trigger only on tags looking like v1.0.0, v1.3.2, etc.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build_arm64:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential debhelper devscripts
+
+      - name: Sync version with Git Tag
+        run: |
+          # Extract version from tag (remove 'v' prefix)
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Setting package version to $VERSION"
+          
+          # Configure dummy git user for debchange
+          export DEBEMAIL="actions@github.com"
+          export DEBFULLNAME="GitHub Actions"
+          
+          # Update debian/changelog to match the tag version
+          # This ensures the output filename is flexgui_1.3.2_arm64.deb
+          dch -v "$VERSION" "Release $VERSION"
+          dch -r ""
+
+      - name: Build
+        run: |
+          debuild -us -uc
+
+      - name: Prepare artifacts
+        run: |
+          mkdir -p deb-artifacts
+          # Move only the .deb file to the artifacts folder
+          mv ../*.deb deb-artifacts/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flexgui-arm64
+          path: deb-artifacts/*.deb
+          if-no-files-found: error
+
+  build_amd64:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential debhelper devscripts
+
+      - name: Sync version with Git Tag
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Setting package version to $VERSION"
+          export DEBEMAIL="actions@github.com"
+          export DEBFULLNAME="GitHub Actions"
+          dch -v "$VERSION" "Release $VERSION"
+          dch -r ""
+
+      - name: Build
+        run: |
+          debuild -us -uc
+
+      - name: Prepare artifacts
+        run: |
+          mkdir -p deb-artifacts
+          mv ../*.deb deb-artifacts/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flexgui-amd64
+          path: deb-artifacts/*.deb
+          if-no-files-found: error
+
+  create_release:
+    needs: [build_arm64, build_amd64]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: flexgui-*
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: artifacts/*.deb
+          generate_release_notes: true
