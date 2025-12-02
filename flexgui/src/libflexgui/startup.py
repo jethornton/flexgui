@@ -2332,6 +2332,7 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
+			'''
 			hal_type = label.property('hal_type')
 			if hal_type not in valid_types:
 				label.setEnabled(False)
@@ -2342,6 +2343,7 @@ def setup_hal(parent):
 				f'The {label_name} label will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
+			'''
 
 			hal_type = getattr(hal, 'HAL_FLOAT')
 			hal_dir = getattr(hal, 'HAL_IN')
