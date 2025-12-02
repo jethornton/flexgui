@@ -1,5 +1,6 @@
 import os, sys, shutil, re, importlib
 from functools import partial
+from collections import deque
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
@@ -1830,6 +1831,8 @@ def setup_watch_var(parent):
 
 def setup_hal(parent):
 	hal_labels = []
+	hal_avr_f_labels = [] # average float labels
+	hal_avr_i_labels = [] # average int labels
 	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
 	hal_spinboxes = []
@@ -1842,7 +1845,8 @@ def setup_hal(parent):
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
 	parent.hal_io_float = {}
-
+	parent.hal_avr_float = {}
+	parent.hal_avr_int = {}
 	parent.hal_readers = {}
 	parent.hal_ms_labels = {}
 	parent.hal_bool_labels = {}
@@ -1957,7 +1961,6 @@ def setup_hal(parent):
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
-
 	##### HAL_IO #####
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_io':
@@ -2028,6 +2031,12 @@ def setup_hal(parent):
 				hal_progressbar.append(child)
 			elif isinstance(child, QLCDNumber):
 				hal_lcds.append(child)
+		elif child.property('function') == 'hal_avr_f':
+			if isinstance(child, QLabel):
+				hal_avr_f_labels.append(child)
+		elif child.property('function') == 'hal_avr_i':
+			if isinstance(child, QLabel):
+				hal_avr_i_labels.append(child)
 		elif child.property('function') == 'hal_msl':
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
@@ -2219,7 +2228,7 @@ def setup_hal(parent):
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			# pin = getattr(parent, f'{pin_name}')
 			# if hal type is float add it to hal_float with precision
 			if hal_type == 2: # HAL_FLOAT
 				p = lcd.property('precision')
@@ -2295,6 +2304,58 @@ def setup_hal(parent):
 				integer_digits = label.property('integer_digits')
 				parent.hal_readers[label_name] = [pin_name, integer_digits]
 
+	##### HAL AVERAGE FLOAT LABEL #####
+	if len(hal_avr_f_labels) > 0:
+		#valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
+		for label in hal_avr_f_labels:
+			label_name = label.objectName()
+			pin_name = label.property('pin_name')
+			samples = label.property('samples') or 10
+			print(samples)
+
+			if pin_name in [None, '']:
+				label.setEnabled(False)
+				msg = (f'HAL Average Label {label_name}\n'
+				'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				label.setEnabled(False)
+				msg = (f'HAL Average Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			hal_type = label.property('hal_type')
+			if hal_type not in valid_types:
+				label.setEnabled(False)
+				msg = (
+				f'{hal_type} is not valid type for a\n'
+				' HAL Average Label. Valid types are\n'
+				'HAL_FLOAT, HAL_S32 or HAL_U32\n'
+				f'The {label_name} label will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, 'HAL_FLOAT')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+			p = label.property('precision')
+			p = p if p is not None else parent.default_precision
+
+			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=samples), p]
+
+	# FIXME add hal_avr_i_labels
+	##### HAL AVERAGE INT LABEL #####
+	# parent.hal_avr_int = {}
+
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
@@ -2333,7 +2394,7 @@ def setup_hal(parent):
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			#pin = getattr(parent, f'{pin_name}')
 			text = ''
 			text_list = []
 			i = 0
@@ -2382,7 +2443,7 @@ def setup_hal(parent):
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			# pin = getattr(parent, f'{pin_name}')
 			parent.hal_progressbars[progressbar_name] = pin_name
 
 	##### HAL SLIDERS #####

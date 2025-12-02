@@ -1,4 +1,4 @@
-import math
+import math, statistics
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox, QSlider
@@ -550,6 +550,13 @@ def update(parent):
 			getattr(parent, key).display(f'{state}')
 		else: # it's a HAL Label
 			getattr(parent, key).setText(f'{state}')
+
+	# update hal average float labels key is label name and value is pin name
+	for key, value in parent.hal_avr_float.items():
+		cur_val = hal.get_value(f'flexhal.{value[0]}')
+		print(value[1])
+		value[1].append(cur_val)
+		getattr(parent, key).setText(f'{statistics.fmean(value[1]):.{value[2]}f}')
 
 	# update multi state labels
 	# key is label name and value[0] is the pin name
