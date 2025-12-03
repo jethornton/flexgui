@@ -146,10 +146,10 @@ class flexgui(QMainWindow):
 
 		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
 			if sys.argv[i].endswith('.ini'):
-				# self.ini_path /home/john/linuxcnc/configs/Mill/mill.ini
+				# self.ini_path path to ini file
 				self.ini_path = sys.argv[i]
 				self.inifile = emc.ini(sys.argv[i])
-				# self.config_path /home/john/linuxcnc/configs/Mill
+				# self.config_path path to configuration
 				self.config_path = os.path.split(sys.argv[i])[0]
 				break
 		else: # no match was found
