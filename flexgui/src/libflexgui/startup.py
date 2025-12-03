@@ -2342,11 +2342,6 @@ def setup_hal(parent):
 			p = p if p is not None else parent.default_precision
 
 			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=s), p, r]
-			for i in range(len(parent.hal_avr_float)):
-				for key, value in parent.hal_avr_float.items():
-					print(key)
-					for item in value:
-						print(item, type(item))
 
 	# FIXME add hal_avr_i_labels
 	##### HAL AVERAGE INT LABEL #####
