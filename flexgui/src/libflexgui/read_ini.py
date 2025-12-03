@@ -147,10 +147,10 @@ def read(parent):
 
 	# ***** [FLEXGUI] Section *****
 
-	# check for a RESOURCES FIXME verify file exists
+	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 	if parent.resources_file:
-		if not os.path.exists(os.path.join(parent.ini_path, parent.resources_file)):
+		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)):
 			msg = (f'The RESOURCES file {parent.resources_file}\n'
 				'Was not found. Resourses can not be imported')
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
