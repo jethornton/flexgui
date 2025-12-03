@@ -148,8 +148,6 @@ def read(parent):
 	else:
 		parent.spindle_increment = 10
 
-	print(f'parent.spindle_increment {parent.spindle_increment}')
-
 	# ***** [FLEXGUI] Section *****
 
 	# check for a RESOURCES file
