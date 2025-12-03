@@ -143,17 +143,23 @@ def read(parent):
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-	parent.increment = int(increment) if increment else 10
+	parent.increment = int(increment) if increment else 10 # FIXME test for valid number
 
 	# ***** [FLEXGUI] Section *****
 
-	# check for a RESOURCES
+	# check for a RESOURCES FIXME verify file exists
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
+	if parent.resources_file:
+		if not os.path.exists(os.path.join(parent.ini_path, parent.resources_file)):
+			msg = (f'The RESOURCES file {parent.resources_file}\n'
+				'Was not found. Resourses can not be imported')
+			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			parent.resources_file = False
 
-	# check for QSS
+	# check for QSS FIXME verify file exists
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
 
-	# check for popup QSS
+	# check for popup QSS FIXME verify file exists
 	default_touch_qss = os.path.join(parent.lib_path, 'touch.qss')
 	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or default_touch_qss
 
@@ -282,15 +288,19 @@ def read(parent):
 		parent.dro_font_size =  int(parent.dro_font_size)
 
 	# ***** [EMCIO] Section *****
-	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE') or False
+	# this ini file items will cause EMC to fail to load if missing
+	parent.tool_table = parent.inifile.find('EMCIO', 'TOOL_TABLE')
 
 	# ***** [RS274NGC] Section *****
-	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE') or False
+	# this ini file items will cause EMC to fail to load if missing
+	parent.var_file = parent.inifile.find('RS274NGC', 'PARAMETER_FILE')
 
 	# ***** [HAL] Section *****
-	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE') or False
+	# this ini file items will cause EMC to fail to load if missing
+	parent.postgui_halfiles = parent.inifile.findall('HAL', 'POSTGUI_HALFILE')
 
 	# ***** [KINS] Section *****
+	# this ini file items will cause EMC to fail to load if missing
 	parent.joints = parent.inifile.find('KINS', 'JOINTS') or False
 	if parent.joints: # convert string to int
 		parent.joints = int(parent.joints)
@@ -303,7 +313,9 @@ def read(parent):
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
 	parent.default_metric = 3
 	parent.default_inch = 4
-	match parent.inifile.find('TRAJ', 'LINEAR_UNITS') or False:
+
+	# this ini file items will cause EMC to fail to load if missing
+	match parent.inifile.find('TRAJ', 'LINEAR_UNITS'):
 		case 'inch':
 			parent.default_precision = 4
 			parent.units = 'INCH'
@@ -311,9 +323,6 @@ def read(parent):
 			parent.default_precision = 3
 			parent.units = 'MM'
 		case _:
-			msg = ('[TRAJ] LINEAR_UNITS is a required\n'
-			'INI entry. LinuxCNC will close now.')
-			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 			sys.exit()
 
 	# The maximum velocity for any axis or coordinated move, in machine units per second.
