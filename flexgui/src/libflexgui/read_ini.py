@@ -143,7 +143,12 @@ def read(parent):
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
 	if not increment:
 		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-	parent.increment = int(increment) if increment else 10 # FIXME test for valid number
+	if increment and utilities.is_int(increment):
+		parent.spindle_increment = int(increment)
+	else:
+		parent.spindle_increment = 10
+
+	print(f'parent.spindle_increment {parent.spindle_increment}')
 
 	# ***** [FLEXGUI] Section *****
 
