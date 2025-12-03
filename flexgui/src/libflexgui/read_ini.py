@@ -159,7 +159,7 @@ def read(parent):
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.resources_file = False
 
-	# check for QSS FIXME verify file exists
+	# check for QSS file
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
 	if parent.qss_file:
 		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)):
@@ -168,9 +168,17 @@ def read(parent):
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.qss_file = False
 
-	# check for popup QSS FIXME verify file exists
+	# check for popup QSS file
 	default_touch_qss = os.path.join(parent.lib_path, 'touch.qss')
-	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or default_touch_qss
+	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or False
+	if parent.touch_qss_file:
+		if not os.path.exists(os.path.join(parent.config_path, parent.touch_qss_file)):
+			msg = (f'The Touch Popup QSS file {parent.touch_qss_file}\n'
+				'Was not found. QSS can not be applied')
+			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			parent.touch_qss_file = default_touch_qss
+	else: # TOUCH_QSS not in ini file
+		parent.touch_qss_file = default_touch_qss
 
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file:
