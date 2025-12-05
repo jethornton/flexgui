@@ -39,6 +39,18 @@ If you drag a popup keypad to a different location, next time you use the keypad
 for that object the popup keypad will remember the last location and move to
 that location.
 
+If you use a custom stylesheet for the popup keypads the letters and numbers
+start with key so they can be targeted with the following QSS style for example
+to change the font size and weight. See :ref:`touch_ini` section of the ini
+settings document.
+
+.. code-block:: text
+
+	QPushButton[objectName*="key"] {
+		font-size: 24px;
+		font-weight: 700;
+	}
+
 MDI
 ---
 

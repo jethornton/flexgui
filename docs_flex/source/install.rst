@@ -19,48 +19,55 @@ anything in the terminal.
 
 For a PC to create an apt sources file for Flex GUI copy and paste this command
 in a terminal
-::
+
+.. code-block:: text
 
 	echo 'deb [arch=amd64] https://gnipsel.com/flexgui/apt-repo stable main' | sudo tee /etc/apt/sources.list.d/flexgui.list
 
 For a Raspberry Pi create an apt sources file for Flex GUI copy and paste this
 command in a terminal
-::
+
+.. code-block:: text
 
 	echo 'deb [arch=arm64] https://gnipsel.com/flexgui/apt-repo stable main' | sudo tee /etc/apt/sources.list.d/flexgui.list
 
 To check the above command worked you can list the file with this command
-::
+
+.. code-block:: text
 
 	ls /etc/apt/sources.list.d
 
 .. image:: /images/install-02.png
    :align: center
 
-
 Next get the public key for Flex GUI and copy it to trusted.gpg.d
-::
+
+.. code-block:: text
 
 	sudo curl --silent --show-error https://gnipsel.com/flexgui/apt-repo/pgp-key.public -o /etc/apt/trusted.gpg.d/flexgui.asc
 
 If curl is not installed you can install it with the following command
-::
+
+.. code-block:: text
 
 	sudo apt install curl
 
 Next update apt
-::
+
+.. code-block:: text
 
 	sudo apt update
 
 If you have Flex GUI installed you can see what packages can be upgraded with
 the following command
-::
+
+.. code-block:: text
 
 	apt list --upgradable
 
 If Flex GUI is not installed you can install it with the following command
-::
+
+.. code-block:: text
 
 	sudo apt install flexgui
 
@@ -82,7 +89,8 @@ Download the latest deb file from
 
 If the link is not clickable, copy and paste the following URL into your
 browser
-::
+
+.. code-block:: text
 
 	https://github.com/jethornton/flexgui/releases
 
@@ -93,14 +101,16 @@ Select the latest release and click on the .deb to start a download.
 Right click on the deb file and select `Open with GDebi Package Installer`.
 If that option is not there then GDebi is not installed, open a terminal and run
 this command to install it:
-::
+
+.. code-block:: text
 
 	sudo apt install gdebi
 
 An alternative is to install from the terminal outright using `dpkg`. Make sure
 the version number is correct for the deb you have the following command may be
 an older version.
-::
+
+.. code-block:: text
 
 	sudo dpkg -i flexgui_1.1.0_amd64.deb
 
@@ -111,19 +121,22 @@ Build and Install
 
 If you plan on changing code in Flex GUI you can clone the repository and build
 the deb after making changes. The target directory is optional.
-::
+
+.. code-block:: text
 
 	git clone https://github.com/jethornton/flexgui.git (target/directory)
 
 Before building the deb you will need to install some programs that do the
 building. Open a terminal and run the following to install devscripts
-::
+
+.. code-block:: text
 
 	sudo apt install devscripts
 
 Open a terminal in the top most flexgui directory and use this command to build
 a deb file.
-::
+
+.. code-block:: text
 
 	debuild -us -uc
 

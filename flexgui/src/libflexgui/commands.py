@@ -427,18 +427,18 @@ def spindle(parent, value=0):
 				parent.spindle_rev_pb.led = False
 
 	elif sender_name == 'spindle_plus_pb':
-		if (parent.spindle_speed + parent.increment) <= parent.max_rpm:
+		if (parent.spindle_speed + parent.spindle_increment) <= parent.max_rpm:
 			parent.command.spindle(emc.SPINDLE_INCREASE)
-			parent.spindle_speed += parent.increment
+			parent.spindle_speed += parent.spindle_increment
 			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(parent.spindle_speed)
 			if 'spindle_speed_setting_lb' in parent.child_names:
 				parent.spindle_speed_setting_lb.setText(f'{parent.spindle_speed}')
 
 	elif sender_name == 'spindle_minus_pb':
-		if (parent.spindle_speed - parent.increment) > 0: # it's ok
+		if (parent.spindle_speed - parent.spindle_increment) > 0: # it's ok
 			parent.command.spindle(emc.SPINDLE_DECREASE)
-			parent.spindle_speed -= parent.increment
+			parent.spindle_speed -= parent.spindle_increment
 			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(parent.spindle_speed)
 			if 'spindle_speed_setting_lb' in parent.child_names:

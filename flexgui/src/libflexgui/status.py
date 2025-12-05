@@ -1,4 +1,4 @@
-import math
+import math, statistics
 
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
 from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox, QSlider
@@ -75,12 +75,6 @@ def update(parent):
 					parent.estop_pb.setChecked(False)
 					parent.estop_pb.blockSignals(False)
 
-			if parent.estop_open_color: # if False just don't bother
-				if 'estop_pb' in parent.child_names:
-					parent.estop_pb.setStyleSheet(parent.estop_open_color)
-				if 'flex_E_Stop' in parent.child_names:
-					parent.flex_E_Stop.setStyleSheet(parent.estop_open_color)
-
 			if parent.probe_enable_off_color: # if False just don't bother
 				if 'probing_enable_pb' in parent.child_names:
 					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
@@ -118,18 +112,6 @@ def update(parent):
 				parent.power_pb.setChecked(False)
 				parent.power_pb.blockSignals(False)
 
-			if parent.estop_closed_color: # if False just don't bother
-				if 'estop_pb' in parent.child_names:
-					parent.estop_pb.setStyleSheet(parent.estop_closed_color)
-				if 'flex_E_Stop' in parent.child_names:
-					parent.flex_E_Stop.setStyleSheet(parent.estop_closed_color)
-
-			if parent.power_off_color: # if False just don't bother
-				if 'power_pb' in parent.child_names:
-					parent.power_pb.setStyleSheet(parent.power_off_color)
-				if 'flex_Power' in parent.child_names:
-					parent.flex_Power.setStyleSheet(parent.power_off_color)
-
 			if parent.probe_enable_off_color: # if False just don't bother
 				if 'probing_enable_pb' in parent.child_names:
 					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
@@ -159,11 +141,6 @@ def update(parent):
 
 			if 'flex_Power' in parent.child_names:
 				parent.flex_Power.setStyleSheet(parent.selected_style)
-			if parent.power_on_color: # if False just don't bother
-				if 'power_pb' in parent.child_names:
-					parent.power_pb.setStyleSheet(parent.power_on_color)
-				if 'flex_Power' in parent.child_names:
-					parent.flex_Power.setStyleSheet(parent.power_on_color)
 
 			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
 				parent.power_pb.led = True
@@ -174,6 +151,8 @@ def update(parent):
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
 				utilities.set_homed_enable(parent)
+				for key, value in parent.state_on_homed.items():
+					getattr(parent, key).setEnabled(value)
 				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.home_controls:
@@ -207,6 +186,9 @@ def update(parent):
 		# this sets up home related items
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
 			#print('status update TRAJ_MODE_TELEOP')
+			if parent.status.task_state == emc.STATE_ON:
+				for key, value in parent.state_on_homed.items():
+					getattr(parent, key).setEnabled(value)
 			# FIXME releasing estop enables home required hal buttons
 			if not parent.probing:
 				for item in parent.home_required:
@@ -216,6 +198,9 @@ def update(parent):
 					getattr(parent, item).setEnabled(True)
 		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
 			#print('status update TRAJ_MODE_FREE')
+			if parent.status.task_state == emc.STATE_ON:
+				for key, value in parent.state_on_unhomed.items():
+					getattr(parent, key).setEnabled(value)
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
@@ -574,6 +559,20 @@ def update(parent):
 		else: # it's a HAL Label
 			getattr(parent, key).setText(f'{state}')
 
+	# update hal average float labels key is label name and value is pin name
+	# [pin_name, deque([0], maxlen=samples), p, _round]
+	for key, value in parent.hal_avr_float.items():
+		cur_val = hal.get_value(f'flexhal.{value[0]}')
+		value[1].append(cur_val)
+		#stat = f'{statistics.fmean(value[1]):.{value[2]}f}'
+		stat = statistics.fmean(value[1])
+		rounding = value[3]
+		getattr(parent, key).setText(f'{round(stat, rounding):.{value[2]}f}')
+		#getattr(parent, key).setText(f'{round({statistics.fmean(value[1]):.{value[2]}f}, -{value[3]})}')
+
+	# update hal average int labels key is label name and value is pin name
+
+
 	# update multi state labels
 	# key is label name and value[0] is the pin name
 	for key, value in parent.hal_ms_labels.items():
@@ -647,7 +646,6 @@ def update(parent):
 	# label, tuple position & precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
 		position = positions[value[0]]
-
 
 		'''
 		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]

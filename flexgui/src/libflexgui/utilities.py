@@ -52,6 +52,7 @@ def convert_fraction(item):
 		if item[i].isdigit():
 			fraction_string = item[:i+1]
 			break
+	suffix = item[i+1:].strip() if len(item[i+1:].strip()) > 0 else False
 
 	if len(fraction_string.split('/')) == 2: # might be a good number
 		match = re.match(r'(\d+)?\s*(\d+)/(\d+)', fraction_string)
@@ -59,9 +60,10 @@ def convert_fraction(item):
 			whole_number = int(match.group(1)) if match.group(1) else 0
 			numerator = int(match.group(2))
 			denominator = int(match.group(3))
-			return whole_number + (numerator / denominator)
+			# return the decimal number plus suffix
+			return whole_number + (numerator / denominator), suffix
 	else:
-		return False
+		return False, False
 
 '''
 In Python, a function can return multiple values by separating them with commas
@@ -79,8 +81,10 @@ def is_valid_increment(parent, item): # need to return text ,data and suffix
 
 	if '/' in item: # it might be a fraction
 		#for character in item:
-		fraction = convert_fraction(item)
-		if fraction:
+		fraction, suffix = convert_fraction(item)
+		if fraction and suffix:
+			return f'{item}', fraction, 'inch'
+		elif fraction and not suffix:
 			return f'{item} inch', fraction, 'inch'
 		else:
 			return False, False, False
@@ -216,6 +220,28 @@ def set_homed_enable(parent):
 	if parent.status.file:
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
+
+def set_hal_enables(parent, obj):
+	obj_name = obj.objectName()
+	state_on = obj.property('state_on')
+	all_homed = obj.property('all_homed')
+
+	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
+	# all HAL objects are disabled when state estop
+	parent.state_estop[obj_name] = False
+	# FIXME unhoming does not toggle state on all homed objects
+	if state_on and not all_homed:
+		parent.state_estop_reset[obj_name] = False
+		parent.state_on[obj_name] = True
+	elif not state_on and all_homed:
+		parent.home_required.append(obj_name)
+	elif state_on and all_homed:
+		parent.state_estop_reset[obj_name] = False
+		parent.state_on_homed[obj_name] = True
+		parent.state_on_unhomed[obj_name] = False
+	elif obj_name not in special_buttons: # enable/disable with estop
+			parent.state_estop_reset[obj_name] = True
+
 
 def jog_toggled(parent):
 	if parent.sender().isChecked():

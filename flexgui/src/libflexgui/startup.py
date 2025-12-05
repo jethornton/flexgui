@@ -1,5 +1,6 @@
 import os, sys, shutil, re, importlib
 from functools import partial
+from collections import deque
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
@@ -343,6 +344,9 @@ def update_check(parent):
 
 def setup_enables(parent):
 	parent.home_required = [] # different functions add to this
+	parent.homed = {}
+	parent.state_on_homed = {}
+	parent.state_on_unhomed = {}
 	parent.state_estop_checked = {}
 	parent.state_estop_reset_checked = {}
 	# disable home all if home sequence is not found
@@ -959,7 +963,7 @@ def setup_status_labels(parent):
 	# check for joint labels in ui
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
 
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		if f'joint_{i}_backlash_lb' in parent.child_names:
 			backlash = parent.inifile.find(f'JOINT_{i}', 'BACKLASH') or False
 			if backlash:
@@ -974,7 +978,7 @@ def setup_status_labels(parent):
 	'output', 'override_limits']
 
 	parent.status_joints = {} # create an empty dictionary
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		for item in joint_items:
 			if f'joint_{i}_{item}_lb' in parent.child_names:
 				parent.status_joints[f'joint_{i}_{item}_lb'] = item
@@ -983,7 +987,7 @@ def setup_status_labels(parent):
 	# joint[1]["homed"]
 	joint_number_items = ['units', 'velocity']
 	parent.status_joint_prec = {}
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		for item in joint_number_items:
 			if f'joint_{i}_{item}_lb' in parent.child_names: # if the label is found
 				p = getattr(parent, f'joint_{i}_{item}_lb').property('precision')
@@ -1372,7 +1376,7 @@ def setup_jog(parent):
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
-	for i in range(int(parent.joints)):
+	for i in range(parent.joints):
 		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.jog_buttons.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.child_names:
@@ -1420,9 +1424,9 @@ def setup_jog(parent):
 			'will be used to set the maximum jog velocity slider.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
-			if int(parent.joints) > 0:
+			if parent.joints > 0:
 				maxjv = []
-				for i in range(int(parent.joints)):
+				for i in range(parent.joints):
 					maxjv.append(parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY'))
 				parent.max_jog_vel = min(maxjv)
 				parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
@@ -1467,6 +1471,11 @@ def setup_jog(parent):
 				if data:
 					jog_distance = conv_units(data, suffix.lower(), parent.units)
 					parent.jog_modes_cb.addItem(text, jog_distance)
+				else:
+					msg = ('The DISPLAY INCREMENTS entry in the ini\n'
+					f'> {item} < is not a valid unit and will not\n'
+					'be used.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -1548,7 +1557,7 @@ def setup_spindle(parent):
 
 	if 'spindle_speed_sb' in parent.child_names:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-		parent.spindle_speed_sb.setSingleStep(parent.increment)
+		parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
@@ -1769,7 +1778,6 @@ def setup_defaults(parent):
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
-	#print('setup_probing')
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.child_names:
@@ -1785,7 +1793,6 @@ def setup_probing(parent):
 			parent.state_estop_reset_checked['probing_enable_pb'] = False
 
 			parent.probing_enable_pb.setCheckable(True)
-			#print(f'parent.probing_enable_pb.isCheckable() {parent.probing_enable_pb.isCheckable()}')
 
 			parent.home_required.append('probing_enable_pb')
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
@@ -1881,6 +1888,8 @@ def setup_watch_var(parent):
 
 def setup_hal(parent):
 	hal_labels = []
+	hal_avr_f_labels = [] # average float labels
+	hal_avr_i_labels = [] # average int labels
 	hal_ms_labels = [] # multi state labels
 	hal_buttons = []
 	hal_spinboxes = []
@@ -1893,12 +1902,20 @@ def setup_hal(parent):
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
 	parent.hal_io_float = {}
-
+	parent.hal_avr_float = {}
+	parent.hal_avr_int = {}
 	parent.hal_readers = {}
 	parent.hal_ms_labels = {}
 	parent.hal_bool_labels = {}
 	parent.hal_progressbars = {}
 	parent.hal_floats = {}
+
+	'''
+	parent.state_estop estop is open
+	parent.state_estop_reset estop is closed and power is off
+	parent.state_on power is on
+	parent.state_on_homed power is on and all joints homed
+	'''
 
 	var_file = os.path.join(parent.config_path, parent.var_file)
 	with open(var_file, 'r') as f:
@@ -1954,19 +1971,7 @@ def setup_hal(parent):
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
-			parent.state_estop[button_name] = False
-			if button.property('state_off') == 'disabled':
-				parent.state_estop_reset[button_name] = False
-			else:
-				if button_name != 'tool_changed_pb':
-					parent.state_estop_reset[button_name] = True
-
-			# FIXME enable estop and the button is enabled
-			if button.property('required') == 'homed':
-				parent.home_required.append(button_name)
-			else:
-				if button_name != 'tool_changed_pb':
-					parent.state_on[button_name] = True
+			utilities.set_hal_enables(parent, button)
 
 	##### HAL_LED_LABELS ##### these are not QLabel but IndicatorLabel
 	for button in parent.findChildren(IndicatorLabel):
@@ -2008,7 +2013,6 @@ def setup_hal(parent):
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
-
 	##### HAL_IO #####
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_io':
@@ -2035,8 +2039,10 @@ def setup_hal(parent):
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_check[child_name] = pin_name
 				else:
+					child.setEnabled(False)
 					msg = (f'The QPushButton {child_name} must be\n'
-					'set to checkable to be a IO button.')
+					'set to checkable to be a IO button.\n'
+					'The QPushButton will be disabled.')
 					dialogs.error_msg_ok(parent, msg, 'Error')
 
 			elif isinstance(child, QRadioButton):
@@ -2063,6 +2069,8 @@ def setup_hal(parent):
 				child.valueChanged.connect(partial(utilities.update_hal_io, parent))
 				parent.hal_io_float[child_name] = pin_name
 
+			utilities.set_hal_enables(parent, child)
+
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_pin':
 			if isinstance(child, QAbstractButton): # QCheckBox, QPushButton, QRadioButton, and QToolButton
@@ -2079,6 +2087,12 @@ def setup_hal(parent):
 				hal_progressbar.append(child)
 			elif isinstance(child, QLCDNumber):
 				hal_lcds.append(child)
+		elif child.property('function') == 'hal_avr_f':
+			if isinstance(child, QLabel):
+				hal_avr_f_labels.append(child)
+		elif child.property('function') == 'hal_avr_i':
+			if isinstance(child, QLabel):
+				hal_avr_i_labels.append(child)
 		elif child.property('function') == 'hal_msl':
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
@@ -2091,6 +2105,9 @@ def setup_hal(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
+			# FIXME test for state_off & home_required and bitch
+			state_off = button.property('state_off')
+			home_required = button.property('required')
 
 			if pin_name in [None, '']:
 				button.setEnabled(False)
@@ -2112,16 +2129,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if button_name == pin_name:
-				button.setEnabled(False)
-				msg = (f'The object name {button_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, 'HAL_OUT')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
@@ -2135,18 +2142,7 @@ def setup_hal(parent):
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
-			parent.state_estop[button_name] = False
-			special_buttons = ['probing_enable_pb', 'tool_changed_pb']
-			if button.property('state_off') == 'disabled':
-				parent.state_estop_reset[button_name] = False
-			else:
-				if button_name not in special_buttons:
-					parent.state_estop_reset[button_name] = True
-
-			if button.property('required') == 'homed':
-				parent.home_required.append(button_name)
-				if button_name in parent.state_estop_reset:
-					del parent.state_estop_reset[button_name]
+			utilities.set_hal_enables(parent, button)
 
 	##### HAL SPINBOX ##### FIXME this home required works as expected...
 	if len(hal_spinboxes) > 0:
@@ -2174,16 +2170,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = spinbox.property('hal_type')
 			if hal_type not in valid_types:
 				spinbox.setEnabled(False)
@@ -2200,15 +2186,13 @@ def setup_hal(parent):
 			# set the default value of the spin box to the hal pin
 			setattr(parent.halcomp, pin_name, spinbox.value())
 			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
-			parent.state_estop[spinbox_name] = False
-			parent.state_estop_reset[spinbox_name] = False
+
+			utilities.set_hal_enables(parent, spinbox)
+
+			# FIXME look into this to see if it can be added to utilities.set_hal_enables
 			if parent.probe_controls: # make sure the probing_enable_pb is there
 				if spinbox_name.startswith('probe_'): # don't enable it when power is on
 					parent.probe_controls.append(spinbox_name)
-			elif spinbox.property('required') == 'homed':
-				parent.home_required.append(spinbox_name)
-			else:
-				parent.state_on[spinbox_name] = True
 
 	##### HAL Double Spinboxes #####
 	if len(hal_dbl_spinboxes) > 0:
@@ -2235,31 +2219,69 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if spinbox_name == pin_name:
-				spinbox.setEnabled(False)
-				msg = (f'The object name {spinbox_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, 'HAL_FLOAT')
 			hal_dir = getattr(hal, 'HAL_OUT')
 			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
 			# set the default value of the spin box to the hal pin
 			setattr(parent.halcomp, pin_name, spinbox.value())
 			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
-			parent.state_estop[spinbox_name] = False
-			parent.state_estop_reset[spinbox_name] = False
+
+			utilities.set_hal_enables(parent, spinbox)
+
+			# FIXME look into this to see if it can be added to utilities.set_hal_enables
 			if parent.probe_controls: # make sure the probing_enable_pb is there
 				if spinbox_name.startswith('probe_'): # don't enable it when power is on
 					parent.probe_controls.append(spinbox_name)
-			elif spinbox.property('required') == 'homed':
-				parent.home_required.append(spinbox_name)
-			else:
-				parent.state_on[spinbox_name] = True
+
+	##### HAL SLIDERS #####
+	if len(hal_sliders) > 0:
+		valid_types = ['HAL_S32', 'HAL_U32']
+		for slider in hal_sliders:
+			slider_name = slider.objectName()
+			pin_name = slider.property('pin_name')
+
+			if pin_name in [None, '']:
+				slider.setEnabled(False)
+				msg = (f'HAL SLIDER {slider_name}\n'
+				'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {slider_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				slider.setEnabled(False)
+				msg = (f'HAL Slider {slider_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.\n')
+				f'The {slider_name} slider will be disabled.'
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			hal_type = slider.property('hal_type')
+			if hal_type not in valid_types:
+				slider.setEnabled(False)
+				msg = (f'{hal_type} is not valid\n'
+				'for a HAL slider, only\n'
+				'HAL_S32 or HAL_U32 are valid\n'
+				f'The {slider_name} slider will be disabled.\n')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, 'HAL_OUT')
+			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+			# set the default value of the spin box to the hal pin
+			setattr(parent.halcomp, pin_name, slider.value())
+			slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
+
+			utilities.set_hal_enables(parent, slider)
+
+			# FIXME look into this to see if it can be added to utilities.set_hal_enables
+			if parent.probe_controls: # make sure the probing_enable_pb is there
+				if slider_name.startswith('probe_'): # don't enable it when power is on
+					parent.probe_controls.append(slider_name)
 
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
@@ -2297,20 +2319,10 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if lcd_name == pin_name:
-				lcd.setEnabled(False)
-				msg = (f'The object name {lcd_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the LCD will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			# pin = getattr(parent, f'{pin_name}')
 			# if hal type is float add it to hal_float with precision
 			if hal_type == 2: # HAL_FLOAT
 				p = lcd.property('precision')
@@ -2338,15 +2350,14 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			# Allow multiple pins to request the same pin_name
-			# Later, we will only allow the hal pin to be created once.
-			# if pin_name in dir(parent):
-			# 	msg = (f'HAL Label {label_name}\n'
-			# 	f'pin name {pin_name}\n'
-			# 	'is already used in Flex GUI\n'
-			# 	'The HAL pin can not be created.')
-			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			# 	continue
+			# the pin_name can not be the same as a built in variable or object name
+			if pin_name in parent.directory:
+				msg = (f'HAL Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
 
 			hal_type = label.property('hal_type')
 			if hal_type not in valid_types:
@@ -2359,19 +2370,9 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if label_name == pin_name:
-				label.setEnabled(False)
-				msg = (f'The object name {label_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
-			
+
 			# Only create the pin if its not already created
 			if pin_name in dir(parent):
 				pin = getattr(parent, f'{pin_name}')
@@ -2397,6 +2398,50 @@ def setup_hal(parent):
 				integer_digits = label.property('integer_digits')
 				parent.hal_readers[label_name] = [pin_name, integer_digits]
 
+	##### HAL AVERAGE FLOAT LABEL #####
+	if len(hal_avr_f_labels) > 0:
+		#valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
+		for label in hal_avr_f_labels:
+			label_name = label.objectName()
+			pin_name = label.property('pin_name')
+			s = label.property('samples') or 10
+			r = label.property('rounding') or 0
+			if r > 0:
+				r = -r
+
+			if pin_name in [None, '']:
+				label.setEnabled(False)
+				msg = (f'HAL Average Label {label_name}\n'
+				'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				label.setEnabled(False)
+				msg = (f'HAL Average Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			hal_type = getattr(hal, 'HAL_FLOAT')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+			p = label.property('precision')
+			p = p if p is not None else parent.default_precision
+
+			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=s), p, r]
+
+	# FIXME add hal_avr_i_labels
+	##### HAL AVERAGE INT LABEL #####
+	# parent.hal_avr_int = {}
+
+
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
 		for label in hal_ms_labels:
@@ -2420,16 +2465,6 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			if msl_name == pin_name:
-				label.setEnabled(False)
-				msg = (f'The object name {msl_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			if label.property('text_0') == None:
 				label.setEnabled(False)
 				msg = (f'HAL MULTI STATE LABEL {msl_name}\n'
@@ -2444,7 +2479,7 @@ def setup_hal(parent):
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			#pin = getattr(parent, f'{pin_name}')
 			text = ''
 			text_list = []
 			i = 0
@@ -2490,83 +2525,11 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
-			if progressbar_name == pin_name:
-				progressbar.setEnabled(False)
-				msg = (f'The object name {progressbar_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					'and the progressbar will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			pin = getattr(parent, f'{pin_name}')
+			# pin = getattr(parent, f'{pin_name}')
 			parent.hal_progressbars[progressbar_name] = pin_name
-
-	##### HAL SLIDERS #####
-	if len(hal_sliders) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32']
-		for slider in hal_sliders:
-			slider_name = slider.objectName()
-			pin_name = slider.property('pin_name')
-
-			if pin_name in [None, '']:
-				slider.setEnabled(False)
-				msg = (f'HAL SLIDER {slider_name}\n'
-				'pin name is blank or missing\n'
-				'The HAL pin can not be created.\n'
-				f'The {slider_name} will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if pin_name in dir(parent):
-				slider.setEnabled(False)
-				msg = (f'HAL Slider {slider_name}\n'
-				f'pin name {pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.\n')
-				f'The {slider_name} slider will be disabled.'
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if slider_name == pin_name:
-				slider.setEnabled(False)
-				msg = (f'The object name {slider_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {slider_name} slider will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_type = slider.property('hal_type')
-			if hal_type not in valid_types:
-				slider.setEnabled(False)
-				msg = (f'{hal_type} is not valid\n'
-				'for a HAL slider, only\n'
-				'HAL_S32 or HAL_U32 are valid\n'
-				f'The {slider_name} slider will be disabled.\n')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, 'HAL_OUT')
-			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
-			# set the default value of the spin box to the hal pin
-			setattr(parent.halcomp, pin_name, slider.value())
-			slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
-			parent.state_estop[slider_name] = False
-			parent.state_estop_reset[slider_name] = False
-			if parent.probe_controls: # make sure the probing_enable_pb is there
-				if slider_name.startswith('probe_'): # don't enable it when power is on
-					parent.probe_controls.append(slider_name)
-			elif slider.property('required') == 'homed':
-				parent.home_required.append(slider_name)
-			else:
-				parent.state_on[slider_name] = True
 
 	##### HAL LED #####
 	if len(hal_leds) > 0:
@@ -2583,26 +2546,15 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			# Allow multiple pins to request the same pin_name
-			# Later, we will only allow the hal pin to be created once.
-			# if pin_name in dir(parent):
-			# 	led.setEnabled(False)
-			# 	msg = (f'HAL LED {led_name}\n'
-			# 	f'pin name {pin_name}\n'
-			# 	'is already used in Flex GUI\n'
-			# 	'The HAL pin can not be created.\n')
-			# 	f'The {led_name} LED will be disabled.'
-			# 	dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-			# 	continue
-
-			if led_name == pin_name:
+			# the pin_name can not be the same as a built in variable
+			if pin_name in parent.directory:
 				led.setEnabled(False)
-				msg = (f'The object name {led_name}\n'
-					'can not be the same as the\n'
-					f'pin name {pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The {led_name} slider will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				msg = (f'HAL LED {led_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.\n')
+				f'The {led_name} LED will be disabled.'
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			on_color = led.property('on_color')
@@ -2916,7 +2868,7 @@ def setup_plot(parent):
 					grid_size = conv_units(data, suffix.lower(), parent.units)
 				else:
 					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
-					f'{item} is not a valid unit and will not\n'
+					f'> {item} < is not a valid unit and will not\n'
 					'be used.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 					continue

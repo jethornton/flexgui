@@ -52,7 +52,8 @@ Manual Tool Change
 
 All that is needed to add a manual tool change is to add the following to the
 ini file in the [FLEXGUI] section.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	MANUAL_TOOL_CHANGE = True
@@ -88,7 +89,8 @@ Manual Tool Change Option
 
 The HAL Manual Tool Change requires at least the following HAL code in the main
 hal file if not using the builtin Flex Manual Tool Change above.
-::
+
+.. code-block:: text
 
 	# manual tool change
 	loadusr -W hal_manualtoolchange

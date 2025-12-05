@@ -330,8 +330,15 @@ status items.
 	settings[3] = G64 P blend tolerance
 	settings[4] = G64 Q naive CAM tolerance
 
-	spindles_lb - returns tuple of dicts
+	spindle_lb - returns tuple of dicts
 	returns the current spindle status
+
+See the :doc:`spindle` section for individual spindle status items
+
+.. code-block:: text
+
+	spindles_lb - returns integer
+	returns number of spindles in [TRAJ] SPINDLES
 
 	state_lb - returns integer that is used to lookup the state name
 	current command execution status
