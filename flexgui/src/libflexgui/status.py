@@ -151,6 +151,8 @@ def update(parent):
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
 				utilities.set_homed_enable(parent)
+				for key, value in parent.state_on_homed.items():
+					getattr(parent, key).setEnabled(value)
 				for item in parent.unhome_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.home_controls:
@@ -184,6 +186,9 @@ def update(parent):
 		# this sets up home related items
 		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
 			#print('status update TRAJ_MODE_TELEOP')
+			if parent.status.task_state == emc.STATE_ON:
+				for key, value in parent.state_on_homed.items():
+					getattr(parent, key).setEnabled(value)
 			# FIXME releasing estop enables home required hal buttons
 			if not parent.probing:
 				for item in parent.home_required:
@@ -193,6 +198,9 @@ def update(parent):
 					getattr(parent, item).setEnabled(True)
 		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
 			#print('status update TRAJ_MODE_FREE')
+			if parent.status.task_state == emc.STATE_ON:
+				for key, value in parent.state_on_unhomed.items():
+					getattr(parent, key).setEnabled(value)
 			for item in parent.home_required:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
