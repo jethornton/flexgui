@@ -27,33 +27,15 @@ from libflexgui import shutdown
 
 class KeyboardJog(QObject):
 	# These widget types use the keyboard arrows for naviation
-	JOG_DISABLE_TYPES = (
-		QLineEdit, 
-		QPlainTextEdit, 
-		QListWidget,
-		QRadioButton,
-		QListView,
-		QComboBox,
-		QSpinBox,
-		QDoubleSpinBox
-	)
-	AVOID_TAKING_FOCUS_TYPES = (
-		QLineEdit, 
-		QPlainTextEdit, 
-		QListWidget,
-		QListView,
-		QRadioButton,
-		QTabBar,
-		QSpinBox,
-		QDoubleSpinBox
-	)
+	JOG_DISABLE_TYPES = (QLineEdit, QPlainTextEdit, QListWidget,
+		QRadioButton, QListView, QComboBox, QSpinBox, QDoubleSpinBox)
 
 	def __init__(self, window):
 		self._keyboard_jog_state = window.kb_jog_cb_enabled
 		super().__init__()
 	def eventFilter(self, source, event):
 		# If we are entering a text box, temporarily disable keyboard jogging
-		if event.type() == QEvent.Type.FocusIn and window.auto_kb_focus_handling:
+		if event.type() == QEvent.Type.FocusIn and window.auto_kb_jog_focus_handling:
 			if isinstance(source, self.JOG_DISABLE_TYPES):
 				self._keyboard_jog_state = window.kb_jog_cb_enabled # Save for later
 				if 'keyboard_jog_cb' in window.child_names:
@@ -62,7 +44,7 @@ class KeyboardJog(QObject):
 					window.kb_jog_cb_enabled = False
 
 		# If we are leaving a text box, re-enable keyboard jogging if necessary
-		if event.type() == QEvent.Type.FocusOut and window.auto_kb_focus_handling:
+		if event.type() == QEvent.Type.FocusOut and window.auto_kb_jog_focus_handling:
 			if isinstance(source, self.JOG_DISABLE_TYPES):
 				if 'keyboard_jog_cb' in window.child_names:
 					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
@@ -156,12 +138,12 @@ class KeyboardJog(QObject):
 				dialogs.spinbox_numbers(window, source.parent())
 
 		# When we click the window, clear the focus
-		if event.type() == QEvent.Type.MouseButtonPress and window.auto_kb_focus_handling:
+		if event.type() == QEvent.Type.MouseButtonPress and window.auto_kb_jog_focus_handling:
 			# QListWidgets take focus in a child.  Hence the .parent() check
-			if (not isinstance(source, self.AVOID_TAKING_FOCUS_TYPES) and 
-				not isinstance(source.parent(), self.AVOID_TAKING_FOCUS_TYPES)):
+			if (not isinstance(source, self.JOG_DISABLE_TYPES) and 
+				not isinstance(source.parent(), self.JOG_DISABLE_TYPES)):
 				focused = QApplication.focusWidget()
-				if isinstance(focused, self.AVOID_TAKING_FOCUS_TYPES):
+				if isinstance(focused, self.JOG_DISABLE_TYPES):
 					focused.clearFocus()
 
 		return super().eventFilter(source, event) # pass the event on if not used
