@@ -7,7 +7,6 @@ from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
-from PyQt6.QtWidgets import QWidget, QTabWidget, QStackedWidget, QScrollArea
 
 import linuxcnc as emc
 
@@ -518,36 +517,3 @@ def update_grid_size(parent, grid_size):
 					action.setChecked(True)
 				else:
 					action.setChecked(False)
-
-def reveal_widget(widget: QWidget):
-    """Ensure the widget is visible (select tabs/pages, expand parents)
-    without giving it focus.
-    """
-    w = widget
-
-    while w is not None:
-        parent = w.parent()
-
-        # If parent is a QTabWidget, switch to the tab containing our widget
-        if isinstance(parent, QTabWidget):
-            for i in range(parent.count()):
-                if parent.widget(i).isAncestorOf(widget) or parent.widget(i) == widget:
-                    parent.setCurrentIndex(i)
-                    break
-
-        # If parent is a QStackedWidget, switch to the correct page
-        if isinstance(parent, QStackedWidget):
-            for i in range(parent.count()):
-                if parent.widget(i).isAncestorOf(widget) or parent.widget(i) == widget:
-                    parent.setCurrentIndex(i)
-                    break
-
-        # If inside a QScrollArea, scroll it into view
-        if isinstance(parent, QScrollArea):
-            parent.ensureWidgetVisible(widget)
-
-        # Ensure parent is visible, but do NOT use setFocus()
-        if isinstance(parent, QWidget):
-            parent.show()
-
-        w = parent
