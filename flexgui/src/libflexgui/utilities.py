@@ -220,6 +220,28 @@ def set_homed_enable(parent):
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
 
+def set_hal_enables(parent, obj):
+	obj_name = obj.objectName()
+	state_on = obj.property('state_on')
+	all_homed = obj.property('all_homed')
+
+	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
+	# all HAL objects are disabled when state estop
+	parent.state_estop[obj_name] = False
+	# FIXME unhoming does not toggle state on all homed objects
+	if state_on and not all_homed:
+		parent.state_estop_reset[obj_name] = False
+		parent.state_on[obj_name] = True
+	elif not state_on and all_homed:
+		parent.home_required.append(obj_name)
+	elif state_on and all_homed:
+		parent.state_estop_reset[obj_name] = False
+		parent.state_on_homed[obj_name] = True
+		parent.state_on_unhomed[obj_name] = False
+	elif obj_name not in special_buttons: # enable/disable with estop
+			parent.state_estop_reset[obj_name] = True
+
+
 def jog_toggled(parent):
 	if parent.sender().isChecked():
 		parent.kb_jog_cb_enabled = True
