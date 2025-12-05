@@ -40,7 +40,7 @@ Debug Options
 ---------
 
 Flex GUI
-^^^^^^^^
+--------
 
 To use the Flex GUI (as opposed to Axis or others), change the DISPLAY value to
 
@@ -61,7 +61,7 @@ with its `filename`:
 	GUI = my-file-name.ui
 
 Jog Increments
-^^^^^^^^^^^^^^
+--------------
 
 The following settings can be used in the [DISPLAY] section of the ini file to
 preset jog items. While you can mix units usually machine units are used. Units
@@ -86,7 +86,7 @@ and can be a whole number with a space then the fraction.
    configuration units are used.
 
 Startup File
-^^^^^^^^^^^^
+------------
 
 To automatically open a NC file on startup, add the OPEN_FILE key with any
 valid path. Use ~/ as a shortcut to the users home directory. Use ./ to indicate
@@ -103,7 +103,7 @@ that the file is in the configuration directory
 	OPEN_FILE = ../welcome.ngc
 
 File Location
-^^^^^^^^^^^^^
+-------------
 
 Likewise, to specify a default location for NC files, add the PROGRAM_PREFIX
 item.
@@ -119,7 +119,7 @@ item.
 	PROGRAM_PREFIX = ../
 
 Tool Table Editor
-^^^^^^^^^^^^^^^^^
+-----------------
 
 To specify a different tool table editor add an entry to the [DISPLAY] section.
 If no entry is found then the default tool editor is used
@@ -139,7 +139,7 @@ If no entry is found then the axes in the configuration and diameter are shown.
 Tool, Pocket and Comment are always shown.
 
 File Extensions
-^^^^^^^^^^^^^^^
+---------------
 
 The keyboard file dialog defaults to `*.ngc` and this ignores case. To
 specify the file extensions you want the file dialog to show, add an
@@ -156,7 +156,7 @@ extensions must be in the format `*.ext` with the asterisk and dot
 .. _installed_themes:
 
 Themes
-^^^^^^
+------
 
 Themes are just style sheets that get applied to the widgets. The theme files
 are in the themes directory of the example files if you want to copy and
@@ -207,7 +207,7 @@ For more information on style sheets see :doc:`style`
 
 
 Resource File
-^^^^^^^^^^^^^
+-------------
 
 To use a .py resource file (to add images to buttons with your qss stylesheet)
 place the .py resource file in the configuration directory and add the
@@ -219,7 +219,7 @@ following line to the .ini file
 See the section on Resources for more info.
 
 Screen Size
-^^^^^^^^^^^
+-----------
 
 To control the initial size of the screen, add of the following values.
 
@@ -239,7 +239,7 @@ To control the initial size of the screen, add of the following values.
 .. _plotter:
 
 Plotter
-^^^^^^^
+-------
 
 The plotter background color can be set in the [FLEXGUI] section of the ini. The
 value is the Red,Green,Blue color numbers from 0 to 1 with no space. So an entry
@@ -291,7 +291,7 @@ starts. If you wish disable grid by default, add a `0` item to the beginning of
 the list.
 
 DRO
-^^^
+---
 
 To set the DRO labels to follow the program units add the following
 
@@ -299,40 +299,10 @@ To set the DRO labels to follow the program units add the following
 
 	DRO_UNITS = True
 
-Colors
-^^^^^^
-
-.. WARNING:: The colors has been moved to the qss stylesheet and this will be
-   removed in version 1.3.2 See the :doc:`style` for how to apply styles.
-
-The E-Stop can have a static color for Open and Closed.
-
-The Power Button can have a static color for Off and On.
-
-Create a key in the ini file called FLEXGUI and use the following to 
-control the static color of these items. The value can be any valid color 
-specification in the RGB, RGBA or Hex color format.
-
-.. code-block:: text
-
-	[FLEXGUI]
-	ESTOP_OPEN_COLOR = 128, 255, 128
-	ESTOP_CLOSED_COLOR = 255, 77, 77
-	POWER_OFF_COLOR = 255, 128, 128
-	POWER_ON_COLOR = #00FF00
-	PROBE_ENABLE_ON_COLOR = 255, 0, 0, 255
-	PROBE_ENABLE_OFF_COLOR = 0, 125, 0, 125
-
-.. note:: Color pairs need to have both colors specified or the color will only
-   toggle once.
-
-Another way to achieve this is is via adding and editing a .qss stylesheet
-file. See the :doc:`style` section for more info.
-
 .. _led_defaults:
 
 LED Defaults
-^^^^^^^^^^^^
+------------
 
 LED buttons can have defaults set in the ini file. This makes it easier to have
 consistent LED size, position and colors. These options go in the [FLEXGUI]
@@ -364,7 +334,7 @@ For more information on LED buttons see :ref:`LedButtons`
 .. _touch_ini:
 
 Touch Screens
-^^^^^^^^^^^^^
+-------------
 
 Options for touch screen users.
 
