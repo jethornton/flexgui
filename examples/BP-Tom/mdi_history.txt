@@ -1,0 +1,41 @@
+G0 X0 Y0 Z0
+o<rigid_tap> call
+o<rigid_tap> call
+o<rigid_tap> call
+G0 X0 Y0 Z0
+o<slot_mill> call
+o<slot_mill> call
+G90 G0 X0 Y0 Z0
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+o<thread_mill> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern> call
+o<bolt_hole_countersink_pattern> call
+o<bolt_hole_countersink_pattern> call
+o<bolt_hole_pattern> call
+o<bolt_hole_countersink_pattern> call
+G90 G0 X0 Y0 Z0
+o<bolt_hole_pattern> call
+o<bolt_hole_pattern> call
+o<bolt_hole_pattern> call
+o<bolt_hole_countersink_pattern> call
+M7
+M8
+M9
+M7
+M8
+M9
+G90 G0 X0 Y0 Z0
+o<c_right_front_out> call
+G0 X0 Y0
+G10 L20 P0 X 0
+G10 L20 P0 Y 0
+G10 L20 P0 Z 0
+G0 X0 Y0
+o<p_hole>  call
+G0 X0 Y0
+o<p_hole>  call

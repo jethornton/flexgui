@@ -77,6 +77,15 @@ MDI buttons execute a MDI command when the button is pressed. These are
 created by adding two dynamic properties called `function` and `command` to a
 QPushButton.
 
+.. csv-table:: MDI Command Button
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, mdi
+	String, command, MDI command to execute
+
+
 .. note:: If the `command` property is not found, the button will not be
    enabled!
 

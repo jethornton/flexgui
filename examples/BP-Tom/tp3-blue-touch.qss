@@ -1,0 +1,471 @@
+/* Note: With complex widgets such as QComboBox and QScrollBar, if one property
+or sub-control is customized, all the other properties or sub-controls must be
+customized as well. */
+
+/***** QMainWindow *****/
+QMainWindow {
+	color: white;
+	background-color: black;
+	border-color: grey;
+}
+
+/***** QWidget *****/
+ QWidget {
+ 	margin: 2px;
+ 	font-family: Ariel;
+ 	font-size: 12pt;
+/* 	font-weight: 700; */
+}
+
+/***** QTabWidget *****/
+QTabWidget {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+}
+
+QTabWidget::pane { /* The tab widget frame */
+	border: 2px solid;
+	border-color: #121212;
+	border-radius: 6px;
+	margin-right: 5px;
+}
+
+QTabWidget::tab-bar {
+	left: 5px; /* move tab bar to the right */
+}
+
+QTabBar::tab {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 2px solid;
+	border-color: #bfbfbf;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-left: 4px; /* make a space between the tabs */
+	margin-right: 0px;
+	margin-bottom: 3px; /* make non-selected tabs look smaller */
+	padding-left: 5px; /* make sure there is space between the name and the edge */
+	padding-right: 5px;
+	min-height: 50px;
+	min-width: 50px;
+}
+
+QTabBar::tab:selected {
+	border-color: #121212;
+	color: white;
+	background-color: #3333ff;
+	margin-bottom: 0px; /* make non-selected tabs look smaller */
+}
+
+/***** QGroupBox *****/
+QGroupBox {
+/*	background-color: rgba(0, 96, 192, 60%); */
+	background-color: black;
+	color: white;
+	font: bold;
+	border: 2px solid white;
+	border-radius: 6px;
+	margin-top: 6px;
+	margin-right: 5px;
+	padding-top: 5px;
+}
+
+QGroupBox::title {
+	color: white;
+	subcontrol-origin: margin;
+	left: 7px;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+/***** QStackedWidget *****/
+QStackedWidget {
+	background-color: rgba(0, 96, 192, 60%);
+	color: white;
+	font: bold;
+	border: 2px solid white;
+	border-radius: 6px;
+}
+
+/***** QAbstractButton *****/
+QAbstractButton{
+	min-height: 50px;
+	min-width: 50px;
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border-style: outset;
+	border-color: #b3b3b3; /* rgba colors don't work for border */
+	border-width: 3px;
+	border-radius: 6px;
+	margin-bottom: 1px;
+	padding-right: 5px; /* make sure there is space between the name and the edge */
+	padding-left: 5px;
+}
+
+QPushButton:pressed {
+	border-style: inset;
+}
+
+QPushButton:disabled {
+	color: white;
+	background-color: #07258c;
+	border-color: #808080;
+}
+
+/***** QAbstractSpinBox *****/
+/* QAbstractSpinBox > QLineEdit */
+/* QSpinBox::up-arrow:disabled */
+/* QSpinBox::up-arrow:off  off state when value is max */
+/* QSpinBox::down-arrow:disabled */
+/* QSpinBox::down-arrow:off  off state when value in min */
+
+QAbstractSpinBox {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 2px solid #b3b3b3;
+	border-radius: 5px;
+	padding: 2px;
+	min-height: 50px;
+	font-size: 20px
+}
+
+QAbstractSpinBox::up-button {
+	subcontrol-origin: content;
+	subcontrol-position: right;
+	min-height: 38px;
+	min-width: 38px;
+	padding: 12px;
+	border-image: url(:/up_arrow.png);
+}
+
+QAbstractSpinBox::up-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::up-button:disabled {
+	border-image: url(:/up_arrow_disabled.png);
+}
+
+QAbstractSpinBox::down-button {
+	subcontrol-origin: content;
+	subcontrol-position: left;
+	min-height: 35px;
+	min-width: 35px;
+	padding: 12px;
+	border-image: url(:/down_arrow.png);
+}
+
+QAbstractSpinBox::down-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::down-button:disabled {
+	border-image: url(:/down_arrow_disabled.png);
+}
+
+QAbstractSpinBox::down-button:off {
+	border-image: none;
+}
+
+QAbstractSpinBox::down-button:disabled {
+	border-image: url(:/down_arrow_disabled.png);
+}
+
+/***** QListWidget *****/
+QListWidget{
+	border-radius: 5px;
+	font-size: 20px;
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+}
+
+QListWidget::item { /* the items in the list */
+	min-height: 50px;
+	border: 1px solid;
+	border-color: #bfbfbf;
+	border-radius: 5px;
+}
+
+QListWidget::item:selected {
+	color: white;
+	background-color: #3333ff;
+}
+
+QScrollBar:vertical {
+	border: 1px solid grey;
+	background: #bfbfbf;
+	width: 50px;
+	height: 50px;
+}
+
+/***** QLabel *****/
+QLabel {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 2px solid #b3b3b3;
+	border-radius: 3px;
+}
+
+/***** QLineEdit *****/
+QLineEdit {
+	min-height: 40px;
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 3px solid #b3b3b3;
+	border-radius: 6px;
+}
+
+/***** QPlainTextEdit *****/
+QPlainTextEdit {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 2px solid #b3b3b3;
+	border-radius: 6px;
+}
+
+/***** QComboBox *****/
+QComboBox {
+	min-height: 50px;
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 3px solid #808080;
+	border-radius: 6px;
+}
+
+QComboBox QAbstractItemView {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	border: 3px solid #808080;
+	border-radius: 6px;
+	selection-background-color: lightgray;
+}
+
+QListView::item {
+	color: white;
+	background-color: rgba(0, 96, 192, 60%);
+	min-height:50px;
+}
+
+/*
+QComboBox QAbstractItemView
+QComboBox::item
+QComboBox::item:selected
+QComboBox::indicator
+the border should either specify all its properties or just use none;
+*/
+
+/***** QSlider *****/
+QSlider:horizontal {
+	min-height: 50px;
+	max-height: 50px;
+	background: #bfbfbf;
+}
+
+QSlider::groove:horizontal {
+	height: 42px;
+	background: #393939;
+	margin-left: -1px;
+}
+
+QSlider::handle:horizontal {
+	background: blue; /* rgba(0, 96, 192, 20%); */
+	width: 50px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border: 2px solid #000000;
+	border-radius: 5px;
+}
+QSlider::add-page:horizontal {
+    background: rgba(0, 96, 192, 90%);
+}
+
+QSlider::sub-page:horizontal {
+	background: rgba(0, 96, 192, 90%);
+}
+
+QSlider:vertical {
+	min-width: 50px;
+	max-width: 50px;
+	background: #bfbfbf;
+}
+
+QSlider::groove:vertical {
+	background: #bfbfbf;
+	position: absolute;
+	/* absolutely position 4px from the left and right of the widget.*/
+	/* setting margins on the widget should work too... */
+	left: 4px;
+	right: 4px;
+}
+
+QSlider::handle:vertical {
+	height: 40px;
+	background: #bfbfbf;
+	margin-left: -3px;
+	margin-right: -3px;
+	border: 2px solid #000000;
+	border-radius: 5px;
+}
+
+QSlider::add-page:vertical {
+	background: green;
+}
+
+QSlider::sub-page:vertical {
+	background: white;
+}
+
+QLabel#homed, QLabel#label_x, QLabel#label_y, QLabel#label_z, QLabel#actual, QLabel#dro {
+	font-size: 30px;
+}
+
+QLabel#home_lb_0, QLabel#home_lb_1, QLabel#home_lb_2 {
+	font-size: 30px;
+}
+
+QLabel#tool_in_spindle_lb, QLabel#Label_tool {
+	font-size: 30px;
+}
+
+QLabel#actual_lb_x, QLabel#actual_lb_y, QLabel#actual_lb_z, QLabel#dro_lb_x, QLabel#dro_lb_y, QLabel#dro_lb_z {
+	font-size: 30px;
+}
+
+/* QLabel#home_lb_1, QLabel#home_lb_2,   */
+
+/* **************************************** */
+QPushButton#probe_inXminusYplus {
+	background-image: url(":images/inX-Y+.png");
+	}
+QPushButton#probe_inYplus { 
+	background-image: url(":images/inY+.png");
+	}
+QPushButton#probe_inXplusYplus {
+	background-image: url(":images/inX+Y+.png");
+	}
+QPushButton#probe_inXminus{
+	background-image: url(":images/inX-.png");
+	}
+QPushButton#probe_inhole{
+	background-image: url(":images/inHole.png");
+	}
+QPushButton#probe_inXplus {
+	background-image: url(":images/inX+.png");
+	}
+QPushButton#probe_inXminusYminus {
+	background-image: url(":images/inX-Y-.png");
+	}
+QPushButton#probe_inYminus {
+	background-image: url(":images/inY-.png");
+	}
+QPushButton#probe_inXplusYminus {
+	background-image: url(":images/inX+Y-.png");
+	}
+
+/* ************** Distance **************** */
+
+QPushButton#probe_p_lx_in {
+	background-image: url(":images/Lx_in.png");
+	}
+QPushButton#probe_p_lx_out {
+	background-image: url(":images/Lx_out.png");
+	}
+QPushButton#probe_p_ly_in {
+	background-image: url(":images/Ly_in.png");
+	}
+QPushButton#probe_p_ly_out {
+	background-image: url(":images/Ly_out.png");
+	}
+
+/* *********** Angle ********************* */
+QPushButton#probe_p_angle_x_minus {
+	background-image: url(":images/angleX-.png");
+	}
+QPushButton#probe_p_angle_y_minus {
+	background-image: url(":images/angleY-.png");
+	}
+QPushButton#probe_p_angle_x_plus {
+	background-image: url(":images/angleX+.png");
+	}
+QPushButton#probe_p_angle_y_plus {
+	background-image: url(":images/angleY+.png");
+	}
+
+/* ************ flipped angles ************ */
+QPushButton#probe_p_angle_x_minus_flip {
+	background-image: url(":images/angleX-flip.png");
+	}
+QPushButton#probe_p_angle_y_minus_flip {
+	background-image: url(":images/angleY-flip.png");
+	}
+QPushButton#probe_p_angle_x_plus_flip {
+	background-image: url(":images/angleX+flip.png");
+	}
+QPushButton#probe_p_angle_y_plus_flip {
+	background-image: url(":images/angleY+flip.png");
+	}
+
+/* **************************************** */
+QPushButton[objectName*="probe_"] {
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+QPushButton#probe_XminusYplus {
+	background-image: url(":images/X-Y+.png");
+	}
+QPushButton#probe_Yplus {
+	background-image: url(":images/Y+.png");
+	}
+QPushButton#probe_XplusYplus {
+	background-image: url(":images/X+Y+.png");
+	}
+QPushButton#probe_Xminus{
+	background-image: url(":images/X-.png");
+	}
+QPushButton#probe_wk_center{
+	background-image: url(":images/xy_center.png");
+	}
+QPushButton#probe_Xplus {
+	background-image: url(":images/X+.png");
+	}
+QPushButton#probe_XminusYminus {
+	background-image: url(":images/X-Y-.png");
+	}
+QPushButton#probe_Yminus {
+	background-image: url(":images/Y-.png");
+	}
+QPushButton#probe_XplusYminus {
+	background-image: url(":images/X+Y-.png");
+	}	
+QPushButton#probe_workpiece_height {
+	background-image: url(":images/workpiece_height.png");
+	}	
+/*QPushButton#probe_ts_height {
+	background-image: url(":images/ts_height.png");
+	}*/	
+/*QPushButton#probe_angleXplus {
+	background-image: url(":images/angleX+.png");
+	}	
+QPushButton#probe_angleXminus {
+	background-image: url(":images/angleX-.png");
+	}
+QPushButton#probe_angleYplus {
+	background-image: url(":images/angleY+.png");
+	}	
+QPushButton#probe_angleYminus {
+	background-image: url(":images/angleY-.png");
+	}*/	
+QFrame#logo {
+    border: 1px grey;
+    border-radius: 2px;
+    padding: 2px;
+/*    background-image: url(:images/Flex-probe117.png); */
+/*    background-image: url(:images/Chips117_red.png); */
+    background-image: url(:images/Chips117_plain.png);
+
+}
+
+
+
+

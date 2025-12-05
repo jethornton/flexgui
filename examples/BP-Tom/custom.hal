@@ -1,0 +1,93 @@
+# MPG
+setp hm2_5i25.0.encoder.05.counter-mode true
+loadrt mux4 names=mpg-scale
+addf mpg-scale servo-thread
+loadrt ilowpass names=mpg-filter
+addf mpg-filter servo-thread
+#loadrt conv_float_s32
+#addf conv-float-s32.0 servo-thread
+loadrt or2 count=2
+addf or2.0 servo-thread
+addf or2.1 servo-thread
+
+setp mpg-filter.gain 0.02
+setp mpg-filter.scale 1000
+setp mpg-scale.in0 0.0
+setp mpg-scale.in1 -0.0000001
+setp mpg-scale.in2 -0.000001
+setp mpg-scale.in3 -0.00001
+
+net jog-smoothing mpg-filter.in <= hm2_5i25.0.encoder.05.count
+net jog-position <= mpg-filter.out
+net jog-position => joint.0.jog-counts axis.x.jog-counts
+net jog-position => joint.1.jog-counts axis.y.jog-counts
+net jog-position => joint.2.jog-counts axis.z.jog-counts
+
+net scale1 or2.0.in0 <= hm2_5i25.0.7i77.0.0.input-03
+net scale2 or2.1.in0 <= hm2_5i25.0.7i77.0.0.input-04
+net scale3 or2.0.in1 or2.1.in1 <= hm2_5i25.0.7i77.0.0.input-05
+
+net pos2 mpg-scale.sel0 <= or2.0.out
+net pos3 mpg-scale.sel1 <= or2.1.out
+
+net axis-mpg-jog-scale joint.0.jog-scale axis.x.jog-scale <= mpg-scale.out
+net axis-mpg-jog-scale joint.1.jog-scale axis.y.jog-scale <= mpg-scale.out
+net axis-mpg-jog-scale joint.2.jog-scale axis.z.jog-scale <= mpg-scale.out
+
+# Spindle Drive
+loadusr -Wn spindle-vfd gs2_vfd -s 2 -p none -A 0.5 -D 0.5 -R -n spindle-vfd -v
+# connect the spindle direction pin to the GS2
+net gs2-fwd spindle-vfd.spindle-fwd <= spindle.0.forward
+# connect the spindle on pin to the GS2
+net gs2-run spindle-vfd.spindle-on <= spindle.0.on
+# connect the GS2 at speed to the motion at speed
+net gs2-at-speed spindle.0.at-speed <= spindle-vfd.at-speed
+# connect the spindle RPM to the GS2
+net gs2-RPM spindle-vfd.speed-command <= spindle.0.speed-out
+#vfd panel fan
+net gs2-run => hm2_5i25.0.7i77.0.0.output-03
+
+# Spindle Encoder
+setp hm2_5i25.0.encoder.03.scale 10000
+net spindle-position hm2_5i25.0.encoder.03.position => spindle.0.revs
+net spindle-velocity hm2_5i25.0.encoder.03.velocity => spindle.0.speed-in
+net spindle-index-enable hm2_5i25.0.encoder.03.index-enable <=> spindle.0.index-enable
+#setp spindle-rpm-filter.gain 0.1
+#setp spindle-rpm-filter.scale 1
+#net conv-encoder conv-float-s32.0.in hm2_5i25.0.encoder.03.velocity-rpm
+#net spindle-filter  spindle-rpm-filter.in conv-float-s32.0.out
+
+# Lube Pump
+loadrt comp
+addf comp.0 servo-thread
+setp comp.0.in0 0.0001
+net motion-test comp.0.in1 <= motion.current-vel
+net in-motion hm2_5i25.0.7i77.0.0.output-02 <= comp.0.out
+net in-motion hm2_5i25.0.7i77.0.0.output-04
+
+# External Program Run Button
+#loadrt and2 count=2
+#addf and2.0 servo-thread
+#addf and2.1 servo-thread
+#net program-run-btn halui.mode.auto <= hm2_5i25.0.7i77.0.0.input-08
+#net program-run-btn and2.0.in0
+#net program-is-auto and2.0.in1 <= halui.mode.is-auto
+#net remote-prg-run halui.program.run <= and2.0.out
+
+# External Program Pause/Resume Button
+#net pause-resume-btn and2.3.in0 and2.4.in0 <= hm2_5i20.0.gpio.029.in_not
+#net pause-on toggle2nist.0.is-on and2.3.in1 <= halui.program.is-paused
+#net run-status and2.4.in1 <= halui.program.is-running
+#net pause-sig or2.5.in0 <= and2.3.out
+#net resume-sig or2.5.in1 <= and2.4.out
+#net toggle-ok toggle.0.in < or2.5.out
+#net togglesig toggle2nist.0.in <= toggle.0.out
+#net toggleon halui.program.pause <= toggle2nist.0.on
+#net toggleoff halui.program.resume <= toggle2nist.0.off
+
+# Probe
+#loadrt not
+#addf not.0 servo-thread
+#setp hm2_5i25.0.encoder.04.counter-mode True
+#net invert-probe not.0.in <= hm2_5i25.0.encoder.04.input-a
+

@@ -190,7 +190,8 @@ to turn off. They are normal push buttons but Flex automatically makes them
 
 Axis Index
 ----------
-::
+
+.. code-block:: text
 
 	X 0
 	Y 1
@@ -224,7 +225,8 @@ label shows the value of the slider:
 	Override Limits, QCheckBox, override_limits_cb
 
 The following settings can be used in the DISPLAY section of the ini file:
-::
+
+.. code-block:: text
 
 	Feed Override maximum             MAX_FEED_OVERRIDE
 	Spindle Override maximum          MAX_SPINDLE_OVERRIDE
@@ -314,7 +316,8 @@ The file name can be just the name and extension if it's in the PROGRAM_PREFIX
 path. Or it can be any valid path and file name.
 
 File Name Examples
-::
+
+.. code-block:: text
 
 	A file in the PROGRAM_PREFIX path
 	somefile.ngc

@@ -7886,7 +7886,7 @@ ERROR</string>
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -7946,6 +7946,8 @@ ERROR</string>
     <addaction name="actionDTG"/>
     <addaction name="actionOffsets"/>
     <addaction name="actionOverlay"/>
+    <addaction name="separator"/>
+    <addaction name="actionGrids"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -8138,6 +8140,11 @@ ERROR</string>
   <action name="actionClear_Offsets">
    <property name="text">
     <string>Clear Offsets</string>
+   </property>
+  </action>
+  <action name="actionGrids">
+   <property name="text">
+    <string>Grids</string>
    </property>
   </action>
  </widget>

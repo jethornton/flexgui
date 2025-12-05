@@ -22,11 +22,11 @@ class number_pad(QDialog):
 		self.buttonBox.accepted.connect(self.accept)
 		self.buttonBox.rejected.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)
-		self.dot_pb.clicked.connect(self.dot)
-		self.dash_pb.clicked.connect(self.dash)
+		self.key_dot.clicked.connect(self.dot)
+		self.key_dash.clicked.connect(self.dash)
 		self.backspace_pb.clicked.connect(self.backspace)
 		for i in range(10):
-			getattr(self, f'num_pb_{i}').clicked.connect(self.post)
+			getattr(self, f'key_{i}').clicked.connect(self.post)
 
 		# Variable to store the position
 		self.exit_pos = None

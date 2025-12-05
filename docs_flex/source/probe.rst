@@ -12,7 +12,7 @@ styled with :checked and :enabled pseudo-states among others.
 .. note:: The `probing_enable_pb` requires at least one object that starts with
    `probe_` to be enabled.
 
-.. code-block:: css
+.. code-block:: text
 
 	QPushButton#probing_enable_pb:enabled:checked {
 		color: white;
@@ -99,13 +99,15 @@ The subroutine is located in a directory called `subroutines` that is in the
 configuration directory. The ini's [RS274NGC] SUBROUTINE_PATH sets the path
 that LinuxCNC looks for subroutines. Notice the leading ./ specifices that the
 path to the current directory is where the subroutine directory is.
-::
+
+.. code-block:: text
 
 	SUBROUTINE_PATH = ./subroutines
 
 The example files used are the following; notice that the xplus.ngc is in
 the ./subroutines directory
-::
+
+.. code-block:: text
 
 	├── main.hal
 	├── parameters.var
@@ -125,7 +127,8 @@ See the :doc:`parameters` section.
 The subroutine is a normal LinuxCNC subroutine. The magic is how you get the
 values from HAL pins with `#<_hal[pin_name]>` where pin_name is the actual
 pin name in HAL.
-::
+
+.. code-block:: text
 
 	(filename xplus.ngc)
 	(HAL pins #<_hal[pin_name]>)

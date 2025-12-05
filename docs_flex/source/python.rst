@@ -7,7 +7,8 @@ To import a python module add the following to the INI [FLEXGUI] section using t
 name of the python file without the.py extension. The file name must be unique
 and can not be any python module name. You can have as many imports as you need
 to simplify your code.
-::
+
+.. code-block:: text
 
 	[FLEXGUI]
 	IMPORT_PYTHON = testpy
@@ -19,7 +20,8 @@ In each python file you import you must have a `startup` function where you make
 any connections from objects in the ui file to code in your module. The parent
 is passed to the startup function to give you access to all the objects in the
 GUI.
-::
+
+.. code-block:: text
 
 	from functools import partial
 
@@ -42,12 +44,12 @@ GUI.
 		# get all the object names from the parent
 		print(dir(parent))
 
-
 Timer
 -----
 
 A user timer is provided for use in the user python module.
-::
+
+.. code-block:: text
 
 	from functools import partial
 

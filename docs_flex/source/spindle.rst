@@ -28,10 +28,14 @@ Spindle status labels show the current status of the item.
 	Spindle Speed Setting, QLabel, spindle_speed_setting_lb
 
 .. note:: Spindle Commanded Speed does not show override. Spindle Actual Speed
-   is actual speed including override.
+   is actual commanded speed including override.
 
 .. note:: The digitCount property of the LCD must be large enough to display the
    whole number.
+
+.. NOTE:: To get actual spindle speed you need to connect the spindle encoder to
+   an encoder component and use the encoder.N.velocity-rpm float out connected
+   to a HAL float label.
 
 On start-up, Flex will check for the following items in the [SPINDLE_0] section
 of the .ini file

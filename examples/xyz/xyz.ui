@@ -853,7 +853,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>8</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -2014,6 +2014,34 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="rpm_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_avr_f</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>average-rpm</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_FLOAT</string>
+             </property>
+             <property name="samples" stdset="0">
+              <number>15</number>
+             </property>
+             <property name="precision" stdset="0">
+              <number>0</number>
+             </property>
+             <property name="rounding" stdset="0">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -2709,8 +2737,8 @@
            <string>HAL Buttons</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_34">
-           <item row="4" column="0">
-            <widget class="QLabel" name="test_lb_2">
+           <item row="6" column="0">
+            <widget class="QLabel" name="test_lb_4">
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -2718,70 +2746,10 @@
               <string>hal_pin</string>
              </property>
              <property name="pin_name" stdset="0">
-              <string>test-reader-u32</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_U32</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton_3">
-             <property name="text">
-              <string>MDI Button</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="required" stdset="0">
-              <string>homed</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-btn-1</string>
+              <string>test-reader-bit</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_OUT</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="test_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-s32</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_S32</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="test_lb_3">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-float</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_FLOAT</string>
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IN</string>
@@ -2810,6 +2778,73 @@
              </property>
             </widget>
            </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="test_lb_5">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>test-reader-bit</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="test_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>test-reader-s32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QPushButton" name="test_btn">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="text">
+              <string>MDI Button</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="required" stdset="0">
+              <string>homed</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-btn-1</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="pushButton_5">
              <property name="text">
@@ -2829,15 +2864,46 @@
              </property>
             </widget>
            </item>
-           <item row="7" column="0">
-            <widget class="QPushButton" name="test_btn">
+           <item row="4" column="0">
+            <widget class="QLabel" name="test_lb_2">
              <property name="text">
-              <string>PushButton</string>
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>test-reader-u32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="test_lb_4">
+           <item row="5" column="0">
+            <widget class="QLabel" name="test_lb_3">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>test-reader-float</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_FLOAT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="test_lb_6">
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -3298,6 +3364,7 @@
     <addaction name="actionDTG"/>
     <addaction name="actionOffsets"/>
     <addaction name="actionOverlay"/>
+    <addaction name="actionGrids"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuMachine"/>
@@ -3519,6 +3586,11 @@
   <action name="actionClear_Offsets">
    <property name="text">
     <string>Clear Offsets</string>
+   </property>
+  </action>
+  <action name="actionGrids">
+   <property name="text">
+    <string>Grids</string>
    </property>
   </action>
  </widget>

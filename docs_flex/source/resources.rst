@@ -4,14 +4,16 @@ Resources
 To create a resources.py file with images to use with the .qss stylesheet, start
 by placing all the images in a different directory than the configuration files.
 A subdirectory in the configuration directory is fine
-::
+
+.. code-block:: text
 
 	└── configs
 	   └── my_mill
 	       └── images
 
 Add the following library if not installed
-::
+
+.. code-block:: text
 
 	sudo apt install qtbase5-dev-tools
 
@@ -68,7 +70,8 @@ The Flex Resource Builder can be closed now. In the configuration directory you
 will have a resources.py file that contains the images used by the stylesheet.
 
 Next edit the ini file and in the [DISPLAY] section add the following line
-::
+
+.. code-block:: text
 
 	RESOURCES = resources.py
 
@@ -79,7 +82,8 @@ In the [DISPLAY] section add the style sheet
 
 To add an image named my-image.png to a QPushButton with an object name of
 my_pb add the following to the qss file
-::
+
+.. code-block:: text
 
 	QPushButton#my_pb {
 		min-height: 80px;

@@ -211,10 +211,10 @@ class flexgui(QMainWindow):
 
 		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
 			if sys.argv[i].endswith('.ini'):
-				# self.ini_path /home/john/linuxcnc/configs/Mill/mill.ini
+				# self.ini_path path to ini file
 				self.ini_path = sys.argv[i]
 				self.inifile = emc.ini(sys.argv[i])
-				# self.config_path /home/john/linuxcnc/configs/Mill
+				# self.config_path path to configuration
 				self.config_path = os.path.split(sys.argv[i])[0]
 				break
 		else: # no match was found
@@ -285,6 +285,7 @@ class flexgui(QMainWindow):
 				dialogs.warn_msg_ok(parent, msg, 'INI Error')
 
 		self.status.poll()
+		self.directory = dir(self) # get variable and object names before hal
 		startup.set_screen(self)
 		startup.setup_vars(self)
 		startup.setup_hal_led_buttons(self)

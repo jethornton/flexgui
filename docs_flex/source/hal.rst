@@ -10,7 +10,8 @@ Typically the Dynamic Properties are String type with some exceptions being Bool
 and Color. Connections from Flex HAL objects to other HAL objects must be done
 in the file assigned to the POSTGUI_HALFILE variable in the [HAL] section
 typically named `postgui.hal`.
-::
+
+.. code-block:: text
 
 	[HAL]
 	HALFILE = main.hal
@@ -23,7 +24,28 @@ The property `pin_name` defines the HAL pin name that is prefixed with
    Hal types and directions are case sensitive and must be all caps. The
    function value must be lower case.
 
-.. note:: Hal pin names can containe a-z, A-Z, 0-9, underscore _, or dash -.
+.. note:: Hal pin names can containe a-z, A-Z, 0-9, underscore _, or dash -. Use
+   a dash to not conflict with program variables of the same name which use an
+   underscore.
+
+Options
+-------
+
+The default behaviour for HAL objects that are a HAL_OUT or HAL_IO is to be
+enabled when the E Stop is released. To change this behaviour add a Dynamic
+Property to control when the HAL object is enabled. The `state_on` property will
+enable the control when the power is on. The `all_homed` property will enable
+the control when all joints are homed. They can be combined to make a HAL object
+only enabled when power is on and all joints are homed.
+
+.. csv-table:: HAL Options
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	Bool, state_on, True
+	Bool, all_homed, True
+
 
 HAL Button
 ----------
@@ -39,21 +61,9 @@ adding two string type Dynamic Properties. A pin_name of my-button would be
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-
-Optionally the button can be disabled when the power is off by adding a
-Dynamic Property named `state_off` and setting the value to `disabled`.
-
-Optionally if the HAL button requires all joints to be homed before being
-enabled, you can specify that by adding a Dynamic Property named `required` and
-set the value to `homed`.
-
-.. csv-table:: HAL Button Options
-   :width: 100%
-   :align: center
-
-	**Property Type**, **Property Name**, **Pin Value**
-	String, state_off, disabled
-	String, required, homed
+	Optional
+	Bool, state_on, True
+	Bool, all_homed, True
 
 .. image:: /images/hal-09.png
    :align: center
@@ -79,7 +89,9 @@ colors are Red when Off and Green when On. The default shape is round.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_led_button
 	String, pin_name, any unique name
-	, Optional
+	Optional
+	Bool, state_on, True
+	Bool, all_homed, True
 	String, led_shape, square
 
 HAL Spinbox
@@ -99,6 +111,9 @@ value of the spinbox.
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
+	Optional
+	Bool, state_on, True
+	Bool, all_homed, True
 
 HAL Double Spinbox
 ------------------
@@ -116,6 +131,9 @@ value of the spinbox.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
+	Optional
+	Bool, state_on, True
+	Bool, all_homed, True
 
 Slider
 ------
@@ -135,6 +153,9 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
+	Optional
+	Bool, state_on, True
+	Bool, all_homed, True
 
 HAL I/O
 -------
@@ -155,14 +176,22 @@ QDoubleSpinBox or a QSlider can be a HAL I/O object.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_io
 	String, pin_name, any unique name
-	String, hal_type, HAL_S32 or HAL_U32 for a QSpinBox or QSlider
+	For a QSpinBox or QSlider
+	String, hal_type, HAL_S32 or HAL_U32
+	For a QDoubleSpinBox
+	String, hal_type, HAL_FLOAT
+	Optional
+	Bool, state_on, True
+	Bool, all_homed, True
+
+.. NOTE:: The hal_type is required for QSpinBox, QSlider or QDoubleSpinBox
 
 Label
 -----
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+`flexhal.` A pin_name of my-reader would be `flexhal.my-reader` in HAL.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -172,11 +201,42 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
-	, Optional
+	Optional
+	String, precision, Number of decimal digits for HAL_FLOAT type
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
-.. note:: A HAL_FLOAT QLabel can have a string Dynamic Property called
-   `precision` with a value of the number of decimal digits.
+Average Float Label
+-------------------
+
+A QLabel can be used to monitor HAL float number pins and display an average of
+the number of samples. The sample stack is LIFO so a new value pushes the oldest
+value out of the stack. This could be useful to display RPM from a spindle
+encoder or any numeric value that changes.
+
+The `samples` option can change the number of samples that are averaged out to
+help smooth the display output.
+
+The `rounding` option can be used to round the number. Use 1 to round to the
+nearest tenth and 2 to round to the nearest hundred, etc.
+
+The `precision` option is used to set the number of decimal places. Set to 0
+to not have any decimal places.
+
+HAL connections must be made in the post gui HAL file. The pin_name used will
+create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
+`flexhal.my-reader` in HAL.
+
+.. csv-table:: HAL Label
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_avr_f
+	String, pin_name, any unique name
+	Optional
+	Int, samples, The number of samples to use default is 10
+	Int, rounding, number of digits to the left of the decimal to round
+	Int, precision, Number of decimal digits
 
 Bool Label
 ----------
@@ -239,13 +299,14 @@ connected to a signal.
 	Bool, hal_led, True
 	String, function, hal_led
 	String, pin_name, any unique name
-	, Optional
+	Optional
 	Color, on_color, color of your choice
 	Color, off_color, color of your choice
 	Int, edge_margin, space between circle and edge of the label
 	String, led_shape, square
 
-Choosing 'rectangular' for LED shape will fill the entire control as one giant indicator.
+Choosing 'rectangular' for LED shape will fill the entire control as one giant
+indicator.
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
@@ -264,14 +325,13 @@ default shape is round.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_led_label
 	String, pin_name, any unique name
-	, Optional
+	Optional
 	Color, led_on_color, color of your choice
 	Color, led_off_color, color of your choice
 	Int, led_diameter, diameter of led
 	Int, led_right_offset, offset from right edge
 	Int, led_top_offset, offset from top edge
 	String, led_shape, square
-
 
 LCD
 ---
@@ -288,7 +348,7 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	, Optional
+	Optional
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
@@ -346,16 +406,6 @@ unique name
 .. image:: /images/hal-04.png
    :align: center
 
-Add another Dynamic Property named `hal_type` and set the value to HAL_BIT
-
-.. image:: /images/hal-05.png
-   :align: center
-
-Add another Dynamic Property named `hal_dir` and set the value to HAL_OUT
-
-.. image:: /images/hal-06.png
-   :align: center
-
 If you added Show HAL to your menu, you can open up the `Halshow` program and
 view the pin names
 
@@ -368,22 +418,33 @@ The pin names will all start with `flexhal` plus the unique name you gave them
    :align: center
 
 Now you can connect the Flex HAL pin in the postgui.hal file like normal
-::
+
+.. code-block:: text
 
 	net some-signal-name flexhal.hal-test-01 => some-other-pin-in
+
+You can also preset a numeric HAL value by using `setp` in this example the HAL
+object is a QSpinBox which uses integer values.
+
+.. code-block:: text
+
+	setp flexhal.launch-velocity 10
 
 After installing Flex GUI, from the CNC menu, you can copy the Flex GUI examples
 and look at the hal-btn example.
 
+HAL Pin Types
 
-HAL Pin Types::
+.. code-block:: text
 
 	HAL_BIT
 	HAL_FLOAT
 	HAL_S32
 	HAL_U32
 
-HAL Pin Directions::
+HAL Pin Directions
+
+.. code-block:: text
 
 	HAL_IN
 	HAL_OUT
