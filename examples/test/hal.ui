@@ -314,12 +314,18 @@
          <property name="required" stdset="0">
           <string>homed</string>
          </property>
+         <property name="all_homed" stdset="0">
+          <bool>true</bool>
+         </property>
+         <property name="state_on" stdset="0">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="state_off_hal_pb">
          <property name="text">
-          <string>State Off</string>
+          <string>State On</string>
          </property>
          <property name="function" stdset="0">
           <string>hal_pin</string>
@@ -329,6 +335,9 @@
          </property>
          <property name="state_off" stdset="0">
           <string>disabled</string>
+         </property>
+         <property name="state_on" stdset="0">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -348,6 +357,9 @@
          </property>
          <property name="required" stdset="0">
           <string>homed</string>
+         </property>
+         <property name="all_homed" stdset="0">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
