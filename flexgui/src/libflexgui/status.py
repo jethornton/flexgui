@@ -731,7 +731,6 @@ def update(parent):
 	# handle errors
 	error = parent.error.poll()
 	if error:
-		did_append_text = False
 		kind, text = error
 		if kind in (emc.NML_ERROR, emc.OPERATOR_ERROR):
 			error_type = 'Error'
@@ -744,27 +743,19 @@ def update(parent):
 			if 'info_pte' in parent.child_names:
 				parent.info_pte.appendPlainText(error_type)
 				parent.info_pte.appendPlainText(text)
-				did_append_text = True
 			elif 'errors_pte' in parent.child_names:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
-				# parent.errors_pte.TOUCH_SPINBOX()
+				parent.errors_pte.setFocus()
 				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error')
-				did_append_text = True
 		elif error_type == 'Error':
 			if 'errors_pte' in parent.child_names:
 				parent.errors_pte.appendPlainText(error_type)
 				parent.errors_pte.appendPlainText(text)
-				# OLD: parent.errors_pte.setFocus()
-				utilities.reveal_widget(parent.errors_pte)
-				# Get the vertical scrollbar
-				did_append_text = True
+				parent.errors_pte.setFocus()
 				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error')
 
-		# If we added something to the error box, then scroll to bottom
-		if did_append_text:
-			scrollbar = parent.errors_pte.verticalScrollBar()
-			scrollbar.setValue(scrollbar.maximum())
+
 
