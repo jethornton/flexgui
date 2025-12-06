@@ -82,7 +82,8 @@ def load_file(parent, nc_code_file=None):
 						a = parent.menuRecent.addAction(name)
 						a.triggered.connect(partial(load_file, parent, path))
 
-		# enable run items
+		# enable run items FIXME this needs to be enabled/disabled by mode manual,
+		# mdi, auto except when no file is loaded
 		parent.status.poll()
 		if utilities.all_homed(parent) and parent.status.task_state == emc.STATE_ON:
 			for item in parent.run_controls:

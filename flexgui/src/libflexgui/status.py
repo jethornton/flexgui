@@ -243,7 +243,6 @@ def update(parent):
 					parent.command.mode(emc.MODE_MANUAL)
 					parent.command.wait_complete()
 
-
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
@@ -285,6 +284,9 @@ def update(parent):
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
+			for key, value in parent.mode_manual.items():
+				getattr(parent, key).setEnabled(value)
+
 			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = True
 			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
@@ -296,6 +298,9 @@ def update(parent):
 			# enable flood and mist buttons
 
 		if parent.status.task_mode == emc.MODE_MDI:
+			for key, value in parent.mode_mdi.items():
+				getattr(parent, key).setEnabled(value)
+
 			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = False
 			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
@@ -308,6 +313,9 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 
 		if parent.status.task_mode == emc.MODE_AUTO:
+			for key, value in parent.mode_auto.items():
+				getattr(parent, key).setEnabled(value)
+
 			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = False
 			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
