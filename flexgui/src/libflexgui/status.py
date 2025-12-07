@@ -169,6 +169,8 @@ def update(parent):
 						else:
 							getattr(parent, item).setEnabled(True)
 							#print(f'item {item} not homed')
+					elif item == 'home_all_pb':
+						getattr(parent, item).setEnabled(True)
 				for item in parent.unhome_controls:
 					if item[-1].isdigit():
 						if bool(parent.status.joint[int(item[-1])]["homed"]):
