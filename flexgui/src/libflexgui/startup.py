@@ -52,14 +52,16 @@ def setup_vars(parent):
 	parent.program_units = False
 	parent.plot_units = False
 
-	parent.home_required = [] # different functions add to this
-	parent.home_controls = [] # different functions add to this
+	parent.state_estop = {}
+	parent.state_estop_checked = {}
+	parent.state_estop_reset = {} # FIXME line 578
+	parent.state_estop_reset_checked = {}
+
+	parent.home_required = [] # different functions add to this FIXME change to dict
+	parent.home_controls = [] # different functions add to this FIXME change to dict
 	parent.homed = {}
 	parent.state_on_homed = {}
 	parent.state_on_unhomed = {}
-	parent.state_estop = {}
-	parent.state_estop_checked = {}
-	parent.state_estop_reset_checked = {}
 	parent.mode_manual = {}
 	parent.mode_mdi = {}
 	parent.mode_auto = {}
@@ -381,7 +383,7 @@ def setup_menus(parent):
 					parent.program_running['actionHome_All'] = False
 					parent.program_paused['actionHome_All'] = False
 
-				# add Home menu item for each axis
+				# add Home menu item for each axis FIXME combine home and unhome to one loop
 				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
 					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
@@ -572,6 +574,37 @@ def setup_enables(parent):
 		if item not in parent.child_names:
 			del parent.state_estop_names[item]
 
+	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
+		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
+		'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb',
+		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
+		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
+		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
+		'actionResume', 'tool_change_pb', 'touchoff_selected_pb',
+		'touchoff_selected_tool_pb']
+
+	for i in range(9):
+		state_estop_reset_disabled_items.append(f'home_pb_{i}')
+		state_estop_reset_disabled_items.append(f'unhome_pb_{i}')
+	for item in AXES:
+		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
+		state_estop_reset_disabled_items.append(f'tool_touchoff_{item}')
+	for i in range(100):
+		state_estop_reset_disabled_items.append(f'tool_change_pb_{i}')
+	for i in range(1, 10):
+		state_estop_reset_disabled_items.append(f'change_cs_{i}')
+
+	for name in state_estop_reset_disabled_items:
+		if name in parent.child_names:
+			parent.state_estop_reset[name] = False
+
+	# the only things enabled when estop is reset
+	state_estop_reset_enabled_items = ['power_pb', 'actionPower']
+	for name in state_estop_reset_enabled_items:
+		if name in parent.child_names:
+			parent.state_estop_reset[name] = True
+
+	'''
 	# STATE_ESTOP_RESET enable power
 	parent.state_estop_reset = {
 		'power_pb': True, 'run_pb': False,
@@ -606,7 +639,7 @@ def setup_enables(parent):
 	for item in list(parent.state_estop_reset):
 		if item not in parent.child_names:
 			del parent.state_estop_reset[item]
-
+	'''
 	''' LED
 	parent.state_estop_reset_names = {
 		'estop_pb': 'E Stop Closed', 'actionE_Stop': 'E Stop Closed',
