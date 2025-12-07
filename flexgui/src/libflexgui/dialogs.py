@@ -20,13 +20,21 @@ from libflexgui import search
 
 def spinbox_numbers(parent, obj):
 	if obj.isEnabled():
-		dialog = number_pad.number_pad()
+		try:
+			dialog = number_pad.number_pad()
+		except:
+			print('spinbox_numbers dialog = number_pad.number_pad() failed')
+			return
 		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
-		result = dialog.exec()
+		try:
+			result = dialog.exec()
+		except:
+			print('spinbox_numbers dialog.exec() failed')
+			return
 		if result and utilities.is_number(dialog.retval()):
 			if isinstance(obj, QSpinBox): # return an int
 				obj.setValue(utilities.string_to_int(dialog.retval()))
