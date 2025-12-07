@@ -779,10 +779,6 @@ def setup_enables(parent):
 			getattr(parent, item).setEnabled(False)
 
 def setup_buttons(parent): # connect buttons to functions
-	# special test button
-	if 'print_paths_pb' in parent.child_names:
-		parent.print_paths_pb.clicked.connect(partial(utilities.print_paths, parent))
-
 	command_buttons = {
 	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
 	'home_all_pb': 'home_all', 'home_pb_0': 'home',
