@@ -1,4 +1,4 @@
-import os, shutil, re
+import os, shutil, re, sys
 from string import digits
 from fractions import Fraction
 from functools import partial
@@ -12,6 +12,14 @@ import linuxcnc as emc
 
 from libflexgui import dialogs
 from libflexgui import commands
+
+def print_paths(parent):
+	print(f'parent.lib_path {parent.lib_path}')
+	print(f'parent.gui_path {parent.gui_path}')
+	print(f'parent.home_dir {parent.home_dir}')
+	print(f'parent.config_path {parent.config_path}')
+	print(f'sys.path {sys.path}')
+	#print(f'parent. {}')
 
 def is_float(string):
 	try:
