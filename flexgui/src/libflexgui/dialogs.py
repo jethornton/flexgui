@@ -19,6 +19,8 @@ from libflexgui import utilities
 from libflexgui import search
 
 def spinbox_numbers(parent, obj):
+	dialog = number_pad.number_pad()
+	return
 	if obj.isEnabled():
 		try:
 			dialog = number_pad.number_pad()
