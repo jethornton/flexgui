@@ -18,6 +18,13 @@ class number_pad(QDialog):
 			self.gui_path = self.path
 
 		num_ui_path = os.path.join(self.gui_path, 'numbers.ui')
+		print(f'self.path {self.path}')
+		print(f'self.lib_path {self.lib_path}')
+		print(f'self.gui_path {self.gui_path}')
+		print(f'num_ui_path {num_ui_path}')
+		return
+
+
 		loadUi(num_ui_path, self)
 		self.buttonBox.accepted.connect(self.accept)
 		self.buttonBox.rejected.connect(self.reject)
