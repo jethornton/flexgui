@@ -212,7 +212,6 @@ def update(parent):
 			if parent.status.task_state == emc.STATE_ON:
 				for key, value in parent.state_on_homed.items():
 					getattr(parent, key).setEnabled(value)
-			# FIXME releasing estop enables home required hal buttons
 			if not parent.probing:
 				for item in parent.home_required:
 					getattr(parent, item).setEnabled(True)
