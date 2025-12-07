@@ -103,6 +103,15 @@ def update(parent):
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
 
+			# check if any joints were unhomed by VOLATILE_HOME = 1
+			for item in parent.home_controls:
+				if item[-1].isdigit():
+					if hasattr(getattr(parent, item), 'led'):
+						if bool(parent.status.joint[int(item[-1])]["homed"]): # homed
+							getattr(parent, item).led = True
+						else:
+							getattr(parent, item).led = False
+
 			if 'estop_pb' in parent.child_names:
 				parent.estop_pb.blockSignals(True)
 				parent.estop_pb.setChecked(True)
