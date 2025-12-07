@@ -4,11 +4,17 @@ from PyQt6.QtWidgets import QDialog
 from PyQt6.uic import loadUi
 
 class number_pad(QDialog):
-	def __init__(self):
+	def __init__(self, lib_path):
 		super().__init__()
 
+		'''
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+		print(f'lib_path {lib_path}')
 		print(f'sys.argv {sys.argv}')
+		if len(sys.argv) > 0:
+			for arg in sys.argv:
+				if arg.endswith('flexgui'):
+					print('bingo')
 
 		# set the library path
 		if self.path == '/usr/bin':
@@ -18,15 +24,14 @@ class number_pad(QDialog):
 			self.lib_path = os.path.join(self.path, 'libflexgui')
 			self.gui_path = self.path
 
-		num_ui_path = os.path.join(self.gui_path, 'numbers.ui')
 		print(f'self.path {self.path}')
 		print(f'self.lib_path {self.lib_path}')
 		print(f'self.gui_path {self.gui_path}')
 		print(f'num_ui_path {num_ui_path}')
 		return
+		'''
 
-
-		loadUi(num_ui_path, self)
+		loadUi(os.path.join(lib_path, 'numbers.ui'), self)
 		self.buttonBox.accepted.connect(self.accept)
 		self.buttonBox.rejected.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)

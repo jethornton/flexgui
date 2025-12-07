@@ -19,24 +19,15 @@ from libflexgui import utilities
 from libflexgui import search
 
 def spinbox_numbers(parent, obj):
-	dialog = number_pad.number_pad()
-	return
 	if obj.isEnabled():
-		try:
-			dialog = number_pad.number_pad()
-		except:
-			print('spinbox_numbers dialog = number_pad.number_pad() failed')
-			return
-		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		dialog = number_pad.number_pad(parent.lib_path)
+
 		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
-		try:
-			result = dialog.exec()
-		except:
-			print('spinbox_numbers dialog.exec() failed')
-			return
+		result = dialog.exec()
+
 		if result and utilities.is_number(dialog.retval()):
 			if isinstance(obj, QSpinBox): # return an int
 				obj.setValue(utilities.string_to_int(dialog.retval()))
@@ -48,22 +39,13 @@ def spinbox_numbers(parent, obj):
 
 def numbers(parent, obj):
 	if obj.isEnabled():
-		try:
-			dialog = number_pad.number_pad()
-		except:
-			print('dialog = number_pad.number_pad() failed')
-			return
-		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		dialog = number_pad.number_pad(parent.lib_path)
+
 		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
-
-		try:
-			result = dialog.exec()
-		except:
-			print('dialog.exec() failed')
-			return
+		result = dialog.exec()
 
 		if result and utilities.is_number(dialog.retval()):
 			obj.setText(dialog.retval())
@@ -75,8 +57,8 @@ def numbers(parent, obj):
 
 def gcode(parent, obj):
 	if obj.isEnabled():
-		dialog = gcode_pad.gcode_pad()
-		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		dialog = gcode_pad.gcode_pad(parent.lib_path)
+
 		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
@@ -93,8 +75,8 @@ def gcode(parent, obj):
 
 def keyboard(parent, obj):
 	if obj.isEnabled():
-		dialog = keyboard_pad.keyboard_pad()
-		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+		dialog = keyboard_pad.keyboard_pad(parent.lib_path)
+
 		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
