@@ -57,7 +57,7 @@ def setup_vars(parent):
 	parent.homed = {}
 	parent.state_on_homed = {}
 	parent.state_on_unhomed = {}
-	parent.state_estop = {} # FIXME line 503
+	parent.state_estop = {}
 	parent.state_estop_checked = {}
 	parent.state_estop_reset_checked = {}
 	parent.mode_manual = {}
