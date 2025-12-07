@@ -8,6 +8,7 @@ class number_pad(QDialog):
 		super().__init__()
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+		print(f'sys.argv {sys.argv}')
 
 		# set the library path
 		if self.path == '/usr/bin':
