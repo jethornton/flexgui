@@ -92,7 +92,7 @@
     <item row="3" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -190,6 +190,13 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="spindle_minus_pb">
+             <property name="text">
+              <string>Spindle -</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="2">
             <widget class="QPushButton" name="spindle_fwd_pb">
              <property name="text">
@@ -204,17 +211,24 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="spindle_minus_pb">
-             <property name="text">
-              <string>Spindle -</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="2">
             <widget class="QPushButton" name="spindle_plus_pb">
              <property name="text">
               <string>Spindle +</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QSpinBox" name="spinBox">
+             <property name="input" stdset="0">
+              <string>number</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="print_paths_pb">
+             <property name="text">
+              <string>Print Paths</string>
              </property>
             </widget>
            </item>
@@ -932,39 +946,92 @@ Info</string>
         <string>Info</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_20">
-        <item row="3" column="1">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Numbers</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="lineEdit_2">
+          <property name="input" stdset="0">
+           <string>nccode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
          <widget class="QLineEdit" name="lineEdit">
           <property name="input" stdset="0">
            <string>keyboard</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Keyboard</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_11">
           <property name="text">
            <string>NC Code</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="spinBox_2">
+          <property name="input" stdset="0">
+           <string>number</string>
           </property>
-          <property name="sizeHint" stdset="0">
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QFrame" name="frame_13">
+          <property name="minimumSize">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>300</width>
+            <height>0</height>
            </size>
           </property>
-         </spacer>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_21">
+           <item row="0" column="0">
+            <widget class="QLabel" name="gcodes_lb">
+             <property name="text">
+              <string>G codes</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="mcodes_lb">
+             <property name="text">
+              <string>M codes</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="lineEdit_3">
+          <property name="input" stdset="0">
+           <string>number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Keyboard</string>
+          </property>
+         </widget>
         </item>
         <item row="0" column="0">
          <widget class="QFrame" name="frame_7">
@@ -1024,62 +1091,37 @@ Info</string>
           </layout>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame_13">
-          <property name="minimumSize">
+        <item row="0" column="2">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>300</width>
-            <height>0</height>
+            <width>40</width>
+            <height>20</height>
            </size>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+         </spacer>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox">
+          <property name="input" stdset="0">
+           <string>number</string>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>Double Spinbox</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_21">
-           <item row="0" column="0">
-            <widget class="QLabel" name="gcodes_lb">
-             <property name="text">
-              <string>G codes</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="mcodes_lb">
-             <property name="text">
-              <string>M codes</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_12">
+         <widget class="QLabel" name="label_14">
           <property name="text">
-           <string>Numbers</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEdit_2">
-          <property name="input" stdset="0">
-           <string>nccode</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_3">
-          <property name="input" stdset="0">
-           <string>number</string>
+           <string>Spinbox</string>
           </property>
          </widget>
         </item>
