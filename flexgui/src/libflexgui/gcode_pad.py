@@ -6,17 +6,6 @@ from PyQt6.uic import loadUi
 class gcode_pad(QDialog):
 	def __init__(self, lib_path):
 		super().__init__()
-		'''
-		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
-
-		# set the library path
-		if self.path == '/usr/bin':
-			self.lib_path = '/usr/lib/libflexgui'
-			self.gui_path = '/usr/lib/libflexgui'
-		else:
-			self.lib_path = os.path.join(self.path, 'libflexgui')
-			self.gui_path = self.path
-		'''
 
 		loadUi(os.path.join(lib_path, 'gcode.ui'), self)
 		self.buttonBox.accepted.connect(self.accept)
