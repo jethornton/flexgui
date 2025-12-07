@@ -38,14 +38,23 @@ def spinbox_numbers(parent, obj):
 
 def numbers(parent, obj):
 	if obj.isEnabled():
-		dialog = number_pad.number_pad()
+		try:
+			dialog = number_pad.number_pad()
+		except:
+			print('dialog = number_pad.number_pad() failed')
+			return
 		#stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 		with open(parent.touch_qss_file,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
 
-		result = dialog.exec()
+		try:
+			result = dialog.exec()
+		except:
+			print('dialog.exec() failed')
+			return
+
 		if result and utilities.is_number(dialog.retval()):
 			obj.setText(dialog.retval())
 			if obj.property("return_button") in parent.child_names:
