@@ -688,6 +688,14 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.home_controls.append(item)
 
+	'''
+	for item in parent.home_controls:
+		if item[-1].isdigit():
+			print(f'item {item}')
+			joint = int(item[-1])
+			print(f'joint {joint} homed {bool(parent.status.joint[int(item[-1])]["homed"])}')
+	'''
+
 	unhome_items = ['unhome_all_pb']
 	for i in range(9):
 		unhome_items.append(f'unhome_pb_{i}')
