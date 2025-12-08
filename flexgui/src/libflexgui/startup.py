@@ -53,6 +53,7 @@ def setup_vars(parent):
 	parent.plot_units = False
 
 	parent.state_estop = {}
+	parent.state_estop_names = {}
 	parent.state_estop_checked = {}
 	parent.state_estop_reset = {} # FIXME line 578
 	parent.state_estop_reset_checked = {}
@@ -383,7 +384,7 @@ def setup_menus(parent):
 					parent.program_running['actionHome_All'] = False
 					parent.program_paused['actionHome_All'] = False
 
-				# add Home menu item for each axis FIXME combine home and unhome to one loop
+				# add Home menu item for each axis
 				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
 					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
@@ -396,6 +397,7 @@ def setup_menus(parent):
 					parent.program_running[f'actionHome_{i}'] = False
 					parent.program_paused[f'actionHome_{i}'] = False
 
+			# add the unhoming menu items
 			elif action.objectName() == 'actionUnhoming':
 				action.setMenu(QMenu('Unhoming', parent))
 				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
@@ -558,7 +560,7 @@ def setup_enables(parent):
 		'actionPower': 'Power Off'}
 	'''
 
-	parent.state_estop_names = {}
+	# FIXME have the text be on_text and off_text for all buttons
 	if 'estop_pb' in parent.child_names:
 		open_text = parent.estop_pb.property('open_text')
 		if open_text is not None:
@@ -569,10 +571,12 @@ def setup_enables(parent):
 		if off_text is not None:
 			parent.state_estop_names['power_pb'] = off_text
 
+	''' there are only two estop names...
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_names):
 		if item not in parent.child_names:
 			del parent.state_estop_names[item]
+	'''
 
 	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
 		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
@@ -668,6 +672,7 @@ def setup_enables(parent):
 		if item not in parent.child_names:
 			del parent.state_on[item]
 
+	# FIXME have the text be on_text and off_text for all buttons
 	parent.state_on_names = {}
 	if 'estop_pb' in parent.child_names:
 		closed_text = parent.estop_pb.property('closed_text')
@@ -1021,7 +1026,7 @@ def setup_status_labels(parent):
 	'joints', 'kinematics_type', 'lube', 'lube_level', 'mist', 'motion_line',
 	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
 	'probe_tripped', 'probe_val', 'probed_position', 'probing', 'queue',
-	'queue_full', 'read_line', 'settings', 'spindle', 'spindles', 'state',
+	'queue_full', 'read_line', 'spindle', 'spindles', 'state',
 	'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
 	'tool_from_pocket', 'tool_offset', 'tool_table']
 
@@ -1092,10 +1097,10 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
-	# G Codes
+	# G Codes tuple
 	parent.g_codes = ()
 
-	# M Codes label
+	# M Codes tuple
 	parent.m_codes = ()
 
 	# DRO labels
@@ -1266,10 +1271,6 @@ def setup_status_labels(parent):
 			getattr(parent, item).setText('*')
 		else:
 			getattr(parent, item).setText('')
-
-	if 'settings_speed_lb' in parent.child_names:
-		parent.status_settings = {'settings_speed_lb': 2}
-		parent.settings_speed_lb.setText(f'S{parent.status.settings[2]}')
 
 	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
