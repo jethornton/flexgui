@@ -78,7 +78,7 @@ To enable this mode, add the following configuration to the ini file:
 .. code-block:: text
 
 	[FLEXGUI]
-	AUTO_KB_JOG_FOCUS_HANDLING = True
+	KB_JOG_FOCUS = True
 
 .. note:: This mode cannot be used with the `KEYBOARD_JOG` mode, and requires
    the `keyboard_jog_cb` QCheckBox to function.
