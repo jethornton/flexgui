@@ -274,12 +274,12 @@ class flexgui(QMainWindow):
 		startup.setup_hal_led_labels(self)
 		startup.setup_hal_leds(self)
 		startup.find_children(self)
+		startup.setup_enables(self)
+		startup.setup_menus(self) # setup menus adds to child names
+		startup.setup_actions(self) # setup actions adds to child names
 		startup.update_check(self)
 		startup.setup_plot(self)
-		startup.setup_enables(self)
 		startup.setup_buttons(self)
-		startup.setup_menus(self)
-		startup.setup_actions(self)
 		startup.setup_status_labels(self)
 		startup.setup_list_widgets(self)
 		startup.setup_plain_text_edits(self)

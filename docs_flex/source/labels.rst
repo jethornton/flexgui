@@ -322,14 +322,6 @@ status items.
 	rotation_xy_lb - returns float - precision can be set
 	current XY rotation angle around Z axis
 
-	settings_lb - returns tuple of floats
-	current interpreter settings
-	settings[0] = sequence number
-	settings[1] = feed rate
-	settings[2] = speed
-	settings[3] = G64 P blend tolerance
-	settings[4] = G64 Q naive CAM tolerance
-
 	spindle_lb - returns tuple of dicts
 	returns the current spindle status
 
