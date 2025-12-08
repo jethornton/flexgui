@@ -1,4 +1,4 @@
-import os, shutil, re
+import os, shutil, re, sys
 from string import digits
 from fractions import Fraction
 from functools import partial
@@ -228,7 +228,6 @@ def set_hal_enables(parent, obj):
 	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 	# all HAL objects are disabled when state estop
 	parent.state_estop[obj_name] = False
-	# FIXME unhoming does not toggle state on all homed objects
 	if state_on and not all_homed:
 		parent.state_estop_reset[obj_name] = False
 		parent.state_on[obj_name] = True
@@ -240,7 +239,6 @@ def set_hal_enables(parent, obj):
 		parent.state_on_unhomed[obj_name] = False
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.state_estop_reset[obj_name] = True
-
 
 def jog_toggled(parent):
 	if parent.sender().isChecked():

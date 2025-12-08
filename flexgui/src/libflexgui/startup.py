@@ -52,6 +52,21 @@ def setup_vars(parent):
 	parent.program_units = False
 	parent.plot_units = False
 
+	parent.state_estop = {}
+	parent.state_estop_names = {}
+	parent.state_estop_checked = {}
+	parent.state_estop_reset = {} # FIXME line 578
+	parent.state_estop_reset_checked = {}
+
+	parent.home_required = [] # different functions add to this FIXME change to dict
+	parent.home_controls = [] # different functions add to this FIXME change to dict
+	parent.homed = {}
+	parent.state_on_homed = {}
+	parent.state_on_unhomed = {}
+	parent.mode_manual = {}
+	parent.mode_mdi = {}
+	parent.mode_auto = {}
+
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
 		item = layout.itemAt(i)
@@ -333,6 +348,141 @@ def find_children(parent): # get the object names of all widgets
 		if menu.objectName():
 			parent.child_names.append(menu.objectName())
 
+def setup_menus(parent):
+	menus = parent.findChildren(QMenu)
+	parent.shortcuts = []
+	for menu in menus:
+		menu_list = menu.actions()
+		for index, action in enumerate(menu_list):
+			if action.objectName() == 'actionOpen':
+				if index + 1 < len(menu_list):
+					parent.menuRecent = QMenu('Recent', parent)
+					parent.menuRecent.setObjectName('menuRecent')
+					parent.child_names.append('menuRecent')
+					parent.menuFile.insertMenu(menu_list[index + 1], parent.menuRecent)
+					# if any files have been opened add them
+					keys = parent.settings.allKeys()
+					for key in keys:
+						if key.startswith('recent_files'):
+							path = parent.settings.value(key)
+							name = os.path.basename(path)
+							a = parent.menuRecent.addAction(name)
+							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+			if action.objectName() == 'actionHoming': # add homing actions
+				action.setMenu(QMenu('Homing', parent))
+
+				# add Home All if the home sequence is set for all axes
+				if utilities.home_all_check(parent):
+					setattr(parent, 'actionHome_All', QAction('Home All', parent))
+					getattr(parent, 'actionHome_All').setObjectName('actionHome_all')
+					action.menu().addAction(getattr(parent, 'actionHome_All'))
+					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
+					parent.home_controls.append('actionHome_All')
+					parent.state_estop['actionHome_All'] = False
+					parent.state_estop_reset['actionHome_All'] = False
+					parent.state_on['actionHome_All'] = True
+					parent.program_running['actionHome_All'] = False
+					parent.program_paused['actionHome_All'] = False
+
+				# add Home menu item for each axis
+				for i, axis in enumerate(parent.axis_letters):
+					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
+					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
+					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
+					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
+					parent.home_controls.append(f'actionHome_{i}')
+					parent.state_estop[f'actionHome_{i}'] = False
+					parent.state_estop_reset[f'actionHome_{i}'] = False
+					parent.state_on[f'actionHome_{i}'] = True
+					parent.program_running[f'actionHome_{i}'] = False
+					parent.program_paused[f'actionHome_{i}'] = False
+
+			# add the unhoming menu items
+			elif action.objectName() == 'actionUnhoming':
+				action.setMenu(QMenu('Unhoming', parent))
+				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
+				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
+				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
+				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
+				parent.unhome_controls.append('actionUnhome_All')
+				parent.state_estop['actionUnhome_All'] = False
+				parent.state_estop_reset['actionUnhome_All'] = False
+				parent.state_on['actionUnhome_All'] = True
+				parent.program_running['actionUnhome_All'] = False
+				parent.program_paused['actionUnhome_All'] = False
+
+				for i, axis in enumerate(parent.axis_letters):
+					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
+					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
+					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
+					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
+					parent.unhome_controls.append(f'actionUnhome_{i}')
+					parent.state_estop[f'actionUnhome_{i}'] = False
+					parent.state_estop_reset[f'actionUnhome_{i}'] = False
+					parent.state_on[f'actionUnhome_{i}'] = True
+					parent.program_running[f'actionUnhome_{i}'] = False
+					parent.program_paused[f'actionUnhome_{i}'] = False
+			elif action.objectName() == 'actionClear_Offsets':
+				action.setMenu(QMenu('Clear Offsets', parent))
+				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1',
+				'G59.2', 'G59.3', 'G92', 'Rotation']
+				for i, item in enumerate(cs):
+					setattr(parent, f'actionClear_{i}', QAction(f'Clear {item}', parent))
+					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
+					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
+					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
+
+			if len(action.shortcut().toString()) > 0: # collect shortcuts for quick reference
+				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
+
+def setup_actions(parent): # setup menu actions
+	actions_dict = {
+		'actionOpen': 'action_open',
+		'actionEdit': 'action_edit',
+		'actionReload': 'action_reload',
+		'actionSave': 'action_save',
+		'actionSave_As': 'action_save_as',
+		'actionEdit_Tool_Table': 'action_edit_tool_table',
+		'actionReload_Tool_Table': 'action_reload_tool_table',
+		'actionLadder_Editor': 'action_ladder_editor',
+		'actionQuit': 'action_quit',
+		'actionE_Stop': 'action_estop',
+		'actionPower': 'action_power',
+		'actionRun': 'action_run',
+		'actionRun_From_Line': 'action_run_from_line',
+		'actionStep': 'action_step',
+		'actionPause': 'action_pause',
+		'actionResume': 'action_resume',
+		'actionStop': 'action_stop',
+		'actionClear_MDI_History': 'action_clear_mdi',
+		'actionCopy_MDI_History': 'action_copy_mdi',
+		'actionOverlay': 'action_toggle_overlay',
+		'actionShow_HAL': 'action_show_hal',
+		'actionHAL_Meter': 'action_hal_meter',
+		'actionHAL_Scope': 'action_hal_scope',
+		'actionAbout': 'action_about',
+		'actionQuick_Reference': 'action_quick_reference',
+		'actionClear_Live_Plot': 'action_clear_live_plot'}
+
+	# if an action is found connect it to the function
+	for key, value in actions_dict.items():
+		if key in parent.child_names:
+			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
+
+	# special check for the classicladder editor
+	if not hal.component_exists("classicladder_rt"):
+		if 'actionLadder_Editor' in parent.child_names:
+			parent.actionLadder_Editor.setEnabled(False)
+		if 'edit_ladder_pb' in parent.child_names:
+			parent.edit_ladder_pb.setEnabled(False)
+
+	# special check for MDI
+	if 'mdi_history_lw' in parent.child_names:
+		if 'actionClear_MDI_History' in parent.child_names:
+			parent.actionClear_MDI_History.setEnabled(False)
+		if 'actionCopy_MDI_History' in parent.child_names:
+			parent.actionCopy_MDI_History.setEnabled(False)
+
 def update_check(parent):
 	if 'feedrate_lb' in parent.child_names:
 		msg = ('The Feed Override Percent Label object name\n'
@@ -343,12 +493,7 @@ def update_check(parent):
 		parent.feedrate_lb.setEnabled(False)
 
 def setup_enables(parent):
-	parent.home_required = [] # different functions add to this
-	parent.homed = {}
-	parent.state_on_homed = {}
-	parent.state_on_unhomed = {}
-	parent.state_estop_checked = {}
-	parent.state_estop_reset_checked = {}
+
 	# disable home all if home sequence is not found
 	if 'home_all_pb' in parent.child_names:
 		if not utilities.home_all_check(parent):
@@ -359,6 +504,31 @@ def setup_enables(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	# STATE_ESTOP
+	state_estop_disabled_items = ['power_pb', 'run_pb', 'run_from_line_pb',
+	'step_pb', 'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
+	'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb', 'spindle_start_pb',
+	'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb', 'spindle_plus_pb',
+	'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
+	'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume',
+	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
+
+	for i in range(9):
+		state_estop_disabled_items.append(f'home_pb_{i}')
+		state_estop_disabled_items.append(f'unhome_pb_{i}')
+	for axis in AXES:
+		state_estop_disabled_items.append(f'touchoff_pb_{axis}')
+		state_estop_disabled_items.append(f'tool_touchoff_{axis}')
+		state_estop_disabled_items.append(f'zero_{axis}_pb')
+	for i in range(100):
+		state_estop_disabled_items.append(f'tool_change_pb_{i}')
+	for i in range(1, 10):
+		state_estop_disabled_items.append(f'change_cs_{i}')
+
+	for name in state_estop_disabled_items:
+		if name in parent.child_names:
+			parent.state_estop[name] = False
+
+	'''
 	parent.state_estop = {
 		'power_pb': False, 'run_pb': False,
 		'run_from_line_pb': False, 'step_pb': False,
@@ -377,22 +547,12 @@ def setup_enables(parent):
 		'touchoff_selected_pb': False, 'touchoff_selected_tool_pb': False
 		}
 
-	for i in range(9):
-		parent.state_estop[f'home_pb_{i}'] = False
-		parent.state_estop[f'unhome_pb_{i}'] = False
-	for axis in AXES:
-		parent.state_estop[f'touchoff_pb_{axis}'] = False
-		parent.state_estop[f'tool_touchoff_{axis}'] = False
-		parent.state_estop[f'zero_{axis}_pb'] =  False
-	for i in range(100):
-		parent.state_estop[f'tool_change_pb_{i}'] = False
-	for i in range(1, 10):
-		parent.state_estop[f'change_cs_{i}'] = False
 
 	# remove any items not found in the gui
 	for item in list(parent.state_estop):
 		if item not in parent.child_names:
 			del parent.state_estop[item]
+	'''
 
 	''' LED
 	parent.state_estop_names = {'estop_pb': 'E Stop Open',
@@ -400,7 +560,7 @@ def setup_enables(parent):
 		'actionPower': 'Power Off'}
 	'''
 
-	parent.state_estop_names = {}
+	# FIXME have the text be on_text and off_text for all buttons
 	if 'estop_pb' in parent.child_names:
 		open_text = parent.estop_pb.property('open_text')
 		if open_text is not None:
@@ -411,11 +571,44 @@ def setup_enables(parent):
 		if off_text is not None:
 			parent.state_estop_names['power_pb'] = off_text
 
+	''' there are only two estop names...
 	# remove any items not found in the gui
 	for item in list(parent.state_estop_names):
 		if item not in parent.child_names:
 			del parent.state_estop_names[item]
+	'''
 
+	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
+		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
+		'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb',
+		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
+		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
+		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
+		'actionResume', 'tool_change_pb', 'touchoff_selected_pb',
+		'touchoff_selected_tool_pb']
+
+	for i in range(9):
+		state_estop_reset_disabled_items.append(f'home_pb_{i}')
+		state_estop_reset_disabled_items.append(f'unhome_pb_{i}')
+	for item in AXES:
+		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
+		state_estop_reset_disabled_items.append(f'tool_touchoff_{item}')
+	for i in range(100):
+		state_estop_reset_disabled_items.append(f'tool_change_pb_{i}')
+	for i in range(1, 10):
+		state_estop_reset_disabled_items.append(f'change_cs_{i}')
+
+	for name in state_estop_reset_disabled_items:
+		if name in parent.child_names:
+			parent.state_estop_reset[name] = False
+
+	# the only things enabled when estop is reset
+	state_estop_reset_enabled_items = ['power_pb', 'actionPower']
+	for name in state_estop_reset_enabled_items:
+		if name in parent.child_names:
+			parent.state_estop_reset[name] = True
+
+	'''
 	# STATE_ESTOP_RESET enable power
 	parent.state_estop_reset = {
 		'power_pb': True, 'run_pb': False,
@@ -450,7 +643,7 @@ def setup_enables(parent):
 	for item in list(parent.state_estop_reset):
 		if item not in parent.child_names:
 			del parent.state_estop_reset[item]
-
+	'''
 	''' LED
 	parent.state_estop_reset_names = {
 		'estop_pb': 'E Stop Closed', 'actionE_Stop': 'E Stop Closed',
@@ -479,6 +672,7 @@ def setup_enables(parent):
 		if item not in parent.child_names:
 			del parent.state_on[item]
 
+	# FIXME have the text be on_text and off_text for all buttons
 	parent.state_on_names = {}
 	if 'estop_pb' in parent.child_names:
 		closed_text = parent.estop_pb.property('closed_text')
@@ -496,9 +690,12 @@ def setup_enables(parent):
 			del parent.state_on_names[item]
 
 	# run controls used to enable/disable when not running a program
-	run_items = ['open_pb', 'run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
-	'reload_pb', 'actionOpen', 'menuRecent', 'actionReload', 'actionRun',
-	'actionRun_From_Line', 'actionStep', 'tool_change_pb']
+	# FIXME move this to mode manual, mdi, auto enable/disable maybe
+	# run items enabled when a file is loaded and mode is manual
+	# open file when mode is manual
+	# think about tool change button I think only when power on mode manual and homed
+	run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
+	'actionRun', 'actionRun_From_Line', 'actionStep', 'tool_change_pb']
 	for i in range(100):
 		run_items.append(f'tool_change_pb_{i}')
 	for item in AXES:
@@ -508,16 +705,34 @@ def setup_enables(parent):
 	for item in run_items:
 		if item in parent.child_names:
 			parent.run_controls.append(item)
+			parent.mode_manual[item] = True
+			parent.mode_mdi[item] = False
+			parent.mode_auto[item] = False
+
+	file_items = ['open_pb', 'reload_pb', 'actionOpen', 'menuRecent',
+	'actionReload', ]
+	for item in file_items:
+		if item in parent.child_names:
+			parent.mode_manual[item] = True
+			parent.mode_mdi[item] = False
+			parent.mode_auto[item] = False
 
 	home_items = []
 	if utilities.home_all_check(parent):
 		home_items.append('home_all_pb')
 	for i in range(9):
 		home_items.append(f'home_pb_{i}')
-	parent.home_controls = []
 	for item in home_items:
 		if item in parent.child_names:
 			parent.home_controls.append(item)
+
+	'''
+	for item in parent.home_controls:
+		if item[-1].isdigit():
+			print(f'item {item}')
+			joint = int(item[-1])
+			print(f'joint {joint} homed {bool(parent.status.joint[int(item[-1])]["homed"])}')
+	'''
 
 	unhome_items = ['unhome_all_pb']
 	for i in range(9):
@@ -692,7 +907,11 @@ def setup_buttons(parent): # connect buttons to functions
 			button.clicked.connect(partial(commands.change_cs, parent))
 			parent.state_estop[name] = False
 			parent.state_estop_reset[name] = False
+			# FIXME change this to a dict
 			parent.home_required.append(name)
+			parent.mode_manual[name] = True
+			parent.mode_mdi[name] = False
+			parent.mode_auto[name] = False
 
 	# Clear coordinate system buttons
 	for i in range(12):
@@ -702,7 +921,11 @@ def setup_buttons(parent): # connect buttons to functions
 			button.clicked.connect(partial(commands.clear_cs, parent))
 			parent.state_estop[name] = False
 			parent.state_estop_reset[name] = False
+			# FIXME change this to a dict
 			parent.home_required.append(name)
+			parent.mode_manual[name] = True
+			parent.mode_mdi[name] = False
+			parent.mode_auto[name] = False
 
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
@@ -728,7 +951,11 @@ def setup_buttons(parent): # connect buttons to functions
 			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
 			parent.state_estop[name] = False
 			parent.state_estop_reset[name] = False
+			# FIXME change this to a dict
 			parent.home_required.append(name)
+			parent.mode_manual[name] = True
+			parent.mode_mdi[name] = False
+			parent.mode_auto[name] = False
 
 	# override preset buttons
 	for item in parent.child_names:
@@ -750,149 +977,17 @@ def setup_buttons(parent): # connect buttons to functions
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
-			# FIXME add to enable disables
+			parent.mode_manual[child.objectName()] = True
+			parent.mode_mdi[child.objectName()] = False
+			parent.mode_auto[child.objectName()] = False
 
 	parent.flashing_buttons = []
 	for child in parent.findChildren(QPushButton):
 		if (child.isCheckable and 
 			child.property("flash_state") in ["checked", "unchecked"] and
 			child.objectName() not in parent.flashing_buttons):
-			# Not sure why I was getting dupes
+			# Not sure why I was getting dupes FIXME why is this here?
 			parent.flashing_buttons.append(child.objectName())
-
-def setup_menus(parent):
-	menus = parent.findChildren(QMenu)
-	parent.shortcuts = []
-	for menu in menus:
-		menu_list = menu.actions()
-		for index, action in enumerate(menu_list):
-			if action.objectName() == 'actionOpen':
-				if index + 1 < len(menu_list):
-					parent.menuRecent = QMenu('Recent', parent)
-					parent.menuRecent.setObjectName('menuRecent')
-					parent.child_names.append('menuRecent')
-					parent.menuFile.insertMenu(menu_list[index + 1], parent.menuRecent)
-					# if any files have been opened add them
-					keys = parent.settings.allKeys()
-					for key in keys:
-						if key.startswith('recent_files'):
-							path = parent.settings.value(key)
-							name = os.path.basename(path)
-							a = parent.menuRecent.addAction(name)
-							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
-			if action.objectName() == 'actionHoming': # add homing actions
-				action.setMenu(QMenu('Homing', parent))
-
-				# add Home All if the home sequence is set for all axes
-				if utilities.home_all_check(parent):
-					setattr(parent, 'actionHome_All', QAction('Home All', parent))
-					getattr(parent, 'actionHome_All').setObjectName('actionHome_all')
-					action.menu().addAction(getattr(parent, 'actionHome_All'))
-					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
-					parent.home_controls.append('actionHome_All')
-					parent.state_estop['actionHome_All'] = False
-					parent.state_estop_reset['actionHome_All'] = False
-					parent.state_on['actionHome_All'] = True
-					parent.program_running['actionHome_All'] = False
-					parent.program_paused['actionHome_All'] = False
-
-				# add Home menu item for each axis
-				for i, axis in enumerate(parent.axis_letters):
-					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
-					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
-					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
-					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
-					parent.home_controls.append(f'actionHome_{i}')
-					parent.state_estop[f'actionHome_{i}'] = False
-					parent.state_estop_reset[f'actionHome_{i}'] = False
-					parent.state_on[f'actionHome_{i}'] = True
-					parent.program_running[f'actionHome_{i}'] = False
-					parent.program_paused[f'actionHome_{i}'] = False
-
-			elif action.objectName() == 'actionUnhoming':
-				action.setMenu(QMenu('Unhoming', parent))
-				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
-				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
-				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
-				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
-				parent.unhome_controls.append('actionUnhome_All')
-				parent.state_estop['actionUnhome_All'] = False
-				parent.state_estop_reset['actionUnhome_All'] = False
-				parent.state_on['actionUnhome_All'] = True
-				parent.program_running['actionUnhome_All'] = False
-				parent.program_paused['actionUnhome_All'] = False
-
-				for i, axis in enumerate(parent.axis_letters):
-					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
-					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
-					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
-					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
-					parent.unhome_controls.append(f'actionUnhome_{i}')
-					parent.state_estop[f'actionUnhome_{i}'] = False
-					parent.state_estop_reset[f'actionUnhome_{i}'] = False
-					parent.state_on[f'actionUnhome_{i}'] = True
-					parent.program_running[f'actionUnhome_{i}'] = False
-					parent.program_paused[f'actionUnhome_{i}'] = False
-			elif action.objectName() == 'actionClear_Offsets':
-				action.setMenu(QMenu('Clear Offsets', parent))
-				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1',
-				'G59.2', 'G59.3', 'G92', 'Rotation']
-				for i, item in enumerate(cs):
-					setattr(parent, f'actionClear_{i}', QAction(f'Clear {item}', parent))
-					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
-					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
-					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
-
-			if len(action.shortcut().toString()) > 0: # collect shortcuts for quick reference
-				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
-
-def setup_actions(parent): # setup menu actions
-	actions_dict = {
-		'actionOpen': 'action_open',
-		'actionEdit': 'action_edit',
-		'actionReload': 'action_reload',
-		'actionSave': 'action_save',
-		'actionSave_As': 'action_save_as',
-		'actionEdit_Tool_Table': 'action_edit_tool_table',
-		'actionReload_Tool_Table': 'action_reload_tool_table',
-		'actionLadder_Editor': 'action_ladder_editor',
-		'actionQuit': 'action_quit',
-		'actionE_Stop': 'action_estop',
-		'actionPower': 'action_power',
-		'actionRun': 'action_run',
-		'actionRun_From_Line': 'action_run_from_line',
-		'actionStep': 'action_step',
-		'actionPause': 'action_pause',
-		'actionResume': 'action_resume',
-		'actionStop': 'action_stop',
-		'actionClear_MDI_History': 'action_clear_mdi',
-		'actionCopy_MDI_History': 'action_copy_mdi',
-		'actionOverlay': 'action_toggle_overlay',
-		'actionShow_HAL': 'action_show_hal',
-		'actionHAL_Meter': 'action_hal_meter',
-		'actionHAL_Scope': 'action_hal_scope',
-		'actionAbout': 'action_about',
-		'actionQuick_Reference': 'action_quick_reference',
-		'actionClear_Live_Plot': 'action_clear_live_plot'}
-
-	# if an action is found connect it to the function
-	for key, value in actions_dict.items():
-		if key in parent.child_names:
-			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
-
-	# special check for the classicladder editor
-	if not hal.component_exists("classicladder_rt"):
-		if 'actionLadder_Editor' in parent.child_names:
-			parent.actionLadder_Editor.setEnabled(False)
-		if 'edit_ladder_pb' in parent.child_names:
-			parent.edit_ladder_pb.setEnabled(False)
-
-	# special check for MDI
-	if 'mdi_history_lw' in parent.child_names:
-		if 'actionClear_MDI_History' in parent.child_names:
-			parent.actionClear_MDI_History.setEnabled(False)
-		if 'actionCopy_MDI_History' in parent.child_names:
-			parent.actionCopy_MDI_History.setEnabled(False)
 
 def setup_status_labels(parent):
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
@@ -931,7 +1026,7 @@ def setup_status_labels(parent):
 	'joints', 'kinematics_type', 'lube', 'lube_level', 'mist', 'motion_line',
 	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
 	'probe_tripped', 'probe_val', 'probed_position', 'probing', 'queue',
-	'queue_full', 'read_line', 'settings', 'spindle', 'spindles', 'state',
+	'queue_full', 'read_line', 'spindle', 'spindles', 'state',
 	'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
 	'tool_from_pocket', 'tool_offset', 'tool_table']
 
@@ -1002,10 +1097,10 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
 
-	# G Codes
+	# G Codes tuple
 	parent.g_codes = ()
 
-	# M Codes label
+	# M Codes tuple
 	parent.m_codes = ()
 
 	# DRO labels
@@ -1176,10 +1271,6 @@ def setup_status_labels(parent):
 			getattr(parent, item).setText('*')
 		else:
 			getattr(parent, item).setText('')
-
-	if 'settings_speed_lb' in parent.child_names:
-		parent.status_settings = {'settings_speed_lb': 2}
-		parent.settings_speed_lb.setText(f'S{parent.status.settings[2]}')
 
 	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))

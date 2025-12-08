@@ -27,6 +27,9 @@ def home(parent):
 		if parent.status.task_mode != emc.MODE_MANUAL:
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
+		if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
+			parent.command.teleop_enable(False)
+			parent.command.wait_complete()
 		parent.command.home(joint)
 
 		if f'actionHome_{joint}' in parent.home_controls:

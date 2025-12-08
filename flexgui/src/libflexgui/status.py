@@ -103,6 +103,15 @@ def update(parent):
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
 
+			# check if any joints were unhomed by VOLATILE_HOME = 1
+			for item in parent.home_controls:
+				if item[-1].isdigit():
+					if hasattr(getattr(parent, item), 'led'):
+						if bool(parent.status.joint[int(item[-1])]["homed"]): # homed
+							getattr(parent, item).led = True
+						else:
+							getattr(parent, item).led = False
+
 			if 'estop_pb' in parent.child_names:
 				parent.estop_pb.blockSignals(True)
 				parent.estop_pb.setChecked(True)
@@ -148,6 +157,8 @@ def update(parent):
 				if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 					parent.manual_mode_pb.led = True
 
+			# FIXME killing the power unhomes all joints hmm unless it's set in the ini
+			# LED is not updated if volital home is 1
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
 				utilities.set_homed_enable(parent)
@@ -158,11 +169,23 @@ def update(parent):
 				for item in parent.home_controls:
 					getattr(parent, item).setEnabled(False)
 			else:
-				#print('status update NOT HOMED')
+				#print('status update All NOT HOMED')
 				for item in parent.home_controls:
-					getattr(parent, item).setEnabled(True)
+					if item[-1].isdigit():
+						if bool(parent.status.joint[int(item[-1])]["homed"]):
+							getattr(parent, item).setEnabled(False)
+							#print(f'item {item} homed')
+						else:
+							getattr(parent, item).setEnabled(True)
+							#print(f'item {item} not homed')
+					elif item == 'home_all_pb':
+						getattr(parent, item).setEnabled(True)
 				for item in parent.unhome_controls:
-					getattr(parent, item).setEnabled(False)
+					if item[-1].isdigit():
+						if bool(parent.status.joint[int(item[-1])]["homed"]):
+							getattr(parent, item).setEnabled(True)
+						else:
+							getattr(parent, item).setEnabled(False)
 
 			if parent.status.file:
 				#print('status update FILE LOADED')
@@ -189,7 +212,6 @@ def update(parent):
 			if parent.status.task_state == emc.STATE_ON:
 				for key, value in parent.state_on_homed.items():
 					getattr(parent, key).setEnabled(value)
-			# FIXME releasing estop enables home required hal buttons
 			if not parent.probing:
 				for item in parent.home_required:
 					getattr(parent, item).setEnabled(True)
@@ -243,7 +265,6 @@ def update(parent):
 					parent.command.mode(emc.MODE_MANUAL)
 					parent.command.wait_complete()
 
-
 		if parent.status.task_mode == emc.MODE_AUTO:
 			# program is running
 			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
@@ -285,6 +306,15 @@ def update(parent):
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
 		if parent.status.task_mode == emc.MODE_MANUAL:
+			for key, value in parent.mode_manual.items():
+				getattr(parent, key).setEnabled(value)
+
+			# FIXME this is a kludge
+			#for i in range(parent.joints):
+			#	if parent.status.joint[i]['homed']:
+
+			#print("Joint 1 homed: ", s.joint[1]["homed"])
+
 			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = True
 			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
@@ -296,6 +326,9 @@ def update(parent):
 			# enable flood and mist buttons
 
 		if parent.status.task_mode == emc.MODE_MDI:
+			for key, value in parent.mode_mdi.items():
+				getattr(parent, key).setEnabled(value)
+
 			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = False
 			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
@@ -308,6 +341,9 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 
 		if parent.status.task_mode == emc.MODE_AUTO:
+			for key, value in parent.mode_auto.items():
+				getattr(parent, key).setEnabled(value)
+
 			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 				parent.manual_mode_pb.led = False
 			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
