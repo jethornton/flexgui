@@ -51,20 +51,6 @@ class KeyboardJog(QObject):
 				else:
 					window.kb_jog_cb_enabled = self._keyboard_jog_state
 
-		if (event.type() == QEvent.Type.KeyPress and not window.kb_jog_cb_enabled and
-			source.objectName() == 'mdi_command_le'):
-			if 'mdi_history_lw' in window.child_names:
-				mdi_list = getattr(window, 'mdi_history_lw')
-				mdi_count = mdi_list.count()
-				if mdi_count > 0:
-					current_row = mdi_list.currentRow() if mdi_list.currentRow() >= 0 else mdi_count					
-					if event.key() == Qt.Key.Key_Up:
-						if current_row - 1 >= 0:
-							mdi_list.setCurrentRow(current_row - 1)
-					elif event.key() == Qt.Key.Key_Down:
-						if current_row + 1 < mdi_count:
-							mdi_list.setCurrentRow(current_row + 1)
-
 		# jog events check for state estop and release if keyboard_jogging is true
 		# enable_ctrl_kb_jog or enable_cb_kb_jog
 		if event.type() == QEvent.Type.KeyPress:
