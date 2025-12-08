@@ -131,13 +131,6 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 				parent.command.mdi(mdi_command)
-				# Clear the selection so that the "up arrow" history starts at the end
-				# of the list for recalling the most recent command.
-				if 'mdi_history_lw' in parent.child_names:
-					# .clearSelection() does clear the selection, but it seem to
-					# "remember" the old selction, So also clearing the row index
-					getattr(parent, 'mdi_history_lw').clearSelection()
-					getattr(parent, 'mdi_history_lw').setCurrentRow(-1)
 	else:
 		msg = 'No MDI command was found!'
 		dialogs.warn_msg_ok(parent, msg, 'Error')
