@@ -2593,38 +2593,6 @@
         <string>Spindle RPM</string>
        </property>
       </widget>
-      <widget class="QLabel" name="settings_speed_lb">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>241</y>
-         <width>66</width>
-         <height>19</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_38">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>220</y>
-         <width>49</width>
-         <height>19</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>S Word</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QPushButton" name="spindle_stop_pb">
        <property name="geometry">
         <rect>
@@ -3437,7 +3405,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
