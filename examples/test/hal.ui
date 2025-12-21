@@ -22,6 +22,108 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="power_pb">
+      <property name="text">
+       <string>Power</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="unhome_all_pb">
+      <property name="text">
+       <string>Unhome All</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QRadioButton" name="radioButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>RadioButton</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-rb-1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>RadioButton</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-rb-2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>RadioButton</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-rb-3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>RadioButton</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-rb-4</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="4">
      <widget class="QPushButton" name="quit_pb">
       <property name="text">
@@ -29,7 +131,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" rowspan="2" colspan="2">
+    <item row="2" column="0" rowspan="2" colspan="2">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>GroupBox</string>
@@ -142,6 +244,118 @@
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="2" column="3" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="title">
+       <string>Home Required</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="6" column="0">
+        <widget class="QCheckBox" name="checkBox_4">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QSpinBox" name="spinBox"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QRadioButton" name="radioButton_4">
+         <property name="text">
+          <string>RadioButton</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="normal_hal_pb">
+         <property name="text">
+          <string>Normal</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>normal-pb</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="state_off_homed_hal_pb">
+         <property name="text">
+          <string>State Off  Homed</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>state-off-homed-pb</string>
+         </property>
+         <property name="state_off" stdset="0">
+          <string>disabled</string>
+         </property>
+         <property name="required" stdset="0">
+          <string>homed</string>
+         </property>
+         <property name="all_homed" stdset="0">
+          <bool>true</bool>
+         </property>
+         <property name="state_on" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="state_off_hal_pb">
+         <property name="text">
+          <string>State On</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>state-off-pb</string>
+         </property>
+         <property name="state_off" stdset="0">
+          <string>disabled</string>
+         </property>
+         <property name="state_on" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="state_off_homed_hal_pb_2">
+         <property name="text">
+          <string>Homed</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>homed-pb</string>
+         </property>
+         <property name="required" stdset="0">
+          <string>homed</string>
+         </property>
+         <property name="all_homed" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="home_all_pb">
+      <property name="text">
+       <string>Home All</string>
+      </property>
      </widget>
     </item>
     <item row="1" column="2" rowspan="2">
@@ -261,112 +475,7 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="3" rowspan="2">
-     <widget class="QGroupBox" name="groupBox_5">
-      <property name="title">
-       <string>Home Required</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="checkBox_4">
-         <property name="text">
-          <string>CheckBox</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QSpinBox" name="spinBox"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QRadioButton" name="radioButton_4">
-         <property name="text">
-          <string>RadioButton</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="normal_hal_pb">
-         <property name="text">
-          <string>Normal</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>normal-pb</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="state_off_homed_hal_pb">
-         <property name="text">
-          <string>State Off  Homed</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>state-off-homed-pb</string>
-         </property>
-         <property name="state_off" stdset="0">
-          <string>disabled</string>
-         </property>
-         <property name="required" stdset="0">
-          <string>homed</string>
-         </property>
-         <property name="all_homed" stdset="0">
-          <bool>true</bool>
-         </property>
-         <property name="state_on" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="state_off_hal_pb">
-         <property name="text">
-          <string>State On</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>state-off-pb</string>
-         </property>
-         <property name="state_off" stdset="0">
-          <string>disabled</string>
-         </property>
-         <property name="state_on" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="state_off_homed_hal_pb_2">
-         <property name="text">
-          <string>Homed</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>homed-pb</string>
-         </property>
-         <property name="required" stdset="0">
-          <string>homed</string>
-         </property>
-         <property name="all_homed" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="4">
+    <item row="1" column="3">
      <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
        <string>GroupBox</string>
@@ -414,73 +523,119 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="4">
-     <widget class="QGroupBox" name="groupBox_2">
+    <item row="1" column="4" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_6">
       <property name="title">
-       <string>GroupBox</string>
+       <string>HAL I/O</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QPushButton" name="pushButton_2">
          <property name="text">
-          <string>RadioButton</string>
+          <string>PushButton</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-pb</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_5">
+         <property name="text">
+          <string>CheckBox</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-cb</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QRadioButton" name="radioButton_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="text">
           <string>RadioButton</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-rb-1</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QRadioButton" name="radioButton_3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="text">
           <string>RadioButton</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-rb-2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_8">
+         <property name="text">
+          <string>RadioButton</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-rb-3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_2">
+         <property name="value">
+          <number>10</number>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-sb</string>
+         </property>
+         <property name="hal_type" stdset="0">
+          <string>HAL_U32</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+         <property name="value">
+          <double>1.230000000000000</double>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_io</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-io-dsb</string>
          </property>
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="power_pb">
-      <property name="text">
-       <string>Power</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="home_all_pb">
-      <property name="text">
-       <string>Home All</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QPushButton" name="unhome_all_pb">
-      <property name="text">
-       <string>Unhome All</string>
-      </property>
      </widget>
     </item>
    </layout>
