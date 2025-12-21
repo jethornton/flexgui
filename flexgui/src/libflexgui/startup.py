@@ -2544,7 +2544,7 @@ def setup_hal(parent):
 
 	##### HAL PROGRESSBAR #####
 	if len(hal_progressbar) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32', 'HAL_FLOAT']
+		valid_types = ['HAL_S32', 'HAL_U32']
 		for progressbar in hal_progressbar:
 			progressbar_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
@@ -2568,6 +2568,7 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
+			'''
 			hal_type = progressbar.property('hal_type')
 			if hal_type not in valid_types:
 				progressbar.setEnabled(False)
@@ -2576,8 +2577,9 @@ def setup_hal(parent):
 				f'The {progressbar_name} progressbar will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
+			'''
 
-			hal_type = getattr(hal, f'{hal_type}')
+			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			# pin = getattr(parent, f'{pin_name}')
