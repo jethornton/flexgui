@@ -132,6 +132,7 @@ class flexgui(QMainWindow):
 		self.command = emc.command()
 		self.error = emc.error_channel()
 		self.flood_state = self.status.flood
+		self.file = self.status.file
 		self.mist_state = self.status.mist
 		self.tool_in_spindle = self.status.tool_in_spindle
 		self.help_dialog = None
@@ -248,6 +249,7 @@ class flexgui(QMainWindow):
 		startup.setup_watch_var(self)
 		startup.setup_tools(self)
 		startup.setup_hal(self)
+		startup.setup_hal_io_state(self)
 		startup.setup_touchoff(self)
 		startup.setup_sliders(self)
 		startup.setup_overrides(self)
