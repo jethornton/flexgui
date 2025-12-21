@@ -1249,6 +1249,7 @@ def setup_status_labels(parent):
 
 	parent.current_tool_info = ()
 
+	# add file name if loaded from the ini
 	if 'file_lb' in parent.child_names:
 		#parent.status.poll()
 		gcode_file = parent.status.file or False
@@ -1935,7 +1936,7 @@ def setup_hal(parent):
 	hal_lcds = []
 	hal_leds = []
 	hal_progressbar = []
-	parent.hal_io = {}
+	#parent.hal_io = {}
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
 	parent.hal_io_float = {}
@@ -2617,6 +2618,32 @@ def setup_hal(parent):
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.child_names:
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
+
+def setup_hal_io_state(parent):
+	# key is the object name value is the hal pin name
+	for key, value in parent.hal_io_check.items():
+		checked_state = getattr(parent, key).isChecked()
+		print(f'checked_state {checked_state}')
+		hal_state = getattr(parent.halcomp, value)
+		print(f'hal_state {hal_state}')
+		if checked_state != hal_state:
+			#getattr(parent, key).setChecked(hal_state)
+			setattr(parent.halcomp, value, checked_state)
+			#print(f'key {key}, value {value}')
+
+	for key, value in parent.hal_io_int.items():
+		obj_value = getattr(parent, key).value()
+		hal_value = getattr(parent.halcomp, value)
+		print(f'obj_value {obj_value}, hal_value {hal_value}')
+		if obj_value != hal_value:
+			setattr(parent.halcomp, value, obj_value)
+
+	for key, value in parent.hal_io_float.items():
+		obj_value = getattr(parent, key).value()
+		hal_value = getattr(parent.halcomp, value)
+		print(f'obj_value {obj_value}, hal_value {hal_value}')
+		if obj_value != hal_value:
+			setattr(parent.halcomp, value, obj_value)
 
 def setup_tool_change(parent):
 	if parent.manual_tool_change:
