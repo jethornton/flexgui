@@ -1819,10 +1819,10 @@ def setup_probing(parent):
 	parent.probing = False
 	parent.probe_controls = []
 	for child in parent.child_names:
-		if child.startswith('probe_') and isinstance(child, QAbstractButton):
-			#if not isinstance(parent.findChild(QWidget, child), QLabel):
-			#	getattr(parent, child).setEnabled(False)
-			parent.probe_controls.append(child)
+		if child.startswith('probe_') and not isinstance(child, QLabel):
+			if not isinstance(parent.findChild(QWidget, child), QLabel):
+				getattr(parent, child).setEnabled(False)
+				parent.probe_controls.append(child)
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
 		if 'probing_enable_pb' in parent.child_names:
 			parent.state_estop['probing_enable_pb'] = False
