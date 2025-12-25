@@ -1884,8 +1884,7 @@ def setup_set_var(parent):
 
 	parent.set_var = {}
 	for child in parent.findChildren(QDoubleSpinBox):
-		prop = child.property('function')
-		if prop == 'set_var':
+		if child.property('function') == 'set_var':
 			var = child.property('variable')
 			found = False
 			if var is not None:
@@ -1895,8 +1894,9 @@ def setup_set_var(parent):
 						found = True
 						child.valueChanged.connect(partial(utilities.var_value_changed, parent))
 						parent.set_var[child.objectName()] = var
-						child.setEnabled(False)
-						parent.home_required.append(child.objectName())
+						if child.property('all_homed'):
+							child.setEnabled(False)
+							parent.home_required.append(child.objectName())
 						break
 				if not found:
 					msg = (f'The variable {var} was not found\n'
