@@ -20,6 +20,51 @@ min-width: 50
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="3" column="6">
+    <widget class="QPushButton" name="symbols_pb">
+     <property name="text">
+      <string>Symbols</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="5">
+    <widget class="QPushButton" name="lower_letters_pb">
+     <property name="text">
+      <string>Lower
+Letters</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="8">
+    <widget class="QLineEdit" name="keyboard_lb">
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="clear_pb">
+     <property name="text">
+      <string>Clear</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QPushButton" name="capital_letters_pb">
+     <property name="text">
+      <string>Capitol
+Letters</string>
+     </property>
+    </widget>
+   </item>
    <item row="3" column="1">
     <widget class="QPushButton" name="backspace_pb">
      <property name="text">
@@ -27,10 +72,11 @@ min-width: 50
      </property>
     </widget>
    </item>
-   <item row="3" column="6">
-    <widget class="QPushButton" name="symbols_pb">
+   <item row="3" column="3">
+    <widget class="QPushButton" name="gcode_pb">
      <property name="text">
-      <string>Symbols</string>
+      <string>G code
+Numbers</string>
      </property>
     </widget>
    </item>
@@ -45,29 +91,6 @@ min-width: 50
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="4">
-    <widget class="QPushButton" name="capital_letters_pb">
-     <property name="text">
-      <string>Capitol
-Letters</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="QPushButton" name="gcode_pb">
-     <property name="text">
-      <string>G code
-Numbers</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QPushButton" name="clear_pb">
-     <property name="text">
-      <string>Clear</string>
      </property>
     </widget>
    </item>
@@ -376,13 +399,6 @@ Numbers</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="key_55">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="6">
         <widget class="QPushButton" name="key_52">
          <property name="text">
@@ -394,27 +410,6 @@ Numbers</string>
         <widget class="QPushButton" name="key_45">
          <property name="text">
           <string>P</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="8">
-        <widget class="QPushButton" name="key_62">
-         <property name="text">
-          <string>,</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="7">
-        <widget class="QPushButton" name="key_61">
-         <property name="text">
-          <string>M</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="5">
-        <widget class="QPushButton" name="key_59">
-         <property name="text">
-          <string>B</string>
          </property>
         </widget>
        </item>
@@ -446,31 +441,10 @@ Numbers</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="4">
-        <widget class="QPushButton" name="key_58">
-         <property name="text">
-          <string>V</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="9">
-        <widget class="QPushButton" name="key_63">
-         <property name="text">
-          <string>.</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="7">
         <widget class="QPushButton" name="key_43">
          <property name="text">
           <string>I</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="6">
-        <widget class="QPushButton" name="key_60">
-         <property name="text">
-          <string>N</string>
          </property>
         </widget>
        </item>
@@ -495,13 +469,6 @@ Numbers</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="3">
-        <widget class="QPushButton" name="key_57">
-         <property name="text">
-          <string>C</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="7">
         <widget class="QPushButton" name="key_53">
          <property name="text">
@@ -516,17 +483,80 @@ Numbers</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
+       <item row="0" column="8">
+        <widget class="QPushButton" name="key_44">
+         <property name="text">
+          <string>O</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="key_55">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
         <widget class="QPushButton" name="key_56">
          <property name="text">
           <string>X</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="8">
-        <widget class="QPushButton" name="key_44">
+       <item row="2" column="2">
+        <widget class="QPushButton" name="key_57">
          <property name="text">
-          <string>O</string>
+          <string>C</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="key_58">
+         <property name="text">
+          <string>V</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QPushButton" name="key_59">
+         <property name="text">
+          <string>B</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
+        <widget class="QPushButton" name="key_60">
+         <property name="text">
+          <string>N</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QPushButton" name="key_61">
+         <property name="text">
+          <string>M</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="7">
+        <widget class="QPushButton" name="key_62">
+         <property name="text">
+          <string>,</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="8">
+        <widget class="QPushButton" name="key_63">
+         <property name="text">
+          <string>.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="9">
+        <widget class="QPushButton" name="key_64">
+         <property name="text">
+          <string>-</string>
          </property>
         </widget>
        </item>
@@ -854,29 +884,6 @@ Numbers</string>
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="3" column="5">
-    <widget class="QPushButton" name="lower_letters_pb">
-     <property name="text">
-      <string>Lower
-Letters</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="8">
-    <widget class="QLineEdit" name="keyboard_lb">
-     <property name="font">
-      <font>
-       <family>FreeMono</family>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
     </widget>
    </item>
   </layout>
