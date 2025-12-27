@@ -332,6 +332,13 @@ min-width: 50
      </property>
     </widget>
    </item>
+   <item row="10" column="2" colspan="2">
+    <widget class="QPushButton" name="space_pb">
+     <property name="text">
+      <string>Space</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

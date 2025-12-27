@@ -12,6 +12,7 @@ class gcode_pad(QDialog):
 		self.buttonBox.rejected.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)
 		self.backspace_pb.clicked.connect(self.backspace)
+		self.space_pb.clicked.connect(self.space)
 
 		for item in self.findChildren(QPushButton):
 			if item.objectName().startswith('key_'):
@@ -41,6 +42,10 @@ class gcode_pad(QDialog):
 		txt = self.gcode_lb.text()
 		if len(txt) > 0:
 			self.gcode_lb.setText(txt[:-1])
+
+	def space(self):
+		txt = self.gcode_lb.text()
+		self.gcode_lb.setText(f'{txt} ')
 
 	def retval(self):
 		try:
