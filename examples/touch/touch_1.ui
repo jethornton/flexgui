@@ -92,7 +92,7 @@
     <item row="3" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -845,7 +845,7 @@ Info</string>
         <item row="3" column="0">
          <widget class="QLineEdit" name="mdi_command_le">
           <property name="input" stdset="0">
-           <string>nccode</string>
+           <string>keyboard</string>
           </property>
          </widget>
         </item>
