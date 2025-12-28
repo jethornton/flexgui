@@ -168,7 +168,7 @@ def read(parent):
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.qss_file = False
 
-	# check for popup QSS file
+	# check for popup QSS file FIXME change this to POPUP_QSS
 	default_touch_qss = os.path.join(parent.lib_path, 'touch.qss')
 	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or False
 	if parent.touch_qss_file:
