@@ -9,7 +9,7 @@ from PyQt6.QtCore import Qt
 import linuxcnc as emc
 import hal
 
-from libflexgui import number_pad
+from libflexgui import numpad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
 from libflexgui import tool_change
@@ -20,9 +20,9 @@ from libflexgui import search
 
 def spinbox_numbers(parent, obj):
 	if obj.isEnabled():
-		dialog = number_pad.number_pad(parent.lib_path)
+		dialog = numpad.number_pad(parent.lib_path)
 
-		with open(os.path.join(parent.lib_path, 'popup.qss'),'r') as fh:
+		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
@@ -39,8 +39,8 @@ def spinbox_numbers(parent, obj):
 
 def numbers(parent, obj):
 	if obj.isEnabled():
-		dialog = number_pad.number_pad(parent.lib_path)
-		with open(os.path.join(parent.lib_path, 'popup.qss'),'r') as fh:
+		dialog = numpad.number_pad(parent.lib_path)
+		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
@@ -58,7 +58,7 @@ def gcode(parent, obj):
 	if obj.isEnabled():
 		dialog = gcode_pad.gcode_pad(parent.lib_path)
 
-		with open(os.path.join(parent.lib_path, 'popup.qss'),'r') as fh:
+		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
@@ -76,7 +76,7 @@ def keyboard(parent, obj):
 	if obj.isEnabled():
 		dialog = keyboard_pad.keyboard_pad(parent.lib_path)
 
-		with open(os.path.join(parent.lib_path, 'popup.qss'),'r') as fh:
+		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
 		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
