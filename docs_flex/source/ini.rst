@@ -345,7 +345,7 @@ stylesheet to use.
 .. code-block:: text
 
 	[FLEXGUI]
-	TOUCH_QSS = somefile.qss
+	POPUP_QSS = somefile.qss
 
 Set the touch screen file chooser to automatically adjust the width by adding the
 following to the FLEXGUI section.
