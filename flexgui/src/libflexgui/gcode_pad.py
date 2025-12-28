@@ -8,8 +8,8 @@ class gcode_pad(QDialog):
 		super().__init__()
 
 		loadUi(os.path.join(lib_path, 'gcode.ui'), self)
-		self.buttonBox.accepted.connect(self.accept)
-		self.buttonBox.rejected.connect(self.reject)
+		self.save_pb.clicked.connect(self.accept)
+		self.cancel_pb.clicked.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)
 		self.backspace_pb.clicked.connect(self.backspace)
 		self.space_pb.clicked.connect(self.space)
@@ -32,24 +32,24 @@ class gcode_pad(QDialog):
 		self.letters_sw.setCurrentIndex(self.letters_sw.currentIndex() - 1)
 
 	def post(self):
-		txt = self.gcode_lb.text()
-		self.gcode_lb.setText(f'{txt}{self.sender().text()}')
+		txt = self.gcode_le.text()
+		self.gcode_le.setText(f'{txt}{self.sender().text()}')
 
 	def clear(self):
-		self.gcode_lb.clear()
+		self.gcode_le.clear()
 
 	def backspace(self):
-		txt = self.gcode_lb.text()
+		txt = self.gcode_le.text()
 		if len(txt) > 0:
-			self.gcode_lb.setText(txt[:-1])
+			self.gcode_le.setText(txt[:-1])
 
 	def space(self):
-		txt = self.gcode_lb.text()
-		self.gcode_lb.setText(f'{txt} ')
+		txt = self.gcode_le.text()
+		self.gcode_le.setText(f'{txt} ')
 
 	def retval(self):
 		try:
-			return(self.gcode_lb.text())
+			return(self.gcode_le.text())
 		except:
 			return False
 

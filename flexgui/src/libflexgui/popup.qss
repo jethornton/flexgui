@@ -22,9 +22,9 @@ QLineEdit {
 QAbstractButton{
 	min-height: 50px;
 	min-width: 50px;
-	font-family: FreeMono;
-	font-size: 12pt;
-	font-weight: 600;
+	font-family: FreeMonoBold;
+	font-size: 14pt;
+	font-weight: normal;
 	border-style: outset;
 	border-color: #b3b3b3; /* rgba colors don't work for border */
 	border-width: 3px;
