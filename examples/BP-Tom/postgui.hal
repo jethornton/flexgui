@@ -1,8 +1,0 @@
-# Put HAL commands in this file that you want to run after the GUI loads
-
-#net manual-tool-changed iocontrol.0.tool-prepared flexhal.tool-changed
-#net manual-tool-changed iocontrol.0.tool-changed
-
-#net spindle-actual-rpm spindle-rpm-filter.out => flexhal.spindle-rpm
-
-#net spindle-actual-rpm hm2_5i25.0.encoder.03.velocity-rpm => flexhal.spindle-rpm
