@@ -255,8 +255,8 @@ The plotter orientation can be set to one of the following x, x2, y, y2, z, or p
 
 .. code-block:: text
 
-	[DISPLAY]
-	VIEW = x
+	[FLEXGUI]
+	PLOT_VIEW = x
 
 The font size for the plotter can be set in the ini by adding the following to
 the FLEXGUI section. The font size must be an integer.
