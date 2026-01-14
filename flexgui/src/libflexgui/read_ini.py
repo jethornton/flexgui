@@ -23,6 +23,7 @@ def read(parent):
 	['FLEXGUI', 'TOUCH_QSS'],
 	['DISPLAY', 'RESOURCES'],
 	['DISPLAY', 'SIZE'],
+	['DISPLAY', 'VIEW'],
 	['DISPLAY', 'THEME'],
 	['DISPLAY', 'QSS'],
 	['DISPLAY', 'DRO_FONT_SIZE'],
@@ -92,8 +93,8 @@ def read(parent):
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
 	if parent.inifile.find('DISPLAY', 'LATHE') is not None:
 		parent.default_view = 'y'
-	elif parent.inifile.find('DISPLAY', 'VIEW') is not None:
-		parent.default_view = parent.inifile.find('DISPLAY', 'VIEW')
+	elif parent.inifile.find('FLEXGUI', 'PLOT_VIEW') is not None:
+		parent.default_view = parent.inifile.find('FLEXGUI', 'PLOT_VIEW')
 	else:
 		parent.default_view = 'p'
 
