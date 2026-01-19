@@ -140,7 +140,7 @@ positions.
 	 enable flag for feed override
 
 	file_lb - returns string
-	currently loaded G-code filename with path
+	currently loaded filename
 
 	flood_lb - returns integer that is used to lookup the state of OFF or ON
 	Flood status, either FLOOD_OFF = 0) or FLOOD_ON = 1)

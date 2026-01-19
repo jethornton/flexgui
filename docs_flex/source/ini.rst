@@ -153,6 +153,21 @@ extensions must be in the format `*.ext` with the asterisk and dot
 [FLEXGUI]
 ---------
 
+Splash Screen
+-------------
+
+You can add a splash screen with custom title and time to flex. The image file
+name is the only required item. If title and time are not specified then the
+default `Flex Dragon Slayer` and 5 seconds are used. The image file must be in
+the configuration directory. If the image is a jpg you might have to open it in
+GIMP and save it as png if it does not show up.
+
+.. code-block:: text
+
+	SPLASH_IMAGE = name.png
+	SPLASH_TITLE = Flex
+	SPLASH_TIME = 10
+
 .. _installed_themes:
 
 Themes
