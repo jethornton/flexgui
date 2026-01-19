@@ -28,7 +28,6 @@ def load_file(parent, nc_code_file=None):
 		nc_code_file = os.path.expanduser(nc_code_file)
 	elif not os.path.isfile(nc_code_file): # try adding the nc code dir path to the file name
 		nc_code_file = os.path.join(parent.nc_code_dir, nc_code_file)
-
 	if os.path.isfile(nc_code_file):
 		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
@@ -144,16 +143,16 @@ def select_editor(parent, gcode_file):
 
 def action_reload(parent): # actionReload
 	parent.status.poll()
-	gcode_file = parent.status.file or False
+	nc_code_file = parent.status.file or False
 	if gcode_file:
 		if parent.status.task_mode != emc.MODE_MANUAL:
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
-		parent.command.program_open(gcode_file)
+		parent.command.program_open(nc_code_file)
 		if 'plot_widget' in parent.child_names:
 			parent.plotter.clear_live_plotter()
 			parent.plotter.update()
-			parent.plotter.load(gcode_file)
+			parent.plotter.load(nc_code_file)
 		if 'gcode_pte' in parent.child_names:
 			with open(gcode_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
@@ -287,14 +286,14 @@ def action_power(parent): # actionPower
 	else:
 		parent.command.state(emc.STATE_OFF)
 
-def action_run(parent, line = 0): # actionRun
+def action_run(parent): # actionRun
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_AUTO:
 			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
 		if 'start_line_lb' in parent.child_names:
 			parent.start_line_lb.setText('0')
-		parent.command.auto(emc.AUTO_RUN, line)
+		parent.command.auto(emc.AUTO_RUN, 0)
 
 def action_run_from_line(parent): # actionRun_from_Line
 	if 'gcode_pte' in parent.child_names:
