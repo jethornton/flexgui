@@ -1512,7 +1512,7 @@ def setup_jog(parent):
 				else:
 					msg = ('The DISPLAY INCREMENTS entry in the ini\n'
 					f'> {item} < is not a valid unit and will not\n'
-					'be used.')
+					'be used. INCREMENTS must be comma seperated.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_jog_selected(parent):
