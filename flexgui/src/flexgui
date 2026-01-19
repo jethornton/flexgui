@@ -165,11 +165,11 @@ class flexgui(QMainWindow):
 		splash_time = self.inifile.find('FLEXGUI', 'SPLASH_TIME') or 5
 		if isinstance(splash_time, str):
 			splash_time = int(splash_time)
-		print(f'Qt.AlignmentFlag.AlignBottom {Qt.AlignmentFlag.AlignBottom}')
-		print(f'Qt.AlignmentFlag.AlignCenter {Qt.AlignmentFlag.AlignCenter}')
+		#print(f'Qt.AlignmentFlag.AlignBottom {Qt.AlignmentFlag.AlignBottom}')
+		#print(f'Qt.AlignmentFlag.AlignCenter {Qt.AlignmentFlag.AlignCenter}')
 		if splash_image:
 			if os.path.isfile(splash_image):
-				splash_pix = QPixmap('ds.png')
+				splash_pix = QPixmap(splash_image)
 				splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
 				splash.show()
 				app.processEvents()
@@ -178,7 +178,7 @@ class flexgui(QMainWindow):
 					percent_done = 10 * i
 					msg = f'{splash_title} Loading ... {percent_done:.0f}%'
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
-						Qt.AlignmentFlag.AlignCenter, Qt.GlobalColor.white)
+						Qt.AlignmentFlag.AlignCenter, Qt.GlobalColor.black)
 					app.processEvents()
 
 		# find and load the gui
