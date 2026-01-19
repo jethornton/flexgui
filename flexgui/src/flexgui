@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, subprocess
+import os, sys, subprocess, time
 
 # disable cache usage must be before any local imports
 sys.dont_write_bytecode = True
@@ -8,9 +8,10 @@ sys.dont_write_bytecode = True
 from functools import partial
 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt6.QtWidgets import QSplashScreen
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
-from PyQt6.QtGui import QKeyEvent
+from PyQt6.QtGui import QPixmap, QKeyEvent
 
 import linuxcnc as emc
 import hal
@@ -157,6 +158,28 @@ class flexgui(QMainWindow):
 			'the LinuxCNC ini file.')
 			dialogs.error_msg_ok(self, msg, 'Error')
 			sys.exit()
+
+		# display splash screen if found
+		splash_image = self.inifile.find('FLEXGUI', 'SPLASH_IMAGE') or False
+		splash_title = self.inifile.find('FLEXGUI', 'SPLASH_TITLE') or 'Flex Dragon Slayer'
+		splash_time = self.inifile.find('FLEXGUI', 'SPLASH_TIME') or 5
+		if isinstance(splash_time, str):
+			splash_time = int(splash_time)
+		print(f'Qt.AlignmentFlag.AlignBottom {Qt.AlignmentFlag.AlignBottom}')
+		print(f'Qt.AlignmentFlag.AlignCenter {Qt.AlignmentFlag.AlignCenter}')
+		if splash_image:
+			if os.path.isfile(splash_image):
+				splash_pix = QPixmap('ds.png')
+				splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
+				splash.show()
+				app.processEvents()
+				for i in range(10):
+					time.sleep(splash_time/10)
+					percent_done = 10 * i
+					msg = f'{splash_title} Loading ... {percent_done:.0f}%'
+					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
+						Qt.AlignmentFlag.AlignCenter, Qt.GlobalColor.white)
+					app.processEvents()
 
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
