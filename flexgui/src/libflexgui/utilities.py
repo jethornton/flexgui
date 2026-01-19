@@ -93,7 +93,10 @@ def is_valid_increment(parent, item): # need to return text ,data and suffix
 		for suffix in units:
 			if item.endswith(suffix):
 				increment = item.removesuffix(suffix).strip()
-				return item, increment, suffix
+				if is_number(increment):
+					return item, increment, suffix
+				else:
+					return False, False, False
 	else: # not a valid increment
 		return False, False, False
 
