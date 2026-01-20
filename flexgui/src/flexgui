@@ -171,6 +171,10 @@ class flexgui(QMainWindow):
 			if os.path.isfile(splash_image):
 				splash_pix = QPixmap(splash_image)
 				splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
+				# Set font for the splash screen
+				font = QFont("Courier", 16) # Font Family and Size
+				font.setBold(True)
+				splash.setFont(font)
 				splash.show()
 				app.processEvents()
 				for i in range(10):
