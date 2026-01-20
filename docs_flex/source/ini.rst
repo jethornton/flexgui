@@ -162,7 +162,8 @@ default `Flex Dragon Slayer` and 5 seconds are used. The image file must be in
 the configuration directory. If the image is a jpg you might have to open it in
 GIMP and save it as png if it does not show up. If the font is not an exact
 match the nearest font will be used. Some fixed width fonts are Monospace and
-Courier. Some variable width fonts are Cantarell and Serif.
+Courier. Some variable width fonts are Cantarell and Serif. Font colors are
+simple base colors only.
 
 .. code-block:: text
 
@@ -172,6 +173,7 @@ Courier. Some variable width fonts are Cantarell and Serif.
 	SPLASH_FONT = Name of Font
 	SPLASH_FONT_SIZE = 12
 	SPLASH_FONT_BOLD = True or False
+	SPLASH_FONT_COLOR = black
 
 .. _installed_themes:
 
