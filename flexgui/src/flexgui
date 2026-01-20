@@ -163,9 +163,13 @@ class flexgui(QMainWindow):
 		splash_image = self.inifile.find('FLEXGUI', 'SPLASH_IMAGE') or False
 		splash_title = self.inifile.find('FLEXGUI', 'SPLASH_TITLE') or 'Flex Dragon Slayer'
 		splash_time = self.inifile.find('FLEXGUI', 'SPLASH_TIME') or 5
+		#splash_time = utilities.to_int(splash_time) if isinstance(splash_time, str)
 		splash_font = self.inifile.find('FLEXGUI', 'SPLASH_FONT') or 'Monospace'
 		splash_font_size = self.inifile.find('FLEXGUI', 'SPLASH_FONT_SIZE') or 12
+		if isinstance(splash_font_size, str): splash_font_size = utilities.to_int(splash_font_size) 
+		#value_if_true if condition else value_if_false
 		splash_font_bold = self.inifile.find('FLEXGUI', 'SPLASH_FONT_BOLD') or False
+		splash_font_bold = utilities.to_bool(splash_font_bold) if splash_font_bold else False
 		if isinstance(splash_time, str):
 			splash_time = int(splash_time)
 		if splash_image:
@@ -174,10 +178,8 @@ class flexgui(QMainWindow):
 				splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
 				# Set font for the splash screen
 				font = QFont(splash_font, splash_font_size) # Font Family and Size
-				print(font.family())
 				font.setBold(splash_font_bold)
 				splash.setFont(font)
-				print(splash.font().family())
 				splash.show()
 				app.processEvents()
 				for i in range(10):
