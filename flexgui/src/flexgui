@@ -12,6 +12,7 @@ from PyQt6.QtWidgets import QSplashScreen
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
 from PyQt6.QtGui import QPixmap, QKeyEvent, QFont, QFontInfo, QFontDatabase
+from PyQt6.QtGui import  QColor
 
 import linuxcnc as emc
 import hal
@@ -170,6 +171,8 @@ class flexgui(QMainWindow):
 		#value_if_true if condition else value_if_false
 		splash_font_bold = self.inifile.find('FLEXGUI', 'SPLASH_FONT_BOLD') or False
 		splash_font_bold = utilities.to_bool(splash_font_bold) if splash_font_bold else False
+		splash_font_color = self.inifile.find('FLEXGUI', 'SPLASH_FONT_COLOR') or 'black'
+		#QColor("blue")
 		if isinstance(splash_time, str):
 			splash_time = int(splash_time)
 		if splash_image:
@@ -187,7 +190,7 @@ class flexgui(QMainWindow):
 					percent_done = 10 * i
 					msg = f'{splash_title}\nLoading ... {percent_done:.0f}%'
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
-						Qt.AlignmentFlag.AlignCenter, Qt.GlobalColor.black)
+						Qt.AlignmentFlag.AlignCenter, QColor(splash_font_color))
 					app.processEvents()
 
 		# find and load the gui
