@@ -160,13 +160,18 @@ You can add a splash screen with custom title and time to flex. The image file
 name is the only required item. If title and time are not specified then the
 default `Flex Dragon Slayer` and 5 seconds are used. The image file must be in
 the configuration directory. If the image is a jpg you might have to open it in
-GIMP and save it as png if it does not show up.
+GIMP and save it as png if it does not show up. If the font is not an exact
+match the nearest font will be used. Some fixed width fonts are Monospace and
+Courier. Some variable width fonts are Cantarell and Serif.
 
 .. code-block:: text
 
 	SPLASH_IMAGE = name.png
 	SPLASH_TITLE = Flex
 	SPLASH_TIME = 10
+	SPLASH_FONT = Name of Font
+	SPLASH_FONT_SIZE = 12
+	SPLASH_FONT_BOLD = True or False
 
 .. _installed_themes:
 
