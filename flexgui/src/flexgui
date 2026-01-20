@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt6.QtWidgets import QSplashScreen
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
-from PyQt6.QtGui import QPixmap, QKeyEvent
+from PyQt6.QtGui import QPixmap, QKeyEvent, QFont, QFontInfo, QFontDatabase
 
 import linuxcnc as emc
 import hal
@@ -163,24 +163,27 @@ class flexgui(QMainWindow):
 		splash_image = self.inifile.find('FLEXGUI', 'SPLASH_IMAGE') or False
 		splash_title = self.inifile.find('FLEXGUI', 'SPLASH_TITLE') or 'Flex Dragon Slayer'
 		splash_time = self.inifile.find('FLEXGUI', 'SPLASH_TIME') or 5
+		splash_font = self.inifile.find('FLEXGUI', 'SPLASH_FONT') or 'Monospace'
+		splash_font_size = self.inifile.find('FLEXGUI', 'SPLASH_FONT_SIZE') or 12
+		splash_font_bold = self.inifile.find('FLEXGUI', 'SPLASH_FONT_BOLD') or False
 		if isinstance(splash_time, str):
 			splash_time = int(splash_time)
-		#print(f'Qt.AlignmentFlag.AlignBottom {Qt.AlignmentFlag.AlignBottom}')
-		#print(f'Qt.AlignmentFlag.AlignCenter {Qt.AlignmentFlag.AlignCenter}')
 		if splash_image:
 			if os.path.isfile(splash_image):
 				splash_pix = QPixmap(splash_image)
 				splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
 				# Set font for the splash screen
-				font = QFont("Courier", 16) # Font Family and Size
-				font.setBold(True)
+				font = QFont(splash_font, splash_font_size) # Font Family and Size
+				print(font.family())
+				font.setBold(splash_font_bold)
 				splash.setFont(font)
+				print(splash.font().family())
 				splash.show()
 				app.processEvents()
 				for i in range(10):
 					time.sleep(splash_time/10)
 					percent_done = 10 * i
-					msg = f'{splash_title} Loading ... {percent_done:.0f}%'
+					msg = f'{splash_title}\nLoading ... {percent_done:.0f}%'
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
 						Qt.AlignmentFlag.AlignCenter, Qt.GlobalColor.black)
 					app.processEvents()
