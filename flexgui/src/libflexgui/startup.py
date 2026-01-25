@@ -4,7 +4,7 @@ from collections import deque
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
-from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
+from PyQt6.QtWidgets import QSlider, QMenu, QToolButton
 from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox, QRadioButton
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
