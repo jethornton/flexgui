@@ -113,8 +113,8 @@ def action_open(parent): # actionOpen
 
 def action_edit(parent): # actionEdit
 	parent.status.poll
-	gcode_file = parent.status.file or False
-	if not gcode_file:
+	nc_code_file = parent.status.file or False
+	if not nc_code_file:
 		msg = ('No File is open.\nDo you want to open a file?')
 		response = dialogs.warn_msg_yes_no(parent, msg, 'No File Loaded')
 		if response:
@@ -125,26 +125,26 @@ def action_edit(parent): # actionEdit
 
 	if parent.editor:
 		if shutil.which(parent.editor.lower()) is not None:
-			subprocess.Popen([parent.editor, gcode_file])
+			subprocess.Popen([parent.editor, nc_code_file])
 		else:
-			select_editor(parent, gcode_file)
+			select_editor(parent, nc_code_file)
 	else:
 		msg = ('No Editor was found\nin the ini Display section\n'
 			'Do you want to select an Editor?')
 		if dialogs.warn_msg_yes_no(parent, msg, 'No Editor Configured'):
-			select_editor(parent, gcode_file)
+			select_editor(parent, nc_code_file)
 
-def select_editor(parent, gcode_file):
+def select_editor(parent, nc_code_file):
 	select_dialog = select.editor_dialog()
 	if select_dialog.exec():
 		editor = select_dialog.choice.currentData()
 		if editor:
-			subprocess.Popen([editor, gcode_file])
+			subprocess.Popen([editor, nc_code_file])
 
 def action_reload(parent): # actionReload
 	parent.status.poll()
 	nc_code_file = parent.status.file or False
-	if gcode_file:
+	if nc_code_file:
 		if parent.status.task_mode != emc.MODE_MANUAL:
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
@@ -154,7 +154,7 @@ def action_reload(parent): # actionReload
 			parent.plotter.update()
 			parent.plotter.load(nc_code_file)
 		if 'gcode_pte' in parent.child_names:
-			with open(gcode_file) as f:
+			with open(nc_code_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
 		if 'save_pb' in parent.child_names:
 			if hasattr(parent.save_pb, 'led'):
@@ -181,8 +181,8 @@ def action_save(parent): # actionSave
 			parent.reload_pb.led = True
 
 def action_save_as(parent): # actionSave_As
-	current_gcode_file = parent.status.file or False
-	if not current_gcode_file:
+	current_nc_code_file = parent.status.file or False
+	if not current_nc_code_file:
 		msg = ('No File is Open')
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 		return
@@ -190,15 +190,15 @@ def action_save_as(parent): # actionSave_As
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
 		gcode_dir = os.path.expanduser('~/')
-	new_gcode_file, file_type = QFileDialog.getSaveFileName(None,
+	new_nc_code_file, file_type = QFileDialog.getSaveFileName(None,
 	caption="Save As", directory=gcode_dir,
 	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.Option.DontUseNativeDialog,)
-	if new_gcode_file:
-		with open(current_gcode_file, 'r') as cf:
+	if new_nc_code_file:
+		with open(current_nc_code_file, 'r') as cf:
 			gcode = cf.read()
-		with open(new_gcode_file, 'w') as f:
+		with open(new_nc_code_file, 'w') as f:
 			f.write(gcode)
-		load_file(parent, new_gcode_file)
+		load_file(parent, new_nc_code_file)
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	tool_table_file = os.path.join(parent.config_path, parent.tool_table)
