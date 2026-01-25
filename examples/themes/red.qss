@@ -2,10 +2,22 @@
 or sub-control is customized, all the other properties or sub-controls must be
 customized as well. */
 
+/*
+Colors
+background-color: #0000ff;
+background-color: #0000e6;
+background-color: #0000cc;
+background-color: #0000b3;
+background-color: #000099;
+background-color: #000080;
+background-color: #000066;
+*/
+
+
 /***** QMainWindow *****/
 QMainWindow {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 }
 
 /***** QWidget *****/
@@ -15,13 +27,13 @@ QWidget {
 
 /***** QTabWidget *****/
 QTabWidget {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 }
 
 QTabWidget::pane { /* The tab widget frame */
 	border: 2px solid;
-	border-color: #d9d9d9;
+	border-color: #ffffff;
 	border-radius: 6px;
 	margin-right: 5px;
 }
@@ -32,7 +44,7 @@ QTabWidget::tab-bar {
 
 QTabBar::tab {
 	color: #bfbfbf;
-	background-color: #121212;
+	background-color: #0000ff;
 	border: 2px solid;
 	border-color: #bfbfbf;
 	border-bottom-left-radius: 6px;
@@ -45,16 +57,16 @@ QTabBar::tab {
 }
 
 QTabBar::tab:selected {
-	border-color: #d9d9d9;
+	border-color: #ffffff;
 	color: rgba(255, 255, 255, 100%);
-	background-color: #404040;
+	background-color: #0060c0;
 	margin-bottom: 0px; /* make non-selected tabs look smaller */
 }
 
 /***** QGroupBox *****/
 QGroupBox {
-	background-color: #121212;
-	color: #d9d9d9;
+	background-color: #0000ff;
+	color: #ffffff;
 	font: bold;
 	border-style: solid;
 	border-color: #d8d8d8;
@@ -66,29 +78,30 @@ QGroupBox {
 }
 
 QGroupBox:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #A0A0A0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 QGroupBox::title {
-	color: #d9d9d9;
+	color: #ffffff;
 	subcontrol-origin: margin;
 	left: 7px;
 	padding-right: 5px;
 	padding-left: 5px;
+	subcontrol-origin: content;
 }
 
 QGroupBox::title:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #A0A0A0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 /***** QStackedWidget *****/
 QStackedWidget {
-	background-color: #121212;
-	color: #d9d9d9;
+	background-color: #0000ff;
+	color: #ffffff;
 	font: bold;
 	border-style: solid;
 	border-color: #d8d8d8;
@@ -98,8 +111,8 @@ QStackedWidget {
 
 /***** QAbstractButton *****/
 QAbstractButton{
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: outset;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -111,8 +124,8 @@ QAbstractButton{
 }
 
 QAbstractButton:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
@@ -122,13 +135,11 @@ QPushButton:pressed {
 }
 
 QPushButton:hover {
-	color: #ffffff;
-	background-color: #404040;
+	background-color: #0060c0;
 }
 
 QPushButton:checked {
-	color: #ffffff;
-	background-color: #404040;
+	background-color: #0060c0;
 	border-style: inset;
 }
 
@@ -142,8 +153,8 @@ QPushButton:checked {
 /* QSpinBox::down-arrow:off  off state when value in min */
 
 QAbstractSpinBox {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: outset;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -154,8 +165,8 @@ QAbstractSpinBox {
 }
 
 QAbstractSpinBox:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
@@ -189,8 +200,8 @@ QAbstractSpinBox::down-button:disabled {
 
 /***** QComboBox *****/
 QComboBox {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -199,8 +210,8 @@ QComboBox {
 }
 
 QComboBox:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
@@ -210,14 +221,14 @@ QComboBox::drop-down:disabled {
 
 QComboBox QAbstractItemView::item:hover {
 	/* Styles for the item when the mouse hovers over it */
-	background-color: #595959;
-	color: white;
+	background-color: #48576b; /* Example hover background color */
+	color: white; /* Example hover text color */
 }
 
 QComboBox QAbstractItemView::item:selected {
 	/* Styles for the currently selected item (even without hover) */
-	background-color: #595959;
-	color: green;
+	background-color: #3d8ec9; /* Example selection background color */
+	color: green; /* Example selection text color */
 }
 
 QComboBox QAbstractItemView {
@@ -228,10 +239,11 @@ QComboBox QAbstractItemView {
 	color: yellow;
 }
 
+
 /***** QListWidget *****/
 QListWidget {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -239,34 +251,34 @@ QListWidget {
 }
 
 QListWidget:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 QListWidget::item { /* the items in the list */
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border: 1px solid;
 	border-color: #d8d8d8;
 	border-radius: 5px;
 }
 
 QListWidget::item:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 QListWidget::item:selected {
-	color: #d9d9d9;
+	color: #ffffff;
 	background-color: #0060c0;
 }
 
 /***** QLabel *****/
 QLabel {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -274,15 +286,15 @@ QLabel {
 }
 
 QLabel:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 /***** QLineEdit *****/
 QLineEdit {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -291,15 +303,15 @@ QLineEdit {
 }
 
 QLineEdit:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 /***** QPlainTextEdit *****/
 QPlainTextEdit {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -307,21 +319,21 @@ QPlainTextEdit {
 }
 
 QPlainTextEdit:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 /***** QListView *****/
 QListView::item {
-	color: #d9d9d9;
-	background-color: #121212;
+	color: #ffffff;
+	background-color: #0000ff;
 }
 
 /***** QSlider *****/
 QSlider::horizontal {
 	min-height: 30px; /* Ensure space for the handle */
-	background-color: #121212;
+	background-color: #0000ff;
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -329,37 +341,37 @@ QSlider::horizontal {
 }
 
 QSlider::horizontal:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
 QSlider::groove:horizontal {
-	background: #121212;
+	background: #C9CDD0;
 	height: 10px;
 	margin: 0px 3px;
 }
 
 QSlider::handle:horizontal {
-	background-color: #121212;
+	background-color: #0731f7;
 	width: 12px;
 	height: 26px;
 	/* Calculate the margin to center the handle:
 	(handle height - groove height) / 2 */
 	margin: -7px 0px; 
 	border-style: solid;
-	border-color: #f2f2f2;
+	border-color: black;
 	border-width: 1px;
 	border-radius: 6px; /* Makes the handle circular */
 }
 
 QSlider::handle:horizontal:disabled {
-	background: #808080;
+	background: #a0a0a0;
 	border: transparent;
 }
 
 QSlider::sub-page:horizontal { /* The part between handle and minimum */
-	background: #333333; /* Color for the filled part */
+	background: #1e3aba; /* Color for the filled part */
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 1px;
@@ -368,12 +380,12 @@ QSlider::sub-page:horizontal { /* The part between handle and minimum */
 }
 
 QSlider::sub-page:horizontal:disabled {
-	background: #808080;
+	background: #a0a0a0;
 	border: transparent;
 }
 
 QSlider::add-page:horizontal { /* The part between handle and maximum */
-	background: #808080; /* Color for the unfilled part */
+	background: #6172c2; /* Color for the unfilled part */
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 1px;
@@ -382,7 +394,7 @@ QSlider::add-page:horizontal { /* The part between handle and maximum */
 }
 
 QSlider::add-page:horizontal:disabled {
-	background: #808080;
+	background: #a0a0a0;
 	border: transparent;
 }
 
@@ -395,8 +407,8 @@ QSlider::vertical {
 }
 
 QSlider::vertical:disabled {
-	color: #666666;
-	background-color: #d9d9d9;
+	color: #a0a0a0;
+	background-color: #e0e0e0;
 	border-color: transparent;
 }
 
@@ -407,7 +419,7 @@ QSlider::groove:vertical {
 }
 
 QSlider::handle:vertical {
-	background-color: #121212;
+	background-color: #0731f7;
 	height: 12px;
 	width: 26px;
 	/* 
@@ -416,18 +428,18 @@ QSlider::handle:vertical {
 	*/
 	margin:  0px -7px; 
 	border-style: solid;
-	border-color: #f2f2f2;
+	border-color: black;
 	border-width: 1px;
 	border-radius: 6px; /* Makes the handle circular */
 }
 
 QSlider::handle:vertical:disabled {
-	background: #808080;
+	background: #a0a0a0;
 	border: transparent;
 }
 
 QSlider::sub-page:vertical { /* The part between handle and minimum */
-	background: #808080; /* Color for the filled part */
+	background: #6172c2; /* Color for the filled part */
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -436,12 +448,12 @@ QSlider::sub-page:vertical { /* The part between handle and minimum */
 }
 
 QSlider::sub-page:vertical:disabled {
-	background: #808080;
+	background: #a0a0a0;
 	border: transparent;
 }
 
 QSlider::add-page:vertical { /* The part between handle and maximum */
-	background: #333333; /* Color for the unfilled part */
+	background: #1e3aba; /* Color for the unfilled part */
 	border-style: solid;
 	border-color: #d8d8d8;
 	border-width: 2px;
@@ -450,7 +462,7 @@ QSlider::add-page:vertical { /* The part between handle and maximum */
 }
 
 QSlider::add-page:vertical:disabled {
-	background: #808080;
+	background: #a0a0a0;
 	border: transparent;
 }
 
@@ -465,19 +477,18 @@ QScrollBar:vertical {
 }
 
 QScrollBar:vertical:disabled {
-	background: #d9d9d9;
+	background: #e0e0e0;
 	border: transparent;
 }
 
 QScrollBar::handle:vertical {
-	background: #121212;
+	background: #0731f7;
 	min-height: 20px;
 	border-radius: 10px;
-	border: 1px solid #d8d8d8;
 }
 
 QScrollBar::handle:vertical:disabled {
-	background: #808080;
+	background: #a0a0a0;
 }
 
 /* The area that holds the up arrow */
@@ -488,28 +499,12 @@ QScrollBar::sub-line:vertical {
 	subcontrol-origin: margin;
 }
 
-QScrollBar::sub-page:vertical {
-	background: #121212;
-}
-
-QScrollBar::sub-page:vertical:disabled {
-	background: #d9d9d9;
-}
-
 /* The area that holds the down arrow */
 QScrollBar::add-line:vertical {
 	background: none;
 	height: 20px;
 	subcontrol-position: bottom;
 	subcontrol-origin: margin;
-}
-
-QScrollBar::add-page:vertical {
-	background: #121212;
-}
-
-QScrollBar::add-page:vertical:disabled {
-	background: #d9d9d9;
 }
 
 /* Apply the image to the up arrow subcontrol */
@@ -520,7 +515,7 @@ QScrollBar::up-arrow:vertical {
 }
 
 QScrollBar::up-arrow:vertical:disabled {
-	image: url(up_arrow_disabled.png); /* Replace with the path to your up arrow image */
+	image: url(up_arrow_disabled_32.png); /* Replace with the path to your up arrow image */
 }
 
 /* Apply the image to the down arrow subcontrol */
@@ -531,7 +526,11 @@ QScrollBar::down-arrow:vertical {
 }
 
 QScrollBar::down-arrow:vertical:disabled {
-	image: url(down_arrow_disabled.png); /* Replace with the path to your up arrow image */
+	image: url(down_arrow_disabled_32.png); /* Replace with the path to your up arrow image */
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none; /* Make the area between handle and arrows transparent */
 }
 
 QScrollBar:horizontal {
@@ -543,19 +542,18 @@ QScrollBar:horizontal {
 }
 
 QScrollBar:horizontal:disabled {
-	background: #d9d9d9;
+	background: #e0e0e0;
 	border: transparent;
 }
 
 QScrollBar::handle:horizontal {
-	background: #121212;
+	background: #0731f7;
 	min-width: 20px;
 	border-radius: 10px;
-	border: 1px solid #d8d8d8;
 }
 
 QScrollBar::handle:horizontal:disabled {
-	background: #808080;
+	background: #a0a0a0;
 }
 
 /* The area that holds the left arrow */
@@ -566,28 +564,12 @@ QScrollBar::sub-line:horizontal {
 	subcontrol-origin: margin;
 }
 
-QScrollBar::sub-page:horizontal {
-	background: #121212;
-}
-
-QScrollBar::sub-page:horizontal:disabled {
-	background: #d9d9d9;
-}
-
 /* The area that holds the right arrow */
 QScrollBar::add-line:horizontal {
 	background: none;
 	width: 20px;
 	subcontrol-position: right;
 	subcontrol-origin: margin;
-}
-
-QScrollBar::add-page:horizontal {
-	background: #121212;
-}
-
-QScrollBar::add-page:horizontal:disabled {
-	background: #d9d9d9;
 }
 
 /* Apply the image to the up arrow subcontrol */
@@ -612,9 +594,8 @@ QScrollBar::right-arrow:horizontal:disabled {
 	image: url(right_arrow_disabled.png); /* Replace with the path to your up arrow image */
 }
 
-/*
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
 	background: none; /* Make the area between handle and arrows transparent */
-}*/
+}
 
 
