@@ -36,8 +36,13 @@ class example(QMainWindow):
 			self.gui_path = '/usr/lib/libflexgui'
 		else:
 			self.gui_path = self.path
-		uic.loadUi(os.path.join(self.gui_path, 'qss.ui'), self)
-
+		uic.loadUi(os.path.join(self.gui_path, 'keyboard_qss.ui'), self)
+		list_widget_items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
+		self.enabledLW.addItem('QListWidget Enabled with scroll bars')
+		self.enabledLW.addItems(list_widget_items)
+		self.disabledLW.addItem('QListWidget Disabled')
+		self.disabledLW.addItems(list_widget_items)
+		self.actionExit.triggered.connect(self.close)
 
 class main(QMainWindow):
 	def __init__(self):
@@ -73,6 +78,7 @@ class main(QMainWindow):
 
 	def setup(self):
 		self.launch_sample_pb.clicked.connect(self.launch_sample)
+		self.save_qss_pb.clicked.connect(self.save_as)
 
 		# add box model image to all pages
 		for i in range(7):
@@ -80,7 +86,7 @@ class main(QMainWindow):
 		#self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
 
 		# Menu Items
-		self.actionSave_As.triggered.connect(self.save)
+		self.actionSave_As.triggered.connect(self.save_as)
 
 		# setup stylesheet
 		self.stylesheet = ''
@@ -282,7 +288,7 @@ class main(QMainWindow):
 			self.stylesheet += '\n/* QLabel Section */\n\n'
 			self.stylesheet += self.lb_stylesheet.toPlainText()
 
-	def save(self):
+	def save_as(self):
 		self.build_stylesheet()
 		file_dialog = QFileDialog()
 		options = QFileDialog.Option.DontUseNativeDialog
