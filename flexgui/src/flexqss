@@ -23,6 +23,7 @@ from libflexgui import qss_spinbox
 from libflexgui import qss_label
 from libflexgui import qss_containers
 from libflexgui import qss_gradient
+from libflexgui import qss_contrast
 
 class example(QMainWindow):
 	def __init__(self):
@@ -96,6 +97,11 @@ class main(QMainWindow):
 		state = self.sender().objectName().split('_')[-1]
 		prop = self.sender().property('qss')
 		variable = self.sender().property('var')
+		contrast_variable = self.sender().property('contrast_var')
+		contrast_label = self.sender().property('contrast_label')
+		#print(f'variable {variable}')
+		#print(f'contrast_variable {contrast_variable}')
+		#print(f'contrast variable value {getattr(self, contrast_variable)}')
 		label = self.sender().property('label')
 		#return
 		if getattr(self, variable):
@@ -112,6 +118,16 @@ class main(QMainWindow):
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
 				setattr(self, f'{obj}_{state}', True)
+				#print(f'color {color}')
+				#print(f'color.name() {color.name()}')
+				if contrast_variable:
+					contrast_color = getattr(self, contrast_variable)
+					#print(f'contrast_color {contrast_color}')
+					if contrast_color:
+						contrast_ratio = qss_contrast.calculate_contrast_ratio(color, QColor(contrast_color))
+						#print(f'contrast_ratio {contrast_ratio}')
+						if contrast_label:
+							getattr(self, contrast_label).setText(f'Contrast Ratio {contrast_ratio}:1')
 		else:
 			setattr(self, variable, False)
 			getattr(self, label).setStyleSheet(f'background-color: none;')

@@ -21,7 +21,10 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
+      </property>
+      <property name="contrast_label" stdset="0">
+       <string/>
       </property>
       <widget class="QWidget" name="tab_51">
        <attribute name="title">
@@ -1041,9 +1044,22 @@ Border needs both width and color to show up</string>
                  <property name="var" stdset="0">
                   <string>pb_fg_color_sel_normal</string>
                  </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_normal_lb</string>
+                 </property>
                 </widget>
                </item>
                <item row="0" column="4">
+                <widget class="QLabel" name="pb_contrast_normal_lb">
+                 <property name="text">
+                  <string>Contrast Ratio N/A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
                 <widget class="QLabel" name="pb_bg_color_lb">
                  <property name="minimumSize">
                   <size>
@@ -1065,25 +1081,6 @@ Border needs both width and color to show up</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QPushButton" name="pb_bg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_bg_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_bg_color_sel_normal</string>
                  </property>
                 </widget>
                </item>
@@ -1113,17 +1110,29 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="0" column="2">
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                <widget class="QPushButton" name="pb_bg_color_normal">
+                 <property name="toolTip">
+                  <string/>
                  </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
+                 <property name="text">
+                  <string>Background Color</string>
                  </property>
-                </spacer>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_bg_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_normal_lb</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -2461,72 +2470,6 @@ Border needs both width and color to show up</string>
                <enum>QFrame::StyledPanel</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_11">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="cb_fg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Text Color</string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>cb_text_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>cb_fg_color_sel_normal</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QLabel" name="cb_bg_color_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QPushButton" name="cb_bg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>cb_bg_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>cb_bg_color_sel_normal</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
                 <widget class="QLabel" name="cb_text_color_lb">
                  <property name="minimumSize">
@@ -2553,17 +2496,89 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="0" column="2">
-                <spacer name="horizontalSpacer_4">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                <widget class="QPushButton" name="cb_bg_color_normal">
+                 <property name="toolTip">
+                  <string/>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>cb_bg_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>cb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>cb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>cb_contrast_normal_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="cb_fg_color_normal">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Text Color</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>cb_text_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>cb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>cb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>cb_contrast_normal_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="cb_bg_color_lb">
+                 <property name="minimumSize">
                   <size>
-                   <width>40</width>
-                   <height>20</height>
+                   <width>27</width>
+                   <height>27</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="cb_contrast_normal_lb">
+                 <property name="text">
+                  <string>Contrast Ratio N/A</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -3831,49 +3846,11 @@ Border needs both width and color to show up</string>
                  <property name="var" stdset="0">
                   <string>rb_fg_color_sel_normal</string>
                  </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QLabel" name="rb_bg_color_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QPushButton" name="rb_bg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>rb_bg_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
+                 <property name="contrast_var" stdset="0">
                   <string>rb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>rb_contrast_normal_lb</string>
                  </property>
                 </widget>
                </item>
@@ -3902,18 +3879,62 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <spacer name="horizontalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
+               <item row="0" column="3">
+                <widget class="QLabel" name="rb_bg_color_lb">
+                 <property name="minimumSize">
                   <size>
-                   <width>40</width>
-                   <height>20</height>
+                   <width>27</width>
+                   <height>27</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="rb_contrast_normal_lb">
+                 <property name="text">
+                  <string>Contrast Ratio N/A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="rb_bg_color_normal">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>rb_bg_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>rb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>rb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>rb_contrast_normal_lb</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -7288,69 +7309,10 @@ Border needs both width and color to show up</string>
                <enum>QFrame::StyledPanel</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_74">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="sb_fg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Text Color</string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>sb_fg_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>sb_fg_color_sel_normal</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="4">
-                <widget class="QLabel" name="sb_bg_color_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
+                <widget class="QLabel" name="sb_contrast_normal_lb">
                  <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QPushButton" name="sb_bg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>sb_bg_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>sb_bg_color_sel_normal</string>
+                  <string>Contrast Ratio N/A</string>
                  </property>
                 </widget>
                </item>
@@ -7380,17 +7342,82 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="0" column="2">
-                <spacer name="horizontalSpacer_7">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                <widget class="QPushButton" name="sb_bg_color_normal">
+                 <property name="toolTip">
+                  <string/>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>sb_bg_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>sb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>sb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>sb_contrast_normal_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="sb_fg_color_normal">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Text Color</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>sb_fg_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>sb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>sb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>sb_contrast_normal_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="sb_bg_color_lb">
+                 <property name="minimumSize">
                   <size>
-                   <width>40</width>
-                   <height>20</height>
+                   <width>27</width>
+                   <height>27</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -8451,6 +8478,13 @@ Border needs both width and color to show up</string>
                <enum>QFrame::StyledPanel</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_24">
+               <item row="0" column="4">
+                <widget class="QLabel" name="label_contrast_normal_lb">
+                 <property name="text">
+                  <string>Contrast Ratio N/A</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="0">
                 <widget class="QPushButton" name="lb_fg_color_normal">
                  <property name="toolTip">
@@ -8471,49 +8505,11 @@ Border needs both width and color to show up</string>
                  <property name="var" stdset="0">
                   <string>lb_fg_color_sel_normal</string>
                  </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QLabel" name="lb_bg_color_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QPushButton" name="lb_bg_color_normal">
-                 <property name="toolTip">
-                  <string/>
-                 </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>lb_bg_color_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
+                 <property name="contrast_var" stdset="0">
                   <string>lb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>label_contrast_normal_lb</string>
                  </property>
                 </widget>
                </item>
@@ -8542,18 +8538,55 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
+               <item row="0" column="3">
+                <widget class="QLabel" name="lb_bg_color_lb">
+                 <property name="minimumSize">
                   <size>
-                   <width>40</width>
-                   <height>20</height>
+                   <width>27</width>
+                   <height>27</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="lb_bg_color_normal">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>lb_bg_color_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>lb_bg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>lb_fg_color_sel_normal</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>label_contrast_normal_lb</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -9028,7 +9061,9 @@ Border needs both width and color to show up</string>
               <property name="plainText">
                <string>To delete a color open the color dialog and Cancel
 
-Border needs both width and color to show up</string>
+Border needs both width and color to show up
+
+Standard 4.5:1 text contrast ratio for active controls</string>
               </property>
              </widget>
             </item>
