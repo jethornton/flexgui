@@ -144,9 +144,9 @@ def create_stylesheet(parent):
 	if parent.cb_hover:
 		# color
 		if style: # style is not False
-			style += '\n\nQCheckBox:hover {'
+			style += '\n\nQCheckBox:hover {\n'
 		else:
-			style = '\n\nQCheckBox:hover {'
+			style = '\n\nQCheckBox:hover {\n'
 
 		if parent.cb_fg_color_sel_hover:
 			style += f'\tcolor: {parent.cb_fg_color_sel_hover};\n'
@@ -170,9 +170,9 @@ def create_stylesheet(parent):
 	# color
 	if parent.cb_pressed:
 		if style: # style is not False
-			style += '\n\nQCheckBox:pressed {'
+			style += '\n\nQCheckBox:pressed {\n'
 		else:
-			style = '\n\nQCheckBox:pressed {'
+			style = '\n\nQCheckBox:pressed {\n'
 
 		if parent.cb_fg_color_sel_pressed:
 			style += f'\tcolor: {parent.cb_fg_color_sel_pressed};\n'
@@ -195,9 +195,9 @@ def create_stylesheet(parent):
 	# QCheckBox checked pseudo-state
 	if parent.cb_checked:
 		if style: # style is not False
-			style += '\n\nQCheckBox:checked {'
+			style += '\n\nQCheckBox:checked {\n'
 		else:
-			style = '\n\nQCheckBox:checked {'
+			style = '\n\nQCheckBox:checked {\n'
 
 		#color
 		if parent.cb_fg_color_sel_checked:
@@ -221,9 +221,9 @@ def create_stylesheet(parent):
 	# QCheckBox disabled pseudo-state
 	if parent.cb_disabled:
 		if style: # style is not False
-			style += '\n\nQCheckBox:disabled {'
+			style += '\n\nQCheckBox:disabled {\n'
 		else:
-			style = '\n\nQCheckBox:disabled {'
+			style = '\n\nQCheckBox:disabled {\n'
 
 		# color
 		if parent.cb_fg_color_sel_disabled:

@@ -127,9 +127,9 @@ def create_stylesheet(parent):
 	if parent.pb_hover:
 		# color
 		if style: # style is not False
-			style += '\n\nQPushButton:hover {'
+			style += '\n\nQPushButton:hover {\n'
 		else:
-			style = '\n\nQPushButton:hover {'
+			style = '\n\nQPushButton:hover {\n'
 
 		if parent.pb_fg_color_sel_hover:
 			style += f'\tcolor: {parent.pb_fg_color_sel_hover};\n'
@@ -153,9 +153,9 @@ def create_stylesheet(parent):
 	# color
 	if parent.pb_pressed:
 		if style: # style is not False
-			style += '\n\nQPushButton:pressed {'
+			style += '\n\nQPushButton:pressed {\n'
 		else:
-			style = '\n\nQPushButton:pressed {'
+			style = '\n\nQPushButton:pressed {\n'
 
 		if parent.pb_fg_color_sel_pressed:
 			style += f'\tcolor: {parent.pb_fg_color_sel_pressed};\n'
@@ -178,9 +178,9 @@ def create_stylesheet(parent):
 	# QPushButton checked pseudo-state
 	if parent.pb_checked:
 		if style: # style is not False
-			style += '\n\nQPushButton:checked {'
+			style += '\n\nQPushButton:checked {\n'
 		else:
-			style = '\n\nQPushButton:checked {'
+			style = '\n\nQPushButton:checked {\n'
 
 		#color
 		if parent.pb_fg_color_sel_checked:
@@ -204,9 +204,9 @@ def create_stylesheet(parent):
 	# QPushButton disabled pseudo-state
 	if parent.pb_disabled:
 		if style: # style is not False
-			style += '\n\nQPushButton:disabled {'
+			style += '\n\nQPushButton:disabled {\n'
 		else:
-			style = '\n\nQPushButton:disabled {'
+			style = '\n\nQPushButton:disabled {\n'
 
 		# color
 		if parent.pb_fg_color_sel_disabled:

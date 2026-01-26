@@ -144,9 +144,9 @@ def create_stylesheet(parent):
 	if parent.rb_hover:
 		# color
 		if style: # style is not False
-			style += '\n\nQRadioButton:hover {'
+			style += '\n\nQRadioButton:hover {\n'
 		else:
-			style = '\n\nQRadioButton:hover {'
+			style = '\n\nQRadioButton:hover {\n'
 
 		if parent.rb_fg_color_sel_hover:
 			style += f'\tcolor: {parent.rb_fg_color_sel_hover};\n'
@@ -170,9 +170,9 @@ def create_stylesheet(parent):
 	# color
 	if parent.rb_pressed:
 		if style: # style is not False
-			style += '\n\nQRadioButton:pressed {'
+			style += '\n\nQRadioButton:pressed {\n'
 		else:
-			style = '\n\nQRadioButton:pressed {'
+			style = '\n\nQRadioButton:pressed {\n'
 
 		if parent.rb_fg_color_sel_pressed:
 			style += f'\tcolor: {parent.rb_fg_color_sel_pressed};\n'
@@ -195,9 +195,9 @@ def create_stylesheet(parent):
 	# QRadioButton checked pseudo-state
 	if parent.rb_checked:
 		if style: # style is not False
-			style += '\n\nQRadioButton:checked {'
+			style += '\n\nQRadioButton:checked {\n'
 		else:
-			style = '\n\nQRadioButton:checked {'
+			style = '\n\nQRadioButton:checked {\n'
 
 		#color
 		if parent.rb_fg_color_sel_checked:
@@ -221,9 +221,9 @@ def create_stylesheet(parent):
 	# QRadioButton disabled pseudo-state
 	if parent.rb_disabled:
 		if style: # style is not False
-			style += '\n\nQRadioButton:disabled {'
+			style += '\n\nQRadioButton:disabled {\n'
 		else:
-			style = '\n\nQRadioButton:disabled {'
+			style = '\n\nQRadioButton:disabled {\n'
 
 		# color
 		if parent.rb_fg_color_sel_disabled:

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>936</width>
-    <height>731</height>
+    <width>1000</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,100 +128,38 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_6">
-          <property name="title">
-           <string>Normal</string>
+        <item row="6" column="0">
+         <widget class="QPushButton" name="all_clear_style">
+          <property name="text">
+           <string>Clear all Styles</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_84">
-           <item row="0" column="1">
-            <widget class="QLabel" name="all_fg_color_lb">
-             <property name="minimumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="all_bg_color_lb">
-             <property name="minimumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>27</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="all_fg_color_normal">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Text Color</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-             <property name="qss" stdset="0">
-              <string>color</string>
-             </property>
-             <property name="label" stdset="0">
-              <string>all_fg_color_lb</string>
-             </property>
-             <property name="var" stdset="0">
-              <string>all_fg_color_sel_normal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="all_bg_color_normal">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Background Color</string>
-             </property>
-             <property name="qss" stdset="0">
-              <string>background-color</string>
-             </property>
-             <property name="label" stdset="0">
-              <string>all_bg_color_lb</string>
-             </property>
-             <property name="var" stdset="0">
-              <string>all_bg_color_sel_normal</string>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="all_apply_style">
+          <property name="text">
+           <string>Apply Color Style to All Objects</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="7">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Instructions</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_28">
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextEdit_8">
+             <property name="plainText">
+              <string>Normal: Apply the color to all normal widgets that do not have a color set.
+
+Hover: Apply the color to all widgets when the mouse is hovering over
+
+Checked: Apply the color to all widgets when checked
+
+Disabled: Apply the color to all widgets when disabled
+
+To change a color clear the color by selecting Text or Background color then cancel or press Clear all Styles</string>
              </property>
             </widget>
            </item>
@@ -328,62 +266,105 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="1" rowspan="9">
-         <widget class="QGroupBox" name="groupBox">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_6">
           <property name="title">
-           <string>Instructions</string>
+           <string>Normal</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_28">
-           <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit_8">
-             <property name="plainText">
-              <string>Normal: Apply the color to all normal widgets that do not have a color set.
-
-Hover: Apply the color to all widgets when the mouse is hovering over
-
-Checked: Apply the color to all widgets when checked
-
-Disabled: Apply the color to all widgets when disabled
-
-To change a color clear the color by selecting Text or Background color then cancel or press Clear all Styles</string>
+          <layout class="QGridLayout" name="gridLayout_84">
+           <item row="0" column="1">
+            <widget class="QLabel" name="all_fg_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="all_bg_color_lb">
+             <property name="minimumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="all_fg_color_normal">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Text Color</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="qss" stdset="0">
+              <string>color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>all_fg_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>all_fg_color_sel_normal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="all_bg_color_normal">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Background Color</string>
+             </property>
+             <property name="qss" stdset="0">
+              <string>background-color</string>
+             </property>
+             <property name="label" stdset="0">
+              <string>all_bg_color_lb</string>
+             </property>
+             <property name="var" stdset="0">
+              <string>all_bg_color_sel_normal</string>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
-        </item>
-        <item row="7" column="0">
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="4" column="0">
-         <widget class="QPushButton" name="all_apply_style">
-          <property name="text">
-           <string>Apply Color Style to All Objects</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="2" column="0">
          <widget class="QGroupBox" name="groupBox_46">
@@ -485,19 +466,18 @@ To change a color clear the color by selecting Text or Background color then can
           </layout>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QPushButton" name="launch_sample_pb">
-          <property name="text">
-           <string>Launch Sample GUI</string>
+        <item row="5" column="0">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-         </widget>
-        </item>
-        <item row="8" column="0">
-         <widget class="QPushButton" name="all_clear_style">
-          <property name="text">
-           <string>Clear all Styles</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -10744,6 +10724,45 @@ for all</string>
       </widget>
      </widget>
     </item>
+    <item>
+     <widget class="QFrame" name="frame_7">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="launch_sample_pb">
+         <property name="text">
+          <string>Launch Sample GUI</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="save_qss_pb">
+         <property name="text">
+          <string>Save QSS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -10751,7 +10770,7 @@ for all</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>936</width>
+     <width>1000</width>
      <height>24</height>
     </rect>
    </property>
