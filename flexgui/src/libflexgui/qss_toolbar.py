@@ -88,7 +88,7 @@ def tbar_create_stylesheet(parent):
 	# check for toolbutton style set
 	if parent.sender().objectName() == 'tbar_apply_style':
 		if parent.tb_normal:
-			style += qss_toolbutton.tb_create_stylesheet(parent)
+			style += qss_toolbutton.create_stylesheet(parent)
 
 	parent.tbar_stylesheet.clear()
 	if style:
