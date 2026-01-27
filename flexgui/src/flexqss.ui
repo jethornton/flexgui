@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <property name="contrast_label" stdset="0">
        <string/>
@@ -484,6 +484,788 @@ To change a color clear the color by selecting Text or Background color then can
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>Containers</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_98">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTabWidget" name="tabWidget_2">
+          <property name="minimumSize">
+           <size>
+            <width>455</width>
+            <height>287</height>
+           </size>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tabWidget_2Page1_2">
+           <attribute name="title">
+            <string>Main Window</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_104">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="mw_fg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Text Color</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="qss" stdset="0">
+               <string>color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>mw_fg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>mw_fg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="mw_fg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="mw_bg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="qss" stdset="0">
+               <string>background-color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>mw_bg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>mw_bg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="mw_bg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="mw_apply_style">
+              <property name="text">
+               <string>Apply Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="mw_clear_style">
+              <property name="text">
+               <string>Clear Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="4">
+             <widget class="QLabel" name="label_223">
+              <property name="text">
+               <string>The QMainWindow style is being shown on a QLabel
+to see the actual from the All tab
+click on Launch Sample GUI</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4" rowspan="4">
+             <widget class="QPlainTextEdit" name="mw_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QGroupBox" name="groupBox_50">
+              <property name="title">
+               <string>Border</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_99">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_220">
+                 <property name="text">
+                  <string>Border Type</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="mw_border_type_normal"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_221">
+                 <property name="text">
+                  <string>Border Width</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="mw_border_width_normal">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_222">
+                 <property name="text">
+                  <string>Border Radius</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QSpinBox" name="mw_border_radius_normal">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="mw_border_color_normal">
+                 <property name="text">
+                  <string>Border Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>mw_border_color_normal_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>mw_border_color_sel_normal</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLabel" name="mw_border_color_normal_lb">
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="3">
+             <widget class="QTabWidget" name="tabWidget_21">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <widget class="QWidget" name="tab_59">
+               <attribute name="title">
+                <string>Padding</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_101">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_224">
+                  <property name="text">
+                   <string>Right Padding</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_225">
+                  <property name="text">
+                   <string>Bottom Padding</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QSpinBox" name="mw_padding_bottom_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_226">
+                  <property name="text">
+                   <string>All Padding</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QSpinBox" name="mw_padding_top_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_227">
+                  <property name="text">
+                   <string>Left Padding</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="mw_padding_right_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="mw_padding_left_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="mw_padding_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_228">
+                  <property name="text">
+                   <string>Top Padding</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_60">
+               <attribute name="title">
+                <string>Margin</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_103">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_229">
+                  <property name="text">
+                   <string>All Margin</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="mw_margin_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_230">
+                  <property name="text">
+                   <string>Left Margin</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="mw_margin_left_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_231">
+                  <property name="text">
+                   <string>Right Margin</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="mw_margin_right_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_232">
+                  <property name="text">
+                   <string>Top Margin</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QSpinBox" name="mw_margin_top_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_233">
+                  <property name="text">
+                   <string>Bottom Margin</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QSpinBox" name="mw_margin_bottom_normal">
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="3" colspan="2">
+             <widget class="QFrame" name="mw_frame">
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Plain</enum>
+              </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_29">
+               <item>
+                <widget class="QLabel" name="label_217">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>18</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_57">
+           <attribute name="title">
+            <string>Tab Widget</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tab_58">
+           <attribute name="title">
+            <string>Stacked Widget</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tab_54">
+           <attribute name="title">
+            <string>Frame</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_102">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="fr_fg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Text Color</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="qss" stdset="0">
+               <string>color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>fr_fg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>fr_fg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="fr_fg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="4">
+             <widget class="QPlainTextEdit" name="fr_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="fr_bg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="qss" stdset="0">
+               <string>background-color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>fr_bg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>fr_bg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="fr_bg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="fr_apply_style">
+              <property name="text">
+               <string>Apply Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="fr_clear_style">
+              <property name="text">
+               <string>Clear Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QFrame" name="fr_frame">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_30">
+               <item>
+                <widget class="QLabel" name="label_218">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>18</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_55">
+           <attribute name="title">
+            <string>Group Box</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_100">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="gb_fg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Text Color</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="qss" stdset="0">
+               <string>color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>gb_fg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>gb_fg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="gb_fg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="4">
+             <widget class="QPlainTextEdit" name="gb_stylesheet">
+              <property name="tabStopDistance">
+               <double>40.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="gb_bg_color_normal">
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="qss" stdset="0">
+               <string>background-color</string>
+              </property>
+              <property name="label" stdset="0">
+               <string>gb_bg_color_lb</string>
+              </property>
+              <property name="var" stdset="0">
+               <string>gb_bg_color_sel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="gb_bg_color_lb">
+              <property name="minimumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="gb_apply_style">
+              <property name="text">
+               <string>Apply Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="gb_clear_style">
+              <property name="text">
+               <string>Clear Style</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QGroupBox" name="gb_groupbox">
+              <property name="title">
+               <string>Group Box</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_31">
+               <item>
+                <widget class="QLabel" name="label_219">
+                 <property name="font">
+                  <font>
+                   <family>FreeSans</family>
+                   <pointsize>18</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_56">
+           <attribute name="title">
+            <string>Widget</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Button</string>
@@ -583,6 +1365,13 @@ Border needs both width and color to show up</string>
          <widget class="QCheckBox" name="pb_disable">
           <property name="text">
            <string>Disable</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QPushButton" name="pb_clear_style">
+          <property name="text">
+           <string>Clear Style</string>
           </property>
          </widget>
         </item>
@@ -1141,26 +1930,27 @@ Border needs both width and color to show up</string>
           </widget>
           <widget class="QWidget" name="tab_17">
            <attribute name="title">
-            <string>States</string>
+            <string>Checked and Pressed</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_3">
-            <item row="0" column="0">
-             <widget class="QGroupBox" name="groupBox_14">
+            <item row="0" column="0" colspan="2">
+             <widget class="QGroupBox" name="groupBox_23">
               <property name="title">
-               <string>Hover</string>
+               <string>Checked</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_6">
-               <item row="2" column="1">
-                <widget class="QComboBox" name="pb_border_type_hover"/>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="pb_bg_color_hover_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
+              <layout class="QGridLayout" name="gridLayout_41">
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_93">
+                 <property name="text">
+                  <string>Border Radius</string>
                  </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="pb_border_color_checked_lb">
                  <property name="maximumSize">
                   <size>
                    <width>27</width>
@@ -1179,7 +1969,7 @@ Border needs both width and color to show up</string>
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="label_18">
+                <widget class="QLabel" name="label_91">
                  <property name="text">
                   <string>Border Type</string>
                  </property>
@@ -1188,54 +1978,8 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pb_bg_color_hover">
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_bg_color_hover_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_bg_color_sel_hover</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QSpinBox" name="pb_border_radius_hover">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_37">
-                 <property name="text">
-                  <string>Border Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_38">
-                 <property name="text">
-                  <string>Border Radius</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="pb_text_color_hover_lb">
+               <item row="0" column="3">
+                <widget class="QLabel" name="pb_bg_color_checked_lb">
                  <property name="minimumSize">
                   <size>
                    <width>27</width>
@@ -1259,18 +2003,62 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="pb_border_width_hover">
-                 <property name="maximum">
-                  <number>100</number>
+               <item row="5" column="0">
+                <widget class="QPushButton" name="pb_border_color_checked">
+                 <property name="text">
+                  <string>Border Color</string>
                  </property>
-                 <property name="value">
-                  <number>0</number>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_border_color_checked_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_border_color_sel_checked</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_92">
+                 <property name="text">
+                  <string>Border Width</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pb_bg_color_checked">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_bg_color_checked_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_bg_color_sel_checked</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_fg_color_sel_checked</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_checked_lb</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QPushButton" name="pb_fg_color_hover">
+                <widget class="QPushButton" name="pb_fg_color_checked">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
                  <property name="text">
                   <string>Text Color</string>
                  </property>
@@ -1281,159 +2069,21 @@ Border needs both width and color to show up</string>
                   <string>color</string>
                  </property>
                  <property name="label" stdset="0">
-                  <string>pb_text_color_hover_lb</string>
+                  <string>pb_fg_color_checked_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>pb_fg_color_sel_hover</string>
+                  <string>pb_fg_color_sel_checked</string>
                  </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="pb_border_color_hover">
-                 <property name="text">
-                  <string>Border Color</string>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_bg_color_sel_checked</string>
                  </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_border_color_hover_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_border_color_sel_hover</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="pb_border_color_hover_lb">
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QGroupBox" name="groupBox_7">
-              <property name="title">
-               <string>Disabled</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_7">
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pb_bg_color_disabled">
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_bg_color_disabled_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_bg_color_sel_disabled</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="pb_border_width_disabled">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_52">
-                 <property name="text">
-                  <string>Border Radius</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QSpinBox" name="pb_border_radius_disabled">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QPushButton" name="pb_fg_color_disabled">
-                 <property name="text">
-                  <string>Text Color</string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_text_color_disabled_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_fg_color_sel_disabled</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_51">
-                 <property name="text">
-                  <string>Border Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="pb_bg_color_disabled_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_checked_lb</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLabel" name="pb_text_color_disabled_lb">
+                <widget class="QLabel" name="pb_fg_color_checked_lb">
                  <property name="minimumSize">
                   <size>
                    <width>27</width>
@@ -1457,58 +2107,40 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_50">
+               <item row="0" column="4">
+                <widget class="QLabel" name="pb_contrast_checked_lb">
                  <property name="text">
-                  <string>Border Type</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  <string>Contrast Ratio N/A</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="pb_border_type_disabled"/>
+               <item row="2" column="2">
+                <widget class="QComboBox" name="pb_border_type_checked"/>
                </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="pb_border_color_disabled">
-                 <property name="text">
-                  <string>Border Color</string>
+               <item row="3" column="2">
+                <widget class="QSpinBox" name="pb_border_width_checked">
+                 <property name="maximum">
+                  <number>100</number>
                  </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_border_color_disabled_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_border_color_sel_disabled</string>
+                 <property name="value">
+                  <number>0</number>
                  </property>
                 </widget>
                </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="pb_border_color_disabled_lb">
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
+               <item row="4" column="2">
+                <widget class="QSpinBox" name="pb_border_radius_checked">
+                 <property name="maximum">
+                  <number>100</number>
                  </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
+                 <property name="value">
+                  <number>0</number>
                  </property>
                 </widget>
                </item>
               </layout>
              </widget>
             </item>
-            <item row="2" column="0">
+            <item row="2" column="0" colspan="2">
              <widget class="QGroupBox" name="groupBox_6">
               <property name="title">
                <string>Pressed</string>
@@ -1534,15 +2166,11 @@ Border needs both width and color to show up</string>
                  <property name="var" stdset="0">
                   <string>pb_fg_color_sel_pressed</string>
                  </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="pb_border_width_pressed">
-                 <property name="maximum">
-                  <number>100</number>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_bg_color_sel_pressed</string>
                  </property>
-                 <property name="value">
-                  <number>0</number>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_pressed_lb</string>
                  </property>
                 </widget>
                </item>
@@ -1556,30 +2184,23 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <widget class="QSpinBox" name="pb_border_radius_pressed">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_43">
+               <item row="5" column="0">
+                <widget class="QPushButton" name="pb_border_color_pressed">
                  <property name="text">
-                  <string>Border Type</string>
+                  <string>Border Color</string>
                  </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_border_color_pressed_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_border_color_sel_pressed</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="pb_border_type_pressed"/>
-               </item>
-               <item row="1" column="0">
+               <item row="0" column="2">
                 <widget class="QPushButton" name="pb_bg_color_pressed">
                  <property name="toolTip">
                   <string/>
@@ -1596,6 +2217,41 @@ Border needs both width and color to show up</string>
                  <property name="var" stdset="0">
                   <string>pb_bg_color_sel_pressed</string>
                  </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_fg_color_sel_pressed</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_pressed_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_43">
+                 <property name="text">
+                  <string>Border Type</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="pb_border_color_pressed_lb">
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
                 </widget>
                </item>
                <item row="3" column="0">
@@ -1605,6 +2261,31 @@ Border needs both width and color to show up</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="pb_bg_color_pressed_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
@@ -1633,115 +2314,18 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="pb_bg_color_pressed_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
+               <item row="0" column="4">
+                <widget class="QLabel" name="pb_contrast_pressed_lb">
                  <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
+                  <string>Contrast Ratio N/A</string>
                  </property>
                 </widget>
                </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="pb_border_color_pressed">
-                 <property name="text">
-                  <string>Border Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_border_color_pressed_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_border_color_sel_pressed</string>
-                 </property>
-                </widget>
+               <item row="2" column="2">
+                <widget class="QComboBox" name="pb_border_type_pressed"/>
                </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="pb_border_color_pressed_lb">
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QGroupBox" name="groupBox_23">
-              <property name="title">
-               <string>Checked</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_41">
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_91">
-                 <property name="text">
-                  <string>Border Type</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="pb_border_type_checked"/>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="pb_fg_color_checked_lb">
-                 <property name="minimumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="pb_border_width_checked">
+               <item row="3" column="2">
+                <widget class="QSpinBox" name="pb_border_width_pressed">
                  <property name="maximum">
                   <number>100</number>
                  </property>
@@ -1750,40 +2334,83 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pb_bg_color_checked">
-                 <property name="toolTip">
-                  <string/>
+               <item row="4" column="2">
+                <widget class="QSpinBox" name="pb_border_radius_pressed">
+                 <property name="maximum">
+                  <number>100</number>
                  </property>
-                 <property name="text">
-                  <string>Background Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>background-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_bg_color_checked_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_bg_color_sel_checked</string>
+                 <property name="value">
+                  <number>0</number>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_93">
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_61">
+           <attribute name="title">
+            <string>Hover and Disabled</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_32">
+            <item>
+             <widget class="QGroupBox" name="groupBox_14">
+              <property name="title">
+               <string>Hover</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_6">
+               <item row="2" column="2">
+                <widget class="QComboBox" name="pb_border_type_hover"/>
+               </item>
+               <item row="3" column="2">
+                <widget class="QSpinBox" name="pb_border_width_hover">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_37">
                  <property name="text">
-                  <string>Border Radius</string>
+                  <string>Border Width</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QPushButton" name="pb_fg_color_checked">
-                 <property name="toolTip">
-                  <string/>
+               <item row="5" column="0">
+                <widget class="QPushButton" name="pb_border_color_hover">
+                 <property name="text">
+                  <string>Border Color</string>
                  </property>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_border_color_hover_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_border_color_sel_hover</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="2">
+                <widget class="QSpinBox" name="pb_border_radius_hover">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="pb_fg_color_hover">
                  <property name="text">
                   <string>Text Color</string>
                  </property>
@@ -1794,15 +2421,40 @@ Border needs both width and color to show up</string>
                   <string>color</string>
                  </property>
                  <property name="label" stdset="0">
-                  <string>pb_fg_color_checked_lb</string>
+                  <string>pb_text_color_hover_lb</string>
                  </property>
                  <property name="var" stdset="0">
-                  <string>pb_fg_color_sel_checked</string>
+                  <string>pb_fg_color_sel_hover</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_bg_color_sel_hover</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_hover_lb</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="pb_bg_color_checked_lb">
+               <item row="5" column="1">
+                <widget class="QLabel" name="pb_border_color_hover_lb">
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="pb_text_color_hover_lb">
                  <property name="minimumSize">
                   <size>
                    <width>27</width>
@@ -1826,44 +2478,14 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <widget class="QSpinBox" name="pb_border_radius_checked">
-                 <property name="maximum">
-                  <number>100</number>
+               <item row="0" column="3">
+                <widget class="QLabel" name="pb_bg_color_hover_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
                  </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_92">
-                 <property name="text">
-                  <string>Border Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="pb_border_color_checked">
-                 <property name="text">
-                  <string>Border Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>pb_border_color_checked_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>pb_border_color_sel_checked</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="pb_border_color_checked_lb">
                  <property name="maximumSize">
                   <size>
                    <width>27</width>
@@ -1881,18 +2503,261 @@ Border needs both width and color to show up</string>
                  </property>
                 </widget>
                </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_38">
+                 <property name="text">
+                  <string>Border Radius</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pb_bg_color_hover">
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_bg_color_hover_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_bg_color_sel_hover</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_fg_color_sel_hover</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_hover_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_18">
+                 <property name="text">
+                  <string>Border Type</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="pb_contrast_hover_lb">
+                 <property name="text">
+                  <string>Contrast Ratio N/A</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_7">
+              <property name="title">
+               <string>Disabled</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_7">
+               <item row="5" column="1">
+                <widget class="QLabel" name="pb_border_color_disabled_lb">
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="pb_fg_color_disabled">
+                 <property name="text">
+                  <string>Text Color</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_text_color_disabled_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_fg_color_sel_disabled</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_bg_color_sel_disabled</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_disabled_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_50">
+                 <property name="text">
+                  <string>Border Type</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_51">
+                 <property name="text">
+                  <string>Border Width</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_52">
+                 <property name="text">
+                  <string>Border Radius</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QPushButton" name="pb_border_color_disabled">
+                 <property name="text">
+                  <string>Border Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>border-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_border_color_disabled_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_border_color_sel_disabled</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="pb_text_color_disabled_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pb_bg_color_disabled">
+                 <property name="text">
+                  <string>Background Color</string>
+                 </property>
+                 <property name="qss" stdset="0">
+                  <string>background-color</string>
+                 </property>
+                 <property name="label" stdset="0">
+                  <string>pb_bg_color_disabled_lb</string>
+                 </property>
+                 <property name="var" stdset="0">
+                  <string>pb_bg_color_sel_disabled</string>
+                 </property>
+                 <property name="contrast_var" stdset="0">
+                  <string>pb_fg_color_sel_disabled</string>
+                 </property>
+                 <property name="contrast_label" stdset="0">
+                  <string>pb_contrast_disabled_lb</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="pb_bg_color_disabled_lb">
+                 <property name="minimumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>27</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="pb_contrast_disabled_lb">
+                 <property name="text">
+                  <string>Contrast Ratio N/A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2">
+                <widget class="QComboBox" name="pb_border_type_disabled"/>
+               </item>
+               <item row="3" column="2">
+                <widget class="QSpinBox" name="pb_border_width_disabled">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="2">
+                <widget class="QSpinBox" name="pb_border_radius_disabled">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>0</number>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
            </layout>
           </widget>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QPushButton" name="pb_clear_style">
-          <property name="text">
-           <string>Clear Style</string>
-          </property>
          </widget>
         </item>
        </layout>
@@ -4956,7 +5821,26 @@ Border needs both width and color to show up</string>
               <string>Color</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_69">
-              <item row="0" column="2">
+              <item row="1" column="1">
+               <widget class="QPushButton" name="tbar_bg_color_normal">
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="text">
+                 <string>Background Color</string>
+                </property>
+                <property name="qss" stdset="0">
+                 <string>background</string>
+                </property>
+                <property name="label" stdset="0">
+                 <string>toolbar_bg_color_lb</string>
+                </property>
+                <property name="var" stdset="0">
+                 <string>toolbar_bg_sel_color</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
                <widget class="QLabel" name="toolbar_bg_color_lb">
                 <property name="minimumSize">
                  <size>
@@ -4981,22 +5865,12 @@ Border needs both width and color to show up</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="tbar_bg_color_normal">
-                <property name="toolTip">
-                 <string/>
-                </property>
+              <item row="0" column="1" colspan="2">
+               <widget class="QLabel" name="label_234">
                 <property name="text">
-                 <string>Background Color</string>
-                </property>
-                <property name="qss" stdset="0">
-                 <string>background</string>
-                </property>
-                <property name="label" stdset="0">
-                 <string>toolbar_bg_color_lb</string>
-                </property>
-                <property name="var" stdset="0">
-                 <string>toolbar_bg_sel_color</string>
+                 <string>The Toolbar only has
+background color.
+The Toolbutton has both</string>
                 </property>
                </widget>
               </item>
@@ -9076,788 +9950,6 @@ Standard 4.5:1 text contrast ratio for active controls</string>
           <property name="text">
            <string>Clear Style</string>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_10">
-       <attribute name="title">
-        <string>Containers</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_98">
-        <item row="0" column="0" colspan="2">
-         <widget class="QTabWidget" name="tabWidget_2">
-          <property name="minimumSize">
-           <size>
-            <width>455</width>
-            <height>287</height>
-           </size>
-          </property>
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <widget class="QWidget" name="tabWidget_2Page1_2">
-           <attribute name="title">
-            <string>Main Window</string>
-           </attribute>
-           <layout class="QGridLayout" name="gridLayout_104">
-            <item row="0" column="0">
-             <widget class="QPushButton" name="mw_fg_color_normal">
-              <property name="toolTip">
-               <string/>
-              </property>
-              <property name="text">
-               <string>Text Color</string>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
-              </property>
-              <property name="qss" stdset="0">
-               <string>color</string>
-              </property>
-              <property name="label" stdset="0">
-               <string>mw_fg_color_lb</string>
-              </property>
-              <property name="var" stdset="0">
-               <string>mw_fg_color_sel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="mw_fg_color_lb">
-              <property name="minimumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="mw_bg_color_normal">
-              <property name="toolTip">
-               <string/>
-              </property>
-              <property name="text">
-               <string>Background Color</string>
-              </property>
-              <property name="qss" stdset="0">
-               <string>background-color</string>
-              </property>
-              <property name="label" stdset="0">
-               <string>mw_bg_color_lb</string>
-              </property>
-              <property name="var" stdset="0">
-               <string>mw_bg_color_sel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="mw_bg_color_lb">
-              <property name="minimumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="mw_apply_style">
-              <property name="text">
-               <string>Apply Style</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="mw_clear_style">
-              <property name="text">
-               <string>Clear Style</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="4">
-             <widget class="QLabel" name="label_223">
-              <property name="text">
-               <string>The QMainWindow style is being shown on a QLabel
-to see the actual from the All tab
-click on Launch Sample GUI</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4" rowspan="4">
-             <widget class="QPlainTextEdit" name="mw_stylesheet">
-              <property name="tabStopDistance">
-               <double>40.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QGroupBox" name="groupBox_50">
-              <property name="title">
-               <string>Border</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_99">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_220">
-                 <property name="text">
-                  <string>Border Type</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QComboBox" name="mw_border_type_normal"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_221">
-                 <property name="text">
-                  <string>Border Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="mw_border_width_normal">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_222">
-                 <property name="text">
-                  <string>Border Radius</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QSpinBox" name="mw_border_radius_normal">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QPushButton" name="mw_border_color_normal">
-                 <property name="text">
-                  <string>Border Color</string>
-                 </property>
-                 <property name="qss" stdset="0">
-                  <string>border-color</string>
-                 </property>
-                 <property name="label" stdset="0">
-                  <string>mw_border_color_normal_lb</string>
-                 </property>
-                 <property name="var" stdset="0">
-                  <string>mw_border_color_sel_normal</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLabel" name="mw_border_color_normal_lb">
-                 <property name="maximumSize">
-                  <size>
-                   <width>27</width>
-                   <height>27</height>
-                  </size>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Box</enum>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="3" column="0" colspan="3">
-             <widget class="QTabWidget" name="tabWidget_21">
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <widget class="QWidget" name="tab_59">
-               <attribute name="title">
-                <string>Padding</string>
-               </attribute>
-               <layout class="QGridLayout" name="gridLayout_101">
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_224">
-                  <property name="text">
-                   <string>Right Padding</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_225">
-                  <property name="text">
-                   <string>Bottom Padding</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QSpinBox" name="mw_padding_bottom_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_226">
-                  <property name="text">
-                   <string>All Padding</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSpinBox" name="mw_padding_top_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_227">
-                  <property name="text">
-                   <string>Left Padding</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QSpinBox" name="mw_padding_right_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QSpinBox" name="mw_padding_left_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSpinBox" name="mw_padding_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_228">
-                  <property name="text">
-                   <string>Top Padding</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-              <widget class="QWidget" name="tab_60">
-               <attribute name="title">
-                <string>Margin</string>
-               </attribute>
-               <layout class="QGridLayout" name="gridLayout_103">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_229">
-                  <property name="text">
-                   <string>All Margin</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSpinBox" name="mw_margin_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_230">
-                  <property name="text">
-                   <string>Left Margin</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QSpinBox" name="mw_margin_left_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_231">
-                  <property name="text">
-                   <string>Right Margin</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QSpinBox" name="mw_margin_right_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_232">
-                  <property name="text">
-                   <string>Top Margin</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSpinBox" name="mw_margin_top_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_233">
-                  <property name="text">
-                   <string>Bottom Margin</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QSpinBox" name="mw_margin_bottom_normal">
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-            <item row="0" column="2" rowspan="3" colspan="2">
-             <widget class="QFrame" name="mw_frame">
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
-              <property name="lineWidth">
-               <number>2</number>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_29">
-               <item>
-                <widget class="QLabel" name="label_217">
-                 <property name="font">
-                  <font>
-                   <family>FreeSans</family>
-                   <pointsize>18</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Label</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_57">
-           <attribute name="title">
-            <string>Tab Widget</string>
-           </attribute>
-          </widget>
-          <widget class="QWidget" name="tab_58">
-           <attribute name="title">
-            <string>Stacked Widget</string>
-           </attribute>
-          </widget>
-          <widget class="QWidget" name="tab_54">
-           <attribute name="title">
-            <string>Frame</string>
-           </attribute>
-           <layout class="QGridLayout" name="gridLayout_102">
-            <item row="0" column="0">
-             <widget class="QPushButton" name="fr_fg_color_normal">
-              <property name="toolTip">
-               <string/>
-              </property>
-              <property name="text">
-               <string>Text Color</string>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
-              </property>
-              <property name="qss" stdset="0">
-               <string>color</string>
-              </property>
-              <property name="label" stdset="0">
-               <string>fr_fg_color_lb</string>
-              </property>
-              <property name="var" stdset="0">
-               <string>fr_fg_color_sel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="fr_fg_color_lb">
-              <property name="minimumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2" rowspan="4">
-             <widget class="QPlainTextEdit" name="fr_stylesheet">
-              <property name="tabStopDistance">
-               <double>40.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="fr_bg_color_normal">
-              <property name="toolTip">
-               <string/>
-              </property>
-              <property name="text">
-               <string>Background Color</string>
-              </property>
-              <property name="qss" stdset="0">
-               <string>background-color</string>
-              </property>
-              <property name="label" stdset="0">
-               <string>fr_bg_color_lb</string>
-              </property>
-              <property name="var" stdset="0">
-               <string>fr_bg_color_sel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="fr_bg_color_lb">
-              <property name="minimumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="fr_apply_style">
-              <property name="text">
-               <string>Apply Style</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="fr_clear_style">
-              <property name="text">
-               <string>Clear Style</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0" colspan="2">
-             <widget class="QFrame" name="fr_frame">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_30">
-               <item>
-                <widget class="QLabel" name="label_218">
-                 <property name="font">
-                  <font>
-                   <family>FreeSans</family>
-                   <pointsize>18</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Label</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_55">
-           <attribute name="title">
-            <string>Group Box</string>
-           </attribute>
-           <layout class="QGridLayout" name="gridLayout_100">
-            <item row="0" column="0">
-             <widget class="QPushButton" name="gb_fg_color_normal">
-              <property name="toolTip">
-               <string/>
-              </property>
-              <property name="text">
-               <string>Text Color</string>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
-              </property>
-              <property name="qss" stdset="0">
-               <string>color</string>
-              </property>
-              <property name="label" stdset="0">
-               <string>gb_fg_color_lb</string>
-              </property>
-              <property name="var" stdset="0">
-               <string>gb_fg_color_sel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="gb_fg_color_lb">
-              <property name="minimumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2" rowspan="4">
-             <widget class="QPlainTextEdit" name="gb_stylesheet">
-              <property name="tabStopDistance">
-               <double>40.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="gb_bg_color_normal">
-              <property name="toolTip">
-               <string/>
-              </property>
-              <property name="text">
-               <string>Background Color</string>
-              </property>
-              <property name="qss" stdset="0">
-               <string>background-color</string>
-              </property>
-              <property name="label" stdset="0">
-               <string>gb_bg_color_lb</string>
-              </property>
-              <property name="var" stdset="0">
-               <string>gb_bg_color_sel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="gb_bg_color_lb">
-              <property name="minimumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>27</width>
-                <height>27</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QPushButton" name="gb_apply_style">
-              <property name="text">
-               <string>Apply Style</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="gb_clear_style">
-              <property name="text">
-               <string>Clear Style</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0" colspan="2">
-             <widget class="QGroupBox" name="gb_groupbox">
-              <property name="title">
-               <string>Group Box</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_31">
-               <item>
-                <widget class="QLabel" name="label_219">
-                 <property name="font">
-                  <font>
-                   <family>FreeSans</family>
-                   <pointsize>18</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Label</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_56">
-           <attribute name="title">
-            <string>Widget</string>
-           </attribute>
-          </widget>
          </widget>
         </item>
        </layout>
