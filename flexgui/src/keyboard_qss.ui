@@ -474,6 +474,8 @@ Confucius</string>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="actionExit"/>
+    <addaction name="separator"/>
+    <addaction name="actionDisabled"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -491,6 +493,7 @@ Confucius</string>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
    <addaction name="actionSave_As"/>
+   <addaction name="actionDisabled"/>
    <addaction name="actionExit"/>
   </widget>
   <action name="actionOpen">
@@ -511,6 +514,14 @@ Confucius</string>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionDisabled">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Disabled</string>
    </property>
   </action>
  </widget>

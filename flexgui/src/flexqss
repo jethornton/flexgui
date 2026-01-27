@@ -95,7 +95,7 @@ class main(QMainWindow):
 	def color_dialog(self):
 		obj = self.sender().objectName().split('_')[0]
 		state = self.sender().objectName().split('_')[-1]
-		prop = self.sender().property('qss')
+		# prop = self.sender().property('qss') FIXME not used as far as I can tell
 		variable = self.sender().property('var')
 		contrast_variable = self.sender().property('contrast_var')
 		contrast_label = self.sender().property('contrast_label')
