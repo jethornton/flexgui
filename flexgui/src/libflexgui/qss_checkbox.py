@@ -32,6 +32,8 @@ def startup(parent):
 		getattr(parent, f'cb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'cb_bg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'cb_border_color_{state}').clicked.connect(parent.color_dialog)
+	parent.cb_indicator_bg_color_normal.clicked.connect(parent.color_dialog)
+	parent.cb_indicator_bg_color = False
 
 	parent.cb_font_picker.clicked.connect(parent.font_dialog)
 	parent.cb_font_family = False
@@ -40,6 +42,9 @@ def startup(parent):
 	parent.cb_font_style = False
 	parent.cb_font_italic = False
 	parent.cb_indicator = False
+	parent.cb_indicator_normal = False
+	parent.cb_indicator_checked = False
+	parent.cb_indicator_unchecked = False
 
 	parent.cb_padding_normal.valueChanged.connect(parent.padding)
 	parent.cb_padding_left_normal.valueChanged.connect(parent.padding)
@@ -55,6 +60,9 @@ def startup(parent):
 
 	parent.cb_indicator_width_normal.valueChanged.connect(parent.indicator)
 	parent.cb_indicator_height_normal.valueChanged.connect(parent.indicator)
+	# FIXME
+	parent.cb_indicator_icon_checked.editingFinished.connect(parent.indicator)
+	parent.cb_indicator_icon_unchecked.editingFinished.connect(parent.indicator)
 
 ######### QCheckBox Stylesheet #########
 
@@ -127,18 +135,45 @@ def create_stylesheet(parent):
 		style += '}' # End of QCheckBox normal pseudo-state
 
 		# QCheckBox indicator sub-control
+		'''
+		cb_indicator_checked_icon
+		QCheckBox::indicator:checked {
+			image: url(images/off_slider_3.png);
+		}
+		cb_indicator_unchecked_icon
+		QCheckBox::indicator:unchecked {
+			image: url(images/off_slider_3.png);
+		}
+		'''
 
 	if parent.cb_indicator:
 		if style: # style is not False
 			style += '\n\nQCheckBox::indicator {\n'
 		else:
-			style = '\tQCheckBox::indicator {\n'
+			style = 'QCheckBox::indicator {\n'
+		if parent.cb_indicator_bg_color:
+			style += f'\tbackground: {parent.cb_indicator_bg_color};\n'
 		if parent.cb_indicator_width_normal.value() > 0:
 			style += f'\twidth: {parent.cb_indicator_width_normal.value()}px;\n'
 		if parent.cb_indicator_height_normal.value() > 0:
 			style += f'\theight: {parent.cb_indicator_height_normal.value()}px;\n'
-
 		style += '}' # End of QCheckBox::indicator
+
+	if parent.cb_indicator_checked:
+		if style: # style is not False
+			style += '\n\nQCheckBox::indicator:checked {\n'
+		else:
+			style = 'QCheckBox::indicator:checked {\n'
+		style += f'\timage: url({parent.cb_indicator_icon_checked.text()});\n'
+		style += '}' # End of QCheckBox::indicator:checked
+
+	if parent.cb_indicator_unchecked:
+		if style: # style is not False
+			style += '\n\nQCheckBox::indicator:unchecked {\n'
+		else:
+			style = 'QCheckBox::indicator:unchecked {\n'
+		style += f'\timage: url({parent.cb_indicator_icon_unchecked.text()});\n'
+		style += '}' # End of QCheckBox::indicator:checked
 
 	# QCheckBox hover pseudo-state
 	if parent.cb_hover:
