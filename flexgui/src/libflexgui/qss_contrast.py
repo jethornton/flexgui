@@ -51,19 +51,3 @@ def calculate_contrast_ratio(color1: QColor, color2: QColor) -> float:
 	contrast = (lighter + 0.05) / (darker + 0.05)
 	return round(contrast, 2)
 
-# --- Example Usage ---
-# Define two colors using QColor
-color_white = QColor('white')
-color_black = QColor('black')
-color_blue = QColor('#0000FF')
-color_yellow = QColor('#FFFF00')
-
-# Calculate the contrast ratios
-contrast1 = calculate_contrast_ratio(color_white, color_black)
-contrast2 = calculate_contrast_ratio(color_black, color_white)
-contrast3 = calculate_contrast_ratio(color_blue, color_yellow)
-
-#print(f"Contrast ratio between White and Black: {contrast1}:1")
-#print(f"Contrast ratio between Blue and White: {contrast2}:1")
-#print(f"Contrast ratio between Blue and Yellow: {contrast3}:1")
-
