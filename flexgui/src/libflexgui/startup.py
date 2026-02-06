@@ -4,7 +4,7 @@ from collections import deque
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
-from PyQt6.QtWidgets import QComboBox, QSlider, QMenu, QToolButton
+from PyQt6.QtWidgets import QSlider, QMenu, QToolButton
 from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox, QRadioButton
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
@@ -1249,6 +1249,7 @@ def setup_status_labels(parent):
 
 	parent.current_tool_info = ()
 
+	# add file name if loaded from the ini
 	if 'file_lb' in parent.child_names:
 		#parent.status.poll()
 		gcode_file = parent.status.file or False
@@ -1528,7 +1529,7 @@ def setup_jog(parent):
 				else:
 					msg = ('The DISPLAY INCREMENTS entry in the ini\n'
 					f'> {item} < is not a valid unit and will not\n'
-					'be used.')
+					'be used. INCREMENTS must be comma seperated.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_jog_selected(parent):
@@ -1900,8 +1901,7 @@ def setup_set_var(parent):
 
 	parent.set_var = {}
 	for child in parent.findChildren(QDoubleSpinBox):
-		prop = child.property('function')
-		if prop == 'set_var':
+		if child.property('function') == 'set_var':
 			var = child.property('variable')
 			found = False
 			if var is not None:
@@ -1911,8 +1911,9 @@ def setup_set_var(parent):
 						found = True
 						child.valueChanged.connect(partial(utilities.var_value_changed, parent))
 						parent.set_var[child.objectName()] = var
-						child.setEnabled(False)
-						parent.home_required.append(child.objectName())
+						if child.property('all_homed'):
+							child.setEnabled(False)
+							parent.home_required.append(child.objectName())
 						break
 				if not found:
 					msg = (f'The variable {var} was not found\n'
@@ -1952,7 +1953,7 @@ def setup_hal(parent):
 	hal_lcds = []
 	hal_leds = []
 	hal_progressbar = []
-	parent.hal_io = {}
+	#parent.hal_io = {}
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
 	parent.hal_io_float = {}
@@ -2394,6 +2395,17 @@ def setup_hal(parent):
 			pin_name = label.property('pin_name')
 			true_text = label.property('true_text')
 			false_text = label.property('false_text')
+			#print(true_text, false_text)
+			if any([true_text, false_text]):
+				if not all([true_text, false_text]):
+					label.setEnabled(False)
+					msg = (f'HAL BOOL LABEL {label_name}\n'
+					'the true text is blank or missing\n'
+					'or the false text is blank or missing\n'
+					'The HAL pin can not be created.\n'
+					f'The {label_name} will be disabled.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					continue
 
 			if pin_name in [None, '']:
 				label.setEnabled(False)
@@ -2413,18 +2425,21 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			hal_type = label.property('hal_type')
-			if hal_type not in valid_types:
-				label.setEnabled(False)
-				msg = (
-				f'{hal_type} is not valid type for a\n'
-				' HAL Label. Valid types are HAL_BIT, \n'
-				'HAL_FLOAT, HAL_S32 or HAL_U32\n'
-				f'The {label_name} label will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
+			if all(x is None for x in [true_text, false_text]):
+				hal_type = label.property('hal_type')
+				if hal_type not in valid_types:
+					label.setEnabled(False)
+					msg = (
+					f'{hal_type} is not valid type for a\n'
+					' HAL Label. Valid types are HAL_BIT, \n'
+					'HAL_FLOAT, HAL_S32 or HAL_U32\n'
+					f'The {label_name} label will be disabled.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+					continue
+				hal_type = getattr(hal, f'{hal_type}')
+			else:
+				hal_type = getattr(hal, 'HAL_BIT')
 
-			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 
 			# Only create the pin if its not already created
@@ -2546,7 +2561,7 @@ def setup_hal(parent):
 
 	##### HAL PROGRESSBAR #####
 	if len(hal_progressbar) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32', 'HAL_FLOAT']
+		valid_types = ['HAL_S32', 'HAL_U32']
 		for progressbar in hal_progressbar:
 			progressbar_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
@@ -2570,6 +2585,7 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
+			'''
 			hal_type = progressbar.property('hal_type')
 			if hal_type not in valid_types:
 				progressbar.setEnabled(False)
@@ -2578,8 +2594,9 @@ def setup_hal(parent):
 				f'The {progressbar_name} progressbar will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
+			'''
 
-			hal_type = getattr(hal, f'{hal_type}')
+			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			# pin = getattr(parent, f'{pin_name}')
@@ -2634,6 +2651,32 @@ def setup_hal(parent):
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.child_names:
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
+
+def setup_hal_io_state(parent):
+	# key is the object name value is the hal pin name
+	for key, value in parent.hal_io_check.items():
+		checked_state = getattr(parent, key).isChecked()
+		#print(f'checked_state {checked_state}')
+		hal_state = getattr(parent.halcomp, value)
+		#print(f'hal_state {hal_state}')
+		if checked_state != hal_state:
+			#getattr(parent, key).setChecked(hal_state)
+			setattr(parent.halcomp, value, checked_state)
+			#print(f'key {key}, value {value}')
+
+	for key, value in parent.hal_io_int.items():
+		obj_value = getattr(parent, key).value()
+		hal_value = getattr(parent.halcomp, value)
+		#print(f'obj_value {obj_value}, hal_value {hal_value}')
+		if obj_value != hal_value:
+			setattr(parent.halcomp, value, obj_value)
+
+	for key, value in parent.hal_io_float.items():
+		obj_value = getattr(parent, key).value()
+		hal_value = getattr(parent.halcomp, value)
+		#print(f'obj_value {obj_value}, hal_value {hal_value}')
+		if obj_value != hal_value:
+			setattr(parent.halcomp, value, obj_value)
 
 def setup_tool_change(parent):
 	if parent.manual_tool_change:

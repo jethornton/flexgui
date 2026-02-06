@@ -1,0 +1,15 @@
+/***** QAbstractSpinBox *****/
+In PyQt6, the subcontrol-origin property is used in stylesheets to define the
+reference rectangle (e.g., margin, border, padding, or content) against which
+the QSpinBox sub-controls (the ::up-button and ::down-button) are positioned.
+Values for subcontrol-origin: margin, border, padding (default), content, frame
+
+/***** QScrollBar *****/
+QScrollBar:vertical: This selector targets the vertical scrollbar itself. Properties here define its overall size and background.
+QScrollBar::handle:vertical: This styles the "thumb" or "slider"—the part you drag to scroll. Key properties include background and min-height.
+QScrollBar::add-line:vertical and QScrollBar::sub-line:vertical: These style the arrow buttons at the ends of the scrollbar.
+
+    subcontrol-position and subcontrol-origin are crucial for placing these buttons correctly at the top/bottom or left/right.
+
+QScrollBar::add-page:vertical and QScrollBar::sub-page:vertical: These refer to the areas above and below the handle. Setting their background to none allows the main scrollbar background to show through.
+:hover pseudo-state: Used to define styles when the mouse cursor is over a specific sub-control, providing visual feedback. 

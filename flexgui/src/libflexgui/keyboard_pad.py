@@ -9,8 +9,8 @@ class keyboard_pad(QDialog):
 		super().__init__()
 
 		loadUi(os.path.join(lib_path, 'keyboard.ui'), self)
-		self.buttonBox.accepted.connect(self.accept)
-		self.buttonBox.rejected.connect(self.reject)
+		self.save_pb.clicked.connect(self.accept)
+		self.cancel_pb.clicked.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)
 		self.space_pb.clicked.connect(self.space)
 		self.backspace_pb.clicked.connect(self.backspace)

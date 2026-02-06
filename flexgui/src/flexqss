@@ -6,8 +6,8 @@ sys.dont_write_bytecode = True
 
 from functools import partial
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog
-from PyQt6.QtWidgets import QRadioButton, QFontDialog, QFileDialog
+from PyQt6.QtWidgets import QApplication, QMainWindow, QColorDialog, QSpinBox
+from PyQt6.QtWidgets import QRadioButton, QFontDialog, QFileDialog, QLineEdit
 from PyQt6.QtGui import QPixmap, QFont, QFontInfo, QColor
 from PyQt6.QtCore import QSignalBlocker
 from PyQt6 import uic
@@ -23,6 +23,7 @@ from libflexgui import qss_spinbox
 from libflexgui import qss_label
 from libflexgui import qss_containers
 from libflexgui import qss_gradient
+from libflexgui import qss_contrast
 
 class example(QMainWindow):
 	def __init__(self):
@@ -36,8 +37,13 @@ class example(QMainWindow):
 			self.gui_path = '/usr/lib/libflexgui'
 		else:
 			self.gui_path = self.path
-		uic.loadUi(os.path.join(self.gui_path, 'qss.ui'), self)
-
+		uic.loadUi(os.path.join(self.gui_path, 'keyboard_qss.ui'), self)
+		list_widget_items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
+		self.enabledLW.addItem('QListWidget Enabled with scroll bars')
+		self.enabledLW.addItems(list_widget_items)
+		self.disabledLW.addItem('QListWidget Disabled')
+		self.disabledLW.addItems(list_widget_items)
+		self.actionExit.triggered.connect(self.close)
 
 class main(QMainWindow):
 	def __init__(self):
@@ -73,6 +79,7 @@ class main(QMainWindow):
 
 	def setup(self):
 		self.launch_sample_pb.clicked.connect(self.launch_sample)
+		self.save_qss_pb.clicked.connect(self.save_as)
 
 		# add box model image to all pages
 		for i in range(7):
@@ -80,16 +87,23 @@ class main(QMainWindow):
 		#self.boxmodel_lb.setPixmap(QPixmap(':/boxmodel.png'))
 
 		# Menu Items
-		self.actionSave_As.triggered.connect(self.save)
+		self.actionSave_As.triggered.connect(self.save_as)
 
 		# setup stylesheet
 		self.stylesheet = ''
 
 	def color_dialog(self):
 		obj = self.sender().objectName().split('_')[0]
+		#print(f'obj {obj}')
 		state = self.sender().objectName().split('_')[-1]
-		prop = self.sender().property('qss')
+		#print(f'state {state}')
+		# prop = self.sender().property('qss') FIXME not used as far as I can tell
 		variable = self.sender().property('var')
+		contrast_variable = self.sender().property('contrast_var')
+		contrast_label = self.sender().property('contrast_label')
+		#print(f'variable {variable}')
+		#print(f'contrast_variable {contrast_variable}')
+		#print(f'contrast variable value {getattr(self, contrast_variable)}')
 		label = self.sender().property('label')
 		#return
 		if getattr(self, variable):
@@ -106,6 +120,16 @@ class main(QMainWindow):
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
 				setattr(self, f'{obj}_{state}', True)
+				#print(f'color {color}')
+				#print(f'color.name() {color.name()}')
+				if contrast_variable:
+					contrast_color = getattr(self, contrast_variable)
+					#print(f'contrast_color {contrast_color}')
+					if contrast_color:
+						contrast_ratio = qss_contrast.calculate_contrast_ratio(color, QColor(contrast_color))
+						#print(f'contrast_ratio {contrast_ratio}')
+						if contrast_label:
+							getattr(self, contrast_label).setText(f'Contrast Ratio {contrast_ratio}:1')
 		else:
 			setattr(self, variable, False)
 			getattr(self, label).setStyleSheet(f'background-color: none;')
@@ -215,9 +239,20 @@ class main(QMainWindow):
 					getattr(self, f'{obj}_margin_bottom_normal').setValue(0)
 
 	def indicator(self):
+		sender = self.sender()
+		name = self.sender().objectName().split('_')
+		var = f'{name[0]}_{name[1]}_{name[-1]}'
 		obj = self.sender().objectName().split('_')[0]
-		if self.sender().value() > 0:
-			setattr(self, f'{obj}_indicator', True)
+		if isinstance(sender, QSpinBox):
+			if sender.value() > 0:
+				setattr(self, f'{obj}_indicator', True)
+			else:
+				setattr(self, f'{obj}_indicator', False)
+		elif isinstance(sender, QLineEdit): # checked/unchecked icon
+			if sender.text() != '':
+				setattr(self, f'{var}', True)
+			else:
+				setattr(self, f'{var}', False)
 
 	def set_checkable(self):
 		checked = self.sender().isChecked()
@@ -282,7 +317,7 @@ class main(QMainWindow):
 			self.stylesheet += '\n/* QLabel Section */\n\n'
 			self.stylesheet += self.lb_stylesheet.toPlainText()
 
-	def save(self):
+	def save_as(self):
 		self.build_stylesheet()
 		file_dialog = QFileDialog()
 		options = QFileDialog.Option.DontUseNativeDialog

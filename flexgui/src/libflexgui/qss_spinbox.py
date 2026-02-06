@@ -221,9 +221,9 @@ def create_stylesheet(parent):
 	# QAbstractSpinBox disabled pseudo-state
 	if parent.sb_disabled:
 		if style: # style is not False
-			style += '\n\nQAbstractSpinBox:disabled {'
+			style += '\n\nQAbstractSpinBox:disabled {\n'
 		else:
-			style = '\n\nQAbstractSpinBox:disabled {'
+			style = '\n\nQAbstractSpinBox:disabled {\n'
 
 		# color
 		if parent.sb_fg_color_sel_disabled:
