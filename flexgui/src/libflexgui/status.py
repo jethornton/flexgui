@@ -157,8 +157,6 @@ def update(parent):
 				if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
 					parent.manual_mode_pb.led = True
 
-			# FIXME killing the power unhomes all joints hmm unless it's set in the ini
-			# LED is not updated if volital home is 1
 			if utilities.all_homed(parent):
 				#print('status update ALL HOMED')
 				utilities.set_homed_enable(parent)
@@ -189,8 +187,10 @@ def update(parent):
 
 			if parent.status.file:
 				#print('status update FILE LOADED')
+				# power on and file loaded enable file edit controls
 				for item in parent.file_edit_items:
 					getattr(parent, item).setEnabled(True)
+				# power on, file loaded and all homed enable file run controls
 				if utilities.all_homed(parent):
 					#print('status update FILE LOADED and ALL HOMED')
 					for item in parent.run_controls:
@@ -399,6 +399,14 @@ def update(parent):
 	if parent.state != parent.status.state:
 		#print(f'STATE: {STATES[parent.status.state]}')
 		parent.state = parent.status.state
+
+	# **** FILE CHANGE ****
+	if parent.file != parent.status.file:
+		#print('File Changed')
+		if utilities.all_homed(parent) and parent.status.task_state == emc.STATE_ON:
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
+		parent.file = parent.status.file
 
 	# **** MDI CHANGE ****
 	if parent.mdi_command != '':

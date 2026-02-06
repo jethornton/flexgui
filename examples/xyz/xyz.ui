@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1004</width>
-    <height>785</height>
+    <height>812</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -3133,7 +3133,7 @@
           </layout>
          </widget>
         </item>
-        <item row="2" column="2" rowspan="2">
+        <item row="3" column="2">
          <widget class="QGroupBox" name="groupBox_24">
           <property name="title">
            <string>HAL I/O</string>
@@ -3193,6 +3193,36 @@
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_27">
+          <property name="title">
+           <string>Python Buttons</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_43">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="state_on_pb">
+             <property name="text">
+              <string>State On</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="disabled_running_pb">
+             <property name="text">
+              <string>Disabled Running</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="state_estop_pb">
+             <property name="text">
+              <string>State E Stop</string>
              </property>
             </widget>
            </item>

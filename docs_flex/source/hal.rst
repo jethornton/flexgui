@@ -46,13 +46,15 @@ only enabled when power is on and all joints are homed.
 	Bool, state_on, True
 	Bool, all_homed, True
 
-
 HAL Button
 ----------
 
 A QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
 adding two string type Dynamic Properties. A pin_name of my-button would be
-`flexhal.my-button` in HAL. HAL pins can be connected in the postgui.hal file.
+`flexhal.my-button` in HAL. HAL pins must be connected in the postgui.hal file.
+
+The HAL direction is OUT and the HAL type is bit for a QPushButton, QCheckBox or
+QRadioButton.
 
 .. csv-table:: HAL Push Button
    :width: 100%
@@ -82,6 +84,8 @@ A QPushButton can be a HAL LED button by adding two dynamic properties. The
 in the postgui.hal file. The button can be momentary or checkable. The default
 colors are Red when Off and Green when On. The default shape is round.
 
+The HAL direction is OUT and the HAL type is bit for a HAL LED QPushButton.
+
 .. csv-table:: HAL LED Button Dynamic Properties
    :width: 100%
    :align: center
@@ -102,6 +106,8 @@ type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
 `flexhal.` A pin_name of my-spinbox would be in HAL `flexhal.my-spinbox`. The
 spinbox is an Out type that will set the value of the HAL pin to match the
 value of the spinbox.
+
+The HAL direction is OUT for a HAL Spinbox.
 
 .. csv-table:: HAL Spin Box
    :width: 100%
@@ -124,6 +130,8 @@ type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
 spinbox is an Out type that will set the value of the HAL pin to match the
 value of the spinbox.
 
+The HAL direction is OUT and the HAL type is float for a HAL Double Spinbox.
+
 .. csv-table:: HAL Spin Box
    :width: 100%
    :align: center
@@ -135,13 +143,15 @@ value of the spinbox.
 	Bool, state_on, True
 	Bool, all_homed, True
 
-Slider
-------
+HAL Slider
+----------
 
 A QSlider can be a HAL pin by adding these three string type Dynamic Properties.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
 my-slider would be in HAL `flexhal.my-slider`. A QSlider supports only integers
 so to connect it to a float HAL pin use conv_s32_float or conv_u32_float.
+
+The HAL direction is OUT for a HAL Slider.
 
 See :doc:`property` for step by step instructions to add a Dynamic Property
 
@@ -164,10 +174,20 @@ A HAL I/O object has an input and output on the same pin. The pin can set an
 input pin of another HAL object and the pin can be set by another HAL object
 output pin. The HAL I/O will stay synchronized with the pin it's connected to.
 
-.. NOTE The connected pins must be of the same HAL type.
+.. NOTE:: The connected pins must be of the same HAL type.
 
 A QPushButton (set to checkable), QCheckBox, QRadioButton, QSpinBox,
 QDoubleSpinBox or a QSlider can be a HAL I/O object.
+
+The HAL direction is I/O and the HAL type is bit for QPushButton, QCheckBox or
+QRadioButton.
+
+The HAL direction is I/O for a HAL I/O QSpinBox.
+
+The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
+
+
+.. NOTE:: The hal_type for QSpindBox and QSlider must be specified.
 
 .. csv-table:: HAL I/O
    :width: 100%
@@ -178,20 +198,20 @@ QDoubleSpinBox or a QSlider can be a HAL I/O object.
 	String, pin_name, any unique name
 	For a QSpinBox or QSlider
 	String, hal_type, HAL_S32 or HAL_U32
-	For a QDoubleSpinBox
-	String, hal_type, HAL_FLOAT
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
 
 .. NOTE:: The hal_type is required for QSpinBox, QSlider or QDoubleSpinBox
 
-Label
------
+HAL Label
+---------
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
 `flexhal.` A pin_name of my-reader would be `flexhal.my-reader` in HAL.
+
+The HAL direction is IN for a HAL Label.
 
 .. csv-table:: HAL Label
    :width: 100%
@@ -205,8 +225,8 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	String, precision, Number of decimal digits for HAL_FLOAT type
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
-Average Float Label
--------------------
+HAL Average Float Label
+-----------------------
 
 A QLabel can be used to monitor HAL float number pins and display an average of
 the number of samples. The sample stack is LIFO so a new value pushes the oldest
@@ -226,7 +246,9 @@ HAL connections must be made in the post gui HAL file. The pin_name used will
 create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 `flexhal.my-reader` in HAL.
 
-.. csv-table:: HAL Label
+The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
+
+.. csv-table:: HAL Average Float Label
    :width: 100%
    :align: center
 
@@ -238,11 +260,13 @@ create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 	Int, rounding, number of digits to the left of the decimal to round
 	Int, precision, Number of decimal digits
 
-Bool Label
-----------
+HAL Bool Label
+--------------
 
-A QLabel of hal_type HAL_BIT can have True and False text by adding two
-additional Dynamic Properties.
+A QLabel can have True and False text by adding two additional Dynamic
+Properties. Both true_text and false_text must be set and can not be blank.
+
+The HAL direction is IN and the hal_type is bit for a HAL Bool Label
 
 See :doc:`property` for step by step instructions to add a Dynamic Property
 
@@ -259,11 +283,16 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 .. image:: /images/hal-bool-label-01.png
    :align: center
 
-Multi-State Label
------------------
+HAL Multi-State Label
+---------------------
 
-A QLabel of hal_type HAL_U32 can have multiple text by adding as many Dynamic
-Properties as needed. The `text_n` starts at 0 for example text_0, text_1 etc.
+A QLabel can have multiple text by adding as many Dynamic Properties as needed
+for each text. The `text_n` starts at 0 for example text_0, text_1 etc.
+
+The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
+
+If the HAL value is greater than the number of states the last state will be
+displayed.
 
 .. csv-table:: HAL Multi-State Label
    :width: 100%
@@ -290,6 +319,8 @@ connected to a HAL pin of type bit with a HAL direction of OUT or a signal that
 is connected to a HAL pin of type bit with a HAL direction of OUT. Only one OUT
 direction can be connected to a signal while multiple IN directions can be
 connected to a signal.
+
+The HAL direction is IN and the hal_type is bit for a HAL LED
 
 .. csv-table:: HAL LED
    :width: 100%
@@ -318,6 +349,9 @@ Similar to the HAL LED except the LED is in the upper right corner so the label
 can have text. The default colors are Red when Off and Green when On. The
 default shape is round.
 
+The HAL direction is IN and the hal_type is bit for a HAL LED Label.
+
+
 .. csv-table:: HAL LED Label
    :width: 100%
    :align: center
@@ -333,12 +367,14 @@ default shape is round.
 	Int, led_top_offset, offset from top edge
 	String, led_shape, square
 
-LCD
----
+HAL LCD
+-------
 
 A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in
 the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 `flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+
+The HAL direction is IN for a HAL LCD
 
 .. csv-table:: HAL LCD
    :width: 100%
@@ -354,12 +390,16 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
 
-Progress Bar
-------------
+HAL Progress Bar
+----------------
 
 A QProgressBar can be used to monitor HAL pins. HAL connections must be made in
 the post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-bar would be in HAL `flexhal.my-bar`.
+`flexhal.` A pin_name of my-bar would be in HAL `flexhal.my-bar`. Typically the
+minimum value is 0 and the maximum value is 100. If the HAL value exceeds the
+maximum value 0 is displayed.
+
+The HAL direction is IN and the hal_type is u32 for a HAL Progress Bar.
 
 .. csv-table:: HAL Progressbar
    :width: 100%
@@ -368,7 +408,6 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, HAL_S32 or HAL_U32
 
 Step by Step
 ------------

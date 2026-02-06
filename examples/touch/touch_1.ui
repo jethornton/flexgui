@@ -845,7 +845,7 @@ Info</string>
         <item row="3" column="0">
          <widget class="QLineEdit" name="mdi_command_le">
           <property name="input" stdset="0">
-           <string>nccode</string>
+           <string>keyboard</string>
           </property>
          </widget>
         </item>

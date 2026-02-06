@@ -13,6 +13,24 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import commands
 
+def to_bool(string):
+	string = string.strip().lower() # Handle leading/trailing spaces and case variations
+	if string == 'true':
+		return True
+	elif string == 'false':
+		return False
+	else:
+		raise ValueError(f"'{string}' is not a valid boolean string")
+		# FIXME send this to a message box
+
+def to_int(string):
+	try:
+		number = int(string)
+		return number
+	except ValueError:
+		print(f"Error: '{string}' is not a valid integer string.")
+		# FIXME send this to a message box
+
 def is_float(string):
 	try:
 		float(string)
@@ -93,7 +111,10 @@ def is_valid_increment(parent, item): # need to return text ,data and suffix
 		for suffix in units:
 			if item.endswith(suffix):
 				increment = item.removesuffix(suffix).strip()
-				return item, increment, suffix
+				if is_number(increment):
+					return item, increment, suffix
+				else:
+					return False, False, False
 	else: # not a valid increment
 		return False, False, False
 

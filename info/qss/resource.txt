@@ -1,0 +1,37 @@
+Relative Path (to the executable's directory):
+
+background-image: url("images/my_image.png");
+
+This assumes an images folder exists in the same directory as your application's
+executable.
+
+Absolute Path:
+
+background-image: url("C:/Users/username/Desktop/images/my_image.png");
+
+Note that forward slashes (/) must be used even on Windows, as backslashes (\)
+are invalid in QSS URLs.
+
+Qt Resource System Path (Recommended for built-in images):
+If you add your images to a Qt resource file (.qrc), you can use a consistent,
+platform-independent path that is compiled into your application.
+
+background-image: url(":/images/my_image.png");
+
+The :/ prefix indicates a path within the resource system. 
+
+Key Considerations
+
+Quotation Marks: The quotes around the URL are optional, but using them can
+improve clarity.
+
+Path Resolution: Relative paths are resolved relative to the current working
+directory of the running application, which can vary. Using the Qt Resource
+System is the most robust way to ensure images are always found, as they are
+embedded within the application.
+
+No Spaces in URL: In some specific older Qt versions or parser implementations,
+spaces within the url() function (e.g., url( :/images/scrollIcon.svg )) might
+cause issues, so url(:/images/scrollIcon.svg) is safer. 
+
+

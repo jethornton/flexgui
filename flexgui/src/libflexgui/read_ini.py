@@ -20,8 +20,10 @@ def read(parent):
 	['FLEXGUI', 'ESTOP_CLOSED_COLOR'],
 	['FLEXGUI', 'POWER_OFF_COLOR'],
 	['FLEXGUI', 'POWER_ON_COLOR'],
+	['FLEXGUI', 'TOUCH_QSS'],
 	['DISPLAY', 'RESOURCES'],
 	['DISPLAY', 'SIZE'],
+	['DISPLAY', 'VIEW'],
 	['DISPLAY', 'THEME'],
 	['DISPLAY', 'QSS'],
 	['DISPLAY', 'DRO_FONT_SIZE'],
@@ -34,8 +36,9 @@ def read(parent):
 		if parent.inifile.find(item[0], item[1]):
 			msg = (f'The key {item[1]} has been moved from the\n'
 			f'[{item[0]}] section or is no longer used\n'
-			'by FlexGUI. Check the INI section of\n'
-			'the Documents for correct INI entries.')
+			'by FlexGUI or the name has been changed.\n'
+			'Check the INI section of the Documents\n'
+			'for correct INI entries.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	# ***** [EMC] Section *****
@@ -90,8 +93,8 @@ def read(parent):
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
 	if parent.inifile.find('DISPLAY', 'LATHE') is not None:
 		parent.default_view = 'y'
-	elif parent.inifile.find('DISPLAY', 'VIEW') is not None:
-		parent.default_view = parent.inifile.find('DISPLAY', 'VIEW')
+	elif parent.inifile.find('FLEXGUI', 'PLOT_VIEW') is not None:
+		parent.default_view = parent.inifile.find('FLEXGUI', 'PLOT_VIEW')
 	else:
 		parent.default_view = 'p'
 
@@ -168,17 +171,16 @@ def read(parent):
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.qss_file = False
 
-	# check for popup QSS file
-	default_touch_qss = os.path.join(parent.lib_path, 'touch.qss')
-	parent.touch_qss_file = parent.inifile.find('FLEXGUI', 'TOUCH_QSS') or False
-	if parent.touch_qss_file:
-		if not os.path.exists(os.path.join(parent.config_path, parent.touch_qss_file)):
-			msg = (f'The Touch Popup QSS file {parent.touch_qss_file}\n'
+	# check for popup QSS file FIXME change this to POPUP_QSS
+	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
+	if parent.popup_qss:
+		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)):
+			msg = (f'The Touch Popup QSS file {parent.popup_qss}\n'
 				'Was not found. QSS can not be applied')
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-			parent.touch_qss_file = default_touch_qss
+			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 	else: # TOUCH_QSS not in ini file
-		parent.touch_qss_file = default_touch_qss
+		parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file:

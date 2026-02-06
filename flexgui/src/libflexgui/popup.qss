@@ -1,0 +1,47 @@
+/*
+Popup keyboards only have QLabel, QLineEdit and QPushButton
+ */
+
+/***** QLabel *****/
+QLabel {
+	min-height: 30px;
+	font-family: FreeMono;
+	font-size: 16pt;
+	font-weight: 700;
+}
+
+/***** QLineEdit *****/
+QLineEdit {
+	min-height: 30px;
+	font-family: FreeMono;
+	font-size: 16pt;
+	font-weight: 700;
+}
+
+/***** QAbstractButton *****/
+QAbstractButton{
+	min-height: 50px;
+	min-width: 50px;
+	font-family: FreeMonoBold;
+	font-size: 14pt;
+	font-weight: normal;
+	border-style: outset;
+	border-color: #b3b3b3; /* rgba colors don't work for border */
+	border-width: 3px;
+	border-radius: 6px;
+	margin-bottom: 1px;
+	padding-right: 5px; /* make sure there is space between the name and the edge */
+	padding-left: 5px;
+}
+
+QPushButton:pressed {
+	border-style: inset;
+	background-color: rgba(125, 125, 125, 75%);
+}
+
+QPushButton[objectName*="key"] {
+	font-family: FreeMono;
+	font-size: 28pt;
+	font-weight: 700;
+}
+

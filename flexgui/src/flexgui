@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, subprocess
+import os, sys, subprocess, time
 
 # disable cache usage must be before any local imports
 sys.dont_write_bytecode = True
@@ -12,7 +12,8 @@ from PyQt6.QtWidgets import QPlainTextEdit, QListWidget, QRadioButton, QTabWidge
 from PyQt6.QtWidgets import QComboBox, QListView, QSpinBox, QDoubleSpinBox
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
-from PyQt6.QtGui import QKeyEvent
+from PyQt6.QtGui import QPixmap, QKeyEvent, QFont, QFontInfo, QFontDatabase
+from PyQt6.QtGui import  QColor
 
 import linuxcnc as emc
 import hal
@@ -165,9 +166,9 @@ class flexgui(QMainWindow):
 		self.command = emc.command()
 		self.error = emc.error_channel()
 		self.flood_state = self.status.flood
+		self.file = self.status.file
 		self.mist_state = self.status.mist
 		self.tool_in_spindle = self.status.tool_in_spindle
-		self.status_speed_setting = self.status.settings[2] # spindle speed
 		self.help_dialog = None
 		self.keyboard_jogging = False
 
@@ -190,6 +191,39 @@ class flexgui(QMainWindow):
 			'the LinuxCNC ini file.')
 			dialogs.error_msg_ok(self, msg, 'Error')
 			sys.exit()
+
+		# display splash screen if found
+		splash_image = self.inifile.find('FLEXGUI', 'SPLASH_IMAGE') or False
+		splash_title = self.inifile.find('FLEXGUI', 'SPLASH_TITLE') or 'Flex Dragon Slayer'
+		splash_time = self.inifile.find('FLEXGUI', 'SPLASH_TIME') or 5
+		#splash_time = utilities.to_int(splash_time) if isinstance(splash_time, str)
+		splash_font = self.inifile.find('FLEXGUI', 'SPLASH_FONT') or 'Monospace'
+		splash_font_size = self.inifile.find('FLEXGUI', 'SPLASH_FONT_SIZE') or 12
+		if isinstance(splash_font_size, str): splash_font_size = utilities.to_int(splash_font_size) 
+		#value_if_true if condition else value_if_false
+		splash_font_bold = self.inifile.find('FLEXGUI', 'SPLASH_FONT_BOLD') or False
+		splash_font_bold = utilities.to_bool(splash_font_bold) if splash_font_bold else False
+		splash_font_color = self.inifile.find('FLEXGUI', 'SPLASH_FONT_COLOR') or 'black'
+		#QColor("blue")
+		if isinstance(splash_time, str):
+			splash_time = int(splash_time)
+		if splash_image:
+			if os.path.isfile(splash_image):
+				splash_pix = QPixmap(splash_image)
+				splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
+				# Set font for the splash screen
+				font = QFont(splash_font, splash_font_size) # Font Family and Size
+				font.setBold(splash_font_bold)
+				splash.setFont(font)
+				splash.show()
+				app.processEvents()
+				for i in range(10):
+					time.sleep(splash_time/10)
+					percent_done = 10 * i
+					msg = f'{splash_title}\nLoading ... {percent_done:.0f}%'
+					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
+						Qt.AlignmentFlag.AlignCenter, QColor(splash_font_color))
+					app.processEvents()
 
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
@@ -282,6 +316,7 @@ class flexgui(QMainWindow):
 		startup.setup_watch_var(self)
 		startup.setup_tools(self)
 		startup.setup_hal(self)
+		startup.setup_hal_io_state(self)
 		startup.setup_touchoff(self)
 		startup.setup_sliders(self)
 		startup.setup_overrides(self)
