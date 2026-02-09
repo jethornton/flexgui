@@ -21,29 +21,33 @@ from libflexgui import qss_toolbar
 from libflexgui import qss_toolbutton
 from libflexgui import qss_spinbox
 from libflexgui import qss_label
+from libflexgui import qss_lineedit
 from libflexgui import qss_containers
 from libflexgui import qss_gradient
 from libflexgui import qss_contrast
 
 class example(QMainWindow):
-	def __init__(self):
+	def __init__(self, gui_path=None):
 		super().__init__()
 
-		# get the path to the executable
-		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
+		if gui_path is None:
+			# get the path to the executable
+			self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-		# set the library path
-		if self.path == '/usr/bin':
-			self.gui_path = '/usr/lib/libflexgui'
+			# set the library path
+			if self.path == '/usr/bin':
+				self.gui_path = '/usr/lib/libflexgui'
+			else:
+				self.gui_path = self.path
+			uic.loadUi(os.path.join(self.gui_path, 'keyboard_qss.ui'), self)
+			list_widget_items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
+			self.enabledLW.addItem('QListWidget Enabled with scroll bars')
+			self.enabledLW.addItems(list_widget_items)
+			self.disabledLW.addItem('QListWidget Disabled')
+			self.disabledLW.addItems(list_widget_items)
+			self.actionExit.triggered.connect(self.close)
 		else:
-			self.gui_path = self.path
-		uic.loadUi(os.path.join(self.gui_path, 'keyboard_qss.ui'), self)
-		list_widget_items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
-		self.enabledLW.addItem('QListWidget Enabled with scroll bars')
-		self.enabledLW.addItems(list_widget_items)
-		self.disabledLW.addItem('QListWidget Disabled')
-		self.disabledLW.addItems(list_widget_items)
-		self.actionExit.triggered.connect(self.close)
+			uic.loadUi(gui_path, self)
 
 class main(QMainWindow):
 	def __init__(self):
@@ -72,14 +76,18 @@ class main(QMainWindow):
 		qss_toolbutton.startup(self)
 		qss_spinbox.startup(self)
 		qss_label.startup(self)
+		qss_lineedit.startup(self)
 		qss_containers.startup(self)
 		qss_gradient.startup(self)
 		self.setup()
 		self.show()
 
 	def setup(self):
-		self.launch_sample_pb.clicked.connect(self.launch_sample)
+		self.launch_sample_gui_pb.clicked.connect(self.launch_sample)
 		self.save_qss_pb.clicked.connect(self.save_as)
+		self.select_gui_pb.clicked.connect(self.select_gui)
+		self.launch_gui_pb.clicked.connect(self.launch_gui)
+		self.exit_pb.clicked.connect(QApplication.instance().quit)
 
 		# add box model image to all pages
 		for i in range(7):
@@ -92,20 +100,38 @@ class main(QMainWindow):
 		# setup stylesheet
 		self.stylesheet = ''
 
+		self.user_gui = None
+
+	def select_gui(self):
+		options = QFileDialog.Option.DontUseNativeDialog
+		file_path = False
+		file_dialog = QFileDialog()
+		file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+		file_dialog.setOptions(QFileDialog.Option.DontUseNativeDialog)
+		file_dialog.setWindowTitle('Open File')
+		file_path, file_type = file_dialog.getOpenFileName(None,
+		caption='Select GUI file', directory=os.path.expanduser("~"),
+		filter='*.ui', options=options)
+		if file_path:
+			self.user_gui = example(file_path)
+			self.launch_gui_pb.setEnabled(True)
+		else:
+			self.user_gui = None
+			self.launch_gui_pb.setEnabled(False)
+
+	def launch_gui(self):
+		if self.user_gui is not None:
+			self.build_stylesheet()
+			self.user_gui.setStyleSheet(self.stylesheet)
+			self.user_gui.show()
+
 	def color_dialog(self):
 		obj = self.sender().objectName().split('_')[0]
-		#print(f'obj {obj}')
 		state = self.sender().objectName().split('_')[-1]
-		#print(f'state {state}')
-		# prop = self.sender().property('qss') FIXME not used as far as I can tell
 		variable = self.sender().property('var')
 		contrast_variable = self.sender().property('contrast_var')
 		contrast_label = self.sender().property('contrast_label')
-		#print(f'variable {variable}')
-		#print(f'contrast_variable {contrast_variable}')
-		#print(f'contrast variable value {getattr(self, contrast_variable)}')
 		label = self.sender().property('label')
-		#return
 		if getattr(self, variable):
 			initial_color = QColor(getattr(self, variable))
 		else:
@@ -120,27 +146,15 @@ class main(QMainWindow):
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
 				setattr(self, f'{obj}_{state}', True)
-				#print(f'color {color}')
-				#print(f'color.name() {color.name()}')
 				if contrast_variable:
 					contrast_color = getattr(self, contrast_variable)
-					#print(f'contrast_color {contrast_color}')
 					if contrast_color:
 						contrast_ratio = qss_contrast.calculate_contrast_ratio(color, QColor(contrast_color))
-						#print(f'contrast_ratio {contrast_ratio}')
 						if contrast_label:
 							getattr(self, contrast_label).setText(f'Contrast Ratio {contrast_ratio}:1')
 		else:
 			setattr(self, variable, False)
 			getattr(self, label).setStyleSheet(f'background-color: none;')
-
-		#print(f'obj {obj}')
-		#print(getattr(self, f'{obj}_{state}'))
-		#print(f'state {state}')
-		#print(f'prop {prop}')
-		#print(f'variable {variable}')
-		#print(f'variable {getattr(self, variable)}')
-		#print(f'label {label}')
 
 	def size(self):
 		obj = self.sender().objectName().split('_')[0]

@@ -19,7 +19,7 @@ def startup(parent):
 	parent.mw_bg_color_sel = False
 
 	parent.mw_apply_style.clicked.connect(partial(create_mw_stylesheet, parent))
-	parent.mw_clear_style.clicked.connect(partial(clear_mw_stylesheet, parent))
+	parent.mw_clear_style.clicked.connect(partial(clear_stylesheet, parent))
 
 	parent.mw_border_type_normal.addItems(border_types)
 
@@ -125,7 +125,7 @@ def create_mw_stylesheet(parent):
 
 		parent.mw_frame.setStyleSheet(style.replace('replace_here', style_apply))
 
-def clear_mw_stylesheet(parent):
+def clear_stylesheet(parent):
 	parent.mw_normal = False
 	parent.mw_fg_color_sel = False
 	parent.mw_bg_color_sel = False

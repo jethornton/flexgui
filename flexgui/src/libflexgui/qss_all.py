@@ -1,5 +1,6 @@
 from functools import partial
 
+from libflexgui import qss_containers
 from libflexgui import qss_pushbutton
 from libflexgui import qss_checkbox
 from libflexgui import qss_radiobutton
@@ -14,6 +15,7 @@ def startup(parent):
 	parent.all_normal = False
 
 	parent.all_apply_style.clicked.connect(partial(all_create_stylesheet, parent))
+	parent.all_apply_empty.clicked.connect(partial(all_create_stylesheet, parent))
 	parent.all_clear_style.clicked.connect(partial(clear_stylesheet, parent))
 
 	parent.all_fg_color_normal.clicked.connect(parent.color_dialog)
@@ -42,7 +44,7 @@ def startup(parent):
 
 def all_create_stylesheet(parent):
 	style = False
-
+	# FIXME add option to over write all styles
 	# Foreground Color Normal
 	if parent.all_fg_color_sel_normal:
 		color = parent.all_fg_color_sel_normal
@@ -400,6 +402,7 @@ def all_create_stylesheet(parent):
 
 
 def clear_stylesheet(parent):
+	qss_containers.clear_stylesheet(parent)
 	qss_pushbutton.clear_stylesheet(parent)
 	qss_checkbox.clear_stylesheet(parent)
 	qss_radiobutton.clear_stylesheet(parent)
