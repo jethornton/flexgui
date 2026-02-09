@@ -1,0 +1,46 @@
+
+QObject, QPaintDevice
+
+QWidget
+
+QAbstractButton > QCheckBox, QPushButton, QRadioButton, and QToolButton
+
+QAbstractSlider > QDial, QScrollBar, and QSlider
+
+QAbstractSpinBox > QDateTimeEdit, QDoubleSpinBox, and QSpinBox
+
+QCalendarWidget
+
+QComboBox > QFontComboBox
+
+QDialog > QColorDialog, QErrorMessage, QFileDialog, QFontDialog, QInputDialog, QMessageBox, QProgressDialog, and QWizard
+
+QDialogButtonBox
+
+QFrame > QAbstractScrollArea, QLabel, QLCDNumber, QSplitter, QStackedWidget, and QToolBox
+
+QGroupBox
+
+QLineEdit
+
+QMainWindow
+
+QMenu
+
+QMenuBar
+
+QPlainTextEdit
+
+QProgressBar,
+
+SizeGrip
+
+QSplashScreen
+
+QStatusBar
+
+QTabBar
+
+QTabWidget
+
+QToolBar
