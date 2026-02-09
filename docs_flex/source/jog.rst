@@ -63,6 +63,31 @@ checked.
 	Jog Enable, QCheckBox, keyboard_jog_cb
 
 
+Auto Keyboard Jog Focus Handing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When using the `keybaord_jog_cb` QCheckbox to control jogging, the arrow keys
+may conflict with some controls (eg. edit lines, text boxes, spin boxes, and 
+other controls that use the arrow keys)
+
+FlexGUI can disable keyboard jogging when the keyboard focus is in one of these
+controls, and re-enable jogging when focus leaves that control.
+
+To enable this mode, add the following configuration to the ini file:
+
+.. code-block:: text
+
+	[FLEXGUI]
+	KB_JOG_FOCUS = True
+
+.. note:: This mode cannot be used with the `KEYBOARD_JOG` mode, and requires
+   the `keyboard_jog_cb` QCheckBox to function.
+
+.. note:: Qt Designer has various "focus policies" and options for navigating 
+   the GUI using the keyboard.  Be sure that you understand how these options 
+   interact with one another and with keyboard jogging.  Test your GUI's 
+   keyboard jog and keyboard focus configuration thoroughly.
+
 Jog Button Controls
 -------------------
 `Jog Controls Tutorial <https://youtu.be/ReVeEB5tEYM>`_

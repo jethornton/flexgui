@@ -1392,6 +1392,7 @@ def setup_jog(parent):
 	# keyboard jog
 	parent.kb_jog_cb_enabled = False
 	parent.kb_jog_ctrl_enabled = False
+
 	#parent.cb_kb_jog = False
 	#enable_ctrl_kb_jog = False
 	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
@@ -1410,6 +1411,22 @@ def setup_jog(parent):
 		'and the ini entry KEYBOARD_JOG were both found.\n'
 			'Only one type of keyboard jog can be used\n'
 			'The keyboard jog function will be disabled')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.auto_kb_jog_focus_handling and not 'keyboard_jog_cb' in parent.child_names:
+		parent.auto_kb_jog_focus_handling = False
+		msg = ('Auto keyboard jog focus handling requires\n'
+			'a QCheckBox keyboard_jog_cb, Auto keyboard jog\n'
+			'focus handling has been disabled')
+		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	if parent.auto_kb_jog_focus_handling and parent.ctrl_kb_jogging:
+		parent.auto_kb_jog_focus_handling = False
+		parent.kb_jog_ctrl_enabled = False
+		msg = ('Auto keyboard jog focus handling and control-based\n'
+			'keyboard jogging are both enabled.  Both auto\n'
+			'focus handling and control-based keyboard jog are\n'
+			'disabled.')
 		dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
