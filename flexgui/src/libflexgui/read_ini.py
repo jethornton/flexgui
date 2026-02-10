@@ -294,10 +294,10 @@ def read(parent):
 	if parent.ctrl_kb_jogging:
 		parent.ctrl_kb_jogging = parent.ctrl_kb_jogging.strip().lower() == "true"
 
-	# check for auto_kb_jog_focus_handling
-	parent.auto_kb_jog_focus_handling = parent.inifile.find('FLEXGUI', 'KB_JOG_FOCUS')
-	if parent.auto_kb_jog_focus_handling:
-		parent.auto_kb_jog_focus_handling = parent.auto_kb_jog_focus_handling.strip().lower() == "true"
+	# check for kb_jog_focus
+	parent.kb_jog_focus = parent.inifile.find('FLEXGUI', 'KB_JOG_FOCUS')
+	if parent.kb_jog_focus:
+		parent.kb_jog_focus = parent.kb_jog_focus.strip().lower() == "true"
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
