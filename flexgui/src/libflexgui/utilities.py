@@ -243,11 +243,15 @@ def set_homed_enable(parent):
 
 def set_hal_enables(parent, obj):
 	obj_name = obj.objectName()
+	always_on = obj.property('always_on')
 	state_on = obj.property('state_on')
 	all_homed = obj.property('all_homed')
 
+	if always_on:
+		return
+
 	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
-	# all HAL objects are disabled when state estop
+	# all HAL objects are disabled when state estop unless always_on is true
 	parent.state_estop[obj_name] = False
 	if state_on and not all_homed:
 		parent.state_estop_reset[obj_name] = False
