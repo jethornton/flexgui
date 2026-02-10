@@ -56,6 +56,12 @@ adding two string type Dynamic Properties. A pin_name of my-button would be
 The HAL direction is OUT and the HAL type is bit for a QPushButton, QCheckBox or
 QRadioButton.
 
+The option always_on will not disable the HAL Button for any state.
+
+The option state_on will disable the HAL Button until the Power is on.
+
+The option all_homed will disable the HAL Button until all joints are homed.
+
 .. csv-table:: HAL Push Button
    :width: 100%
    :align: center
@@ -64,6 +70,7 @@ QRadioButton.
 	String, function, hal_pin
 	String, pin_name, any unique name
 	Optional
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 
@@ -86,6 +93,12 @@ colors are Red when Off and Green when On. The default shape is round.
 
 The HAL direction is OUT and the HAL type is bit for a HAL LED QPushButton.
 
+The option always_on will not disable the HAL LED Button for any state.
+
+The option state_on will disable the HAL LED Button until the Power is on.
+
+The option all_homed will disable the HAL LED Button until all joints are homed.
+
 .. csv-table:: HAL LED Button Dynamic Properties
    :width: 100%
    :align: center
@@ -94,6 +107,7 @@ The HAL direction is OUT and the HAL type is bit for a HAL LED QPushButton.
 	String, function, hal_led_button
 	String, pin_name, any unique name
 	Optional
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 	String, led_shape, square
