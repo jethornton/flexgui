@@ -4,8 +4,8 @@ from collections import deque
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
-from PyQt6.QtWidgets import QSlider, QMenu, QToolButton
-from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox, QRadioButton
+from PyQt6.QtWidgets import QSlider, QMenu, QToolButton, QRadioButton
+from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
 from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
@@ -1474,10 +1474,10 @@ def setup_jog(parent):
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_linear_vel) * 60))
 			if 'max_jog_vel_lb' in parent.child_names:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_linear_vel) * 60)}')
-			msg = ('The DISPLAY key MAX_LINEAR_VELOCITY\n'
-			'was not found. The TRAJ key MAX_LINEAR_VELOCITY\n'
-			'will be used to set the maximum jog velocity slider.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+			#msg = ('The DISPLAY key MAX_LINEAR_VELOCITY\n'
+			#'was not found. The TRAJ key MAX_LINEAR_VELOCITY\n'
+			#'will be used to set the maximum jog velocity slider.')
+			#dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
 			if parent.joints > 0:
 				maxjv = []
