@@ -195,17 +195,16 @@ class flexgui(QMainWindow):
 
 		# display splash screen if found
 		splash_image = self.inifile.find('FLEXGUI', 'SPLASH_IMAGE') or False
-		splash_title = self.inifile.find('FLEXGUI', 'SPLASH_TITLE') or 'Flex Dragon Slayer'
+		splash_title = self.inifile.find('FLEXGUI', 'SPLASH_TITLE') or 'Flex the Dragon Slayer'
 		splash_time = self.inifile.find('FLEXGUI', 'SPLASH_TIME') or 5
-		#splash_time = utilities.to_int(splash_time) if isinstance(splash_time, str)
 		splash_font = self.inifile.find('FLEXGUI', 'SPLASH_FONT') or 'Monospace'
 		splash_font_size = self.inifile.find('FLEXGUI', 'SPLASH_FONT_SIZE') or 12
+
 		if isinstance(splash_font_size, str): splash_font_size = utilities.to_int(splash_font_size) 
-		#value_if_true if condition else value_if_false
 		splash_font_bold = self.inifile.find('FLEXGUI', 'SPLASH_FONT_BOLD') or False
 		splash_font_bold = utilities.to_bool(splash_font_bold) if splash_font_bold else False
 		splash_font_color = self.inifile.find('FLEXGUI', 'SPLASH_FONT_COLOR') or 'black'
-		#QColor("blue")
+
 		if isinstance(splash_time, str):
 			splash_time = int(splash_time)
 		if splash_image:
