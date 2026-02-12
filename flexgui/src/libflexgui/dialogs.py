@@ -182,7 +182,7 @@ def info_msg_ok(parent, msg, title=None):
 	else:
 		return False
 
-def error_msg_ok(parent, msg, title=None): # plain error message
+def error_msg_ok(msg, title=None): # plain error message
 	# dialogs.error_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)

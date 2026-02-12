@@ -22,7 +22,7 @@ def to_bool(parent, ini_item, string):
 	else:
 		msg = (f'The INI key {ini_item} value "{string}"\n'
 		'did not evaluate to a True or False Boolean')
-		dialogs.error_msg_ok(parent, msg, 'title')
+		dialogs.error_msg_ok(msg, 'title')
 		#raise ValueError(f"'{string}' is not a valid boolean string")
 		# FIXME send this to a message box
 		return False

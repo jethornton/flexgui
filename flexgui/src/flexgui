@@ -150,7 +150,7 @@ class flexgui(QMainWindow):
 		else:
 			msg = ('Flex GUI seems to be installed\n'
 			'in a none standard location.')
-			dialogs.error_msg_ok(self, msg, 'Error')
+			dialogs.error_msg_ok(msg, 'Error')
 			sys.exit()
 
 		# connect to linuxcnc
@@ -190,7 +190,7 @@ class flexgui(QMainWindow):
 		else: # no match was found
 			msg = ('Flex GUI must be called from\n'
 			'the LinuxCNC ini file.')
-			dialogs.error_msg_ok(self, msg, 'Error')
+			dialogs.error_msg_ok(msg, 'Error')
 			sys.exit()
 
 		# display splash screen if found
