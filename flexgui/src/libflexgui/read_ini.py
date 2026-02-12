@@ -119,7 +119,7 @@ def read(parent):
 	else:
 		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE\n'
 		'did not evaluate to a number. LinuxCNC will shut down.')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
+		dialogs.error_msg_ok(msg, 'INI Error')
 		sys.exit()
 
 	# set default spindle speed
@@ -130,7 +130,7 @@ def read(parent):
 		parent.spindle_speed = 0
 		msg = (f'The INI value {dss} for [DISPLAY] DEFAULT_SPINDLE_SPEED\n'
 		'did not evaluate to an integer. 0 will be used.')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
+		dialogs.error_msg_ok(msg, 'INI Error')
 
 	# set max spindle override
 	mso = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or '1.0'
@@ -140,7 +140,7 @@ def read(parent):
 		parent.max_spindle_override = 1.0
 		msg = (f'The INI value {mso} for [DISPLAY] MAX_SPINDLE_OVERRIDE\n'
 		'did not evaluate to a number. 1.0 will be used')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
+		dialogs.error_msg_ok(msg, 'INI Error')
 
 	# get spindle increment
 	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
@@ -269,7 +269,7 @@ def read(parent):
 					msg = ('The PLOT_BACKGROUND_COLOR in the\n'
 					f'FLEXGUI section {color_string} is not valid.\n'
 					'The plot background color will be black')
-					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					dialogs.error_msg_ok(msg, 'Configuration Error')
 					break
 				parent.plot_background_color = tuple(map(float, color_string.split(',')))
 	else:
