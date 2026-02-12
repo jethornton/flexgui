@@ -13,15 +13,19 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import commands
 
-def to_bool(string):
+def to_bool(parent, ini_item, string):
 	string = string.strip().lower() # Handle leading/trailing spaces and case variations
 	if string == 'true':
 		return True
 	elif string == 'false':
 		return False
 	else:
-		raise ValueError(f"'{string}' is not a valid boolean string")
+		msg = (f'The INI key {ini_item} value "{string}"\n'
+		'did not evaluate to a True or False Boolean')
+		dialogs.error_msg_ok(parent, msg, 'title')
+		#raise ValueError(f"'{string}' is not a valid boolean string")
 		# FIXME send this to a message box
+		return False
 
 def to_int(string):
 	try:
