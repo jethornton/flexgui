@@ -202,7 +202,10 @@ class flexgui(QMainWindow):
 
 		if isinstance(splash_font_size, str): splash_font_size = utilities.to_int(splash_font_size) 
 		splash_font_bold = self.inifile.find('FLEXGUI', 'SPLASH_FONT_BOLD') or False
-		splash_font_bold = utilities.to_bool(splash_font_bold) if splash_font_bold else False
+		if splash_font_bold:
+			splash_font_bold = utilities.to_bool(self,'SPLASH_FONT_BOLD', splash_font_bold)
+		else:
+			splash_font_bold = False
 		splash_font_color = self.inifile.find('FLEXGUI', 'SPLASH_FONT_COLOR') or 'black'
 
 		if isinstance(splash_time, str):
