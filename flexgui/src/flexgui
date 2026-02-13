@@ -383,6 +383,9 @@ class flexgui(QMainWindow):
 				self.showMaximized()
 			case 'full':
 				self.showFullScreen()
+			case 'rpi_full'
+				self.show()
+				self.windowHandle().setWindowState(Qt.WindowState.WindowFullScreen)
 			case _:
 				self.show()
 
