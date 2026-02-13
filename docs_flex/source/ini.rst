@@ -251,8 +251,11 @@ To control the initial size of the screen, add of the following values.
 	SIZE = normal
 	SIZE = maximized
 	SIZE = full
+	SIZE = rpi_full
 
 .. NOTE:: the values are case sensitive
+
+.. NOTE:: The Raspberry Pi 5 with Wayland needs to use the rpi_full value
 
 .. warning:: Full size screen does not have any window controls. Make sure
    there is a way to close the GUI like an Exit button or you may not be able to
