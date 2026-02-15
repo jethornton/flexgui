@@ -180,6 +180,22 @@
       </property>
      </widget>
     </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>HAL Button</string>
+      </property>
+      <property name="function" stdset="0">
+       <string>hal_pin</string>
+      </property>
+      <property name="pin_name" stdset="0">
+       <string>hal-button</string>
+      </property>
+      <property name="led_indicator" stdset="0">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">

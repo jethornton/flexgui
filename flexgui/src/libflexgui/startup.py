@@ -151,8 +151,25 @@ def setup_hal_led_buttons(parent):
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 
 	##### LED Indicator QPushButton #####
+	hal_types = ['hal_pin', 'hal_led_button', 'hal_io', 'hal_avr_f', 'hal_msl',
+	'hal_led', 'hal_led_label']
 	for child in parent.findChildren(QPushButton):
 		if child.property('led_indicator'):
+			if child.property('function') in hal_types:
+				btn_name = child.objectName()
+				btn_text = child.text()
+				msg = ('The Dynamic Property led_indicator\n'
+				'can not be used with a HAL object.\n'
+				'The button with the object name of\n'
+				f'"{btn_name}" and with the text of\n'
+				f'"{btn_text}" will not be\n'
+				'processed as an LED Indicator.\n'
+				'If it is a valid HAL object the HAL\n'
+				'connection will be made.')
+				dialogs.error_msg_ok(msg, 'Configuration Error')
+				return
+			else:
+				print(child.property('function'))
 			btn_dict = {}
 			btn_dict['name'] = child.objectName()
 			btn_dict['text'] = child.text()
