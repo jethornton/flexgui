@@ -62,6 +62,10 @@ The option state_on will disable the HAL Button until the Power is on.
 
 The option all_homed will disable the HAL Button until all joints are homed.
 
+The option confirmation can be used with a checkable QPushButton, QCheckBox or
+QRadioButton. When toggled a popup will ask for confirmation of the action. If
+Cancel is selected the checked state will be set back to the previous state.
+
 .. csv-table:: HAL Push Button
    :width: 100%
    :align: center
@@ -73,6 +77,7 @@ The option all_homed will disable the HAL Button until all joints are homed.
 	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
+	Bool, confirm, True
 
 .. image:: /images/hal-09.png
    :align: center

@@ -2172,7 +2172,7 @@ def setup_hal(parent):
 			if isinstance(child, QLabel):
 				hal_leds.append(child)
 
-	##### HAL BUTTON & CHECKBOX #####
+	##### HAL BUTTON & CHECKBOX & RADIO BUTTON #####
 	if len(hal_buttons) > 0:
 		for button in hal_buttons:
 			button_name = button.objectName()
@@ -2180,6 +2180,9 @@ def setup_hal(parent):
 			# FIXME test for state_off & home_required and bitch
 			state_off = button.property('state_off')
 			home_required = button.property('required')
+			confirm = button.property('confirm')
+			if confirm:
+				print(f'button.text() {button.text()}')
 
 			if pin_name in [None, '']:
 				button.setEnabled(False)
@@ -2206,10 +2209,13 @@ def setup_hal(parent):
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			pin = getattr(parent, f'{pin_name}')
 
-			if button.isCheckable():
+			if button.isCheckable() and not confirm:
 				button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
 				# set the hal pin default
 				setattr(parent.halcomp, pin_name, button.isChecked())
+			elif button.isCheckable() and confirm:
+				button.toggled.connect(partial(utilities.hal_confirm, parent))
+				print('here')
 			else:
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))

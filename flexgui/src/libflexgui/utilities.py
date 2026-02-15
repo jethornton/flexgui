@@ -269,6 +269,24 @@ def set_hal_enables(parent, obj):
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.state_estop_reset[obj_name] = True
 
+def hal_confirm(parent):
+	sender = parent.sender()
+	text = sender.text()
+	checked_state = sender.isChecked()
+	pin = sender.property('pin_name')
+	#getattr(parent, f'{pin_name}')
+	msg = (f'The HAL object "{text}" requests\n'
+	'confirmation before changing the HAL\n'
+	f'state of the {pin} pin.')
+	result = dialogs.confirm_msg_ok_cancel(parent, msg, 'HAL')
+	#print(f'result {result}') self.hal_test['out'] = True
+	if result:
+		setattr(parent.halcomp, pin, checked_state)
+	else:
+		sender.blockSignals(True)
+		sender.setChecked(not checked_state)
+		sender.blockSignals(False)
+
 def jog_toggled(parent):
 	if parent.sender().isChecked():
 		parent.kb_jog_cb_enabled = True

@@ -182,8 +182,30 @@ def info_msg_ok(parent, msg, title=None):
 	else:
 		return False
 
+def confirm_msg_ok_cancel(parent, msg, title=None):
+	# dialogs.confirm_msg_ok_cancle(msg, 'title')
+	msg_box = QMessageBox()
+	msg_box.setIcon(QMessageBox.Icon.Question)
+	msg_box.setWindowTitle(title)
+	msg_box.setText(msg)
+	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok |
+	QMessageBox.StandardButton.Cancel)
+
+	if parent.theme: # use the theme
+		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	else:
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	with open(stylesheet,'r') as s:
+		msg_box.setStyleSheet(s.read())
+
+	returnValue = msg_box.exec()
+	if returnValue == QMessageBox.StandardButton.Ok:
+		return True
+	else:
+		return False
+
 def error_msg_ok(msg, title=None): # plain error message
-	# dialogs.error_msg_ok(parent, msg, 'title')
+	# dialogs.error_msg_ok(msg, 'title')
 	msg_box = QMessageBox()
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
