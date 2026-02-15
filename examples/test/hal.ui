@@ -777,6 +777,23 @@ Checkable</string>
          </property>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="text">
+          <string>HAL Test
+Button</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_pin</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-test-button</string>
+         </property>
+         <property name="led_indicator" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
