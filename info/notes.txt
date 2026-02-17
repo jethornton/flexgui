@@ -2,7 +2,7 @@ create a changelog file
 dch --create
 
 To change the version
-dch -v 1.3.2
+dch -v 1.3.3
 
 change to released Note: you must either change something or use Ctrl o to save.
 dch --release
