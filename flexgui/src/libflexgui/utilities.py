@@ -4,9 +4,10 @@ from fractions import Fraction
 from functools import partial
 
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette, QTextFormat
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette
+from PyQt6.QtGui import QAction, QTextFormat
 from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
+from PyQt6.QtWidgets import QRadioButton, QGroupBox
 
 import linuxcnc as emc
 
@@ -282,7 +283,7 @@ def hal_confirm(parent):
 	#print(f'result {result}') self.hal_test['out'] = True
 	if result:
 		setattr(parent.halcomp, pin, checked_state)
-	else:
+	else: # reset the checked state
 		sender.blockSignals(True)
 		sender.setChecked(not checked_state)
 		sender.blockSignals(False)
