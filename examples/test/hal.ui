@@ -203,26 +203,6 @@ Checkable</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pushButton_6">
-         <property name="text">
-          <string>HAL Confirm
-Button</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-test-button</string>
-         </property>
-         <property name="confirm" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
@@ -968,46 +948,19 @@ Button</string>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_9">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QPushButton" name="pushButton_6">
          <property name="text">
-          <string>RadioButton</string>
+          <string>HAL Confirm
+Button</string>
          </property>
-         <property name="checked">
+         <property name="checkable">
           <bool>true</bool>
          </property>
          <property name="function" stdset="0">
           <string>hal_pin</string>
          </property>
          <property name="pin_name" stdset="0">
-          <string>hal-rb-confirm-1</string>
-         </property>
-         <property name="confirm" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_8">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>RadioButton</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_pin</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-rb-confirm-2</string>
+          <string>hal-test-button</string>
          </property>
          <property name="confirm" stdset="0">
           <bool>true</bool>

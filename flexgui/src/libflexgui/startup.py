@@ -2180,9 +2180,12 @@ def setup_hal(parent):
 			# FIXME test for state_off & home_required and bitch
 			state_off = button.property('state_off')
 			home_required = button.property('required')
-			confirm = button.property('confirm')
-			if confirm:
-				print(f'button.text() {button.text()}')
+			if isinstance(button, QPushButton) or isinstance(button, QCheckBox):
+				confirm = button.property('confirm')
+			else:
+				confirm = False
+			#if confirm:
+			#	print(f'button.text() {button.text()}')
 
 			if pin_name in [None, '']:
 				button.setEnabled(False)
@@ -2215,7 +2218,6 @@ def setup_hal(parent):
 				setattr(parent.halcomp, pin_name, button.isChecked())
 			elif button.isCheckable() and confirm:
 				button.toggled.connect(partial(utilities.hal_confirm, parent))
-				print('here')
 			else:
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))

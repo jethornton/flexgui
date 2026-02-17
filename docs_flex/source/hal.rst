@@ -31,7 +31,7 @@ The property `pin_name` defines the HAL pin name that is prefixed with
 Options
 -------
 
-The default behaviour for HAL objects that are a HAL_OUT or HAL_IO is to be
+The default behavior for HAL objects that are a HAL_OUT or HAL_IO is to be
 enabled when the E Stop is released. To change this behaviour add a Dynamic
 Property to control when the HAL object is enabled. The `state_on` property will
 enable the control when the power is on. The `all_homed` property will enable
@@ -62,9 +62,10 @@ The option state_on will disable the HAL Button until the Power is on.
 
 The option all_homed will disable the HAL Button until all joints are homed.
 
-The option confirmation can be used with a checkable QPushButton, QCheckBox or
-QRadioButton. When toggled a popup will ask for confirmation of the action. If
-Cancel is selected the checked state will be set back to the previous state.
+The option confirm can be used with a checkable QPushButton or QCheckBox.
+When toggled a popup will ask for confirmation of the action. If Cancel is
+selected the checked state will be set back to the previous state and the HAL
+pin will not change.
 
 .. csv-table:: HAL Push Button
    :width: 100%
