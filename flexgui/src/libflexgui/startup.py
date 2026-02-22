@@ -101,7 +101,7 @@ def setup_hal_led_buttons(parent):
 				f'with this text {child.text()}\n'
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The Button will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
 				child.setProperty('function', '')
 				continue
@@ -166,7 +166,7 @@ def setup_hal_led_buttons(parent):
 				'processed as an LED Indicator.\n'
 				'If it is a valid HAL object the HAL\n'
 				'connection will be made.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				return
 			else:
 				print(child.property('function'))
@@ -220,7 +220,7 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The LED will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
 				continue
 
@@ -228,7 +228,7 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property function\n'
 				'or it is blank. The LED will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
 				continue
 
@@ -282,7 +282,7 @@ def setup_hal_leds(parent): # LED
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The LED will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
 				continue
 
@@ -290,7 +290,7 @@ def setup_hal_leds(parent): # LED
 				msg = (f'The HAL LED {child.objectName()}\n'
 				'is missing the Dynamic Property function\n'
 				'or it is blank. The LED will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
 				continue
 
@@ -518,7 +518,7 @@ def setup_enables(parent):
 			msg = ('All joints must have the HOME_SEQUENCE set\n'
 			'in order for the Home All button to function.\n'
 			'The Home All button will be disabled.')
-			dialogs.error_msg_ok(msg, 'Configuration Error')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	# STATE_ESTOP
 	state_estop_disabled_items = ['power_pb', 'run_pb', 'run_from_line_pb',
@@ -1181,7 +1181,7 @@ def setup_status_labels(parent):
 			msg = ('The two joint velocity label has property errors.\n'
 			'See the Velocity Labels section of the\n'
 			'Labels Documents for correct configuration.')
-			dialogs.error_msg_ok(msg, 'Property Error')
+			dialogs.error_msg_ok(parent, msg, 'Property Error')
 			parent.two_vel_lb.setText('ERROR!')
 		else:
 			parent.two_vel['two_vel_lb'] = [joint_0, joint_1, p]
@@ -1198,7 +1198,7 @@ def setup_status_labels(parent):
 			msg = ('The three joint velocity label has property errors.\n'
 			'See the Velocity Labels section of the\n'
 			'Labels Documents for correct configuration.')
-			dialogs.error_msg_ok(msg, 'Property Error')
+			dialogs.error_msg_ok(parent, msg, 'Property Error')
 			parent.three_vel_lb.setText('ERROR!')
 		else:
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
@@ -1547,7 +1547,7 @@ def setup_jog(parent):
 					msg = ('The DISPLAY INCREMENTS entry in the ini\n'
 					f'> {item} < is not a valid unit and will not\n'
 					'be used. INCREMENTS must be comma seperated.')
-					dialogs.error_msg_ok(msg, 'Configuration Error')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -2007,7 +2007,7 @@ def setup_hal(parent):
 				f'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2058,7 +2058,7 @@ def setup_hal(parent):
 				f'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2097,7 +2097,7 @@ def setup_hal(parent):
 				f'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {child_name} button will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if isinstance(child, QCheckBox):
@@ -2115,7 +2115,7 @@ def setup_hal(parent):
 					msg = (f'The QPushButton {child_name} must be\n'
 					'set to checkable to be a IO button.\n'
 					'The QPushButton will be disabled.')
-					dialogs.error_msg_ok(msg, 'Error')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 
 			elif isinstance(child, QRadioButton):
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
@@ -2134,7 +2134,7 @@ def setup_hal(parent):
 					msg = (f'The QSpinBox hal_type must be\n'
 					'set to HAL_S32 or HAL_U32.\n'
 					'The spinbox will be disabled')
-					dialogs.error_msg_ok(msg, 'Error')
+					dialogs.error_msg_ok(parent, msg, 'Error')
 
 			elif isinstance(child, QDoubleSpinBox):
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_FLOAT, hal.HAL_IO))
@@ -2194,7 +2194,7 @@ def setup_hal(parent):
 				f'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2204,7 +2204,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n'
 				f'The {button_name} button will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = getattr(hal, 'HAL_BIT')
@@ -2237,7 +2237,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2247,7 +2247,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = spinbox.property('hal_type')
@@ -2257,7 +2257,7 @@ def setup_hal(parent):
 				'for a HAL spinbox, only\n'
 				'HAL_S32 or HAL_U32\n'
 				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error!')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = getattr(hal, f'{hal_type}')
@@ -2286,7 +2286,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2296,7 +2296,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n'
 				f'The {spinbox_name} spinbox will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = getattr(hal, 'HAL_FLOAT')
@@ -2326,7 +2326,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {slider_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2336,7 +2336,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n')
 				f'The {slider_name} slider will be disabled.'
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = slider.property('hal_type')
@@ -2346,7 +2346,7 @@ def setup_hal(parent):
 				'for a HAL slider, only\n'
 				'HAL_S32 or HAL_U32 are valid\n'
 				f'The {slider_name} slider will be disabled.\n')
-				dialogs.error_msg_ok(msg, 'Configuration Error!')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = getattr(hal, f'{hal_type}')
@@ -2376,7 +2376,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {lcd_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2386,7 +2386,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n'
 				f'The {lcd_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = lcd.property('hal_type')
@@ -2396,7 +2396,7 @@ def setup_hal(parent):
 				'for a HAL LCD, only HAL_FLOAT or \n'
 				'HAL_S32 or HAL_U32 can be used.\n'
 				f'The {lcd_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error!')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 
 			hal_type = getattr(hal, f'{hal_type}')
@@ -2429,7 +2429,7 @@ def setup_hal(parent):
 					'or the false text is blank or missing\n'
 					'The HAL pin can not be created.\n'
 					f'The {label_name} will be disabled.')
-					dialogs.error_msg_ok(msg, 'Configuration Error')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 					continue
 
 			if pin_name in [None, '']:
@@ -2438,7 +2438,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {label_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			# the pin_name can not be the same as a built in variable or object name
@@ -2447,7 +2447,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if all(x is None for x in [true_text, false_text]):
@@ -2459,7 +2459,7 @@ def setup_hal(parent):
 					' HAL Label. Valid types are HAL_BIT, \n'
 					'HAL_FLOAT, HAL_S32 or HAL_U32\n'
 					f'The {label_name} label will be disabled.')
-					dialogs.error_msg_ok(msg, 'Configuration Error!')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 					continue
 				hal_type = getattr(hal, f'{hal_type}')
 			else:
@@ -2509,7 +2509,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {label_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2519,7 +2519,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.'
 				f'The {label_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = getattr(hal, 'HAL_FLOAT')
@@ -2548,7 +2548,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {msl_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2556,7 +2556,7 @@ def setup_hal(parent):
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if label.property('text_0') == None:
@@ -2567,7 +2567,7 @@ def setup_hal(parent):
 				'one text message to display starting with\n'
 				'text_0. The HAL pin can not be created.\n'
 				f'The {msl_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			hal_type = getattr(hal, 'HAL_U32')
@@ -2597,7 +2597,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {progressbar_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			if pin_name in dir(parent):
@@ -2607,7 +2607,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n'
 				f'The {progressbar_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			'''
@@ -2617,7 +2617,7 @@ def setup_hal(parent):
 				msg = (f'{hal_type} is not valid type for a HAL Progressbar\n'
 				'only HAL_S32 or HAL_U32 can be used. \n'
 				f'The {progressbar_name} progressbar will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error!')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				continue
 			'''
 
@@ -2639,7 +2639,7 @@ def setup_hal(parent):
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {led_name} will be disabled.')
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			# the pin_name can not be the same as a built in variable
@@ -2650,7 +2650,7 @@ def setup_hal(parent):
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.\n')
 				f'The {led_name} LED will be disabled.'
-				dialogs.error_msg_ok(msg, 'Configuration Error')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
 			on_color = led.property('on_color')
@@ -2969,7 +2969,7 @@ def setup_plot(parent):
 			# If an INI setting and no GRIDS menu, show an error
 			msg = (f'GRIDS configuration found in the INI file. \n'
 				'No Grids menu was found to configure.')
-			dialogs.error_msg_ok(msg, 'Configuration Error')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		elif menu:
 			if not isinstance(menu, QMenu):
 				# If this action is in a submenu, for example inside "View"
@@ -2992,7 +2992,7 @@ def setup_plot(parent):
 					msg = ('The FLEXGUI PLOT_GRID entry in the ini\n'
 					f'> {item} < is not a valid unit and will not\n'
 					'be used.')
-					dialogs.error_msg_ok(msg, 'Configuration Error')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 					continue
 
 				# If no default has been set by the end, it means the first

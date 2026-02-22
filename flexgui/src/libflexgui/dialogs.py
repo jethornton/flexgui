@@ -163,7 +163,7 @@ def find(parent):
 
 def info_msg_ok(parent, msg, title=None):
 	# dialogs.info_msg_ok(parent, msg, 'title'
-	msg_box = QMessageBox()
+	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Information)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
@@ -184,7 +184,7 @@ def info_msg_ok(parent, msg, title=None):
 
 def confirm_msg_ok_cancel(parent, msg, title=None):
 	# dialogs.confirm_msg_ok_cancle(msg, 'title')
-	msg_box = QMessageBox()
+	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Question)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
@@ -204,9 +204,9 @@ def confirm_msg_ok_cancel(parent, msg, title=None):
 	else:
 		return False
 
-def error_msg_ok(msg, title=None): # plain error message
+def error_msg_ok(parent, msg, title=None): # plain error message
 	# dialogs.error_msg_ok(msg, 'title')
-	msg_box = QMessageBox()
+	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
@@ -220,7 +220,7 @@ def error_msg_ok(msg, title=None): # plain error message
 
 def warn_msg_ok(parent, msg, title=None):
 	# dialogs.warn_msg_ok(parent, msg, 'title')
-	msg_box = QMessageBox()
+	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
@@ -241,7 +241,7 @@ def warn_msg_ok(parent, msg, title=None):
 
 def warn_msg_yes_no(parent, msg, title=None):
 	# dialogs.warn_msg_yes_no(parent, msg, 'title')
-	msg_box = QMessageBox()
+	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
@@ -262,7 +262,7 @@ def warn_msg_yes_no(parent, msg, title=None):
 
 def critical_msg_ok(parent, msg, title=None):
 	# dialogs.critical_msg_ok(parent, msg, 'title')
-	msg_box = QMessageBox()
+	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Critical)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
