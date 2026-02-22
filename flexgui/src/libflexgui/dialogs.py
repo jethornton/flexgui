@@ -162,7 +162,7 @@ def find(parent):
 	result = sr.exec()
 
 def info_msg_ok(parent, msg, title=None):
-	# dialogs.info_msg_ok(parent, msg, 'title'
+	# dialogs.info_msg_ok(parent, msg, 'title')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Information)
 	msg_box.setWindowTitle(title)
