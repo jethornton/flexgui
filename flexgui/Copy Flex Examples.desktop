@@ -9,6 +9,6 @@ Terminal=false
 StartupNotify=true
 StartupWMClass=flexcopy
 GenericName=Flex GUI
-Comment=Copy Flex Examples
+Comment=Copies the example files to linuxcnc/configs
 
 Name[en_US]=Copy Flex Examples
