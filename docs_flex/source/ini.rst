@@ -238,7 +238,7 @@ following line to the .ini file
 
 	RESOURCES = resources.py
 
-See the section on Resources for more info.
+See the :doc:`resources` section for more info.
 
 Screen Size
 -----------
