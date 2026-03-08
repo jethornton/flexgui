@@ -168,8 +168,7 @@ def setup_hal_led_buttons(parent):
 				'connection will be made.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				return
-			else:
-				print(child.property('function'))
+
 			btn_dict = {}
 			btn_dict['name'] = child.objectName()
 			btn_dict['text'] = child.text()
@@ -742,14 +741,6 @@ def setup_enables(parent):
 	for item in home_items:
 		if item in parent.child_names:
 			parent.home_controls.append(item)
-
-	'''
-	for item in parent.home_controls:
-		if item[-1].isdigit():
-			print(f'item {item}')
-			joint = int(item[-1])
-			print(f'joint {joint} homed {bool(parent.status.joint[int(item[-1])]["homed"])}')
-	'''
 
 	unhome_items = ['unhome_all_pb']
 	for i in range(9):
@@ -2184,8 +2175,6 @@ def setup_hal(parent):
 				confirm = button.property('confirm')
 			else:
 				confirm = False
-			#if confirm:
-			#	print(f'button.text() {button.text()}')
 
 			if pin_name in [None, '']:
 				button.setEnabled(False)
@@ -2420,7 +2409,6 @@ def setup_hal(parent):
 			pin_name = label.property('pin_name')
 			true_text = label.property('true_text')
 			false_text = label.property('false_text')
-			#print(true_text, false_text)
 			if any([true_text, false_text]):
 				if not all([true_text, false_text]):
 					label.setEnabled(False)
@@ -2681,25 +2669,20 @@ def setup_hal_io_state(parent):
 	# key is the object name value is the hal pin name
 	for key, value in parent.hal_io_check.items():
 		checked_state = getattr(parent, key).isChecked()
-		#print(f'checked_state {checked_state}')
 		hal_state = getattr(parent.halcomp, value)
-		#print(f'hal_state {hal_state}')
 		if checked_state != hal_state:
 			#getattr(parent, key).setChecked(hal_state)
 			setattr(parent.halcomp, value, checked_state)
-			#print(f'key {key}, value {value}')
 
 	for key, value in parent.hal_io_int.items():
 		obj_value = getattr(parent, key).value()
 		hal_value = getattr(parent.halcomp, value)
-		#print(f'obj_value {obj_value}, hal_value {hal_value}')
 		if obj_value != hal_value:
 			setattr(parent.halcomp, value, obj_value)
 
 	for key, value in parent.hal_io_float.items():
 		obj_value = getattr(parent, key).value()
 		hal_value = getattr(parent.halcomp, value)
-		#print(f'obj_value {obj_value}, hal_value {hal_value}')
 		if obj_value != hal_value:
 			setattr(parent.halcomp, value, obj_value)
 

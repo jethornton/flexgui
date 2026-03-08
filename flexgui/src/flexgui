@@ -343,7 +343,6 @@ class flexgui(QMainWindow):
 		self.timer = QTimer()
 		self.timer.timeout.connect(partial(status.update, self))
 		self.timer.start(self.cycle_time) # milliseconds
-		print(self.cycle_time)
 
 		# var update timer
 		self.var_timer = QTimer(self)
