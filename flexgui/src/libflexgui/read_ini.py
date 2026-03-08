@@ -153,6 +153,12 @@ def read(parent):
 
 	# ***** [FLEXGUI] Section *****
 
+	# check for CYCLE_TIME
+	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
+	if isinstance(parent.cycle_time, str): # the ini file had a setting
+		if utilities.is_int(parent.cycle_time):
+			parent.cycle_time = int(parent.cycle_time)
+
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 	if parent.resources_file:

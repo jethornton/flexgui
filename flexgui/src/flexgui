@@ -342,7 +342,8 @@ class flexgui(QMainWindow):
 		# setup and start the status update timer every 0.01 second
 		self.timer = QTimer()
 		self.timer.timeout.connect(partial(status.update, self))
-		self.timer.start(10) # milliseconds
+		self.timer.start(self.cycle_time) # milliseconds
+		print(self.cycle_time)
 
 		# var update timer
 		self.var_timer = QTimer(self)
