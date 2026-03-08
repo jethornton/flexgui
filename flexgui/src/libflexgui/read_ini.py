@@ -158,6 +158,19 @@ def read(parent):
 	if isinstance(parent.cycle_time, str): # the ini file had a setting
 		if utilities.is_int(parent.cycle_time):
 			parent.cycle_time = int(parent.cycle_time)
+			if not 50 <= parent.cycle_time <= 200:
+				msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}"\n'
+				'is not in the range of 50-200. The cycle time\n'
+				'will be set to the default 100 ms cycle time')
+				dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+				parent.cycle_time = 100
+		else:
+			msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}"\n'
+			'did not evaluate to a number in the range of\n'
+			'50-200. The cycle time will be set to the\n'
+			'default 100 ms cycle time')
+			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			parent.cycle_time = 100
 
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
