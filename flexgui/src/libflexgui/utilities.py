@@ -24,8 +24,6 @@ def to_bool(parent, ini_item, string):
 		msg = (f'The INI key {ini_item} value "{string}"\n'
 		'did not evaluate to a True or False Boolean')
 		dialogs.error_msg_ok(parent, msg, 'title')
-		#raise ValueError(f"'{string}' is not a valid boolean string")
-		# FIXME send this to a message box
 		return False
 
 def to_int(string):
@@ -33,8 +31,7 @@ def to_int(string):
 		number = int(string)
 		return number
 	except ValueError:
-		print(f"Error: '{string}' is not a valid integer string.")
-		# FIXME send this to a message box
+		return False
 
 def is_float(string):
 	try:
@@ -275,12 +272,10 @@ def hal_confirm(parent):
 	text = sender.text()
 	checked_state = sender.isChecked()
 	pin = sender.property('pin_name')
-	#getattr(parent, f'{pin_name}')
 	msg = (f'The HAL object "{text}" requests\n'
 	'confirmation before changing the HAL\n'
 	f'state of the {pin} pin.')
 	result = dialogs.confirm_msg_ok_cancel(parent, msg, 'HAL')
-	#print(f'result {result}') self.hal_test['out'] = True
 	if result:
 		setattr(parent.halcomp, pin, checked_state)
 	else: # reset the checked state
