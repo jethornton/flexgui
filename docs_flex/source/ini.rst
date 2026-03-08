@@ -153,6 +153,18 @@ extensions must be in the format `*.ext` with the asterisk and dot
 [FLEXGUI]
 ---------
 
+Cycle Time
+----------
+
+The update cycle time can be set to 50-200 ms using the CYCLE_TIME key. If the
+CYCLE_TIME key is not found in the [FLEXGUI] section the cycle time will be set
+to 100 ms. A slower computer may benifit from a longer cycle time.
+
+
+.. code-block:: text
+
+	CYCLE_TIME = 100
+
 Splash Screen
 -------------
 
