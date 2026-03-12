@@ -76,15 +76,19 @@ o<p_bar_m> sub
 	G90 G1 Y #2022
 	G1 Z #2021
 	#2019 = [ #2011 + 12.7]
+	F#2001
 	G91 G38.2 Y -#2019
 	#2022 = #5062
+	F#2000
 	G91 G1 Y 1				; back off 1
 	G90 G1 Z #2020			; move to Z clear
 	#2023 = [#2025 -  #2011]
 	G90 G1 Y #2023			; move to other side
 	G90 G1 Z #2021 			; move to Z probe
+	F#2001
 	G91 G38.2 Y  #2019		; probe other side
 	#2019 = #5062			; store Y- location
+	F#2000
 	G91 G1 Y -1				; back off 1
 	#2025=[[#2022 + #2019]/2]	; 1st side + 2nd side /2 for Y center
 	G90 G1 Z #2020			; move to Z clear
