@@ -444,32 +444,40 @@ def var_value_changed(parent, value):
 	parent.var_timer.start(500)  # Timeout after 0.5 seconds
 
 def sync_var_file(parent):
-	if parent.status.task_state == emc.STATE_ON:
-		original_mode = parent.status.task_mode
+	parent.status.poll()
+	if (parent.status.task_state == emc.STATE_ON
+		and parent.status.task_mode == emc.MODE_MANUAL
+		and parent.status.motion_mode == emc.TRAJ_MODE_TELEOP
+		and parent.status.interp_state == emc.INTERP_IDLE):
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(parent.cmd)
 		parent.command.wait_complete()
 		parent.command.task_plan_synch()
-		parent.command.mode(original_mode)
+		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
 def var_file_watch(parent):
-	var_current_time = os.stat(os.path.join(parent.config_path, parent.var_file)).st_mtime
-	if parent.var_mod_time != var_current_time:
-		var_file = os.path.join(parent.config_path, parent.var_file)
-		with open(var_file, 'r') as f:
-			var_list = f.readlines()
-		for key, value in parent.watch_var.items():
-			for line in var_list:
-				if line.startswith(value[0]):
-					getattr(parent, key).setText(f'{float(line.split()[1]):.{value[1]}f}')
-		for key, value in parent.set_var.items():
-			for line in var_list:
-				if line.split()[0] == value:
-					getattr(parent, key).setValue(float(line.split()[1]))
-		parent.var_mod_time = var_current_time
+	parent.status.poll()
+	if (parent.status.task_state == emc.STATE_ON
+		and parent.status.task_mode == emc.MODE_MANUAL
+		and parent.status.motion_mode == emc.TRAJ_MODE_TELEOP
+		and parent.status.interp_state == emc.INTERP_IDLE):
+		var_current_time = os.stat(os.path.join(parent.config_path, parent.var_file)).st_mtime
+		if parent.var_mod_time != var_current_time:
+			var_file = os.path.join(parent.config_path, parent.var_file)
+			with open(var_file, 'r') as f:
+				var_list = f.readlines()
+			for key, value in parent.watch_var.items():
+				for line in var_list:
+					if line.startswith(value[0]):
+						getattr(parent, key).setText(f'{float(line.split()[1]):.{value[1]}f}')
+			for key, value in parent.set_var.items():
+				for line in var_list:
+					if line.split()[0] == value:
+						getattr(parent, key).setValue(float(line.split()[1]))
+			parent.var_mod_time = var_current_time
 
 def io_watch(parent):
 	for key, value in parent.hal_io_check.items():
