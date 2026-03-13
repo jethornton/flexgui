@@ -2430,7 +2430,7 @@ def setup_hal(parent):
 				continue
 
 			# the pin_name can not be the same as a built in variable or object name
-			if pin_name in parent.directory:
+			if pin_name in parent.child_names:
 				msg = (f'HAL Label {label_name}\n'
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
@@ -2631,7 +2631,7 @@ def setup_hal(parent):
 				continue
 
 			# the pin_name can not be the same as a built in variable
-			if pin_name in parent.directory:
+			if pin_name in parent.child_names:
 				led.setEnabled(False)
 				msg = (f'HAL LED {led_name}\n'
 				f'pin name {pin_name}\n'
