@@ -498,6 +498,62 @@ def io_watch(parent):
 		if float_value != hal_value:
 			getattr(parent, key).setValue(hal_value)
 
+def update_home_controls(parent):
+	parent.status.poll()
+	if parent.status.task_state == emc.STATE_ON:
+		for joint in range(parent.joints):
+			if parent.status.joint[joint]['homed']:
+				if f'home_pb_{joint}' in parent.child_names:
+					getattr(parent, f'home_pb_{joint}').setEnabled(False)
+				if f'unhome_pb_{joint}' in parent.child_names:
+					getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
+			elif not parent.status.joint[joint]['homed']:
+				if f'home_pb_{joint}' in parent.child_names:
+					getattr(parent, f'home_pb_{joint}').setEnabled(True)
+				if f'unhome_pb_{joint}' in parent.child_names:
+					getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
+
+		# all joints homed
+		if all(parent.status.homed[:parent.joints]):
+			if 'home_all_pb' in parent.child_names:
+				parent.home_all_pb.setEnabled(False)
+			if 'unhome_all_pb' in parent.child_names:
+				parent.unhome_all_pb.setEnabled(True)
+			for item in parent.homed_enabled:
+				getattr(parent, item).setEnabled(True)
+
+		# not all joints homed
+		if not any(parent.status.homed[:parent.joints]):
+			if 'home_all_pb' in parent.child_names and home_all_check(parent):
+				parent.home_all_pb.setEnabled(True)
+			if 'unhome_all_pb' in parent.child_names:
+				parent.unhome_all_pb.setEnabled(False)
+			for item in parent.homed_enabled:
+				getattr(parent, item).setEnabled(False)
+
+def update_run_controls(parent):
+	parent.status.poll()
+	if parent.status.task_mode == emc.MODE_MANUAL:
+		if not parent.probing:
+			for item in parent.file_load_controls:
+				getattr(parent, item).setEnabled(True)
+			if (all(parent.status.homed[:parent.joints])
+				and parent.status.task_state == emc.STATE_ON):
+				for item in parent.mdi_controls:
+					getattr(parent, item).setEnabled(True)
+				if parent.status.file != '':
+					for item in parent.run_controls:
+						getattr(parent, item).setEnabled(True)
+
+	elif parent.status.task_mode == emc.MODE_AUTO:
+		for item in parent.file_load_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.mdi_controls:
+			getattr(parent, item).setEnabled(False)
+
+
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
