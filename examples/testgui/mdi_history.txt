@@ -1,1 +1,4 @@
 G0 X1
+G0 X2
+o<measure> call
+
