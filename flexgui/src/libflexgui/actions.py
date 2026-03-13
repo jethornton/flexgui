@@ -46,6 +46,10 @@ def load_file(parent, nc_code_file=None):
 			getattr(parent, item).setEnabled(True)
 		if 'start_line_lb' in parent.child_names:
 			parent.start_line_lb.setText('0')
+		if 'reload_pb' in parent.child_names:
+			parent.reload_pb.setEnabled(True)
+		if 'actionReload' in parent.child_names:
+			parent.actionReload.setEnabled(True)
 
 		if not load_file_btn: # called by menu or file open button
 			# get recent files from settings

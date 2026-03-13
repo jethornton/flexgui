@@ -343,6 +343,7 @@ from this point on use parent.child_names to get the widgets because the LED
 widgets are no longer QPushButton for example but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
+	print('find_children')
 	parent.child_names = []
 	children = parent.findChildren(QWidget)
 	for child in children:
@@ -871,6 +872,30 @@ def setup_enables(parent):
 			getattr(parent, item).setEnabled(False)
 	'''
 def setup_buttons(parent): # connect buttons to functions
+	parent.state_estop_reset_names = {}
+	if 'estop_pb' in parent.child_names:
+		parent.estop_pb.toggled.connect(partial(actions.action_estop, parent))
+		parent.estop_pb.setCheckable(True)
+		closed_text = parent.estop_pb.property('closed_text')
+		if closed_text is not None:
+			parent.state_estop_reset_names['estop_pb'] = closed_text
+
+	if 'power_pb' in parent.child_names:
+		parent.power_pb.toggled.connect(partial(actions.action_power, parent))
+		parent.power_pb.setCheckable(True)
+		off_text = parent.power_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_reset_names['power_pb'] = off_text
+
+	# file items if not loaded disable
+	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'search_pb', 'actionEdit',
+		'actionReload', 'actionSave_As']
+
+	parent.file_edit_items = []
+	for item in file_items:
+		if item in parent.child_names:
+			parent.file_edit_items.append(item)
+
 	command_buttons = {
 	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
 	'home_all_pb': 'home_all', 'home_pb_0': 'home',
@@ -914,25 +939,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
-	parent.state_estop_reset_names = {}
-	if 'estop_pb' in parent.child_names:
-		parent.estop_pb.toggled.connect(partial(actions.action_estop, parent))
-		parent.estop_pb.setCheckable(True)
-		closed_text = parent.estop_pb.property('closed_text')
-		if closed_text is not None:
-			parent.state_estop_reset_names['estop_pb'] = closed_text
-
-	if 'power_pb' in parent.child_names:
-		parent.power_pb.toggled.connect(partial(actions.action_power, parent))
-		parent.power_pb.setCheckable(True)
-		off_text = parent.power_pb.property('off_text')
-		if off_text is not None:
-			parent.state_estop_reset_names['power_pb'] = off_text
-
-	# remove any items not found in the gui
-	#for item in list(parent.state_estop_reset_names):
-	#	if item not in parent.child_names:
-	#		del parent.state_estop_reset_names[item]
 
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
@@ -1044,6 +1050,7 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.flashing_buttons.append(child.objectName())
 
 def setup_status_labels(parent):
+	print('setup_status_labels')
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
@@ -1318,14 +1325,19 @@ def setup_status_labels(parent):
 
 	parent.home_status = []
 	for i in range(9):
+		print(f'home_lb_{i}')
 		if f'home_lb_{i}' in parent.child_names:
 			parent.home_status.append(f'home_lb_{i}')
+			print(f'home_lb_{i}')
 
+	# FIXME this is not needed
+	'''
 	for item in parent.home_status:
 		if parent.status.homed[int(item[-1])]:
 			getattr(parent, item).setText('*')
 		else:
 			getattr(parent, item).setText('')
+		'''
 
 	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))

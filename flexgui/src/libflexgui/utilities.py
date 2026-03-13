@@ -254,18 +254,18 @@ def set_hal_enables(parent, obj):
 
 	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 	# all HAL objects are disabled when state estop unless always_on is true
-	parent.state_estop[obj_name] = False
+	parent.state_estop_disabled.append(obj_name)
 	if state_on and not all_homed:
-		parent.state_estop_reset[obj_name] = False
-		parent.state_on[obj_name] = True
+		#parent.state_estop_reset[obj_name] = False
+		parent.state_on_enabled.append(obj_name)
 	elif not state_on and all_homed:
-		parent.home_required.append(obj_name)
+		parent.homed_enabled.append(obj_name)
 	elif state_on and all_homed:
-		parent.state_estop_reset[obj_name] = False
-		parent.state_on_homed[obj_name] = True
-		parent.state_on_unhomed[obj_name] = False
+		#parent.state_estop_reset[obj_name] = False
+		parent.homed_enabled.append(obj_name)
+		#parent.state_on_unhomed[obj_name] = False
 	elif obj_name not in special_buttons: # enable/disable with estop
-			parent.state_estop_reset[obj_name] = True
+			parent.state_estop_disabled.append(obj_name)
 
 def hal_confirm(parent):
 	sender = parent.sender()
@@ -498,6 +498,14 @@ def io_watch(parent):
 		if float_value != hal_value:
 			getattr(parent, key).setValue(hal_value)
 
+	'''
+	for item in parent.home_status:
+		if parent.status.homed[int(item[-1])]:
+			getattr(parent, item).setText('*')
+		else:
+			getattr(parent, item).setText('')
+	'''
+
 def update_home_controls(parent):
 	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON:
@@ -507,11 +515,15 @@ def update_home_controls(parent):
 					getattr(parent, f'home_pb_{joint}').setEnabled(False)
 				if f'unhome_pb_{joint}' in parent.child_names:
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
+				if f'home_lb_{joint}' in parent.child_names:
+					getattr(parent, f'home_lb_{joint}').setText('*')
 			elif not parent.status.joint[joint]['homed']:
 				if f'home_pb_{joint}' in parent.child_names:
 					getattr(parent, f'home_pb_{joint}').setEnabled(True)
 				if f'unhome_pb_{joint}' in parent.child_names:
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
+				if f'home_lb_{joint}' in parent.child_names:
+					getattr(parent, f'home_lb_{joint}').setText('')
 
 		# all joints homed
 		if all(parent.status.homed[:parent.joints]):

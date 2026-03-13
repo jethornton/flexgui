@@ -779,13 +779,14 @@ def update(parent):
 	for key, value in parent.hal_led_labels.items():
 		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
 
-	# homed status
+	# homed status FIXME this is moved to utilites
+	'''
 	for item in parent.home_status:
 		if parent.status.homed[int(item[-1])]:
 			getattr(parent, item).setText('*')
 		else:
 			getattr(parent, item).setText('')
-
+	'''
 
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
