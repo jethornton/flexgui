@@ -344,16 +344,11 @@ class flexgui(QMainWindow):
 		self.update_timer.timeout.connect(partial(status.update, self))
 		self.update_timer.start(self.cycle_time) # milliseconds
 
-		# var update timer
-		self.var_timer = QTimer(self)
-		self.var_timer.setSingleShot(True)
-		self.var_timer.timeout.connect(partial(utilities.sync_var_file, self))
-
 		# setup the var file watch timer
 		self.var_watch_timer = QTimer(self)
 		self.var_watch_timer.timeout.connect(partial(utilities.var_file_watch, self))
 		self.var_mod_time = 0.0 # used to watch the file modification time
-		self.var_watch_timer.start(100) # milliseconds
+		self.var_watch_timer.start(1000) # milliseconds
 
 		# setup the i/o watch timer
 		self.io_watch_timer = QTimer(self)
