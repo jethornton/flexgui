@@ -41,6 +41,16 @@ def set_screen(parent):
 		parent.move(0, 0) # if no settings move window to upper left corner
 
 def setup_vars(parent):
+	# added from testgui
+	parent.program_units = False
+	parent.g_codes = ()
+	parent.homed = parent.status.homed
+	parent.program_paused = False
+	parent.motion_line = -1
+	parent.plot_units = False
+	parent.probing = False
+
+
 	# put any variables in here that might be called during startup
 	parent.selected_style = '''
 		border-style: inset;
@@ -343,7 +353,6 @@ from this point on use parent.child_names to get the widgets because the LED
 widgets are no longer QPushButton for example but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
-	print('find_children')
 	parent.child_names = []
 	children = parent.findChildren(QWidget)
 	for child in children:
@@ -871,6 +880,22 @@ def setup_enables(parent):
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(False)
 	'''
+
+def setup_run_controls(parent):
+	file_run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
+	'actionRun', 'actionRun_From_Line', 'actionStep', 'tool_change_pb']
+	for item in file_run_items:
+		if item in parent.child_names:
+			parent.run_controls.append(item)
+	for i in range(100):
+		if f'tool_change_pb_{i}' in parent.child_names:
+			parent.run_controls.append(item)
+	for item in AXES:
+		if f'tool_touchoff_{item}' in parent.child_names:
+			parent.run_controls.append(f'tool_touchoff_{item}')
+		if f'touchoff_pb_{item}' in parent.child_names:
+			parent.run_controls.append(f'touchoff_pb_{item}')
+
 def setup_buttons(parent): # connect buttons to functions
 	parent.state_estop_reset_names = {}
 	if 'estop_pb' in parent.child_names:
@@ -1050,7 +1075,6 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.flashing_buttons.append(child.objectName())
 
 def setup_status_labels(parent):
-	print('setup_status_labels')
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
 	'exec_state': {1: 'EXEC_ERROR', 2: 'EXEC_DONE', 3: 'EXEC_WAITING_FOR_MOTION',
@@ -1325,10 +1349,8 @@ def setup_status_labels(parent):
 
 	parent.home_status = []
 	for i in range(9):
-		print(f'home_lb_{i}')
 		if f'home_lb_{i}' in parent.child_names:
 			parent.home_status.append(f'home_lb_{i}')
-			print(f'home_lb_{i}')
 
 	# FIXME this is not needed
 	'''
