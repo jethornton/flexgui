@@ -384,6 +384,7 @@ def setup_menus(parent):
 							name = os.path.basename(path)
 							a = parent.menuRecent.addAction(name)
 							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
+			'''
 			if action.objectName() == 'actionHoming': # add homing actions
 				action.setMenu(QMenu('Homing', parent))
 
@@ -447,7 +448,7 @@ def setup_menus(parent):
 					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
 					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
 					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
-
+			'''
 			if len(action.shortcut().toString()) > 0: # collect shortcuts for quick reference
 				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
 
@@ -510,6 +511,131 @@ def update_check(parent):
 
 def setup_enables(parent):
 
+	# enable and disable lists
+	parent.state_estop_disabled = [] # everything but estop_pb
+	parent.state_estop_reset_disabled = []
+	parent.state_estop_reset_enabled = []
+	parent.state_on_enabled = []
+	parent.homed_enabled = []
+	parent.program_running_disabled = []
+	parent.run_controls = [] # enabled when homed, manual, file loaded
+	parent.file_load_controls = [] # disable when a program or mdi is running
+	parent.mdi_controls = []
+	parent.probe_controls = []
+
+	# STATE_ESTOP everything is disabled except the estop and file open save etc.
+	state_estop_items = ['power_pb', 'run_pb', 'run_from_line_pb',
+	'step_pb', 'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
+	'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb', 'spindle_start_pb',
+	'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb', 'spindle_plus_pb',
+	'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
+	'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume',
+	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
+
+	for i in range(9):
+		state_estop_items.append(f'home_pb_{i}')
+		state_estop_items.append(f'unhome_pb_{i}')
+		state_estop_items.append(f'jog_plus_pb_{i}')
+		state_estop_items.append(f'jog_minus_pb_{i}')
+
+	for axis in AXES:
+		state_estop_items.append(f'touchoff_pb_{axis}')
+		state_estop_items.append(f'tool_touchoff_{axis}')
+		state_estop_items.append(f'zero_{axis}_pb')
+
+	for i in range(100):
+		state_estop_items.append(f'tool_change_pb_{i}')
+
+	for i in range(1, 10):
+		state_estop_items.append(f'change_cs_{i}')
+
+	for name in state_estop_items:
+		if name in parent.child_names:
+			parent.state_estop_disabled.append(name)
+
+	# STATE_ESTOP_RESET everything is disabled except power_pb
+	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
+		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
+		'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb',
+		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
+		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
+		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
+		'actionResume', 'tool_change_pb', 'touchoff_selected_pb',
+		'touchoff_selected_tool_pb']
+
+	for i in range(9):
+		state_estop_reset_disabled_items.append(f'home_pb_{i}')
+		state_estop_reset_disabled_items.append(f'unhome_pb_{i}')
+		state_estop_reset_disabled_items.append(f'jog_plus_pb_{i}')
+		state_estop_reset_disabled_items.append(f'jog_minus_pb_{i}')
+
+	for item in AXES:
+		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
+		state_estop_reset_disabled_items.append(f'tool_touchoff_{item}')
+
+	for i in range(100):
+		state_estop_reset_disabled_items.append(f'tool_change_pb_{i}')
+
+	for i in range(1, 10):
+		state_estop_reset_disabled_items.append(f'change_cs_{i}')
+
+	for name in state_estop_reset_disabled_items:
+		if name in parent.child_names:
+			parent.state_estop_reset_disabled.append(name)
+
+	# the only things enabled when estop is reset
+	for name in ['power_pb', 'actionPower']:
+		if name in parent.child_names:
+			parent.state_estop_reset_enabled.append(name)
+
+	# STATE_ON enable jog and homing
+	parent.state_on_enabled = []
+	for i in range(9):
+		if f'jog_plus_pb_{i}' in parent.child_names:
+			parent.state_on_enabled.append(f'jog_plus_pb_{i}')
+		if f'jog_minus_pb_{i}' in parent.child_names:
+			parent.state_on_enabled.append(f'jog_minus_pb_{i}')
+
+	parent.program_running_enable = []
+	for item in ['pause_pb', 'actionPause']:
+		if item in parent.child_names:
+			parent.program_running_enable.append(item)
+
+	parent.program_paused_enable = []
+	for item in ['resume_pb', 'actionResume']:
+		if item in parent.child_names:
+			parent.program_paused_enable.append(item)
+
+	# FIXME might need to remove run_from_line_pb and actionRun_From_Line if not configured correctly
+	parent.program_running_disable = ['open_pb', 'reload_pb', 'run_pb',
+	'run_from_line_pb', 'step_pb', 'jog_selected_plus', 'jog_selected_minus',
+	'resume_pb', 'run_mdi_pb', 'home_all_pb', 'actionRun', 'actionOpen',
+	'menuRecent', 'actionReload', 'actionRun_From_Line', 'actionStep',
+	'actionResume', 'unhome_all_pb', 'tool_change_pb']
+
+	for i in range(9):
+		parent.program_running_disable.append(f'home_pb_{i}')
+		parent.program_running_disable.append(f'unhome_pb_{i}')
+
+	for i in range(100):
+		parent.program_running_disable.append(f'tool_change_pb_{i}')
+
+	for i in range(1, 10):
+		parent.program_running_disable.append(f'change_cs_{i}')
+
+	for item in AXES:
+		parent.program_running_disable.append(f'touchoff_pb_{item}')
+		parent.program_running_disable.append(f'tool_touchoff_{item}')
+
+	parent.program_running_disable.append('mdi_s_pb')
+
+	# remove any items not found in the gui
+	for item in parent.program_running_disable:
+		if item not in parent.child_names:
+			parent.program_running_disable.remove(item)
+
+
+	'''
 	# disable home all if home sequence is not found
 	if 'home_all_pb' in parent.child_names:
 		if not utilities.home_all_check(parent):
@@ -544,38 +670,6 @@ def setup_enables(parent):
 		if name in parent.child_names:
 			parent.state_estop[name] = False
 
-	'''
-	parent.state_estop = {
-		'power_pb': False, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False,
-		'pause_pb': False, 'resume_pb': False,
-		'jog_selected_plus': False, 'jog_selected_minus': False,
-		'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False, 'mdi_s_pb': False,
-		'spindle_start_pb': False, 'spindle_fwd_pb': False,
-		'spindle_rev_pb': False, 'spindle_stop_pb': False,
-		'spindle_plus_pb': False, 'spindle_minus_pb': False,
-		'flood_pb': False, 'mist_pb': False,
-		'actionPower': False, 'actionRun': False,
-		'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': False, 'tool_change_pb': False,
-		'actionResume': False,
-		'touchoff_selected_pb': False, 'touchoff_selected_tool_pb': False
-		}
-
-
-	# remove any items not found in the gui
-	for item in list(parent.state_estop):
-		if item not in parent.child_names:
-			del parent.state_estop[item]
-	'''
-
-	''' LED
-	parent.state_estop_names = {'estop_pb': 'E Stop Open',
-		'actionE_Stop': 'E Stop Open', 'power_pb': 'Power Off',
-		'actionPower': 'Power Off'}
-	'''
-
 	# FIXME have the text be on_text and off_text for all buttons
 	if 'estop_pb' in parent.child_names:
 		open_text = parent.estop_pb.property('open_text')
@@ -586,13 +680,6 @@ def setup_enables(parent):
 		off_text = parent.power_pb.property('off_text')
 		if off_text is not None:
 			parent.state_estop_names['power_pb'] = off_text
-
-	''' there are only two estop names...
-	# remove any items not found in the gui
-	for item in list(parent.state_estop_names):
-		if item not in parent.child_names:
-			del parent.state_estop_names[item]
-	'''
 
 	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
 		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
@@ -624,48 +711,7 @@ def setup_enables(parent):
 		if name in parent.child_names:
 			parent.state_estop_reset[name] = True
 
-	'''
-	# STATE_ESTOP_RESET enable power
-	parent.state_estop_reset = {
-		'power_pb': True, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False,
-		'pause_pb': False, 'resume_pb': False,
-		'jog_selected_plus': False, 'jog_selected_minus': False,
-		'home_all_pb': False, 'unhome_all_pb': False,
-		'run_mdi_pb': False,  'mdi_s_pb': False,
-		'spindle_start_pb': False, 'spindle_fwd_pb': False,
-		'spindle_rev_pb': False, 'spindle_stop_pb': False,
-		'spindle_plus_pb': False, 'spindle_minus_pb': False,
-		'flood_pb': False, 'mist_pb': False,
-		'actionPower': True, 'actionRun': False,
-		'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': False, 'tool_change_pb': False,
-		'actionResume': False,
-		'touchoff_selected_pb': False, 'touchoff_selected_tool_pb': False
-		}
 
-	for i in range(9):
-		parent.state_estop_reset[f'home_pb_{i}'] = False
-		parent.state_estop_reset[f'unhome_pb_{i}'] = False
-	for item in AXES:
-		parent.state_estop_reset[f'touchoff_pb_{item}'] = False
-		parent.state_estop_reset[f'tool_touchoff_{item}'] = False
-	for i in range(100):
-		parent.state_estop_reset[f'tool_change_pb_{i}'] = False
-	for i in range(1, 10):
-		parent.state_estop_reset[f'change_cs_{i}'] = False
-
-	# remove any items not found in the gui
-	for item in list(parent.state_estop_reset):
-		if item not in parent.child_names:
-			del parent.state_estop_reset[item]
-	'''
-	''' LED
-	parent.state_estop_reset_names = {
-		'estop_pb': 'E Stop Closed', 'actionE_Stop': 'E Stop Closed',
-		'power_pb': 'Power Off', 'actionPower': 'Power Off'
-		}
-	'''
 
 	# STATE_ON home, jog, spindle
 	parent.state_on = {
@@ -823,7 +869,7 @@ def setup_enables(parent):
 	else:
 		for item in parent.file_edit_items:
 			getattr(parent, item).setEnabled(False)
-
+	'''
 def setup_buttons(parent): # connect buttons to functions
 	command_buttons = {
 	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
@@ -1462,8 +1508,8 @@ def setup_jog(parent):
 			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
 			parent.state_estop[item] = False
 			parent.state_estop_reset[item] = False
-			parent.state_on[item] = True
-			parent.program_running[item] = False
+			#parent.state_on[item] = True
+			#parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.child_names:
 		if parent.min_jog_vel:
@@ -1891,7 +1937,7 @@ def setup_mdi_buttons(parent):
 				if button_name.startswith('probe_'):
 					parent.probe_controls.append(button_name)
 				else:
-					parent.program_running[button_name] = False
+					#parent.program_running[button_name] = False
 					parent.state_estop[button_name] = False
 					parent.home_required.append(button_name)
 			else:
@@ -1972,13 +2018,6 @@ def setup_hal(parent):
 	parent.hal_bool_labels = {}
 	parent.hal_progressbars = {}
 	parent.hal_floats = {}
-
-	'''
-	parent.state_estop estop is open
-	parent.state_estop_reset estop is closed and power is off
-	parent.state_on power is on
-	parent.state_on_homed power is on and all joints homed
-	'''
 
 	var_file = os.path.join(parent.config_path, parent.var_file)
 	with open(var_file, 'r') as f:
