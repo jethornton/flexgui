@@ -7,6 +7,12 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import utilities
 
+def set_task_mode(parent, mode):
+	parent.status.poll()
+	if parent.status.task_mode != mode:
+		parent.command.mode(mode)
+		parent.command.wait_complete()
+
 def set_mode_manual(parent):
 	if parent.status.task_mode != emc.MODE_MANUAL:
 		parent.command.mode(emc.MODE_MANUAL)
@@ -21,6 +27,14 @@ def set_mode(parent, mode=None):
 		parent.command.wait_complete()
 
 def home(parent):
+	joint = int(parent.sender().objectName()[-1])
+	if parent.status.homed[joint] == 0: # not homed
+		set_task_mode(parent, emc.MODE_MANUAL)
+		parent.command.teleop_enable(False)
+		parent.command.wait_complete()
+		parent.command.home(joint)
+
+	'''
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 0: # not homed
@@ -50,8 +64,15 @@ def home(parent):
 				getattr(parent, item).setEnabled(False)
 			if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
 				parent.home_all_pb.led = True
+	'''
 
 def home_all(parent):
+	set_task_mode(parent, emc.MODE_MANUAL)
+	parent.command.teleop_enable(False)
+	parent.command.wait_complete()
+	parent.command.home(-1)
+
+	'''
 	parent.status.poll()
 	if parent.status.task_mode != emc.MODE_MANUAL:
 		parent.command.mode(emc.MODE_MANUAL)
@@ -69,8 +90,18 @@ def home_all(parent):
 	# FIXME find a better way to handle the leds
 	if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
 		parent.home_all_pb.led = True
+	'''
 
 def unhome(parent):
+	joint = int(parent.sender().objectName()[-1])
+	if parent.status.homed[joint] == 1: # joint is homed so unhome it
+		set_task_mode(parent, emc.MODE_MANUAL)
+		if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
+			parent.command.teleop_enable(False)
+			parent.command.wait_complete()
+		parent.command.unhome(joint)
+
+	'''
 	parent.status.poll()
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 1: # joint is homed so unhome it
@@ -97,8 +128,15 @@ def unhome(parent):
 
 		if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
 			parent.home_all_pb.led = False
+	'''
 
 def unhome_all(parent):
+	set_task_mode(parent, emc.MODE_MANUAL)
+	parent.command.teleop_enable(False)
+	parent.command.wait_complete()
+	parent.command.unhome(-1)
+
+	'''
 	set_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
@@ -117,6 +155,7 @@ def unhome_all(parent):
 		getattr(parent, item).setEnabled(False)
 	if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
 		parent.home_all_pb.led = False
+	'''
 
 def run_mdi(parent, cmd=''):
 	if cmd:
