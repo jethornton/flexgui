@@ -1,0 +1,115 @@
+
+QPushButton#test_pb {
+	min-height: 40px;
+	min-width: 40px;
+	margin: 2px;
+	background-position: center;
+	background-origin: content;
+	background-clip: padding;
+	background-repeat: no-repeat;
+	background-image: url(:blue_right_32.png);
+}
+
+
+QMenuBar {
+	background-color: #333;
+	color: white;
+}
+
+QMenu {
+	background-color: #333;
+	color: white;
+}
+
+QMenu::item:selected {
+	background-color: #555;
+}
+
+QMenu::item:disabled {
+	color: #a3a3a3;
+	background-color: #f3f3f3;
+}
+
+
+/* Specific Style for actionPower */
+QAction#actionPower {
+font-weight: bold;
+color: #FF5555; /* Red color */
+}
+
+QAction#actionPower:hover {
+background-color: #880000;
+color: white;
+}
+
+
+QPushButton {
+	background-color: #f0f0f0;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 5px;
+	border-color: #ffffff #999999 #999999 #ffffff;
+	padding: 4px;
+}
+
+QPushButton:pressed {
+	background-color: #dcdcdc;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 5px;
+	border-color: #999999 #ffffff #ffffff #999999; /* Top Right Bottom Left */
+	padding: 4px;
+}
+
+QPushButton:checked {
+	background-color: #dcdcdc;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 5px;
+	border-color: #999999 #ffffff #ffffff #999999; /* Top Right Bottom Left */
+	padding: 4px;
+}
+
+/* Light theme disabled button example */
+QPushButton:disabled {
+	background-color: #e0e0e0; /* A light gray background */
+	color: #a0a0a0;            /* A muted, readable gray text */
+	border: 1px solid #c0c0c0; /* A light border */
+}
+
+
+QPushButton#estop_pb {
+	background-color: #55ff7f;
+	border-style: solid;
+	border-color: #000000;
+	border-width: 2px;
+	border-radius: 6px;
+	padding: 2;
+}
+
+QPushButton#estop_pb:checked {
+	color: #ffff00;
+	background-color: #ff0000;
+}
+
+QPushButton#power_pb {
+	background-color: #55ff7f;
+	border-style: solid;
+	border-color: #000000;
+	border-width: 2px;
+	border-radius: 6px;
+	padding: 2;
+}
+
+QPushButton#power_pb:checked {
+	color: #ffff00;
+	background-color: #ff0000;
+}
+
+QPushButton#power_pb:disabled {
+	color: #a3a3a3;
+	background-color: #f3f3f3;
+	border-color: #b1b1b1;
+}
+
+
