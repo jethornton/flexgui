@@ -22,11 +22,13 @@ number.
 The user parameter must be in the var file. On startup Flex reads the var file
 and sets the value of the QDoubleSpinBox to that value. When you change the
 value of the QDoubleSpinBox the var file is updated with the new value. There is
-a 0.5 second timeout before the var file is updated to give time to type in a
+a 1 second timeout before the var file is updated to give time to type in a
 number.
 
 The configuration must be out of E-Stop, Power On and Homed before the
 QDoubleSpinBox is enabled.
+
+.. NOTE:: The Parameters are only updated when the mode is Manual 
 
 Watching Parameters
 -------------------
