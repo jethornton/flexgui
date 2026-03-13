@@ -422,7 +422,7 @@ ferror_current (returns float) - current following error.
 
 ferror_highmark (returns float) - magnitude of max following error.
 
-homed (returns integer) - non-zero means has been homed.
+homed (returns integer) - non-zero means joint is been homed.
 
 homing (returns integer) - non-zero means homing in progress.
 
