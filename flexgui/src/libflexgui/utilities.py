@@ -441,7 +441,7 @@ def sync_toolbuttons(parent, view):
 def var_value_changed(parent, value):
 	variable = parent.sender().property('variable')
 	parent.cmd = f'#{variable}={value}'
-	parent.var_timer.start(500)  # Timeout after 0.5 seconds
+	QTimer.singleShot(500, lambda: sync_var_file(parent))
 
 def sync_var_file(parent):
 	parent.status.poll()
