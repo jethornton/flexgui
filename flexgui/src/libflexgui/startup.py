@@ -1928,17 +1928,26 @@ def setup_probing(parent):
 			if not isinstance(parent.findChild(QWidget, child), QLabel):
 				getattr(parent, child).setEnabled(False)
 				parent.probe_controls.append(child)
+
 	if len(parent.probe_controls) > 0: # make sure the probe enable is present
 		if 'probing_enable_pb' in parent.child_names:
+			if not parent.probing_enable_pb.isCheckable():
+				parent.probing_enable_pb.setCheckable(True)
+			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
+			parent.state_estop_disabled.append('probing_enable_pb')
+			parent.state_estop_reset_disabled.append('probing_enable_pb')
+			parent.homed_enabled.append('probing_enable_pb')
+
+			'''
 			parent.state_estop['probing_enable_pb'] = False
 			parent.state_estop_reset['probing_enable_pb'] = False
 			parent.state_estop_checked['probing_enable_pb'] = False
 			parent.state_estop_reset_checked['probing_enable_pb'] = False
 
-			parent.probing_enable_pb.setCheckable(True)
+			#parent.probing_enable_pb.setCheckable(True)
 
 			parent.home_required.append('probing_enable_pb')
-			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
+			'''
 			on_text = parent.probing_enable_pb.property('on_text')
 			off_text = parent.probing_enable_pb.property('off_text')
 			if None not in [on_text, off_text]:

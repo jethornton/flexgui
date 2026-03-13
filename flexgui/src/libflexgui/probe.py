@@ -5,17 +5,16 @@ def toggle(parent):
 	on_text = btn.property('on_text')
 	off_text = btn.property('off_text')
 
-	if btn.isChecked(): # probing is enabled
+	if parent.probing_enable_pb.isChecked():
 		parent.probing = True
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.file_load_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.mdi_controls:
+			getattr(parent, item).setEnabled(False)
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(True)
-		parent.spindle_speed = 0
-		if 'spindle_speed_lb' in parent.child_names:
-			parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
-		parent.command.spindle(emc.SPINDLE_OFF)
-
-		for key, value in parent.program_running.items():
-			getattr(parent, key).setEnabled(False)
 
 		if None not in [on_text, off_text]:
 			btn.setText(on_text)
@@ -28,11 +27,14 @@ def toggle(parent):
 
 	else: # probing is disabled
 		parent.probing = False
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(True)
+		for item in parent.file_load_controls:
+			getattr(parent, item).setEnabled(True)
+		for item in parent.mdi_controls:
+			getattr(parent, item).setEnabled(True)
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(False)
-
-		for key, value in parent.program_running.items():
-			getattr(parent, key).setEnabled(True)
 
 		if None not in [on_text, off_text]:
 			btn.setText(off_text)
