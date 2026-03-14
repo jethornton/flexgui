@@ -18,7 +18,7 @@
     <item row="4" column="3" rowspan="2" colspan="6">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>5</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -443,17 +443,57 @@
         <string>MDI</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_9">
-        <item row="0" column="0" colspan="2">
+        <item row="0" column="1">
          <widget class="QListWidget" name="mdi_history_lw"/>
         </item>
-        <item row="1" column="0">
+        <item row="1" column="1">
          <widget class="QLineEdit" name="mdi_command_le"/>
         </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="run_mdi_pb">
-          <property name="text">
-           <string>Run MDI</string>
-          </property>
+        <item row="0" column="0" rowspan="2">
+         <widget class="QWidget" name="widget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="save_mdi_history_pb">
+             <property name="text">
+              <string>Save MDI</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="clear_mdi_history_pb">
+             <property name="text">
+              <string>Clear MDI</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="copy_mdi_history_pb">
+             <property name="text">
+              <string>Copy MDI</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="run_mdi_pb">
+             <property name="text">
+              <string>Run MDI</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
