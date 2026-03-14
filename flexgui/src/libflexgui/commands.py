@@ -174,16 +174,14 @@ def run_mdi(parent, cmd=''):
 		msg = 'No MDI command was found!'
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 
-def mdi_button(parent, button):
-	mdi_command = button.property('command')
-	if mdi_command:
-		parent.mdi_command = mdi_command
-		parent.status.poll()
-		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode == emc.MODE_MANUAL:
-				parent.command.mode(emc.MODE_MDI)
-				parent.command.wait_complete()
-				parent.command.mdi(mdi_command)
+def mdi_button(parent):
+	mdi_command = parent.sender().property('command')
+	parent.status.poll()
+	if parent.status.task_state == emc.STATE_ON:
+		if parent.status.task_mode == emc.MODE_MANUAL:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+			parent.command.mdi(mdi_command)
 
 def jog_check(parent):
 	if 'jog_vel_sl' in parent.child_names:
