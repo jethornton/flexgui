@@ -50,7 +50,6 @@ def setup_vars(parent):
 	parent.plot_units = False
 	parent.probing = False
 
-
 	# put any variables in here that might be called during startup
 	parent.selected_style = '''
 		border-style: inset;
@@ -1971,6 +1970,23 @@ def setup_probing(parent):
 			parent.probing_enable_pb.setEnabled(False)
 
 def setup_mdi_buttons(parent):
+	for button in parent.findChildren(QPushButton):
+		if button.property('function') == 'mdi':
+			if button.property('command'):
+				name = button.objectName()
+				button.clicked.connect(partial(commands.mdi_button, parent))
+				if not name.startswith('probe_'):
+					parent.state_estop_disabled.append(name)
+					parent.homed_enabled.append(name)
+					parent.mdi_controls.append(name)
+			else:
+				msg = (f'The MDI Button {button.text()}\n'
+				'Does not have a command\n'
+				f'{button.text()} will be disabled.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				button.setEnabled(False)
+
+	'''
 	for button in parent.findChildren(QAbstractButton):
 		if button.property('function') == 'mdi':
 			if button.property('command'):
@@ -1983,13 +1999,7 @@ def setup_mdi_buttons(parent):
 					#parent.program_running[button_name] = False
 					parent.state_estop[button_name] = False
 					parent.home_required.append(button_name)
-			else:
-				msg = (f'MDI Button {button.text()}\n'
-				'Does not have a command\n'
-				f'{button.text()} will not be functional.')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-				button.setEnabled(False)
-
+	'''
 def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox
 	var_file = os.path.join(parent.config_path, parent.var_file)
