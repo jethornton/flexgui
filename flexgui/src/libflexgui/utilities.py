@@ -306,12 +306,10 @@ def copy_errors(parent):
 	qclip = QApplication.clipboard()
 	qclip.setText(parent.errors_pte.toPlainText())
 	if 'statusbar' in parent.child_names:
-		parent.statusbar.showMessage('Errors copied to clipboard')
+		parent.statusbar.showMessage('Errors copied to clipboard', 10000)
 
 def clear_errors(parent):
 	parent.errors_pte.clear()
-	if 'statusbar' in parent.child_names:
-		parent.statusbar.clearMessage()
 
 def clear_info(parent):
 	parent.info_pte.clear()
@@ -326,7 +324,11 @@ def add_mdi(parent): # when you click on the mdi history list widget
 		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
 def update_mdi(parent):
-	if 'mdi_history_lw' in parent.child_names:
+	if parent.status.state == emc.RCS_ERROR:
+		parent.command.reset_interpreter()
+		if 'mdi_command_le' in parent.child_names:
+			parent.mdi_command_le.setText('')
+	elif 'mdi_history_lw' in parent.child_names:
 		rows = parent.mdi_history_lw.count()
 		if rows > 0:
 			last_item = parent.mdi_history_lw.item(rows - 1).text().strip()

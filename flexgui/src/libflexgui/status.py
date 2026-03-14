@@ -51,10 +51,10 @@ def update(parent):
 	parent.status.poll()
 
 	# **** EXEC STATE ****
-	#exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
-	#EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
-	#EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
-	#EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
+	# exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
+	# EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
+	# EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
+	# EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
 		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
 		if 'exec_state_lb' in parent.child_names: # update the label
@@ -151,6 +151,8 @@ def update(parent):
 		parent.interp_state = parent.status.interp_state
 
 	# **** INTERPRETER ERRCODE ****
+	# interpreter_errcode INTERP_OK INTERP_EXIT INTERP_EXECUTE_FINISH
+	# INTERP_ENDFILE INTERP_FILE_NOT_OPEN INTERP_ERROR
 	if parent.interpreter_errcode != parent.status.interpreter_errcode:
 		#print(f'INTERPRETER ERRCODE: {INTERPRETER_ERRCODES[parent.status.interpreter_errcode]}')
 		if 'interpreter_errcode_lb' in parent.child_names: # update the label
@@ -917,6 +919,8 @@ def update(parent):
 				parent.errors_pte.setFocus()
 				if 'statusbar' in parent.child_names:
 					parent.statusbar.showMessage('Error', 10000)
+			if parent.status.task_mode ==  emc.MODE_MDI:
+				utilities.update_mdi(parent)
 
 
 
