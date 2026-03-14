@@ -925,8 +925,7 @@ def setup_buttons(parent): # connect buttons to functions
 	'home_all_pb': 'home_all', 'home_pb_0': 'home',
 	'home_pb_1': 'home', 'home_pb_2': 'home',
 	'unhome_all_pb': 'unhome_all', 'unhome_pb_0': 'unhome',
-	'unhome_pb_1': 'unhome', 'unhome_pb_2': 'unhome',
-	'run_mdi_pb': 'run_mdi',
+	'unhome_pb_1': 'unhome', 'unhome_pb_2': 'unhome'
 	}
 
 	for key, value in command_buttons.items():
@@ -1446,6 +1445,26 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 def setup_mdi(parent):
+	# mdi_command_le is required to run mdi commands
+	# run_mdi_pb and mdi_history_lw are optional
+
+	if 'mdi_command_le' in parent.child_names:
+		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+	if 'run_mdi_pb' in parent.child_names:
+		parent.run_mdi_pb.clicked.connect(partial(commands.run_mdi, parent))
+		parent.homed_enabled.append('run_mdi_pb')
+
+	if 'mdi_history_lw' in parent.child_names:
+		path = os.path.dirname(parent.status.ini_filename)
+		mdi_file = os.path.join(path, 'mdi_history.txt')
+		if os.path.exists(mdi_file): # load mdi history
+			with open(mdi_file, 'r') as f:
+				history_list = f.readlines()
+				for item in history_list:
+					parent.mdi_history_lw.addItem(item.strip())
+		parent.mdi_history_lw.itemSelectionChanged.connect(partial(commands.add_mdi, parent))
+
+	'''
 	# mdi_command_le and run_mdi_pb are required to run mdi commands
 	# mdi_history_lw is optional
 	# parent.mdi_command is tested in status.py so it must exist
@@ -1474,6 +1493,7 @@ def setup_mdi(parent):
 				for item in history_list:
 					parent.mdi_history_lw.addItem(item.strip())
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
+	'''
 
 def setup_jog(parent):
 	# keyboard jog
