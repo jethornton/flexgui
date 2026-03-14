@@ -174,6 +174,9 @@ def run_mdi(parent, cmd=''):
 		msg = 'No MDI command was found!'
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 
+def add_mdi(parent): # when you click on the mdi history list widget
+	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
+
 def mdi_button(parent):
 	mdi_command = parent.sender().property('command')
 	parent.status.poll()
