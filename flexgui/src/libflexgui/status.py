@@ -576,11 +576,13 @@ def update(parent):
 		parent.plotter.update()
 		parent.plot_units = parent.program_units
 
+	'''
 	# **** MDI CHANGE ****
 	if parent.mdi_command != '':
 		if parent.status.task_mode == emc.MODE_MDI:
 			if parent.status.interp_state == emc.INTERP_IDLE:
 				utilities.update_mdi(parent)
+	'''
 
 	# **** TOOL CHANGE ****
 	if parent.manual_tool_change:
