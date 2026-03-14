@@ -295,8 +295,6 @@ def action_run(parent, start=0): # actionRun
 		if parent.status.task_mode != emc.MODE_AUTO:
 			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
-		if 'start_line_lb' in parent.child_names:
-			parent.start_line_lb.setText(start)
 		parent.command.auto(emc.AUTO_RUN, start)
 
 def action_run_from_line(parent): # actionRun_from_Line
