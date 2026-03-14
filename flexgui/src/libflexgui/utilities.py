@@ -201,7 +201,7 @@ def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
 		file_path, file_type = file_dialog.getOpenFileName(None,
 		caption=caption, directory=parent.nc_code_dir,
 		filter=parent.ext_filter, options=options)
-	elif dialog == 'save':
+	elif dialog_type == 'save':
 		file_path, file_type = file_dialog.getSaveFileName(None,
 		caption=caption, directory=parent.nc_code_dir,
 		filter=parent.ext_filter, options=options)
