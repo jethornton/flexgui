@@ -1447,6 +1447,7 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 def setup_mdi(parent):
 	# mdi_command_le is required to run mdi commands
 	# run_mdi_pb and mdi_history_lw are optional
+	parent.mdi_command = ''
 
 	if 'mdi_command_le' in parent.child_names:
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
@@ -1468,7 +1469,6 @@ def setup_mdi(parent):
 	# mdi_command_le and run_mdi_pb are required to run mdi commands
 	# mdi_history_lw is optional
 	# parent.mdi_command is tested in status.py so it must exist
-	parent.mdi_command = ''
 
 	if 'run_mdi_pb' in parent.child_names:
 		if 'mdi_command_le' in parent.child_names: # we are good to go
