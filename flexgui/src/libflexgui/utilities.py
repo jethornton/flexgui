@@ -511,38 +511,96 @@ def io_watch(parent):
 
 def update_home_controls(parent):
 	parent.status.poll()
-	if parent.status.task_state == emc.STATE_ON:
+	if parent.status.task_state == emc.STATE_ON: # other states are handled in status.py
+		#if f'actionHoming' in parent.child_names:
+		#	getattr(parent, 'actionHoming').setEnabled(True)
+		#if f'actionUnhoming' in parent.child_names:
+		#	getattr(parent, 'actionUnhoming').setEnabled(True)
+
 		for joint in range(parent.joints):
-			if parent.status.joint[joint]['homed']:
+			if parent.status.joint[joint]['homed']: # joint is homed
 				if f'home_pb_{joint}' in parent.child_names:
 					getattr(parent, f'home_pb_{joint}').setEnabled(False)
+				if f'actionHome_{joint}' in parent.child_names:
+					getattr(parent, f'actionHome_{joint}').setEnabled(False)
+
 				if f'unhome_pb_{joint}' in parent.child_names:
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
+				if f'actionUnhome_{joint}' in parent.child_names:
+					getattr(parent, f'actionUnhome_{joint}').setEnabled(True)
+
 				if f'home_lb_{joint}' in parent.child_names:
 					getattr(parent, f'home_lb_{joint}').setText('*')
-			elif not parent.status.joint[joint]['homed']:
+
+			elif not parent.status.joint[joint]['homed']: # joint is not homed
+				print(f'joint {joint} not homed')
 				if f'home_pb_{joint}' in parent.child_names:
 					getattr(parent, f'home_pb_{joint}').setEnabled(True)
+				if f'actionHome_{joint}' in parent.child_names:
+					getattr(parent, f'actionHome_{joint}').setEnabled(True)
+
 				if f'unhome_pb_{joint}' in parent.child_names:
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
+				if f'actionUnhome_{joint}' in parent.child_names:
+					getattr(parent, f'actionUnhome_{joint}').setEnabled(False)
+					print(joint)
+
 				if f'home_lb_{joint}' in parent.child_names:
 					getattr(parent, f'home_lb_{joint}').setText('')
 
 		# all joints homed
-		if all(parent.status.homed[:parent.joints]):
+		if all(v == 1 for v in parent.status.homed[:parent.joints]):
+			print('all joints homed')
 			if 'home_all_pb' in parent.child_names:
 				parent.home_all_pb.setEnabled(False)
+			if 'actionHoming' in parent.child_names:
+				parent.actionHoming.setEnabled(False)
+			if 'actionHome_All' in parent.child_names:
+				parent.actionHome_All.setEnabled(False)
+
 			if 'unhome_all_pb' in parent.child_names:
 				parent.unhome_all_pb.setEnabled(True)
+			if 'actionUnhoming' in parent.child_names:
+				parent.actionUnhoming.setEnabled(True)
+			if 'actionUnhome_All' in parent.child_names:
+				parent.actionUnhome_All.setEnabled(True)
+
 			for item in parent.homed_enabled:
 				getattr(parent, item).setEnabled(True)
 
-		# not all joints homed
-		if not any(parent.status.homed[:parent.joints]):
-			if 'home_all_pb' in parent.child_names and home_all_check(parent):
+		# no joints are homed
+		elif all(v == 0 for v in parent.status.homed[:parent.joints]):
+			print('no joints are homed')
+			if 'home_all_pb' in parent.child_names:
 				parent.home_all_pb.setEnabled(True)
+			if 'actionHoming' in parent.child_names:
+				parent.actionHoming.setEnabled(True)
+			if 'actionHome_All' in parent.child_names:
+				parent.actionHome_All.setEnabled(True)
+
 			if 'unhome_all_pb' in parent.child_names:
 				parent.unhome_all_pb.setEnabled(False)
+			if 'actionUnhoming' in parent.child_names:
+				parent.actionUnhoming.setEnabled(False)
+			if 'actionUnhome_All' in parent.child_names:
+				parent.actionUnhome_All.setEnabled(False)
+
+		# some joints homed
+		elif any(v == 1 for v in parent.status.homed[:parent.joints]):
+			print('some joints homed')
+			if 'home_all_pb' in parent.child_names and home_all_check(parent):
+				# FIXME don't add home all to child names if not home check
+				parent.home_all_pb.setEnabled(True)
+			if 'actionHome_All' in parent.child_names:
+				parent.actionHome_All.setEnabled(True)
+
+			if 'unhome_all_pb' in parent.child_names:
+				parent.unhome_all_pb.setEnabled(True)
+			if 'actionUnhoming' in parent.child_names:
+				parent.actionUnhoming.setEnabled(True)
+			if 'actionUnhome_All' in parent.child_names:
+				parent.actionUnhome_All.setEnabled(True)
+
 			for item in parent.homed_enabled:
 				getattr(parent, item).setEnabled(False)
 
