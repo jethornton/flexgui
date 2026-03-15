@@ -18,7 +18,7 @@
     <item row="4" column="3" rowspan="2" colspan="6">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1259,7 +1259,7 @@
        <item row="0" column="1">
         <widget class="QLabel" name="g5x_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1273,7 +1273,7 @@
        <item row="1" column="1">
         <widget class="QLabel" name="g5x_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1287,7 +1287,7 @@
        <item row="2" column="1">
         <widget class="QLabel" name="g5x_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1310,7 +1310,7 @@
        <item row="0" column="1">
         <widget class="QLabel" name="g92_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1324,7 +1324,7 @@
        <item row="1" column="1">
         <widget class="QLabel" name="g92_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1338,7 +1338,7 @@
        <item row="2" column="1">
         <widget class="QLabel" name="g92_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1361,7 +1361,7 @@
        <item row="0" column="1">
         <widget class="QLabel" name="dtg_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1375,7 +1375,7 @@
        <item row="1" column="1">
         <widget class="QLabel" name="dtg_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1389,7 +1389,7 @@
        <item row="2" column="1">
         <widget class="QLabel" name="dtg_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1426,21 +1426,21 @@
        <item row="0" column="1">
         <widget class="QLabel" name="dro_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="dro_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
         <widget class="QLabel" name="dro_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1463,7 +1463,7 @@
        <item row="0" column="1">
         <widget class="QLabel" name="actual_lb_x">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1477,7 +1477,7 @@
        <item row="1" column="1">
         <widget class="QLabel" name="actual_lb_y">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1491,7 +1491,7 @@
        <item row="2" column="1">
         <widget class="QLabel" name="actual_lb_z">
          <property name="text">
-          <string>TextLabel</string>
+          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -1753,6 +1753,57 @@
         </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QGroupBox" name="groupBox_10">
+      <property name="title">
+       <string>Vel/Min</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_24">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_36">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="joint_0_vel_min_lb">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_35">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="joint_1_vel_min_lb">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="joint_2_vel_min_lb">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
