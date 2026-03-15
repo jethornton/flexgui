@@ -246,7 +246,6 @@ class flexgui(QMainWindow):
 
 		# get the number of axes and joints
 		self.axis_count = self.status.axis_mask.bit_count()
-		#self.joints = self.status.joints
 
 		# get ini values if any before trying to use them
 		read_ini.read(self)
@@ -341,7 +340,7 @@ class flexgui(QMainWindow):
 		self.user_timer = QTimer()
 		startup.setup_import(self) # do this after user timer is created
 
-		# setup and start the status update timer every 0.01 second
+		# setup and start the status update timer
 		self.update_timer = QTimer()
 		self.update_timer.timeout.connect(partial(status.update, self))
 		self.update_timer.start(self.cycle_time) # milliseconds
@@ -385,21 +384,6 @@ class flexgui(QMainWindow):
 				self.windowHandle().setWindowState(Qt.WindowState.WindowFullScreen)
 			case _:
 				self.show()
-
-	# FIXME this is not used anywhere so delete it
-	# this can import a module from a file for resources.py in a config dir
-	def module_from_file(self, module_name, file_path):
-		spec = importlib.util.spec_from_file_location(module_name, file_path)
-		module = importlib.util.module_from_spec(spec)
-		spec.loader.exec_module(module)
-		return module
-
-	def resizeEvent(self, event):
-		if 'window_size_lb' in self.child_names:
-			width = self.geometry().width()
-			height =  self.geometry().height()
-			self.window_size_lb.setText(f'{width}x{height}')
-		QMainWindow.resizeEvent(self, event)
 
 	def closeEvent(self, event):
 		shutdown.save_settings(self)
