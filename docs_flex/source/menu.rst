@@ -43,7 +43,7 @@ create an action name.
 
 	**Machine**, **Action Name**
 	E Stop, actionE_Stop
-	Power, action_Power
+	Power, actionPower
 	Run, actionRun
 	Run From Line, actionRun_From_Line
 	Step, actionStep
