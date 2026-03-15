@@ -1596,6 +1596,12 @@
           <property name="text">
            <string>E Stop</string>
           </property>
+          <property name="off_text" stdset="0">
+           <string>E Stopped</string>
+          </property>
+          <property name="on_text" stdset="0">
+           <string>Danger</string>
+          </property>
          </widget>
         </item>
         <item row="1" column="0">

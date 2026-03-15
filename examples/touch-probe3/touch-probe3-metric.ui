@@ -124,11 +124,11 @@
     <property name="text">
      <string>E-stop</string>
     </property>
-    <property name="open_text" stdset="0">
+    <property name="off_text" stdset="0">
      <string>E-Stop
 Open</string>
     </property>
-    <property name="closed_text" stdset="0">
+    <property name="on_text" stdset="0">
      <string>E-Stop
 Closed</string>
     </property>
