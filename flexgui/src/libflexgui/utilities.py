@@ -539,7 +539,6 @@ def update_home_controls(parent):
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
 				if f'actionUnhome_{joint}' in parent.child_names:
 					getattr(parent, f'actionUnhome_{joint}').setEnabled(False)
-					print(joint)
 
 				if f'home_lb_{joint}' in parent.child_names:
 					getattr(parent, f'home_lb_{joint}').setText('')
