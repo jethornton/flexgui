@@ -155,6 +155,7 @@ class flexgui(QMainWindow):
 
 		# connect to linuxcnc
 		self.status = emc.stat()
+		self.status.poll() # poll for startup
 		self.command = emc.command()
 		self.error = emc.error_channel()
 

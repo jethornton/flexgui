@@ -850,6 +850,7 @@ def update(parent):
 	for key, value in parent.joint_vel_sec.items():
 		getattr(parent, key).setText(f'{abs(getattr(parent, "status").joint[value[0]]["velocity"]):.{value[1]}f}')
 	for key, value in parent.joint_vel_min.items():
+
 		getattr(parent, key).setText(f'{abs(getattr(parent, "status").joint[value[0]]["velocity"]) * 60:.{value[1]}f}')
 
 	# two joint velocity

@@ -1273,17 +1273,18 @@ def setup_status_labels(parent):
 	#parent.status.poll()
 	parent.joint_vel_sec = {}
 	for i in range(parent.status.joints):
-		if f'joint_vel_sec_{i}_lb' in parent.child_names: # if the label is found
-			p = getattr(parent, f'joint_vel_sec_{i}_lb').property('precision')
+		if f'joint_{i}_vel_sec_lb' in parent.child_names: # if the label is found
+			p = getattr(parent, f'joint_{i}_vel_sec_lb').property('precision')
 			p = p if p is not None else parent.default_precision
-			parent.joint_vel_sec[f'joint_vel_sec_{i}_lb'] = [i, p] # add the label, tuple position & precision
+			parent.joint_vel_sec[f'joint_{i}_vel_sec_lb'] = [i, p] # add the label, tuple position & precision
 
+	# joint[0]['velocity'] joint_0_vel_min_lb
 	parent.joint_vel_min = {}
 	for i in range(parent.status.joints):
-		if f'joint_vel_min_{i}_lb' in parent.child_names: # if the label is found
-			p = getattr(parent, f'joint_vel_min_{i}_lb').property('precision')
+		if f'joint_{i}_vel_min_lb' in parent.child_names: # if the label is found
+			p = getattr(parent, f'joint_{i}_vel_min_lb').property('precision')
 			p = p if p is not None else parent.default_precision
-			parent.joint_vel_min[f'joint_vel_min_{i}_lb'] = [i, p] # add the label, tuple position & precision
+			parent.joint_vel_min[f'joint_{i}_vel_min_lb'] = [i, p] # add the label, tuple position & precision
 
 	override_items = {'feed_override_lb': 'feedrate' , 'rapid_override_lb': 'rapidrate'}
 
