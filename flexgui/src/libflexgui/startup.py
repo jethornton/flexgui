@@ -64,11 +64,12 @@ def setup_vars(parent):
 	parent.state_estop = {}
 	parent.state_estop_names = {}
 	parent.state_estop_checked = {}
-	parent.state_estop_reset = {} # FIXME line 578
+	parent.state_estop_reset = {}
 	parent.state_estop_reset_names = {}
 	parent.state_estop_reset_checked = {}
 	parent.state_on_names = {}
 
+	# FIXME these might not be used any more
 	parent.home_required = [] # different functions add to this FIXME change to dict
 	parent.home_controls = [] # different functions add to this FIXME change to dict
 	parent.homed = {}
@@ -77,6 +78,18 @@ def setup_vars(parent):
 	parent.mode_manual = {}
 	parent.mode_mdi = {}
 	parent.mode_auto = {}
+
+	# enable and disable lists
+	parent.state_estop_disabled = [] # everything but estop_pb
+	parent.state_estop_reset_disabled = []
+	parent.state_estop_reset_enabled = []
+	parent.state_on_enabled = []
+	parent.homed_enabled = []
+	parent.program_running_disabled = []
+	parent.run_controls = [] # enabled when homed, manual, file loaded
+	parent.file_load_controls = [] # disable when a program or mdi is running
+	parent.mdi_controls = []
+	parent.probe_controls = []
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -395,61 +408,65 @@ def setup_menus(parent):
 							name = os.path.basename(path)
 							a = parent.menuRecent.addAction(name)
 							a.triggered.connect(partial(getattr(actions, 'load_file'), parent, path))
-			'''
-			if action.objectName() == 'actionHoming': # add homing actions
-				action.setMenu(QMenu('Homing', parent))
 
-				# add Home All if the home sequence is set for all axes
+			elif action.objectName() == 'actionHoming': # add homing actions
+				action.setMenu(QMenu('Homing', parent))
+				parent.child_names.append('actionHoming')
+
+				# add Home All if the home sequence is set for all axes homey
 				if utilities.home_all_check(parent):
 					setattr(parent, 'actionHome_All', QAction('Home All', parent))
 					getattr(parent, 'actionHome_All').setObjectName('actionHome_all')
 					action.menu().addAction(getattr(parent, 'actionHome_All'))
+					parent.child_names.append('actionHome_All')
 					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
-					parent.home_controls.append('actionHome_All')
-					parent.state_estop['actionHome_All'] = False
-					parent.state_estop_reset['actionHome_All'] = False
-					parent.state_on['actionHome_All'] = True
-					parent.program_running['actionHome_All'] = False
-					parent.program_paused['actionHome_All'] = False
+					# parent.home_controls.append('actionHome_All')
+					# parent.state_estop['actionHome_All'] = False
+					# parent.state_estop_reset['actionHome_All'] = False
+					# parent.state_on['actionHome_All'] = True
+					# parent.program_running['actionHome_All'] = False
+					# parent.program_paused['actionHome_All'] = False
 
 				# add Home menu item for each axis
 				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionHome_{i}', QAction(f'Home {axis}', parent))
 					getattr(parent, f'actionHome_{i}').setObjectName(f'actionHome_{i}')
 					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
+					parent.child_names.append(f'actionHome_{i}')
 					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
-					parent.home_controls.append(f'actionHome_{i}')
-					parent.state_estop[f'actionHome_{i}'] = False
-					parent.state_estop_reset[f'actionHome_{i}'] = False
-					parent.state_on[f'actionHome_{i}'] = True
-					parent.program_running[f'actionHome_{i}'] = False
-					parent.program_paused[f'actionHome_{i}'] = False
+					# parent.home_controls.append(f'actionHome_{i}')
+					# parent.state_estop[f'actionHome_{i}'] = False
+					# parent.state_estop_reset[f'actionHome_{i}'] = False
+					# parent.state_on[f'actionHome_{i}'] = True
+					# parent.program_running[f'actionHome_{i}'] = False
+					# parent.program_paused[f'actionHome_{i}'] = False
 
 			# add the unhoming menu items
 			elif action.objectName() == 'actionUnhoming':
 				action.setMenu(QMenu('Unhoming', parent))
-				setattr(parent, 'actionUnhome_All', QAction('Unome All', parent))
+				setattr(parent, 'actionUnhome_All', QAction('Unhome All', parent))
 				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
 				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
 				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
-				parent.unhome_controls.append('actionUnhome_All')
-				parent.state_estop['actionUnhome_All'] = False
-				parent.state_estop_reset['actionUnhome_All'] = False
-				parent.state_on['actionUnhome_All'] = True
-				parent.program_running['actionUnhome_All'] = False
-				parent.program_paused['actionUnhome_All'] = False
+				# parent.unhome_controls.append('actionUnhome_All')
+				# parent.state_estop['actionUnhome_All'] = False
+				# parent.state_estop_reset['actionUnhome_All'] = False
+				# parent.state_on['actionUnhome_All'] = True
+				# parent.program_running['actionUnhome_All'] = False
+				# parent.program_paused['actionUnhome_All'] = False
 
 				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
 					getattr(parent, f'actionUnhome_{i}').setObjectName(f'actionUnhome_{i}')
 					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
+					parent.child_names.append(f'actionUnhome_{i}')
 					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
-					parent.unhome_controls.append(f'actionUnhome_{i}')
-					parent.state_estop[f'actionUnhome_{i}'] = False
-					parent.state_estop_reset[f'actionUnhome_{i}'] = False
-					parent.state_on[f'actionUnhome_{i}'] = True
-					parent.program_running[f'actionUnhome_{i}'] = False
-					parent.program_paused[f'actionUnhome_{i}'] = False
+					# parent.unhome_controls.append(f'actionUnhome_{i}')
+					# parent.state_estop[f'actionUnhome_{i}'] = False
+					# parent.state_estop_reset[f'actionUnhome_{i}'] = False
+					# parent.state_on[f'actionUnhome_{i}'] = True
+					# parent.program_running[f'actionUnhome_{i}'] = False
+					# parent.program_paused[f'actionUnhome_{i}'] = False
 			elif action.objectName() == 'actionClear_Offsets':
 				action.setMenu(QMenu('Clear Offsets', parent))
 				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1',
@@ -459,7 +476,7 @@ def setup_menus(parent):
 					getattr(parent, f'actionClear_{i}').setObjectName(f'actionClear_{i}')
 					action.menu().addAction(getattr(parent, f'actionClear_{i}'))
 					getattr(parent, f'actionClear_{i}').triggered.connect(partial(commands.clear_cs, parent))
-			'''
+
 			if len(action.shortcut().toString()) > 0: # collect shortcuts for quick reference
 				parent.shortcuts.append(f'{action.text()}\t{action.shortcut().toString()}')
 
@@ -522,18 +539,6 @@ def update_check(parent):
 
 def setup_enables(parent):
 
-	# enable and disable lists
-	parent.state_estop_disabled = [] # everything but estop_pb
-	parent.state_estop_reset_disabled = []
-	parent.state_estop_reset_enabled = []
-	parent.state_on_enabled = []
-	parent.homed_enabled = []
-	parent.program_running_disabled = []
-	parent.run_controls = [] # enabled when homed, manual, file loaded
-	parent.file_load_controls = [] # disable when a program or mdi is running
-	parent.mdi_controls = []
-	parent.probe_controls = []
-
 	# STATE_ESTOP everything is disabled except the estop and file open save etc.
 	state_estop_items = ['power_pb', 'run_pb', 'run_from_line_pb',
 	'step_pb', 'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
@@ -541,11 +546,14 @@ def setup_enables(parent):
 	'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb', 'spindle_plus_pb',
 	'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
 	'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume',
+	'actionHoming', 'actionHome_All', 'actionUnhoming', 'actionUnhome_All', 
 	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
 
 	for i in range(9):
 		state_estop_items.append(f'home_pb_{i}')
+		state_estop_items.append(f'actionHome_{i}')
 		state_estop_items.append(f'unhome_pb_{i}')
+		state_estop_items.append(f'actionUnhome_{i}')
 		state_estop_items.append(f'jog_plus_pb_{i}')
 		state_estop_items.append(f'jog_minus_pb_{i}')
 
