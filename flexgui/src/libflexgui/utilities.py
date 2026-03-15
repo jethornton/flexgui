@@ -512,11 +512,8 @@ def io_watch(parent):
 def update_home_controls(parent):
 	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON: # other states are handled in status.py
-		#if f'actionHoming' in parent.child_names:
-		#	getattr(parent, 'actionHoming').setEnabled(True)
-		#if f'actionUnhoming' in parent.child_names:
-		#	getattr(parent, 'actionUnhoming').setEnabled(True)
 
+		# set home/unhome for each joint
 		for joint in range(parent.joints):
 			if parent.status.joint[joint]['homed']: # joint is homed
 				if f'home_pb_{joint}' in parent.child_names:
@@ -533,7 +530,6 @@ def update_home_controls(parent):
 					getattr(parent, f'home_lb_{joint}').setText('*')
 
 			elif not parent.status.joint[joint]['homed']: # joint is not homed
-				print(f'joint {joint} not homed')
 				if f'home_pb_{joint}' in parent.child_names:
 					getattr(parent, f'home_pb_{joint}').setEnabled(True)
 				if f'actionHome_{joint}' in parent.child_names:
@@ -550,7 +546,6 @@ def update_home_controls(parent):
 
 		# all joints homed
 		if all(v == 1 for v in parent.status.homed[:parent.joints]):
-			print('all joints homed')
 			if 'home_all_pb' in parent.child_names:
 				parent.home_all_pb.setEnabled(False)
 			if 'actionHoming' in parent.child_names:
@@ -570,7 +565,6 @@ def update_home_controls(parent):
 
 		# no joints are homed
 		elif all(v == 0 for v in parent.status.homed[:parent.joints]):
-			print('no joints are homed')
 			if 'home_all_pb' in parent.child_names:
 				parent.home_all_pb.setEnabled(True)
 			if 'actionHoming' in parent.child_names:
@@ -587,7 +581,6 @@ def update_home_controls(parent):
 
 		# some joints homed
 		elif any(v == 1 for v in parent.status.homed[:parent.joints]):
-			print('some joints homed')
 			if 'home_all_pb' in parent.child_names and home_all_check(parent):
 				# FIXME don't add home all to child names if not home check
 				parent.home_all_pb.setEnabled(True)
