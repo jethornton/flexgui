@@ -124,14 +124,6 @@
     <property name="text">
      <string>E-stop</string>
     </property>
-    <property name="open_text" stdset="0">
-     <string>E-Stop
-Open</string>
-    </property>
-    <property name="closed_text" stdset="0">
-     <string>E-Stop
-Closed</string>
-    </property>
     <property name="led_indicator" stdset="0">
      <bool>true</bool>
     </property>
@@ -157,6 +149,14 @@ Closed</string>
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="off_text" stdset="0">
+     <string>E-Stop
+Open</string>
+    </property>
+    <property name="on_text" stdset="0">
+     <string>E-Stop
+Closed</string>
     </property>
    </widget>
    <widget class="QPushButton" name="power_pb">

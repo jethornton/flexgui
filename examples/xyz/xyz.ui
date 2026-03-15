@@ -1027,10 +1027,10 @@
           <property name="text">
            <string/>
           </property>
-          <property name="open_text" stdset="0">
+          <property name="off_text" stdset="0">
            <string>E Open</string>
           </property>
-          <property name="closed_text" stdset="0">
+          <property name="on_text" stdset="0">
            <string>Danger</string>
           </property>
          </widget>
