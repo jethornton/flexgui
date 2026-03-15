@@ -65,7 +65,9 @@ def setup_vars(parent):
 	parent.state_estop_names = {}
 	parent.state_estop_checked = {}
 	parent.state_estop_reset = {} # FIXME line 578
+	parent.state_estop_reset_names = {}
 	parent.state_estop_reset_checked = {}
+	parent.state_on_names = {}
 
 	parent.home_required = [] # different functions add to this FIXME change to dict
 	parent.home_controls = [] # different functions add to this FIXME change to dict
@@ -605,6 +607,7 @@ def setup_enables(parent):
 		if f'jog_minus_pb_{i}' in parent.child_names:
 			parent.state_on_enabled.append(f'jog_minus_pb_{i}')
 
+
 	parent.program_running_enable = []
 	for item in ['pause_pb', 'actionPause']:
 		if item in parent.child_names:
@@ -679,16 +682,6 @@ def setup_enables(parent):
 		if name in parent.child_names:
 			parent.state_estop[name] = False
 
-	# FIXME have the text be on_text and off_text for all buttons
-	if 'estop_pb' in parent.child_names:
-		open_text = parent.estop_pb.property('open_text')
-		if open_text is not None:
-			parent.state_estop_names['estop_pb'] = open_text
-
-	if 'power_pb' in parent.child_names:
-		off_text = parent.power_pb.property('off_text')
-		if off_text is not None:
-			parent.state_estop_names['power_pb'] = off_text
 
 	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
 		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
@@ -751,9 +744,6 @@ def setup_enables(parent):
 			parent.state_on_names['estop_pb'] = closed_text
 
 	if 'power_pb' in parent.child_names:
-		on_text = parent.power_pb.property('on_text')
-		if on_text is not None:
-			parent.state_on_names['power_pb'] = on_text
 
 	# remove any items not found in the gui
 	for item in list(parent.state_on_names):
@@ -896,20 +886,34 @@ def setup_run_controls(parent):
 			parent.run_controls.append(f'touchoff_pb_{item}')
 
 def setup_buttons(parent): # connect buttons to functions
-	parent.state_estop_reset_names = {}
 	if 'estop_pb' in parent.child_names:
 		parent.estop_pb.toggled.connect(partial(actions.action_estop, parent))
 		parent.estop_pb.setCheckable(True)
-		closed_text = parent.estop_pb.property('closed_text')
-		if closed_text is not None:
-			parent.state_estop_reset_names['estop_pb'] = closed_text
+
+		off_text = parent.estop_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_names['estop_pb'] = off_text
+
+		on_text = parent.estop_pb.property('on_text')
+		if on_text is not None:
+			parent.state_estop_reset_names['estop_pb'] = on_text
 
 	if 'power_pb' in parent.child_names:
 		parent.power_pb.toggled.connect(partial(actions.action_power, parent))
 		parent.power_pb.setCheckable(True)
+
+		on_text = parent.power_pb.property('on_text')
+		if on_text is not None:
+			parent.state_on_names['power_pb'] = on_text
+
+		off_text = parent.power_pb.property('off_text')
+		if off_text is not None:
+			parent.state_estop_names['power_pb'] = off_text
+
 		off_text = parent.power_pb.property('off_text')
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
+
 
 	# file items if not loaded disable
 	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'search_pb', 'actionEdit',

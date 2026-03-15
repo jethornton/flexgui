@@ -332,6 +332,8 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 			for item in parent.state_on_enabled:
 				getattr(parent, item).setEnabled(False)
+			for key, value in parent.state_estop_names.items():
+				getattr(parent, key).setText(value)
 
 		# estop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
@@ -344,12 +346,16 @@ def update(parent):
 				getattr(parent, item).setEnabled(True)
 			if 'probing_enable_pb' in parent.child_names:
 				parent.probing_enable_pb.setChecked(False)
+			for key, value in parent.state_estop_reset_names.items():
+				getattr(parent, key).setText(value)
 
 		# estop closed power on
 		if parent.status.task_state == emc.STATE_ON:
 			#print('status update STATE_ON')
 			for item in parent.state_on_enabled:
 				getattr(parent, item).setEnabled(True)
+			for key, value in parent.state_on_names.items():
+				getattr(parent, key).setText(value)
 
 		utilities.update_home_controls(parent)
 		utilities.update_run_controls(parent)
@@ -360,8 +366,6 @@ def update(parent):
 			#print('status update STATE_ESTOP')
 			for key, value in parent.state_estop.items():
 				getattr(parent, key).setEnabled(value)
-			for key, value in parent.state_estop_names.items():
-				getattr(parent, key).setText(value)
 			for key, value in parent.state_estop_checked.items():
 				getattr(parent, key).setChecked(value)
 
@@ -394,8 +398,6 @@ def update(parent):
 			#print('status update STATE_ESTOP_RESET')
 			for key, value in parent.state_estop_reset.items():
 				getattr(parent, key).setEnabled(value)
-			for key, value in parent.state_estop_reset_names.items():
-				getattr(parent, key).setText(value)
 			for key, value in parent.state_estop_reset_checked.items():
 				getattr(parent, key).setChecked(value)
 
@@ -436,8 +438,6 @@ def update(parent):
 			#print('status update STATE_ON')
 			for key, value in parent.state_on.items():
 				getattr(parent, key).setEnabled(value)
-			for key, value in parent.state_on_names.items():
-				getattr(parent, key).setText(value)
 
 			if 'power_pb' in parent.child_names:
 				parent.power_pb.blockSignals(True)
