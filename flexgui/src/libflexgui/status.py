@@ -344,6 +344,8 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 			for item in parent.state_estop_reset_enabled:
 				getattr(parent, item).setEnabled(True)
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.setChecked(False)
 			if 'probing_enable_pb' in parent.child_names:
 				parent.probing_enable_pb.setChecked(False)
 			for key, value in parent.state_estop_reset_names.items():
