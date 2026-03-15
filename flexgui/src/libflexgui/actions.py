@@ -153,6 +153,7 @@ def action_reload(parent): # actionReload
 			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 		parent.command.program_open(nc_code_file)
+		parent.command.reset_interpreter()
 		if 'plot_widget' in parent.child_names:
 			parent.plotter.clear_live_plotter()
 			parent.plotter.update()
