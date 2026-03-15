@@ -266,6 +266,7 @@ def set_hal_enables(parent, obj):
 		#parent.state_on_unhomed[obj_name] = False
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.state_estop_disabled.append(obj_name)
+			parent.state_estop_reset_enabled.append(obj_name)
 
 def hal_confirm(parent):
 	sender = parent.sender()
