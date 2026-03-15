@@ -1609,6 +1609,12 @@
           <property name="text">
            <string>Power</string>
           </property>
+          <property name="on_text" stdset="0">
+           <string>Power On</string>
+          </property>
+          <property name="off_text" stdset="0">
+           <string>Power Off</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -1839,12 +1845,18 @@
     </property>
     <addaction name="actionE_Stop"/>
     <addaction name="actionPower"/>
+    <addaction name="separator"/>
     <addaction name="actionRun"/>
     <addaction name="actionRun_From_Line"/>
     <addaction name="actionStep"/>
     <addaction name="actionPause"/>
     <addaction name="actionResume"/>
     <addaction name="actionStop"/>
+    <addaction name="separator"/>
+    <addaction name="actionHoming"/>
+    <addaction name="actionUnhoming"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_Offsets"/>
    </widget>
    <widget class="QMenu" name="menuPrograms">
     <property name="title">
@@ -1937,6 +1949,21 @@
   <action name="actionHAL_Scope">
    <property name="text">
     <string>HAL Scope</string>
+   </property>
+  </action>
+  <action name="actionHoming">
+   <property name="text">
+    <string>Homing</string>
+   </property>
+  </action>
+  <action name="actionUnhoming">
+   <property name="text">
+    <string>Unhoming</string>
+   </property>
+  </action>
+  <action name="actionClear_Offsets">
+   <property name="text">
+    <string>Clear Offsets</string>
    </property>
   </action>
  </widget>
