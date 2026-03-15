@@ -1,2 +1,4 @@
 setp flexhal.hal-io-cb True
 setp flexhal.hal-io-sb 10
+
+net test flexhal.hal-normal-pb
