@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+
+import sys, os
+
+# disable cache usage must be before any local imports
+sys.dont_write_bytecode = True
+
+from functools import partial
+
+from PyQt6.QtCore import QTimer
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QMenu
+from PyQt6 import uic
+
+import linuxcnc as emc
+
+import status
+
+class main(QMainWindow):
+	def __init__(self):
+		super().__init__()
+		uic.loadUi(os.path.join(os. getcwd(), 'emc.ui'), self)
+		self.setGeometry(50, 50, 500, 300)
+		self.setWindowTitle("EMC Monitor")
+
+		# setup and start the status update timer
+		self.update_timer = QTimer()
+		self.update_timer.timeout.connect(partial(status.update, self))
+		self.update_timer.start(1000) # milliseconds
+
+		# connect to linuxcnc
+		self.status = emc.stat()
+		self.status.poll() # poll for startup
+		self.command = emc.command()
+		self.error = emc.error_channel()
+
+		# set emc states to -0 so they get evaluated in status at least once
+		self.exec_state = -0
+		self.interp_state = -0
+		self.interpreter_errcode = -0
+		self.motion_mode = -0
+		self.motion_type = -0
+		self.state = -0
+		self.task_mode = -0
+		self.task_state = -0
+		self.file = -0
+		self.flood_state = -0
+		self.mist_state = -0
+
+		find_children(self)
+		self.show()
+
+
+def find_children(self): # get the object names of all widgets
+	self.child_names = []
+	children = self.findChildren(QWidget)
+	for child in children:
+		if child.objectName():
+			self.child_names.append(child.objectName())
+	self.actions = self.findChildren(QAction)
+	for action in self.actions:
+		if action.objectName():
+			self.child_names.append(action.objectName())
+			if 'toolBar' in self.child_names:
+				widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
+				# make sure the action is in the tool bar
+				if self.toolBar.widgetForAction(action) is not None:
+					self.toolBar.widgetForAction(action).setObjectName(widget_name)
+					setattr(self, widget_name, parent.toolBar.widgetForAction(action))
+					self.child_names.append(widget_name)
+	menus = self.findChildren(QMenu)
+	for menu in menus:
+		if menu.objectName():
+			self.child_names.append(menu.objectName())
+
+
+
+app = QApplication(sys.argv)
+gui = main()
+sys.exit(app.exec())
