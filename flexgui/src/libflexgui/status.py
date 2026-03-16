@@ -63,7 +63,6 @@ def update(parent):
 
 		if parent.status.exec_state == emc.EXEC_DONE:
 			utilities.update_run_controls(parent)
-			print('here')
 
 		parent.exec_state = parent.status.exec_state
 
@@ -76,6 +75,7 @@ def update(parent):
 			parent.interp_state_lb.setText(INTERP_STATES[parent.status.interp_state])
 
 		if (parent.status.task_mode == emc.MODE_AUTO
+			or parent.status.task_mode == emc.MODE_MDI
 			and parent.status.interp_state == emc.INTERP_IDLE):
 			parent.command.mode(emc.MODE_MANUAL)
 
