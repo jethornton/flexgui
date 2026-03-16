@@ -153,6 +153,12 @@ def update(parent):
 		if 'state_lb' in parent.child_names: # update the label
 			parent.state_lb.setText(STATES[parent.status.state])
 
+		if (parent.status.state == emc.RCS_DONE
+			and parent.status.task_mode == emc.MODE_AUTO
+			and parent.status.interp_state == emc.INTERP_IDLE):
+			parent.command.mode(emc.MODE_MANUAL)
+
+
 		utilities.update_run_controls(parent)
 
 		'''
