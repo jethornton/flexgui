@@ -49,6 +49,7 @@ def setup_vars(parent):
 	parent.motion_line = -1
 	parent.plot_units = False
 	parent.probing = False
+	parent.stop = False
 
 	# put any variables in here that might be called during startup
 	parent.selected_style = '''

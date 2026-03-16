@@ -61,6 +61,10 @@ def update(parent):
 		if 'exec_state_lb' in parent.child_names: # update the label
 			parent.exec_state_lb.setText(EXEC_STATES[parent.status.exec_state])
 
+		if parent.status.exec_state == emc.EXEC_DONE:
+			utilities.update_run_controls(parent)
+			print('here')
+
 		parent.exec_state = parent.status.exec_state
 
 	# **** INTERP STATE ****
@@ -71,8 +75,7 @@ def update(parent):
 		if 'interp_state_lb' in parent.child_names: # update the label
 			parent.interp_state_lb.setText(INTERP_STATES[parent.status.interp_state])
 
-		if (parent.status.exec_state == emc.EXEC_DONE
-			and parent.status.task_mode == emc.MODE_AUTO
+		if (parent.status.task_mode == emc.MODE_AUTO
 			and parent.status.interp_state == emc.INTERP_IDLE):
 			parent.command.mode(emc.MODE_MANUAL)
 
