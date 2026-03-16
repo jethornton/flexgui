@@ -321,7 +321,6 @@ def action_resume(parent): # actionResume
 
 def action_stop(parent): # actionStop
 	parent.command.abort()
-	parent.command.reset_interpreter()
 	parent.stop = True
 
 def action_clear_mdi(parent): # actionClear_MDI
