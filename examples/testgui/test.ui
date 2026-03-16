@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>869</width>
-    <height>652</height>
+    <height>766</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item row="4" column="3" rowspan="2" colspan="6">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>5</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1347,6 +1347,12 @@
     </item>
     <item row="1" column="5">
      <widget class="QGroupBox" name="groupBox_9">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="title">
        <string>DTG</string>
       </property>
@@ -1398,6 +1404,12 @@
     </item>
     <item row="1" column="4">
      <widget class="QGroupBox" name="groupBox">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="title">
        <string>DRO</string>
       </property>
@@ -1449,6 +1461,12 @@
     </item>
     <item row="1" column="3">
      <widget class="QGroupBox" name="groupBox_2">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="title">
        <string>Actual</string>
       </property>
@@ -1463,7 +1481,7 @@
        <item row="0" column="1">
         <widget class="QLabel" name="actual_lb_x">
          <property name="text">
-          <string>0.000</string>
+          <string>-0.000</string>
          </property>
         </widget>
        </item>
