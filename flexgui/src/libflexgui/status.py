@@ -49,7 +49,7 @@ R = 9
 
 def update(parent):
 	parent.status.poll()
-
+	changed = False
 	# **** EXEC STATE ****
 	# exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
 	# EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
@@ -57,6 +57,7 @@ def update(parent):
 	# EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
 		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
+		#changed = True
 		if 'exec_state_lb' in parent.child_names: # update the label
 			parent.exec_state_lb.setText(EXEC_STATES[parent.status.exec_state])
 
@@ -66,88 +67,17 @@ def update(parent):
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
 		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
+		#changed = True
 		if 'interp_state_lb' in parent.child_names: # update the label
 			parent.interp_state_lb.setText(INTERP_STATES[parent.status.interp_state])
 
-		if parent.status.interp_state == emc.INTERP_WAITING:
-			if parent.program_paused:  # running program back from paused
-				for item in parent.program_paused_enable:
-					getattr(parent, item).setEnabled(False)
-				for item in parent.program_running_enable:
-					getattr(parent, item).setEnabled(True)
-				parent.program_paused = False
+		if (parent.status.exec_state == emc.EXEC_DONE
+			and parent.status.task_mode == emc.MODE_AUTO
+			and parent.status.interp_state == emc.INTERP_IDLE):
+			parent.command.mode(emc.MODE_MANUAL)
 
-		if parent.status.interp_state == emc.INTERP_PAUSED: # running program paused
-			parent.program_paused = True
-			for item in parent.program_paused_enable:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.program_running_enable:
-				getattr(parent, item).setEnabled(False)
+		utilities.update_run_controls(parent)
 
-		if parent.status.interp_state == emc.INTERP_IDLE:
-			utilities.update_run_controls(parent)
-
-
-		'''
-		if parent.status.interp_state == emc.INTERP_IDLE:
-			if parent.status.task_mode == emc.MODE_AUTO: # program has finished
-				#print('status update INTERP_IDLE MODE_AUTO')
-				parent.command.mode(emc.MODE_MANUAL)
-				#print('status.py 195 parent.command.mode(emc.MODE_MANUAL)')
-				parent.command.wait_complete()
-				#print('status.py 198 parent.command.wait_complete()')
-				#print(f'{TASK_MODES[parent.status.task_mode]}')
-
-			if parent.status.task_mode == emc.MODE_MDI: # mdi is done
-				#print('status update INTERP_IDLE MODE_MDI')
-				if parent.tool_button:
-					parent.tool_button = False
-					parent.command.mode(emc.MODE_MANUAL)
-					#print('status.py 205 parent.command.mode(emc.MODE_MANUAL)')
-					parent.command.wait_complete()
-					#print('status.py 207 parent.command.wait_complete()')
-				elif parent.tool_changed:
-					parent.tool_changed = False
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
-				else:
-					parent.command.mode(emc.MODE_MANUAL)
-					parent.command.wait_complete()
-
-		if parent.status.task_mode == emc.MODE_AUTO:
-			# program is running
-			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
-				parent.run_pb.led = True
-
-			if parent.status.interp_state == emc.INTERP_WAITING:
-				#print('INTERP_WAITING MODE_AUTO')
-				for key, value in parent.program_paused.items():
-					getattr(parent, key).setEnabled(value)
-				if parent.status.exec_state != emc.EXEC_WAITING_FOR_IO:
-					for key, value in parent.program_running.items():
-						getattr(parent, key).setEnabled(value)
-
-		# program is paused in either auto or mdi
-		if parent.status.interp_state == emc.INTERP_PAUSED:
-			#print('INTERP_PAUSED MODE_AUTO')
-			for key, value in parent.program_paused.items():
-				getattr(parent, key).setEnabled(value)
-			if 'pause_pb' in parent.child_names and hasattr(parent.pause_pb, 'led'):
-				parent.pause_pb.led = True
-			if 'resume_pb' in parent.child_names and hasattr(parent.resume_pb, 'led'):
-				parent.resume_pb.led = True
-		else: # not paused
-			if 'pause_pb' in parent.child_names and hasattr(parent.pause_pb, 'led'):
-				parent.pause_pb.led = False
-			if 'resume_pb' in parent.child_names and hasattr(parent.resume_pb, 'led'):
-				parent.resume_pb.led = False
-
-		if parent.status.interp_state == emc.INTERP_READING:
-			#print('INTERP_READING')
-			if parent.status.task_mode == emc.MODE_AUTO:
-				for key, value in parent.program_running.items():
-					getattr(parent, key).setEnabled(value)
-		'''
 		parent.interp_state = parent.status.interp_state
 
 	# **** INTERPRETER ERRCODE ****
@@ -155,6 +85,7 @@ def update(parent):
 	# INTERP_ENDFILE INTERP_FILE_NOT_OPEN INTERP_ERROR
 	if parent.interpreter_errcode != parent.status.interpreter_errcode:
 		#print(f'INTERPRETER ERRCODE: {INTERPRETER_ERRCODES[parent.status.interpreter_errcode]}')
+		#changed = True
 		if 'interpreter_errcode_lb' in parent.child_names: # update the label
 			parent.interpreter_errcode_lb.setText(INTERPRETER_ERRCODES[parent.status.interpreter_errcode])
 
@@ -164,6 +95,7 @@ def update(parent):
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
 		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
+		#changed = True
 		if 'motion_mode_lb' in parent.child_names: # update the label
 			parent.motion_mode_lb.setText(MOTION_MODES[parent.status.motion_mode])
 		'''
@@ -192,10 +124,21 @@ def update(parent):
 		parent.motion_mode = parent.status.motion_mode
 
 	# **** MOTION TYPE ****
+	# motion_type MOTION_TYPE_NONE, MOTION_TYPE_TRAVERSE,
+	# MOTION_TYPE_FEED, MOTION_TYPE_ARC, MOTION_TYPE_TOOLCHANGE,
+	# MOTION_TYPE_PROBING, MOTION_TYPE_INDEXROTARY,
+
 	if parent.motion_type != parent.status.motion_type:
 		#print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]}')
+		#changed = True
 		if 'motion_type_lb' in parent.child_names: # update the label
 			parent.motion_type_lb.setText(MOTION_TYPES[parent.status.motion_type])
+
+		utilities.update_run_controls(parent)
+
+		# 'linuxcnc' has no attribute 'MOTION_TYPE_NONE'
+		#if parent.status.motion_type == 0: # emc.MOTION_TYPE_NONE
+		#	utilities.update_run_controls(parent)
 
 		parent.motion_type = parent.status.motion_type
 
@@ -203,9 +146,13 @@ def update(parent):
 	# state RCS_DONE, RCS_EXEC, RCS_ERROR
 	if parent.state != parent.status.state:
 		#print(f'STATE: {STATES[parent.status.state]}')
+		#changed = True
 		if 'state_lb' in parent.child_names: # update the label
 			parent.state_lb.setText(STATES[parent.status.state])
 
+		utilities.update_run_controls(parent)
+
+		'''
 		if parent.status.state == emc.RCS_EXEC: # program is running
 			for item in parent.program_running_disabled:
 				getattr(parent, item).setEnabled(False)
@@ -222,21 +169,23 @@ def update(parent):
 			if parent.status.task_mode == emc.MODE_MDI:
 				utilities.update_mdi(parent)
 			parent.command.mode(emc.MODE_MANUAL)
-
+		'''
 		parent.state = parent.status.state
 
 	# **** TASK MODE ****
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
 		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
+		#changed = True
 		if 'task_mode_lb' in parent.child_names: # update the label
 			parent.task_mode_lb.setText(TASK_MODES[parent.status.task_mode])
 
+		'''
 		# this is needed for MDI commands that do not use motion
 		if parent.status.state == emc.RCS_DONE and parent.status.task_mode == emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MANUAL)
 			utilities.update_mdi(parent)
-
+		'''
 		utilities.update_run_controls(parent)
 
 		'''
@@ -322,6 +271,7 @@ def update(parent):
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
 		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
+		#changed = True
 		if 'task_state_lb' in parent.child_names: # update the label
 			parent.task_state_lb.setText(TASK_STATES[parent.status.task_state])
 
@@ -925,5 +875,7 @@ def update(parent):
 			if parent.status.task_mode ==  emc.MODE_MDI:
 				utilities.update_mdi(parent)
 
-
+	if changed:
+		print('End of changes\n')
+		changed = False
 

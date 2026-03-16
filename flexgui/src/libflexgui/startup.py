@@ -44,7 +44,7 @@ def setup_vars(parent):
 	# added from testgui
 	parent.program_units = False
 	parent.g_codes = ()
-	parent.homed = parent.status.homed
+	parent.homed = ()
 	parent.program_paused = False
 	parent.motion_line = -1
 	parent.plot_units = False
@@ -72,20 +72,24 @@ def setup_vars(parent):
 	# FIXME these might not be used any more
 	parent.home_required = [] # different functions add to this FIXME change to dict
 	parent.home_controls = [] # different functions add to this FIXME change to dict
-	parent.homed = {}
-	parent.state_on_homed = {}
-	parent.state_on_unhomed = {}
-	parent.mode_manual = {}
-	parent.mode_mdi = {}
-	parent.mode_auto = {}
+	#parent.homed = {}
+	#parent.state_on_homed = {}
+	#parent.state_on_unhomed = {}
+	#parent.mode_manual = {}
+	#parent.mode_mdi = {}
+	#parent.mode_auto = {}
 
 	# enable and disable lists
 	parent.state_estop_disabled = [] # everything but estop_pb
 	parent.state_estop_reset_disabled = []
 	parent.state_estop_reset_enabled = []
 	parent.state_on_enabled = []
+	parent.state_on_paused_enabled = []
 	parent.homed_enabled = []
+	parent.program_running_enable = []
 	parent.program_running_disabled = []
+	parent.program_paused_enable = []
+	parent.program_motion_none = []
 	parent.run_controls = [] # enabled when homed, manual, file loaded
 	parent.file_load_controls = [] # disable when a program or mdi is running
 	parent.mdi_controls = []
@@ -615,23 +619,24 @@ def setup_enables(parent):
 		if f'jog_minus_pb_{i}' in parent.child_names:
 			parent.state_on_enabled.append(f'jog_minus_pb_{i}')
 
-
-	parent.program_running_enable = []
 	for item in ['pause_pb', 'actionPause']:
 		if item in parent.child_names:
 			parent.program_running_enable.append(item)
 
-	parent.program_paused_enable = []
 	for item in ['resume_pb', 'actionResume']:
 		if item in parent.child_names:
 			parent.program_paused_enable.append(item)
 
+	for item in ['step_pb', 'actionStep']:
+		if item in parent.child_names:
+			parent.program_motion_none.append(item)
+
 	# FIXME might need to remove run_from_line_pb and actionRun_From_Line if not configured correctly
 	parent.program_running_disable = ['open_pb', 'reload_pb', 'run_pb',
-	'run_from_line_pb', 'step_pb', 'jog_selected_plus', 'jog_selected_minus',
-	'resume_pb', 'run_mdi_pb', 'home_all_pb', 'actionRun', 'actionOpen',
-	'menuRecent', 'actionReload', 'actionRun_From_Line', 'actionStep',
-	'actionResume', 'unhome_all_pb', 'tool_change_pb']
+	'run_from_line_pb', 'jog_selected_plus', 'jog_selected_minus',
+	'run_mdi_pb', 'home_all_pb', 'actionRun', 'actionOpen',
+	'menuRecent', 'actionReload', 'actionRun_From_Line',
+	'unhome_all_pb', 'tool_change_pb']
 
 	for i in range(9):
 		parent.program_running_disable.append(f'home_pb_{i}')
@@ -879,6 +884,29 @@ def setup_enables(parent):
 	'''
 
 def setup_run_controls(parent):
+
+	parent.run_controls = []
+	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
+		if item in parent.child_names:
+			parent.run_controls.append(item)
+
+	parent.step_controls = []
+	for item in ['step_pb', 'actionStep']:
+		if item in parent.child_names:
+			parent.step_controls.append(item)
+
+	parent.pause_controls = []
+	for item in ['pause_pb', 'actionPause']:
+		if item in parent.child_names:
+			parent.pause_controls.append(item)
+
+	parent.resume_controls = []
+	for item in ['resume_pb', 'actionResume']:
+		if item in parent.child_names:
+			parent.resume_controls.append(item)
+
+
+	'''
 	file_run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
 	'actionRun', 'actionRun_From_Line', 'actionStep', 'tool_change_pb']
 	for item in file_run_items:
@@ -892,6 +920,7 @@ def setup_run_controls(parent):
 			parent.run_controls.append(f'tool_touchoff_{item}')
 		if f'touchoff_pb_{item}' in parent.child_names:
 			parent.run_controls.append(f'touchoff_pb_{item}')
+	'''
 
 def setup_buttons(parent): # connect buttons to functions
 	if 'estop_pb' in parent.child_names:
@@ -1004,9 +1033,9 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.state_estop_reset[name] = False
 			# FIXME change this to a dict
 			parent.home_required.append(name)
-			parent.mode_manual[name] = True
-			parent.mode_mdi[name] = False
-			parent.mode_auto[name] = False
+			#parent.mode_manual[name] = True
+			#parent.mode_mdi[name] = False
+			#parent.mode_auto[name] = False
 
 	# Clear coordinate system buttons
 	for i in range(12):
@@ -1018,9 +1047,9 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.state_estop_reset[name] = False
 			# FIXME change this to a dict
 			parent.home_required.append(name)
-			parent.mode_manual[name] = True
-			parent.mode_mdi[name] = False
-			parent.mode_auto[name] = False
+			#parent.mode_manual[name] = True
+			#parent.mode_mdi[name] = False
+			#parent.mode_auto[name] = False
 
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
@@ -1048,9 +1077,9 @@ def setup_buttons(parent): # connect buttons to functions
 			parent.state_estop_reset[name] = False
 			# FIXME change this to a dict
 			parent.home_required.append(name)
-			parent.mode_manual[name] = True
-			parent.mode_mdi[name] = False
-			parent.mode_auto[name] = False
+			#parent.mode_manual[name] = True
+			#parent.mode_mdi[name] = False
+			#parent.mode_auto[name] = False
 
 	# override preset buttons
 	for item in parent.child_names:
@@ -1072,9 +1101,9 @@ def setup_buttons(parent): # connect buttons to functions
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
-			parent.mode_manual[child.objectName()] = True
-			parent.mode_mdi[child.objectName()] = False
-			parent.mode_auto[child.objectName()] = False
+			#parent.mode_manual[child.objectName()] = True
+			#parent.mode_mdi[child.objectName()] = False
+			#parent.mode_auto[child.objectName()] = False
 
 	parent.flashing_buttons = []
 	for child in parent.findChildren(QPushButton):

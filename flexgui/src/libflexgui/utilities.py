@@ -598,6 +598,98 @@ def update_home_controls(parent):
 
 def update_run_controls(parent):
 	parent.status.poll()
+	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
+	file_loaded = len(parent.status.file) > 0
+	interp_state = parent.status.interp_state
+	motion_type = parent.status.motion_type
+	task_mode = parent.status.task_mode
+	task_state = parent.status.task_state
+	state = parent.status.state
+
+	if task_state == emc.STATE_ESTOP:
+		#print('STATE_ESTOP')
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.step_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.pause_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.resume_controls:
+			getattr(parent, item).setEnabled(False)
+
+	if task_state == emc.STATE_ESTOP_RESET:
+		#print('STATE_ESTOP_RESET')
+		for item in parent.run_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.step_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.pause_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.resume_controls:
+			getattr(parent, item).setEnabled(False)
+
+	if task_state == emc.STATE_ON:
+		#print('STATE_ON')
+		if task_mode == emc.MODE_AUTO:
+			#print('MODE_AUTO')
+			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(False)
+			if state == emc.RCS_EXEC and interp_state == emc.INTERP_PAUSED:
+				#print('paused')
+				for item in parent.pause_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.resume_controls:
+					getattr(parent, item).setEnabled(True)
+			if state == emc.RCS_EXEC and motion_type == 0: # MOTION_TYPE_NONE
+				#print('no motion')
+				for item in parent.step_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.pause_controls:
+					getattr(parent, item).setEnabled(False)
+			if state == emc.RCS_EXEC and motion_type != 0: # NOT MOTION_TYPE_NONE
+				if interp_state != emc.INTERP_PAUSED:
+					#print('in motion')
+					for item in parent.step_controls:
+						getattr(parent, item).setEnabled(False)
+					for item in parent.pause_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.resume_controls:
+						getattr(parent, item).setEnabled(False)
+
+		elif task_mode == emc.MODE_MANUAL:
+			#print('MODE_MANUAL')
+			if all_homed and file_loaded:
+				#print('can run')
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.step_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.pause_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.resume_controls:
+					getattr(parent, item).setEnabled(False)
+
+		elif task_mode == emc.MODE_MDI:
+			#print('MODE_MDI')
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.step_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.pause_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.resume_controls:
+				getattr(parent, item).setEnabled(False)
+
+
+	'''
+	parent.run_controls
+	parent.step_controls
+	parent.pause_controls
+	parent.resume_controls
+	'''
+
+	'''
 	if parent.status.task_mode == emc.MODE_MANUAL:
 		if not parent.probing:
 			for item in parent.file_load_controls:
@@ -618,7 +710,24 @@ def update_run_controls(parent):
 		for item in parent.mdi_controls:
 			getattr(parent, item).setEnabled(False)
 
+		if parent.status.interp_state == emc.INTERP_PAUSED:
+			for item in parent.program_paused_enable:
+				getattr(parent, item).setEnabled(True)
+			for item in program_running_enable:
+				getattr(parent, item).setEnabled(False)
+		else:
+			for item in program_running_enable:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.program_paused_enable:
+				getattr(parent, item).setEnabled(False)
 
+		if parent.status.motion_type == 0: # MOTION_TYPE_NONE
+			for item in parent.program_motion_none:
+				getattr(parent, item).setEnabled(True)
+		elif parent.status.motion_type != 0:
+			for item in parent.program_motion_none:
+				getattr(parent, item).setEnabled(False)
+	'''
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
