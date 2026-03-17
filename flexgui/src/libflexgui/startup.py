@@ -1459,9 +1459,6 @@ def setup_line_edits(parent):
 		elif child.property('input') == 'keyboard': # enable the keyboard pad
 			parent.keyboard_le.append(child.objectName())
 			child.installEventFilter(parent)
-		# make sure the return_button property name is a valid name
-		if not child.objectName().startswith('mdi') and child.property('return_button') in parent.child_names:
-			child.returnPressed.connect(getattr(parent, child.property('return_button')).animateClick)
 
 def setup_spin_boxes(parent):
 	parent.touch_sb = []
