@@ -188,12 +188,10 @@ def update(parent):
 		if 'task_mode_lb' in parent.child_names: # update the label
 			parent.task_mode_lb.setText(TASK_MODES[parent.status.task_mode])
 
-		'''
 		# this is needed for MDI commands that do not use motion
 		if parent.status.state == emc.RCS_DONE and parent.status.task_mode == emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MANUAL)
 			utilities.update_mdi(parent)
-		'''
 		utilities.update_run_controls(parent)
 
 		'''
