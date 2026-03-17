@@ -100,29 +100,7 @@ def update(parent):
 		#changed = True
 		if 'motion_mode_lb' in parent.child_names: # update the label
 			parent.motion_mode_lb.setText(MOTION_MODES[parent.status.motion_mode])
-		'''
-		# this sets up home related items
-		if parent.status.motion_mode == emc.TRAJ_MODE_TELEOP:
-			#print('status update TRAJ_MODE_TELEOP')
-			if parent.status.task_state == emc.STATE_ON:
-				for key, value in parent.state_on_homed.items():
-					getattr(parent, key).setEnabled(value)
-			if not parent.probing:
-				for item in parent.home_required:
-					getattr(parent, item).setEnabled(True)
-			if parent.status.file and not parent.probing:
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
-		elif parent.status.motion_mode == emc.TRAJ_MODE_FREE:
-			#print('status update TRAJ_MODE_FREE')
-			if parent.status.task_state == emc.STATE_ON:
-				for key, value in parent.state_on_unhomed.items():
-					getattr(parent, key).setEnabled(value)
-			for item in parent.home_required:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(False)
-		'''
+
 		parent.motion_mode = parent.status.motion_mode
 
 	# **** MOTION TYPE ****
@@ -159,13 +137,6 @@ def update(parent):
 
 		utilities.update_run_controls(parent)
 
-		'''
-		if parent.status.state == emc.RCS_EXEC: # program is running
-			for item in parent.program_running_disabled:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.program_running_enable:
-				getattr(parent, item).setEnabled(True)
-		'''
 		# this is needed for MDI commands that use motion
 		if parent.status.state == emc.RCS_DONE:
 			if parent.status.task_mode == emc.MODE_MDI:
@@ -188,82 +159,6 @@ def update(parent):
 			utilities.update_mdi(parent)
 		utilities.update_run_controls(parent)
 
-		'''
-		if parent.status.task_mode == emc.MODE_MANUAL:
-			for key, value in parent.mode_manual.items():
-				getattr(parent, key).setEnabled(value)
-
-			# FIXME this is a kludge
-			#for i in range(parent.joints):
-			#	if parent.status.joint[i]['homed']:
-
-			#print("Joint 1 homed: ", s.joint[1]["homed"])
-
-			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
-				parent.manual_mode_pb.led = True
-			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
-				parent.mdi_mode_pb.led = False
-			if 'auto_mode_pb' in parent.child_names and hasattr(parent.auto_mode_pb, 'led'):
-				parent.auto_mode_pb.led = False
-			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
-				parent.run_pb.led = False
-			# enable flood and mist buttons
-
-		if parent.status.task_mode == emc.MODE_MDI:
-			for key, value in parent.mode_mdi.items():
-				getattr(parent, key).setEnabled(value)
-
-			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
-				parent.manual_mode_pb.led = False
-			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
-				parent.mdi_mode_pb.led = True
-			if 'auto_mode_pb' in parent.child_names and hasattr(parent.auto_mode_pb, 'led'):
-				parent.auto_mode_pb.led = False
-			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
-				parent.run_pb.led = False
-			for item in parent.probe_controls:
-				getattr(parent, item).setEnabled(False)
-
-		if parent.status.task_mode == emc.MODE_AUTO:
-			for key, value in parent.mode_auto.items():
-				getattr(parent, key).setEnabled(value)
-
-			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
-				parent.manual_mode_pb.led = False
-			if 'mdi_mode_pb' in parent.child_names and hasattr(parent.mdi_mode_pb, 'led'):
-				parent.mdi_mode_pb.led = False
-			if 'auto_mode_pb' in parent.child_names and hasattr(parent.auto_mode_pb, 'led'):
-				parent.auto_mode_pb.led = True
-			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
-				parent.run_pb.led = True
-			# disable flood and mist buttons
-
-		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode == emc.MODE_MANUAL:
-				if parent.status.interp_state == emc.INTERP_IDLE:
-					if parent.probing:
-						#print(f'parent.probing {parent.probing}')
-						for item in parent.probe_controls:
-							getattr(parent, item).setEnabled(True)
-					else:
-						#print('Task Mode Manual, Not Probing')
-						for key, value in parent.state_on.items():
-							getattr(parent, key).setEnabled(value)
-						if parent.status.file:
-							#print('status update FILE LOADED')
-							for item in parent.file_edit_items:
-								getattr(parent, item).setEnabled(True)
-							if utilities.all_homed(parent):
-								#print('status update FILE LOADED and ALL HOMED')
-								for item in parent.run_controls:
-									getattr(parent, item).setEnabled(True)
-
-		if parent.status.task_mode == emc.MODE_MANUAL:
-			if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
-				parent.manual_mode_pb.led = True
-			if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'led'):
-				parent.run_pb.led = False
-		'''
 		parent.task_mode = parent.status.task_mode
 
 
@@ -312,142 +207,7 @@ def update(parent):
 		utilities.update_home_controls(parent)
 		utilities.update_run_controls(parent)
 
-		'''
-		# e stop open
-		if parent.status.task_state == emc.STATE_ESTOP:
-			#print('status update STATE_ESTOP')
-			for key, value in parent.state_estop.items():
-				getattr(parent, key).setEnabled(value)
-			for key, value in parent.state_estop_checked.items():
-				getattr(parent, key).setChecked(value)
 
-			if 'estop_pb' in parent.child_names:
-				if parent.estop_pb.isChecked():
-					parent.estop_pb.blockSignals(True)
-					parent.estop_pb.setChecked(False)
-					parent.estop_pb.blockSignals(False)
-
-			if parent.probe_enable_off_color: # if False just don't bother
-				if 'probing_enable_pb' in parent.child_names:
-					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
-
-			# FIXME there must be a better way to show the toolbar toolbuttons
-			if 'flex_E_Stop' in parent.child_names:
-				parent.flex_E_Stop.setStyleSheet(parent.selected_style)
-			if 'flex_Power' in parent.child_names:
-				parent.flex_Power.setStyleSheet(parent.deselected_style)
-
-			# FIXME find a better way to set leds when estop is tripped
-			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
-				parent.estop_pb.led = False
-			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
-				parent.power_pb.led = False
-			if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
-				parent.probing_enable_pb.led = False
-
-		# e stop closed power off
-		if parent.status.task_state == emc.STATE_ESTOP_RESET:
-			#print('status update STATE_ESTOP_RESET')
-			for key, value in parent.state_estop_reset.items():
-				getattr(parent, key).setEnabled(value)
-			for key, value in parent.state_estop_reset_checked.items():
-				getattr(parent, key).setChecked(value)
-
-			# check if any joints were unhomed by VOLATILE_HOME = 1
-			for item in parent.home_controls:
-				if item[-1].isdigit():
-					if hasattr(getattr(parent, item), 'led'):
-						if bool(parent.status.joint[int(item[-1])]["homed"]): # homed
-							getattr(parent, item).led = True
-						else:
-							getattr(parent, item).led = False
-
-			if 'estop_pb' in parent.child_names:
-				parent.estop_pb.blockSignals(True)
-				parent.estop_pb.setChecked(True)
-				parent.estop_pb.blockSignals(False)
-			if 'power_pb' in parent.child_names:
-				parent.power_pb.blockSignals(True)
-				parent.power_pb.setChecked(False)
-				parent.power_pb.blockSignals(False)
-
-			if parent.probe_enable_off_color: # if False just don't bother
-				if 'probing_enable_pb' in parent.child_names:
-					parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
-
-			if 'flex_E_Stop' in parent.child_names:
-				parent.flex_E_Stop.setStyleSheet(parent.deselected_style)
-			if 'flex_Power' in parent.child_names:
-				parent.flex_Power.setStyleSheet(parent.deselected_style)
-
-			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
-				parent.estop_pb.led = True
-			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
-				parent.power_pb.led = False
-
-		# e stop closed power on
-		if parent.status.task_state == emc.STATE_ON:
-			#print('status update STATE_ON')
-			for key, value in parent.state_on.items():
-				getattr(parent, key).setEnabled(value)
-
-			if 'power_pb' in parent.child_names:
-				parent.power_pb.blockSignals(True)
-				parent.power_pb.setChecked(True)
-				parent.power_pb.blockSignals(False)
-
-			if 'flex_Power' in parent.child_names:
-				parent.flex_Power.setStyleSheet(parent.selected_style)
-
-			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
-				parent.power_pb.led = True
-			if parent.status.task_mode == emc.MODE_MANUAL:
-				if 'manual_mode_pb' in parent.child_names and hasattr(parent.manual_mode_pb, 'led'):
-					parent.manual_mode_pb.led = True
-
-			if utilities.all_homed(parent):
-				#print('status update ALL HOMED')
-				utilities.set_homed_enable(parent)
-				for key, value in parent.state_on_homed.items():
-					getattr(parent, key).setEnabled(value)
-				for item in parent.unhome_controls:
-					getattr(parent, item).setEnabled(True)
-				for item in parent.home_controls:
-					getattr(parent, item).setEnabled(False)
-			else:
-				#print('status update All NOT HOMED')
-				for item in parent.home_controls:
-					if item[-1].isdigit():
-						if bool(parent.status.joint[int(item[-1])]["homed"]):
-							getattr(parent, item).setEnabled(False)
-							#print(f'item {item} homed')
-						else:
-							getattr(parent, item).setEnabled(True)
-							#print(f'item {item} not homed')
-					elif item == 'home_all_pb':
-						getattr(parent, item).setEnabled(True)
-				for item in parent.unhome_controls:
-					if item[-1].isdigit():
-						if bool(parent.status.joint[int(item[-1])]["homed"]):
-							getattr(parent, item).setEnabled(True)
-						else:
-							getattr(parent, item).setEnabled(False)
-
-			if parent.status.file:
-				#print('status update FILE LOADED')
-				# power on and file loaded enable file edit controls
-				for item in parent.file_edit_items:
-					getattr(parent, item).setEnabled(True)
-				# power on, file loaded and all homed enable file run controls
-				if utilities.all_homed(parent):
-					#print('status update FILE LOADED and ALL HOMED')
-					for item in parent.run_controls:
-						getattr(parent, item).setEnabled(True)
-			else:
-				#print('status update NO FILE LOADED')
-				for item in parent.file_edit_items:
-					getattr(parent, item).setEnabled(False)
-		'''
 		parent.task_state = parent.status.task_state
 
 
@@ -476,6 +236,7 @@ def update(parent):
 				parent.gcode_pte.setTextCursor(cursor)
 				parent.last_line = parent.motion_line
 	'''
+
 	# **** MOTION LINE CHANGE ****
 	if parent.motion_line != parent.status.motion_line:
 		#print(parent.status.motion_line)
@@ -735,15 +496,6 @@ def update(parent):
 	for key, value in parent.hal_led_labels.items():
 		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
 
-	# homed status FIXME this is moved to utilites
-	'''
-	for item in parent.home_status:
-		if parent.status.homed[int(item[-1])]:
-			getattr(parent, item).setText('*')
-		else:
-			getattr(parent, item).setText('')
-	'''
-
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
 		machine_position = getattr(parent, "status").position[value[0]]
@@ -763,14 +515,6 @@ def update(parent):
 	# label, tuple position & precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
 		position = positions[value[0]]
-
-		'''
-		g5x_offset = getattr(parent, "status").g5x_offset[value[0]]
-		g92_offset = getattr(parent, "status").g92_offset[value[0]]
-		g43_offset = getattr(parent, "status").tool_offset[value[0]]
-		machine_position = getattr(parent, "status").position[value[0]]
-		relative_position = machine_position - (g5x_offset + g92_offset + g43_offset)
-		'''
 
 		# metric linear units with inch program units
 		if parent.status.linear_units == 1 and parent.program_units == 'INCH' and parent.auto_dro_units:
