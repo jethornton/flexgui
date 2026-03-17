@@ -153,8 +153,7 @@ def update(parent):
 			parent.state_lb.setText(STATES[parent.status.state])
 
 		if (parent.status.state == emc.RCS_DONE
-			and parent.status.task_mode == emc.MODE_MDI
-			or parent.status.task_mode == emc.MODE_AUTO
+			and parent.status.task_mode == emc.MODE_AUTO
 			and parent.status.interp_state == emc.INTERP_IDLE):
 			parent.command.mode(emc.MODE_MANUAL)
 
@@ -166,18 +165,13 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 			for item in parent.program_running_enable:
 				getattr(parent, item).setEnabled(True)
-
+		'''
 		# this is needed for MDI commands that use motion
 		if parent.status.state == emc.RCS_DONE:
-			for item in parent.program_running_disabled:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.program_running_enable:
-				getattr(parent, item).setEnabled(False)
-
 			if parent.status.task_mode == emc.MODE_MDI:
 				utilities.update_mdi(parent)
 			parent.command.mode(emc.MODE_MANUAL)
-		'''
+	
 		parent.state = parent.status.state
 
 	# **** TASK MODE ****

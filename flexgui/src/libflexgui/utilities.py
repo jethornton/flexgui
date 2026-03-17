@@ -325,6 +325,7 @@ def add_mdi(parent): # when you click on the mdi history list widget
 		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
 def update_mdi(parent):
+	print('here')
 	if parent.status.state == emc.RCS_ERROR:
 		parent.command.reset_interpreter()
 		if 'mdi_command_le' in parent.child_names:
