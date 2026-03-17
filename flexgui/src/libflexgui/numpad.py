@@ -11,8 +11,7 @@ class number_pad(QDialog):
 		self.save_pb.clicked.connect(self.accept)
 		self.cancel_pb.clicked.connect(self.reject)
 		self.clear_pb.clicked.connect(self.clear)
-		self.key_dot.clicked.connect(self.dot)
-		self.key_dash.clicked.connect(self.dash)
+		self.minus.clicked.connect(self.dash)
 		self.backspace_pb.clicked.connect(self.backspace)
 		for item in self.findChildren(QPushButton):
 			if item.objectName().startswith('key_'):
@@ -23,14 +22,10 @@ class number_pad(QDialog):
 
 	def post(self):
 		txt = self.numbers_le.text()
-		self.numbers_le.setText(f'{txt}{self.sender().objectName()[-1]}')
+		self.numbers_le.setText(f'{txt}{self.sender().text()}')
 
 	def clear(self):
 		self.numbers_le.clear()
-
-	def dot(self):
-		txt = self.numbers_le.text()
-		self.numbers_le.setText(f'{txt}.')
 
 	def dash(self):
 		txt = self.numbers_le.text()
