@@ -1708,6 +1708,9 @@
           <property name="off_text" stdset="0">
            <string>Power Off</string>
           </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
