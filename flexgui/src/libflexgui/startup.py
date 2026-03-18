@@ -215,7 +215,12 @@ def setup_hal_led_buttons(parent):
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			led_shape = child.property('led_shape') # validate shape
 			btn_dict['shape'] = led_shape if led_shape == 'square' else 'round'
+			btn_dict['size_policy'] = child.sizePolicy()
 			new_button = led.IndicatorButton(**btn_dict)
+			#for key, value in btn_dict.items():
+			#	print(key, value)
+			#print(child.maximumHeight())
+			print(child.sizePolicy())
 
 			layout = child.parent().layout()
 			if layout is not None:
@@ -3217,15 +3222,6 @@ def setup_help(parent):
 	for child in children:
 		if child.property('function') == 'help':
 			child.clicked.connect(partial(dialogs.help_dialog, parent))
-
-def set_status(parent): # this is only used if running from a terminal
-	#parent.status.poll()
-	if parent.status.task_state == emc.STATE_ESTOP:
-		for key, value in parent.state_estop.items():
-			getattr(parent, key).setEnabled(value)
-		for key, value in parent.state_estop_names.items():
-			getattr(parent, key).setText(value)
-
 
 def setup_tabs(parent):
 	# Pull focus away from other controls (QLineEdits)
