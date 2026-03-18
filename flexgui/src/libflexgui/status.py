@@ -224,19 +224,6 @@ def update(parent):
 
 		parent.homed = parent.status.homed
 
-	'''
-	# update gcode_pte only if motion line changes
-	if parent.motion_line != parent.status.motion_line:
-		parent.motion_line != parent.status.motion_line
-		if 'gcode_pte' in parent.child_names:
-			if parent.motion_line != parent.last_line:
-				cursor = parent.gcode_pte.textCursor()
-				cursor = QTextCursor(parent.gcode_pte.document().findBlockByNumber(parent.motion_line))
-				cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
-				parent.gcode_pte.setTextCursor(cursor)
-				parent.last_line = parent.motion_line
-	'''
-
 	# **** MOTION LINE CHANGE ****
 	if parent.motion_line != parent.status.motion_line:
 		#print(parent.status.motion_line)
@@ -247,6 +234,7 @@ def update(parent):
 				cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock, QTextCursor.MoveMode.MoveAnchor)
 				parent.gcode_pte.setTextCursor(cursor)
 				parent.last_line = parent.motion_line
+
 		parent.motion_line = parent.status.motion_line
 
 	# **** NC CODES CHANGE ****
@@ -280,6 +268,7 @@ def update(parent):
 				if i == -1: continue
 				m_codes.append(f'M{i}')
 			parent.mcodes_lb.setText(f'{" ".join(m_codes)}')
+
 		parent.m_codes = parent.status.mcodes
 
 	# **** PROGRAM UNITS CHANGE ****
@@ -291,14 +280,6 @@ def update(parent):
 		parent.plotter.update()
 		parent.plot_units = parent.program_units
 
-	'''
-	# **** MDI CHANGE ****
-	if parent.mdi_command != '':
-		if parent.status.task_mode == emc.MODE_MDI:
-			if parent.status.interp_state == emc.INTERP_IDLE:
-				utilities.update_mdi(parent)
-	'''
-
 	# **** TOOL CHANGE ****
 	if parent.manual_tool_change:
 		if parent.tool_change != hal.get_value('tool-change.change'):
@@ -306,6 +287,7 @@ def update(parent):
 				hal.set_p('iocontrol.0.tool-changed','false')
 			else:
 				dialogs.manual_tool_change(parent)
+
 			parent.tool_change = hal.get_value('tool-change.change')
 
 	# **** TOOL IN SPINDLE CHANGE ****
@@ -316,6 +298,7 @@ def update(parent):
 				parent.touchoff_selected_tool_pb.setEnabled(True)
 			else:
 				parent.touchoff_selected_tool_pb.setEnabled(False)
+
 		parent.tool_in_spindle = parent.status.tool_in_spindle
 
 	# **** FLOOD_OFF or FLOOD_ON **** 
@@ -329,6 +312,7 @@ def update(parent):
 				parent.flood_pb.setChecked(True)
 				if hasattr(parent.flood_pb, 'led'):
 					parent.flood_pb.led = True
+
 		parent.flood_state = parent.status.flood
 
 	# **** MIST_OFF or MIST_ON ****
@@ -342,6 +326,7 @@ def update(parent):
 				parent.mist_pb.setChecked(True)
 				if hasattr(parent.mist_pb, 'led'):
 					parent.mist_pb.led = True
+
 		parent.mist_state = parent.status.mist
 
 	# **** SPINDLE SETTINGS ****
@@ -355,6 +340,7 @@ def update(parent):
 					parent.spindle_brake_0_lb.setText('On')
 				case b if b == 0:
 					parent.spindle_brake_0_lb.setText('Off')
+
 		parent.spindle_brake = parent.status.spindle[0]['brake']
 
 		# spindle direction
@@ -366,6 +352,7 @@ def update(parent):
 					parent.spindle_direction_0_lb.setText('Rev')
 				case s if s == 0:
 					parent.spindle_direction_0_lb.setText('Off')
+
 		parent.spindle_direction = parent.status.spindle[0]['direction']
 
 		# spindle enabled
@@ -375,6 +362,7 @@ def update(parent):
 					parent.spindle_enabled_0_lb.setText('False')
 				case s if s == 1:
 					parent.spindle_enabled_0_lb.setText('True')
+
 		parent.spindle_enabled = parent.status.spindle[0]['enabled']
 
 		for key, value in parent.status_spindles.items():
