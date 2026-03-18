@@ -279,17 +279,23 @@ def action_quit(parent): # actionQuit
 def action_estop(parent): # actionEstop
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
+		parent.command.wait_complete()
+		print('here')
 	else:
 		parent.command.state(emc.STATE_ESTOP)
+		parent.command.wait_complete()
+		print('there')
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
 		if 'override_limits_cb' in parent.child_names:
 			if parent.override_limits_cb.isChecked():
-				parent.command. override_limits()
+				parent.command.override_limits()
 		parent.command.state(emc.STATE_ON)
+		parent.command.wait_complete()
 	else:
 		parent.command.state(emc.STATE_OFF)
+		parent.command.wait_complete()
 
 def action_run(parent, start=0): # actionRun
 	if parent.status.task_state == emc.STATE_ON:
