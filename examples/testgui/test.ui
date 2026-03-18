@@ -18,7 +18,7 @@
     <item row="4" column="3" rowspan="2" colspan="6">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>2</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -585,6 +585,12 @@
           <layout class="QGridLayout" name="gridLayout_20">
            <item row="0" column="0">
             <widget class="QPushButton" name="probing_enable_pb">
+             <property name="minimumSize">
+              <size>
+               <width>125</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="text">
               <string>Probe Enable</string>
              </property>
@@ -593,6 +599,9 @@
              </property>
              <property name="pin_name" stdset="0">
               <string>probe-enable</string>
+             </property>
+             <property name="led_indicator" stdset="0">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
