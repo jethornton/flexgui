@@ -1820,7 +1820,7 @@ def setup_touchoff(parent):
 			if source is None:
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-					parent.home_required.append(item)
+					parent.homed_enabled.append(item)
 				else:
 					getattr(parent, item).setEnabled(False)
 					msg = ('The Touchoff Button requires\n'
@@ -1831,7 +1831,7 @@ def setup_touchoff(parent):
 			else: # property source is found
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-					parent.home_required.append(item)
+					parent.homed_enabled.append(item)
 				else: # the source was not found
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
@@ -1862,7 +1862,7 @@ def setup_tools(parent):
 			dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			return
 		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-		parent.home_required.append('tool_change_pb')
+		parent.homed_enabled.append('tool_change_pb')
 		parent.tool_change_cb.setView(QListView())
 
 		# tool change with description
@@ -1901,7 +1901,7 @@ def setup_tools(parent):
 		item = f'tool_change_pb_{i}'
 		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
-			parent.home_required.append(item)
+			parent.homed_enabled.append(item)
 
 	if 'tool_changed_pb' in parent.child_names:
 		parent.tool_changed_pb.setEnabled(False)
@@ -1920,7 +1920,7 @@ def setup_tools(parent):
 			if source is None: # check for tool_touchoff_le
 				if 'tool_touchoff_le' in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
-					parent.home_required.append(item)
+					parent.homed_enabled.append(item)
 				else:
 					getattr(parent, item).setEnabled(False)
 					msg = ('Tool Touchoff Button requires\n'
@@ -1931,7 +1931,7 @@ def setup_tools(parent):
 			else: # property source is found
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
-					parent.home_required.append(item)
+					parent.homed_enabled.append(item)
 				else: # the source was not found
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
@@ -2081,7 +2081,7 @@ def setup_set_var(parent):
 						parent.set_var[child.objectName()] = var
 						if child.property('all_homed'):
 							child.setEnabled(False)
-							parent.home_required.append(child.objectName())
+							parent.homed_enabled.append(child.objectName())
 						break
 				if not found:
 					msg = (f'The variable {var} was not found\n'

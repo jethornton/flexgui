@@ -231,7 +231,7 @@ def home_all_check(parent):
 			return False
 	return True
 
-def set_homed_enable(parent):
+def set_homed_enable(parent): # FIXME this is not used any more
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
 	for item in parent.unhome_controls:
@@ -325,7 +325,6 @@ def add_mdi(parent): # when you click on the mdi history list widget
 		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
 def update_mdi(parent):
-	print('here')
 	if parent.status.state == emc.RCS_ERROR:
 		parent.command.reset_interpreter()
 		if 'mdi_command_le' in parent.child_names:
@@ -502,14 +501,6 @@ def io_watch(parent):
 		if float_value != hal_value:
 			getattr(parent, key).setValue(hal_value)
 
-	'''
-	for item in parent.home_status:
-		if parent.status.homed[int(item[-1])]:
-			getattr(parent, item).setText('*')
-		else:
-			getattr(parent, item).setText('')
-	'''
-
 def update_home_controls(parent):
 	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON: # other states are handled in status.py
@@ -578,6 +569,9 @@ def update_home_controls(parent):
 				parent.actionUnhoming.setEnabled(False)
 			if 'actionUnhome_All' in parent.child_names:
 				parent.actionUnhome_All.setEnabled(False)
+
+			for item in parent.homed_enabled:
+				getattr(parent, item).setEnabled(False)
 
 		# some joints homed
 		elif any(v == 1 for v in parent.status.homed[:parent.joints]):
