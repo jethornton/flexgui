@@ -347,6 +347,12 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_17">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Motion Type</string>
           </property>
@@ -354,6 +360,12 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_15">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Interp Error</string>
           </property>
@@ -375,6 +387,12 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_13">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Exec State</string>
           </property>
@@ -382,6 +400,12 @@
         </item>
         <item row="7" column="0">
          <widget class="QLabel" name="label_19">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Task State</string>
           </property>
@@ -396,6 +420,12 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_14">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Interp State</string>
           </property>
@@ -403,6 +433,12 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_16">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Motion Mode</string>
           </property>
@@ -417,6 +453,12 @@
         </item>
         <item row="6" column="0">
          <widget class="QLabel" name="label_18">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Task Mode</string>
           </property>
@@ -431,6 +473,12 @@
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_21">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>State</string>
           </property>
@@ -1597,6 +1645,12 @@
        <layout class="QGridLayout" name="gridLayout_12">
         <item row="3" column="0">
          <widget class="QPushButton" name="stop_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Stop</string>
           </property>
@@ -1604,6 +1658,12 @@
         </item>
         <item row="2" column="0">
          <widget class="QPushButton" name="run_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Run</string>
           </property>
@@ -1611,6 +1671,12 @@
         </item>
         <item row="0" column="0">
          <widget class="QPushButton" name="estop_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>E Stop</string>
           </property>
@@ -1620,10 +1686,19 @@
           <property name="on_text" stdset="0">
            <string>Danger</string>
           </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="power_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Power</string>
           </property>
@@ -1637,6 +1712,12 @@
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="run_from_line_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Run From Line</string>
           </property>
@@ -1644,6 +1725,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QPushButton" name="step_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Step</string>
           </property>
@@ -1651,6 +1738,12 @@
         </item>
         <item row="2" column="1">
          <widget class="QPushButton" name="pause_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Pause</string>
           </property>
@@ -1658,6 +1751,12 @@
         </item>
         <item row="3" column="1">
          <widget class="QPushButton" name="resume_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Resume</string>
           </property>
