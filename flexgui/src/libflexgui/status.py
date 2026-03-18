@@ -179,6 +179,12 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 			for key, value in parent.state_estop_names.items():
 				getattr(parent, key).setText(value)
+			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
+				parent.estop_pb.led = False
+			if 'power_pb' in parent.child_names:
+				parent.power_pb.setChecked(False)
+				if hasattr(parent.power_pb, 'led'):
+					parent.power_pb.led = False
 
 		# estop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
@@ -189,8 +195,13 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 			for item in parent.state_estop_reset_enabled:
 				getattr(parent, item).setEnabled(True)
+			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
+				parent.estop_pb.led = True
+
 			if 'power_pb' in parent.child_names:
 				parent.power_pb.setChecked(False)
+				if hasattr(parent.power_pb, 'led'):
+					parent.power_pb.led = False
 			if 'probing_enable_pb' in parent.child_names:
 				parent.probing_enable_pb.setChecked(False)
 			for key, value in parent.state_estop_reset_names.items():
@@ -203,6 +214,8 @@ def update(parent):
 				getattr(parent, item).setEnabled(True)
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
+			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
+					parent.power_pb.led = True
 
 		utilities.update_home_controls(parent)
 		utilities.update_run_controls(parent)
