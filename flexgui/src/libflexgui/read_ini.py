@@ -230,7 +230,7 @@ def read(parent):
 	else:
 		parent.led_diameter =  int(parent.led_diameter)
 
-	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET') or False
+	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
 	if parent.led_right_offset is None:
 		parent.led_right_offset = 5
 	elif not utilities.is_int(parent.led_right_offset): # not an int
@@ -241,7 +241,7 @@ def read(parent):
 	else:
 		parent.led_right_offset =  int(parent.led_right_offset)
 
-	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET') or False
+	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
 	if parent.led_top_offset is None:
 		parent.led_top_offset = 5
 	elif not utilities.is_int(parent.led_top_offset): # not an int
