@@ -280,11 +280,9 @@ def action_estop(parent): # actionEstop
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		parent.command.wait_complete()
-		print('here')
 	else:
 		parent.command.state(emc.STATE_ESTOP)
 		parent.command.wait_complete()
-		print('there')
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:
