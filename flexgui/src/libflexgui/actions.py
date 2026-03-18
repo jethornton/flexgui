@@ -213,9 +213,13 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			msg = ('Can not edit an empty tool file.\n'
 			'The tool file must have at least one entry\n'
 			'with a Tool number and a Pocket number\n'
-			'T1 P1')
-			dialogs.critical_msg_ok(parent, msg, 'Empty File')
-			return
+			'Would you like me to add that line?')
+			result = dialogs.critical_msg_ok_cancel(parent, msg, 'Empty File')
+			if result:
+				with open(tool_table_file, "w") as file:
+					file.write(';\nT1 P1 ;Added by Flex GUI\n')
+			else:
+				return
 
 		cmd = []
 		if parent.tool_editor:
