@@ -600,9 +600,6 @@
              <property name="pin_name" stdset="0">
               <string>probe-enable</string>
              </property>
-             <property name="led_indicator" stdset="0">
-              <bool>true</bool>
-             </property>
             </widget>
            </item>
            <item row="1" column="0">
@@ -1967,6 +1964,9 @@
     <addaction name="actionReload"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit_Tool_Table"/>
+    <addaction name="actionReload_Tool_Table"/>
    </widget>
    <widget class="QMenu" name="menuMachine">
     <property name="title">
@@ -2093,6 +2093,16 @@
   <action name="actionClear_Offsets">
    <property name="text">
     <string>Clear Offsets</string>
+   </property>
+  </action>
+  <action name="actionEdit_Tool_Table">
+   <property name="text">
+    <string>Edit Tool Table</string>
+   </property>
+  </action>
+  <action name="actionReload_Tool_Table">
+   <property name="text">
+    <string>Reload Tool Table</string>
    </property>
   </action>
  </widget>
