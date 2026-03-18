@@ -217,10 +217,6 @@ def setup_hal_led_buttons(parent):
 			btn_dict['shape'] = led_shape if led_shape == 'square' else 'round'
 			btn_dict['size_policy'] = child.sizePolicy()
 			new_button = led.IndicatorButton(**btn_dict)
-			#for key, value in btn_dict.items():
-			#	print(key, value)
-			#print(child.maximumHeight())
-			print(child.sizePolicy())
 
 			layout = child.parent().layout()
 			if layout is not None:

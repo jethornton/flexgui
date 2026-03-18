@@ -125,7 +125,6 @@ class IndicatorButton(QPushButton):
 	def setLed(self, val):
 		self._led = val
 		self.update()
-		print(val)
 
 	def getLed(self):
 		self.update()
