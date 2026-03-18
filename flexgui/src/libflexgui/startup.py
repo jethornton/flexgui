@@ -196,7 +196,7 @@ def setup_hal_led_buttons(parent):
 				'If it is a valid HAL object the HAL\n'
 				'connection will be made.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				return
+				continue
 
 			btn_dict = {}
 			btn_dict['name'] = child.objectName()
