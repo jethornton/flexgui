@@ -579,8 +579,12 @@ def setup_enables(parent):
 		if name in parent.child_names:
 			parent.state_estop_reset_enabled.append(name)
 
-	# STATE_ON enable jog and homing
-	parent.state_on_enabled = []
+	# STATE_ON enable jog, homing and spindle
+	for item in ['spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb',
+	'spindle_stop_pb', 'spindle_plus_pb', 'spindle_minus_pb']:
+		if item in parent.child_names:
+			parent.state_on_enabled.append(item)
+
 	for i in range(9):
 		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.state_on_enabled.append(f'jog_plus_pb_{i}')
