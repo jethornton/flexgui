@@ -125,7 +125,7 @@ to enter the value of the touch off.
 
 	**Control Function**, **Object Type**, **Object Name**
 	Tool Touch Off Value, QLineEdit, tool_touchoff_le
-	Tool Touch Off, QPushButton, tool_touchoff_(axis letter)
+	Tool Touch Off, QPushButton, tool_touchoff_(axis letter lower case)
 
 Optionally you can have a QLineEdit for each axis for tool touch off. Add a
 Dynamic Property named `source` to the tool touch off button and set the value
