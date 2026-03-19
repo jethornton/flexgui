@@ -1998,6 +1998,7 @@ def setup_probing(parent):
 			parent.state_estop_disabled.append('probing_enable_pb')
 			parent.state_estop_reset_disabled.append('probing_enable_pb')
 			parent.homed_enabled.append('probing_enable_pb')
+			parent.program_running_disabled.append('probing_enable_pb')
 
 			'''
 			parent.state_estop['probing_enable_pb'] = False

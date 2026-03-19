@@ -319,7 +319,6 @@ def ok_for_mdi(parent):
 	parent.status.poll()
 	return not parent.status.estop and parent.status.enabled and (parent.status.homed.count(1) == parent.status.joints) and (parent.status.interp_state == emc.INTERP_IDLE)
 
-
 def add_mdi(parent): # when you click on the mdi history list widget
 	if 'mdi_command_le' in parent.child_names:
 		parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
@@ -625,10 +624,12 @@ def update_run_controls(parent):
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
-		if task_mode == emc.MODE_AUTO:
+		if task_mode == emc.MODE_AUTO: # program running
 			#print('update run controls MODE_AUTO')
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
 				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.program_running_disabled:
 					getattr(parent, item).setEnabled(False)
 			if state == emc.RCS_EXEC and interp_state == emc.INTERP_PAUSED:
 				#print('paused')
@@ -663,10 +664,13 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.resume_controls:
 					getattr(parent, item).setEnabled(False)
+				for item in parent.program_running_disabled:
+					getattr(parent, item).setEnabled(True)
+
 				if parent.stop:
 					parent.stop = False
 
-		elif task_mode == emc.MODE_MDI:
+		elif task_mode == emc.MODE_MDI: # mdi running
 			#print('update run controls MODE_MDI')
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
@@ -675,6 +679,8 @@ def update_run_controls(parent):
 			for item in parent.pause_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.resume_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.program_running_disabled:
 				getattr(parent, item).setEnabled(False)
 
 
