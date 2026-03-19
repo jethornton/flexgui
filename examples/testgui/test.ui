@@ -1304,7 +1304,7 @@
       </widget>
       <widget class="QWidget" name="tab_6">
        <attribute name="title">
-        <string>Page</string>
+        <string>Open</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_14">
         <item row="1" column="0">
