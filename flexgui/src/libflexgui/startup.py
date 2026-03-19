@@ -43,8 +43,9 @@ def set_screen(parent):
 def setup_vars(parent):
 	# added from testgui
 	parent.program_units = False
-	parent.g_codes = ()
-	parent.homed = ()
+	parent.g_codes = () # G Codes tuple
+	parent.m_codes = () # M Codes tuple
+	parent.homed = () # Homed Status tuple
 	parent.program_paused = False
 	parent.motion_line = -1
 	parent.plot_units = False
@@ -62,17 +63,17 @@ def setup_vars(parent):
 	parent.program_units = False
 	parent.plot_units = False
 
-	parent.state_estop = {}
+	#parent.state_estop = {}
 	parent.state_estop_names = {}
-	parent.state_estop_checked = {}
-	parent.state_estop_reset = {}
+	#parent.state_estop_checked = {}
+	#parent.state_estop_reset = {}
 	parent.state_estop_reset_names = {}
-	parent.state_estop_reset_checked = {}
+	#parent.state_estop_reset_checked = {}
 	parent.state_on_names = {}
 
 	# FIXME these might not be used any more
-	parent.home_required = [] # different functions add to this FIXME change to dict
-	parent.home_controls = [] # different functions add to this FIXME change to dict
+	parent.home_required = [] # different functions add to this
+	parent.home_controls = [] # different functions add to this
 	#parent.homed = {}
 	#parent.state_on_homed = {}
 	#parent.state_on_unhomed = {}
@@ -85,7 +86,7 @@ def setup_vars(parent):
 	parent.state_estop_reset_disabled = []
 	parent.state_estop_reset_enabled = []
 	parent.state_on_enabled = []
-	parent.state_on_paused_enabled = []
+	#parent.state_on_paused_enabled = []
 	parent.homed_enabled = []
 	parent.program_running_enable = []
 	parent.program_running_disabled = []
@@ -634,34 +635,29 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.program_motion_none.append(item)
 
-	# FIXME might need to remove run_from_line_pb and actionRun_From_Line if not configured correctly
-	parent.program_running_disable = ['open_pb', 'reload_pb', 'run_pb',
-	'run_from_line_pb', 'jog_selected_plus', 'jog_selected_minus',
-	'run_mdi_pb', 'home_all_pb', 'actionRun', 'actionOpen',
-	'menuRecent', 'actionReload', 'actionRun_From_Line',
-	'unhome_all_pb', 'tool_change_pb']
+	for item in ['open_pb', 'jog_selected_plus', 'jog_selected_minus',
+	'run_mdi_pb', 'actionOpen', 'menuRecent', 'reload_pb', 'actionReload',
+	'unhome_all_pb', 'tool_change_pb']:
+		if item in parent.child_names:
+			parent.program_running_disabled.append(item)
 
 	for i in range(9):
-		parent.program_running_disable.append(f'home_pb_{i}')
-		parent.program_running_disable.append(f'unhome_pb_{i}')
+		if f'unhome_pb_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'unhome_pb_{i}')
 
 	for i in range(100):
-		parent.program_running_disable.append(f'tool_change_pb_{i}')
+		if f'tool_change_pb_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'tool_change_pb_{i}')
 
 	for i in range(1, 10):
-		parent.program_running_disable.append(f'change_cs_{i}')
+		if f'change_cs_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'change_cs_{i}')
 
 	for item in AXES:
-		parent.program_running_disable.append(f'touchoff_pb_{item}')
-		parent.program_running_disable.append(f'tool_touchoff_{item}')
-
-	parent.program_running_disable.append('mdi_s_pb')
-
-	# remove any items not found in the gui
-	for item in parent.program_running_disable:
-		if item not in parent.child_names:
-			parent.program_running_disable.remove(item)
-
+		if f'touchoff_pb_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'touchoff_pb_{item}')
+		if f'tool_touchoff_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'tool_touchoff_{item}')
 
 	'''
 	# disable home all if home sequence is not found
@@ -1032,10 +1028,10 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.change_cs, parent))
-			parent.state_estop[name] = False
-			parent.state_estop_reset[name] = False
-			# FIXME change this to a dict
+			#parent.state_estop[name] = False
+			#parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
+			parent.program_running_disabled.append(name)
 			#parent.mode_manual[name] = True
 			#parent.mode_mdi[name] = False
 			#parent.mode_auto[name] = False
@@ -1046,10 +1042,10 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_cs, parent))
-			parent.state_estop[name] = False
-			parent.state_estop_reset[name] = False
-			# FIXME change this to a dict
+			#parent.state_estop[name] = False
+			#parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
+			parent.program_running_disabled.append(name)
 			#parent.mode_manual[name] = True
 			#parent.mode_mdi[name] = False
 			#parent.mode_auto[name] = False
@@ -1076,10 +1072,10 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
-			parent.state_estop[name] = False
-			parent.state_estop_reset[name] = False
-			# FIXME change this to a dict
+			#parent.state_estop[name] = False
+			#parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
+			parent.program_running_disabled.append(name)
 			#parent.mode_manual[name] = True
 			#parent.mode_mdi[name] = False
 			#parent.mode_auto[name] = False
@@ -1104,6 +1100,7 @@ def setup_buttons(parent): # connect buttons to functions
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
+			parent.program_running_disabled.append(child.objectName())
 			#parent.mode_manual[child.objectName()] = True
 			#parent.mode_mdi[child.objectName()] = False
 			#parent.mode_auto[child.objectName()] = False
@@ -1223,12 +1220,6 @@ def setup_status_labels(parent):
 			p = getattr(parent, label).property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.status_position[f'{label}'] = [i, p] # label , joint & precision
-
-	# G Codes tuple
-	parent.g_codes = ()
-
-	# M Codes tuple
-	parent.m_codes = ()
 
 	# DRO labels
 	parent.status_dro = {} # create an empty dictionary
@@ -1601,8 +1592,8 @@ def setup_jog(parent):
 		for item in parent.jog_buttons: # connect jog buttons
 			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
 			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
-			parent.state_estop[item] = False
-			parent.state_estop_reset[item] = False
+			#parent.state_estop[item] = False
+			#parent.state_estop_reset[item] = False
 			#parent.state_on[item] = True
 			#parent.program_running[item] = False
 
@@ -2042,6 +2033,7 @@ def setup_mdi_buttons(parent):
 					parent.state_estop_disabled.append(name)
 					parent.homed_enabled.append(name)
 					parent.mdi_controls.append(name)
+					parent.program_running_disabled.append(name)
 			else:
 				msg = (f'The MDI Button {button.text()}\n'
 				'Does not have a command\n'
