@@ -41,7 +41,6 @@ def set_screen(parent):
 		parent.move(0, 0) # if no settings move window to upper left corner
 
 def setup_vars(parent):
-	# added from testgui
 	parent.program_units = False
 	parent.g_codes = () # G Codes tuple
 	parent.m_codes = () # M Codes tuple
@@ -63,30 +62,18 @@ def setup_vars(parent):
 	parent.program_units = False
 	parent.plot_units = False
 
-	#parent.state_estop = {}
 	parent.state_estop_names = {}
-	#parent.state_estop_checked = {}
-	#parent.state_estop_reset = {}
 	parent.state_estop_reset_names = {}
-	#parent.state_estop_reset_checked = {}
 	parent.state_on_names = {}
 
-	# FIXME these might not be used any more
 	parent.home_required = [] # different functions add to this
 	parent.home_controls = [] # different functions add to this
-	#parent.homed = {}
-	#parent.state_on_homed = {}
-	#parent.state_on_unhomed = {}
-	#parent.mode_manual = {}
-	#parent.mode_mdi = {}
-	#parent.mode_auto = {}
 
 	# enable and disable lists
 	parent.state_estop_disabled = [] # everything but estop_pb
 	parent.state_estop_reset_disabled = []
 	parent.state_estop_reset_enabled = []
 	parent.state_on_enabled = []
-	#parent.state_on_paused_enabled = []
 	parent.homed_enabled = []
 	parent.program_running_enable = []
 	parent.program_running_disabled = []
@@ -428,12 +415,6 @@ def setup_menus(parent):
 					action.menu().addAction(getattr(parent, 'actionHome_All'))
 					parent.child_names.append('actionHome_All')
 					getattr(parent,'actionHome_All').triggered.connect(partial(commands.home_all, parent))
-					# parent.home_controls.append('actionHome_All')
-					# parent.state_estop['actionHome_All'] = False
-					# parent.state_estop_reset['actionHome_All'] = False
-					# parent.state_on['actionHome_All'] = True
-					# parent.program_running['actionHome_All'] = False
-					# parent.program_paused['actionHome_All'] = False
 
 				# add Home menu item for each axis
 				for i, axis in enumerate(parent.axis_letters):
@@ -442,12 +423,6 @@ def setup_menus(parent):
 					action.menu().addAction(getattr(parent, f'actionHome_{i}'))
 					parent.child_names.append(f'actionHome_{i}')
 					getattr(parent, f'actionHome_{i}').triggered.connect(partial(commands.home, parent))
-					# parent.home_controls.append(f'actionHome_{i}')
-					# parent.state_estop[f'actionHome_{i}'] = False
-					# parent.state_estop_reset[f'actionHome_{i}'] = False
-					# parent.state_on[f'actionHome_{i}'] = True
-					# parent.program_running[f'actionHome_{i}'] = False
-					# parent.program_paused[f'actionHome_{i}'] = False
 
 			# add the unhoming menu items
 			elif action.objectName() == 'actionUnhoming':
@@ -456,12 +431,6 @@ def setup_menus(parent):
 				getattr(parent, 'actionUnhome_All').setObjectName('actionUnhome_All')
 				action.menu().addAction(getattr(parent, 'actionUnhome_All'))
 				getattr(parent,'actionUnhome_All').triggered.connect(partial(commands.unhome_all, parent))
-				# parent.unhome_controls.append('actionUnhome_All')
-				# parent.state_estop['actionUnhome_All'] = False
-				# parent.state_estop_reset['actionUnhome_All'] = False
-				# parent.state_on['actionUnhome_All'] = True
-				# parent.program_running['actionUnhome_All'] = False
-				# parent.program_paused['actionUnhome_All'] = False
 
 				for i, axis in enumerate(parent.axis_letters):
 					setattr(parent, f'actionUnhome_{i}', QAction(f'Unhome {axis}', parent))
@@ -469,12 +438,7 @@ def setup_menus(parent):
 					action.menu().addAction(getattr(parent, f'actionUnhome_{i}'))
 					parent.child_names.append(f'actionUnhome_{i}')
 					getattr(parent, f'actionUnhome_{i}').triggered.connect(partial(commands.unhome, parent))
-					# parent.unhome_controls.append(f'actionUnhome_{i}')
-					# parent.state_estop[f'actionUnhome_{i}'] = False
-					# parent.state_estop_reset[f'actionUnhome_{i}'] = False
-					# parent.state_on[f'actionUnhome_{i}'] = True
-					# parent.program_running[f'actionUnhome_{i}'] = False
-					# parent.program_paused[f'actionUnhome_{i}'] = False
+
 			elif action.objectName() == 'actionClear_Offsets':
 				action.setMenu(QMenu('Clear Offsets', parent))
 				cs = ['Current', 'G54', 'G55', 'G56', 'G57', 'G58', 'G59', 'G59.1',
@@ -659,231 +623,7 @@ def setup_enables(parent):
 		if f'tool_touchoff_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'tool_touchoff_{item}')
 
-	'''
-	# disable home all if home sequence is not found
-	if 'home_all_pb' in parent.child_names:
-		if not utilities.home_all_check(parent):
-			parent.home_all_pb.setEnabled(False)
-			msg = ('All joints must have the HOME_SEQUENCE set\n'
-			'in order for the Home All button to function.\n'
-			'The Home All button will be disabled.')
-			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-
-	# STATE_ESTOP
-	state_estop_disabled_items = ['power_pb', 'run_pb', 'run_from_line_pb',
-	'step_pb', 'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
-	'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb', 'spindle_start_pb',
-	'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb', 'spindle_plus_pb',
-	'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
-	'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume',
-	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
-
-	for i in range(9):
-		state_estop_disabled_items.append(f'home_pb_{i}')
-		state_estop_disabled_items.append(f'unhome_pb_{i}')
-	for axis in AXES:
-		state_estop_disabled_items.append(f'touchoff_pb_{axis}')
-		state_estop_disabled_items.append(f'tool_touchoff_{axis}')
-		state_estop_disabled_items.append(f'zero_{axis}_pb')
-	for i in range(100):
-		state_estop_disabled_items.append(f'tool_change_pb_{i}')
-	for i in range(1, 10):
-		state_estop_disabled_items.append(f'change_cs_{i}')
-
-	for name in state_estop_disabled_items:
-		if name in parent.child_names:
-			parent.state_estop[name] = False
-
-
-	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
-		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
-		'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb',
-		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
-		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
-		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
-		'actionResume', 'tool_change_pb', 'touchoff_selected_pb',
-		'touchoff_selected_tool_pb']
-
-	for i in range(9):
-		state_estop_reset_disabled_items.append(f'home_pb_{i}')
-		state_estop_reset_disabled_items.append(f'unhome_pb_{i}')
-	for item in AXES:
-		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
-		state_estop_reset_disabled_items.append(f'tool_touchoff_{item}')
-	for i in range(100):
-		state_estop_reset_disabled_items.append(f'tool_change_pb_{i}')
-	for i in range(1, 10):
-		state_estop_reset_disabled_items.append(f'change_cs_{i}')
-
-	for name in state_estop_reset_disabled_items:
-		if name in parent.child_names:
-			parent.state_estop_reset[name] = False
-
-	# the only things enabled when estop is reset
-	state_estop_reset_enabled_items = ['power_pb', 'actionPower']
-	for name in state_estop_reset_enabled_items:
-		if name in parent.child_names:
-			parent.state_estop_reset[name] = True
-
-
-
-	# STATE_ON home, jog, spindle
-	parent.state_on = {
-		'power_pb': True, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': False,
-		'pause_pb': False, 'resume_pb': False,
-		'jog_selected_plus': True, 'jog_selected_minus': True,
-		'spindle_start_pb': True, 'spindle_fwd_pb': True,
-		'spindle_rev_pb': True, 'spindle_stop_pb': True,
-		'spindle_plus_pb': True, 'spindle_minus_pb': True,
-		'flood_pb': True, 'mist_pb': True,
-		'actionPower': True, 'actionRun': False,
-		'actionRun_From_Line': False, 'actionStep': False,
-		'actionPause': False, 'actionResume': False,
-		'touchoff_selected_pb': True
-		}
-
-	# remove any items not found in the gui
-	for item in list(parent.state_on):
-		if item not in parent.child_names:
-			del parent.state_on[item]
-
-	# FIXME have the text be on_text and off_text for all buttons
-	parent.state_on_names = {}
-	if 'estop_pb' in parent.child_names:
-		closed_text = parent.estop_pb.property('closed_text')
-		if closed_text is not None:
-			parent.state_on_names['estop_pb'] = closed_text
-
-	if 'power_pb' in parent.child_names:
-
-	# remove any items not found in the gui
-	for item in list(parent.state_on_names):
-		if item not in parent.child_names:
-			del parent.state_on_names[item]
-
-	# run controls used to enable/disable when not running a program
-	# FIXME move this to mode manual, mdi, auto enable/disable maybe
-	# run items enabled when a file is loaded and mode is manual
-	# open file when mode is manual
-	# think about tool change button I think only when power on mode manual and homed
-	run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
-	'actionRun', 'actionRun_From_Line', 'actionStep', 'tool_change_pb']
-	for i in range(100):
-		run_items.append(f'tool_change_pb_{i}')
-	for item in AXES:
-		run_items.append(f'tool_touchoff_{item}')
-		run_items.append(f'touchoff_pb_{item}')
-	parent.run_controls = []
-	for item in run_items:
-		if item in parent.child_names:
-			parent.run_controls.append(item)
-			parent.mode_manual[item] = True
-			parent.mode_mdi[item] = False
-			parent.mode_auto[item] = False
-
-	file_items = ['open_pb', 'reload_pb', 'actionOpen', 'menuRecent',
-	'actionReload', ]
-	for item in file_items:
-		if item in parent.child_names:
-			parent.mode_manual[item] = True
-			parent.mode_mdi[item] = False
-			parent.mode_auto[item] = False
-
-	home_items = []
-	if utilities.home_all_check(parent):
-		home_items.append('home_all_pb')
-	for i in range(9):
-		home_items.append(f'home_pb_{i}')
-	for item in home_items:
-		if item in parent.child_names:
-			parent.home_controls.append(item)
-
-	unhome_items = ['unhome_all_pb']
-	for i in range(9):
-		unhome_items.append(f'unhome_pb_{i}')
-	parent.unhome_controls = []
-	for item in unhome_items:
-		if item in parent.child_names:
-			parent.unhome_controls.append(item)
-
-	parent.program_running = {
-			'open_pb': False, 'reload_pb': False,
-			'run_pb': False, 'run_from_line_pb': False,
-			'step_pb': False, 'pause_pb': True,
-			'jog_selected_plus': False, 'jog_selected_minus': False,
-			'resume_pb': False, 'run_mdi_pb': False,
-			'home_all_pb': False,'actionRun': False,
-			'actionOpen': False, 'menuRecent': False, 'actionReload': False,
-			'actionRun_From_Line': False, 'actionStep': False,
-			'actionPause': True, 'actionResume': False,
-			'flood_pb': False, 'mist_pb': False,
-			'unhome_all_pb': False, 'spindle_start_pb': False,
-			'spindle_fwd_pb': False, 'spindle_rev_pb': False,
-			'spindle_stop_pb': False, 'spindle_plus_pb': False,
-			'spindle_minus_pb': False, 'tool_change_pb': False,
-			}
-
-	for i in range(9):
-		parent.program_running[f'home_pb_{i}'] = False
-		parent.program_running[f'unhome_pb_{i}'] = False
-
-	for i in range(100):
-		parent.program_running[f'tool_change_pb_{i}'] = False
-
-	for i in range(1, 10):
-		parent.program_running[f'change_cs_{i}'] = False
-
-	for item in AXES:
-		parent.program_running[f'touchoff_pb_{item}'] = False
-		parent.program_running[f'tool_touchoff_{item}'] = False
-
-	parent.program_running['mdi_s_pb'] = False
-
-	# remove any items not found in the gui
-	for item in list(parent.program_running):
-		if item not in parent.child_names:
-			del parent.program_running[item]
-
-	parent.program_paused = {
-		'run_mdi_pb': False, 'run_pb': False,
-		'run_from_line_pb': False, 'step_pb': True,
-		'pause_pb': False, 'resume_pb': True,
-		'home_all_pb': False, 'unhome_all_pb': False,
-		'actionRun': False, 'actionRun_From_Line': False,
-		'actionStep': True, 'actionPause': False,
-		'actionResume': True
-		}
-
-	for i in range(9):
-		parent.program_paused[f'home_pb_{i}'] = False
-		parent.program_paused[f'unhome_pb_{i}'] = False
-
-	# remove any items not found in the gui
-	for item in list(parent.program_paused):
-		if item not in parent.child_names:
-			del parent.program_paused[item]
-
-	# file items if not loaded disable
-	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'search_pb', 'actionEdit',
-		'actionReload', 'actionSave_As']
-
-	parent.file_edit_items = []
-	for item in file_items:
-		if item in parent.child_names:
-			parent.file_edit_items.append(item)
-
-	if parent.status.file:
-		text = open(parent.status.file).read()
-		if 'gcode_pte' in parent.child_names:
-			parent.gcode_pte.setPlainText(text)
-	else:
-		for item in parent.file_edit_items:
-			getattr(parent, item).setEnabled(False)
-	'''
-
 def setup_run_controls(parent):
-
 	parent.run_controls = []
 	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
 		if item in parent.child_names:
@@ -903,23 +643,6 @@ def setup_run_controls(parent):
 	for item in ['resume_pb', 'actionResume']:
 		if item in parent.child_names:
 			parent.resume_controls.append(item)
-
-
-	'''
-	file_run_items = ['run_pb', 'run_from_line_pb', 'step_pb', 'run_mdi_pb',
-	'actionRun', 'actionRun_From_Line', 'actionStep', 'tool_change_pb']
-	for item in file_run_items:
-		if item in parent.child_names:
-			parent.run_controls.append(item)
-	for i in range(100):
-		if f'tool_change_pb_{i}' in parent.child_names:
-			parent.run_controls.append(item)
-	for item in AXES:
-		if f'tool_touchoff_{item}' in parent.child_names:
-			parent.run_controls.append(f'tool_touchoff_{item}')
-		if f'touchoff_pb_{item}' in parent.child_names:
-			parent.run_controls.append(f'touchoff_pb_{item}')
-	'''
 
 def setup_buttons(parent): # connect buttons to functions
 	if 'estop_pb' in parent.child_names:
@@ -1028,13 +751,8 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.change_cs, parent))
-			#parent.state_estop[name] = False
-			#parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
 			parent.program_running_disabled.append(name)
-			#parent.mode_manual[name] = True
-			#parent.mode_mdi[name] = False
-			#parent.mode_auto[name] = False
 
 	# Clear coordinate system buttons
 	for i in range(12):
@@ -1042,13 +760,8 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_cs, parent))
-			#parent.state_estop[name] = False
-			#parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
 			parent.program_running_disabled.append(name)
-			#parent.mode_manual[name] = True
-			#parent.mode_mdi[name] = False
-			#parent.mode_auto[name] = False
 
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
@@ -1062,7 +775,6 @@ def setup_buttons(parent): # connect buttons to functions
 			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
 
 	# set the button checked states
-	#parent.status.poll()
 	if 'feed_override_pb' in parent.child_names:
 		parent.feed_override_pb.setChecked(parent.status.feed_override_enabled)
 
@@ -1072,13 +784,8 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
-			#parent.state_estop[name] = False
-			#parent.state_estop_reset[name] = False
 			parent.home_required.append(name)
 			parent.program_running_disabled.append(name)
-			#parent.mode_manual[name] = True
-			#parent.mode_mdi[name] = False
-			#parent.mode_auto[name] = False
 
 	# override preset buttons
 	for item in parent.child_names:
@@ -1101,9 +808,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
 			parent.program_running_disabled.append(child.objectName())
-			#parent.mode_manual[child.objectName()] = True
-			#parent.mode_mdi[child.objectName()] = False
-			#parent.mode_auto[child.objectName()] = False
 
 	parent.flashing_buttons = []
 	for child in parent.findChildren(QPushButton):
@@ -1257,11 +961,6 @@ def setup_status_labels(parent):
 			p = p if p is not None else parent.default_precision
 			parent.status_dtg[f'{label}'] = [i, p] # add the label, tuple position & precision
 
-	# check for axis labels in the ui
-	# this return a tuple of dictionaries syntax parent.status.axis[0]['velocity']
-	# label axis_n_velocity_lb
-	#parent.status.poll()
-
 	parent.status_axes = {} # create an empty dictionary
 	for i in range(parent.axis_count):
 		for item in ['max_position_limit', 'min_position_limit', 'velocity']:
@@ -1305,7 +1004,6 @@ def setup_status_labels(parent):
 			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
 
 	# joint velocity joint_velocity_n_lb parent.status.joint[0]['velocity']
-	#parent.status.poll()
 	parent.joint_vel_sec = {}
 	for i in range(parent.status.joints):
 		if f'joint_{i}_vel_sec_lb' in parent.child_names: # if the label is found
@@ -1370,7 +1068,6 @@ def setup_status_labels(parent):
 
 	# add file name if loaded from the ini
 	if 'file_lb' in parent.child_names:
-		#parent.status.poll()
 		gcode_file = parent.status.file or False
 		if gcode_file:
 			parent.file_lb.setText(os.path.basename(gcode_file))
@@ -1385,15 +1082,6 @@ def setup_status_labels(parent):
 	for i in range(9):
 		if f'home_lb_{i}' in parent.child_names:
 			parent.home_status.append(f'home_lb_{i}')
-
-	# FIXME this is not needed
-	'''
-	for item in parent.home_status:
-		if parent.status.homed[int(item[-1])]:
-			getattr(parent, item).setText('*')
-		else:
-			getattr(parent, item).setText('')
-		'''
 
 	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
@@ -1424,7 +1112,6 @@ def setup_plain_text_edits(parent):
 		parent.gcode_pte.ensureCursorVisible()
 		parent.gcode_pte.viewport().installEventFilter(parent)
 		parent.gcode_pte.cursorPositionChanged.connect(partial(utilities.update_qcode_pte, parent))
-		#parent.status.poll()
 		parent.last_line = parent.status.motion_line
 		parent.gcode_pte.textChanged.connect(partial(utilities.nc_code_changed, parent))
 
@@ -1498,43 +1185,11 @@ def setup_mdi(parent):
 					parent.mdi_history_lw.addItem(item.strip())
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(commands.add_mdi, parent))
 
-	'''
-	# mdi_command_le and run_mdi_pb are required to run mdi commands
-	# mdi_history_lw is optional
-	# parent.mdi_command is tested in status.py so it must exist
-
-	if 'run_mdi_pb' in parent.child_names:
-		if 'mdi_command_le' in parent.child_names: # we are good to go
-			if parent.mdi_command_le.property('input') == 'nccode':
-			 parent.nccode_le.append('mdi_command_le')
-			 parent.mdi_command_le.installEventFilter(parent)
-			elif parent.mdi_command_le.property('input') == 'keyboard':
-			 parent.keyboard_le.append('mdi_command_le')
-			 parent.mdi_command_le.installEventFilter(parent)
-			else: # keyboard and mouse
-				parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
-			parent.home_required.append('run_mdi_pb')
-		else: # missing mdi_command_le
-			parent.run_mdi_pb.setEnabled(False)
-
-	if 'mdi_history_lw' in parent.child_names:
-		path = os.path.dirname(parent.status.ini_filename)
-		mdi_file = os.path.join(path, 'mdi_history.txt')
-		if os.path.exists(mdi_file): # load mdi history
-			with open(mdi_file, 'r') as f:
-				history_list = f.readlines()
-				for item in history_list:
-					parent.mdi_history_lw.addItem(item.strip())
-		parent.mdi_history_lw.itemSelectionChanged.connect(partial(utilities.add_mdi, parent))
-	'''
-
 def setup_jog(parent):
 	# keyboard jog
 	parent.kb_jog_cb_enabled = False
 	parent.kb_jog_ctrl_enabled = False
 
-	#parent.cb_kb_jog = False
-	#enable_ctrl_kb_jog = False
 	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
@@ -1592,10 +1247,6 @@ def setup_jog(parent):
 		for item in parent.jog_buttons: # connect jog buttons
 			getattr(parent, item).pressed.connect(partial(getattr(commands, 'jog'), parent))
 			getattr(parent, item).released.connect(partial(getattr(commands, 'jog'), parent))
-			#parent.state_estop[item] = False
-			#parent.state_estop_reset[item] = False
-			#parent.state_on[item] = True
-			#parent.program_running[item] = False
 
 	if 'jog_vel_sl' in parent.child_names:
 		if parent.min_jog_vel:
@@ -1614,10 +1265,6 @@ def setup_jog(parent):
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_linear_vel) * 60))
 			if 'max_jog_vel_lb' in parent.child_names:
 				parent.max_jog_vel_lb.setText(f'{int(float(parent.max_linear_vel) * 60)}')
-			#msg = ('The DISPLAY key MAX_LINEAR_VELOCITY\n'
-			#'was not found. The TRAJ key MAX_LINEAR_VELOCITY\n'
-			#'will be used to set the maximum jog velocity slider.')
-			#dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
 			if parent.joints > 0:
 				maxjv = []
@@ -1770,7 +1417,6 @@ def setup_spindle(parent):
 	# check for spindle labels in the ui direction is handled differently
 	spindle_items = ['homed', 'orient_fault', 'orient_state', 'override', 'override_enabled']
 	parent.status_spindles = {}
-	#parent.status.poll()
 
 	 # only look for the num of spindles configured
 	for item in spindle_items:
@@ -1991,16 +1637,6 @@ def setup_probing(parent):
 			parent.homed_enabled.append('probing_enable_pb')
 			parent.program_running_disabled.append('probing_enable_pb')
 
-			'''
-			parent.state_estop['probing_enable_pb'] = False
-			parent.state_estop_reset['probing_enable_pb'] = False
-			parent.state_estop_checked['probing_enable_pb'] = False
-			parent.state_estop_reset_checked['probing_enable_pb'] = False
-
-			#parent.probing_enable_pb.setCheckable(True)
-
-			parent.home_required.append('probing_enable_pb')
-			'''
 			on_text = parent.probing_enable_pb.property('on_text')
 			off_text = parent.probing_enable_pb.property('off_text')
 			if None not in [on_text, off_text]:
@@ -2041,20 +1677,6 @@ def setup_mdi_buttons(parent):
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 				button.setEnabled(False)
 
-	'''
-	for button in parent.findChildren(QAbstractButton):
-		if button.property('function') == 'mdi':
-			if button.property('command'):
-				button_name = button.objectName()
-				button.clicked.connect(partial(commands.mdi_button, parent, button))
-				# probe buttons are taken care of in setup_probe function
-				if button_name.startswith('probe_'):
-					parent.probe_controls.append(button_name)
-				else:
-					#parent.program_running[button_name] = False
-					parent.state_estop[button_name] = False
-					parent.home_required.append(button_name)
-	'''
 def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox
 	var_file = os.path.join(parent.config_path, parent.var_file)
@@ -2115,7 +1737,6 @@ def setup_hal(parent):
 	hal_lcds = []
 	hal_leds = []
 	hal_progressbar = []
-	#parent.hal_io = {}
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
 	parent.hal_io_float = {}
@@ -2708,7 +2329,6 @@ def setup_hal(parent):
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			#pin = getattr(parent, f'{pin_name}')
 			text = ''
 			text_list = []
 			i = 0
@@ -2745,21 +2365,9 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				continue
 
-			'''
-			hal_type = progressbar.property('hal_type')
-			if hal_type not in valid_types:
-				progressbar.setEnabled(False)
-				msg = (f'{hal_type} is not valid type for a HAL Progressbar\n'
-				'only HAL_S32 or HAL_U32 can be used. \n'
-				f'The {progressbar_name} progressbar will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-			'''
-
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			# pin = getattr(parent, f'{pin_name}')
 			parent.hal_progressbars[progressbar_name] = pin_name
 
 	##### HAL LED #####
@@ -2818,7 +2426,6 @@ def setup_hal_io_state(parent):
 		checked_state = getattr(parent, key).isChecked()
 		hal_state = getattr(parent.halcomp, value)
 		if checked_state != hal_state:
-			#getattr(parent, key).setChecked(hal_state)
 			setattr(parent.halcomp, value, checked_state)
 
 	for key, value in parent.hal_io_int.items():
