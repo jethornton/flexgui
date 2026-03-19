@@ -145,6 +145,7 @@ class IndicatorLabel(QLabel):
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
 		self._shape = kwargs['shape']
+		self.setSizePolicy(kwargs['size_policy'])
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
