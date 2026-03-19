@@ -158,7 +158,7 @@ To clear the current G54x coordinate system rotation use 11 as the index.
 	Clear Current G5x, clear_coord_0
 	Clear G5x Coordinate System, clear_coord_(1-9)
 	Clear G92 Coordinate System, clear_coord_10
-	Clear Current G5x Rotation clear_coord_11
+	Clear Current G5x Rotation, clear_coord_11
 
 To clear an axis offset in the current G5x coordinate system use the following.
 
