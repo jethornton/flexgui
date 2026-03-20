@@ -590,7 +590,7 @@ def update_run_controls(parent):
 	if not file_loaded:
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(False)
-		for item in parent.file_edit_items:
+		for item in parent.file_edit_controls:
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP:
@@ -626,7 +626,7 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.spindle_controls:
 					getattr(parent, item).setEnabled(False)
-				for item in parent.file_edit_items:
+				for item in parent.file_edit_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.file_save_controls:
 					getattr(parent, item).setEnabled(False)
@@ -673,7 +673,7 @@ def update_run_controls(parent):
 					parent.stop = False
 
 			if file_loaded:
-				for item in parent.file_edit_items:
+				for item in parent.file_edit_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.file_save_controls:
 					getattr(parent, item).setEnabled(True)

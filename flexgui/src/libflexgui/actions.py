@@ -42,7 +42,7 @@ def load_file(parent, nc_code_file=None):
 			parent.file_lb.setText(base)
 
 		# update controls
-		for item in parent.file_edit_items:
+		for item in parent.file_edit_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(True)
