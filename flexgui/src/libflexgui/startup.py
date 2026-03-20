@@ -1362,12 +1362,14 @@ def conv_units(value, suffix, units):
 		elif suffix == 'um':
 			return float(value) / 1000
 
+'''
 def conv_to_decimal(data):
 	if "/" in data:
 		p, q = data.split("/")
 		return (float(p) / float(q))
 	else:
 		return float(data)
+'''
 
 def setup_spindle(parent):
 	# create spindle tuple
@@ -1378,18 +1380,13 @@ def setup_spindle(parent):
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	parent.min_rpm = 0
 
-	spindle_buttons = {
-	'spindle_fwd_pb': 'spindle',
-	'spindle_rev_pb': 'spindle',
-	'spindle_stop_pb': 'spindle',
-	'spindle_plus_pb': 'spindle',
-	'spindle_minus_pb': 'spindle',
-	}
-	for key, value in spindle_buttons.items():
-		if key in parent.child_names:
-			getattr(parent, key).clicked.connect(partial(getattr(commands, value), parent))
-			if key in ['spindle_fwd_pb', 'spindle_rev_pb']:
-				getattr(parent, key).setCheckable(True)
+	for item in ['spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
+		'spindle_plus_pb', 'spindle_minus_pb']:
+		if item in parent.child_names:
+			getattr(parent, item).clicked.connect(partial(commands.spindle, parent))
+			parent.program_running_disabled.append(item)
+			if item in ['spindle_fwd_pb', 'spindle_rev_pb']:
+				getattr(parent, item).setCheckable(True)
 
 	if parent.min_rpm and utilities.is_number(parent.min_rpm):
 		parent.min_rpm = int(parent.min_rpm)
