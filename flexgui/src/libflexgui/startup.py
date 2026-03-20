@@ -80,6 +80,9 @@ def setup_vars(parent):
 	parent.program_paused_enable = []
 	parent.program_motion_none = []
 	parent.run_controls = [] # enabled when homed, manual, file loaded
+	parent.step_controls = []
+	parent.pause_controls = []
+	parent.resume_controls = []
 	parent.file_load_controls = [] # disable when a program or mdi is running
 	parent.mdi_controls = []
 	parent.probe_controls = []
@@ -627,23 +630,23 @@ def setup_enables(parent):
 		if f'tool_touchoff_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'tool_touchoff_{item}')
 
+	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload']:
+		if item in parent.child_names:
+			parent.file_load_controls.append(item)
+
 def setup_run_controls(parent):
-	parent.run_controls = []
 	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
 		if item in parent.child_names:
 			parent.run_controls.append(item)
 
-	parent.step_controls = []
 	for item in ['step_pb', 'actionStep']:
 		if item in parent.child_names:
 			parent.step_controls.append(item)
 
-	parent.pause_controls = []
 	for item in ['pause_pb', 'actionPause']:
 		if item in parent.child_names:
 			parent.pause_controls.append(item)
 
-	parent.resume_controls = []
 	for item in ['resume_pb', 'actionResume']:
 		if item in parent.child_names:
 			parent.resume_controls.append(item)

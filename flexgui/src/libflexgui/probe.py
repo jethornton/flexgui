@@ -13,6 +13,8 @@ def toggle(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.mdi_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.step_controls:
+			getattr(parent, item).setEnabled(False)
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(True)
 
@@ -27,8 +29,12 @@ def toggle(parent):
 
 	else: # probing is disabled
 		parent.probing = False
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(True)
+		if parent.file: # only enable these if a file is loaded
+			for item in parent.run_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.step_controls:
+				getattr(parent, item).setEnabled(True)
+
 		for item in parent.file_load_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.mdi_controls:
