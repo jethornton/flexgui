@@ -190,7 +190,6 @@ def read(parent):
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.qss_file = False
 
-	# check for popup QSS file FIXME change this to POPUP_QSS
 	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
 	if parent.popup_qss:
 		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)):

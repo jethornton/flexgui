@@ -231,6 +231,7 @@ def home_all_check(parent):
 			return False
 	return True
 
+'''
 def set_homed_enable(parent): # FIXME this is not used any more
 	for item in parent.home_controls:
 		getattr(parent, item).setEnabled(False)
@@ -242,6 +243,7 @@ def set_homed_enable(parent): # FIXME this is not used any more
 	if parent.status.file:
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(True)
+'''
 
 def set_hal_enables(parent, obj):
 	obj_name = obj.objectName()
@@ -575,7 +577,6 @@ def update_home_controls(parent):
 		# some joints homed
 		elif any(v == 1 for v in parent.status.homed[:parent.joints]):
 			if 'home_all_pb' in parent.child_names and home_all_check(parent):
-				# FIXME don't add home all to child names if not home check
 				parent.home_all_pb.setEnabled(True)
 			if 'actionHome_All' in parent.child_names:
 				parent.actionHome_All.setEnabled(True)
