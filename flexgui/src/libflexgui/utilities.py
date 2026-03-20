@@ -590,6 +590,8 @@ def update_run_controls(parent):
 	if not file_loaded:
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.file_edit_items:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP:
 		#print('update run controls STATE_ESTOP')
@@ -622,6 +624,9 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.program_running_disabled:
 					getattr(parent, item).setEnabled(False)
+				for item in parent.file_edit_items:
+					getattr(parent, item).setEnabled(False)
+
 			if state == emc.RCS_EXEC and interp_state == emc.INTERP_PAUSED:
 				#print('paused')
 				for item in parent.pause_controls:

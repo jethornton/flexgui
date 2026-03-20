@@ -85,6 +85,8 @@ def setup_vars(parent):
 	parent.resume_controls = []
 	parent.file_load_controls = [] # disable when a program or mdi is running
 	parent.file_save_controls = [] # disable if no file or program or mdi is running
+	parent.file_edit_items = [] # disable if no file or program or mdi is running
+
 	parent.mdi_controls = []
 	parent.probe_controls = []
 
@@ -640,6 +642,10 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.file_save_controls.append(item)
 
+	for item in ['edit_pb', 'actionEdit']:
+		if item in parent.child_names:
+			parent.file_edit_items.append(item)
+
 def setup_run_controls(parent):
 	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
 		if item in parent.child_names:
@@ -685,16 +691,6 @@ def setup_buttons(parent): # connect buttons to functions
 		off_text = parent.power_pb.property('off_text')
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
-
-
-	# file items if not loaded disable
-	file_items = ['edit_pb', 'reload_pb', 'save_as_pb', 'search_pb', 'actionEdit',
-		'actionReload', 'actionSave_As']
-
-	parent.file_edit_items = []
-	for item in file_items:
-		if item in parent.child_names:
-			parent.file_edit_items.append(item)
 
 	command_buttons = {
 	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
