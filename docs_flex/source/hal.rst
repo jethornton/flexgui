@@ -347,7 +347,6 @@ The HAL direction is IN and the hal_type is bit for a HAL LED
    :align: center
 
 	**Property Type**, **Property Name**, **Pin Value**
-	Bool, hal_led, True
 	String, function, hal_led
 	String, pin_name, any unique name
 	Optional
