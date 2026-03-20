@@ -86,6 +86,7 @@ def setup_vars(parent):
 	parent.file_load_controls = [] # disable when a program or mdi is running
 	parent.file_save_controls = [] # disable if no file or program or mdi is running
 	parent.file_edit_items = [] # disable if no file or program or mdi is running
+	parent.spindle_controls = []
 
 	parent.mdi_controls = []
 	parent.probe_controls = []
@@ -1380,7 +1381,8 @@ def setup_spindle(parent):
 		'spindle_plus_pb', 'spindle_minus_pb']:
 		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.spindle, parent))
-			parent.program_running_disabled.append(item)
+			#parent.program_running_disabled.append(item)
+			parent.spindle_controls.append(item)
 			if item in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, item).setCheckable(True)
 

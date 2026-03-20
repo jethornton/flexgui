@@ -624,7 +624,11 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.program_running_disabled:
 					getattr(parent, item).setEnabled(False)
+				for item in parent.spindle_controls:
+					getattr(parent, item).setEnabled(False)
 				for item in parent.file_edit_items:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.file_save_controls:
 					getattr(parent, item).setEnabled(False)
 
 			if state == emc.RCS_EXEC and interp_state == emc.INTERP_PAUSED:
@@ -659,12 +663,20 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(True)
 				for item in parent.step_controls:
 					getattr(parent, item).setEnabled(True)
+				for item in parent.spindle_controls:
+					getattr(parent, item).setEnabled(True)
 				for item in parent.pause_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.resume_controls:
 					getattr(parent, item).setEnabled(False)
 				if parent.stop:
 					parent.stop = False
+
+			if file_loaded:
+				for item in parent.file_edit_items:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.file_save_controls:
+					getattr(parent, item).setEnabled(True)
 
 			for item in parent.program_running_disabled:
 				getattr(parent, item).setEnabled(True)

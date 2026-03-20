@@ -15,6 +15,8 @@ def toggle(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.step_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.spindle_controls:
+			getattr(parent, item).setEnabled(False)
 		for item in parent.probe_controls:
 			getattr(parent, item).setEnabled(True)
 
@@ -35,6 +37,8 @@ def toggle(parent):
 			for item in parent.step_controls:
 				getattr(parent, item).setEnabled(True)
 
+		for item in parent.spindle_controls:
+			getattr(parent, item).setEnabled(True)
 		for item in parent.file_load_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.mdi_controls:
