@@ -655,6 +655,9 @@ def update_run_controls(parent):
 
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
+			#print(f'all_homed {all_homed}')
+			#print(f'file_loaded {file_loaded}')
+			#print(f'parent.stop {parent.stop}')
 			if all_homed and file_loaded or parent.stop:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
@@ -664,11 +667,16 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.resume_controls:
 					getattr(parent, item).setEnabled(False)
-				for item in parent.program_running_disabled:
-					getattr(parent, item).setEnabled(True)
-
 				if parent.stop:
 					parent.stop = False
+
+			for item in parent.program_running_disabled:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.mdi_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.file_load_controls:
+				getattr(parent, item).setEnabled(True)
+
 
 		elif task_mode == emc.MODE_MDI: # mdi running
 			#print('update run controls MODE_MDI')
