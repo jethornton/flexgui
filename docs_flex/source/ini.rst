@@ -150,6 +150,16 @@ extensions must be in the format `*.ext` with the asterisk and dot
 
 	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
 
+Spindle Override
+----------------
+
+To change the default spindle override add the following to the ini. The value
+of 1.0 is 100%, to have 120% set the value to 1.2.
+
+.. code-block:: text
+
+	MAX_SPINDLE_OVERRIDE = 1.2
+
 [FLEXGUI]
 ---------
 
