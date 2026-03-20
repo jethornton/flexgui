@@ -660,6 +660,42 @@
           </layout>
          </widget>
         </item>
+        <item row="2" column="2">
+         <widget class="QGroupBox" name="groupBox_19">
+          <property name="title">
+           <string>Spindle Override</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_28">
+           <item row="0" column="1">
+            <widget class="QLabel" name="spindle_override_0_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QSlider" name="spindle_override_sl">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_14">
