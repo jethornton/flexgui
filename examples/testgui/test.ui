@@ -18,7 +18,7 @@
     <item row="4" column="3" rowspan="2" colspan="6">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>4</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1460,6 +1460,60 @@
           <property name="hal_type" stdset="0">
            <string>HAL_U32</string>
           </property>
+         </widget>
+        </item>
+        <item row="6" column="3" colspan="2">
+         <widget class="QGroupBox" name="groupBox_20">
+          <property name="title">
+           <string>LED</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QPushButton" name="pushButton_13">
+             <property name="text">
+              <string>HAL LED</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_led_button</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-led-pb</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_14">
+             <property name="text">
+              <string>HAL LED Checkable</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_led_button</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-led-checkable-pb</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_43">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="hal_led" stdset="0">
+              <bool>false</bool>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-led-lb</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_led</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
