@@ -34,63 +34,12 @@ def home(parent):
 		parent.command.wait_complete()
 		parent.command.home(joint)
 
-	'''
-	parent.status.poll()
-	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 0: # not homed
-		if parent.status.task_mode != emc.MODE_MANUAL:
-			parent.command.mode(emc.MODE_MANUAL)
-			parent.command.wait_complete()
-		if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
-			parent.command.teleop_enable(False)
-			parent.command.wait_complete()
-		parent.command.home(joint)
-
-		if f'actionHome_{joint}' in parent.home_controls:
-			getattr(parent, f'actionHome_{joint}').setEnabled(False)
-		if f'home_pb_{joint}' in parent.home_controls:
-			getattr(parent, f'home_pb_{joint}').setEnabled(False)
-			if hasattr(getattr(parent, f'home_pb_{joint}'), 'led'):
-				getattr(parent, f'home_pb_{joint}').led = True
-		if f'actionUnhome_{joint}' in parent.unhome_controls:
-			getattr(parent, f'actionUnhome_{joint}').setEnabled(True)
-		if f'unhome_pb_{joint}' in parent.unhome_controls:
-			getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
-
-		if utilities.all_homed(parent): # all homed
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.home_controls:
-				getattr(parent, item).setEnabled(False)
-			if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
-				parent.home_all_pb.led = True
-	'''
-
 def home_all(parent):
 	set_task_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.home(-1)
 
-	'''
-	parent.status.poll()
-	if parent.status.task_mode != emc.MODE_MANUAL:
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
-	parent.command.teleop_enable(False)
-	parent.command.wait_complete()
-	parent.command.home(-1)
-	for item in parent.home_controls:
-		getattr(parent, item).setEnabled(False)
-		if hasattr(getattr(parent, item), 'led'):
-			getattr(parent, item).led = True
-	for item in parent.unhome_controls:
-		getattr(parent, item).setEnabled(True)
-	utilities.set_homed_enable(parent)
-	# FIXME find a better way to handle the leds
-	if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
-		parent.home_all_pb.led = True
-	'''
 
 def unhome(parent):
 	joint = int(parent.sender().objectName()[-1])
@@ -101,61 +50,11 @@ def unhome(parent):
 			parent.command.wait_complete()
 		parent.command.unhome(joint)
 
-	'''
-	parent.status.poll()
-	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 1: # joint is homed so unhome it
-		set_mode(parent, emc.MODE_MANUAL)
-		parent.command.teleop_enable(False)
-		parent.command.wait_complete()
-		parent.command.unhome(joint)
-		if f'actionHome_{joint}' in parent.home_controls:
-			getattr(parent, f'actionHome_{joint}').setEnabled(True)
-		if f'home_pb_{joint}' in parent.home_controls:
-			getattr(parent, f'home_pb_{joint}').setEnabled(True)
-			if hasattr(getattr(parent, f'home_pb_{joint}'), 'led'):
-				getattr(parent, f'home_pb_{joint}').led = False
-		if f'actionUnhome_{joint}' in parent.unhome_controls:
-			getattr(parent, f'actionUnhome_{joint}').setEnabled(False)
-		if f'unhome_pb_{joint}' in parent.unhome_controls:
-			getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
-
-		if utilities.all_unhomed(parent):
-			for item in parent.unhome_controls:
-				getattr(parent, item).setEnabled(False)
-			for item in parent.home_controls:
-				getattr(parent, item).setEnabled(True)
-
-		if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
-			parent.home_all_pb.led = False
-	'''
-
 def unhome_all(parent):
 	set_task_mode(parent, emc.MODE_MANUAL)
 	parent.command.teleop_enable(False)
 	parent.command.wait_complete()
 	parent.command.unhome(-1)
-
-	'''
-	set_mode(parent, emc.MODE_MANUAL)
-	parent.command.teleop_enable(False)
-	parent.command.wait_complete()
-	parent.command.unhome(-1)
-	if 'run_mdi_pb' in parent.child_names:
-		parent.run_mdi_pb.setEnabled(False)
-	for item in parent.home_controls:
-		getattr(parent, item).setEnabled(True)
-		if hasattr(getattr(parent, item), 'led'):
-			getattr(parent, item).led = False
-	for item in parent.unhome_controls:
-		getattr(parent, item).setEnabled(False)
-	for item in parent.run_controls:
-		getattr(parent, item).setEnabled(False)
-	for item in parent.home_required:
-		getattr(parent, item).setEnabled(False)
-	if 'home_all_pb' in parent.child_names and hasattr(parent.home_all_pb, 'led'):
-		parent.home_all_pb.led = False
-	'''
 
 def run_mdi(parent, cmd=''):
 	if cmd:

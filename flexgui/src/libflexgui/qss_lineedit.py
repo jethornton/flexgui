@@ -34,27 +34,7 @@ def startup(parent):
 	parent.le_font_weight = False
 	parent.le_font_style = False
 	parent.le_font_italic = False
-	'''
 
-	parent.le_min_width_normal.valueChanged.connect(parent.size)
-	parent.le_min_height_normal.valueChanged.connect(parent.size)
-	parent.le_max_width_normal.valueChanged.connect(parent.size)
-	parent.le_max_height_normal.valueChanged.connect(parent.size)
-
-	parent.le_padding_normal.valueChanged.connect(parent.padding)
-	parent.le_padding_left_normal.valueChanged.connect(parent.padding)
-	parent.le_padding_right_normal.valueChanged.connect(parent.padding)
-	parent.le_padding_top_normal.valueChanged.connect(parent.padding)
-	parent.le_padding_bottom_normal.valueChanged.connect(parent.padding)
-
-	parent.le_margin_normal.valueChanged.connect(parent.margin)
-	parent.le_margin_left_normal.valueChanged.connect(parent.margin)
-	parent.le_margin_right_normal.valueChanged.connect(parent.margin)
-	parent.le_margin_top_normal.valueChanged.connect(parent.margin)
-	parent.le_margin_bottom_normal.valueChanged.connect(parent.margin)
-
-	parent.le_font_picker.clicked.connect(parent.font_dialog)
-	'''
 ######### QLineEdit Stylesheet #########
 
 def create_stylesheet(parent):

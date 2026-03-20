@@ -74,13 +74,6 @@ def apply_style(parent):
 		style += ');\n'
 		style += '}'
 
-		'''
-		QLabel {
-			background: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0,
-			stop: 0 green, stop: 0.5 yellow,stop: 1 red);
-		}
-		'''
-
 	#stop: 0 green, stop: 0.5 yellow,stop: 1 red);
 
 		parent.gr_stylesheet.clear()
@@ -95,14 +88,3 @@ def apply_style(parent):
 def index_changed(parent, index):
 	data = parent.gradiant_direction.itemData(index)
 
-
-	'''
-	data_list = [
-		("Item 1", 10), 
-		("Item 2", 20), 
-		("Item 3", 30)
-	]
-
-	for text, data in data_list:
-		self.combo_box.addItem(text, userData=data)
-	'''

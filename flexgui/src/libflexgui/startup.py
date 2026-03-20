@@ -1976,7 +1976,7 @@ def setup_hal(parent):
 
 			utilities.set_hal_enables(parent, button)
 
-	##### HAL SPINBOX ##### FIXME this home required works as expected...
+	##### HAL SPINBOX #####
 	if len(hal_spinboxes) > 0:
 		valid_types = ['HAL_S32', 'HAL_U32']
 		for spinbox in hal_spinboxes:

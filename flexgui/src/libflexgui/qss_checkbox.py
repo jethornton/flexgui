@@ -60,7 +60,7 @@ def startup(parent):
 
 	parent.cb_indicator_width_normal.valueChanged.connect(parent.indicator)
 	parent.cb_indicator_height_normal.valueChanged.connect(parent.indicator)
-	# FIXME
+
 	parent.cb_indicator_icon_checked.editingFinished.connect(parent.indicator)
 	parent.cb_indicator_icon_unchecked.editingFinished.connect(parent.indicator)
 
@@ -135,17 +135,6 @@ def create_stylesheet(parent):
 		style += '}' # End of QCheckBox normal pseudo-state
 
 		# QCheckBox indicator sub-control
-		'''
-		cb_indicator_checked_icon
-		QCheckBox::indicator:checked {
-			image: url(images/off_slider_3.png);
-		}
-		cb_indicator_unchecked_icon
-		QCheckBox::indicator:unchecked {
-			image: url(images/off_slider_3.png);
-		}
-		'''
-
 	if parent.cb_indicator:
 		if style: # style is not False
 			style += '\n\nQCheckBox::indicator {\n'

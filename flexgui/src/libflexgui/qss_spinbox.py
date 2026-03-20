@@ -243,13 +243,6 @@ def create_stylesheet(parent):
 			style += f'\tborder-radius: {parent.sb_border_radius_disabled.value()}px;\n'
 
 		style += '\n}' # End of QAbstractSpinBox disabled pseudo-state
-	'''
-	style = 'QSpinBox::edit {\n'
-	style += '\tbackground-color: white;\n'
-	style += '\tborder: 1px solid gray;\n'
-	style += '\tpadding: 2px;\n'
-	style += '}\n'
-	'''
 
 	# QAbstractSpinBox build and apply the stylesheet
 	parent.sb_stylesheet.clear()

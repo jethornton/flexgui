@@ -231,20 +231,6 @@ def home_all_check(parent):
 			return False
 	return True
 
-'''
-def set_homed_enable(parent): # FIXME this is not used any more
-	for item in parent.home_controls:
-		getattr(parent, item).setEnabled(False)
-	for item in parent.unhome_controls:
-		getattr(parent, item).setEnabled(True)
-	for item in parent.home_required:
-		if not item.startswith('probe_'): # don't enable probe buttons
-			getattr(parent, item).setEnabled(True)
-	if parent.status.file:
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(True)
-'''
-
 def set_hal_enables(parent, obj):
 	obj_name = obj.objectName()
 	always_on = obj.property('always_on')
@@ -692,53 +678,6 @@ def update_run_controls(parent):
 			for item in parent.program_running_disabled:
 				getattr(parent, item).setEnabled(False)
 
-
-	'''
-	parent.run_controls
-	parent.step_controls
-	parent.pause_controls
-	parent.resume_controls
-	'''
-
-	'''
-	if parent.status.task_mode == emc.MODE_MANUAL:
-		if not parent.probing:
-			for item in parent.file_load_controls:
-				getattr(parent, item).setEnabled(True)
-			if (all(parent.status.homed[:parent.joints])
-				and parent.status.task_state == emc.STATE_ON):
-				for item in parent.mdi_controls:
-					getattr(parent, item).setEnabled(True)
-				if parent.status.file != '':
-					for item in parent.run_controls:
-						getattr(parent, item).setEnabled(True)
-
-	elif parent.status.task_mode == emc.MODE_AUTO:
-		for item in parent.file_load_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.mdi_controls:
-			getattr(parent, item).setEnabled(False)
-
-		if parent.status.interp_state == emc.INTERP_PAUSED:
-			for item in parent.program_paused_enable:
-				getattr(parent, item).setEnabled(True)
-			for item in program_running_enable:
-				getattr(parent, item).setEnabled(False)
-		else:
-			for item in program_running_enable:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.program_paused_enable:
-				getattr(parent, item).setEnabled(False)
-
-		if parent.status.motion_type == 0: # MOTION_TYPE_NONE
-			for item in parent.program_motion_none:
-				getattr(parent, item).setEnabled(True)
-		elif parent.status.motion_type != 0:
-			for item in parent.program_motion_none:
-				getattr(parent, item).setEnabled(False)
-	'''
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)
 
@@ -772,7 +711,6 @@ def previous_page(parent):
 		getattr(parent, object_name).setCurrentIndex(index - 1)
 	elif index == 0:
 		getattr(parent, object_name).setCurrentIndex(pages)
-
 
 def flash_buttons(parent):
 	# Store a boolean that toggles on each execution
