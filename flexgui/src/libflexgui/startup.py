@@ -265,7 +265,7 @@ def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			led_shape = child.property('led_shape') # validate shape
 			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
-			btn_dict['size_policy'] = child.sizePolicy()
+			led_dict['size_policy'] = child.sizePolicy()
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
