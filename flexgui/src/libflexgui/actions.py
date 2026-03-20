@@ -50,6 +50,8 @@ def load_file(parent, nc_code_file=None):
 			parent.reload_pb.setEnabled(True)
 		if 'actionReload' in parent.child_names:
 			parent.actionReload.setEnabled(True)
+		for item in parent.file_save_controls:
+			getattr(parent, item).setEnabled(True)
 
 		if not load_file_btn: # called by menu or file open button
 			# get recent files from settings

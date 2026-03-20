@@ -84,6 +84,7 @@ def setup_vars(parent):
 	parent.pause_controls = []
 	parent.resume_controls = []
 	parent.file_load_controls = [] # disable when a program or mdi is running
+	parent.file_save_controls = [] # disable if no file or program or mdi is running
 	parent.mdi_controls = []
 	parent.probe_controls = []
 
@@ -633,6 +634,11 @@ def setup_enables(parent):
 	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload']:
 		if item in parent.child_names:
 			parent.file_load_controls.append(item)
+
+	for item in ['reload_pb', 'actionReload', 'save_pb', 'actionSave',
+		'save_as_pb', 'actionSave_As']:
+		if item in parent.child_names:
+			parent.file_save_controls.append(item)
 
 def setup_run_controls(parent):
 	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:

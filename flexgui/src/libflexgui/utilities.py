@@ -587,6 +587,10 @@ def update_run_controls(parent):
 	task_state = parent.status.task_state
 	state = parent.status.state
 
+	if not file_loaded:
+		for item in parent.file_save_controls:
+			getattr(parent, item).setEnabled(False)
+
 	if task_state == emc.STATE_ESTOP:
 		#print('update run controls STATE_ESTOP')
 		for item in parent.run_controls:
