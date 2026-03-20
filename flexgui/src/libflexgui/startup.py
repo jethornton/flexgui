@@ -1362,15 +1362,6 @@ def conv_units(value, suffix, units):
 		elif suffix == 'um':
 			return float(value) / 1000
 
-'''
-def conv_to_decimal(data):
-	if "/" in data:
-		p, q = data.split("/")
-		return (float(p) / float(q))
-	else:
-		return float(data)
-'''
-
 def setup_spindle(parent):
 	# create spindle tuple
 	parent.status_spindle = ()
@@ -1455,6 +1446,7 @@ def setup_touchoff(parent):
 	for axis in AXES:
 		item = f'touchoff_pb_{axis}'
 		if item in parent.child_names:
+			parent.program_running_disabled.append(item)
 			source = getattr(parent, item).property('source')
 			if source is None:
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
@@ -1482,6 +1474,7 @@ def setup_touchoff(parent):
 		for i in range(9):
 			if f'axis_select_{i}' in parent.child_names:
 				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
+				parent.program_running_disabled.append('touchoff_selected_pb')
 				break
 
 def setup_tools(parent):
@@ -1555,6 +1548,7 @@ def setup_tools(parent):
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.child_names:
+			parent.program_running_disabled.append(item)
 			source = getattr(parent, item).property('source')
 			if source is None: # check for tool_touchoff_le
 				if 'tool_touchoff_le' in parent.child_names:
