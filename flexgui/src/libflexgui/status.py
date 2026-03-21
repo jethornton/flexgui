@@ -50,7 +50,7 @@ R = 9
 def update(parent):
 	parent.status.poll()
 	changed = False
-	print_changes = True
+	print_changes = False
 
 	# **** EXEC STATE ****
 	# exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
