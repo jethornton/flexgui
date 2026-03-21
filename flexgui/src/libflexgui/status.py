@@ -154,7 +154,8 @@ def update(parent):
 			parent.task_mode_lb.setText(TASK_MODES[parent.status.task_mode])
 
 		# this is needed for MDI commands that do not use motion
-		if parent.status.state == emc.RCS_DONE and parent.status.task_mode == emc.MODE_MDI:
+		if (parent.status.interp_state == emc.INTERP_IDLE
+			and parent.status.task_mode == emc.MODE_MDI):
 			parent.command.mode(emc.MODE_MANUAL)
 			utilities.update_mdi(parent)
 		utilities.update_run_controls(parent)
