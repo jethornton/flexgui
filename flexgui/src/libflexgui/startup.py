@@ -521,18 +521,16 @@ def setup_enables(parent):
 	# STATE_ESTOP everything is disabled except the estop and file open save etc.
 	state_estop_items = ['power_pb', 'run_pb', 'run_from_line_pb',
 	'step_pb', 'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
-	'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb', 'spindle_start_pb',
+	'home_all_pb', 'run_mdi_pb', 'mdi_s_pb', 'spindle_start_pb',
 	'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb', 'spindle_plus_pb',
 	'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
 	'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume',
-	'actionHoming', 'actionHome_All', 'actionUnhoming', 'actionUnhome_All', 
+	'actionHoming', 'actionHome_All', 'actionUnhoming',
 	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
 
 	for i in range(9):
 		state_estop_items.append(f'home_pb_{i}')
 		state_estop_items.append(f'actionHome_{i}')
-		state_estop_items.append(f'unhome_pb_{i}')
-		state_estop_items.append(f'actionUnhome_{i}')
 		state_estop_items.append(f'jog_plus_pb_{i}')
 		state_estop_items.append(f'jog_minus_pb_{i}')
 
@@ -554,7 +552,7 @@ def setup_enables(parent):
 	# STATE_ESTOP_RESET everything is disabled except power_pb
 	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
 		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
-		'home_all_pb', 'unhome_all_pb', 'run_mdi_pb', 'mdi_s_pb',
+		'home_all_pb', 'run_mdi_pb', 'mdi_s_pb',
 		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
 		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
 		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
@@ -563,7 +561,6 @@ def setup_enables(parent):
 
 	for i in range(9):
 		state_estop_reset_disabled_items.append(f'home_pb_{i}')
-		state_estop_reset_disabled_items.append(f'unhome_pb_{i}')
 		state_estop_reset_disabled_items.append(f'jog_plus_pb_{i}')
 		state_estop_reset_disabled_items.append(f'jog_minus_pb_{i}')
 
@@ -612,13 +609,13 @@ def setup_enables(parent):
 
 	for item in ['open_pb', 'jog_selected_plus', 'jog_selected_minus',
 	'run_mdi_pb', 'actionOpen', 'menuRecent', 'reload_pb', 'actionReload',
-	'unhome_all_pb', 'tool_change_pb']:
+	'tool_change_pb']:
 		if item in parent.child_names:
 			parent.program_running_disabled.append(item)
 
-	for i in range(9):
-		if f'unhome_pb_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'unhome_pb_{i}')
+	#for i in range(9): FIXME this is wrong
+	#	if f'unhome_pb_{i}' in parent.child_names:
+	#		parent.program_running_disabled.append(f'unhome_pb_{i}')
 
 	for i in range(100):
 		if f'tool_change_pb_{i}' in parent.child_names:
