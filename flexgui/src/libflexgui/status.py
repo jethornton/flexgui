@@ -50,14 +50,17 @@ R = 9
 def update(parent):
 	parent.status.poll()
 	changed = False
+	print_changes = True
+
 	# **** EXEC STATE ****
 	# exec_state EXEC_ERROR, EXEC_DONE, EXEC_WAITING_FOR_MOTION,
 	# EXEC_WAITING_FOR_MOTION_QUEUE, EXEC_WAITING_FOR_IO,
 	# EXEC_WAITING_FOR_MOTION_AND_IO, EXEC_WAITING_FOR_DELAY,
 	# EXEC_WAITING_FOR_SYSTEM_CMD, EXEC_WAITING_FOR_SPINDLE_ORIENTED.
 	if parent.exec_state != parent.status.exec_state:
-		#print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
-		#changed = True
+		if print_changes:
+			print(f'EXEC STATE: {EXEC_STATES[parent.status.exec_state]}')
+			changed = True
 		if 'exec_state_lb' in parent.child_names: # update the label
 			parent.exec_state_lb.setText(EXEC_STATES[parent.status.exec_state])
 
@@ -69,8 +72,9 @@ def update(parent):
 	# **** INTERP STATE ****
 	# interp_state INTERP_IDLE, INTERP_READING, INTERP_PAUSED, INTERP_WAITING
 	if parent.interp_state != parent.status.interp_state:
-		#print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
-		#changed = True
+		if print_changes:
+			print(f'INTERP STATE: {INTERP_STATES[parent.status.interp_state]}')
+			changed = True
 		if 'interp_state_lb' in parent.child_names: # update the label
 			parent.interp_state_lb.setText(INTERP_STATES[parent.status.interp_state])
 
@@ -86,8 +90,9 @@ def update(parent):
 	# interpreter_errcode INTERP_OK INTERP_EXIT INTERP_EXECUTE_FINISH
 	# INTERP_ENDFILE INTERP_FILE_NOT_OPEN INTERP_ERROR
 	if parent.interpreter_errcode != parent.status.interpreter_errcode:
-		#print(f'INTERPRETER ERRCODE: {INTERPRETER_ERRCODES[parent.status.interpreter_errcode]}')
-		#changed = True
+		if print_changes:
+			print(f'INTERPRETER ERRCODE: {INTERPRETER_ERRCODES[parent.status.interpreter_errcode]}')
+			changed = True
 		if 'interpreter_errcode_lb' in parent.child_names: # update the label
 			parent.interpreter_errcode_lb.setText(INTERPRETER_ERRCODES[parent.status.interpreter_errcode])
 
@@ -96,8 +101,9 @@ def update(parent):
 	# **** MOTION MODE ****
 	# motion_mode TRAJ_MODE_COORD, TRAJ_MODE_FREE, TRAJ_MODE_TELEOP
 	if parent.motion_mode != parent.status.motion_mode:
-		#print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
-		#changed = True
+		if print_changes:
+			print(f'MOTION MODE: {MOTION_MODES[parent.status.motion_mode]}')
+			changed = True
 		if 'motion_mode_lb' in parent.child_names: # update the label
 			parent.motion_mode_lb.setText(MOTION_MODES[parent.status.motion_mode])
 
@@ -109,8 +115,9 @@ def update(parent):
 	# MOTION_TYPE_PROBING, MOTION_TYPE_INDEXROTARY,
 
 	if parent.motion_type != parent.status.motion_type:
-		#print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]}')
-		#changed = True
+		if print_changes:
+			print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]}')
+			changed = True
 		if 'motion_type_lb' in parent.child_names: # update the label
 			parent.motion_type_lb.setText(MOTION_TYPES[parent.status.motion_type])
 
@@ -125,8 +132,9 @@ def update(parent):
 	# **** STATE ****
 	# state RCS_DONE, RCS_EXEC, RCS_ERROR
 	if parent.state != parent.status.state:
-		#print(f'STATE: {STATES[parent.status.state]}')
-		#changed = True
+		if print_changes:
+			print(f'STATE: {STATES[parent.status.state]}')
+			changed = True
 		if 'state_lb' in parent.child_names: # update the label
 			parent.state_lb.setText(STATES[parent.status.state])
 
@@ -148,8 +156,9 @@ def update(parent):
 	# **** TASK MODE ****
 	# task_mode MODE_MDI, MODE_AUTO, MODE_MANUAL
 	if parent.task_mode != parent.status.task_mode:
-		#print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
-		#changed = True
+		if print_changes:
+			print(f'TASK MODE: {TASK_MODES[parent.status.task_mode]}')
+			changed = True
 		if 'task_mode_lb' in parent.child_names: # update the label
 			parent.task_mode_lb.setText(TASK_MODES[parent.status.task_mode])
 
@@ -162,12 +171,12 @@ def update(parent):
 
 		parent.task_mode = parent.status.task_mode
 
-
 	# **** TASK STATE ****
 	# task_state STATE_ESTOP, STATE_ESTOP_RESET, STATE_ON, STATE_OFF
 	if parent.task_state != parent.status.task_state:
-		#print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
-		#changed = True
+		if print_changes:
+			print(f'TASK STATE: {TASK_STATES[parent.status.task_state]}')
+			changed = True
 		if 'task_state_lb' in parent.child_names: # update the label
 			parent.task_state_lb.setText(TASK_STATES[parent.status.task_state])
 
