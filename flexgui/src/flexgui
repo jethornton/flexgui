@@ -357,7 +357,7 @@ class flexgui(QMainWindow):
 		# flashing button timer
 		self.button_flash_timer = QTimer(self)
 		self.button_flash_timer.timeout.connect(partial(utilities.flash_buttons, self))
-		self.button_flash_timer.start(1000) # milliseconds
+		self.button_flash_timer.start(self.flash_time) # milliseconds
 
 		# install the KeyboardJog event filter
 		self.keyboard_jog = KeyboardJog(self)

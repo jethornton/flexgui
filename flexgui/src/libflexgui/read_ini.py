@@ -172,6 +172,16 @@ def read(parent):
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.cycle_time = 100
 
+	# check for FLASH time
+	flash_time = parent.inifile.find('FLEXGUI', 'FLASH_TIME') or '1000'
+	if utilities.is_int(flash_time):
+		parent.flash_time = int(flash_time)
+	else:
+		parent.flash_time = 1000
+		msg = (f'The INI value {flash_time} for [FLEXGUI] FLASH_TIME\n'
+		'did not evaluate to an integer. 1000 will be used.')
+		dialogs.error_msg_ok(parent, msg, 'INI Error')
+
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 	if parent.resources_file:
