@@ -501,7 +501,6 @@ def update_home_controls(parent):
 
 				if f'unhome_pb_{joint}' in parent.child_names:
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(True)
-					print('here')
 				if f'actionUnhome_{joint}' in parent.child_names:
 					getattr(parent, f'actionUnhome_{joint}').setEnabled(True)
 
@@ -516,7 +515,6 @@ def update_home_controls(parent):
 
 				if f'unhome_pb_{joint}' in parent.child_names:
 					getattr(parent, f'unhome_pb_{joint}').setEnabled(False)
-					print('there')
 				if f'actionUnhome_{joint}' in parent.child_names:
 					getattr(parent, f'actionUnhome_{joint}').setEnabled(False)
 
@@ -639,11 +637,14 @@ def update_run_controls(parent):
 				for item in parent.resume_controls:
 					getattr(parent, item).setEnabled(True)
 			if state == emc.RCS_EXEC and motion_type == 0: # MOTION_TYPE_NONE
-				#print('no motion')
-				for item in parent.step_controls:
-					getattr(parent, item).setEnabled(True)
 				for item in parent.pause_controls:
 					getattr(parent, item).setEnabled(False)
+				if parent.step:
+					for item in parent.step_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.resume_controls:
+						getattr(parent, item).setEnabled(True)
+
 			if state == emc.RCS_EXEC and motion_type != 0: # NOT MOTION_TYPE_NONE
 				if interp_state != emc.INTERP_PAUSED:
 					#print('in motion')
@@ -670,8 +671,8 @@ def update_run_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.resume_controls:
 					getattr(parent, item).setEnabled(False)
-				if parent.stop:
-					parent.stop = False
+				parent.stop = False
+				parent.step = False
 
 			if file_loaded:
 				for item in parent.file_edit_controls:

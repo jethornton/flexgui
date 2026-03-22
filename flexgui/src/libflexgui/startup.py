@@ -50,6 +50,7 @@ def setup_vars(parent):
 	parent.plot_units = False
 	parent.probing = False
 	parent.stop = False
+	parent.step = False
 
 	# put any variables in here that might be called during startup
 	parent.selected_style = '''

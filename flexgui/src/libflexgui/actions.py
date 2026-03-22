@@ -312,6 +312,7 @@ def action_step(parent): # actionStep
 			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
 		parent.command.auto(emc.AUTO_STEP)
+		parent.step = True
 
 def action_pause(parent): # actionPause
 	if parent.status.task_mode == emc.MODE_AUTO: # program is running
@@ -320,10 +321,12 @@ def action_pause(parent): # actionPause
 def action_resume(parent): # actionResume
 	if parent.status.paused:
 		parent.command.auto(emc.AUTO_RESUME)
+		parent.step = False
 
 def action_stop(parent): # actionStop
 	parent.command.abort()
 	parent.stop = True
+	parent.step = False
 
 def action_clear_mdi(parent): # actionClear_MDI
 	parent.mdi_history_lw.clear()
