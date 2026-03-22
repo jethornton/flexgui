@@ -196,6 +196,18 @@ simple base colors only.
 	SPLASH_FONT_BOLD = True or False
 	SPLASH_FONT_COLOR = black
 
+.. _flash_timer:
+
+Flash Timer
+-----------
+
+The Flash Timer default is 1000ms to change it add the following to the
+[FLEXGUI] section. The value is in ms so 500 is 0.5 seconds.
+
+.. code-block:: text
+
+	FLASH_TIME = 500
+
 .. _installed_themes:
 
 Themes

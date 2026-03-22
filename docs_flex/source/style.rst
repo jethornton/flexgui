@@ -121,6 +121,9 @@ Checkable buttons, like estop_pb, power_pb, or hal_buttons that are checkable
 can flash when either checked or not checked. To add flashing add the following
 Dynamic Property to the QPushButton.
 
+The default flash time is 1000ms it can be changed in the INI file. See
+:ref:`flash_timer` for more information on setting the flash time.
+
 .. csv-table:: Flashing Push Button
    :width: 100%
    :align: center
