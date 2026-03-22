@@ -10,6 +10,14 @@ QPushButton#test_pb {
 	background-image: url(:blue_right_32.png);
 }
 
+QPushButton#flashing_checked_pb:checked[flashing="True"] {
+	background-color: red;
+}
+
+QPushButton#flash_unchecked_pb:!checked[flashing="True"] {
+	background-color: green;
+}
+
 
 QMenuBar {
 	background-color: #333;
