@@ -613,9 +613,28 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.program_running_disabled.append(item)
 
-	#for i in range(9): FIXME this is wrong
-	#	if f'unhome_pb_{i}' in parent.child_names:
-	#		parent.program_running_disabled.append(f'unhome_pb_{i}')
+	# disable unhome controls while a program is running
+	for i in range(parent.joints):
+		if f'unhome_pb_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'unhome_pb_{i}')
+		if f'actionUnhome_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'actionUnhome_{i}')
+	if 'unhome_all_pb' in parent.child_names:
+		parent.program_running_disabled.append('unhome_all_pb')
+	if 'actionUnhoming' in parent.child_names:
+		parent.program_running_disabled.append('actionUnhoming')
+	if 'actionUnhome_All' in parent.child_names:
+		parent.program_running_disabled.append('actionUnhome_All')
+
+	# disable clear coordinate system offsets while a program is running
+	for i in range(12):
+		if f'clear_coord_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'clear_coord_{i}')
+		if f'actionClear_{i}' in parent.child_names:
+			parent.program_running_disabled.append(f'actionClear_{i}')
+	if 'actionClear_Offsets' in parent.child_names:
+		parent.program_running_disabled.append('actionClear_Offsets')
+
 
 	for i in range(100):
 		if f'tool_change_pb_{i}' in parent.child_names:

@@ -617,7 +617,7 @@ def update_run_controls(parent):
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
-		print('update run controls STATE_ON')
+		#print('update run controls STATE_ON')
 		if task_mode == emc.MODE_AUTO: # program running
 			#print('update run controls MODE_AUTO')
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
