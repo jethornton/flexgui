@@ -621,6 +621,9 @@ def update_run_controls(parent):
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(False)
+				for item in parent.step_controls:
+					getattr(parent, item).setEnabled(False)
+				# FIXME program_running_disabled needs to be handled with x_controls
 				for item in parent.program_running_disabled:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.spindle_controls:
