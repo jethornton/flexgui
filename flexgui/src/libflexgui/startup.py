@@ -849,9 +849,6 @@ def setup_buttons(parent): # connect buttons to functions
 				'This button will not flash.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
-	for item in parent.flashing_buttons:
-		print(f'fb {item}')
-
 def setup_status_labels(parent):
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
 	'motion_mode': {1: 'TRAJ_MODE_FREE', 2: 'TRAJ_MODE_COORD', 3: 'TRAJ_MODE_TELEOP'},
