@@ -236,7 +236,7 @@ def setup_hal_led_buttons(parent):
 			new_button.setObjectName(btn_dict['name'])
 			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
 
-def setup_hal_led_labels(parent): # LED labels FIXME make sure hal items are set
+def setup_hal_led_labels(parent):
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
 		#if child.property('hal_led_label') or 
@@ -837,13 +837,20 @@ def setup_buttons(parent): # connect buttons to functions
 			child.clicked.connect(partial(actions.load_file, parent))
 			parent.program_running_disabled.append(child.objectName())
 
+	# flashing buttons
 	parent.flashing_buttons = []
 	for child in parent.findChildren(QPushButton):
-		if (child.isCheckable and 
-			child.property("flash_state") in ["checked", "unchecked"] and
-			child.objectName() not in parent.flashing_buttons):
-			# Not sure why I was getting dupes FIXME why is this here?
-			parent.flashing_buttons.append(child.objectName())
+		if child.property('flash_state') in ['checked', 'unchecked']:
+			if child.isCheckable():
+				parent.flashing_buttons.append(child.objectName())
+			else:
+				msg = (f'The flashing button {child.objectName()}\n'
+				'with the text of {child.text()} is not checkable.\n'
+				'This button will not flash.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+
+	for item in parent.flashing_buttons:
+		print(f'fb {item}')
 
 def setup_status_labels(parent):
 	parent.stat_dict = {'adaptive_feed_enabled': {0: False, 1: True},
