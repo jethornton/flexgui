@@ -634,32 +634,37 @@ def update_run_controls(parent):
 				#print('paused')
 				for item in parent.pause_controls:
 					getattr(parent, item).setEnabled(False)
-				for item in parent.resume_controls:
-					getattr(parent, item).setEnabled(True)
+				if parent.step:
+					for item in parent.step_controls:
+						getattr(parent, item).setEnabled(True)
+				else:
+					for item in parent.resume_controls:
+						getattr(parent, item).setEnabled(True)
 			if state == emc.RCS_EXEC and motion_type == 0: # MOTION_TYPE_NONE
+				#print('motion none')
 				for item in parent.pause_controls:
 					getattr(parent, item).setEnabled(False)
 				if parent.step:
 					for item in parent.step_controls:
 						getattr(parent, item).setEnabled(True)
+				else:
 					for item in parent.resume_controls:
 						getattr(parent, item).setEnabled(True)
 
 			if state == emc.RCS_EXEC and motion_type != 0: # NOT MOTION_TYPE_NONE
 				if interp_state != emc.INTERP_PAUSED:
 					#print('in motion')
-					for item in parent.step_controls:
-						getattr(parent, item).setEnabled(False)
-					for item in parent.pause_controls:
-						getattr(parent, item).setEnabled(True)
+					if parent.step:
+						for item in parent.step_controls:
+							getattr(parent, item).setEnabled(False)
+					else:
+						for item in parent.pause_controls:
+							getattr(parent, item).setEnabled(True)
 					for item in parent.resume_controls:
 						getattr(parent, item).setEnabled(False)
 
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
-			#print(f'all_homed {all_homed}')
-			#print(f'file_loaded {file_loaded}')
-			#print(f'parent.stop {parent.stop}')
 			if all_homed and file_loaded or parent.stop:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
