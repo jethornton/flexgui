@@ -76,11 +76,7 @@ def setup_vars(parent):
 	parent.state_estop_reset_enabled = []
 	parent.state_on_enabled = []
 	parent.homed_enabled = []
-	parent.program_running_enable = []
 	parent.program_running_disabled = []
-	parent.program_paused_enable = []
-	parent.program_motion_none = []
-
 
 	parent.power_controls = [] # enabled when estop is closed
 	parent.run_controls = [] # enabled when homed, manual, file loaded
@@ -97,6 +93,7 @@ def setup_vars(parent):
 	parent.coolant_controls = [] # enabled when power is on
 	parent.tool_change_controls = [] # enabled when power is on and program or mdi not running
 	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and program or mdi not running
+	parent.axis_touchoff_controls = [] # enabled when power on, homed, program not running
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -601,13 +598,20 @@ def setup_enables(parent):
 		if f'tool_touchoff_{axis}' in parent.child_names:
 			parent.tool_touchoff_controls.append(f'tool_touchoff_{axis}')
 
+	# axis touch off controls
+	for item in ['touchoff_selected_pb']:
+		if item in parent.child_names:
+			parent.axis_touchoff_controls.append(item)
+
+	for item in AXES:
+		if f'touchoff_pb_{item}' in parent.child_names:
+			parent.axis_touchoff_controls.append(f'touchoff_pb_{item}')
 
 	################ 
 	# STATE_ESTOP everything is disabled except the estop and file open save etc.
-	state_estop_items = ['touchoff_selected_pb']
+	state_estop_items = []
 
 	for axis in AXES:
-		state_estop_items.append(f'touchoff_pb_{axis}')
 		state_estop_items.append(f'zero_{axis}_pb')
 
 	for i in range(1, 10):
@@ -618,10 +622,7 @@ def setup_enables(parent):
 			parent.state_estop_disabled.append(name)
 
 	# STATE_ESTOP_RESET everything is disabled except power_pb
-	state_estop_reset_disabled_items = ['touchoff_selected_pb']
-
-	for item in AXES:
-		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
+	state_estop_reset_disabled_items = []
 
 	for i in range(1, 10):
 		state_estop_reset_disabled_items.append(f'change_cs_{i}')
@@ -664,10 +665,6 @@ def setup_enables(parent):
 	for i in range(1, 10):
 		if f'change_cs_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'change_cs_{i}')
-
-	for item in AXES:
-		if f'touchoff_pb_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'touchoff_pb_{item}')
 
 	################## ^^^^
 
@@ -1464,7 +1461,7 @@ def setup_touchoff(parent):
 	for axis in AXES:
 		item = f'touchoff_pb_{axis}'
 		if item in parent.child_names:
-			parent.program_running_disabled.append(item)
+			#parent.program_running_disabled.append(item)
 			source = getattr(parent, item).property('source')
 			if source is None:
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
@@ -1492,7 +1489,7 @@ def setup_touchoff(parent):
 		for i in range(9):
 			if f'axis_select_{i}' in parent.child_names:
 				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
-				parent.program_running_disabled.append('touchoff_selected_pb')
+				#parent.program_running_disabled.append('touchoff_selected_pb')
 				break
 
 def setup_tools(parent):
