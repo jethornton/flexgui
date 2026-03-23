@@ -182,6 +182,39 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_16">
+       <attribute name="title">
+        <string>Flash</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="QPushButton" name="flashing_checked_pb">
+          <property name="text">
+           <string>Flash Checked</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="flash_state" stdset="0">
+           <string>checked</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="flash_unchecked_pb">
+          <property name="text">
+           <string>Flash Unchecked</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="flash_state" stdset="0">
+           <string>unchecked</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item row="4" column="0" colspan="2">
@@ -886,41 +919,6 @@
         <widget class="QLabel" name="label_32">
          <property name="text">
           <string>Z</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <widget class="QGroupBox" name="groupBox_21">
-      <property name="title">
-       <string>Flashing</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_11">
-       <item>
-        <widget class="QPushButton" name="flashing_checked_pb">
-         <property name="text">
-          <string>Flash Checked</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="flash_state" stdset="0">
-          <string>checked</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="flash_unchecked_pb">
-         <property name="text">
-          <string>Flash Unchecked</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="flash_state" stdset="0">
-          <string>unchecked</string>
          </property>
         </widget>
        </item>
