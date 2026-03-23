@@ -65,7 +65,7 @@ def update(parent):
 			parent.exec_state_lb.setText(EXEC_STATES[parent.status.exec_state])
 
 		if parent.status.exec_state == emc.EXEC_DONE:
-			utilities.update_run_controls(parent)
+			utilities.update_controls(parent)
 
 		parent.exec_state = parent.status.exec_state
 
@@ -82,7 +82,7 @@ def update(parent):
 		#	and parent.status.task_mode == emc.MODE_MDI
 		#	or parent.status.task_mode == emc.MODE_AUTO):
 
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 		parent.interp_state = parent.status.interp_state
 
@@ -121,11 +121,11 @@ def update(parent):
 		if 'motion_type_lb' in parent.child_names: # update the label
 			parent.motion_type_lb.setText(MOTION_TYPES[parent.status.motion_type])
 
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 		# 'linuxcnc' has no attribute 'MOTION_TYPE_NONE'
 		#if parent.status.motion_type == 0: # emc.MOTION_TYPE_NONE
-		#	utilities.update_run_controls(parent)
+		#	utilities.update_controls(parent)
 
 		parent.motion_type = parent.status.motion_type
 
@@ -143,7 +143,7 @@ def update(parent):
 			and parent.status.interp_state == emc.INTERP_IDLE):
 			parent.command.mode(emc.MODE_MANUAL)
 
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 		# this is needed for MDI commands that use motion
 		if parent.status.state == emc.RCS_DONE:
@@ -167,7 +167,7 @@ def update(parent):
 			and parent.status.task_mode == emc.MODE_MDI):
 			parent.command.mode(emc.MODE_MANUAL)
 			utilities.update_mdi(parent)
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 		parent.task_mode = parent.status.task_mode
 
@@ -228,7 +228,7 @@ def update(parent):
 					parent.power_pb.led = True
 
 		utilities.update_home_controls(parent)
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 
 		parent.task_state = parent.status.task_state
@@ -236,14 +236,14 @@ def update(parent):
 
 	# **** FILE CHANGE ****
 	if parent.file != parent.status.file:
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 		parent.file = parent.status.file
 
 	# **** HOMED CHANGE ****
 	if parent.homed != parent.status.homed:
 		utilities.update_home_controls(parent)
-		utilities.update_run_controls(parent)
+		utilities.update_controls(parent)
 
 		parent.homed = parent.status.homed
 

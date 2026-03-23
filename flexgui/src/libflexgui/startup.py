@@ -93,6 +93,7 @@ def setup_vars(parent):
 	parent.spindle_controls = [] # enabled when power on in manual
 	parent.mdi_controls = [] # enabled when power on, homed, program not running
 	parent.probe_controls = [] # enabled when probe enable and mdi not running
+	parent.jog_controls = [] # enabled when power on and program or mdi not running
 	parent.coolant_controls = [] # enabled when power is on
 
 def find_widget_index(layout, target_widget):
@@ -527,13 +528,59 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.power_controls.append(item)
 
-	# STATE_ESTOP everything is disabled except the estop and file open save etc.
-	state_estop_items = ['jog_selected_plus', 'jog_selected_minus',
-	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
+	# run controls
+	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
+		if item in parent.child_names:
+			parent.run_controls.append(item)
 
-	for i in range(9):
-		state_estop_items.append(f'jog_plus_pb_{i}')
-		state_estop_items.append(f'jog_minus_pb_{i}')
+	# step controls
+	for item in ['step_pb', 'actionStep']:
+		if item in parent.child_names:
+			parent.step_controls.append(item)
+
+	# pause controls
+	for item in ['pause_pb', 'actionPause']:
+		if item in parent.child_names:
+			parent.pause_controls.append(item)
+
+	# resume controls
+	for item in ['resume_pb', 'actionResume']:
+		if item in parent.child_names:
+			parent.resume_controls.append(item)
+
+	# jog controls
+	for item in ['jog_selected_plus', 'jog_selected_minus']:
+		if item in parent.child_names:
+			parent.jog_controls.append(item)
+
+	for i in range(parent.joints):
+		if f'jog_plus_pb_{i}' in parent.child_names:
+			parent.jog_controls.append(f'jog_plus_pb_{i}')
+		if f'jog_minus_pb_{i}' in parent.child_names:
+			parent.jog_controls.append(f'jog_minus_pb_{i}')
+
+	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload']:
+		if item in parent.child_names:
+			parent.file_load_controls.append(item)
+
+	for item in ['reload_pb', 'actionReload', 'save_pb', 'actionSave',
+		'save_as_pb', 'actionSave_As']:
+		if item in parent.child_names:
+			parent.file_save_controls.append(item)
+
+	for item in ['edit_pb', 'actionEdit', 'actionEdit_Tool_Table',
+		'actionReload_Tool_Table']:
+		if item in parent.child_names:
+			parent.file_edit_controls.append(item)
+
+	for item in ['flood_pb', 'mist_pb']:
+		if item in parent.child_names:
+			parent.coolant_controls.append(item)
+
+
+	################ 
+	# STATE_ESTOP everything is disabled except the estop and file open save etc.
+	state_estop_items = ['tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
 
 	for axis in AXES:
 		state_estop_items.append(f'touchoff_pb_{axis}')
@@ -551,13 +598,8 @@ def setup_enables(parent):
 			parent.state_estop_disabled.append(name)
 
 	# STATE_ESTOP_RESET everything is disabled except power_pb
-	state_estop_reset_disabled_items = ['jog_selected_plus', 'jog_selected_minus',
-		'tool_change_pb', 'touchoff_selected_pb',
+	state_estop_reset_disabled_items = ['tool_change_pb', 'touchoff_selected_pb',
 		'touchoff_selected_tool_pb']
-
-	for i in range(9):
-		state_estop_reset_disabled_items.append(f'jog_plus_pb_{i}')
-		state_estop_reset_disabled_items.append(f'jog_minus_pb_{i}')
 
 	for item in AXES:
 		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
@@ -579,35 +621,14 @@ def setup_enables(parent):
 	#		parent.state_estop_reset_enabled.append(name)
 
 	# STATE_ON enable jog, homing and spindle
-	for item in ['spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb',
-	'spindle_stop_pb', 'spindle_plus_pb', 'spindle_minus_pb']:
-		if item in parent.child_names:
-			parent.state_on_enabled.append(item)
 
-	for i in range(9):
-		if f'jog_plus_pb_{i}' in parent.child_names:
-			parent.state_on_enabled.append(f'jog_plus_pb_{i}')
-		if f'jog_minus_pb_{i}' in parent.child_names:
-			parent.state_on_enabled.append(f'jog_minus_pb_{i}')
-
-	for item in ['pause_pb', 'actionPause']:
-		if item in parent.child_names:
-			parent.program_running_enable.append(item)
-
-	for item in ['resume_pb', 'actionResume']:
-		if item in parent.child_names:
-			parent.program_paused_enable.append(item)
-
-	for item in ['step_pb', 'actionStep']:
-		if item in parent.child_names:
-			parent.program_motion_none.append(item)
-
+	'''
 	for item in ['open_pb', 'jog_selected_plus', 'jog_selected_minus',
 	'run_mdi_pb', 'actionOpen', 'menuRecent', 'reload_pb', 'actionReload',
 	'tool_change_pb']:
 		if item in parent.child_names:
 			parent.program_running_disabled.append(item)
-
+	'''
 	# disable unhome controls while a program is running
 	for i in range(parent.joints):
 		if f'unhome_pb_{i}' in parent.child_names:
@@ -644,40 +665,7 @@ def setup_enables(parent):
 		if f'tool_touchoff_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'tool_touchoff_{item}')
 
-	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload']:
-		if item in parent.child_names:
-			parent.file_load_controls.append(item)
-
-	for item in ['reload_pb', 'actionReload', 'save_pb', 'actionSave',
-		'save_as_pb', 'actionSave_As']:
-		if item in parent.child_names:
-			parent.file_save_controls.append(item)
-
-	for item in ['edit_pb', 'actionEdit', 'actionEdit_Tool_Table',
-		'actionReload_Tool_Table']:
-		if item in parent.child_names:
-			parent.file_edit_controls.append(item)
-
-	for item in ['flood_pb', 'mist_pb']:
-		if item in parent.child_names:
-			parent.coolant_controls.append(item)
-
-def setup_run_controls(parent):
-	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
-		if item in parent.child_names:
-			parent.run_controls.append(item)
-
-	for item in ['step_pb', 'actionStep']:
-		if item in parent.child_names:
-			parent.step_controls.append(item)
-
-	for item in ['pause_pb', 'actionPause']:
-		if item in parent.child_names:
-			parent.pause_controls.append(item)
-
-	for item in ['resume_pb', 'actionResume']:
-		if item in parent.child_names:
-			parent.resume_controls.append(item)
+	################## ^^^^
 
 def setup_buttons(parent): # connect buttons to functions
 	if 'estop_pb' in parent.child_names:

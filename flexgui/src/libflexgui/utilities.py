@@ -577,15 +577,20 @@ def update_home_controls(parent):
 			for item in parent.homed_enabled:
 				getattr(parent, item).setEnabled(False)
 
-def update_run_controls(parent):
+def update_controls(parent):
 	parent.status.poll()
 	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
 	file_loaded = len(parent.status.file) > 0 # currently loaded g code file
 	interp_state = parent.status.interp_state
+	# INTERP_IDLE INTERP_READING INTERP_PAUSED INTERP_WAITING
 	motion_type = parent.status.motion_type
+	# TRAJ_MODE_FREE TRAJ_MODE_COORD TRAJ_MODE_TELEOP
 	task_mode = parent.status.task_mode
+	# MODE_MANUAL MODE_AUTO MODE_MDI
 	task_state = parent.status.task_state
+	# STATE_ESTOP STATE_ESTOP_RESET STATE_ON
 	state = parent.status.state
+	# RCS_DONE RCS_EXEC RCS_ERROR
 
 	if not file_loaded:
 		for item in parent.file_save_controls:
@@ -607,6 +612,8 @@ def update_run_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.jog_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -622,6 +629,8 @@ def update_run_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.jog_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
@@ -629,6 +638,8 @@ def update_run_controls(parent):
 			getattr(parent, item).setEnabled(True)
 		if task_mode == emc.MODE_AUTO: # program running
 			#print('update run controls MODE_AUTO')
+			for item in parent.jog_controls:
+				getattr(parent, item).setEnabled(False)
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(False)
@@ -679,6 +690,10 @@ def update_run_controls(parent):
 
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
+			if task_state == emc.STATE_ON:
+				for item in parent.jog_controls:
+					getattr(parent, item).setEnabled(True)
+
 			if all_homed and file_loaded or parent.stop:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(True)
@@ -717,6 +732,9 @@ def update_run_controls(parent):
 				getattr(parent, item).setEnabled(False)
 			for item in parent.resume_controls:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.jog_controls:
+				getattr(parent, item).setEnabled(False)
+
 			for item in parent.program_running_disabled:
 				getattr(parent, item).setEnabled(False)
 
