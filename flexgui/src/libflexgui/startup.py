@@ -1656,7 +1656,7 @@ def setup_set_var(parent):
 						parent.set_var[child.objectName()] = var
 						if child.property('all_homed'):
 							child.setEnabled(False)
-					break
+						break
 				if not found:
 					msg = (f'The variable {var} was not found\n'
 					f'in the variables file {parent.var_file}\n'
