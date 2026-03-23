@@ -722,7 +722,6 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(True)
 
 					if tool_loaded > 0:
-						print(tool_loaded)
 						for item in parent.tool_touchoff_controls:
 							getattr(parent, item).setEnabled(True)
 
