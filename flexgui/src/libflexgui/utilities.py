@@ -512,9 +512,6 @@ def update_home_controls(parent):
 			if 'actionUnhome_All' in parent.child_names:
 				parent.actionUnhome_All.setEnabled(True)
 
-			for item in parent.homed_enabled:
-				getattr(parent, item).setEnabled(True)
-
 		# no joints are homed
 		elif all(v == 0 for v in parent.status.homed[:parent.joints]):
 			if 'home_all_pb' in parent.child_names:
@@ -531,9 +528,6 @@ def update_home_controls(parent):
 			if 'actionUnhome_All' in parent.child_names:
 				parent.actionUnhome_All.setEnabled(False)
 
-			for item in parent.homed_enabled:
-				getattr(parent, item).setEnabled(False)
-
 		# some joints homed
 		elif any(v == 1 for v in parent.status.homed[:parent.joints]):
 			if 'home_all_pb' in parent.child_names and home_all_check(parent):
@@ -547,9 +541,6 @@ def update_home_controls(parent):
 				parent.actionUnhoming.setEnabled(True)
 			if 'actionUnhome_All' in parent.child_names:
 				parent.actionUnhome_All.setEnabled(True)
-
-			for item in parent.homed_enabled:
-				getattr(parent, item).setEnabled(False)
 
 def update_controls(parent):
 	parent.status.poll()
