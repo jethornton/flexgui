@@ -96,6 +96,7 @@ def setup_vars(parent):
 	parent.jog_controls = [] # enabled when power on and program or mdi not running
 	parent.coolant_controls = [] # enabled when power is on
 	parent.tool_change_controls = [] # enabled when power is on and program or mdi not running
+	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and program or mdi not running
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -591,13 +592,22 @@ def setup_enables(parent):
 		if f'tool_change_pb_{i}' in parent.child_names:
 			parent.tool_change_controls.append(f'tool_change_pb_{i}')
 
+	# tool touch off controls
+	for item in ['tool_touchoff_selected_pb']:
+		if item in parent.child_names:
+			parent.tool_touchoff_controls.append(item)
+
+	for axis in AXES: # can be any axis letter
+		if f'tool_touchoff_{axis}' in parent.child_names:
+			parent.tool_touchoff_controls.append(f'tool_touchoff_{axis}')
+
+
 	################ 
 	# STATE_ESTOP everything is disabled except the estop and file open save etc.
-	state_estop_items = ['touchoff_selected_pb', 'touchoff_selected_tool_pb']
+	state_estop_items = ['touchoff_selected_pb']
 
 	for axis in AXES:
 		state_estop_items.append(f'touchoff_pb_{axis}')
-		state_estop_items.append(f'tool_touchoff_{axis}')
 		state_estop_items.append(f'zero_{axis}_pb')
 
 	for i in range(1, 10):
@@ -608,12 +618,10 @@ def setup_enables(parent):
 			parent.state_estop_disabled.append(name)
 
 	# STATE_ESTOP_RESET everything is disabled except power_pb
-	state_estop_reset_disabled_items = ['touchoff_selected_pb',
-		'touchoff_selected_tool_pb']
+	state_estop_reset_disabled_items = ['touchoff_selected_pb']
 
 	for item in AXES:
 		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
-		state_estop_reset_disabled_items.append(f'tool_touchoff_{item}')
 
 	for i in range(1, 10):
 		state_estop_reset_disabled_items.append(f'change_cs_{i}')
@@ -630,6 +638,7 @@ def setup_enables(parent):
 	# STATE_ON enable jog, homing and spindle
 
 	# disable unhome controls while a program is running
+	'''
 	for i in range(parent.joints):
 		if f'unhome_pb_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'unhome_pb_{i}')
@@ -641,6 +650,7 @@ def setup_enables(parent):
 		parent.program_running_disabled.append('actionUnhoming')
 	if 'actionUnhome_All' in parent.child_names:
 		parent.program_running_disabled.append('actionUnhome_All')
+	'''
 
 	# disable clear coordinate system offsets while a program is running
 	for i in range(12):
@@ -658,8 +668,6 @@ def setup_enables(parent):
 	for item in AXES:
 		if f'touchoff_pb_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'touchoff_pb_{item}')
-		if f'tool_touchoff_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'tool_touchoff_{item}')
 
 	################## ^^^^
 
@@ -1186,7 +1194,7 @@ def setup_mdi(parent):
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
 	if 'run_mdi_pb' in parent.child_names:
 		parent.run_mdi_pb.clicked.connect(partial(commands.run_mdi, parent))
-		parent.homed_enabled.append('run_mdi_pb')
+		#parent.homed_enabled.append('run_mdi_pb')
 
 	if 'mdi_history_lw' in parent.child_names:
 		path = os.path.dirname(parent.status.ini_filename)
@@ -1461,7 +1469,7 @@ def setup_touchoff(parent):
 			if source is None:
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-					parent.homed_enabled.append(item)
+					#parent.homed_enabled.append(item)
 				else:
 					getattr(parent, item).setEnabled(False)
 					msg = ('The Touchoff Button requires\n'
@@ -1472,7 +1480,7 @@ def setup_touchoff(parent):
 			else: # property source is found
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-					parent.homed_enabled.append(item)
+					#parent.homed_enabled.append(item)
 				else: # the source was not found
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
@@ -1504,7 +1512,7 @@ def setup_tools(parent):
 			dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 			return
 		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-		parent.homed_enabled.append('tool_change_pb')
+		#parent.homed_enabled.append('tool_change_pb')
 		parent.tool_change_cb.setView(QListView())
 
 		# tool change with description
@@ -1543,7 +1551,7 @@ def setup_tools(parent):
 		item = f'tool_change_pb_{i}'
 		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
-			parent.homed_enabled.append(item)
+			#parent.homed_enabled.append(item)
 
 	if 'tool_changed_pb' in parent.child_names:
 		parent.tool_changed_pb.setEnabled(False)
@@ -1558,12 +1566,12 @@ def setup_tools(parent):
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.child_names:
-			parent.program_running_disabled.append(item)
+			#parent.program_running_disabled.append(item)
 			source = getattr(parent, item).property('source')
 			if source is None: # check for tool_touchoff_le
 				if 'tool_touchoff_le' in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
-					parent.homed_enabled.append(item)
+					#parent.homed_enabled.append(item)
 				else:
 					getattr(parent, item).setEnabled(False)
 					msg = ('Tool Touchoff Button requires\n'
@@ -1574,7 +1582,7 @@ def setup_tools(parent):
 			else: # property source is found
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
-					parent.homed_enabled.append(item)
+					#parent.homed_enabled.append(item)
 				else: # the source was not found
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
@@ -1639,8 +1647,8 @@ def setup_probing(parent):
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
 			parent.state_estop_disabled.append('probing_enable_pb')
 			parent.state_estop_reset_disabled.append('probing_enable_pb')
-			parent.homed_enabled.append('probing_enable_pb')
-			parent.program_running_disabled.append('probing_enable_pb')
+			#parent.homed_enabled.append('probing_enable_pb')
+			#parent.program_running_disabled.append('probing_enable_pb')
 
 			on_text = parent.probing_enable_pb.property('on_text')
 			off_text = parent.probing_enable_pb.property('off_text')
@@ -1671,10 +1679,10 @@ def setup_mdi_buttons(parent):
 				name = button.objectName()
 				button.clicked.connect(partial(commands.mdi_button, parent))
 				if not name.startswith('probe_'):
-					parent.state_estop_disabled.append(name)
-					parent.homed_enabled.append(name)
+					#parent.state_estop_disabled.append(name)
+					#parent.homed_enabled.append(name)
 					parent.mdi_controls.append(name)
-					parent.program_running_disabled.append(name)
+					#parent.program_running_disabled.append(name)
 			else:
 				msg = (f'The MDI Button {button.text()}\n'
 				'Does not have a command\n'
@@ -1702,7 +1710,7 @@ def setup_set_var(parent):
 						parent.set_var[child.objectName()] = var
 						if child.property('all_homed'):
 							child.setEnabled(False)
-							parent.homed_enabled.append(child.objectName())
+							#parent.homed_enabled.append(child.objectName())
 						break
 				if not found:
 					msg = (f'The variable {var} was not found\n'

@@ -581,6 +581,7 @@ def update_controls(parent):
 	parent.status.poll()
 	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
 	file_loaded = len(parent.status.file) > 0 # currently loaded g code file
+	tool_loaded = parent.status.tool_in_spindle
 	interp_state = parent.status.interp_state
 	# INTERP_IDLE INTERP_READING INTERP_PAUSED INTERP_WAITING
 	motion_type = parent.status.motion_type
@@ -616,6 +617,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.tool_change_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.tool_touchoff_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -634,6 +637,8 @@ def update_controls(parent):
 		for item in parent.jog_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.tool_change_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.tool_touchoff_controls:
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
@@ -700,8 +705,13 @@ def update_controls(parent):
 			if task_state == emc.STATE_ON:
 				for item in parent.jog_controls:
 					getattr(parent, item).setEnabled(True)
-				for item in parent.tool_change_controls:
-					getattr(parent, item).setEnabled(True)
+				if all_homed:
+					for item in parent.tool_change_controls:
+						getattr(parent, item).setEnabled(True)
+					if tool_loaded > 0:
+						print(tool_loaded)
+						for item in parent.tool_touchoff_controls:
+							getattr(parent, item).setEnabled(True)
 
 			if all_homed and file_loaded or parent.stop:
 				for item in parent.run_controls:
@@ -722,7 +732,7 @@ def update_controls(parent):
 					getattr(parent, item).setEnabled(True)
 				for item in parent.file_save_controls:
 					getattr(parent, item).setEnabled(True)
-
+			# FIXME remove this
 			for item in parent.program_running_disabled:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.mdi_controls:
@@ -744,6 +754,8 @@ def update_controls(parent):
 			for item in parent.jog_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.tool_change_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.tool_touchoff_controls:
 				getattr(parent, item).setEnabled(False)
 
 			for item in parent.program_running_disabled:
