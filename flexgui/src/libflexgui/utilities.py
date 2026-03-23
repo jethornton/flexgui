@@ -240,6 +240,7 @@ def set_hal_enables(parent, obj):
 	if always_on:
 		return
 
+	# FIXME parent.state_estop_disabled needs to be removed
 	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 	# all HAL objects are disabled when state estop unless always_on is true
 	parent.state_estop_disabled.append(obj_name)
@@ -594,6 +595,8 @@ def update_run_controls(parent):
 
 	if task_state == emc.STATE_ESTOP:
 		#print('update run controls STATE_ESTOP')
+		for item in parent.power_controls:
+			getattr(parent, item).setEnabled(False)
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.step_controls:
@@ -601,10 +604,14 @@ def update_run_controls(parent):
 		for item in parent.pause_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.resume_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
+		for item in parent.power_controls:
+			getattr(parent, item).setEnabled(True)
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.step_controls:
@@ -613,9 +620,13 @@ def update_run_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.resume_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.coolant_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
+		for item in parent.coolant_controls:
+			getattr(parent, item).setEnabled(True)
 		if task_mode == emc.MODE_AUTO: # program running
 			#print('update run controls MODE_AUTO')
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING

@@ -203,8 +203,8 @@ def update(parent):
 				getattr(parent, item).setEnabled(False)
 			for item in parent.state_on_enabled:
 				getattr(parent, item).setEnabled(False)
-			for item in parent.state_estop_reset_enabled:
-				getattr(parent, item).setEnabled(True)
+			#for item in parent.state_estop_reset_enabled:
+			#	getattr(parent, item).setEnabled(True)
 			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
 				parent.estop_pb.led = True
 

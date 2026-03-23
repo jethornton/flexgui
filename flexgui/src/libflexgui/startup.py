@@ -80,17 +80,20 @@ def setup_vars(parent):
 	parent.program_running_disabled = []
 	parent.program_paused_enable = []
 	parent.program_motion_none = []
+
+
+	parent.power_controls = [] # enabled when estop is closed
 	parent.run_controls = [] # enabled when homed, manual, file loaded
-	parent.step_controls = []
-	parent.pause_controls = []
-	parent.resume_controls = []
+	parent.step_controls = [] # enabled when homed, manual, file loaded
+	parent.pause_controls = [] # enabled when program is running
+	parent.resume_controls = [] # enabled when program is paused
 	parent.file_load_controls = [] # disable when a program or mdi is running
 	parent.file_save_controls = [] # disable if no file or program or mdi is running
 	parent.file_edit_controls = [] # disable if no file or program or mdi is running
-	parent.spindle_controls = []
-
-	parent.mdi_controls = []
-	parent.probe_controls = []
+	parent.spindle_controls = [] # enabled when power on in manual
+	parent.mdi_controls = [] # enabled when power on, homed, program not running
+	parent.probe_controls = [] # enabled when probe enable and mdi not running
+	parent.coolant_controls = [] # enabled when power is on
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -519,19 +522,16 @@ def update_check(parent):
 
 def setup_enables(parent):
 
+	# power controls
+	for item in ['power_pb', 'actionPower']:
+		if item in parent.child_names:
+			parent.power_controls.append(item)
+
 	# STATE_ESTOP everything is disabled except the estop and file open save etc.
-	state_estop_items = ['power_pb', 'run_pb', 'run_from_line_pb',
-	'step_pb', 'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
-	'home_all_pb', 'run_mdi_pb', 'mdi_s_pb', 'spindle_start_pb',
-	'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb', 'spindle_plus_pb',
-	'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower', 'actionRun',
-	'actionRun_From_Line', 'actionStep', 'actionPause', 'actionResume',
-	'actionHoming', 'actionHome_All', 'actionUnhoming',
+	state_estop_items = ['jog_selected_plus', 'jog_selected_minus',
 	'tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
 
 	for i in range(9):
-		state_estop_items.append(f'home_pb_{i}')
-		state_estop_items.append(f'actionHome_{i}')
 		state_estop_items.append(f'jog_plus_pb_{i}')
 		state_estop_items.append(f'jog_minus_pb_{i}')
 
@@ -551,17 +551,11 @@ def setup_enables(parent):
 			parent.state_estop_disabled.append(name)
 
 	# STATE_ESTOP_RESET everything is disabled except power_pb
-	state_estop_reset_disabled_items = ['run_pb', 'run_from_line_pb', 'step_pb',
-		'pause_pb', 'resume_pb', 'jog_selected_plus', 'jog_selected_minus',
-		'home_all_pb', 'run_mdi_pb', 'mdi_s_pb',
-		'spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
-		'spindle_plus_pb', 'spindle_minus_pb', 'flood_pb', 'mist_pb', 'actionPower',
-		'actionRun', 'actionRun_From_Line', 'actionStep', 'actionPause',
-		'actionResume', 'tool_change_pb', 'touchoff_selected_pb',
+	state_estop_reset_disabled_items = ['jog_selected_plus', 'jog_selected_minus',
+		'tool_change_pb', 'touchoff_selected_pb',
 		'touchoff_selected_tool_pb']
 
 	for i in range(9):
-		state_estop_reset_disabled_items.append(f'home_pb_{i}')
 		state_estop_reset_disabled_items.append(f'jog_plus_pb_{i}')
 		state_estop_reset_disabled_items.append(f'jog_minus_pb_{i}')
 
@@ -580,9 +574,9 @@ def setup_enables(parent):
 			parent.state_estop_reset_disabled.append(name)
 
 	# the only things enabled when estop is reset
-	for name in ['power_pb', 'actionPower']:
-		if name in parent.child_names:
-			parent.state_estop_reset_enabled.append(name)
+	#for name in ['power_pb', 'actionPower']:
+	#	if name in parent.child_names:
+	#		parent.state_estop_reset_enabled.append(name)
 
 	# STATE_ON enable jog, homing and spindle
 	for item in ['spindle_start_pb', 'spindle_fwd_pb', 'spindle_rev_pb',
@@ -636,7 +630,6 @@ def setup_enables(parent):
 	if 'actionClear_Offsets' in parent.child_names:
 		parent.program_running_disabled.append('actionClear_Offsets')
 
-
 	for i in range(100):
 		if f'tool_change_pb_{i}' in parent.child_names:
 			parent.program_running_disabled.append(f'tool_change_pb_{i}')
@@ -664,6 +657,10 @@ def setup_enables(parent):
 		'actionReload_Tool_Table']:
 		if item in parent.child_names:
 			parent.file_edit_controls.append(item)
+
+	for item in ['flood_pb', 'mist_pb']:
+		if item in parent.child_names:
+			parent.coolant_controls.append(item)
 
 def setup_run_controls(parent):
 	for item in ['run_pb', 'actionRun', 'run_from_line_pb', 'actionRun_From_Line']:
