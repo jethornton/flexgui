@@ -614,6 +614,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.jog_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.tool_change_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -631,6 +633,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.jog_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.tool_change_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
@@ -640,6 +644,9 @@ def update_controls(parent):
 			#print('update run controls MODE_AUTO')
 			for item in parent.jog_controls:
 				getattr(parent, item).setEnabled(False)
+			for item in parent.tool_change_controls:
+				getattr(parent, item).setEnabled(False)
+
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(False)
@@ -693,6 +700,8 @@ def update_controls(parent):
 			if task_state == emc.STATE_ON:
 				for item in parent.jog_controls:
 					getattr(parent, item).setEnabled(True)
+				for item in parent.tool_change_controls:
+					getattr(parent, item).setEnabled(True)
 
 			if all_homed and file_loaded or parent.stop:
 				for item in parent.run_controls:
@@ -733,6 +742,8 @@ def update_controls(parent):
 			for item in parent.resume_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.jog_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.tool_change_controls:
 				getattr(parent, item).setEnabled(False)
 
 			for item in parent.program_running_disabled:

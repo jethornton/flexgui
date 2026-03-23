@@ -95,6 +95,7 @@ def setup_vars(parent):
 	parent.probe_controls = [] # enabled when probe enable and mdi not running
 	parent.jog_controls = [] # enabled when power on and program or mdi not running
 	parent.coolant_controls = [] # enabled when power is on
+	parent.tool_change_controls = [] # enabled when power is on and program or mdi not running
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -559,36 +560,45 @@ def setup_enables(parent):
 		if f'jog_minus_pb_{i}' in parent.child_names:
 			parent.jog_controls.append(f'jog_minus_pb_{i}')
 
+	# file load controls
 	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload']:
 		if item in parent.child_names:
 			parent.file_load_controls.append(item)
 
+	# file save controls
 	for item in ['reload_pb', 'actionReload', 'save_pb', 'actionSave',
 		'save_as_pb', 'actionSave_As']:
 		if item in parent.child_names:
 			parent.file_save_controls.append(item)
 
+	# file edit controls
 	for item in ['edit_pb', 'actionEdit', 'actionEdit_Tool_Table',
 		'actionReload_Tool_Table']:
 		if item in parent.child_names:
 			parent.file_edit_controls.append(item)
 
+	# coolant controls
 	for item in ['flood_pb', 'mist_pb']:
 		if item in parent.child_names:
 			parent.coolant_controls.append(item)
 
+	# tool change controls
+	for item in ['tool_change_pb']:
+		if item in parent.child_names:
+			parent.tool_change_controls.append(item)
+
+	for i in range(100):
+		if f'tool_change_pb_{i}' in parent.child_names:
+			parent.tool_change_controls.append(f'tool_change_pb_{i}')
 
 	################ 
 	# STATE_ESTOP everything is disabled except the estop and file open save etc.
-	state_estop_items = ['tool_change_pb', 'touchoff_selected_pb', 'touchoff_selected_tool_pb']
+	state_estop_items = ['touchoff_selected_pb', 'touchoff_selected_tool_pb']
 
 	for axis in AXES:
 		state_estop_items.append(f'touchoff_pb_{axis}')
 		state_estop_items.append(f'tool_touchoff_{axis}')
 		state_estop_items.append(f'zero_{axis}_pb')
-
-	for i in range(100):
-		state_estop_items.append(f'tool_change_pb_{i}')
 
 	for i in range(1, 10):
 		state_estop_items.append(f'change_cs_{i}')
@@ -598,15 +608,12 @@ def setup_enables(parent):
 			parent.state_estop_disabled.append(name)
 
 	# STATE_ESTOP_RESET everything is disabled except power_pb
-	state_estop_reset_disabled_items = ['tool_change_pb', 'touchoff_selected_pb',
+	state_estop_reset_disabled_items = ['touchoff_selected_pb',
 		'touchoff_selected_tool_pb']
 
 	for item in AXES:
 		state_estop_reset_disabled_items.append(f'touchoff_pb_{item}')
 		state_estop_reset_disabled_items.append(f'tool_touchoff_{item}')
-
-	for i in range(100):
-		state_estop_reset_disabled_items.append(f'tool_change_pb_{i}')
 
 	for i in range(1, 10):
 		state_estop_reset_disabled_items.append(f'change_cs_{i}')
@@ -622,13 +629,6 @@ def setup_enables(parent):
 
 	# STATE_ON enable jog, homing and spindle
 
-	'''
-	for item in ['open_pb', 'jog_selected_plus', 'jog_selected_minus',
-	'run_mdi_pb', 'actionOpen', 'menuRecent', 'reload_pb', 'actionReload',
-	'tool_change_pb']:
-		if item in parent.child_names:
-			parent.program_running_disabled.append(item)
-	'''
 	# disable unhome controls while a program is running
 	for i in range(parent.joints):
 		if f'unhome_pb_{i}' in parent.child_names:
@@ -650,10 +650,6 @@ def setup_enables(parent):
 			parent.program_running_disabled.append(f'actionClear_{i}')
 	if 'actionClear_Offsets' in parent.child_names:
 		parent.program_running_disabled.append('actionClear_Offsets')
-
-	for i in range(100):
-		if f'tool_change_pb_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'tool_change_pb_{i}')
 
 	for i in range(1, 10):
 		if f'change_cs_{i}' in parent.child_names:
