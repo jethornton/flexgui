@@ -621,6 +621,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.axis_touchoff_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.coordinate_system_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -643,6 +645,8 @@ def update_controls(parent):
 		for item in parent.tool_touchoff_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.axis_touchoff_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.coordinate_system_controls:
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
@@ -714,6 +718,8 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(True)
 					for item in parent.axis_touchoff_controls:
 						getattr(parent, item).setEnabled(True)
+					for item in parent.coordinate_system_controls:
+						getattr(parent, item).setEnabled(True)
 
 					if tool_loaded > 0:
 						print(tool_loaded)
@@ -765,6 +771,8 @@ def update_controls(parent):
 			for item in parent.tool_touchoff_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.axis_touchoff_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.coordinate_system_controls:
 				getattr(parent, item).setEnabled(False)
 
 			for item in parent.program_running_disabled:

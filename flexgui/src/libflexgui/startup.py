@@ -86,14 +86,15 @@ def setup_vars(parent):
 	parent.file_load_controls = [] # disable when a program or mdi is running
 	parent.file_save_controls = [] # disable if no file or program or mdi is running
 	parent.file_edit_controls = [] # disable if no file or program or mdi is running
-	parent.spindle_controls = [] # enabled when power on in manual
-	parent.mdi_controls = [] # enabled when power on, homed, program not running
-	parent.probe_controls = [] # enabled when probe enable and mdi not running
-	parent.jog_controls = [] # enabled when power on and program or mdi not running
+	parent.spindle_controls = [] # enabled when power on and in manual
+	parent.mdi_controls = [] # enabled when power on, homed and in manual
+	parent.probe_controls = [] # enabled when probe enable  and in manual
+	parent.jog_controls = [] # enabled when power on and in manual
 	parent.coolant_controls = [] # enabled when power is on
-	parent.tool_change_controls = [] # enabled when power is on and program or mdi not running
-	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and program or mdi not running
-	parent.axis_touchoff_controls = [] # enabled when power on, homed, program not running
+	parent.tool_change_controls = [] # enabled when power is on and in manual
+	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and in manual
+	parent.axis_touchoff_controls = [] # enabled when power on, homed, in manual
+	parent.coordinate_system_controls = [] # enabled when power on and in manual
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -607,66 +608,18 @@ def setup_enables(parent):
 		if f'touchoff_pb_{item}' in parent.child_names:
 			parent.axis_touchoff_controls.append(f'touchoff_pb_{item}')
 
-	################ 
-	# STATE_ESTOP everything is disabled except the estop and file open save etc.
-	state_estop_items = []
-
-	for axis in AXES:
-		state_estop_items.append(f'zero_{axis}_pb')
-
-	for i in range(1, 10):
-		state_estop_items.append(f'change_cs_{i}')
-
-	for name in state_estop_items:
-		if name in parent.child_names:
-			parent.state_estop_disabled.append(name)
-
-	# STATE_ESTOP_RESET everything is disabled except power_pb
-	state_estop_reset_disabled_items = []
-
-	for i in range(1, 10):
-		state_estop_reset_disabled_items.append(f'change_cs_{i}')
-
-	for name in state_estop_reset_disabled_items:
-		if name in parent.child_names:
-			parent.state_estop_reset_disabled.append(name)
-
-	# the only things enabled when estop is reset
-	#for name in ['power_pb', 'actionPower']:
-	#	if name in parent.child_names:
-	#		parent.state_estop_reset_enabled.append(name)
-
-	# STATE_ON enable jog, homing and spindle
-
-	# disable unhome controls while a program is running
-	'''
-	for i in range(parent.joints):
-		if f'unhome_pb_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'unhome_pb_{i}')
-		if f'actionUnhome_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'actionUnhome_{i}')
-	if 'unhome_all_pb' in parent.child_names:
-		parent.program_running_disabled.append('unhome_all_pb')
-	if 'actionUnhoming' in parent.child_names:
-		parent.program_running_disabled.append('actionUnhoming')
-	if 'actionUnhome_All' in parent.child_names:
-		parent.program_running_disabled.append('actionUnhome_All')
-	'''
-
-	# disable clear coordinate system offsets while a program is running
-	for i in range(12):
-		if f'clear_coord_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'clear_coord_{i}')
-		if f'actionClear_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'actionClear_{i}')
-	if 'actionClear_Offsets' in parent.child_names:
-		parent.program_running_disabled.append('actionClear_Offsets')
-
+	# coordinate system controls
 	for i in range(1, 10):
 		if f'change_cs_{i}' in parent.child_names:
-			parent.program_running_disabled.append(f'change_cs_{i}')
-
-	################## ^^^^
+			parent.coordinate_system_controls.append(f'change_cs_{i}')
+	for i in range(12):
+		if f'clear_coord_{i}' in parent.child_names:
+			parent.coordinate_system_controls.append(f'clear_coord_{i}')
+	if 'actionClear_Offsets' in parent.child_names:
+		parent.coordinate_system_controls.append('actionClear_Offsets')
+	for i in range(12):
+		if f'actionClear_{i}' in parent.child_names:
+			parent.coordinate_system_controls.append(f'actionClear_{i}')
 
 def setup_buttons(parent): # connect buttons to functions
 	if 'estop_pb' in parent.child_names:
@@ -765,8 +718,8 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.change_cs, parent))
-			parent.home_required.append(name)
-			parent.program_running_disabled.append(name)
+			#parent.home_required.append(name)
+			#parent.program_running_disabled.append(name)
 
 	# Clear coordinate system buttons
 	for i in range(12):
@@ -774,8 +727,8 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_cs, parent))
-			parent.home_required.append(name)
-			parent.program_running_disabled.append(name)
+			#parent.home_required.append(name)
+			#parent.program_running_disabled.append(name)
 
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
 		'optional_stop_pb': 'optional_stop_toggle',
