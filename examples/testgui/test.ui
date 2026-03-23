@@ -964,7 +964,7 @@
     <item row="4" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>2</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1906,7 +1906,7 @@
         <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_13">
           <property name="title">
-           <string>Coordinate System</string>
+           <string>Clear CS</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
@@ -2051,6 +2051,42 @@
               <string>Mist</string>
              </property>
             </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QGroupBox" name="groupBox_21">
+          <property name="title">
+           <string>CS Touch Off</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <widget class="QPushButton" name="touchoff_pb_x">
+             <property name="text">
+              <string>Touch Off X</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="touchoff_pb_y">
+             <property name="text">
+              <string>Touch Off X</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="touchoff_pb_z">
+             <property name="text">
+              <string>Touch Off X</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="touchoff_le"/>
+           </item>
+           <item>
+            <widget class="QComboBox" name="touchoff_system_cb"/>
            </item>
           </layout>
          </widget>
