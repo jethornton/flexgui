@@ -966,7 +966,7 @@
     <item row="4" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>8</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1851,15 +1851,15 @@
         <string>Misc</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_19">
-        <item row="0" column="2">
-         <spacer name="horizontalSpacer_2">
+        <item row="1" column="3">
+         <spacer name="verticalSpacer_3">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>20</width>
+            <height>40</height>
            </size>
           </property>
          </spacer>
@@ -1905,38 +1905,6 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_6">
-          <property name="title">
-           <string>Parameters</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_21">
-           <item row="0" column="0">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-             <property name="function" stdset="0">
-              <string>set_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1000</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_28">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>watch_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1000</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_13">
           <property name="title">
@@ -1975,18 +1943,50 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="2">
-         <spacer name="verticalSpacer_3">
+        <item row="0" column="3">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>40</width>
+            <height>20</height>
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>Parameters</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_21">
+           <item row="0" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+             <property name="function" stdset="0">
+              <string>set_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_28">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item row="1" column="1">
          <widget class="QGroupBox" name="groupBox_15">
@@ -2028,6 +2028,29 @@
             <widget class="QPushButton" name="change_cs_3">
              <property name="text">
               <string>G56</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QGroupBox" name="groupBox_23">
+          <property name="title">
+           <string>Coolant</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QPushButton" name="flood_pb">
+             <property name="text">
+              <string>Flood</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="mist_pb">
+             <property name="text">
+              <string>Mist</string>
              </property>
             </widget>
            </item>
