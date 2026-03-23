@@ -231,32 +231,6 @@ def home_all_check(parent):
 			return False
 	return True
 
-def set_hal_enables(parent, obj):
-	obj_name = obj.objectName()
-	always_on = obj.property('always_on')
-	state_on = obj.property('state_on')
-	all_homed = obj.property('all_homed')
-
-	if always_on:
-		return
-
-	# FIXME parent.state_estop_disabled needs to be removed
-	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
-	# all HAL objects are disabled when state estop unless always_on is true
-	parent.state_estop_disabled.append(obj_name)
-	if state_on and not all_homed:
-		#parent.state_estop_reset[obj_name] = False
-		parent.state_on_enabled.append(obj_name)
-	elif not state_on and all_homed:
-		parent.homed_enabled.append(obj_name)
-	elif state_on and all_homed:
-		#parent.state_estop_reset[obj_name] = False
-		parent.homed_enabled.append(obj_name)
-		#parent.state_on_unhomed[obj_name] = False
-	elif obj_name not in special_buttons: # enable/disable with estop
-			parent.state_estop_disabled.append(obj_name)
-			parent.state_estop_reset_enabled.append(obj_name)
-
 def hal_confirm(parent):
 	sender = parent.sender()
 	text = sender.text()
@@ -593,6 +567,11 @@ def update_controls(parent):
 	state = parent.status.state
 	# RCS_DONE RCS_EXEC RCS_ERROR
 
+	# parent.hal_controls = [] # enabled when estop on
+	# parent.hal_on_controls = [] # enabled when power on
+	# parent.hal_homed_controls = [] # enabled when power on, homed
+
+
 	if not file_loaded:
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(False)
@@ -623,6 +602,12 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.coordinate_system_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.hal_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.hal_on_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.hal_homed_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -648,11 +633,23 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.coordinate_system_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.hal_controls:
+			getattr(parent, item).setEnabled(True)
+		for item in parent.hal_on_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.hal_homed_controls:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(True)
+		for item in parent.hal_on_controls:
+			getattr(parent, item).setEnabled(True)
+		if all_homed:
+			for item in parent.hal_homed_controls:
+				getattr(parent, item).setEnabled(True)
+
 		if task_mode == emc.MODE_AUTO: # program running
 			#print('update run controls MODE_AUTO')
 			for item in parent.jog_controls:
@@ -664,9 +661,6 @@ def update_controls(parent):
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.step_controls:
-					getattr(parent, item).setEnabled(False)
-				# FIXME program_running_disabled needs to be handled with x_controls
-				for item in parent.program_running_disabled:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.spindle_controls:
 					getattr(parent, item).setEnabled(False)
@@ -745,13 +739,12 @@ def update_controls(parent):
 				for item in parent.file_save_controls:
 					getattr(parent, item).setEnabled(True)
 			# FIXME remove this
-			for item in parent.program_running_disabled:
-				getattr(parent, item).setEnabled(True)
+			#for item in parent.program_running_disabled:
+			#	getattr(parent, item).setEnabled(True)
 			for item in parent.mdi_controls:
 				getattr(parent, item).setEnabled(True)
 			for item in parent.file_load_controls:
 				getattr(parent, item).setEnabled(True)
-
 
 		elif task_mode == emc.MODE_MDI: # mdi running
 			#print('update run controls MODE_MDI')
@@ -774,8 +767,8 @@ def update_controls(parent):
 			for item in parent.coordinate_system_controls:
 				getattr(parent, item).setEnabled(False)
 
-			for item in parent.program_running_disabled:
-				getattr(parent, item).setEnabled(False)
+			#for item in parent.program_running_disabled:
+			#	getattr(parent, item).setEnabled(False)
 
 def update_hal_io(parent, value):
 	setattr(parent.halcomp, parent.sender().property('pin_name'), value)

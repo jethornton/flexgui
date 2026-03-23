@@ -67,7 +67,6 @@ def setup_vars(parent):
 	parent.state_estop_reset_names = {}
 	parent.state_on_names = {}
 
-	parent.home_required = [] # different functions add to this
 	parent.home_controls = [] # different functions add to this
 
 	# enable and disable lists
@@ -76,7 +75,7 @@ def setup_vars(parent):
 	parent.state_estop_reset_enabled = []
 	parent.state_on_enabled = []
 	parent.homed_enabled = []
-	parent.program_running_disabled = []
+	#parent.program_running_disabled = []
 
 	parent.power_controls = [] # enabled when estop is closed
 	parent.run_controls = [] # enabled when homed, manual, file loaded
@@ -95,6 +94,9 @@ def setup_vars(parent):
 	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and in manual
 	parent.axis_touchoff_controls = [] # enabled when power on, homed, in manual
 	parent.coordinate_system_controls = [] # enabled when power on and in manual
+	parent.hal_controls = [] # enabled when estop on
+	parent.hal_on_controls = [] # enabled when power on
+	parent.hal_homed_controls = [] # enabled when power on, homed
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -119,6 +121,30 @@ def find_widget_layout(layout, target_widget):
 			if nested_index is not None:
 				return item.layout()
 	return None
+
+def set_hal_enables(parent, obj):
+	# parent.hal_controls = [] # enabled when estop on
+	# parent.hal_on_controls = [] # enabled when power on
+	# parent.hal_homed_controls = [] # enabled when power on, homed
+
+	obj_name = obj.objectName()
+	always_on = obj.property('always_on')
+	state_on = obj.property('state_on')
+	all_homed = obj.property('all_homed')
+
+	if always_on:
+		return
+
+	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
+	# all HAL objects are disabled when state estop unless always_on is true
+	#parent.state_estop_disabled.append(obj_name)
+	if state_on and not all_homed:
+		#parent.state_estop_reset[obj_name] = False
+		parent.hal_on_controls.append(obj_name)
+	elif all_homed:
+		parent.hal_homed_controls.append(obj_name)
+	elif obj_name not in special_buttons: # enable/disable with estop
+			parent.hal_controls.append(obj_name)
 
 def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
@@ -718,7 +744,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.change_cs, parent))
-			#parent.home_required.append(name)
 			#parent.program_running_disabled.append(name)
 
 	# Clear coordinate system buttons
@@ -727,7 +752,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_cs, parent))
-			#parent.home_required.append(name)
 			#parent.program_running_disabled.append(name)
 
 	checkable_buttons = {'flood_pb': 'flood_toggle', 'mist_pb': 'mist_toggle',
@@ -751,8 +775,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
-			parent.home_required.append(name)
-			parent.program_running_disabled.append(name)
+			#parent.program_running_disabled.append(name)
 
 	# override preset buttons
 	for item in parent.child_names:
@@ -774,7 +797,7 @@ def setup_buttons(parent): # connect buttons to functions
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
-			parent.program_running_disabled.append(child.objectName())
+			#parent.program_running_disabled.append(child.objectName())
 
 	# flashing buttons
 	parent.flashing_buttons = []
@@ -1056,7 +1079,6 @@ def setup_status_labels(parent):
 
 	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
-		parent.home_required.append('mdi_s_pb')
 
 	# Special case in case you want to use the label to annotate
 	# multiple places in the UI.
@@ -1765,7 +1787,7 @@ def setup_hal(parent):
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
-			utilities.set_hal_enables(parent, button)
+			set_hal_enables(parent, button)
 
 	##### HAL_LED_LABELS ##### these are not QLabel but IndicatorLabel
 	for button in parent.findChildren(IndicatorLabel):
@@ -1863,7 +1885,7 @@ def setup_hal(parent):
 				child.valueChanged.connect(partial(utilities.update_hal_io, parent))
 				parent.hal_io_float[child_name] = pin_name
 
-			utilities.set_hal_enables(parent, child)
+			set_hal_enables(parent, child)
 
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_pin':
@@ -1942,7 +1964,7 @@ def setup_hal(parent):
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
-			utilities.set_hal_enables(parent, button)
+			set_hal_enables(parent, button)
 
 	##### HAL SPINBOX #####
 	if len(hal_spinboxes) > 0:
@@ -1987,9 +2009,9 @@ def setup_hal(parent):
 			setattr(parent.halcomp, pin_name, spinbox.value())
 			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 
-			utilities.set_hal_enables(parent, spinbox)
+			set_hal_enables(parent, spinbox)
 
-			# FIXME look into this to see if it can be added to utilities.set_hal_enables
+			# FIXME look into this to see if it can be added to set_hal_enables
 			if parent.probe_controls: # make sure the probing_enable_pb is there
 				if spinbox_name.startswith('probe_'): # don't enable it when power is on
 					parent.probe_controls.append(spinbox_name)
@@ -2026,7 +2048,7 @@ def setup_hal(parent):
 			setattr(parent.halcomp, pin_name, spinbox.value())
 			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 
-			utilities.set_hal_enables(parent, spinbox)
+			set_hal_enables(parent, spinbox)
 
 			# FIXME look into this to see if it can be added to utilities.set_hal_enables
 			if parent.probe_controls: # make sure the probing_enable_pb is there
@@ -2076,9 +2098,9 @@ def setup_hal(parent):
 			setattr(parent.halcomp, pin_name, slider.value())
 			slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
 
-			utilities.set_hal_enables(parent, slider)
+			set_hal_enables(parent, slider)
 
-			# FIXME look into this to see if it can be added to utilities.set_hal_enables
+			# FIXME look into this to see if it can be added to set_hal_enables
 			if parent.probe_controls: # make sure the probing_enable_pb is there
 				if slider_name.startswith('probe_'): # don't enable it when power is on
 					parent.probe_controls.append(slider_name)
