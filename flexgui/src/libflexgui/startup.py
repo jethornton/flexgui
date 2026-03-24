@@ -1098,6 +1098,7 @@ def setup_status_labels(parent):
 
 	if 'mdi_s_pb' in parent.child_names:
 		parent.mdi_s_pb.clicked.connect(partial(commands.spindle, parent))
+		parent.mdi_controls.append('mdi_s_pb')
 
 	# Special case in case you want to use the label to annotate
 	# multiple places in the UI.
