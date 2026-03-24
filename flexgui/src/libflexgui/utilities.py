@@ -678,13 +678,8 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(True)
 			if state == emc.RCS_EXEC and motion_type == 0: # MOTION_TYPE_NONE
 				#print('motion none')
-				for item in parent.pause_controls:
-					getattr(parent, item).setEnabled(False)
 				if parent.step:
 					for item in parent.step_controls:
-						getattr(parent, item).setEnabled(True)
-				else:
-					for item in parent.resume_controls:
 						getattr(parent, item).setEnabled(True)
 
 			if state == emc.RCS_EXEC and motion_type != 0: # NOT MOTION_TYPE_NONE
