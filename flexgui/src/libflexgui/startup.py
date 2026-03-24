@@ -52,6 +52,11 @@ def setup_vars(parent):
 	parent.stop = False
 	parent.step = False
 
+	parent.number_le = []
+	parent.nccode_le = []
+	parent.keyboard_le = []
+	parent.nc_viewer = []
+
 	# put any variables in here that might be called during startup
 	parent.selected_style = '''
 		border-style: inset;
@@ -1090,12 +1095,15 @@ def setup_plain_text_edits(parent):
 	# for gcode_pte update
 	parent.motion_line = -1
 	if 'gcode_pte' in parent.child_names:
+		parent.gcode_pte.viewport().setObjectName('gcode_pte_viewport')
 		parent.gcode_pte.setCenterOnScroll(True)
 		parent.gcode_pte.ensureCursorVisible()
 		parent.gcode_pte.viewport().installEventFilter(parent)
 		parent.gcode_pte.cursorPositionChanged.connect(partial(utilities.update_qcode_pte, parent))
 		parent.last_line = parent.status.motion_line
 		parent.gcode_pte.textChanged.connect(partial(utilities.nc_code_changed, parent))
+		if 'start_line_lb' in parent.child_names:
+			parent.nc_viewer.append('gcode_pte_viewport')
 
 def setup_stacked_widgets(parent):
 	children = parent.findChildren(QPushButton)
@@ -1108,9 +1116,6 @@ def setup_stacked_widgets(parent):
 			child.clicked.connect(partial(utilities.previous_page, parent))
 
 def setup_line_edits(parent):
-	parent.number_le = []
-	parent.nccode_le = []
-	parent.keyboard_le = []
 	for child in parent.findChildren(QLineEdit):
 		if child.property('input') == 'number': # enable the number pad
 			parent.number_le.append(child.objectName())

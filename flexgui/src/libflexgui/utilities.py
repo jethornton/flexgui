@@ -338,7 +338,8 @@ def update_qcode_pte(parent):
 		selection.cursor.clearSelection()
 		extraSelections.append(selection)
 	parent.gcode_pte.setExtraSelections(extraSelections)
-	if 'start_line_lb' in parent.child_names:
+
+def update_start_line(parent):
 		cursor = parent.gcode_pte.textCursor()
 		selected_block = cursor.blockNumber() # get current block number
 		parent.start_line_lb.setText(f'{selected_block}')

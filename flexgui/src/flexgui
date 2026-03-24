@@ -124,6 +124,8 @@ class KeyboardJog(QObject):
 				dialogs.keyboard(window, source)
 			elif source.objectName() in window.touch_sb:
 				dialogs.spinbox_numbers(window, source.parent())
+			elif source.objectName() in window.nc_viewer:
+				utilities.update_start_line(window)
 
 		# When we click the window, clear the focus
 		if event.type() == QEvent.Type.MouseButtonPress and window.kb_jog_focus:
