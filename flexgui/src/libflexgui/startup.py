@@ -92,6 +92,8 @@ def setup_vars(parent):
 	parent.hal_controls = [] # enabled when estop on
 	parent.on_controls = [] # enabled when power on
 	parent.homed_controls = [] # enabled when power on, homed
+	parent.home_controls = [] # disable when power is off
+	parent.unhome_controls = [] # disable when power is off
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -627,6 +629,28 @@ def setup_enables(parent):
 	for item in AXES:
 		if f'touchoff_pb_{item}' in parent.child_names:
 			parent.axis_touchoff_controls.append(f'touchoff_pb_{item}')
+
+	# home controls
+	for item in ['home_all_pb', 'actionHoming', 'actionHome_All']:
+		if item in parent.child_names:
+			parent.home_controls.append(item)
+
+	for joint in range(parent.joints):
+		if f'home_pb_{joint}' in parent.child_names:
+			parent.home_controls.append(f'home_pb_{joint}')
+		if f'actionHome_{joint}' in parent.child_names:
+			parent.home_controls.append(f'actionHome_{joint}')
+
+	# unhome controls
+	for item in ['unhome_all_pb', 'actionUnhoming', 'actionUnhome_All']:
+		if item in parent.child_names:
+			parent.unhome_controls.append(item)
+
+	for joint in range(parent.joints):
+		if f'unhome_pb_{joint}' in parent.child_names:
+			parent.unhome_controls.append(f'unhome_pb_{joint}')
+		if f'actionUnhome_{joint}' in parent.child_names:
+			parent.unhome_controls.append(f'actionUnhome_{joint}')
 
 	# coordinate system controls
 	for i in range(1, 10):

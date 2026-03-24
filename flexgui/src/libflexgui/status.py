@@ -157,6 +157,8 @@ def update(parent):
 			and parent.status.task_mode == emc.MODE_MDI):
 			parent.command.mode(emc.MODE_MANUAL)
 			utilities.update_mdi(parent)
+
+		utilities.update_home_controls(parent)
 		utilities.update_controls(parent)
 
 		parent.task_mode = parent.status.task_mode
