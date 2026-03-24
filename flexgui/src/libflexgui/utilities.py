@@ -468,7 +468,7 @@ def update_home_controls(parent):
 	#print('update_home_controls')
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode == emc.MODE_MANUAL:
-			print('STATE_ON MODE_MANUAL')
+			#print('STATE_ON MODE_MANUAL')
 			# set home/unhome for each joint
 			for joint in range(parent.joints):
 				if parent.status.joint[joint]['homed']: # joint is homed
@@ -611,6 +611,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.mdi_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.probe_enable:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -644,6 +646,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.mdi_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.probe_enable:
+			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
@@ -664,6 +668,8 @@ def update_controls(parent):
 			for item in parent.mdi_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.unhome_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.probe_enable:
 				getattr(parent, item).setEnabled(False)
 
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
@@ -720,6 +726,8 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(True)
 					for item in parent.mdi_controls:
 						getattr(parent, item).setEnabled(True)
+					for item in parent.probe_enable:
+						getattr(parent, item).setEnabled(True)
 
 					if tool_loaded > 0:
 						for item in parent.tool_touchoff_controls:
@@ -769,6 +777,8 @@ def update_controls(parent):
 			for item in parent.coordinate_system_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.mdi_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.probe_enable:
 				getattr(parent, item).setEnabled(False)
 
 def update_hal_io(parent, value):

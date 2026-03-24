@@ -82,6 +82,7 @@ def setup_vars(parent):
 	parent.file_edit_controls = [] # disable if no file or program or mdi is running
 	parent.spindle_controls = [] # enabled when power on and in manual
 	parent.mdi_controls = [] # enabled when power on, homed and in manual
+	parent.probe_enable = [] # enabled when power on, homed and in manual
 	parent.probe_controls = [] # enabled when probe enable  and in manual
 	parent.jog_controls = [] # enabled when power on and in manual
 	parent.coolant_controls = [] # enabled when power is on
@@ -1630,7 +1631,6 @@ def setup_defaults(parent):
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
 	parent.probing = False
-	parent.probe_controls = []
 	for child in parent.child_names:
 		if child.startswith('probe_') and not isinstance(child, QLabel):
 			if not isinstance(parent.findChild(QWidget, child), QLabel):
@@ -1642,6 +1642,7 @@ def setup_probing(parent):
 			if not parent.probing_enable_pb.isCheckable():
 				parent.probing_enable_pb.setCheckable(True)
 			parent.probing_enable_pb.toggled.connect(partial(probe.toggle, parent))
+			parent.probe_enable.append('probing_enable_pb')
 
 			on_text = parent.probing_enable_pb.property('on_text')
 			off_text = parent.probing_enable_pb.property('off_text')
