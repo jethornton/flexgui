@@ -86,7 +86,7 @@ def setup_vars(parent):
 	parent.coordinate_system_controls = [] # enabled when power on and in manual
 	parent.hal_controls = [] # enabled when estop on
 	parent.hal_on_controls = [] # enabled when power on
-	parent.hal_homed_controls = [] # enabled when power on, homed
+	parent.homed_controls = [] # enabled when power on, homed
 
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
@@ -115,7 +115,7 @@ def find_widget_layout(layout, target_widget):
 def set_hal_enables(parent, obj):
 	# parent.hal_controls = [] # enabled when estop on
 	# parent.hal_on_controls = [] # enabled when power on
-	# parent.hal_homed_controls = [] # enabled when power on, homed
+	# parent.homed_controls = [] # enabled when power on, homed
 
 	obj_name = obj.objectName()
 	always_on = obj.property('always_on')
@@ -131,7 +131,7 @@ def set_hal_enables(parent, obj):
 		#parent.state_estop_reset[obj_name] = False
 		parent.hal_on_controls.append(obj_name)
 	elif all_homed:
-		parent.hal_homed_controls.append(obj_name)
+		parent.homed_controls.append(obj_name)
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.hal_controls.append(obj_name)
 
@@ -1166,6 +1166,21 @@ def setup_mdi(parent):
 					parent.mdi_history_lw.addItem(item.strip())
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(commands.add_mdi, parent))
 
+def setup_mdi_buttons(parent):
+	for button in parent.findChildren(QPushButton):
+		if button.property('function') == 'mdi':
+			if button.property('command'):
+				name = button.objectName()
+				button.clicked.connect(partial(commands.mdi_button, parent))
+				if not name.startswith('probe_'):
+					parent.mdi_controls.append(name)
+			else:
+				msg = (f'The MDI Button {button.text()}\n'
+				'Does not have a command\n'
+				f'{button.text()} will be disabled.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				button.setEnabled(False)
+
 def setup_jog(parent):
 	# keyboard jog
 	parent.kb_jog_cb_enabled = False
@@ -1621,21 +1636,6 @@ def setup_probing(parent):
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error!')
 			parent.probing_enable_pb.setEnabled(False)
 
-def setup_mdi_buttons(parent):
-	for button in parent.findChildren(QPushButton):
-		if button.property('function') == 'mdi':
-			if button.property('command'):
-				name = button.objectName()
-				button.clicked.connect(partial(commands.mdi_button, parent))
-				if not name.startswith('probe_'):
-					parent.mdi_controls.append(name)
-			else:
-				msg = (f'The MDI Button {button.text()}\n'
-				'Does not have a command\n'
-				f'{button.text()} will be disabled.')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-				button.setEnabled(False)
-
 def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox
 	var_file = os.path.join(parent.config_path, parent.var_file)
@@ -1645,6 +1645,7 @@ def setup_set_var(parent):
 	parent.set_var = {}
 	for child in parent.findChildren(QDoubleSpinBox):
 		if child.property('function') == 'set_var':
+			name = child.objectName()
 			var = child.property('variable')
 			found = False
 			if var is not None:
@@ -1653,9 +1654,8 @@ def setup_set_var(parent):
 						child.setValue(float(line.split()[1]))
 						found = True
 						child.valueChanged.connect(partial(utilities.var_value_changed, parent))
-						parent.set_var[child.objectName()] = var
-						if child.property('all_homed'):
-							child.setEnabled(False)
+						parent.set_var[name] = var
+						parent.homed_controls.append(name)
 						break
 				if not found:
 					msg = (f'The variable {var} was not found\n'
