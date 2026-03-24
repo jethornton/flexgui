@@ -559,7 +559,7 @@ def update_controls(parent):
 	# RCS_DONE RCS_EXEC RCS_ERROR
 
 	# parent.hal_controls = [] # enabled when estop on
-	# parent.hal_on_controls = [] # enabled when power on
+	# parent.on_controls = [] # enabled when power on
 	# parent.homed_controls = [] # enabled when power on, homed
 
 
@@ -595,7 +595,7 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.hal_controls:
 			getattr(parent, item).setEnabled(False)
-		for item in parent.hal_on_controls:
+		for item in parent.on_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.homed_controls:
 			getattr(parent, item).setEnabled(False)
@@ -628,7 +628,7 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.hal_controls:
 			getattr(parent, item).setEnabled(True)
-		for item in parent.hal_on_controls:
+		for item in parent.on_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.homed_controls:
 			getattr(parent, item).setEnabled(False)
@@ -639,7 +639,7 @@ def update_controls(parent):
 		#print('update run controls STATE_ON')
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(True)
-		for item in parent.hal_on_controls:
+		for item in parent.on_controls:
 			getattr(parent, item).setEnabled(True)
 		if all_homed:
 			for item in parent.homed_controls:

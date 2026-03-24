@@ -46,7 +46,6 @@ V = 7
 W = 8
 R = 9
 
-
 def update(parent):
 	parent.status.poll()
 	changed = False
@@ -77,10 +76,6 @@ def update(parent):
 			changed = True
 		if 'interp_state_lb' in parent.child_names: # update the label
 			parent.interp_state_lb.setText(INTERP_STATES[parent.status.interp_state])
-
-		#if (parent.status.interp_state == emc.INTERP_IDLE
-		#	and parent.status.task_mode == emc.MODE_MDI
-		#	or parent.status.task_mode == emc.MODE_AUTO):
 
 		utilities.update_controls(parent)
 
@@ -113,7 +108,6 @@ def update(parent):
 	# motion_type MOTION_TYPE_NONE, MOTION_TYPE_TRAVERSE,
 	# MOTION_TYPE_FEED, MOTION_TYPE_ARC, MOTION_TYPE_TOOLCHANGE,
 	# MOTION_TYPE_PROBING, MOTION_TYPE_INDEXROTARY,
-
 	if parent.motion_type != parent.status.motion_type:
 		if print_changes:
 			print(f'MOTION TYPE: {MOTION_TYPES[parent.status.motion_type]}')
@@ -122,10 +116,6 @@ def update(parent):
 			parent.motion_type_lb.setText(MOTION_TYPES[parent.status.motion_type])
 
 		utilities.update_controls(parent)
-
-		# 'linuxcnc' has no attribute 'MOTION_TYPE_NONE'
-		#if parent.status.motion_type == 0: # emc.MOTION_TYPE_NONE
-		#	utilities.update_controls(parent)
 
 		parent.motion_type = parent.status.motion_type
 
@@ -218,9 +208,7 @@ def update(parent):
 		utilities.update_home_controls(parent)
 		utilities.update_controls(parent)
 
-
 		parent.task_state = parent.status.task_state
-
 
 	# **** FILE CHANGE ****
 	if parent.file != parent.status.file:
@@ -312,7 +300,7 @@ def update(parent):
 
 		parent.tool_in_spindle = parent.status.tool_in_spindle
 
-	# **** FLOOD_OFF or FLOOD_ON **** 
+	# **** FLOOD CHANGE **** 
 	if parent.flood_state != parent.status.flood:
 		if 'flood_pb' in parent.child_names:
 			if parent.status.flood == emc.FLOOD_OFF:
@@ -326,7 +314,7 @@ def update(parent):
 
 		parent.flood_state = parent.status.flood
 
-	# **** MIST_OFF or MIST_ON ****
+	# **** MIST CHANGE	 ****
 	if parent.mist_state != parent.status.mist:
 		if 'mist_pb' in parent.child_names: 
 			if parent.status.mist == emc.MIST_OFF:
@@ -340,7 +328,7 @@ def update(parent):
 
 		parent.mist_state = parent.status.mist
 
-	# **** SPINDLE SETTINGS ****
+	# **** SPINDLE CHANGE ****
 	# spindle status
 	if parent.status_spindle != parent.status.spindle:
 
@@ -405,7 +393,7 @@ def update(parent):
 
 		parent.status_spindle = parent.status.spindle
 
-	# status labels
+	# **** STATUS LABELS ****
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
 		if value in parent.stat_dict:
@@ -425,8 +413,6 @@ def update(parent):
 
 	# joint status items
 	for key, value in parent.status_joints.items():
-	#	value = 'joint[0]["enabled"]'
-	#	getattr(parent, f'{key}').setText(f'{getattr(parent.status, value)}')
 		getattr(parent, f'{key}').setText(f'{getattr(parent, "status").joint[0][value]}')
 
 	# joint status items with precision key is item value is [joint, precision]
@@ -453,9 +439,9 @@ def update(parent):
 		stat = statistics.fmean(value[1])
 		rounding = value[3]
 		getattr(parent, key).setText(f'{round(stat, rounding):.{value[2]}f}')
-		#getattr(parent, key).setText(f'{round({statistics.fmean(value[1]):.{value[2]}f}, -{value[3]})}')
 
 	# update hal average int labels key is label name and value is pin name
+	# FIXME add hal average int labels
 
 	# update multi state labels
 	# key is label name and value[0] is the pin name
@@ -589,7 +575,7 @@ def update(parent):
 
 		parent.current_tool_info = parent.status.tool_table[0]
 
-	# handle errors
+	# **** HANDLE ERRORS ****
 	error = parent.error.poll()
 	if error:
 		kind, text = error

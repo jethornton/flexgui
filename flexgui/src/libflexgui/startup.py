@@ -85,7 +85,7 @@ def setup_vars(parent):
 	parent.axis_touchoff_controls = [] # enabled when power on, homed, in manual
 	parent.coordinate_system_controls = [] # enabled when power on and in manual
 	parent.hal_controls = [] # enabled when estop on
-	parent.hal_on_controls = [] # enabled when power on
+	parent.on_controls = [] # enabled when power on
 	parent.homed_controls = [] # enabled when power on, homed
 
 def find_widget_index(layout, target_widget):
@@ -114,7 +114,7 @@ def find_widget_layout(layout, target_widget):
 
 def set_hal_enables(parent, obj):
 	# parent.hal_controls = [] # enabled when estop on
-	# parent.hal_on_controls = [] # enabled when power on
+	# parent.on_controls = [] # enabled when power on
 	# parent.homed_controls = [] # enabled when power on, homed
 
 	obj_name = obj.objectName()
@@ -129,7 +129,7 @@ def set_hal_enables(parent, obj):
 	# all HAL objects are disabled when state estop unless always_on is true
 	if state_on and not all_homed:
 		#parent.state_estop_reset[obj_name] = False
-		parent.hal_on_controls.append(obj_name)
+		parent.on_controls.append(obj_name)
 	elif all_homed:
 		parent.homed_controls.append(obj_name)
 	elif obj_name not in special_buttons: # enable/disable with estop
