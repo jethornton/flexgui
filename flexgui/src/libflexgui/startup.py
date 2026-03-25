@@ -507,6 +507,7 @@ def setup_actions(parent): # setup menu actions
 		'actionPause': 'action_pause',
 		'actionResume': 'action_resume',
 		'actionStop': 'action_stop',
+		'actionSave_MDI': 'action_save_mdi',
 		'actionClear_MDI_History': 'action_clear_mdi',
 		'actionCopy_MDI_History': 'action_copy_mdi',
 		'actionOverlay': 'action_toggle_overlay',
