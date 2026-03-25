@@ -1188,6 +1188,7 @@ def setup_mdi(parent):
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
 	if 'run_mdi_pb' in parent.child_names:
 		parent.run_mdi_pb.clicked.connect(partial(commands.run_mdi, parent))
+		parent.mdi_controls.append('run_mdi_pb')
 
 	if 'mdi_history_lw' in parent.child_names:
 		path = os.path.dirname(parent.status.ini_filename)
