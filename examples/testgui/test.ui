@@ -935,7 +935,7 @@
     <item row="4" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>4</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1636,64 +1636,6 @@
         <string>Tools</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_25">
-        <item row="2" column="2">
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_11">
-          <property name="title">
-           <string>Tool Change</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QPushButton" name="tool_change_pb">
-             <property name="text">
-              <string>Tool Change</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="tool_change_cb"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="1" column="0">
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="1" rowspan="2">
          <widget class="QGroupBox" name="groupBox_12">
           <property name="title">
@@ -1796,6 +1738,25 @@
           </layout>
          </widget>
         </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Tool Change</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QPushButton" name="tool_change_pb">
+             <property name="text">
+              <string>Tool Change</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="tool_change_cb"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="2" column="1">
          <widget class="QGroupBox" name="groupBox_16">
           <property name="title">
@@ -1823,6 +1784,58 @@
             <widget class="QPushButton" name="tool_touchoff_z">
              <property name="text">
               <string>Touch Off Z</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_26">
+          <property name="title">
+           <string>Tool Table</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_16">
+           <item>
+            <widget class="QPushButton" name="edit_tool_table_pb">
+             <property name="text">
+              <string>Edit Tool Table</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="reload_tool_table_pb">
+             <property name="text">
+              <string>Reload Tool Table</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QGroupBox" name="groupBox_27">
+          <property name="title">
+           <string>Ladder</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_17">
+           <item>
+            <widget class="QPushButton" name="edit_ladder_pb">
+             <property name="text">
+              <string>Edit Ladder</string>
              </property>
             </widget>
            </item>
