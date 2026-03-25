@@ -386,15 +386,10 @@ def spindle(parent, value=0):
 				parent.spindle_rev_pb.setChecked(False)
 				parent.command.spindle(emc.SPINDLE_OFF)
 
-	elif  sender_name == 'mdi_s_pb':
-		run_mdi(parent, f'S{parent.spindle_speed}')
-
 	if 'spindle_speed_sb' in parent.child_names:
 		parent.spindle_speed_sb.setValue(parent.spindle_speed)
 	if 'spindle_speed_lb' in parent.child_names:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
-	if 'mdi_s_pb' in parent.child_names:
-		parent.mdi_s_pb.setText(f'MDI S{parent.spindle_speed}')
 
 def flood_toggle(parent):
 	parent.status.poll()
