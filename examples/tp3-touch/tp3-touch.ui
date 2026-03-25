@@ -2187,7 +2187,7 @@
                   <number>2</number>
                  </property>
                  <item row="1" column="1">
-                  <widget class="QLabel" name="joint_vel_min_1_lb">
+                  <widget class="QLabel" name="joint_1_vel_min_lb">
                    <property name="minimumSize">
                     <size>
                      <width>75</width>
@@ -2245,7 +2245,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLabel" name="joint_vel_min_0_lb">
+                  <widget class="QLabel" name="joint_0_vel_min_lb">
                    <property name="minimumSize">
                     <size>
                      <width>75</width>
@@ -2274,7 +2274,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QLabel" name="joint_vel_min_2_lb">
+                  <widget class="QLabel" name="joint_2_vel_min_lb">
                    <property name="minimumSize">
                     <size>
                      <width>75</width>
