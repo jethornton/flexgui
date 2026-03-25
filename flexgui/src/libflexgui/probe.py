@@ -9,7 +9,7 @@ def toggle(parent):
 		parent.probing = True
 		for item in parent.run_controls:
 			getattr(parent, item).setEnabled(False)
-		for item in parent.file_load_controls:
+		for item in parent.file_open_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.mdi_controls:
 			getattr(parent, item).setEnabled(False)
@@ -39,7 +39,7 @@ def toggle(parent):
 
 		for item in parent.spindle_controls:
 			getattr(parent, item).setEnabled(True)
-		for item in parent.file_load_controls:
+		for item in parent.file_open_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.mdi_controls:
 			getattr(parent, item).setEnabled(True)

@@ -661,6 +661,8 @@ def update_controls(parent):
 
 		if task_mode == emc.MODE_AUTO: # program running
 			#print('update run controls MODE_AUTO')
+			for item in parent.file_open_controls:
+				getattr(parent, item).setEnabled(False)
 			for item in parent.jog_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.tool_change_controls:
@@ -714,6 +716,9 @@ def update_controls(parent):
 
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
+			for item in parent.file_open_controls:
+				getattr(parent, item).setEnabled(True)
+
 			if task_state == emc.STATE_ON:
 				for item in parent.jog_controls:
 					getattr(parent, item).setEnabled(True)
@@ -753,11 +758,10 @@ def update_controls(parent):
 				for item in parent.file_save_controls:
 					getattr(parent, item).setEnabled(True)
 
-			for item in parent.file_load_controls:
-				getattr(parent, item).setEnabled(True)
-
 		elif task_mode == emc.MODE_MDI: # mdi running
 			#print('update run controls MODE_MDI')
+			for item in parent.file_open_controls:
+				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.step_controls:

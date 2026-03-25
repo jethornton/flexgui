@@ -77,7 +77,7 @@ def setup_vars(parent):
 	parent.step_controls = [] # enabled when homed, manual, file loaded
 	parent.pause_controls = [] # enabled when program is running
 	parent.resume_controls = [] # enabled when program is paused
-	parent.file_load_controls = [] # disable when a program or mdi is running
+	parent.file_open_controls = [] # disable when a program or mdi is running
 	parent.file_save_controls = [] # disable if no file or program or mdi is running
 	parent.file_edit_controls = [] # disable if no file or program or mdi is running
 	parent.spindle_controls = [] # enabled when power on and in manual
@@ -582,14 +582,14 @@ def setup_enables(parent):
 		if f'jog_minus_pb_{i}' in parent.child_names:
 			parent.jog_controls.append(f'jog_minus_pb_{i}')
 
-	# file load controls
-	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload']:
+	# file open controls
+	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload',
+		'menuRecent']:
 		if item in parent.child_names:
-			parent.file_load_controls.append(item)
+			parent.file_open_controls.append(item)
 
 	# file save controls
-	for item in ['reload_pb', 'actionReload', 'save_pb', 'actionSave',
-		'save_as_pb', 'actionSave_As']:
+	for item in ['save_pb', 'actionSave', 'save_as_pb', 'actionSave_As']:
 		if item in parent.child_names:
 			parent.file_save_controls.append(item)
 
