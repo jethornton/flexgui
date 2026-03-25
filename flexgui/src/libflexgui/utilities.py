@@ -613,6 +613,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.probe_enable:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.tool_table_controls:
+			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -648,6 +650,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.probe_enable:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.tool_table_controls:
+			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
@@ -672,6 +676,14 @@ def update_controls(parent):
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.probe_enable:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.axis_touchoff_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.tool_touchoff_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.coordinate_system_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.tool_table_controls:
 				getattr(parent, item).setEnabled(False)
 
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
@@ -717,6 +729,8 @@ def update_controls(parent):
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
 			for item in parent.file_open_controls:
+				getattr(parent, item).setEnabled(True)
+			for item in parent.tool_table_controls:
 				getattr(parent, item).setEnabled(True)
 
 			if task_state == emc.STATE_ON:
@@ -783,6 +797,8 @@ def update_controls(parent):
 			for item in parent.mdi_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.probe_enable:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.tool_table_controls:
 				getattr(parent, item).setEnabled(False)
 
 def update_hal_io(parent, value):

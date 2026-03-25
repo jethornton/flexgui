@@ -86,6 +86,7 @@ def setup_vars(parent):
 	parent.probe_controls = [] # enabled when probe enable  and in manual
 	parent.jog_controls = [] # enabled when power on and in manual
 	parent.coolant_controls = [] # enabled when power is on
+	parent.tool_table_controls = [] # disable when a program or mdi is running
 	parent.tool_change_controls = [] # enabled when power is on and in manual
 	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and in manual
 	parent.axis_touchoff_controls = [] # enabled when power on, homed, in manual
@@ -603,6 +604,11 @@ def setup_enables(parent):
 	for item in ['flood_pb', 'mist_pb']:
 		if item in parent.child_names:
 			parent.coolant_controls.append(item)
+
+	# tool table controls
+	for item in ['edit_tool_table_pb', 'edit_ladder_pb', 'reload_tool_table_pb']:
+		if item in parent.child_names:
+			parent.tool_table_controls.append(item)
 
 	# tool change controls
 	for item in ['tool_change_pb']:
