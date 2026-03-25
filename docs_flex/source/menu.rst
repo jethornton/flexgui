@@ -52,6 +52,7 @@ create an action name.
 	Stop, actionStop
 	Clear MDI History, actionClear_MDI_History
 	Copy MDI History, actionCopy_MDI_History
+	Save MDI, actionSave_MDI
 	Homing, this creates a home menu item for each axis
 	Unhoming, this creates a unhome menu item for each axis
 	Clear Offsets, this creates a clear offsets for each coordinate system
