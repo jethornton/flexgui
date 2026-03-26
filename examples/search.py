@@ -18,6 +18,9 @@ def extract_button_names(file_path):
 	<addaction name="actionOpen"/>
 	"""
 
+	QSliders = ['feed_override_sl', 'rapid_override_sl', 'spindle_override_sl',
+	'jog_vel_sl']
+
 	QActions = ['actionOpen', 'actionEdit', 'actionReload', 'actionSave_As',
 		'actionEdit_Tool_Table', 'actionReload_Tool_Table', 'actionLadder_Editor',
 		'actionQuit', 'actionE_Stop', 'actionPower', 'actionRun',
@@ -52,6 +55,8 @@ def extract_button_names(file_path):
 	found_buttons = []
 	found_checkboxes = []
 	found_actions = []
+	found_sliders = []
+
 	# Use a raw string for the regex pattern for correct backslash handling.
 	# Pattern explanation:
 	# r'...' - Raw string literal
@@ -64,26 +69,36 @@ def extract_button_names(file_path):
 	button_pattern = re.compile(r'.*?widget class="QPushButton".*?name="(.*?)".*?')
 	checkbox_pattern = re.compile(r'.*?widget class="QCheckBox".*?name="(.*?)".*?')
 	action_pattern = re.compile(r'.*?addaction .*?name="(.*?)".*?')
+	slider_pattern = re.compile(r'.*?widget class="QSlider".*?name="(.*?)".*?')
 
 	try:
 		# Iterate over lines in the file efficiently without reading the whole file into memory.
 		with open(file_path, 'r') as file:
 			for line in file:
+				# match QPushButton
 				match = button_pattern.search(line)
 				if match:
 					# Extract the captured group (the value inside the quotes).
 					if match.group(1) in QPushButtons:
 						found_buttons.append(match.group(1))
+				# match QCheckBox
 				match = checkbox_pattern.search(line)
 				if match:
 					# Extract the captured group (the value inside the quotes).
 					if match.group(1) in QCheckBoxes:
 						found_checkboxes.append(match.group(1))
+				# match QAction
 				match = action_pattern.search(line)
 				if match:
 					# Extract the captured group (the value inside the quotes).
 					if match.group(1) in QActions:
 						found_actions.append(match.group(1))
+				# match QSlider
+				match = slider_pattern.search(line)
+				if match:
+					# Extract the captured group (the value inside the quotes).
+					if match.group(1) in QSliders:
+						found_sliders.append(match.group(1))
 
 	except FileNotFoundError:
 		print(f"Error: The file '{file_path}' was not found.")
@@ -93,7 +108,9 @@ def extract_button_names(file_path):
 	missing_buttons = list(set(QPushButtons) - set(found_buttons))
 	missing_checkboxes = list(set(QCheckBoxes) - set(found_checkboxes))
 	missing_actions = list(set(QActions) - set(found_actions))
-	return missing_buttons, missing_checkboxes, missing_actions
+	missing_sliders = list(set(QSliders) - set(found_sliders))
+
+	return missing_buttons, missing_checkboxes, missing_actions, missing_sliders
 
 # Example Usage:
 # Assume your file is named 'ui_layout.txt' and contains lines like:
@@ -103,20 +120,33 @@ def extract_button_names(file_path):
 
 # set the file path here
 file_name = '/home/john/github/flexgui/examples/testgui/test.ui'
-missing_buttons, missing_checkboxes, missing_actions = extract_button_names(file_name)
+buttons, checkboxes, actions, sliders = extract_button_names(file_name)
 
-if missing_buttons:
+if buttons:
 	print(f'Missing names for QPushButton widgets in "{file_name}":')
-	for name in missing_buttons:
+	for name in buttons:
 		print(f'{name}')
+else:
+	print('No missing QPushButton widgets')
 
-if missing_checkboxes:
+if checkboxes:
 	print(f'Missing names for QCheckBox widgets in "{file_name}":')
-	for name in missing_checkboxes:
+	for name in checkboxes:
 		print(f'{name}')
+else:
+	print('No missing QCheckBox widgets')
 
-if missing_actions:
+if actions:
 	print(f'Missing names for QAction widgets in "{file_name}":')
-	for name in missing_actions:
+	for name in actions:
 		print(f'{name}')
+else:
+	print('No missing QAction widgets')
+
+if sliders:
+	print(f'Missing names for QSlider widgets in "{file_name}":')
+	for name in sliders:
+		print(f'{name}')
+else:
+	print('No missing QSlider widgets')
 
