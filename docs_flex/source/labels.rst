@@ -223,12 +223,14 @@ status items.
 	reflects iocontrol.0.lube_level
 
 	machine_units_lb - return string - "MM" or "INCH"
-	returns the machine's native units, reflects [TRAJ]LINEAR_UNITS INI value.
-	All labels with an object name that starts with `machine_units_lb` will be 
-	updated with this value, (eg. `machine_units_lb_1`) allowing the label to be 
-	used multiple times in the UI. Updated once on start-up.  Add a dynamic
-	property `suffix` (string) to add a suffix, for example "/min" to display
-	"<machine units>/min"
+	The machine's native units, reflects [TRAJ]LINEAR_UNITS INI value and is 
+	updated once on start-up.
+
+	All labels with an object name that starts with `machine_units_lb` will be
+	updated with this value for example `machine_units_lb_1`. The label can be
+	used multiple times in the UI but the trailing number must be unique for each
+	label. Add a dynamic property `suffix` (string) to add a suffix, for example
+	/min to display <machine units>/min
 
 	max_acceleration_lb - returns float - precision can be set
 	maximum acceleration. Reflects [TRAJ]MAX_ACCELERATION
@@ -294,15 +296,11 @@ status items.
 	probing_lb - returns boolean
 	True if a probe operation is in progress
 
-	program_units_lb - returns integer that is used to lookup the units name
-		CANON_UNITS_INCHES = 1,
-		CANON_UNITS_MM = 2
-
 	program_units_lb - return string - "MM" or "INCH"
-	returns the program's current units, reflects G20 and G21 mode.
-	All labels with an object name that starts with `program_units_lb` will be 
-	updated with this value, (eg. `program_units_lb_1`) allowing the label to be 
-	used multiple times in the UI.
+	G20 and G21 program mode.
+	All labels with an object name that starts with `program_units_lb` will be
+	updated with this value for example `program_units_lb_1`.The label can be
+	used multiple times in the UI but the trailing number must be unique.
 
 	queue_lb - returns integer
 	current size of the trajectory planner queue
