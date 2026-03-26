@@ -807,13 +807,52 @@ def setup_buttons(parent): # connect buttons to functions
 	for item in parent.child_names:
 		if item.startswith('feed_percent_'):
 			button = getattr(parent, item)
-			button.clicked.connect(partial(commands.feed_override_preset, parent))
+			value = item.split('_')[-1]
+			if utilities.is_int(value):
+				button.clicked.connect(partial(commands.feed_override_preset, parent))
+			else:
+				msg = (f'The button named {item}\n'
+				f'with the button text of {button.text()}\n'
+				f'{value} did not evaluate to and integer\n'
+				'The button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				getattr(parent, item).setEnabled(False)
+
 		elif item.startswith('rapid_percent_'):
 			button = getattr(parent, item)
-			button.clicked.connect(partial(commands.rapid_override_preset, parent))
+			value = item.split('_')[-1]
+			if utilities.is_int(value):
+				print(value)
+				if int(value) in range(0, 101):
+					button.clicked.connect(partial(commands.rapid_override_preset, parent))
+				else:
+					msg = (f'The button named {item}\n'
+					f'with the button text of {button.text()}\n'
+					f'{value} is higher than the maximum of 100\n'
+					'The button will be disabled.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+			else:
+				msg = (f'The button named {item}\n'
+				f'with the button text of {button.text()}\n'
+				f'{value} did not evaluate to and integer\n'
+				'The button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				getattr(parent, item).setEnabled(False)
+
 		elif item.startswith('spindle_percent_'):
 			button = getattr(parent, item)
-			button.clicked.connect(partial(commands.spindle_override_preset, parent))
+			value = item.split('_')[-1]
+			if utilities.is_int(value):
+				button.clicked.connect(partial(commands.spindle_override_preset, parent))
+			else:
+				msg = (f'The button named {item}\n'
+				f'with the button text of {button.text()}\n'
+				f'{value} did not evaluate to and integer\n'
+				'The button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				getattr(parent, item).setEnabled(False)
+
+	#value = int(parent.sender().objectName().split('_')[-1])
 
 	# nc code search
 	if 'search_pb' in parent.child_names:
