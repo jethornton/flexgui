@@ -437,15 +437,21 @@ def feed_override_preset(parent):
 	value = int(parent.sender().objectName().split('_')[-1])
 	parent.command.feedrate(float(value / 100))
 	parent.command.wait_complete()
+	if 'feed_override_sl' in parent.child_names:
+		parent.feed_override_sl.setValue(value)
 
 def rapid_override_preset(parent):
 	value = int(parent.sender().objectName().split('_')[-1])
 	parent.command.rapidrate(float(value / 100))
 	parent.command.wait_complete()
+	if 'rapid_override_sl' in parent.child_names:
+		parent.rapid_override_sl.setValue(value)
 
 def spindle_override_preset(parent):
 	value = int(parent.sender().objectName().split('_')[-1])
 	parent.command.spindleoverride(float(value / 100))
 	parent.command.wait_complete()
+	if 'spindle_override_sl' in parent.child_names:
+		parent.spindle_override_sl.setValue(value)
 
 
