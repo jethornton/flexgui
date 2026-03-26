@@ -328,7 +328,7 @@ def action_stop(parent): # actionStop
 	parent.stop = True
 	parent.step = False
 
-def action_clear_mdi(parent): # actionClear_MDI
+def action_clear_mdi(parent): # actionClear_MDI_History
 	parent.mdi_history_lw.clear()
 	path = os.path.dirname(parent.status.ini_filename)
 	mdi_file = os.path.join(path, 'mdi_history.txt')
