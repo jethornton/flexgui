@@ -1594,7 +1594,20 @@ def setup_tools(parent):
 
 	# Axis style tool touch off
 	if 'tool_touchoff_selected_pb' in parent.child_names:
-		parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+		for i in range(9):
+			if f'axis_select_{i}' in parent.child_names:
+				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+				print('here')
+				break
+		else:
+			print('there')
+			if 'tool_touchoff_selected_pb' in parent.tool_touchoff_controls:
+				parent.tool_touchoff_controls.remove('tool_touchoff_selected_pb')
+				parent.tool_touchoff_selected_pb.setEnabled(False)
+				msg = ('The tool_touchoff_selected_pb was found\n'
+				'but no axis_select radio buttons were found.\n'
+				'The tool_touchoff_selected_pb will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.child_names:
