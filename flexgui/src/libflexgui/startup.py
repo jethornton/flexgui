@@ -1350,20 +1350,6 @@ def setup_jog(parent):
 					'be used. INCREMENTS must be comma seperated.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
-def setup_jog_selected(parent):
-	parent.axes_group = QButtonGroup()
-	for i in range(9):
-		if f'axis_select_{i}' in parent.child_names:
-			parent.axes_group.addButton(getattr(parent, f'axis_select_{i}'))
-	if len(parent.axes_group.buttons()) > 0:
-		parent.axes_group.buttons()[0].setChecked(True)
-		if 'jog_selected_plus' in parent.child_names:
-			parent.jog_selected_plus.pressed.connect(partial(commands.jog_selected, parent))
-			parent.jog_selected_plus.released.connect(partial(commands.jog_selected, parent))
-		if 'jog_selected_minus' in parent.child_names:
-			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
-			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
-
 def conv_units(value, suffix, units):
 	if units == 'INCH':
 		if suffix == 'in' or suffix == 'inch':
@@ -1462,6 +1448,36 @@ def setup_spindle(parent):
 	if all(x in parent.child_names for x in spindle_actual_speed):
 		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
+def setup_jog_selected(parent):
+	parent.axes_group = QButtonGroup()
+	for i in range(9):
+		if f'axis_select_{i}' in parent.child_names:
+			parent.axes_group.addButton(getattr(parent, f'axis_select_{i}'))
+	if len(parent.axes_group.buttons()) > 0:
+		parent.axes_group.buttons()[0].setChecked(True)
+		if 'jog_selected_plus' in parent.child_names:
+			parent.jog_selected_plus.pressed.connect(partial(commands.jog_selected, parent))
+			parent.jog_selected_plus.released.connect(partial(commands.jog_selected, parent))
+		if 'jog_selected_minus' in parent.child_names:
+			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
+			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
+
+def setup_tool_touchoff_selected(parent):
+	# Axis style tool touch off
+	if 'tool_touchoff_selected_pb' in parent.child_names:
+		for i in range(9):
+			if f'axis_select_{i}' in parent.child_names:
+				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+				break
+		else:
+			if 'tool_touchoff_selected_pb' in parent.tool_touchoff_controls:
+				parent.tool_touchoff_controls.remove('tool_touchoff_selected_pb')
+				parent.tool_touchoff_selected_pb.setEnabled(False)
+				msg = ('The tool_touchoff_selected_pb was found\n'
+				'but no axis_select radio buttons were found.\n'
+				'The tool_touchoff_selected_pb will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+
 def setup_touchoff(parent):
 	# check for required items tool_touchoff_ touchoff_pb_
 	if 'touchoff_le' in parent.child_names:
@@ -1474,7 +1490,6 @@ def setup_touchoff(parent):
 	for axis in AXES:
 		item = f'touchoff_pb_{axis}'
 		if item in parent.child_names:
-			#parent.program_running_disabled.append(item)
 			source = getattr(parent, item).property('source')
 			if source is None:
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
@@ -1495,12 +1510,28 @@ def setup_touchoff(parent):
 					f'{item} will be disabled.')
 					dialogs.warn_msg_ok(parent, msg, 'Required Item Missing')
 
+def setup_touchoff_selected(parent):
 	# setup Axis style touch off buttons
 	if 'touchoff_selected_pb' in parent.child_names:
 		for i in range(9):
 			if f'axis_select_{i}' in parent.child_names:
 				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
 				break
+
+	if 'touchoff_selected_pb' in parent.child_names:
+		for i in range(9):
+			if f'axis_select_{i}' in parent.child_names:
+				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+				break
+		else:
+			if 'touchoff_selected_pb' in parent.tool_touchoff_controls:
+				parent.tool_touchoff_controls.remove('touchoff_selected_pb')
+				parent.touchoff_selected_pb.setEnabled(False)
+				msg = ('The touchoff_selected_pb was found\n'
+				'but no axis_select radio buttons were found.\n'
+				'The touchoff_selected_pb will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+
 
 def setup_tools(parent):
 	parent.tool_changed = False
@@ -1591,23 +1622,6 @@ def setup_tools(parent):
 					'was not found. The QPushButton\n'
 					f'{item} will be disabled.')
 					dialogs.warn_msg_ok(msg, 'Source Name Error')
-
-	# Axis style tool touch off
-	if 'tool_touchoff_selected_pb' in parent.child_names:
-		for i in range(9):
-			if f'axis_select_{i}' in parent.child_names:
-				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
-				print('here')
-				break
-		else:
-			print('there')
-			if 'tool_touchoff_selected_pb' in parent.tool_touchoff_controls:
-				parent.tool_touchoff_controls.remove('tool_touchoff_selected_pb')
-				parent.tool_touchoff_selected_pb.setEnabled(False)
-				msg = ('The tool_touchoff_selected_pb was found\n'
-				'but no axis_select radio buttons were found.\n'
-				'The tool_touchoff_selected_pb will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.child_names:
