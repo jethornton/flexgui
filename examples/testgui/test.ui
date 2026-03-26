@@ -2048,7 +2048,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_18">
            <item>
-            <widget class="QPushButton" name="feed_percent_100">
+            <widget class="QPushButton" name="feed_percent_100s">
              <property name="text">
               <string>Feed 100%</string>
              </property>
@@ -2069,7 +2069,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="rapid_percent_100">
+            <widget class="QPushButton" name="rapid_percent_101">
              <property name="text">
               <string>Rapid 100%</string>
              </property>
