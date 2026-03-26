@@ -18,6 +18,26 @@ def extract_button_names(file_path):
 	<addaction name="actionOpen"/>
 	"""
 
+	QLabels = ['acceleration_lb', 'active_queue_lb', 'actual_position_lb',
+	'adaptive_feed_enabled_lb', 'ain_lb', 'angular_units_lb', 'aout_lb',
+	'axis_lb', 'axis_mask_lb', 'block_delete_lb', 'call_level_lb', 'command_lb',
+	'current_line_lb', 'current_vel_lb', 'cycle_time_lb', 'debug_lb',
+	'delay_left_lb', 'din_lb', 'distance_to_go_lb', 'echo_serial_number_lb',
+	'enabled_lb', 'estop_lb', 'exec_state_lb', 'feed_hold_enabled_lb',
+	'feed_override_lb', 'file_lb', 'flood_lb', 'g5x_index_lb', 'g5x_offset_lb',
+	'gcodes_lb', 'homed_lb', 'ini_filename_lb', 'inpos_lb', 'input_timeout_lb',
+	'interp_state_lb', 'interpreter_errcode_lb', 'joint', 'joint_actual_position',
+	'joint_position', 'joints_lb', 'kinematics_type_lb', 'limit',
+	'linear_units_lb', 'lube_lb', 'lube_level_lb', 'machine_units_lb',
+	'max_acceleration_lb', 'max_velocity_lb', 'min_jog_vel_lb', 'max_jog_vel_lb',
+	'mcodes_lb', 'mist_lb', 'motion_line_lb', 'motion_mode_lb', 'motion_type_lb',
+	'optional_stop_lb', 'paused_lb', 'pocket_prepped_lb', 'position',
+	'probe_tripped_lb', 'probe_val_lb', 'probed_position_lb', 'probing_lb',
+	'program_units_lb', 'queue_lb', 'queue_full_lb', 'rapid_override_lb',
+	'rapidrate_lb', 'read_line_lb', 'rotation_xy_lb', 'spindle_lb', 'spindles_lb',
+	'state_lb', 'task_mode_lb', 'task_paused_lb', 'task_state_lb',
+	'tool_in_spindle_lb', 'tool_from_pocket_lb', 'tool_offset_lb', 'tool_table_lb']
+
 	QSliders = ['feed_override_sl', 'rapid_override_sl', 'spindle_override_sl',
 	'jog_vel_sl']
 
@@ -56,6 +76,7 @@ def extract_button_names(file_path):
 	found_checkboxes = []
 	found_actions = []
 	found_sliders = []
+	found_labels = []
 
 	# Use a raw string for the regex pattern for correct backslash handling.
 	# Pattern explanation:
@@ -70,6 +91,7 @@ def extract_button_names(file_path):
 	checkbox_pattern = re.compile(r'.*?widget class="QCheckBox".*?name="(.*?)".*?')
 	action_pattern = re.compile(r'.*?addaction .*?name="(.*?)".*?')
 	slider_pattern = re.compile(r'.*?widget class="QSlider".*?name="(.*?)".*?')
+	label_pattern = re.compile(r'.*?widget class="QLabel".*?name="(.*?)".*?')
 
 	try:
 		# Iterate over lines in the file efficiently without reading the whole file into memory.
@@ -99,18 +121,26 @@ def extract_button_names(file_path):
 					# Extract the captured group (the value inside the quotes).
 					if match.group(1) in QSliders:
 						found_sliders.append(match.group(1))
+				# match QLabel
+				match = label_pattern.search(line)
+				if match:
+					# Extract the captured group (the value inside the quotes).
+					if match.group(1) in QSliders:
+						found_labels.append(match.group(1))
 
 	except FileNotFoundError:
 		print(f"Error: The file '{file_path}' was not found.")
 	except Exception as e:
 		print(f"An error occurred: {e}")
 
-	missing_buttons = list(set(QPushButtons) - set(found_buttons))
-	missing_checkboxes = list(set(QCheckBoxes) - set(found_checkboxes))
-	missing_actions = list(set(QActions) - set(found_actions))
-	missing_sliders = list(set(QSliders) - set(found_sliders))
+	# find missing widgets
+	buttons = list(set(QPushButtons) - set(found_buttons))
+	checkboxes = list(set(QCheckBoxes) - set(found_checkboxes))
+	actions = list(set(QActions) - set(found_actions))
+	sliders = list(set(QSliders) - set(found_sliders))
+	labels = list(set(QLabels) - set(found_labels))
 
-	return missing_buttons, missing_checkboxes, missing_actions, missing_sliders
+	return buttons, checkboxes, actions, sliders, labels
 
 # Example Usage:
 # Assume your file is named 'ui_layout.txt' and contains lines like:
@@ -120,7 +150,7 @@ def extract_button_names(file_path):
 
 # set the file path here
 file_name = '/home/john/github/flexgui/examples/testgui/test.ui'
-buttons, checkboxes, actions, sliders = extract_button_names(file_name)
+buttons, checkboxes, actions, sliders, labels = extract_button_names(file_name)
 
 if buttons:
 	print(f'Missing names for QPushButton widgets in "{file_name}":')
@@ -149,4 +179,11 @@ if sliders:
 		print(f'{name}')
 else:
 	print('No missing QSlider widgets')
+
+if labels:
+	print(f'Missing names for QLabel widgets in "{file_name}":')
+	for name in labels:
+		print(f'{name}')
+else:
+	print('No missing QLabel widgets')
 
