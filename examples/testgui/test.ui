@@ -217,71 +217,10 @@
       </widget>
      </widget>
     </item>
-    <item row="4" column="0" colspan="2">
-     <widget class="QGroupBox" name="groupBox_7">
-      <property name="title">
-       <string>Jog</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_8">
-       <item row="2" column="0">
-        <widget class="QPushButton" name="jog_plus_pb_1">
-         <property name="text">
-          <string>Y Plus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="jog_minus_pb_1">
-         <property name="text">
-          <string>Y Minus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="jog_minus_pb_0">
-         <property name="text">
-          <string>X Minus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="jog_plus_pb_0">
-         <property name="text">
-          <string>X Plus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="jog_plus_pb_2">
-         <property name="text">
-          <string>Z Plus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="jog_minus_pb_2">
-         <property name="text">
-          <string>Z Minus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="jog_modes_cb"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QSlider" name="jog_vel_sl">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
@@ -1842,6 +1781,22 @@
           </layout>
          </widget>
         </item>
+        <item row="0" column="2">
+         <widget class="QGroupBox" name="groupBox_7">
+          <property name="title">
+           <string>Touch Off Selected</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <item>
+            <widget class="QPushButton" name="tool_touchoff_selected_pb">
+             <property name="text">
+              <string>Touch Off Selected</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_13">
@@ -1849,71 +1804,6 @@
         <string>Misc</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_19">
-        <item row="0" column="3">
-         <widget class="QGroupBox" name="groupBox_24">
-          <property name="title">
-           <string>Parameters</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_15">
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
-             <property name="function" stdset="0">
-              <string>set_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1000</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_44">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>watch_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1000</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
-             <property name="function" stdset="0">
-              <string>set_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1001</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_45">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>watch_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1001</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
-             <property name="function" stdset="0">
-              <string>set_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1002</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox_5">
           <property name="title">
@@ -1955,7 +1845,7 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QGroupBox" name="groupBox_13">
           <property name="title">
            <string>Clear CS</string>
@@ -2048,7 +1938,7 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="2" column="1">
          <widget class="QGroupBox" name="groupBox_15">
           <property name="title">
            <string>CS Change</string>
@@ -2094,7 +1984,7 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="2" column="2">
          <widget class="QGroupBox" name="groupBox_21">
           <property name="title">
            <string>CS Touch Off</string>
@@ -2126,6 +2016,166 @@
            </item>
            <item>
             <widget class="QComboBox" name="touchoff_system_cb"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QGroupBox" name="groupBox_28">
+          <property name="title">
+           <string>Override Presets</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_18">
+           <item>
+            <widget class="QPushButton" name="feed_percent_100">
+             <property name="text">
+              <string>Feed 100%</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="rapid_percent_25">
+             <property name="text">
+              <string>Rapid 25%</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="rapid_percent_50">
+             <property name="text">
+              <string>Rapid 50%</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="rapid_percent_100">
+             <property name="text">
+              <string>Rapid 100%</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="spindle_percent_100">
+             <property name="text">
+              <string>Spindle 100%</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="3" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_24">
+          <property name="title">
+           <string>Parameters</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+             <property name="function" stdset="0">
+              <string>set_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_44">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+             <property name="function" stdset="0">
+              <string>set_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1001</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_45">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1001</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+             <property name="function" stdset="0">
+              <string>set_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1002</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QGroupBox" name="groupBox_29">
+          <property name="title">
+           <string>Sliders</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_30">
+           <item row="0" column="2">
+            <widget class="QLabel" name="feed_override_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSlider" name="feed_override_sl">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="rapid_override_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSlider" name="rapid_override_sl">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_51">
+             <property name="text">
+              <string>Feed Override</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_52">
+             <property name="text">
+              <string>Rapid Override</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -2633,6 +2683,76 @@
       </layout>
      </widget>
     </item>
+    <item row="4" column="0" colspan="2">
+     <widget class="QTabWidget" name="tabWidget_7">
+      <widget class="QWidget" name="tabWidget_7Page1" native="true">
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="3" column="0">
+         <widget class="QPushButton" name="jog_minus_pb_1">
+          <property name="text">
+           <string>Y Minus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="jog_plus_pb_0">
+          <property name="text">
+           <string>X Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="jog_minus_pb_0">
+          <property name="text">
+           <string>X Minus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="jog_minus_pb_2">
+          <property name="text">
+           <string>Z Minus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="jog_modes_cb"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="jog_plus_pb_2">
+          <property name="text">
+           <string>Z Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="jog_plus_pb_1">
+          <property name="text">
+           <string>Y Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QSlider" name="jog_vel_sl">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_50">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -2656,6 +2776,8 @@
     <addaction name="separator"/>
     <addaction name="actionEdit_Tool_Table"/>
     <addaction name="actionReload_Tool_Table"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuMachine">
     <property name="title">
@@ -2907,6 +3029,11 @@
   <action name="actionQuick_Reference">
    <property name="text">
     <string>Quick Reference</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
    </property>
   </action>
  </widget>
