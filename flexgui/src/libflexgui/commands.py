@@ -171,7 +171,7 @@ def change_cs(parent):
 		parent.command.wait_complete()
 
 def clear_axis_offset(parent, axis):
-	mdi_command = f'G10 L20 P0 {axis}0'
+	mdi_command = f'G10 L2 P0 {axis}0'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
