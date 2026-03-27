@@ -12,10 +12,6 @@ def extract_button_names(file_path):
 
 	Returns:
 		list: A list of extracted 'name' attribute values.
-
-	<widget class="QPushButton" name="open_pb">
-	<widget class="QCheckBox" name="checkBox">
-	<addaction name="actionOpen"/>
 	"""
 
 	QLabels = ['acceleration_lb', 'active_queue_lb', 'actual_position_lb',
@@ -31,7 +27,7 @@ def extract_button_names(file_path):
 	'linear_units_lb', 'lube_lb', 'lube_level_lb', 'machine_units_lb',
 	'max_acceleration_lb', 'max_velocity_lb', 'min_jog_vel_lb', 'max_jog_vel_lb',
 	'mcodes_lb', 'mist_lb', 'motion_line_lb', 'motion_mode_lb', 'motion_type_lb',
-	'optional_stop_lb', 'paused_lb', 'pocket_prepped_lb', 'position',
+	'optional_stop_lb', 'paused_lb', 'pocket_prepped_lb', 'position_lb',
 	'probe_tripped_lb', 'probe_val_lb', 'probed_position_lb', 'probing_lb',
 	'program_units_lb', 'queue_lb', 'queue_full_lb', 'rapid_override_lb',
 	'rapidrate_lb', 'read_line_lb', 'rotation_xy_lb', 'spindle_lb', 'spindles_lb',
@@ -87,11 +83,16 @@ def extract_button_names(file_path):
 	# name=" - Match the literal 'name="' part
 	# (.*?) - Capture group 1: capture any character non-greedily (the name value)
 	# " - Match the closing quote
-	button_pattern = re.compile(r'.*?widget class="QPushButton".*?name="(.*?)".*?')
-	checkbox_pattern = re.compile(r'.*?widget class="QCheckBox".*?name="(.*?)".*?')
+	button_pattern = re.compile(r'.*?class="QPushButton".*?name="(.*?)".*?')
+	# <widget class="QPushButton" name="open_pb">
+	checkbox_pattern = re.compile(r'.*?class="QCheckBox".*?name="(.*?)".*?')
+	# <widget class="QCheckBox" name="checkBox">
 	action_pattern = re.compile(r'.*?addaction .*?name="(.*?)".*?')
-	slider_pattern = re.compile(r'.*?widget class="QSlider".*?name="(.*?)".*?')
-	label_pattern = re.compile(r'.*?widget class="QLabel".*?name="(.*?)".*?')
+	# <addaction name="actionOpen"/>
+	slider_pattern = re.compile(r'.*?class="QSlider".*?name="(.*?)".*?')
+	# <widget class="QSlider" name="spindle_override_sl">
+	label_pattern = re.compile(r'.*?class="QLabel".*?name="(.*?)".*?')
+	# <widget class="QLabel" name="label_4">
 
 	try:
 		# Iterate over lines in the file efficiently without reading the whole file into memory.
@@ -125,7 +126,7 @@ def extract_button_names(file_path):
 				match = label_pattern.search(line)
 				if match:
 					# Extract the captured group (the value inside the quotes).
-					if match.group(1) in QSliders:
+					if match.group(1) in QLabels:
 						found_labels.append(match.group(1))
 
 	except FileNotFoundError:
@@ -149,8 +150,11 @@ def extract_button_names(file_path):
 # <widget class="QPushButton" name="anotherButton_ok">
 
 # set the file path here
-file_name = '/home/john/github/flexgui/examples/testgui/test.ui'
+file_name = '/home/john/github/flexgui/examples/features/status/status.ui'
+#file_name = '/home/john/github/flexgui/examples/testgui/test.ui'
 buttons, checkboxes, actions, sliders, labels = extract_button_names(file_name)
+
+print(f'Searching {file_name}')
 
 if buttons:
 	print(f'Missing names for QPushButton widgets in "{file_name}":')
