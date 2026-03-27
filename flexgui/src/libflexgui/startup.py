@@ -702,12 +702,17 @@ def setup_buttons(parent): # connect buttons to functions
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
 
+	if 'manual_mode_pb' in parent.child_names:
+		msg = ('The manual_mode_pb is no longer used\n'
+		'and will be disabled. This was only\n'
+		'used for testing in the early days.')
+		dialogs.error_msg_ok(parent, msg, 'Depreciated Control')
+		parent.manual_mode_pb.setEnabled(False)
+
 	command_buttons = {
-	'abort_pb': 'abort', 'manual_mode_pb':'set_mode_manual',
-	'home_all_pb': 'home_all', 'home_pb_0': 'home',
-	'home_pb_1': 'home', 'home_pb_2': 'home',
-	'unhome_all_pb': 'unhome_all', 'unhome_pb_0': 'unhome',
-	'unhome_pb_1': 'unhome', 'unhome_pb_2': 'unhome'
+	'abort_pb': 'abort', 'home_all_pb': 'home_all', 'home_pb_0': 'home',
+	'home_pb_1': 'home', 'home_pb_2': 'home', 	'unhome_all_pb': 'unhome_all',
+	'unhome_pb_0': 'unhome', 'unhome_pb_1': 'unhome', 'unhome_pb_2': 'unhome'
 	}
 
 	for key, value in command_buttons.items():
@@ -801,7 +806,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if name in parent.child_names:
 			button = getattr(parent, name)
 			button.clicked.connect(partial(commands.clear_axis_offset, parent, axis.upper()))
-			#parent.program_running_disabled.append(name)
 
 	# override preset buttons
 	for item in parent.child_names:

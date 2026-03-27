@@ -13,11 +13,6 @@ def set_task_mode(parent, mode):
 		parent.command.mode(mode)
 		parent.command.wait_complete()
 
-def set_mode_manual(parent):
-	if parent.status.task_mode != emc.MODE_MANUAL:
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
-
 def set_mode(parent, mode=None):
 	if mode is None:
 		if parent.sender().objectName() == 'manual_mode_pb':
