@@ -266,6 +266,16 @@ def update_jog_lb(parent):
 		for item in parent.jog_buttons:
 			getattr(parent, item).setEnabled(False)
 
+def set_jog_incremtent(parent, position):
+	max_index = len(parent.jog_modes_cb) - 1
+	if position <= max_index:
+		parent.jog_modes_cb.setCurrentIndex(position)
+	else:
+		msg = (f'The key {position} exceeds the\n'
+		'maximum number of items in the\n'
+		'Jog Modes Combobox.')
+		dialogs.error_msg_ok(parent, msg, 'title')
+
 def copy_errors(parent):
 	qclip = QApplication.clipboard()
 	qclip.setText(parent.errors_pte.toPlainText())

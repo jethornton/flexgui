@@ -429,4 +429,18 @@ To add a manual tool change popup to add the following to the ini file in the
 	[FLEXGUI]
 	MANUAL_TOOL_CHANGE = True
 
+Keyboard Shortcuts
+------------------
+
+To add keyboard jog increment to Flex GUI add the following to the FLEXGUI
+section. The keys 0 through the maximum index position will set the index
+position in the Jog Modes Combobox. A maximum of 10 positions can be used 0-9.
+
+To change the jog increment the control must be in manual mode and the Ctrl key
+must be pressed and held as you press a number key.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	KB_JOG_INCREMENT = True
 

@@ -35,6 +35,7 @@ class KeyboardJog(QObject):
 	def __init__(self, window):
 		self._keyboard_jog_state = window.kb_jog_cb_enabled
 		super().__init__()
+
 	def eventFilter(self, source, event):
 		# If we are entering a text box, temporarily disable keyboard jogging
 		if event.type() == QEvent.Type.FocusIn and window.kb_jog_focus:
@@ -55,7 +56,22 @@ class KeyboardJog(QObject):
 
 		# jog events check for state estop and release if keyboard_jogging is true
 		# enable_ctrl_kb_jog or enable_cb_kb_jog
+
+
 		if event.type() == QEvent.Type.KeyPress:
+
+			# keyboard jog increment
+			if window.kb_jog_increment and window.status.state != emc.RCS_EXEC:
+				# Check if the Ctrl modifier key is pressed
+				if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+					# Check if the pressed key is a number key (0-9)
+					if event.key() >= Qt.Key.Key_0 and event.key() <= Qt.Key.Key_9:
+						# Convert the key code to a string representation
+						# The numeric keys have key codes that correspond to their ASCII values
+						number = chr(event.key()) 
+						utilities.set_jog_incremtent(window, int(number))
+						return True  # Consume the event
+
 			if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
 				jog = False
 				if window.kb_jog_ctrl_enabled and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
@@ -103,7 +119,7 @@ class KeyboardJog(QObject):
 			if window.kb_jog_cb_enabled or window.kb_jog_ctrl_enabled:
 				# RCS_EXEC while jogging and RCS_DONE when finished
 				if window.status.task_state == emc.STATE_ON:
-					if not event.isAutoRepeat():# and window.keyboard_jogging:
+					if not event.isAutoRepeat():
 						match event.key():
 							case Qt.Key.Key_Left | Qt.Key.Key_Right:
 								commands.keyboard_jog(window, False, 0)

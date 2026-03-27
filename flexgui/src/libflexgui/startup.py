@@ -749,7 +749,6 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
 
-
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
 			parent.clear_errors_pb.clicked.connect(partial(utilities.clear_errors, parent))
@@ -1391,6 +1390,14 @@ def setup_jog(parent):
 					f'> {item} < is not a valid unit and will not\n'
 					'be used. INCREMENTS must be comma seperated.')
 					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+
+	# keyboard jog increment setting
+	if parent.kb_jog_increment:
+		if 'jog_modes_cb' not in parent.child_names:
+			msg = ('The keyboard jog increment setting\n'
+			'requires the jog_modes_cb to work.\n'
+			'Keyboard Jog Increments will be disabled.')
+			parent.kb_jog_increment = False
 
 def conv_units(value, suffix, units):
 	if units == 'INCH':
