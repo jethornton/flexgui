@@ -885,7 +885,7 @@ def setup_status_labels(parent):
 		9: 'EXEC_WAITING_FOR_SYSTEM_CMD', 10: 'EXEC_WAITING_FOR_SPINDLE_ORIENTED',},
 	'estop': {0: False, 1: True},
 	'flood': {0: 'OFF', 1: 'ON'},
-	'mist': {0: 'Mist OFF', 1: 'Mist ON'},
+	'mist': {0: 'OFF', 1: 'ON'},
 	'g5x_index': {1: 'G54', 2: 'G55', 3: 'G56', 4: 'G57', 5: 'G58', 6: 'G59',
 		7: 'G59.1', 8: 'G59.2', 9: 'G59.3'},
 	'interp_state': {1: 'INTERP_IDLE', 2: 'INTERP_READING',
@@ -912,8 +912,8 @@ def setup_status_labels(parent):
 	'interp_state', 'interpreter_errcode', 'joint', 'joint_actual_position',
 	'joints', 'kinematics_type', 'lube', 'lube_level', 'mist', 'motion_line',
 	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
-	'probe_tripped', 'probe_val', 'probed_position', 'probing', 'queue',
-	'queue_full', 'read_line', 'spindle', 'spindles', 'state',
+	'position', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
+	'queue', 'queue_full', 'read_line', 'spindle', 'spindles', 'state',
 	'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
 	'tool_from_pocket', 'tool_offset', 'tool_table']
 
