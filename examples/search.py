@@ -24,7 +24,7 @@ def extract_button_names(file_path):
 	'gcodes_lb', 'homed_lb', 'ini_filename_lb', 'inpos_lb', 'input_timeout_lb',
 	'interp_state_lb', 'interpreter_errcode_lb', 'joint',
 	'joint_actual_position_lb','joint_position', 'joints_lb',
-	'kinematics_type_lb', 'limit', 'linear_units_lb', 'lube_lb', 'lube_level_lb',
+	'kinematics_type_lb', 'limit_lb', 'linear_units_lb', 'lube_lb', 'lube_level_lb',
 	'machine_units_lb', 'max_acceleration_lb', 'max_velocity_lb',
 	'min_jog_vel_lb', 'max_jog_vel_lb', 'mcodes_lb', 'mist_lb', 'motion_line_lb',
 	'motion_mode_lb', 'motion_type_lb', 'optional_stop_lb', 'paused_lb',

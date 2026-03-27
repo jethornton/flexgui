@@ -912,10 +912,10 @@ def setup_status_labels(parent):
 	'exec_state', 'feed_hold_enabled', 'feed_override_enabled', 'flood',
 	'g5x_index', 'g5x_offset', 'homed', 'ini_filename', 'inpos', 'input_timeout',
 	'interp_state', 'interpreter_errcode', 'joint', 'joint_actual_position',
-	'joints', 'kinematics_type', 'lube', 'lube_level', 'mist', 'motion_line',
-	'motion_mode', 'motion_type', 'optional_stop', 'paused', 'pocket_prepped',
-	'position', 'probe_tripped', 'probe_val', 'probed_position', 'probing',
-	'queue', 'queue_full', 'read_line', 'spindle', 'spindles', 'state',
+	'joints', 'kinematics_type', 'limit', 'lube', 'lube_level', 'mist',
+	'motion_line', 'motion_mode', 'motion_type', 'optional_stop', 'paused',
+	'pocket_prepped', 'position', 'probe_tripped', 'probe_val', 'probed_position',
+	'probing', 'queue', 'queue_full', 'read_line', 'spindle', 'spindles', 'state',
 	'task_mode', 'task_paused', 'task_state', 'tool_in_spindle',
 	'tool_from_pocket', 'tool_offset', 'tool_table']
 

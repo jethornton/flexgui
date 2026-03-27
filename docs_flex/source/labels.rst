@@ -210,7 +210,7 @@ status items.
 		KINEMATICS_INVERSE_ONLY = 3
 		KINEMATICS_BOTH = 4
 
-	limit - returns tuple of integers
+	limit_lb - returns tuple of integers
 	axis limit masks. minHardLimit=1, maxHardLimit=2, minSoftLimit=4, maxSoftLimit=8
 
 	linear_units_lb - returns float - precision can be set
