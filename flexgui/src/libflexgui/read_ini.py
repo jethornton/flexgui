@@ -321,7 +321,6 @@ def read(parent):
 	parent.kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or False
 	if parent.kb_jog_increment:
 		parent.kb_jog_increment = parent.kb_jog_increment.strip().lower() == "true"
-	print(f'parent.kb_jog_increment {parent.kb_jog_increment}')
 
 	# check for keyboard jogging
 	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
