@@ -826,7 +826,6 @@ def setup_buttons(parent): # connect buttons to functions
 			button = getattr(parent, item)
 			value = item.split('_')[-1]
 			if utilities.is_int(value):
-				print(value)
 				if int(value) in range(0, 101):
 					button.clicked.connect(partial(commands.rapid_override_preset, parent))
 				else:
