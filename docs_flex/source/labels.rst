@@ -186,7 +186,7 @@ status.
 		INTERP_FILE_NOT_OPEN = 4,
 		INTERP_ERROR = 5
 
-	joint - returns tuple of dicts
+	joint_lb - returns tuple of dicts
 	reflecting current joint values
 
 See the `Joint Status <#joint-status-labels>`_ labels for individual joint
@@ -194,10 +194,10 @@ status items.
 
 .. code-block:: text
 
-	joint_actual_position - returns tuple of floats
+	joint_actual_position_lb - returns tuple of floats
 	actual joint positions
 
-	joint_position - returns tuple of floats
+	joint_position_lb - returns tuple of floats
 	desired joint positions
 
 	joints_lb - returns integer

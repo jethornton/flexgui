@@ -23,7 +23,7 @@ def extract_button_names(file_path):
 	'feed_override_lb', 'file_lb', 'flood_lb', 'g5x_index_lb', 'g5x_offset_lb',
 	'gcodes_lb', 'homed_lb', 'ini_filename_lb', 'inpos_lb', 'input_timeout_lb',
 	'interp_state_lb', 'interpreter_errcode_lb', 'joint',
-	'joint_actual_position_lb','joint_position', 'joints_lb',
+	'joint_actual_position_lb','joint_position_lb', 'joints_lb',
 	'kinematics_type_lb', 'limit_lb', 'linear_units_lb', 'lube_lb', 'lube_level_lb',
 	'machine_units_lb', 'max_acceleration_lb', 'max_velocity_lb',
 	'min_jog_vel_lb', 'max_jog_vel_lb', 'mcodes_lb', 'mist_lb', 'motion_line_lb',
