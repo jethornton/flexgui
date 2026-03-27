@@ -281,7 +281,7 @@ status items.
 	pocket_prepped_lb - returns integer
 	A Tx command completed, and this pocket is prepared. -1 if no prepared pocket
 
-	position - returns tuple of floats
+	position_lb - returns tuple of floats
 	trajectory position
 
 	probe_tripped_lb - returns boolean
