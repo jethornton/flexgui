@@ -291,12 +291,6 @@ spindle encoder or any numeric value that changes.
 The `samples` option can change the number of samples that are averaged out to
 help smooth the display output.
 
-The `rounding` option can be used to round the number. Use 1 to round to the
-nearest tenth and 2 to round to the nearest hundred, etc.
-
-The `precision` option is used to set the number of decimal places. Set to 0
-to not have any decimal places.
-
 HAL connections must be made in the post gui HAL file. The pin_name used will
 create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 `flexhal.my-reader` in HAL.
