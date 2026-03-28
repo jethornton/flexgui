@@ -303,18 +303,16 @@ create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 
 The HAL direction is IN.
 
-.. csv-table:: HAL Average Float Label
+.. csv-table:: HAL Average Integer Label
    :width: 100%
    :align: center
 
 	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_avr_f
+	String, function, hal_avr_i
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
 	Optional
 	Int, samples, The number of samples to use default is 10
-	Int, rounding, number of digits to the left of the decimal to round
-	Int, precision, Number of decimal digits
 
 HAL Bool Label
 --------------
