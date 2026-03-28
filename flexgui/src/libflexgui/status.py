@@ -433,17 +433,21 @@ def update(parent):
 			getattr(parent, key).setText(f'{state}')
 
 	# update hal average float labels key is label name and value is pin name
-	# [pin_name, deque([0], maxlen=samples), p, _round]
+	# [pin_name, deque([0], maxlen=samples), p, r]
 	for key, value in parent.hal_avr_float.items():
 		cur_val = hal.get_value(f'flexhal.{value[0]}')
 		value[1].append(cur_val)
-		#stat = f'{statistics.fmean(value[1]):.{value[2]}f}'
 		stat = statistics.fmean(value[1])
 		rounding = value[3]
 		getattr(parent, key).setText(f'{round(stat, rounding):.{value[2]}f}')
 
 	# update hal average int labels key is label name and value is pin name
-	# FIXME add hal average int labels
+	# [pin_name, deque([0], maxlen=samples)]
+	for key, value in parent.hal_avr_int.items():
+		cur_val = hal.get_value(f'flexhal.{value[0]}')
+		value[1].append(cur_val)
+		stat = statistics.fmean(value[1])
+		getattr(parent, key).setText(f'{round(stat)}')
 
 	# update multi state labels
 	# key is label name and value[0] is the pin name

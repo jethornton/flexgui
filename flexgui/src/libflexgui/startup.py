@@ -156,6 +156,7 @@ def setup_hal_led_buttons(parent):
 				'or it is blank. The Button will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
+				child.setText('Error!')
 				child.setProperty('function', '')
 				continue
 
@@ -275,6 +276,7 @@ def setup_hal_led_labels(parent):
 				'or it is blank. The LED will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
+				child.setText('Error!')
 				continue
 
 			if child.property('function') is None:
@@ -283,6 +285,7 @@ def setup_hal_led_labels(parent):
 				'or it is blank. The LED will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 				child.setEnabled(False)
+				child.setText('Error!')
 				continue
 
 			led_dict = {}
@@ -337,6 +340,7 @@ def setup_hal_leds(parent): # LED
 				'is missing the Dynamic Property pin_name\n'
 				'or it is blank. The LED will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				child.setText('Error!')
 				child.setEnabled(False)
 				continue
 
@@ -345,6 +349,7 @@ def setup_hal_leds(parent): # LED
 				'is missing the Dynamic Property function\n'
 				'or it is blank. The LED will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				child.setText('Error!')
 				child.setEnabled(False)
 				continue
 
@@ -545,6 +550,7 @@ def update_check(parent):
 		'The label will be disabled and will not function.')
 		dialogs.critical_msg_ok(parent, msg, 'Object Name Changed')
 		parent.feedrate_lb.setEnabled(False)
+		parent.feedrate_lb.setText('Error!')
 
 def setup_enables(parent):
 
@@ -708,6 +714,7 @@ def setup_buttons(parent): # connect buttons to functions
 		'used for testing in the early days.')
 		dialogs.error_msg_ok(parent, msg, 'Depreciated Control')
 		parent.manual_mode_pb.setEnabled(False)
+		parent.manual_mode_pb.setText('Error!')
 
 	command_buttons = {
 	'abort_pb': 'abort', 'home_all_pb': 'home_all', 'home_pb_0': 'home',
@@ -819,6 +826,7 @@ def setup_buttons(parent): # connect buttons to functions
 				f'{value} did not evaluate to and integer\n'
 				'The button will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				button.setText('Error!')
 				getattr(parent, item).setEnabled(False)
 
 		elif item.startswith('rapid_percent_'):
@@ -839,6 +847,7 @@ def setup_buttons(parent): # connect buttons to functions
 				f'{value} did not evaluate to and integer\n'
 				'The button will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				button.setText('Error!')
 				getattr(parent, item).setEnabled(False)
 
 		elif item.startswith('spindle_percent_'):
@@ -852,6 +861,7 @@ def setup_buttons(parent): # connect buttons to functions
 				f'{value} did not evaluate to and integer\n'
 				'The button will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				button.setText('Error!')
 				getattr(parent, item).setEnabled(False)
 
 	#value = int(parent.sender().objectName().split('_')[-1])
@@ -1255,6 +1265,7 @@ def setup_mdi_buttons(parent):
 				'Does not have a command\n'
 				f'{button.text()} will be disabled.')
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				button.setText('Error!')
 				button.setEnabled(False)
 
 def setup_jog(parent):
@@ -2330,7 +2341,7 @@ def setup_hal(parent):
 
 			if pin_name in [None, '']:
 				label.setEnabled(False)
-				msg = (f'HAL Average Label {label_name}\n'
+				msg = (f'HAL Average Float Label {label_name}\n'
 				'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {label_name} will be disabled.')
@@ -2339,7 +2350,7 @@ def setup_hal(parent):
 
 			if pin_name in dir(parent):
 				label.setEnabled(False)
-				msg = (f'HAL Average Label {label_name}\n'
+				msg = (f'HAL Average Float Label {label_name}\n'
 				f'pin name {pin_name}\n'
 				'is already used in Flex GUI\n'
 				'The HAL pin can not be created.'
@@ -2356,10 +2367,51 @@ def setup_hal(parent):
 
 			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=s), p, r]
 
-	# FIXME add hal_avr_i_labels
 	##### HAL AVERAGE INT LABEL #####
-	# parent.hal_avr_int = {}
+	if len(hal_avr_i_labels) > 0:
+		valid_types = ['HAL_S32', 'HAL_U32']
+		for label in hal_avr_i_labels:
+			label_name = label.objectName()
+			pin_name = label.property('pin_name')
+			s = label.property('samples') or 10
 
+			if pin_name in [None, '']:
+				label.setEnabled(False)
+				label.setText('Error!')
+				msg = (f'HAL Average Integer Label {label_name}\n'
+				'pin name is blank or missing\n'
+				'The HAL pin can not be created.\n'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			if pin_name in dir(parent):
+				label.setEnabled(False)
+				label.setText('Error!')
+				msg = (f'HAL Average Integer Label {label_name}\n'
+				f'pin name {pin_name}\n'
+				'is already used in Flex GUI\n'
+				'The HAL pin can not be created.'
+				f'The {label_name} will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				continue
+
+			hal_type = label.property('hal_type')
+			if hal_type not in valid_types:
+				label.setEnabled(False)
+				label.setText('Error!')
+				msg = (f'{hal_type} is not valid\n'
+				'for a HAL Average Integer Label , only\n'
+				'HAL_S32 or HAL_U32\n'
+				f'The {label_name} label will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				continue
+
+			hal_type = getattr(hal, f'{hal_type}')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+			parent.hal_avr_int[label_name] = [pin_name, deque([0], maxlen=s)]
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:

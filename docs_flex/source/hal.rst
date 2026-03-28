@@ -280,6 +280,42 @@ The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
 	Int, rounding, number of digits to the left of the decimal to round
 	Int, precision, Number of decimal digits
 
+HAL Average Integer Label
+-------------------------
+
+A QLabel can be used to monitor HAL_S32 or HAL_U32 pins and display an average
+of the number of samples. The sample stack is LIFO so a new value pushes the
+oldest value out of the stack. This could be useful to display RPM from a
+spindle encoder or any numeric value that changes.
+
+The `samples` option can change the number of samples that are averaged out to
+help smooth the display output.
+
+The `rounding` option can be used to round the number. Use 1 to round to the
+nearest tenth and 2 to round to the nearest hundred, etc.
+
+The `precision` option is used to set the number of decimal places. Set to 0
+to not have any decimal places.
+
+HAL connections must be made in the post gui HAL file. The pin_name used will
+create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
+`flexhal.my-reader` in HAL.
+
+The HAL direction is IN.
+
+.. csv-table:: HAL Average Float Label
+   :width: 100%
+   :align: center
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_avr_f
+	String, pin_name, any unique name
+	String, hal_type, HAL_S32 or HAL_U32
+	Optional
+	Int, samples, The number of samples to use default is 10
+	Int, rounding, number of digits to the left of the decimal to round
+	Int, precision, Number of decimal digits
+
 HAL Bool Label
 --------------
 
