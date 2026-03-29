@@ -2106,10 +2106,8 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, spinbox)
 
-			# FIXME look into this to see if it can be added to set_hal_enables
-			if parent.probe_controls: # make sure the probing_enable_pb is there
-				if spinbox_name.startswith('probe_'): # don't enable it when power is on
-					parent.probe_controls.append(spinbox_name)
+			if spinbox_name.startswith('probe_'): # don't enable it when power is on
+				parent.probe_controls.append(spinbox_name)
 
 	##### HAL Double Spinboxes #####
 	if len(hal_dbl_spinboxes) > 0:
@@ -2145,10 +2143,8 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, spinbox)
 
-			# FIXME look into this to see if it can be added to utilities.set_hal_enables
-			if parent.probe_controls: # make sure the probing_enable_pb is there
-				if spinbox_name.startswith('probe_'): # don't enable it when power is on
-					parent.probe_controls.append(spinbox_name)
+			if spinbox_name.startswith('probe_'): # don't enable it when power is on
+				parent.probe_controls.append(spinbox_name)
 
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
@@ -2195,10 +2191,8 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, slider)
 
-			# FIXME look into this to see if it can be added to set_hal_enables
-			if parent.probe_controls: # make sure the probing_enable_pb is there
-				if slider_name.startswith('probe_'): # don't enable it when power is on
-					parent.probe_controls.append(slider_name)
+			if slider_name.startswith('probe_'): # don't enable it when power is on
+				parent.probe_controls.append(slider_name)
 
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
