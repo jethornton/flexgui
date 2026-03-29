@@ -1,4 +1,4 @@
-import sys, os
+import os
 
 from PyQt6.QtWidgets import QDialog, QPushButton
 from PyQt6.uic import loadUi

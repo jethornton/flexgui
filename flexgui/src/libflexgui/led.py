@@ -1,6 +1,6 @@
 
-from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QEvent, QSize
-from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter, QColor, QBrush, QPainter
+from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QSize
+from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter, QBrush
 from PyQt6.QtWidgets import QPushButton, QLabel
 
 # gradient functions used by LED

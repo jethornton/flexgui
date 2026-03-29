@@ -3,9 +3,8 @@
 #import sys
 #import math
 
-from PyQt6.QtCore import pyqtSignal, pyqtSignal, QSize, Qt, QTimer
+from PyQt6.QtCore import pyqtSignal, QSize, Qt, QTimer
 from PyQt6.QtGui import QColor
-from PyQt6.QtWidgets import QApplication
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 from OpenGL import GL
 from OpenGL.GL import glColor4f

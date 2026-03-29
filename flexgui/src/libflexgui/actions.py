@@ -1,7 +1,7 @@
-import os, sys, subprocess, shutil
+import os, subprocess, shutil
 from functools import partial
 
-from PyQt6.QtWidgets import QApplication, QFileDialog, QLabel, QMenu
+from PyQt6.QtWidgets import QApplication, QFileDialog, QMenu
 
 import linuxcnc as emc
 import hal

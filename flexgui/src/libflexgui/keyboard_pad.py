@@ -1,4 +1,4 @@
-import sys, os
+import os
 from functools import partial
 
 from PyQt6.QtWidgets import QDialog, QPushButton

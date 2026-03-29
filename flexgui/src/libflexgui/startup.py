@@ -2,18 +2,14 @@ import os, sys, shutil, re, importlib
 from functools import partial
 from collections import deque
 
-from PyQt6.QtWidgets import QWidget
-from PyQt6.QtWidgets import QListWidget, QPlainTextEdit, QLineEdit
-from PyQt6.QtWidgets import QSlider, QMenu, QToolButton, QRadioButton
+from PyQt6.QtWidgets import QWidget, QLineEdit
+from PyQt6.QtWidgets import QSlider, QMenu, QRadioButton
 from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
-from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
-from PyQt6.QtWidgets import QProgressBar, QButtonGroup, QFrame
-from PyQt6.QtWidgets import QTabWidget
-from PyQt6.QtGui import QAction, QColor
-from PyQt6.QtCore import QSettings
-from PyQt6.QtOpenGLWidgets import QOpenGLWidget
+from PyQt6.QtWidgets import QProgressBar, QButtonGroup
+from PyQt6.QtWidgets import QTabWidget, QVBoxLayout
+from PyQt6.QtGui import QAction
 
 import linuxcnc as emc
 import hal

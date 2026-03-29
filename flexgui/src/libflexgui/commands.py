@@ -1,6 +1,4 @@
-import os, threading
-
-from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton
+import threading
 
 import linuxcnc as emc
 
