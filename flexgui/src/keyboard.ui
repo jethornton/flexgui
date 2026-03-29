@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>762</width>
-    <height>362</height>
+    <width>691</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,14 +20,22 @@ min-width: 50
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="3" column="6">
-    <widget class="QPushButton" name="symbols_pb">
+   <item row="1" column="0" colspan="5">
+    <widget class="QLineEdit" name="keyboard_le">
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
-      <string>Symbols</string>
+      <string/>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="9">
+   <item row="2" column="0" colspan="4">
     <widget class="QStackedWidget" name="keyboard_sw">
      <property name="currentIndex">
       <number>0</number>
@@ -819,77 +827,125 @@ min-width: 50
      </widget>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="space_pb">
-     <property name="text">
-      <string>Space</string>
+   <item row="2" column="4">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>75</width>
+       <height>0</height>
+      </size>
      </property>
-    </widget>
-   </item>
-   <item row="3" column="8">
-    <widget class="QPushButton" name="save_pb">
-     <property name="text">
-      <string>Save</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QPushButton" name="backspace_pb">
-     <property name="text">
-      <string>Bksp</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="QPushButton" name="gcode_pb">
-     <property name="text">
-      <string>G code</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="9">
-    <widget class="QLineEdit" name="keyboard_lb">
-     <property name="font">
-      <font>
-       <family>FreeMono</family>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="5">
-    <widget class="QPushButton" name="lower_letters_pb">
-     <property name="text">
-      <string>Lower
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="gcode_pb">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>52</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>G code</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="capital_letters_pb">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>52</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Capitol
 Letters</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QPushButton" name="clear_pb">
-     <property name="text">
-      <string>Clear</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="4">
-    <widget class="QPushButton" name="capital_letters_pb">
-     <property name="text">
-      <string>Capitol
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="lower_letters_pb">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>52</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Lower
 Letters</string>
-     </property>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="symbols_pb">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>52</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Symbols</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="3" column="7">
-    <widget class="QPushButton" name="cancel_pb">
-     <property name="text">
-      <string>Cancel</string>
-     </property>
+   <item row="3" column="0" colspan="5">
+    <widget class="QWidget" name="widget_2" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="clear_pb">
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="left_arrow_pb">
+        <property name="text">
+         <string>&lt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="right_arrow_pb">
+        <property name="text">
+         <string>&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="backspace_pb">
+        <property name="text">
+         <string>Bksp</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="space_pb">
+        <property name="text">
+         <string>Space</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="cancel_pb">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="save_pb">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
