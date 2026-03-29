@@ -2016,7 +2016,6 @@ def setup_hal(parent):
 		for button in hal_buttons:
 			button_name = button.objectName()
 			pin_name = button.property('pin_name')
-			# FIXME test for state_off & home_required and bitch
 			state_off = button.property('state_off')
 			home_required = button.property('required')
 			if isinstance(button, QPushButton) or isinstance(button, QCheckBox):
