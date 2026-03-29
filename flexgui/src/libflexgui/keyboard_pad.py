@@ -34,9 +34,11 @@ class keyboard_pad(QDialog):
 
 	def clear(self):
 		self.keyboard_le.clear()
+		self.keyboard_le.setFocus()
 
 	def space(self):
 		self.keyboard_le.insert(' ')
+		self.keyboard_le.setFocus()
 
 	def backspace(self):
 		self.keyboard_le.backspace()
