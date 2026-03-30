@@ -60,7 +60,7 @@ def numbers(parent, obj): # obj is the qlineedit that is to receive
 			obj.setText(dialog.retval())
 
 		if dialog.exit_pos is not None: # save last position
-			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_pos', dialog.exit_pos)
 		if dialog.exit_size is not None: # save last size
 			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
@@ -81,7 +81,7 @@ def gcode(parent, obj):
 			obj.setText(dialog.retval())
 
 		if dialog.exit_pos is not None: # save last position
-			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_pos', dialog.exit_pos)
 		if dialog.exit_size is not None: # save last size
 			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
