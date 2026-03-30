@@ -99,165 +99,7 @@
         <string>Home</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="2" column="0">
-            <widget class="QPushButton" name="home_pb_1">
-             <property name="text">
-              <string>Home Y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="unhome_all_pb">
-             <property name="text">
-              <string>UnHome All</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="home_all_pb">
-             <property name="text">
-              <string>Home All</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="unhome_pb_1">
-             <property name="text">
-              <string>UnHome Y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="home_pb_0">
-             <property name="text">
-              <string>Home X</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="unhome_pb_0">
-             <property name="text">
-              <string>UnHome X</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="home_pb_2">
-             <property name="text">
-              <string>Home Z</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="unhome_pb_2">
-             <property name="text">
-              <string>UnHome Z</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame_9">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_14">
-           <item row="1" column="3">
-            <widget class="QLabel" name="spindle_speed_0_lb">
-             <property name="text">
-              <string>Spindle Speed</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="spindle_stop_pb">
-             <property name="text">
-              <string>Spindle Off</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="spindle_fwd_pb">
-             <property name="text">
-              <string>Spindle Fwd</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="spindle_rev_pb">
-             <property name="text">
-              <string>Spindle Rev</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="spindle_minus_pb">
-             <property name="text">
-              <string>Spindle -</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="spindle_plus_pb">
-             <property name="text">
-              <string>Spindle +</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QFrame" name="frame_8">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_13">
-           <item row="1" column="1">
-            <widget class="QPushButton" name="clear_info_pb">
-             <property name="text">
-              <string>Clear
-Info</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="0" rowspan="2">
-            <widget class="QPlainTextEdit" name="info_pte"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
+        <item row="2" column="0" colspan="2">
          <widget class="QFrame" name="frame_3">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -367,7 +209,97 @@ Info</string>
           </layout>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="0" column="1">
+         <widget class="QFrame" name="frame_9">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_14">
+           <item row="1" column="3">
+            <widget class="QLabel" name="spindle_speed_0_lb">
+             <property name="text">
+              <string>Spindle Speed</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="spindle_stop_pb">
+             <property name="text">
+              <string>Spindle Off</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="spindle_fwd_pb">
+             <property name="text">
+              <string>Spindle Fwd</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="spindle_rev_pb">
+             <property name="text">
+              <string>Spindle Rev</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="spindle_minus_pb">
+             <property name="text">
+              <string>Spindle -</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="spindle_plus_pb">
+             <property name="text">
+              <string>Spindle +</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QFrame" name="frame_8">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="clear_info_pb">
+             <property name="text">
+              <string>Clear
+Info</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" rowspan="2">
+            <widget class="QPlainTextEdit" name="info_pte"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="2">
          <widget class="QFrame" name="frame_14">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -448,6 +380,128 @@ Info</string>
                </widget>
               </item>
              </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QFrame" name="frame_16">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_33">
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_2">
+             <property name="input" stdset="0">
+              <string>nccode</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="lineEdit_3">
+             <property name="input" stdset="0">
+              <string>keyboard</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="input" stdset="0">
+              <string>number</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Numbers</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>G Code</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Keyboard</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="2">
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="home_pb_1">
+             <property name="text">
+              <string>Home Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="unhome_all_pb">
+             <property name="text">
+              <string>UnHome All</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="home_all_pb">
+             <property name="text">
+              <string>Home All</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="unhome_pb_1">
+             <property name="text">
+              <string>UnHome Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="home_pb_0">
+             <property name="text">
+              <string>Home X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="unhome_pb_0">
+             <property name="text">
+              <string>UnHome X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="home_pb_2">
+             <property name="text">
+              <string>Home Z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="unhome_pb_2">
+             <property name="text">
+              <string>UnHome Z</string>
+             </property>
             </widget>
            </item>
           </layout>
@@ -833,7 +887,7 @@ Info</string>
         <item row="3" column="0">
          <widget class="QLineEdit" name="mdi_command_le">
           <property name="input" stdset="0">
-           <string>nccode</string>
+           <string>keyboard</string>
           </property>
          </widget>
         </item>
