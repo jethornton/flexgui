@@ -6,28 +6,66 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>276</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Number Input</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="2" column="1">
+   <item row="2" column="3">
     <widget class="QPushButton" name="backspace_pb">
+     <property name="minimumSize">
+      <size>
+       <width>52</width>
+       <height>52</height>
+      </size>
+     </property>
      <property name="text">
       <string>Bksp</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="4">
+   <item row="2" column="2">
+    <widget class="QPushButton" name="right_arrow_pb">
+     <property name="minimumSize">
+      <size>
+       <width>52</width>
+       <height>52</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="left_arrow_pb">
+     <property name="minimumSize">
+      <size>
+       <width>52</width>
+       <height>52</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&lt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="6">
     <widget class="QLineEdit" name="numbers_le"/>
    </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="cancel_pb">
+   <item row="3" column="3">
+    <widget class="QPushButton" name="save_pb">
+     <property name="minimumSize">
+      <size>
+       <width>52</width>
+       <height>52</height>
+      </size>
+     </property>
      <property name="text">
-      <string>Cancel</string>
+      <string>Save</string>
      </property>
     </widget>
    </item>
@@ -42,6 +80,12 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="1">
        <widget class="QPushButton" name="key_8">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>8</string>
         </property>
@@ -49,6 +93,12 @@
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="key_4">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>4</string>
         </property>
@@ -56,6 +106,12 @@
       </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="key_7">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>7</string>
         </property>
@@ -63,6 +119,12 @@
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="key_5">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>5</string>
         </property>
@@ -70,6 +132,12 @@
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="key_6">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>6</string>
         </property>
@@ -77,6 +145,12 @@
       </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="key_9">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>9</string>
         </property>
@@ -84,6 +158,12 @@
       </item>
       <item row="2" column="0">
        <widget class="QPushButton" name="key_1">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>1</string>
         </property>
@@ -91,6 +171,12 @@
       </item>
       <item row="2" column="2">
        <widget class="QPushButton" name="key_3">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>3</string>
         </property>
@@ -98,6 +184,12 @@
       </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="key_2">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>2</string>
         </property>
@@ -105,6 +197,12 @@
       </item>
       <item row="3" column="0">
        <widget class="QPushButton" name="key_0">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>0</string>
         </property>
@@ -112,6 +210,12 @@
       </item>
       <item row="3" column="1">
        <widget class="QPushButton" name="key_dot">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>.</string>
         </property>
@@ -119,6 +223,12 @@
       </item>
       <item row="3" column="2">
        <widget class="QPushButton" name="minus">
+        <property name="minimumSize">
+         <size>
+          <width>52</width>
+          <height>52</height>
+         </size>
+        </property>
         <property name="text">
          <string>-</string>
         </property>
@@ -127,15 +237,27 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="3">
-    <widget class="QPushButton" name="save_pb">
+   <item row="3" column="2">
+    <widget class="QPushButton" name="cancel_pb">
+     <property name="minimumSize">
+      <size>
+       <width>52</width>
+       <height>52</height>
+      </size>
+     </property>
      <property name="text">
-      <string>Save</string>
+      <string>Cancel</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="3" column="1">
     <widget class="QPushButton" name="clear_pb">
+     <property name="minimumSize">
+      <size>
+       <width>52</width>
+       <height>52</height>
+      </size>
+     </property>
      <property name="text">
       <string>Clear</string>
      </property>
