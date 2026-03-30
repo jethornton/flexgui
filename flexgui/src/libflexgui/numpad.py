@@ -21,6 +21,7 @@ class number_pad(QDialog):
 
 		# Variable to store the position
 		self.exit_pos = None
+		self.exit_size = None
 
 	def post(self):
 		self.numbers_le.insert(self.sender().text())
@@ -60,6 +61,7 @@ class number_pad(QDialog):
 	def moveEvent(self, event):
 		# This method is called when the dialog moves.
 		self.exit_pos = self.pos()
+		self.exit_size = self.size()
 		super().moveEvent(event) # Call the base class implementation
 
 

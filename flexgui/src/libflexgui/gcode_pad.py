@@ -26,6 +26,7 @@ class gcode_pad(QDialog):
 
 		# Variable to store the position
 		self.exit_pos = None
+		self.exit_size = None
 
 	def next(self):
 		self.letters_sw.setCurrentIndex(self.letters_sw.currentIndex() + 1)
@@ -70,5 +71,6 @@ class gcode_pad(QDialog):
 	def moveEvent(self, event):
 		# This method is called when the dialog moves.
 		self.exit_pos = self.pos()
+		self.exit_size = self.size()
 		super().moveEvent(event) # Call the base class implementation
 

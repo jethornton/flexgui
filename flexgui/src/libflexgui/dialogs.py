@@ -24,8 +24,11 @@ def spinbox_numbers(parent, obj):
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
-		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
-			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
+			dialog.resize(parent.settings.value(f'POPUP/{obj.objectName()}_size'))
+
 		result = dialog.exec()
 
 		if result and utilities.is_number(dialog.retval()):
@@ -35,15 +38,22 @@ def spinbox_numbers(parent, obj):
 				obj.setValue(utilities.string_to_float(dialog.retval()))
 
 		if dialog.exit_pos is not None: # save last position
-			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_pos', dialog.exit_pos)
+		if dialog.exit_size is not None: # save last size
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
-def numbers(parent, obj):
+def numbers(parent, obj): # obj is the qlineedit that is to receive
 	if obj.isEnabled():
 		dialog = numpad.number_pad(parent.lib_path)
+		dialog.numbers_le.setText(obj.text())
+
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
-		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
-			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
+			dialog.resize(parent.settings.value(f'POPUP/{obj.objectName()}_size'))
+
 		result = dialog.exec()
 
 		if result and utilities.is_number(dialog.retval()):
@@ -51,15 +61,20 @@ def numbers(parent, obj):
 
 		if dialog.exit_pos is not None: # save last position
 			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+		if dialog.exit_size is not None: # save last size
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
 def gcode(parent, obj):
 	if obj.isEnabled():
 		dialog = gcode_pad.gcode_pad(parent.lib_path)
+		dialog.gcode_le.setText(obj.text())
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
-		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
-			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
+			dialog.resize(parent.settings.value(f'POPUP/{obj.objectName()}_size'))
 
 		result = dialog.exec()
 		if result:
@@ -67,22 +82,31 @@ def gcode(parent, obj):
 
 		if dialog.exit_pos is not None: # save last position
 			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+		if dialog.exit_size is not None: # save last size
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
 def keyboard(parent, obj):
 	if obj.isEnabled():
 		dialog = keyboard_pad.keyboard_pad(parent.lib_path)
+		dialog.keyboard_le.setText(obj.text())
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
-		if parent.settings.contains(f'POPUP/{obj.objectName()}'):
-			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}'))
+
+		# set size and position
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
+			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
+		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
+			dialog.resize(parent.settings.value(f'POPUP/{obj.objectName()}_size'))
 
 		result = dialog.exec()
 		if result:
 			obj.setText(dialog.retval())
 
 		if dialog.exit_pos is not None: # save last position
-			parent.settings.setValue(f'POPUP/{obj.objectName()}', dialog.exit_pos)
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_pos', dialog.exit_pos)
+		if dialog.exit_size is not None: # save last size
+			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
 def manual_tool_change(parent):
 	tc = tool_change.app()
