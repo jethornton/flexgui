@@ -475,7 +475,7 @@ def io_watch(parent):
 
 def update_home_controls(parent):
 	parent.status.poll()
-	print('update_home_controls')
+	# print('update_home_controls')
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			#print('STATE_ON MODE_MANUAL')
