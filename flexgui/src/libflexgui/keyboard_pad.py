@@ -31,6 +31,7 @@ class keyboard_pad(QDialog):
 
 	def post(self):
 		self.keyboard_le.insert(self.sender().text())
+		self.keyboard_le.setFocus()
 
 	def clear(self):
 		self.keyboard_le.clear()
