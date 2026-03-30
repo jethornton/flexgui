@@ -475,7 +475,7 @@ def io_watch(parent):
 
 def update_home_controls(parent):
 	parent.status.poll()
-	#print('update_home_controls')
+	print('update_home_controls')
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			#print('STATE_ON MODE_MANUAL')
@@ -556,11 +556,18 @@ def update_home_controls(parent):
 					parent.actionUnhome_All.setEnabled(True)
 
 		else: # mode not manual
+			# print('mode not manual')
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(False)
 
+	else: # state is not on
+		# print('state is not on')
+		for item in parent.home_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.unhome_controls:
+			getattr(parent, item).setEnabled(False)
 
 def update_controls(parent):
 	parent.status.poll()
