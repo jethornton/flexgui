@@ -117,25 +117,25 @@ def manual_tool_change(parent):
 		stylesheet = os.path.join(parent.lib_path, f'{parent.qss_file}.qss')
 	else:
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	mtc = QDialog(parent)
-	mtc.setMinimumSize(300, 300)
-	mtc.setWindowTitle('Manual Tool Change')
+	dialog = QDialog(parent)
+	dialog.setMinimumSize(300, 300)
+	dialog.setWindowTitle('Manual Tool Change')
 
-	layout = QVBoxLayout(mtc)
+	layout = QVBoxLayout(dialog)
 
 	def accept():
 		hal.set_p('iocontrol.0.tool-changed','true')
 		parent.tool_changed = True
 		if 'statusbar' in parent.child_names:
 			parent.statusbar.showMessage('Tool Changed', 10000)
-		mtc.accept()
+		dialog.accept()
 
 	def reject():
 		parent.command.abort()
 		parent.command.wait_complete()
 		if 'statusbar' in parent.child_names:
 			parent.statusbar.showMessage('Tool Change Aborted', 10000)
-		mtc.reject()
+		dialog.reject()
 
 	tool_change_lb =  QLabel()
 	tool_change_lb.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -152,7 +152,7 @@ def manual_tool_change(parent):
 	buttonBox.accepted.connect(accept)
 	buttonBox.rejected.connect(reject)
 
-	result = mtc.exec()
+	result = dialog.exec()
 
 '''
 def manual_tool_change(parent):
