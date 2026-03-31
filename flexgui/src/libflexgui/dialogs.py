@@ -12,7 +12,7 @@ import hal
 from libflexgui import numpad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
-from libflexgui import tool_change
+#from libflexgui import tool_change
 from libflexgui import touchoff
 from libflexgui import tool_touchoff
 from libflexgui import utilities
