@@ -1,3 +1,0 @@
-
-disable dro view controls if dro is not checked...
-
