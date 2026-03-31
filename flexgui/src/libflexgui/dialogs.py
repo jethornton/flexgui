@@ -21,6 +21,7 @@ from libflexgui import search
 def spinbox_numbers(parent, obj):
 	if obj.isEnabled():
 		dialog = numpad.number_pad(parent.lib_path)
+		dialog.numbers_le.setText(f'{obj.value()}')
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
