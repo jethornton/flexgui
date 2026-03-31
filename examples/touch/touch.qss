@@ -53,6 +53,7 @@ QAbstractButton{
 	margin-bottom: 1px;
 	padding-right: 5px; /* make sure there is space between the name and the edge */
 	padding-left: 5px;
+	background-color: #d5d5d5;
 }
 
 QPushButton:checked, QPushButton:pressed

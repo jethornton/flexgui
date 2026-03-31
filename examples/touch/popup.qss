@@ -1,0 +1,4 @@
+QPushButton {
+	color: #000000;
+	background-color: #00aaff;
+}

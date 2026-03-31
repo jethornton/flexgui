@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>768</height>
+    <height>861</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -99,7 +99,7 @@
         <string>Home</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="2" column="0" colspan="2">
+        <item row="3" column="0" colspan="2">
          <widget class="QFrame" name="frame_3">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -209,6 +209,164 @@
           </layout>
          </widget>
         </item>
+        <item row="2" column="1">
+         <widget class="QFrame" name="frame_16">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_33">
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_2">
+             <property name="input" stdset="0">
+              <string>nccode</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="lineEdit_3">
+             <property name="input" stdset="0">
+              <string>keyboard</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="input" stdset="0">
+              <string>number</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Numbers</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>G Code</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Keyboard</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="3">
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="home_pb_1">
+             <property name="text">
+              <string>Home Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="unhome_all_pb">
+             <property name="text">
+              <string>UnHome All</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="home_all_pb">
+             <property name="text">
+              <string>Home All</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="unhome_pb_1">
+             <property name="text">
+              <string>UnHome Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="home_pb_0">
+             <property name="text">
+              <string>Home X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="unhome_pb_0">
+             <property name="text">
+              <string>UnHome X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="home_pb_2">
+             <property name="text">
+              <string>Home Z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="unhome_pb_2">
+             <property name="text">
+              <string>UnHome Z</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QFrame" name="frame_8">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="clear_info_pb">
+             <property name="text">
+              <string>Clear
+Info</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" rowspan="2">
+            <widget class="QPlainTextEdit" name="info_pte"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QFrame" name="frame_9">
           <property name="frameShape">
@@ -263,43 +421,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QFrame" name="frame_8">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_13">
-           <item row="1" column="1">
-            <widget class="QPushButton" name="clear_info_pb">
-             <property name="text">
-              <string>Clear
-Info</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="0" rowspan="2">
-            <widget class="QPlainTextEdit" name="info_pte"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="2">
+        <item row="3" column="2">
          <widget class="QFrame" name="frame_14">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -385,122 +507,74 @@ Info</string>
           </layout>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QFrame" name="frame_16">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+        <item row="2" column="2">
+         <widget class="QGroupBox" name="groupBox_10">
+          <property name="title">
+           <string>Tool Change</string>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_33">
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_2">
-             <property name="input" stdset="0">
-              <string>nccode</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEdit_3">
-             <property name="input" stdset="0">
-              <string>keyboard</string>
-             </property>
-            </widget>
-           </item>
+          <layout class="QGridLayout" name="gridLayout_34">
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit">
-             <property name="input" stdset="0">
-              <string>number</string>
-             </property>
-            </widget>
+            <widget class="QComboBox" name="tool_change_cb"/>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_10">
+            <widget class="QPushButton" name="tool_change_pb">
              <property name="text">
-              <string>Numbers</string>
+              <string>Tool Change</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
+            <widget class="QLabel" name="tool_in_spindle_lb">
              <property name="text">
-              <string>G Code</string>
+              <string>TextLabel</string>
              </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Keyboard</string>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
-        <item row="0" column="0" rowspan="2">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+        <item row="1" column="1">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Programs</string>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="2" column="0">
-            <widget class="QPushButton" name="home_pb_1">
+          <layout class="QGridLayout" name="gridLayout_35">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="show_hal_pb">
              <property name="text">
-              <string>Home Y</string>
+              <string>Show HAL</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="title">
+           <string>Popup Spin Boxes</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_36">
+           <item row="0" column="0">
+            <widget class="QSpinBox" name="spinBox">
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="input" stdset="0">
+              <string>number</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="unhome_all_pb">
-             <property name="text">
-              <string>UnHome All</string>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="maximum">
+              <double>1000.000000000000000</double>
              </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="home_all_pb">
-             <property name="text">
-              <string>Home All</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="unhome_pb_1">
-             <property name="text">
-              <string>UnHome Y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="home_pb_0">
-             <property name="text">
-              <string>Home X</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="unhome_pb_0">
-             <property name="text">
-              <string>UnHome X</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="home_pb_2">
-             <property name="text">
-              <string>Home Z</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="unhome_pb_2">
-             <property name="text">
-              <string>UnHome Z</string>
+             <property name="input" stdset="0">
+              <string>number</string>
              </property>
             </widget>
            </item>
@@ -1225,14 +1299,6 @@ Info</string>
            <height>16777215</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <family>BPG Courier S GPL&amp;GNU</family>
-           <pointsize>18</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
          <property name="text">
           <string>X</string>
          </property>
@@ -1258,14 +1324,6 @@ Info</string>
               <height>0</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1276,14 +1334,6 @@ Info</string>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_6">
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>G92</string>
             </property>
@@ -1300,14 +1350,6 @@ Info</string>
               <height>0</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1323,14 +1365,6 @@ Info</string>
               <width>60</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
             </property>
             <property name="text">
              <string>TextLabel</string>
@@ -1360,14 +1394,6 @@ Info</string>
               <height>0</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1378,14 +1404,6 @@ Info</string>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_5">
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>G5x</string>
             </property>
@@ -1402,14 +1420,6 @@ Info</string>
               <height>0</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1425,14 +1435,6 @@ Info</string>
               <width>60</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
             </property>
             <property name="text">
              <string>TextLabel</string>
@@ -1456,14 +1458,6 @@ Info</string>
          <layout class="QGridLayout" name="gridLayout_16">
           <item row="0" column="0">
            <widget class="QLabel" name="label_4">
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>DRO</string>
             </property>
@@ -1479,14 +1473,6 @@ Info</string>
               <width>60</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
             </property>
             <property name="text">
              <string>TextLabel</string>
@@ -1504,14 +1490,6 @@ Info</string>
               <height>0</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -1527,14 +1505,6 @@ Info</string>
               <width>60</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>BPG Courier S GPL&amp;GNU</family>
-              <pointsize>18</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
             </property>
             <property name="text">
              <string>TextLabel</string>
@@ -1555,14 +1525,6 @@ Info</string>
            <height>0</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <family>BPG Courier S GPL&amp;GNU</family>
-           <pointsize>18</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
          <property name="text">
           <string>Z</string>
          </property>
@@ -1578,14 +1540,6 @@ Info</string>
            <width>20</width>
            <height>0</height>
           </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>BPG Courier S GPL&amp;GNU</family>
-           <pointsize>18</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
          </property>
          <property name="text">
           <string>Y</string>
