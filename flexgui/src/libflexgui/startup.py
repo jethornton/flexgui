@@ -1588,7 +1588,6 @@ def setup_touchoff_selected(parent):
 				'The touchoff_selected_pb will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 
-
 def setup_tools(parent):
 	parent.tool_changed = False
 	# tool change using a combo box

@@ -109,6 +109,52 @@ def keyboard(parent, obj):
 			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
 def manual_tool_change(parent):
+	# FIXME add size and position
+	if parent.theme: # use the theme
+		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	elif parent.qss_file: # use the parent qss file
+		stylesheet = os.path.join(parent.lib_path, f'{parent.qss_file}.qss')
+	else:
+		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
+	mtc = QDialog(parent)
+	mtc.setMinimumSize(300, 300)
+	mtc.setWindowTitle('Manual Tool Change')
+
+	layout = QVBoxLayout(mtc)
+
+	def accept():
+		hal.set_p('iocontrol.0.tool-changed','true')
+		parent.tool_changed = True
+		if 'statusbar' in parent.child_names:
+			parent.statusbar.showMessage('Tool Changed', 10000)
+		mtc.accept()
+
+	def reject():
+		parent.command.abort()
+		parent.command.wait_complete()
+		if 'statusbar' in parent.child_names:
+			parent.statusbar.showMessage('Tool Change Aborted', 10000)
+		mtc.reject()
+
+	tool_change_lb =  QLabel()
+	tool_change_lb.setAlignment(Qt.AlignmentFlag.AlignCenter)
+	layout.addWidget(tool_change_lb)
+	tool = hal.get_value('iocontrol.0.tool-prep-number')
+	if tool:
+		tool_change_lb.setText(f'Insert Tool #{tool}\nPress OK when Done')
+	else:
+		tool_change_lb.setText(f'Remove Tool From Spindle\nPress OK when Done')
+
+	buttonBox = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok |
+	QDialogButtonBox.StandardButton.Cancel)
+	layout.addWidget(buttonBox)
+	buttonBox.accepted.connect(accept)
+	buttonBox.rejected.connect(reject)
+
+	result = mtc.exec()
+
+'''
+def manual_tool_change(parent):
 	tc = tool_change.app()
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
@@ -123,6 +169,7 @@ def manual_tool_change(parent):
 	else:
 		parent.command.abort()
 		parent.command.wait_complete()
+'''
 
 def touchoff_selected(parent):
 	to = touchoff.app()

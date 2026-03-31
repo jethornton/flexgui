@@ -218,6 +218,7 @@ def tool_change(parent):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
+			# FIXME if manual tool change this should not be part of it
 			if 'tool_changed_pb' in parent.child_names:
 				parent.tool_changed_pb.setEnabled(True)
 	else:
