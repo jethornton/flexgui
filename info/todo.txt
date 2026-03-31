@@ -1,0 +1,5 @@
+delete tool_change.py
+use QDialog in touchoff_selected
+delete touchoff.py
+use QDialog in tool_touchoff_selected
+delete tool_touchoff.py
