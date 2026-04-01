@@ -165,12 +165,12 @@ def touchoff_selected(parent):
 	result = dialog.exec()
 
 	if result == QDialog.DialogCode.Accepted:
-		offset = to.coordinate_le.text()
+		offset = dialog.coordinate_le.text()
 		if not utilities.is_number(offset):
 			msg = (f'{offset} is not a number.')
 			warn_msg_ok(parent, msg, 'Invalid Entry')
 			return
-		cs = to.coordinate_systems_cb.currentData()
+		cs = dialog.coordinate_systems_cb.currentData()
 		command = f'G10 L20 P{cs} {axis}{offset}'
 		if utilities.ok_for_mdi(parent):
 			parent.command.mode(emc.MODE_MDI)
