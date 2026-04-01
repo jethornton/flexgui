@@ -61,7 +61,10 @@ class number_pad(QDialog):
 	def moveEvent(self, event):
 		# This method is called when the dialog moves.
 		self.exit_pos = self.pos()
-		self.exit_size = self.size()
 		super().moveEvent(event) # Call the base class implementation
 
+	def resizeEvent(self, event):
+		# This method is called when the dialog size changes.
+		self.exit_size = self.size()
+		super().resizeEvent(event) # Call the base class implementation
 
