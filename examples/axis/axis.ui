@@ -1165,7 +1165,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QPushButton" name="touchoff_selected_tool_pb">
+         <widget class="QPushButton" name="tool_touchoff_selected_pb">
           <property name="text">
            <string>Tool Touch Off</string>
           </property>
