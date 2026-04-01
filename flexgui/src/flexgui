@@ -164,7 +164,7 @@ class flexgui(QMainWindow):
 		# set the library path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
-			self.gui_path = '/usr/lib/libflexgui'
+			#self.gui_path = '/usr/lib/libflexgui'
 		else:
 			msg = ('Flex GUI seems to be installed\n'
 			'in a none standard location.')
@@ -182,6 +182,7 @@ class flexgui(QMainWindow):
 		self.keyboard_jogging = False
 
 		self.home_dir = os.path.expanduser('~')
+		self.config_dir = os.path.dirname(self.status.ini_filename)
 
 		# setup hal components
 		self.halcomp = hal.component('flexhal')
@@ -239,7 +240,7 @@ class flexgui(QMainWindow):
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
 		if gui_file: # gui is in the ini file
-			gui_path = os.path.join(os.path.dirname(self.status.ini_filename), gui_file)
+			gui_path = os.path.join(self.config_dir, gui_file)
 			if not os.path.isfile(gui_path): # gui not found
 				gui_path = os.path.join(self.gui_path, 'flex_default.ui')
 				gui_file = 'flex_default.ui'

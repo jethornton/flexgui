@@ -25,6 +25,7 @@ def spinbox_numbers(parent, obj):
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
+
 		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
 		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
@@ -50,6 +51,7 @@ def numbers(parent, obj): # obj is the qlineedit that is to receive
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
+
 		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
 		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
@@ -72,6 +74,7 @@ def gcode(parent, obj):
 
 		with open(parent.popup_qss,'r') as fh:
 			dialog.setStyleSheet(fh.read())
+
 		if parent.settings.contains(f'POPUP/{obj.objectName()}_pos'):
 			dialog.move(parent.settings.value(f'POPUP/{obj.objectName()}_pos'))
 		if parent.settings.contains(f'POPUP/{obj.objectName()}_size'):
@@ -115,7 +118,7 @@ def manual_tool_change(parent):
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
 	elif parent.qss_file: # use the configuration qss file
-		stylesheet = os.path.join(parent.gui_path, f'{parent.qss_file}')
+		stylesheet = os.path.join(parent.config_dir, f'{parent.qss_file}')
 	else:
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as s:
@@ -141,16 +144,26 @@ def manual_tool_change(parent):
 		parent.settings.setValue('POPUP/manual_tool_change_size', dialog.exit_size)
 
 def touchoff_selected(parent):
-	to = touchoff.app()
+	dialog = touchoff.app(parent)
+
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	elif parent.qss_file: # use the configuration qss file
+		stylesheet = os.path.join(parent.config_dir, f'{parent.qss_file}')
 	else:
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as s:
-		to.setStyleSheet(s.read())
+		dialog.setStyleSheet(s.read())
+
+	if parent.settings.contains('POPUP/touchoff_selected_pos'):
+		dialog.move(parent.settings.value('POPUP/touchoff_selected_pos'))
+	if parent.settings.contains('POPUP/touchoff_selected_size'):
+		dialog.resize(parent.settings.value('POPUP/touchoff_selected_size'))
+
 	axis = parent.axes_group.checkedButton().text()
-	to.axis_lb.setText(f'Axis: {axis}')
-	result = to.exec()
+	dialog.axis_lb.setText(f'Axis: {axis}')
+	result = dialog.exec()
+
 	if result == QDialog.DialogCode.Accepted:
 		offset = to.coordinate_le.text()
 		if not utilities.is_number(offset):
@@ -166,8 +179,14 @@ def touchoff_selected(parent):
 			parent.command.wait_complete()
 			parent.command.mode(emc.MODE_MANUAL)
 
+	if dialog.exit_pos is not None: # save last position
+		parent.settings.setValue('POPUP/touchoff_selected_pos', dialog.exit_pos)
+	if dialog.exit_size is not None: # save last size
+		parent.settings.setValue('POPUP/touchoff_selected_size', dialog.exit_size)
+
+
 def tool_touchoff_selected(parent):
-	tto = tool_touchoff.app()
+	tto = tool_touchoff.app(parent)
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
 	else:
