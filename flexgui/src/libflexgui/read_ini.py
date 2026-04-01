@@ -375,7 +375,7 @@ def read(parent):
 	match parent.inifile.find('TRAJ', 'LINEAR_UNITS'):
 		case 'inch':
 			parent.default_precision = 4
-			parent.units = 'INCH'
+			parent.units = 'IN'
 		case 'mm':
 			parent.default_precision = 3
 			parent.units = 'MM'

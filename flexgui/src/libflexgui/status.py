@@ -252,7 +252,7 @@ def update(parent):
 			parent.gcodes_lb.setText(f'{" ".join(g_codes)}')
 
 		if 'G20' in g_codes:
-			parent.program_units = 'INCH'
+			parent.program_units = 'IN'
 		else:
 			parent.program_units = 'MM'
 		
@@ -274,7 +274,7 @@ def update(parent):
 
 	# **** PROGRAM UNITS CHANGE ****
 	if parent.auto_plot_units and parent.program_units != parent.plot_units:
-		if parent.program_units == 'INCH': # inch program units
+		if parent.program_units == 'IN': # inch program units
 			parent.plotter.metric_units = False
 		elif parent.program_units == 'MM': # metric program units
 			parent.plotter.metric_units = True
