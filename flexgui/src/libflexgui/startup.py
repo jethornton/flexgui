@@ -1577,7 +1577,7 @@ def setup_touchoff_selected(parent):
 	if 'touchoff_selected_pb' in parent.child_names:
 		for i in range(9):
 			if f'axis_select_{i}' in parent.child_names:
-				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
 				break
 		else:
 			if 'touchoff_selected_pb' in parent.tool_touchoff_controls:
