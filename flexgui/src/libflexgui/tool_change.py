@@ -8,8 +8,8 @@ from PyQt6.uic import loadUi
 # called by dialogs.manual_tool_change
 
 class app(QDialog):
-	def __init__(self):
-		super().__init__()
+	def __init__(self, parent=None):
+		super().__init__(parent)
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		# set the library path
@@ -32,10 +32,13 @@ class app(QDialog):
 		self.exit_pos = None
 		self.exit_size = None
 
-
 	def moveEvent(self, event):
 		# This method is called when the dialog moves.
 		self.exit_pos = self.pos()
-		self.exit_size = self.size()
 		super().moveEvent(event) # Call the base class implementation
+
+	def resizeEvent(self, event):
+		# This method is called when the dialog size changes.
+		self.exit_size = self.size()
+		super().resizeEvent(event) # Call the base class implementation
 

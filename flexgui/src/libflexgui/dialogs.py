@@ -113,7 +113,7 @@ def keyboard(parent, obj):
 			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
 def manual_tool_change(parent):
-	dialog = tool_change.app()
+	dialog = tool_change.app(parent)
 
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
@@ -184,31 +184,46 @@ def touchoff_selected(parent):
 	if dialog.exit_size is not None: # save last size
 		parent.settings.setValue('POPUP/touchoff_selected_size', dialog.exit_size)
 
-
 def tool_touchoff_selected(parent):
-	tto = tool_touchoff.app(parent)
+	# this is only enabled when a tool is in the spindle
+	dialog = tool_touchoff.app(parent)
+
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	elif parent.qss_file: # use the configuration qss file
+		stylesheet = os.path.join(parent.config_dir, f'{parent.qss_file}')
 	else:
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as s:
-		tto.setStyleSheet(s.read())
+		dialog.setStyleSheet(s.read())
+
+	if parent.settings.contains('POPUP/tool_touchoff_selected_pos'):
+		dialog.move(parent.settings.value('POPUP/tool_touchoff_selected_pos'))
+	if parent.settings.contains('POPUP/tool_touchoff_selected_size'):
+		dialog.resize(parent.settings.value('POPUP/tool_touchoff_selected_size'))
+
 	axis = parent.axes_group.checkedButton().text()
-	tto.axis_lb.setText(f'Axis: {axis}')
-	result = tto.exec()
+	tool = parent.status.tool_in_spindle
+	dialog.axis_lb.setText(f'Axis: {axis}')
+	result = dialog.exec()
 	if result == QDialog.DialogCode.Accepted:
-		offset = tto.offset_le.text()
+		offset = dialog.offset_le.text()
 		if not utilities.is_number(offset):
 			msg = (f'{offset} is not a number.')
 			warn_msg_ok(parent, msg, 'Invalid Entry')
 			return
-		command = f'G10 L11 P0 {axis}{offset}'
+		command = f'G10 L11 P{tool} {axis}{offset}'
 		if utilities.ok_for_mdi(parent):
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete() # wait until mode switch executed
 			parent.command.mdi(command)
-			parent.command.wait_complete()
-			parent.command.mode(emc.MODE_MANUAL)
+			#parent.command.wait_complete()
+			#parent.command.mode(emc.MODE_MANUAL)
+
+	if dialog.exit_pos is not None: # save last position
+		parent.settings.setValue('POPUP/tool_touchoff_selected_pos', dialog.exit_pos)
+	if dialog.exit_size is not None: # save last size
+		parent.settings.setValue('POPUP/tool_touchoff_selected_size', dialog.exit_size)
 
 def find(parent):
 	sr = search.FindDialog(parent)
