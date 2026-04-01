@@ -28,3 +28,14 @@ class app(QDialog):
 		else:
 			self.tool_change_lb.setText(f'Remove Tool From Spindle\nPress OK when Done')
 
+		# Variable to store the position
+		self.exit_pos = None
+		self.exit_size = None
+
+
+	def moveEvent(self, event):
+		# This method is called when the dialog moves.
+		self.exit_pos = self.pos()
+		self.exit_size = self.size()
+		super().moveEvent(event) # Call the base class implementation
+

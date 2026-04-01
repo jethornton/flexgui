@@ -12,7 +12,7 @@ import hal
 from libflexgui import numpad
 from libflexgui import gcode_pad
 from libflexgui import keyboard_pad
-#from libflexgui import tool_change
+from libflexgui import tool_change
 from libflexgui import touchoff
 from libflexgui import tool_touchoff
 from libflexgui import utilities
@@ -110,67 +110,35 @@ def keyboard(parent, obj):
 			parent.settings.setValue(f'POPUP/{obj.objectName()}_size', dialog.exit_size)
 
 def manual_tool_change(parent):
-	# FIXME add size and position
+	dialog = tool_change.app()
+
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	elif parent.qss_file: # use the parent qss file
-		stylesheet = os.path.join(parent.lib_path, f'{parent.qss_file}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	dialog = QDialog(parent)
-	dialog.setMinimumSize(300, 300)
-	dialog.setWindowTitle('Manual Tool Change')
-
-	layout = QVBoxLayout(dialog)
-
-	def accept():
-		hal.set_p('iocontrol.0.tool-changed','true')
-		parent.tool_changed = True
-		if 'statusbar' in parent.child_names:
-			parent.statusbar.showMessage('Tool Changed', 10000)
-		dialog.accept()
-
-	def reject():
-		parent.command.abort()
-		parent.command.wait_complete()
-		if 'statusbar' in parent.child_names:
-			parent.statusbar.showMessage('Tool Change Aborted', 10000)
-		dialog.reject()
-
-	tool_change_lb =  QLabel()
-	tool_change_lb.setAlignment(Qt.AlignmentFlag.AlignCenter)
-	layout.addWidget(tool_change_lb)
-	tool = hal.get_value('iocontrol.0.tool-prep-number')
-	if tool:
-		tool_change_lb.setText(f'Insert Tool #{tool}\nPress OK when Done')
-	else:
-		tool_change_lb.setText(f'Remove Tool From Spindle\nPress OK when Done')
-
-	buttonBox = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok |
-	QDialogButtonBox.StandardButton.Cancel)
-	layout.addWidget(buttonBox)
-	buttonBox.accepted.connect(accept)
-	buttonBox.rejected.connect(reject)
-
-	result = dialog.exec()
-
-'''
-def manual_tool_change(parent):
-	tc = tool_change.app()
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
+	elif parent.qss_file: # use the configuration qss file
+		stylesheet = os.path.join(parent.gui_path, f'{parent.qss_file}')
 	else:
 		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
 	with open(stylesheet,'r') as s:
-		tc.setStyleSheet(s.read())
-	result = tc.exec()
+		dialog.setStyleSheet(s.read())
+
+	if parent.settings.contains('POPUP/manual_tool_change_pos'):
+		dialog.move(parent.settings.value('POPUP/manual_tool_change_pos'))
+	if parent.settings.contains('POPUP/manual_tool_change_size'):
+		dialog.resize(parent.settings.value('POPUP/manual_tool_change_size'))
+
+	result = dialog.exec()
+
 	if result:
 		hal.set_p('iocontrol.0.tool-changed','true')
 		parent.tool_changed = True
 	else:
 		parent.command.abort()
 		parent.command.wait_complete()
-'''
+
+	if dialog.exit_pos is not None: # save last position
+		parent.settings.setValue('POPUP/manual_tool_change_pos', dialog.exit_pos)
+	if dialog.exit_size is not None: # save last size
+		parent.settings.setValue('POPUP/manual_tool_change_size', dialog.exit_size)
 
 def touchoff_selected(parent):
 	to = touchoff.app()
