@@ -176,8 +176,6 @@ def touchoff_selected(parent):
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete() # wait until mode switch executed
 			parent.command.mdi(command)
-			parent.command.wait_complete()
-			parent.command.mode(emc.MODE_MANUAL)
 
 	if dialog.exit_pos is not None: # save last position
 		parent.settings.setValue('POPUP/touchoff_selected_pos', dialog.exit_pos)
@@ -217,8 +215,6 @@ def tool_touchoff_selected(parent):
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete() # wait until mode switch executed
 			parent.command.mdi(command)
-			#parent.command.wait_complete()
-			#parent.command.mode(emc.MODE_MANUAL)
 
 	if dialog.exit_pos is not None: # save last position
 		parent.settings.setValue('POPUP/tool_touchoff_selected_pos', dialog.exit_pos)
