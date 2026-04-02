@@ -11,7 +11,7 @@ def set_task_mode(parent, mode):
 		parent.command.mode(mode)
 		parent.command.wait_complete()
 
-def set_mode(parent, mode=None):
+def set_mode(parent, mode=None): # FIXME I don't think this is used anymore
 	if mode is None:
 		if parent.sender().objectName() == 'manual_mode_pb':
 			mode = emc.MODE_MANUAL
@@ -165,8 +165,6 @@ def change_cs(parent):
 			parent.command.wait_complete()
 		parent.command.mdi(mdi_command)
 		parent.command.wait_complete()
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
 
 def clear_axis_offset(parent, axis):
 	mdi_command = f'G10 L2 P0 {axis}0'
@@ -175,8 +173,6 @@ def clear_axis_offset(parent, axis):
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(mdi_command)
-		parent.command.wait_complete()
-		parent.command.mode(emc.MODE_MANUAL)
 		parent.command.wait_complete()
 
 def clear_cs(parent):
@@ -225,7 +221,7 @@ def tool_change(parent):
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
 
-def tool_changed(parent):
+def tool_changed(parent): # FIXME see if this is used any more
 	if parent.status.task_mode == emc.MODE_MDI:
 		parent.command.mode(emc.MODE_MANUAL)
 	parent.tool_changed_pb.setEnabled(False)
