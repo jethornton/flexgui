@@ -59,15 +59,15 @@ def extract_button_names(file_path):
 	'edit_ladder_pb', 'reload_tool_table_pb', 'save_pb', 'save_as_pb', 'quit_pb',
 	'estop_pb', 'power_pb', 'run_pb', 'run_from_line_pb', 'step_pb', 'pause_pb',
 	'resume_pb', 'stop_pb', 'home_all_pb', 'home_pb_0', 'unhome_all_pb',
-	'unhome_pb_0', 'clear_x', 'manual_mode_pb', 'probing_enable_pb', 'flood_pb',
-	'mist_pb', 'optional_stop_pb', 'block_delete_pb', 'feed_override_pb',
-	'clear_errors_pb', 'copy_errors_pb', 'clear_info_pb',
-	'show_hal_pb', 'hal_meter_pb', 'hal_scope_pb', 'about_pb',
-	'quick_reference_pb', 'clear_coord_0', 'clear_coord_1', 'clear_x_pb',
-	'feed_percent_100', 'rapid_percent_100', 'spindle_percent_100',
-	'jog_plus_pb_0', 'jog_minus_pb_0', 'run_mdi_pb', 'touchoff_pb_x',
-	'copy_mdi_history_pb', 'save_mdi_history_pb', 'clear_mdi_history_pb',
-	'tool_change_pb', 'tool_change_pb_1', 'tool_touchoff_selected_pb']
+	'unhome_pb_0', 'clear_x', 'probing_enable_pb', 'flood_pb','mist_pb',
+	'optional_stop_pb', 'block_delete_pb', 'feed_override_pb', 'clear_errors_pb',
+	'copy_errors_pb', 'clear_info_pb', 'show_hal_pb', 'hal_meter_pb',
+	'hal_scope_pb', 'about_pb', 'quick_reference_pb', 'clear_coord_0',
+	'clear_coord_1', 'clear_x_pb', 'feed_percent_100', 'rapid_percent_100',
+	'spindle_percent_100', 'jog_plus_pb_0', 'jog_minus_pb_0', 'run_mdi_pb',
+	'touchoff_pb_x', 'copy_mdi_history_pb', 'save_mdi_history_pb',
+	'clear_mdi_history_pb', 'tool_change_pb', 'tool_change_pb_1',
+	'tool_touchoff_selected_pb']
 
 	found_buttons = []
 	found_checkboxes = []
