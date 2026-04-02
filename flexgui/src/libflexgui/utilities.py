@@ -415,10 +415,9 @@ def sync_toolbuttons(parent, view):
 
 def var_value_changed(parent, value):
 	variable = parent.sender().property('variable')
-	parent.cmd = f'#{variable}={value}'
-	QTimer.singleShot(500, lambda: sync_var_file(parent))
+	QTimer.singleShot(750, lambda: sync_var_file(parent, f'#{variable}={value}'))
 
-def sync_var_file(parent):
+def sync_var_file(parent, command):
 	parent.status.poll()
 	if (parent.status.task_state == emc.STATE_ON
 		and parent.status.task_mode == emc.MODE_MANUAL
@@ -427,11 +426,9 @@ def sync_var_file(parent):
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
-		parent.command.mdi(parent.cmd)
+		parent.command.mdi(command)
 		parent.command.wait_complete()
 		parent.command.task_plan_synch()
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
 
 def var_file_watch(parent):
 	parent.status.poll()
