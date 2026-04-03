@@ -5,48 +5,30 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import utilities
 
-def set_task_mode(parent, mode):
-	parent.status.poll()
-	if parent.status.task_mode != mode:
-		parent.command.mode(mode)
-		parent.command.wait_complete()
-
-def set_mode(parent, mode=None): # FIXME I don't think this is used anymore
-	if mode is None:
-		if parent.sender().objectName() == 'manual_mode_pb':
-			mode = emc.MODE_MANUAL
-	if parent.status.task_mode != mode:
-		parent.command.mode(mode)
-		parent.command.wait_complete()
-
 def home(parent):
+	#print('home')
 	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 0: # not homed
-		set_task_mode(parent, emc.MODE_MANUAL)
-		parent.command.teleop_enable(False)
-		parent.command.wait_complete()
+	if parent.status.homed[joint] == 0: # joint not homed
 		parent.command.home(joint)
 
 def home_all(parent):
-	set_task_mode(parent, emc.MODE_MANUAL)
-	parent.command.teleop_enable(False)
-	parent.command.wait_complete()
+	#print('home_all')
 	parent.command.home(-1)
 
-
 def unhome(parent):
+	#print('unhome')
 	joint = int(parent.sender().objectName()[-1])
-	if parent.status.homed[joint] == 1: # joint is homed so unhome it
-		set_task_mode(parent, emc.MODE_MANUAL)
+	if parent.status.homed[joint] == 1: # joint is homed
 		if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
 			parent.command.teleop_enable(False)
 			parent.command.wait_complete()
 		parent.command.unhome(joint)
 
 def unhome_all(parent):
-	set_task_mode(parent, emc.MODE_MANUAL)
-	parent.command.teleop_enable(False)
-	parent.command.wait_complete()
+	#print('unhome_all')
+	if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
+		parent.command.teleop_enable(False)
+		parent.command.wait_complete()
 	parent.command.unhome(-1)
 
 def run_mdi(parent, cmd=''):
@@ -221,25 +203,8 @@ def tool_change(parent):
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
 
-def tool_changed(parent): # FIXME see if this is used any more
-	if parent.status.task_mode == emc.MODE_MDI:
-		parent.command.mode(emc.MODE_MANUAL)
-	parent.tool_changed_pb.setEnabled(False)
-
-	def tool_check(parent):
-		parent.status.poll()
-		if parent.new_tool_number == parent.status.tool_in_spindle:
-			parent.tool_changed_pb.setEnabled(False)
-			parent.tool_changed_pb.setChecked(False)
-			parent.tool_changed_pb.setText('Tool Changed')
-		else:
-			tool_timer = threading.Timer(0.1, tool_check, args=[parent])
-			tool_timer.start()
-
-	tool_timer = threading.Timer(0.1, tool_check, args=[parent])
-	tool_timer.start()
-
 def touchoff(parent):
+	#print('touchoff')
 	if 'touchoff_system_cb' in parent.child_names:
 		coordinate_system = parent.touchoff_system_cb.currentData()
 	else:
@@ -260,10 +225,9 @@ def touchoff(parent):
 			parent.command.wait_complete()
 		parent.command.mdi(mdi_command)
 		parent.command.wait_complete()
-		parent.command.mode(emc.MODE_MANUAL)
-		parent.command.wait_complete()
 
 def tool_touchoff(parent):
+	#print('tool_touchoff')
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
 	cur_tool = parent.status.tool_in_spindle
@@ -287,8 +251,6 @@ def tool_touchoff(parent):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
-			parent.command.wait_complete()
-			parent.command.mode(emc.MODE_MANUAL)
 			parent.command.wait_complete()
 	else:
 		msg = ('No Tool in Spindle.')
