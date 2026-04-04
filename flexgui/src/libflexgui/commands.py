@@ -170,7 +170,7 @@ def clear_cs(parent):
 		cmd = 'G10 L2 P0 R0'
 	run_mdi(parent, cmd)
 
-def tool_change(parent):
+def tool_change(parent): # Tool Change Buttons
 	parent.status.poll()
 	tool_len = len(parent.status.tool_table)
 	tools = [0]
@@ -191,14 +191,10 @@ def tool_change(parent):
 
 	if parent.new_tool_number != parent.status.tool_in_spindle:
 		mdi_command = f'M6 T{parent.new_tool_number}'
-		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MDI:
-				parent.command.mode(emc.MODE_MDI)
-				parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
-			# FIXME if manual tool change this should not be part of it
-			if 'tool_changed_pb' in parent.child_names:
-				parent.tool_changed_pb.setEnabled(True)
+		if parent.status.task_mode != emc.MODE_MDI:
+			parent.command.mode(emc.MODE_MDI)
+			parent.command.wait_complete()
+		parent.command.mdi(mdi_command)
 	else:
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')

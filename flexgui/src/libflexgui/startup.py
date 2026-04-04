@@ -1583,7 +1583,6 @@ def setup_touchoff_selected(parent):
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 
 def setup_tools(parent):
-	parent.tool_changed = False
 	# tool change using a combo box
 	tool_change_required = ['tool_change_pb', 'tool_change_cb']
 	# test to see if any tool change items are in the ui
@@ -1637,10 +1636,6 @@ def setup_tools(parent):
 		item = f'tool_change_pb_{i}'
 		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
-
-	if 'tool_changed_pb' in parent.child_names:
-		parent.tool_changed_pb.setEnabled(False)
-		parent.tool_changed_pb.clicked.connect(partial(commands.tool_changed, parent))
 
 	if 'tool_touchoff_le' in parent.child_names:
 		parent.tool_touchoff_le.setText('0')
@@ -2543,7 +2538,7 @@ def setup_hal_io_state(parent):
 		if obj_value != hal_value:
 			setattr(parent.halcomp, value, obj_value)
 
-def setup_tool_change(parent):
+def setup_tool_change(parent): # MANUAL TOOL CHANGE
 	if parent.manual_tool_change:
 		if hal.component_exists('hal_manualtoolchange'):
 			msg = ('The Flex Manual Tool Change\n'
