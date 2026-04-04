@@ -853,7 +853,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -2167,25 +2167,6 @@
             <widget class="QPushButton" name="tool_change_pb">
              <property name="text">
               <string>Change Tool</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="tool_changed_pb">
-             <property name="text">
-              <string>Tool Changed</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>tool-changed</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_OUT</string>
              </property>
             </widget>
            </item>
