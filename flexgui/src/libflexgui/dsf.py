@@ -48,7 +48,6 @@ class dsf_calc(QWidget):
 		self.units = 'Inch'
 		self.dsf_units_pb.clicked.connect(self.change_units)
 		self.dfs_calculate_pb.clicked.connect(partial(self.calculate, parent))
-		#self.dfs_calculate_pb.clicked.connect(self.calculate)
 		self.dsf_feed_lb.setText('')
 		self.dsf_drill_lb.setText('')
 		self.dsf_ream_lb.setText('')

@@ -118,10 +118,6 @@ def find_widget_layout(layout, target_widget):
 	return None
 
 def set_hal_enables(parent, obj):
-	# parent.hal_controls = [] # enabled when estop on
-	# parent.on_controls = [] # enabled when power on
-	# parent.homed_controls = [] # enabled when power on, homed
-
 	obj_name = obj.objectName()
 	always_on = obj.property('always_on')
 	state_on = obj.property('state_on')
@@ -133,7 +129,6 @@ def set_hal_enables(parent, obj):
 	special_buttons = ['probing_enable_pb', 'tool_changed_pb']
 	# all HAL objects are disabled when state estop unless always_on is true
 	if state_on and not all_homed:
-		#parent.state_estop_reset[obj_name] = False
 		parent.on_controls.append(obj_name)
 	elif all_homed:
 		parent.homed_controls.append(obj_name)
@@ -860,8 +855,6 @@ def setup_buttons(parent): # connect buttons to functions
 				button.setText('Error!')
 				getattr(parent, item).setEnabled(False)
 
-	#value = int(parent.sender().objectName().split('_')[-1])
-
 	# nc code search
 	if 'search_pb' in parent.child_names:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
@@ -870,7 +863,6 @@ def setup_buttons(parent): # connect buttons to functions
 	for child in parent.findChildren(QPushButton):
 		if child.property('function') == 'load_file':
 			child.clicked.connect(partial(actions.load_file, parent))
-			#parent.program_running_disabled.append(child.objectName())
 
 	# flashing buttons
 	parent.flashing_buttons = []
@@ -952,7 +944,6 @@ def setup_status_labels(parent):
 
 	# check for joint labels in ui
 	# reflects [JOINT_n]BACKLASH. Fails if not in the ini file
-
 	for i in range(parent.joints):
 		if f'joint_{i}_backlash_lb' in parent.child_names:
 			backlash = parent.inifile.find(f'JOINT_{i}', 'BACKLASH') or False
@@ -1444,7 +1435,6 @@ def setup_spindle(parent):
 		'spindle_plus_pb', 'spindle_minus_pb']:
 		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.spindle, parent))
-			#parent.program_running_disabled.append(item)
 			parent.spindle_controls.append(item)
 			if item in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, item).setCheckable(True)
@@ -1646,7 +1636,6 @@ def setup_tools(parent):
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.child_names:
-			#parent.program_running_disabled.append(item)
 			source = getattr(parent, item).property('source')
 			if source is None: # check for tool_touchoff_le
 				if 'tool_touchoff_le' in parent.child_names:
@@ -2216,7 +2205,6 @@ def setup_hal(parent):
 			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			# pin = getattr(parent, f'{pin_name}')
 			# if hal type is float add it to hal_float with precision
 			if hal_type == 2: # HAL_FLOAT
 				p = lcd.property('precision')
@@ -2307,7 +2295,6 @@ def setup_hal(parent):
 
 	##### HAL AVERAGE FLOAT LABEL #####
 	if len(hal_avr_f_labels) > 0:
-		#valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for label in hal_avr_f_labels:
 			label_name = label.objectName()
 			pin_name = label.property('pin_name')

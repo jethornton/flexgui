@@ -195,8 +195,6 @@ def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
 	file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
 	file_dialog.setOptions(QFileDialog.Option.DontUseNativeDialog)
 	file_dialog.setWindowTitle('Open File')
-	file_dialog.setStyleSheet('') # this does  nothing
-	file_dialog.setGeometry(10, 10, 800, 600) # this does  nothing
 	if dialog_type == 'open':
 		file_path, file_type = file_dialog.getOpenFileName(None,
 		caption=caption, directory=parent.nc_code_dir,
@@ -475,7 +473,6 @@ def update_home_controls(parent):
 	# print('update_home_controls')
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode == emc.MODE_MANUAL:
-			#print('STATE_ON MODE_MANUAL')
 			# set home/unhome for each joint
 			for joint in range(parent.joints):
 				if parent.status.joint[joint]['homed']: # joint is homed
