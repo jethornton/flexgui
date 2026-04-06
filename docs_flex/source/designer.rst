@@ -12,7 +12,7 @@ In a terminal, install Qt Designer 5 with
 
 	sudo apt install qttools5-dev-tools
 
-.. note:: The Qt6 Designer is not required nor better; Qt5 Designer is fine.
+.. NOTE:: The Qt6 Designer is not required nor better; Qt5 Designer is fine.
 
 .. _build_gui:
 
@@ -30,7 +30,9 @@ To add a Tool Bar, right click on the main window and select `Add Tool Bar`
 .. image:: /images/designer-02.png
    :align: center
 
-To add a Menu, type in the menu area and press enter
+To add a Menu, type in the menu area and press enter.
+
+.. NOTE::  You must press the enter key to add the menu item to the GUI.
 
 .. image:: /images/designer-03.png
    :align: center
@@ -77,7 +79,7 @@ You can start Qt5 Designer from a terminal with `designer &` which spawns a new
 process (gives you back the terminal prompt.)
 
 .. note:: There is an documented issue with Qt5 Designer and bold fonts not
-   appearing properly.
+   appearing properly. Set Font size and weight in the QSS file.
 
 
 Qt6 Designer

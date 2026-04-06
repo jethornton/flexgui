@@ -8,8 +8,8 @@ Flex GUI
    install
    designer
    build
-   property
    ini
+   property
    labels
    menu
    controls

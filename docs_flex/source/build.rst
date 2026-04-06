@@ -12,8 +12,8 @@ that they work.
 Copy a Starter
 --------------
 
-From the linuxcnc/configs/flex_examples/starters copy one of the starter types
-to the linuxcnc/configs directory.
+From the linuxcnc/configs/flex_examples/starters copy the directory and all the
+contents of one of the starter types to the linuxcnc/configs directory.
 
 * Rename the directory to the name of your choice.
 * Rename the .ui and .ini files to the name of your choice.
