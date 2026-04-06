@@ -228,6 +228,11 @@ class flexgui(QMainWindow):
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
 						Qt.AlignmentFlag.AlignCenter, QColor(splash_font_color))
 					app.processEvents()
+			else:
+				msg = (f'The Splash Image {splash_image}\n'
+					'was not found in the configuration\n'
+					'directory')
+				dialogs.error_msg_ok(self, msg, 'Configuration Error!')
 
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
