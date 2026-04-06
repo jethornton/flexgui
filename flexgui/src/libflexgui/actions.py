@@ -226,6 +226,7 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			cmd.append('diam')
 		cmd.append(parent.tool_table)
 		subprocess.Popen(cmd, cwd=parent.config_path)
+		action_reload_tool_table(parent)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
