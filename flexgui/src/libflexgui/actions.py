@@ -224,8 +224,11 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			for axis in parent.axis_letters:
 				cmd.append(axis)
 			cmd.append('diam')
-		cmd.append(parent.tool_table)
-		subprocess.Popen(cmd, cwd=parent.config_path)
+		cmd.append(f'{parent.config_path}/{parent.tool_table}')
+		#subprocess.Popen(cmd, cwd=parent.config_path)
+		result = subprocess.run(cmd, capture_output=True, text=True)
+		print(f"Completed! Exit code: {result.returncode}")
+
 		action_reload_tool_table(parent)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
