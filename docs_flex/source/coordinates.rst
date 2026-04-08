@@ -17,6 +17,7 @@ to.
 	**Control Function**, **Object Type**, **Object Name**
 	Touch Off Axis, QPushButton, touchoff_pb_(axis letter)
 	Touch Off Value, QLineEdit, touchoff_le
+	Optional,,
 	Coordinate System, QComboBox, touchoff_system_cb
 
 Optionally you can have a QLineEdit for any axis by adding a string type Dynamic
