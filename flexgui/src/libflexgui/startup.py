@@ -1524,8 +1524,8 @@ def setup_tool_touchoff_selected(parent):
 				'The tool_touchoff_selected_pb will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 
-def setup_touchoff(parent):
-	# check for required items tool_touchoff_ touchoff_pb_
+def setup_touchoff(parent): # touchoff an axis
+	# check for required items touchoff_le touchoff_pb_{axis} touchoff_system_cb
 	if 'touchoff_le' in parent.child_names:
 		parent.touchoff_le.setText('0')
 		if parent.touchoff_le.property('input') == 'number': # enable the number pad
@@ -1550,7 +1550,11 @@ def setup_touchoff(parent):
 			else: # property source is found
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
+					getattr(parent, source).setText('0')
 				else: # the source was not found
+					print(item)
+					getattr(parent, item).setEnabled(False)
+					parent.axis_touchoff_controls.remove(item)
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
 					f'{item} will be disabled.')
@@ -1651,10 +1655,12 @@ def setup_tools(parent):
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 				else: # the source was not found
+					getattr(parent, item).setEnabled(False)
+					parent.tool_touchoff_controls.remove(item)
 					msg = (f'The {source} for {item}\n'
 					'was not found. The QPushButton\n'
 					f'{item} will be disabled.')
-					dialogs.warn_msg_ok(msg, 'Source Name Error')
+					dialogs.warn_msg_ok(parent, msg, 'Source Name Error')
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.child_names:
