@@ -26,7 +26,7 @@ class app(QDialog):
 		if tool:
 			self.tool_change_lb.setText(f'Insert Tool #{tool}\nPress OK when Done')
 		else:
-			self.tool_change_lb.setText(f'Remove Tool From Spindle\nPress OK when Done')
+			self.tool_change_lb.setText(f'Remove Tool #{tool} From Spindle\nPress OK when Done')
 
 		# Variable to store the position
 		self.exit_pos = None
