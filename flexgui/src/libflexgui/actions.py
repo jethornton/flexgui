@@ -206,8 +206,8 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 		if file_size == 0:
 			msg = ('Can not edit an empty tool file.\n'
 			'The tool file must have at least one entry\n'
-			'with a Tool number and a Pocket number\n'
-			'Would you like me to add that line?')
+			'with a Tool number and a Pocket number.\n'
+			'Would you like that line added for you?')
 			result = dialogs.critical_msg_ok_cancel(parent, msg, 'Empty File')
 			if result:
 				with open(tool_table_file, "w") as file:
@@ -231,6 +231,7 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()
 	parent.command.wait_complete()
 	parent.status.poll()
+	tool_in_spindle = parent.status.tool_in_spindle
 
 	if 'tool_change_cb' in parent.child_names:
 		parent.tool_change_cb.clear()
@@ -263,6 +264,10 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 			for i in range(1, tool_len):
 				tool_id = parent.status.tool_table[i][0]
 				parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
+
+		index = parent.tool_change_cb.findData(tool_in_spindle)
+		if index > 0:
+			parent.tool_change_cb.setCurrentIndex(index)
 
 def action_ladder_editor(parent): # actionLadder_Editor
 	if hal.component_exists("classicladder_rt"):
