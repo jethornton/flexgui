@@ -215,21 +215,17 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 			else:
 				return
 
-		cmd = []
+		args = []
 		if parent.tool_editor:
-			for item in parent.tool_editor.split():
-				cmd.append(item)
+			args.extend(parent.tool_editor.split()[1:])
 		else:
-			cmd.append('tooledit')
 			for axis in parent.axis_letters:
-				cmd.append(axis)
-			cmd.append('diam')
-		cmd.append(f'{parent.config_path}/{parent.tool_table}')
-		#subprocess.Popen(cmd, cwd=parent.config_path)
-		result = subprocess.run(cmd, capture_output=True, text=True)
-		print(f"Completed! Exit code: {result.returncode}")
-
-		action_reload_tool_table(parent)
+				args.append(axis)
+			args.append('diam')
+		args.append(f'{parent.config_path}/{parent.tool_table}')
+		# Start the process (non-blocking)
+		# Pass the program name and a list of arguments
+		parent.tool_edit_process.start('tooledit', args)
 
 def action_reload_tool_table(parent): # actionReload_Tool_Table
 	parent.command.load_tool_table()

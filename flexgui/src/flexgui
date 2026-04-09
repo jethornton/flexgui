@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import QComboBox, QListWidget, QRadioButton
 from PyQt6.QtWidgets import QListView, QSpinBox, QDoubleSpinBox
 from PyQt6.QtWidgets import QLineEdit, QPlainTextEdit
 from PyQt6.uic import loadUi
-from PyQt6.QtCore import QObject, Qt, QTimer, QEvent
+from PyQt6.QtCore import QObject, Qt, QTimer, QEvent, QProcess
 from PyQt6.QtGui import QPixmap, QFont
 from PyQt6.QtGui import QColor
 
@@ -25,6 +25,7 @@ from libflexgui import status
 from libflexgui import dialogs
 from libflexgui import commands
 from libflexgui import utilities
+from libflexgui import actions
 from libflexgui import shutdown
 
 class KeyboardJog(QObject):
@@ -351,6 +352,10 @@ class flexgui(QMainWindow):
 		startup.setup_tabs(self)
 		# loading the post gui files can only happen once
 		startup.load_postgui(self)
+
+		# setup QProcess for tool editor
+		self.tool_edit_process = QProcess()
+		self.tool_edit_process.finished.connect(partial(actions.action_reload_tool_table, self))
 
 		self.user_timer = QTimer()
 		startup.setup_import(self) # do this after user timer is created
