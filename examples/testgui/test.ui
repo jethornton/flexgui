@@ -586,7 +586,7 @@
     <item row="7" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>5</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1417,7 +1417,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="tool_change_cb"/>
+            <widget class="QComboBox" name="tool_change_cb">
+             <property name="option" stdset="0">
+              <string>description</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1559,20 +1563,30 @@
           <layout class="QGridLayout" name="gridLayout_20">
            <item row="0" column="0">
             <widget class="QPushButton" name="probing_enable_pb">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
-               <width>125</width>
-               <height>40</height>
+               <width>150</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
               </size>
              </property>
              <property name="text">
-              <string>Probe Enable</string>
+              <string>Probe
+Enable</string>
              </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>probe-enable</string>
+             <property name="led_indicator" stdset="0">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -2551,7 +2565,7 @@
     <item row="1" column="0" rowspan="4" colspan="2">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
@@ -2689,8 +2703,23 @@
        <layout class="QGridLayout" name="gridLayout_13">
         <item row="0" column="0">
          <widget class="QPushButton" name="home_all_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>60</height>
+           </size>
+          </property>
           <property name="text">
            <string>Home All</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

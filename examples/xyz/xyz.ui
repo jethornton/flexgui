@@ -853,7 +853,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -864,9 +864,6 @@
          <widget class="QPushButton" name="home_pb_0">
           <property name="text">
            <string>Home J0</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -888,9 +885,6 @@
          <widget class="QPushButton" name="home_pb_1">
           <property name="text">
            <string>Home J1</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -1004,9 +998,6 @@
          <widget class="QPushButton" name="home_pb_2">
           <property name="text">
            <string>Home J2</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
