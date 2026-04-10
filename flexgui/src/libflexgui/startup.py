@@ -169,8 +169,13 @@ def setup_hal_led_buttons(parent):
 			led_shape = child.property('led_shape') # validate shape
 			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
 			new_button = LEDButton(**led_dict)
-			new_button.setStyleSheet(child.styleSheet())
+
+			# copy style from old button to new button
+			new_button.setFont(child.font())
 			new_button.setSizePolicy(child.sizePolicy())
+			new_button.setMinimumSize(child.minimumSize())
+			new_button.setMaximumSize(child.maximumSize())
+			new_button.setStyleSheet(child.styleSheet())
 			new_button.setCheckable(child.isCheckable())
 
 			layout = child.parent().layout()
@@ -231,7 +236,6 @@ def setup_hal_led_buttons(parent):
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			led_shape = child.property('led_shape') # validate shape
 			btn_dict['shape'] = led_shape if led_shape == 'square' else 'round'
-			btn_dict['size_policy'] = child.sizePolicy()
 			new_button = led.IndicatorButton(**btn_dict)
 
 			layout = child.parent().layout()
@@ -251,6 +255,14 @@ def setup_hal_led_buttons(parent):
 				prop_value = child.property(prop_name)
 				# Set the property on the new button
 				new_button.setProperty(prop_name, prop_value)
+
+			# copy style from old button to new button
+			new_button.setFont(child.font())
+			new_button.setSizePolicy(child.sizePolicy())
+			new_button.setMinimumSize(child.minimumSize())
+			new_button.setMaximumSize(child.maximumSize())
+			new_button.setStyleSheet(child.styleSheet())
+			new_button.setCheckable(child.isCheckable())
 
 			child.deleteLater()
 			new_button.setObjectName(btn_dict['name'])
@@ -289,7 +301,6 @@ def setup_hal_led_labels(parent):
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			led_shape = child.property('led_shape') # validate shape
 			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
-			led_dict['size_policy'] = child.sizePolicy()
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
@@ -312,6 +323,7 @@ def setup_hal_led_labels(parent):
 
 			# copy style from old label to new label
 			new_label.setAlignment(child.alignment())
+			new_label.setSizePolicy(child.sizePolicy())
 			new_label.setFrameShape(child.frameShape())
 			new_label.setFrameShadow(child.frameShadow())
 			new_label.setFont(child.font())
