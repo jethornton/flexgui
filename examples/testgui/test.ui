@@ -2344,7 +2344,7 @@ Enable</string>
            <string>HAL I/O</string>
           </property>
           <property name="checkable">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="function" stdset="0">
            <string>hal_io</string>
@@ -2417,6 +2417,9 @@ Enable</string>
         </item>
         <item row="4" column="5">
          <widget class="QSlider" name="horizontalSlider_2">
+          <property name="maximum">
+           <number>100</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -2424,7 +2427,7 @@ Enable</string>
            <string>hal_io</string>
           </property>
           <property name="pin_name" stdset="0">
-           <string>hal-io-sd</string>
+           <string>hal-io-u32-sd</string>
           </property>
           <property name="hal_type" stdset="0">
            <string>HAL_U32</string>
@@ -2460,6 +2463,28 @@ Enable</string>
           </property>
           <property name="pin_name" stdset="0">
            <string>hal-io-pb2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="5">
+         <widget class="QSlider" name="horizontalSlider_3">
+          <property name="minimum">
+           <number>-100</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_io</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>hal-io-s32-sd</string>
+          </property>
+          <property name="hal_type" stdset="0">
+           <string>HAL_S32</string>
           </property>
          </widget>
         </item>
