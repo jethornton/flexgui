@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>130</y>
+      <width>87</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_io</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>pb</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>210</y>
+      <width>92</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CheckBox</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_io</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>cb</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>280</y>
+      <width>109</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_io</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>rb</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>360</y>
+      <width>45</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_io</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>sb</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>410</y>
+      <width>66</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_io</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>dsb</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>470</y>
+      <width>160</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_io</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>hs</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
