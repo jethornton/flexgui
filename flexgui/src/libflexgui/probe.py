@@ -1,5 +1,7 @@
 import linuxcnc as emc
 
+from libflexgui import utilities
+
 def toggle(parent):
 	btn = parent.sender()
 	on_text = btn.property('on_text')
@@ -7,18 +9,6 @@ def toggle(parent):
 
 	if parent.probing_enable_pb.isChecked():
 		parent.probing = True
-		for item in parent.run_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.file_open_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.mdi_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.step_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.spindle_controls:
-			getattr(parent, item).setEnabled(False)
-		for item in parent.probe_controls:
-			getattr(parent, item).setEnabled(True)
 
 		if None not in [on_text, off_text]:
 			btn.setText(on_text)
@@ -31,20 +21,6 @@ def toggle(parent):
 
 	else: # probing is disabled
 		parent.probing = False
-		if parent.file: # only enable these if a file is loaded
-			for item in parent.run_controls:
-				getattr(parent, item).setEnabled(True)
-			for item in parent.step_controls:
-				getattr(parent, item).setEnabled(True)
-
-		for item in parent.spindle_controls:
-			getattr(parent, item).setEnabled(True)
-		for item in parent.file_open_controls:
-			getattr(parent, item).setEnabled(True)
-		for item in parent.mdi_controls:
-			getattr(parent, item).setEnabled(True)
-		for item in parent.probe_controls:
-			getattr(parent, item).setEnabled(False)
 
 		if None not in [on_text, off_text]:
 			btn.setText(off_text)
@@ -54,4 +30,7 @@ def toggle(parent):
 
 		if parent.probe_enable_off_color:
 			parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+
+	utilities.update_controls(parent)
+
 

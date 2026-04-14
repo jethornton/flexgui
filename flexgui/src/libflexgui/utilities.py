@@ -739,49 +739,63 @@ def update_controls(parent):
 
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
-			for item in parent.file_open_controls:
+			for item in parent.probe_enable:
 				getattr(parent, item).setEnabled(True)
-			for item in parent.tool_table_controls:
-				getattr(parent, item).setEnabled(True)
-
-			if task_state == emc.STATE_ON:
-				for item in parent.jog_controls:
+			if parent.probing:
+				for item in parent.run_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.file_open_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.mdi_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.step_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.spindle_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.probe_controls:
 					getattr(parent, item).setEnabled(True)
-				if all_homed:
-					for item in parent.tool_change_controls:
-						getattr(parent, item).setEnabled(True)
-					for item in parent.axis_touchoff_controls:
-						getattr(parent, item).setEnabled(True)
-					for item in parent.coordinate_system_controls:
-						getattr(parent, item).setEnabled(True)
-					for item in parent.mdi_controls:
-						getattr(parent, item).setEnabled(True)
-					for item in parent.probe_enable:
-						getattr(parent, item).setEnabled(True)
+			if not parent.probing: # not probing
+				for item in parent.file_open_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.tool_table_controls:
+					getattr(parent, item).setEnabled(True)
 
-					if tool_loaded > 0:
-						for item in parent.tool_touchoff_controls:
+				if task_state == emc.STATE_ON:
+					for item in parent.jog_controls:
+						getattr(parent, item).setEnabled(True)
+					if all_homed:
+						for item in parent.tool_change_controls:
+							getattr(parent, item).setEnabled(True)
+						for item in parent.axis_touchoff_controls:
+							getattr(parent, item).setEnabled(True)
+						for item in parent.coordinate_system_controls:
+							getattr(parent, item).setEnabled(True)
+						for item in parent.mdi_controls:
 							getattr(parent, item).setEnabled(True)
 
-			if all_homed and file_loaded or parent.stop:
-				for item in parent.run_controls:
-					getattr(parent, item).setEnabled(True)
-				for item in parent.step_controls:
-					getattr(parent, item).setEnabled(True)
-				for item in parent.spindle_controls:
-					getattr(parent, item).setEnabled(True)
-				for item in parent.pause_controls:
-					getattr(parent, item).setEnabled(False)
-				for item in parent.resume_controls:
-					getattr(parent, item).setEnabled(False)
-				parent.stop = False
-				parent.step = False
+						if tool_loaded > 0:
+							for item in parent.tool_touchoff_controls:
+								getattr(parent, item).setEnabled(True)
 
-			if file_loaded:
-				for item in parent.file_edit_controls:
-					getattr(parent, item).setEnabled(True)
-				for item in parent.file_save_controls:
-					getattr(parent, item).setEnabled(True)
+				if all_homed and file_loaded or parent.stop:
+					for item in parent.run_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.step_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.spindle_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.pause_controls:
+						getattr(parent, item).setEnabled(False)
+					for item in parent.resume_controls:
+						getattr(parent, item).setEnabled(False)
+					parent.stop = False
+					parent.step = False
+
+				if file_loaded:
+					for item in parent.file_edit_controls:
+						getattr(parent, item).setEnabled(True)
+					for item in parent.file_save_controls:
+						getattr(parent, item).setEnabled(True)
 
 		elif task_mode == emc.MODE_MDI: # mdi running
 			#print('update run controls MODE_MDI')
