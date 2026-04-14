@@ -1916,6 +1916,7 @@ def setup_hal(parent):
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	##### HAL_IO #####
+	io_errors = {}
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_io':
 			child_name = child.objectName()
@@ -1927,7 +1928,7 @@ def setup_hal(parent):
 				f'pin name is blank or missing\n'
 				'The HAL pin can not be created.\n'
 				f'The {child_name} button will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+				io_errors[child_name] = msg
 				continue
 
 			if isinstance(child, QCheckBox):
@@ -1945,7 +1946,8 @@ def setup_hal(parent):
 					msg = (f'The QPushButton {child_name} must be\n'
 					'set to checkable to be a IO button.\n'
 					'The QPushButton will be disabled.')
-					dialogs.error_msg_ok(parent, msg, 'Error')
+					io_errors[child_name] = msg
+					continue
 
 			elif isinstance(child, QRadioButton):
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
@@ -1961,10 +1963,15 @@ def setup_hal(parent):
 					parent.hal_io_int[child_name] = pin_name
 				else:
 					child.setEnabled(False)
-					msg = (f'The QSpinBox hal_type must be\n'
-					'set to HAL_S32 or HAL_U32.\n'
-					'The spinbox will be disabled')
-					dialogs.error_msg_ok(parent, msg, 'Error')
+					if isinstance(child, QSpinBox):
+						obj_type = 'QSpinBox'
+					else:
+						obj_type = 'QSlider'
+					msg = (f'The {obj_type} {child_name}\n'
+					' hal_type must be HAL_S32 or HAL_U32.\n'
+					f'The {obj_type} will be disabled')
+					io_errors[child_name] = msg
+					continue
 
 			elif isinstance(child, QDoubleSpinBox):
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_FLOAT, hal.HAL_IO))
@@ -1972,6 +1979,9 @@ def setup_hal(parent):
 				parent.hal_io_float[child_name] = pin_name
 
 			set_hal_enables(parent, child)
+
+	for key, value in io_errors.items():
+		dialogs.error_msg_ok(parent, value, 'Error')
 
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_pin':
