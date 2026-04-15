@@ -1,0 +1,57 @@
+AI Overview
+To link a HAL pin to a Python function in Flex GUI, you typically use a
+"watcher" signal provided by the hal_glib library. This allows you to register
+a callback function that triggers automatically whenever the state of a HAL
+input pin changes. 
+
+1. Initialize the HAL Component and Pin 
+In your handler file (often flex_handler.py), you must first define the pin
+within your GUI's HAL component. 
+python
+
+import hal
+import hal_glib
+
+def setup_hal(self):
+	# 'self.halcomp' is usually provided by Flex GUI
+	# Create an input bit pin
+	self.my_input_pin = self.halcomp.newpin("my-callback-pin", hal.HAL_BIT, hal.HAL_IN)
+
+2. Connect the "Watcher" Signal
+Use hal_glib.GPin to wrap the pin, which adds a value-changed signal that can be
+connected to your Python function. 
+python
+
+# Wrap the pin with hal_glib to enable signals
+self.pin_watcher = hal_glib.GPin(self.my_input_pin)
+
+# Connect the 'value-changed' signal to your function
+self.pin_watcher.connect("value-changed", self.on_pin_change)
+
+3. Define the Callback Function
+The function will receive the pin object (or its current value depending on the connection type) whenever the HAL signal toggles. 
+python
+
+def on_pin_change(self, pin, data=None):
+	# Read the current value of the pin
+	current_value = pin.get()
+
+	if current_value:
+		print("HAL pin is now HIGH - executing function logic")
+	else:
+		print("HAL pin is now LOW")
+
+Key Implementation Details
+
+Module Requirements: Ensure you have import hal_glib at the top of your
+script, as standard LinuxCNC HAL Python modules do not natively support
+signal-based callbacks without it.
+Pin Direction: The pin must be an IN pin (hal.HAL_IN) for the GUI to watch an
+external signal.
+
+Manual Polling Alternative: If you do not want to use signals, you can use the
+get_value method within a timer loop to manually check status:
+hal.get_value('your-pin-name').
+
+HAL Configuration: Use the HAL Configuration Tool to verify that your pin exists
+and is correctly netted to the source signal.

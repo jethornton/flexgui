@@ -74,6 +74,12 @@ ini file in the [FLEXGUI] section.
    built in Flex Manual Tool Change, you must comment out all the
    hal_manualtoolchange lines or remove them.
 
+Input Accept
+------------
+
+To use a HAL pin to accept the manual tool change connect your output pin to
+`flexhal.tc-ok` pin.
+
 Manual Tool Change Error
 ------------------------
 

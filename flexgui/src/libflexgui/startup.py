@@ -13,6 +13,7 @@ from PyQt6.QtGui import QAction
 
 import linuxcnc as emc
 import hal
+import hal_glib
 
 import traceback
 
@@ -2528,6 +2529,13 @@ def setup_hal(parent):
 					continue
 			elif None not in [pin_name, hal_type, hal_dir]:
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+	##### HAL TOOL CHANGE #####
+	#setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+	setattr(parent, 'tc_ok', parent.halcomp.newpin('tc-ok', hal.HAL_BIT, hal.HAL_IN))
+	#parent.tc_ok = parent.halcomp.newpin("my-callback-pin", hal.HAL_BIT, hal.HAL_IN)
+	# Wrap the pin with hal_glib to enable signals
+	parent.pin_watcher = hal_glib.GPin(parent.tc_ok)
 
 	parent.halcomp.ready()
 	if 'hal_comp_name_lb' in parent.child_names:

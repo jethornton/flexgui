@@ -114,6 +114,14 @@ def keyboard(parent, obj):
 
 def manual_tool_change(parent):
 	dialog = tool_change.app(parent)
+	def dia_acc(pin):
+		current_value = pin.get()
+		print(current_value)
+		if current_value:
+			dialog.accept()
+
+	# Connect the 'value-changed' signal to your function
+	handler_id = parent.pin_watcher.connect('value-changed', dia_acc)
 
 	if parent.theme: # use the theme
 		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
@@ -130,6 +138,8 @@ def manual_tool_change(parent):
 		dialog.resize(parent.settings.value('POPUP/manual_tool_change_size'))
 
 	result = dialog.exec()
+
+	parent.pin_watcher.disconnect(handler_id)
 
 	if result:
 		hal.set_p('iocontrol.0.tool-changed','true')
