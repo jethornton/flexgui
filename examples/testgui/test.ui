@@ -586,7 +586,7 @@
     <item row="7" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>6</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1413,6 +1413,15 @@
             <widget class="QPushButton" name="external_tc_pb">
              <property name="text">
               <string>External TC</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>ext-tool-change</string>
              </property>
             </widget>
            </item>
