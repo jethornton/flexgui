@@ -78,7 +78,10 @@ Input Accept
 ------------
 
 To use a HAL pin to accept the manual tool change connect your output pin to
-`flexhal.tc-ok` pin.
+`flexhal.tc-ok` pin. The pin must be connected in the postgui.hal file. The
+manual tool change must be enabled in the INI file as shown above.
+
+.. NOTE:: The pin is only connected to the function during a manual tool change.
 
 Manual Tool Change Error
 ------------------------
