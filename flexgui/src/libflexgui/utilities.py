@@ -762,6 +762,10 @@ def update_controls(parent):
 					getattr(parent, item).setEnabled(True)
 				for item in parent.tool_change_controls:
 					getattr(parent, item).setEnabled(False)
+				for item in parent.tool_touchoff_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.axis_touchoff_controls:
+					getattr(parent, item).setEnabled(False)
 
 			if not parent.probing: # not probing
 				for item in parent.file_open_controls:
