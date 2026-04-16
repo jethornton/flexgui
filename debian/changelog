@@ -1,3 +1,9 @@
+flexgui (1.4.1) unstable; urgency=medium
+
+  * Improve enable/disable logic
+
+ -- John Thornton <dev@gnipsel.com>  Thu, 16 Apr 2026 06:56:24 -0500
+
 flexgui (1.4.0) unstable; urgency=medium
 
   * Fix bug using set variables and running a program
