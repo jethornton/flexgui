@@ -103,14 +103,9 @@ other properties are optional.
    :align: center
 
 	**Control Name**, **Object Name**, **Function**
-	Save, save_pb, NC Code Save Button
-	Reload, reload_pb, Reload NC Code from current file
 	E Stop, estop_pb, E Stop Toggle Button
 	Power, power_pb, Power Toggle Button
 	Run, run_pb, Runs a loaded NC file
-	Pause, pause_pb, Pauses a running NC file
-	Manual Mode, manual_mode_pb, Puts the control into Manual Mode
-	MDI Mode, mdi_mode_pb, Puts the control into MDI Mode
 	Flood, flood_pb, Turns on the flood coolant
 	Mist, mist_pb, Turns on the mist coolant
 	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
