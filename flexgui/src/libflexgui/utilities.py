@@ -507,6 +507,8 @@ def update_home_controls(parent):
 			if all(v == 1 for v in parent.status.homed[:parent.joints]):
 				if 'home_all_pb' in parent.child_names:
 					parent.home_all_pb.setEnabled(False)
+					if hasattr(parent.home_all_pb, 'led'):
+						parent.home_all_pb.led = True
 				if 'actionHoming' in parent.child_names:
 					parent.actionHoming.setEnabled(False)
 				if 'actionHome_All' in parent.child_names:
@@ -523,6 +525,8 @@ def update_home_controls(parent):
 			elif all(v == 0 for v in parent.status.homed[:parent.joints]):
 				if 'home_all_pb' in parent.child_names:
 					parent.home_all_pb.setEnabled(True)
+					if hasattr(parent.home_all_pb, 'led'):
+						parent.home_all_pb.led = False
 				if 'actionHoming' in parent.child_names:
 					parent.actionHoming.setEnabled(True)
 				if 'actionHome_All' in parent.child_names:
@@ -539,6 +543,8 @@ def update_home_controls(parent):
 			elif any(v == 1 for v in parent.status.homed[:parent.joints]):
 				if 'home_all_pb' in parent.child_names and home_all_check(parent):
 					parent.home_all_pb.setEnabled(True)
+					if hasattr(parent.home_all_pb, 'led'):
+						parent.home_all_pb.led = False
 				if 'actionHome_All' in parent.child_names:
 					parent.actionHome_All.setEnabled(True)
 

@@ -120,7 +120,7 @@ def manual_tool_change(parent):
 		if current_value:
 			dialog.accept()
 
-	# Connect the 'value-changed' signal to your function
+	# Connect the 'value-changed' signal
 	handler_id = parent.pin_watcher.connect('value-changed', dia_acc)
 
 	if parent.theme: # use the theme
@@ -139,6 +139,7 @@ def manual_tool_change(parent):
 
 	result = dialog.exec()
 
+	# disconnect the value-changed signal
 	parent.pin_watcher.disconnect(handler_id)
 
 	if result:
