@@ -77,7 +77,7 @@ will be used if found.
 .. image:: /images/power-01.png
    :align: center
 
-.. note:: To have two words be above and below insert a backslasgh and n between the words.
+.. note:: To have two words be above and below insert a backslash and n between the words.
 
 .. image:: /images/estop-02.png
    :align: center
@@ -91,8 +91,6 @@ This is how the above looks in the GUI
 
 LED Buttons
 -----------
-
-.. important:: This is implmented in version 1.2.0.
 
 Some push buttons can have a LED to indicate on and off states. The LED is added
 to the push button with a Bool type Dynamic Property called `led_indicator`. All
