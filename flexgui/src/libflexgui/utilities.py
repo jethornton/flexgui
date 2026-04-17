@@ -754,6 +754,8 @@ def update_controls(parent):
 				for item in parent.probe_enable:
 					getattr(parent, item).setEnabled(True)
 			if parent.probing:
+				for item in parent.probe_controls:
+					getattr(parent, item).setEnabled(True)
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.file_open_controls:
@@ -764,13 +766,15 @@ def update_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.spindle_controls:
 					getattr(parent, item).setEnabled(False)
-				for item in parent.probe_controls:
-					getattr(parent, item).setEnabled(True)
 				for item in parent.tool_change_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.tool_touchoff_controls:
 					getattr(parent, item).setEnabled(False)
 				for item in parent.axis_touchoff_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.jog_controls:
+					getattr(parent, item).setEnabled(False)
+				for item in parent.coordinate_system_controls:
 					getattr(parent, item).setEnabled(False)
 
 			if not parent.probing: # not probing
