@@ -471,6 +471,11 @@ def io_watch(parent):
 def update_home_controls(parent):
 	parent.status.poll()
 	# print('update_home_controls')
+	if parent.probing:
+		for item in parent.unhome_controls:
+			getattr(parent, item).setEnabled(False)
+		return
+
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			# set home/unhome for each joint
@@ -745,8 +750,9 @@ def update_controls(parent):
 
 		elif task_mode == emc.MODE_MANUAL:
 			#print('update run controls MODE_MANUAL')
-			for item in parent.probe_enable:
-				getattr(parent, item).setEnabled(True)
+			if all_homed:
+				for item in parent.probe_enable:
+					getattr(parent, item).setEnabled(True)
 			if parent.probing:
 				for item in parent.run_controls:
 					getattr(parent, item).setEnabled(False)
