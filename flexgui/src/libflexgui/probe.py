@@ -31,6 +31,7 @@ def toggle(parent):
 		if parent.probe_enable_off_color:
 			parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
+	utilities.update_home_controls(parent)
 	utilities.update_controls(parent)
 
 
