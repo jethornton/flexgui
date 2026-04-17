@@ -600,6 +600,12 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.file_open_controls.append(item)
 
+	# file open buttons
+	for child in parent.findChildren(QPushButton):
+		if child.property('function') == 'load_file':
+			child.clicked.connect(partial(actions.load_file, parent))
+			parent.file_open_controls.append(child.objectName())
+
 	# file save controls
 	for item in ['save_pb', 'actionSave', 'save_as_pb', 'actionSave_As']:
 		if item in parent.child_names:
@@ -871,11 +877,6 @@ def setup_buttons(parent): # connect buttons to functions
 	# nc code search
 	if 'search_pb' in parent.child_names:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
-
-	# file open buttons
-	for child in parent.findChildren(QPushButton):
-		if child.property('function') == 'load_file':
-			child.clicked.connect(partial(actions.load_file, parent))
 
 	# flashing buttons
 	parent.flashing_buttons = []
