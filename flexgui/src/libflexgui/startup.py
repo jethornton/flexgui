@@ -1715,7 +1715,6 @@ def setup_defaults(parent):
 
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
-	parent.probing = False
 	for child in parent.child_names:
 		if child.startswith('probe_') and not isinstance(child, QLabel):
 			if not isinstance(parent.findChild(QWidget, child), QLabel):
