@@ -56,6 +56,8 @@ class KeyboardJog(QObject):
 					window.kb_jog_cb_enabled = self._keyboard_jog_state
 
 		if event.type() == QEvent.Type.KeyPress:
+			if window.probing:
+				return super().eventFilter(source, event) # pass the event on if not used
 			# keyboard jog increment
 			if window.kb_jog_increment and window.status.state != emc.RCS_EXEC:
 				# Check if the Ctrl modifier key is pressed
