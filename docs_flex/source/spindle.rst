@@ -6,33 +6,36 @@ Spindle
 Spindle Status
 --------------
 
-Spindle status labels show the current status of the item.
+Spindle status labels show the current status of the item. Linuxcnc can have up
+to 8 spindles.
 
 .. csv-table:: Spindle Status Labels
    :width: 100%
    :align: center
 
 	**Control Function**, **Object Type**, **Object Name**
-	Spindle Brake, QLabel, spindle_brake_0_lb
-	Spindle Direction, QLabel, spindle_direction_0_lb
-	Spindle Enabled, QLabel, spindle_enabled_0_lb
-	Spindle Override Enabled, QLabel, spindle_override_enabled_0_lb
-	Spindle Commanded Speed, QLabel, spindle_speed_0_lb
+	Spindle Brake, QLabel, spindle_brake_n_lb
+	Spindle Direction, QLabel, spindle_direction_n_lb
+	Spindle Enabled, QLabel, spindle_enabled_n_lb
+	Spindle Override Enabled, QLabel, spindle_override_enabled_n_lb
+	Spindle Speed, QLabel, spindle_speed_n_lb
 	Spindle Speed LCD, QLCDNumber, spindle_speed_0_lcd
-	Spindle Override Percent, QLabel, spindle_override_0_lb
-	Spindle Homed, QLabel, spindle_homed_0_lb
-	Spindle Orient State, QLabel, spindle_orient_state_0_lb
-	Spindle Orient Fault, QLabel, spindle_orient_fault_0_lb
-	Spindle Actual Speed, QLabel, spindle_actual_speed_lb
-	Spindle Speed Setting, QLabel, spindle_speed_setting_lb
+	Spindle Commanded Speed, QLabel, spindle_cmd_speed_n_lb
+	Spindle Override Percent, QLabel, spindle_override_n_lb
+	Spindle Orient State, QLabel, spindle_orient_state_n_lb
+	Spindle Orient Fault, QLabel, spindle_orient_fault_n_lb
+	Spindle Speed + Override, QLabel, spindle_speed_n_lb
 
-.. note:: Spindle Commanded Speed does not show override. Spindle Actual Speed
-   is actual commanded speed including override.
+.. NOTE:: if the object name has _n_ then you can use 0 - 7 to indicate which
+   spindle to monitor
 
-.. note:: The digitCount property of the LCD must be large enough to display the
+.. NOTE:: Spindle Speed does not show override. Spindle Speed + Override
+   is commanded speed including override.
+
+.. NOTE:: The digitCount property of the LCD must be large enough to display the
    whole number.
 
-.. NOTE:: To get actual spindle speed you need to connect the spindle encoder to
+.. NOTE:: To get actual spindle speed you need to connect a spindle encoder to
    an encoder component and use the encoder.N.velocity-rpm float out connected
    to a HAL float label.
 
