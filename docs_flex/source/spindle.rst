@@ -7,7 +7,7 @@ Spindle Status
 --------------
 
 Spindle status labels show the current status of the item. Linuxcnc can have up
-to 8 spindles.
+to 8 spindles. The spindles are numbered 0 through 7.
 
 .. csv-table:: Spindle Status Labels
    :width: 100%
@@ -35,7 +35,7 @@ to 8 spindles.
 .. NOTE:: The digitCount property of the LCD must be large enough to display the
    whole number.
 
-.. NOTE:: To get actual spindle speed you need to connect a spindle encoder to
+.. NOTE:: To get actual spindle speed you need to connect the spindle encoder to
    an encoder component and use the encoder.N.velocity-rpm float out connected
    to a HAL float label.
 
