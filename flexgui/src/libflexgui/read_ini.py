@@ -125,9 +125,9 @@ def read(parent):
 	# set default spindle speed
 	dss = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or 0
 	if utilities.is_int(dss):
-		parent.spindle_speed = int(dss)
+		parent.spindle_default_speed = int(dss)
 	else:
-		parent.spindle_speed = 0
+		parent.spindle_default_speed = 0
 		msg = (f'The INI value {dss} for [DISPLAY] DEFAULT_SPINDLE_SPEED\n'
 		'did not evaluate to an integer. 0 will be used.')
 		dialogs.error_msg_ok(parent, msg, 'INI Error')

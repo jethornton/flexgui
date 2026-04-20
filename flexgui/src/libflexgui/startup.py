@@ -1440,7 +1440,74 @@ def setup_spindle(parent):
 	# create spindle tuple
 	parent.status_spindle = ()
 
-	# spindle defaults
+	'''
+	brake (returns integer) - value of the spindle brake flag.
+	direction (returns integer) - rotational direction of the spindle. forward=1, reverse=-1
+	enabled (returns integer) - value of the spindle enabled flag.
+	orient_fault (returns integer)
+	orient_state (returns integer)
+	override (returns float) - spindle speed override scale.
+	override_enabled (returns boolean) - value of the spindle override enabled flag.
+	speed (returns float) - spindle speed value, rpm, > 0: clockwise, < 0:
+	counterclockwise. With G96 active this reflects the maximum speed set by the
+	optional G96 D-word or, if the D-word was missing, the default values +/-1e30
+	'''
+
+	parent.spindle_int = {}
+	spindle_int = {
+	'spindle_brake': 'brake',
+	'spindle_enabled': 'enabled',
+	'spindle_orient_state': 'orient_state',
+	'spindle_orient_fault': 'orient_fault'
+	}
+	for key, value in spindle_int.items():
+		for i in range(parent.status.spindles):
+			if f'{key}_{i}_lb' in parent.child_names:
+				parent.spindle_int[f'{key}_{i}_lb'] = [i, value]
+
+	parent.spindle_bool = {}
+	for i in range(parent.status.spindles):
+		if f'spindle_override_enabled_{i}_lb' in parent.child_names:
+			parent.spindle_bool[f'spindle_override_enabled_{i}_lb'] = [i, 'override_enabled']
+
+	parent.spindle_dir = {}
+	for i in range(parent.status.spindles):
+		if f'spindle_direction_{i}_lb' in parent.child_names:
+			parent.spindle_dir[f'spindle_direction_{i}_lb'] = [i, 'direction']
+
+	parent.spindle_speed = {}
+	for i in range(parent.status.spindles):
+		if f'spindle_speed_{i}_lb' in parent.child_names:
+			parent.spindle_speed[f'spindle_speed_{i}_lb'] = [i, 'speed']
+
+	parent.spindle_override = {}
+	for i in range(parent.status.spindles):
+		if f'spindle_override_{i}_lb' in parent.child_names:
+			parent.spindle_override[f'spindle_override_{i}_lb'] = [i, 'override']
+
+	parent.spindle_cmd_speed = {}
+	for i in range(parent.status.spindles):
+		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
+			parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
+
+		for key, value in parent.spindle_cmd_speed.items():
+			override = parent.status.spindle[value[0]]['override']
+			speed = parent.status.spindle[value[0]]['speed']
+
+	if 'spindle_override_sl' in parent.child_names: # FIXME 
+		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent, 0))
+		max_spindle_override = int(float(parent.max_spindle_override) * 100)
+		parent.spindle_override_sl.setMaximum(max_spindle_override)
+		if max_spindle_override >= 100:
+			parent.spindle_override_sl.setValue(100)
+
+	for i in range(parent.status.spindles):
+		if f'spindle_override_{i}_sl' in parent.child_names:
+			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(partial(utilities.spindle_override, parent, i))
+			getattr(parent, f'spindle_override_{i}_sl').setValue(100)
+
+
+	# spindle 0 defaults
 	if 'spindle_speed_lb' in parent.child_names:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 	parent.min_rpm = 0
@@ -1468,45 +1535,14 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
 		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
 		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
-		parent.spindle_speed_sb.setValue(parent.spindle_speed)
+		parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
 
 	if 'spindle_speed_setting_lb' in parent.child_names:
 		parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
 
-	if 'spindle_override_sl' in parent.child_names:
-		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent))
-		max_spindle_override = int(float(parent.max_spindle_override) * 100)
-		parent.spindle_override_sl.setMaximum(max_spindle_override)
-		if max_spindle_override >= 100:
-			parent.spindle_override_sl.setValue(100)
-
-	# check for spindle labels in the ui direction is handled differently
-	spindle_items = ['homed', 'orient_fault', 'orient_state', 'override', 'override_enabled']
-	parent.status_spindles = {}
-
-	 # only look for the num of spindles configured
-	for item in spindle_items:
-		if f'spindle_{item}_0_lb' in parent.child_names:
-			parent.status_spindles[f'spindle_{item}_0_lb'] = item
-
-	parent.status_spindle_overrides = {}
-	if f'spindle_override_0_lb' in parent.child_names:
-		parent.status_spindle_overrides[f'spindle_override_0_lb'] = 0
-
-	parent.status_spindle_speed = {}
-	if 'spindle_speed_0_lb' in parent.child_names:
-		parent.status_spindle_speed['spindle_speed_0_lb'] = 'speed'
-
 	parent.status_spindle_lcd = {}
 	if 'spindle_speed_0_lcd' in parent.child_names:
 		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
-
-	# special spindle labels
-	parent.spindle_actual_speed = []
-	# only add the actual speed if the override slider is there
-	spindle_actual_speed = ['spindle_actual_speed_lb', 'spindle_override_sl']
-	if all(x in parent.child_names for x in spindle_actual_speed):
-		parent.spindle_actual_speed.append('spindle_actual_speed_lb')
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()

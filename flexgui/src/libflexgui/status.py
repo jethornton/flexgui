@@ -334,67 +334,43 @@ def update(parent):
 	# spindle status
 	if parent.status_spindle != parent.status.spindle:
 
-		# spindle brake
-		if 'spindle_brake_0_lb' in parent.child_names:
-			match parent.status.spindle[0]['brake']:
-				case b if b == 1:
-					parent.spindle_brake_0_lb.setText('On')
-				case b if b == 0:
-					parent.spindle_brake_0_lb.setText('Off')
+		# spindle speed key is label value is spindle and speed
+		for key, value in parent.spindle_speed.items():
+			getattr(parent, key).setText(f'{abs(parent.status.spindle[value[0]][value[1]]):.0f}')
 
-		parent.spindle_brake = parent.status.spindle[0]['brake']
+		# spindle override enabled key is label value is spindle and speed
+		for key, value in parent.spindle_bool.items():
+			getattr(parent, key).setText(f'{parent.status.spindle[value[0]][value[1]]}')
 
-		# spindle direction
-		if 'spindle_direction_0_lb' in parent.child_names:
-			match parent.status.spindle[0]['direction']:
-				case s if s == 1:
-					parent.spindle_direction_0_lb.setText('Fwd')
-				case s if s == -1:
-					parent.spindle_direction_0_lb.setText('Rev')
-				case s if s == 0:
-					parent.spindle_direction_0_lb.setText('Off')
+		# spindle direction key is label value is spindle and direction
+		# forward = 1, reverse = -1, off = 0
+		spindle_dir = {-1: 'CCW', 0: 'Off', 1: 'CW'}
+		for key, value in parent.spindle_dir.items():
+			getattr(parent, key).setText(f'{spindle_dir[parent.status.spindle[value[0]][value[1]]]}')
 
-		parent.spindle_direction = parent.status.spindle[0]['direction']
+		# spindle status key is label value is spindle and status item
+		spindle_int = {0: 'Off', 1: 'On'}
+		for key, value in parent.spindle_int.items():
+			getattr(parent, key).setText(f'{spindle_int[parent.status.spindle[value[0]][value[1]]]}')
 
-		# spindle enabled
-		if 'spindle_enabled_0_lb' in parent.child_names:
-			match parent.status.spindle[0]['enabled']:
-				case s if s == 0:
-					parent.spindle_enabled_0_lb.setText('False')
-				case s if s == 1:
-					parent.spindle_enabled_0_lb.setText('True')
+		# spindle override key is label value is spindle and speed
+		for key, value in parent.spindle_override.items():
+			getattr(parent, key).setText(f'{parent.status.spindle[value[0]][value[1]]:.0%}')
 
-		parent.spindle_enabled = parent.status.spindle[0]['enabled']
+		# spindle commanded speed key is label value is spindle and commanded speed
+		for key, value in parent.spindle_cmd_speed.items():
+			override = parent.status.spindle[value[0]]['override']
+			speed = parent.status.spindle[value[0]]['speed']
+			getattr(parent, key).setText(f'{speed * override:.0f}')
 
-		for key, value in parent.status_spindles.items():
-			getattr(parent, key).setText(f'{getattr(parent, "status").spindle[0][value]}')
-
-		# spindle speed
-		for key, value in parent.status_spindle_speed.items():
-			getattr(parent, key).setText(f'{abs(getattr(parent, "status").spindle[0][value]):.0f}')
-
+		'''
 		# spindle lcd
 		for key, value in parent.status_spindle_lcd.items():
 			getattr(parent, key).display(f'{abs(getattr(parent, "status").spindle[0][value]):.0f}')
-
-		# spindle override parent.spindle[0]['override']
-		for key, value in parent.status_spindle_overrides.items():
-			getattr(parent, f'{key}').setText(f'{getattr(parent, "status").spindle[value]["override"] * 100:.0f}%')
-
-		# spindle actual speed
-		for item in parent.spindle_actual_speed:
-			override = parent.spindle_override_sl.value() / 100
-			commanded_rpm = abs(parent.status.spindle[0]['speed'])
-			override_rpm = commanded_rpm * override
-			if override_rpm >= parent.min_rpm:
-				getattr(parent, item).setText(f'{override_rpm:.0f}')
-			elif override_rpm > 0:
-				getattr(parent, item).setText(f'{parent.min_rpm:.0f}')
-			else:
-				getattr(parent, item).setText('0')
+		'''
 
 		parent.status_spindle = parent.status.spindle
-
+	
 	# **** STATUS LABELS ****
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
