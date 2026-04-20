@@ -1266,6 +1266,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_1_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1420,6 +1423,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_2_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1567,6 +1573,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_3_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1714,6 +1723,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_4_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1861,6 +1873,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_5_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -2008,6 +2023,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_6_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -2155,6 +2173,9 @@
             </item>
             <item row="9" column="0" colspan="2">
              <widget class="QSlider" name="spindle_override_7_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
