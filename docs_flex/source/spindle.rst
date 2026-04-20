@@ -87,3 +87,20 @@ for spindle override status labels.
 	**Control Function**, **Object Type**, **Object Name**
 	Spindle Override, QSlider, spindle_override_sl
 
+.. WARNING:: The spindle_override_sl will be replaced by spindle_override_n_sl
+   in the next release.
+
+The spindle speed override is set using a QSlider. The spindles are numbered
+0-7 so replace the `n` with the number of the spindle you want to override.
+
+See the Status Labels above for spindle override status labels.
+
+.. csv-table:: Multi Spindle Override
+   :width: 100%
+   :align: center
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Override, QSlider, spindle_override_n_sl
+
+
+
