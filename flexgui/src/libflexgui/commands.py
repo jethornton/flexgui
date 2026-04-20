@@ -252,8 +252,16 @@ def tool_touchoff(parent):
 		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
-def spindle_control(parent, spindle): # Fwd Rev and Off
+def spindle_control(parent, spindle, action): # Fwd Rev and Off
 	print(f'spindle {spindle}')
+	match action:
+		case 'fwd':
+			print(f'Spindle:{spindle} Action:{action}')
+		case 'rev':
+			print(f'Spindle:{spindle} Action:{action}')
+		case 'stop':
+			print(f'Spindle:{spindle} Action:{action}')
+			parent.command.spindle(emc.SPINDLE_OFF, 0, spindle)
 
 def spindle(parent, rpm=0):
 	'''

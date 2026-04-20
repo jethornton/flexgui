@@ -1490,12 +1490,12 @@ def setup_spindle(parent):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
 
-	for item in ['spindle_fwd', 'spindle_rev' 'spindle_stop']:
-		for i in range(parent.status.spindles):
+	for i in range(parent.status.spindles):
+		for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop']:
 			if f'{item}_{i}_pb' in parent.child_names:
-				print(f'{item}_{i}_pb')
+				action = item.split('_')[-1]
 				getattr(parent, f'{item}_{i}_pb').clicked.connect(
-					partial(commands.spindle_control, parent, i))
+					partial(commands.spindle_control, parent, i, action))
 
 	# End of Multi Spindles
 
