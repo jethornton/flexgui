@@ -1490,12 +1490,22 @@ def setup_spindle(parent):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
 
+	for item in ['spindle_fwd', 'spindle_rev' 'spindle_stop']:
+		for i in range(parent.status.spindles):
+			if f'{item}_{i}_pb' in parent.child_names:
+				print(f'{item}_{i}_pb')
+				getattr(parent, f'{item}_{i}_pb').clicked.connect(
+					partial(commands.spindle_control, parent, i))
+
+	# End of Multi Spindles
+
 		for key, value in parent.spindle_cmd_speed.items():
 			override = parent.status.spindle[value[0]]['override']
 			speed = parent.status.spindle[value[0]]['speed']
 
 	if 'spindle_override_sl' in parent.child_names: # FIXME 
-		parent.spindle_override_sl.valueChanged.connect(partial(utilities.spindle_override, parent, 0))
+		parent.spindle_override_sl.valueChanged.connect(partial(
+			utilities.spindle_override, parent, 0))
 		max_spindle_override = int(float(parent.max_spindle_override) * 100)
 		parent.spindle_override_sl.setMaximum(max_spindle_override)
 		if max_spindle_override >= 100:
