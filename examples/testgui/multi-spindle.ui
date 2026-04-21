@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>858</width>
-    <height>835</height>
+    <height>859</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -979,7 +979,7 @@
           <property name="currentIndex">
            <number>0</number>
           </property>
-          <widget class="QWidget" name="tabWidget_31Page1" native="true">
+          <widget class="QWidget" name="tabWidget_31Page1">
            <attribute name="title">
             <string>0</string>
            </attribute>
@@ -1191,7 +1191,7 @@
             <item row="15" column="0">
              <widget class="QLabel" name="label_64">
               <property name="text">
-               <string>Speed + Override</string>
+               <string>Commanded Speed</string>
               </property>
              </widget>
             </item>
@@ -1300,7 +1300,17 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2" rowspan="16">
+            <item row="16" column="0" colspan="2">
+             <widget class="QSlider" name="spindle_override_1_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="17">
              <widget class="QFrame" name="frame_3">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1347,16 +1357,6 @@
               </layout>
              </widget>
             </item>
-            <item row="16" column="0" colspan="2">
-             <widget class="QSlider" name="spindle_override_1_sl">
-              <property name="maximum">
-               <number>100</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
           <widget class="QWidget" name="tab_20">
@@ -1364,10 +1364,17 @@
             <string>2</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_36">
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_74">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_73">
               <property name="text">
-               <string>Speed</string>
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="spindle_brake_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -1378,27 +1385,6 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_2_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_2_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_2_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="1">
              <widget class="QLabel" name="spindle_direction_2_lb">
               <property name="text">
@@ -1406,8 +1392,29 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="spindle_brake_2_lb">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_72">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_enabled_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_74">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_speed_2_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -1420,38 +1427,10 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_2_lb">
+            <item row="4" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_2_lb">
               <property name="text">
                <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_76">
-              <property name="text">
-               <string>Speed Setting S</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_speed_2_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_127">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_72">
-              <property name="text">
-               <string>Enabled</string>
               </property>
              </widget>
             </item>
@@ -1462,15 +1441,8 @@
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_71">
-              <property name="text">
-               <string>Speed + Override</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_2_lb">
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_2_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -1483,18 +1455,86 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_73">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_enabled_2_lb">
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_orient_state_2_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_127">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="text">
+               <string>Speed + Override</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="10">
+             <widget class="QFrame" name="frame_4">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_44">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_2_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_2_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_2_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_2_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_2_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item row="9" column="0" colspan="2">
@@ -1514,64 +1554,29 @@
             <string>3</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_37">
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_126">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_80">
               <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_131">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_81">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_enabled_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_77">
-              <property name="text">
-               <string>Override Percent</string>
+               <string>Brake</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
              <widget class="QLabel" name="spindle_brake_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_82">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_3_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -1584,31 +1589,17 @@
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_78">
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_enabled_3_lb">
               <property name="text">
-               <string>Speed + Override</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_117">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_81">
               <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_82">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_83">
-              <property name="text">
-               <string>Speed Setting S</string>
+               <string>Speed</string>
               </property>
              </widget>
             </item>
@@ -1619,10 +1610,24 @@
               </property>
              </widget>
             </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_3_lb">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_117">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_3_lb">
               <property name="text">
                <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_77">
+              <property name="text">
+               <string>Override Percent</string>
               </property>
              </widget>
             </item>
@@ -1633,10 +1638,38 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_80">
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_126">
               <property name="text">
-               <string>Brake</string>
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_orient_state_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_131">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_78">
+              <property name="text">
+               <string>Speed + Override</string>
               </property>
              </widget>
             </item>
@@ -1645,6 +1678,53 @@
               <property name="text">
                <string>TextLabel</string>
               </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="10">
+             <widget class="QFrame" name="frame_5">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_45">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_3_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_3_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_3_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_3_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_3_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item row="9" column="0" colspan="2">
@@ -1664,20 +1744,6 @@
             <string>4</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_38">
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_118">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_87">
               <property name="text">
@@ -1685,92 +1751,8 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_86">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_84">
-              <property name="text">
-               <string>Override Percent</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_speed_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_enabled_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_90">
-              <property name="text">
-               <string>Speed Setting S</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="1">
              <widget class="QLabel" name="spindle_brake_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_128">
-              <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_88">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_4_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -1783,10 +1765,94 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_86">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_enabled_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_88">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_speed_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_118">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_84">
+              <property name="text">
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_128">
+              <property name="text">
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_orient_state_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
             <item row="7" column="0">
              <widget class="QLabel" name="label_135">
               <property name="text">
                <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -1795,6 +1861,60 @@
               <property name="text">
                <string>Speed + Override</string>
               </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="10">
+             <widget class="QFrame" name="frame_6">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_46">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_4_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_4_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_4_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_4_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_4_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item row="9" column="0" colspan="2">
@@ -1814,8 +1934,57 @@
             <string>5</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_39">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_94">
+              <property name="text">
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="spindle_brake_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_96">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_93">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
             <item row="2" column="1">
              <widget class="QLabel" name="spindle_enabled_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_95">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_speed_5_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -1835,41 +2004,6 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_93">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_96">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
             <item row="5" column="0">
              <widget class="QLabel" name="label_91">
               <property name="text">
@@ -1877,36 +2011,22 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_speed_5_lb">
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_5_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_5_lb">
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_130">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Spindle Orient State</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_97">
-              <property name="text">
-               <string>Speed Setting S</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="spindle_brake_5_lb">
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_orient_state_5_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -1919,24 +2039,10 @@
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_130">
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_5_lb">
               <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_94">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_95">
-              <property name="text">
-               <string>Speed</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -1945,6 +2051,60 @@
               <property name="text">
                <string>Speed + Override</string>
               </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="10">
+             <widget class="QFrame" name="frame_7">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_47">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_5_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_5_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_5_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_5_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_5_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item row="9" column="0" colspan="2">
@@ -1964,52 +2124,10 @@
             <string>6</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_40">
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_enabled_6_lb">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_101">
               <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_103">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_100">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_102">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
+               <string>Brake</string>
               </property>
              </widget>
             </item>
@@ -2020,6 +2138,116 @@
               </property>
              </widget>
             </item>
+            <item row="0" column="2" rowspan="11">
+             <widget class="QFrame" name="frame_8">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_48">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_6_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_6_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_6_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_6_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_6_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_103">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_100">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_enabled_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_102">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_speed_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_120">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_98">
+              <property name="text">
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
             <item row="5" column="1">
              <widget class="QLabel" name="spindle_override_6_lb">
               <property name="text">
@@ -2027,8 +2255,15 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_6_lb">
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_132">
+              <property name="text">
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_orient_state_6_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -2041,24 +2276,10 @@
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_132">
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_6_lb">
               <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_104">
-              <property name="text">
-               <string>Speed Setting S</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_98">
-              <property name="text">
-               <string>Override Percent</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -2069,31 +2290,10 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_101">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_speed_6_lb">
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_6_lb">
               <property name="text">
                <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_120">
-              <property name="text">
-               <string>Override Enabled</string>
               </property>
              </widget>
             </item>
@@ -2114,17 +2314,38 @@
             <string>7</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_41">
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_109">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_108">
               <property name="text">
-               <string>Speed</string>
+               <string>Brake</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_7_lb">
+            <item row="0" column="1">
+             <widget class="QLabel" name="spindle_brake_7_lb">
               <property name="text">
                <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_110">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_107">
+              <property name="text">
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
@@ -2135,36 +2356,15 @@
               </property>
              </widget>
             </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_109">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
             <item row="3" column="1">
              <widget class="QLabel" name="spindle_speed_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_134">
-              <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_105">
-              <property name="text">
-               <string>Override Percent</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_7_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -2177,15 +2377,50 @@
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_7_lb">
+            <item row="4" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_7_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="spindle_brake_7_lb">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_105">
+              <property name="text">
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_134">
+              <property name="text">
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_orient_state_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_141">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_7_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -2198,53 +2433,58 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_7_lb">
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_7_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_111">
-              <property name="text">
-               <string>Speed Setting S</string>
+            <item row="0" column="2" rowspan="10">
+             <widget class="QFrame" name="frame_9">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
               </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_107">
-              <property name="text">
-               <string>Enabled</string>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
               </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_108">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_141">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_110">
-              <property name="text">
-               <string>Direction</string>
-              </property>
+              <layout class="QGridLayout" name="gridLayout_49">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_7_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_7_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_7_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_7_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_7_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item row="9" column="0" colspan="2">
