@@ -1463,13 +1463,13 @@ def setup_spindle(parent):
 	for item in multi_spindle_labels:
 		for i in range(8):
 			if f'{item}_{i}_lb' in parent.child_names:
-				if i > number_spindle_items:
+				if i > number_spindle_labels:
 					number_spindle_labels = i
 					if i == 7:
 						break
 
 	if number_spindle_labels > parent.status.spindles:
-		msg = (f'There are {number_spindle_items} spindle status items\n'
+		msg = (f'There are {number_spindle_labels} spindle status items\n'
 		f'but only {parent.status.spindles} spindle(s) is configured.\n'
 		f'The status items above {parent.status.spindles} will not function.')
 		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
