@@ -1440,6 +1440,11 @@ def setup_spindle(parent):
 	# create spindle tuple
 	parent.status_spindle = ()
 
+	# create a spindle rpm variable for each spindle
+	for i in range(parent.status.spindles):
+		setattr(parent, f'spindle_rpm_{i}', getattr(parent, f'spindle_{i}_min_fwd_rpm'))
+		#print(f'spindle_rpm_{i} {getattr(parent, f"spindle_rpm_{i}")}')
+
 	'''
 	brake (returns integer) - value of the spindle brake flag.
 	direction (returns integer) - rotational direction of the spindle. forward=1, reverse=-1
@@ -1530,13 +1535,15 @@ def setup_spindle(parent):
 		f'The controls above {parent.status.spindles} will not function.')
 		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
+	# set up multiple spindle controls
 	for i in range(parent.status.spindles):
-		for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop']:
+		for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop', 'spindle_plus', 'spindle_minus']:
 			if f'{item}_{i}_pb' in parent.child_names:
 				action = item.split('_')[-1]
 				getattr(parent, f'{item}_{i}_pb').clicked.connect(
 				partial(commands.spindle_control, parent, i, action))
 				parent.spindle_controls.append(f'{item}_{i}_pb')
+
 
 	# End of Multi Spindles
 
@@ -1561,7 +1568,6 @@ def setup_spindle(parent):
 	# spindle 0 defaults
 	if 'spindle_speed_lb' in parent.child_names:
 		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
-	parent.min_rpm = 0
 
 	for item in ['spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
 		'spindle_plus_pb', 'spindle_minus_pb']:
