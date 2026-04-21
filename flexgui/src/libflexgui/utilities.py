@@ -613,6 +613,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.resume_controls:
 			getattr(parent, item).setEnabled(False)
+		for item in parent.spindle_controls:
+			getattr(parent, item).setEnabled(False)
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.jog_controls:
@@ -649,6 +651,8 @@ def update_controls(parent):
 		for item in parent.pause_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.resume_controls:
+			getattr(parent, item).setEnabled(False)
+		for item in parent.spindle_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(False)
@@ -781,6 +785,8 @@ def update_controls(parent):
 				for item in parent.file_open_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.tool_table_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.spindle_controls:
 					getattr(parent, item).setEnabled(True)
 
 				if task_state == emc.STATE_ON:

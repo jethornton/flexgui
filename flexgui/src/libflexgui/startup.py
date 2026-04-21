@@ -1535,7 +1535,8 @@ def setup_spindle(parent):
 			if f'{item}_{i}_pb' in parent.child_names:
 				action = item.split('_')[-1]
 				getattr(parent, f'{item}_{i}_pb').clicked.connect(
-					partial(commands.spindle_control, parent, i, action))
+				partial(commands.spindle_control, parent, i, action))
+				parent.spindle_controls.append(f'{item}_{i}_pb')
 
 	# End of Multi Spindles
 
