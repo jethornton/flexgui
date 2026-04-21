@@ -1453,6 +1453,27 @@ def setup_spindle(parent):
 	optional G96 D-word or, if the D-word was missing, the default values +/-1e30
 	'''
 
+	# check for number of spindles matches the number of status labels
+	multi_spindle_labels = ['spindle_brake', 'spindle_enabled',
+		'spindle_orient_state', 'spindle_orient_fault', 'spindle_override_enabled',
+		'spindle_direction', 'spindle_speed', 'spindle_override',
+		'spindle_cmd_speed']
+
+	number_spindle_labels = 0
+	for item in multi_spindle_labels:
+		for i in range(8):
+			if f'{item}_{i}_lb' in parent.child_names:
+				if i > number_spindle_items:
+					number_spindle_labels = i
+					if i == 7:
+						break
+
+	if number_spindle_labels > parent.status.spindles:
+		msg = (f'There are {number_spindle_items} spindle status items\n'
+		f'but only {parent.status.spindles} spindle(s) is configured.\n'
+		f'The status items above {parent.status.spindles} will not function.')
+		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+
 	parent.spindle_int = {}
 	spindle_int = {
 	'spindle_brake': 'brake',
@@ -1489,6 +1510,25 @@ def setup_spindle(parent):
 	for i in range(parent.status.spindles):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
+
+	# check for number of spindles matches the number of controls
+	multi_spindle_controls = ['spindle_fwd', 'spindle_rev', 'spindle_stop',
+	'spindle_plus', 'spindle_minus', 'spindle_speed']
+
+	number_spindle_controls = 0
+	for item in multi_spindle_controls:
+		for i in range(8):
+			if f'{item}_{i}_pb' in parent.child_names:
+				if i > number_spindle_controls:
+					number_spindle_controls = i
+					if i == 7:
+						break
+
+	if number_spindle_controls > parent.status.spindles:
+		msg = (f'There are {number_spindle_controls} spindle controls\n'
+		f'but only {parent.status.spindles} spindle(s) is configured.\n'
+		f'The controls above {parent.status.spindles} will not function.')
+		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	for i in range(parent.status.spindles):
 		for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop']:
