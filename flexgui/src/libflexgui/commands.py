@@ -273,13 +273,18 @@ def spindle_control(parent, spindle, action): # Fwd Rev and Off
 		case 'plus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			current = getattr(parent, f'spindle_rpm_{spindle}')
+			print(f'current {current}')
 			increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
 			max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
 			new_rpm = current + increment
 			if new_rpm > max_rpm:
 				new_rpm = max_rpm
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
-			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
+			if parent.status.spindle[spindle]['direction'] == 1:
+				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
+			elif parent.status.spindle[spindle]['direction'] == -1:
+				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
+			print(f'Spindle {spindle} spindle rpm  {new_rpm}')
 
 		case 'minus':
 			#print(f'Spindle:{spindle} Action:{action}')
@@ -290,6 +295,10 @@ def spindle_control(parent, spindle, action): # Fwd Rev and Off
 			if new_rpm < min_rpm:
 				new_rpm = min_rpm
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
+			if parent.status.spindle[spindle]['direction'] == 1:
+				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
+			elif parent.status.spindle[spindle]['direction'] == -1:
+				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
 			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
 
 def spindle(parent, rpm=0):

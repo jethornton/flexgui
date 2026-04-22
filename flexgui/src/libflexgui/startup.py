@@ -1442,8 +1442,7 @@ def setup_spindle(parent):
 
 	# create a spindle rpm variable for each spindle
 	for i in range(parent.status.spindles):
-		setattr(parent, f'spindle_rpm_{i}', getattr(parent, f'spindle_{i}_min_fwd_rpm'))
-		#print(f'spindle_rpm_{i} {getattr(parent, f"spindle_rpm_{i}")}')
+		setattr(parent, f'spindle_rpm_{i}', 0)
 
 	'''
 	brake (returns integer) - value of the spindle brake flag.
