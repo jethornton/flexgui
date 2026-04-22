@@ -363,8 +363,8 @@ def read(parent):
 		parent.joints = int(parent.joints)
 
 	# ***** [SPINDLE_0] Section *****
-	parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
-	parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
+	#parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
+	#parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 
 	# ***** [SPINDLE_n] Sections ***** 
 	# FIXME add MIN_REVERSE_VELOCITY MAX_REVERSE_VELOCITY

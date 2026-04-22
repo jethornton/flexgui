@@ -1543,7 +1543,6 @@ def setup_spindle(parent):
 				partial(commands.spindle_control, parent, i, action))
 				parent.spindle_controls.append(f'{item}_{i}_pb')
 
-
 	# End of Multi Spindles
 
 		for key, value in parent.spindle_cmd_speed.items():
@@ -1563,10 +1562,9 @@ def setup_spindle(parent):
 			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(partial(utilities.spindle_override, parent, i))
 			getattr(parent, f'spindle_override_{i}_sl').setValue(100)
 
-
 	# spindle 0 defaults
-	if 'spindle_speed_lb' in parent.child_names:
-		parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+	#if 'spindle_speed_lb' in parent.child_names:
+	#	parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
 
 	for item in ['spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
 		'spindle_plus_pb', 'spindle_minus_pb']:
@@ -1576,25 +1574,25 @@ def setup_spindle(parent):
 			if item in ['spindle_fwd_pb', 'spindle_rev_pb']:
 				getattr(parent, item).setCheckable(True)
 
-	if parent.min_rpm and utilities.is_number(parent.min_rpm):
-		parent.min_rpm = int(parent.min_rpm)
-	else:
-		parent.min_rpm = 0
+	#if parent.min_rpm and utilities.is_number(parent.min_rpm):
+	#	parent.min_rpm = int(parent.min_rpm)
+	#else:
+	#	parent.min_rpm = 0
 
-	if parent.max_rpm and utilities.is_number(parent.max_rpm):
-		parent.max_rpm = int(parent.max_rpm)
-	else:
-		parent.max_rpm = 1000
+	#if parent.max_rpm and utilities.is_number(parent.max_rpm):
+	#	parent.max_rpm = int(parent.max_rpm)
+	#else:
+	#	parent.max_rpm = 1000
 
 	if 'spindle_speed_sb' in parent.child_names:
 		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
 		parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
-		parent.spindle_speed_sb.setMinimum(parent.min_rpm)
-		parent.spindle_speed_sb.setMaximum(parent.max_rpm)
+		parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
+		parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
 		parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
 
-	if 'spindle_speed_setting_lb' in parent.child_names:
-		parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
+	#if 'spindle_speed_setting_lb' in parent.child_names:
+	#	parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
 
 	parent.status_spindle_lcd = {}
 	if 'spindle_speed_0_lcd' in parent.child_names:

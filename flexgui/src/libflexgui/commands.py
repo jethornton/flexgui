@@ -273,7 +273,7 @@ def spindle_control(parent, spindle, action): # Fwd Rev and Off
 		case 'plus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			current = getattr(parent, f'spindle_rpm_{spindle}')
-			print(f'current {current}')
+			#print(f'current {current}')
 			increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
 			max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
 			new_rpm = current + increment
@@ -284,7 +284,7 @@ def spindle_control(parent, spindle, action): # Fwd Rev and Off
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
-			print(f'Spindle {spindle} spindle rpm  {new_rpm}')
+			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
 
 		case 'minus':
 			#print(f'Spindle:{spindle} Action:{action}')
@@ -301,8 +301,9 @@ def spindle_control(parent, spindle, action): # Fwd Rev and Off
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
 			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
 
-def spindle(parent, rpm=0):
-	#print(f'rpm {rpm}')
+def spindle(parent, value): # value is passed by the spinbox and push button
+	#print(f'value {value}')
+
 	'''
 	spindle(direction: int, speed: float=0, spindle: int=0, wait_for_speed: int=0)
 	Direction: [SPINDLE_FORWARD, SPINDLE_REVERSE, SPINDLE_OFF, SPINDLE_INCREASE,
@@ -313,13 +314,16 @@ def spindle(parent, rpm=0):
 	parent.status.poll()
 	if sender_name == 'spindle_speed_sb':
 		#parent.spindle_speed = value
+		parent.spindle_rpm_0 = value
+		#print(f'parent.spindle_rpm_0 {parent.spindle_rpm_0}')
 		if parent.status.spindle[0]['speed'] > 0:
-			parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm))
+			parent.command.spindle(emc.SPINDLE_FORWARD, float(value))
 		if parent.status.spindle[0]['speed'] < 0:
-			parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm))
+			parent.command.spindle(emc.SPINDLE_REVERSE, float(value))
 
 	elif sender_name == 'spindle_fwd_pb':
-		print('spindle_fwd_pb')
+		#print('spindle_fwd_pb')
+		rpm = parent.spindle_rpm_0
 		if rpm == 0:
 			msg = ('Can not start spindle\n'
 				'at 0 RPM')
@@ -335,7 +339,8 @@ def spindle(parent, rpm=0):
 					parent.spindle_rev_pb.led = False
 
 	elif sender_name == 'spindle_rev_pb':
-		print('spindle_rev_pb')
+		#print('spindle_rev_pb')
+		rpm = parent.spindle_rpm_0
 		if rpm == 0:
 			msg = ('Can not start spindle\n'
 				'at 0 RPM')
@@ -351,7 +356,7 @@ def spindle(parent, rpm=0):
 					parent.spindle_fwd_pb.led = False
 
 	elif sender_name == 'spindle_stop_pb':
-		print('spindle_stop_pb')
+		#print('spindle_stop_pb')
 		parent.command.spindle(emc.SPINDLE_OFF)
 		if 'spindle_fwd_pb' in parent.child_names:
 			parent.spindle_fwd_pb.setChecked(False)
@@ -363,19 +368,20 @@ def spindle(parent, rpm=0):
 				parent.spindle_rev_pb.led = False
 
 	elif sender_name == 'spindle_plus_pb':
-		print('spindle_plus_pb')
-		if (rpm + parent.spindle_increment) <= parent.max_rpm:
+		#print('spindle_plus_pb')
+		rpm = parent.spindle_rpm_0
+		if (rpm + parent.spindle_increment) <= parent.spindle_0_max_fwd_rpm:
 			parent.command.spindle(emc.SPINDLE_INCREASE)
 			rpm += parent.spindle_increment
 			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(rpm)
-				print('here')
 			if 'spindle_speed_setting_lb' in parent.child_names:
 				parent.spindle_speed_setting_lb.setText(f'{rpm}')
 
 	elif sender_name == 'spindle_minus_pb':
-		print('spindle_minus_pb')
-		if (rpm - parent.spindle_increment) > 0: # it's ok
+		#print('spindle_minus_pb')
+		rpm = parent.spindle_rpm_0
+		if (rpm - parent.spindle_increment) >= parent.spindle_0_min_fwd_rpm: # it's ok
 			parent.command.spindle(emc.SPINDLE_DECREASE)
 			rpm -= parent.spindle_increment
 			if 'spindle_speed_sb' in parent.child_names:
@@ -390,10 +396,10 @@ def spindle(parent, rpm=0):
 				parent.spindle_rev_pb.setChecked(False)
 				parent.command.spindle(emc.SPINDLE_OFF)
 
-	if 'spindle_speed_sb' in parent.child_names:
-		parent.spindle_speed_sb.setValue(rpm)
-	if 'spindle_speed_lb' in parent.child_names:
-		parent.spindle_speed_lb.setText(f'{rpm}')
+	#if 'spindle_speed_sb' in parent.child_names:
+	#	parent.spindle_speed_sb.setValue(rpm)
+	#if 'spindle_speed_lb' in parent.child_names:
+	#	parent.spindle_speed_lb.setText(f'{rpm}')
 
 def flood_toggle(parent):
 	parent.status.poll()
