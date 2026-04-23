@@ -1028,10 +1028,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="spindle_rev_0_pb">
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_0_pb">
                  <property name="text">
-                  <string>Spindle Reverse</string>
+                  <string>Spindle Faster</string>
                  </property>
                 </widget>
                </item>
@@ -1042,10 +1042,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QPushButton" name="spindle_plus_0_pb">
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_0_pb">
                  <property name="text">
-                  <string>Spindle Faster</string>
+                  <string>Spindle Reverse</string>
                  </property>
                 </widget>
                </item>
@@ -1055,6 +1055,9 @@
                   <string>Spindle Slower</string>
                  </property>
                 </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_0_sb"/>
                </item>
               </layout>
              </widget>
@@ -1333,6 +1336,13 @@
                  </property>
                 </widget>
                </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_1_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
                <item row="2" column="0">
                 <widget class="QPushButton" name="spindle_stop_1_pb">
                  <property name="text">
@@ -1347,12 +1357,8 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QPushButton" name="spindle_minus_1_pb">
-                 <property name="text">
-                  <string>Spindle Slower</string>
-                 </property>
-                </widget>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_1_sb"/>
                </item>
               </layout>
              </widget>
@@ -1506,17 +1512,24 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="spindle_rev_2_pb">
-                 <property name="text">
-                  <string>Spindle Reverse</string>
-                 </property>
-                </widget>
-               </item>
                <item row="2" column="0">
                 <widget class="QPushButton" name="spindle_stop_2_pb">
                  <property name="text">
                   <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_2_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_2_pb">
+                 <property name="text">
+                  <string>Spindle Reverse</string>
                  </property>
                 </widget>
                </item>
@@ -1527,12 +1540,8 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QPushButton" name="spindle_minus_2_pb">
-                 <property name="text">
-                  <string>Spindle Slower</string>
-                 </property>
-                </widget>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_2_sb"/>
                </item>
               </layout>
              </widget>
@@ -1689,10 +1698,17 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_45">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="spindle_fwd_3_pb">
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_3_pb">
                  <property name="text">
-                  <string>Spindle Forward</string>
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_3_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
                  </property>
                 </widget>
                </item>
@@ -1703,13 +1719,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
-                <widget class="QPushButton" name="spindle_stop_3_pb">
-                 <property name="text">
-                  <string>Spindle Stop</string>
-                 </property>
-                </widget>
-               </item>
                <item row="3" column="0">
                 <widget class="QPushButton" name="spindle_plus_3_pb">
                  <property name="text">
@@ -1717,12 +1726,15 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QPushButton" name="spindle_minus_3_pb">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_3_pb">
                  <property name="text">
-                  <string>Spindle Slower</string>
+                  <string>Spindle Forward</string>
                  </property>
                 </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_3_sb"/>
                </item>
               </layout>
              </widget>
@@ -1879,10 +1891,24 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_46">
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_4_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="0">
                 <widget class="QPushButton" name="spindle_fwd_4_pb">
                  <property name="text">
                   <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_4_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
                  </property>
                 </widget>
                </item>
@@ -1900,19 +1926,8 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QPushButton" name="spindle_plus_4_pb">
-                 <property name="text">
-                  <string>Spindle Faster</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QPushButton" name="spindle_minus_4_pb">
-                 <property name="text">
-                  <string>Spindle Slower</string>
-                 </property>
-                </widget>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_4_sb"/>
                </item>
               </layout>
              </widget>
@@ -2069,17 +2084,17 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_47">
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_5_pb">
+                 <property name="text">
+                  <string>Spindle Faster</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="0">
                 <widget class="QPushButton" name="spindle_fwd_5_pb">
                  <property name="text">
                   <string>Spindle Forward</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="spindle_rev_5_pb">
-                 <property name="text">
-                  <string>Spindle Reverse</string>
                  </property>
                 </widget>
                </item>
@@ -2090,10 +2105,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QPushButton" name="spindle_plus_5_pb">
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_5_pb">
                  <property name="text">
-                  <string>Spindle Faster</string>
+                  <string>Spindle Reverse</string>
                  </property>
                 </widget>
                </item>
@@ -2103,6 +2118,9 @@
                   <string>Spindle Slower</string>
                  </property>
                 </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_5_sb"/>
                </item>
               </layout>
              </widget>
@@ -2147,24 +2165,10 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_48">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="spindle_fwd_6_pb">
-                 <property name="text">
-                  <string>Spindle Forward</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QPushButton" name="spindle_rev_6_pb">
                  <property name="text">
                   <string>Spindle Reverse</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QPushButton" name="spindle_stop_6_pb">
-                 <property name="text">
-                  <string>Spindle Stop</string>
                  </property>
                 </widget>
                </item>
@@ -2175,12 +2179,29 @@
                  </property>
                 </widget>
                </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_6_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_6_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
                <item row="4" column="0">
                 <widget class="QPushButton" name="spindle_minus_6_pb">
                  <property name="text">
                   <string>Spindle Slower</string>
                  </property>
                 </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_6_sb"/>
                </item>
               </layout>
              </widget>
@@ -2449,24 +2470,10 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_49">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="spindle_fwd_7_pb">
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_7_pb">
                  <property name="text">
-                  <string>Spindle Forward</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="spindle_rev_7_pb">
-                 <property name="text">
-                  <string>Spindle Reverse</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QPushButton" name="spindle_stop_7_pb">
-                 <property name="text">
-                  <string>Spindle Stop</string>
+                  <string>Spindle Slower</string>
                  </property>
                 </widget>
                </item>
@@ -2477,12 +2484,29 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QPushButton" name="spindle_minus_7_pb">
+               <item row="1" column="0">
+                <widget class="QPushButton" name="spindle_rev_7_pb">
                  <property name="text">
-                  <string>Spindle Slower</string>
+                  <string>Spindle Reverse</string>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_fwd_7_pb">
+                 <property name="text">
+                  <string>Spindle Forward</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_7_pb">
+                 <property name="text">
+                  <string>Spindle Stop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_7_sb"/>
                </item>
               </layout>
              </widget>
