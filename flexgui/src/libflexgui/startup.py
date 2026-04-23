@@ -1565,20 +1565,11 @@ def setup_spindle(parent):
 			partial(commands.spindle_control, parent, i, 'speed'))
 			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
 
-	'''
-	spindle_0_min_fwd_rpm 100
-
-		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-		parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
-		parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
-		parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
-		parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
-	'''
-
 	##### End of Multi Spindles #####
 
 	##### Old Style Spindle Controls #####
 
+	# test if new style and old style exist
 	if 'spindle_override_sl' in parent.child_names:
 		if 'spindle_override_0_sl' in parent.child_names:
 			parent.spindle_override_sl.setEnabled(False)
@@ -1594,35 +1585,80 @@ def setup_spindle(parent):
 			if max_spindle_override >= 100:
 				parent.spindle_override_sl.setValue(100)
 
+	# test if new style and old style exist
+	if 'spindle_fwd_pb' in parent.child_names:
+		if 'spindle_fwd_0_pb' in parent.child_names:
+			parent.spindle_fwd_pb.setEnabled(False)
+			msg = ('The old style spindle_fwd_pb was found\n'
+			'and the new style spindle_fwd_0_pb was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_fwd_pb.setCheckable(True)
+			parent.spindle_controls.append('spindle_fwd_pb')
 
-	# spindle 0 defaults
-	#if 'spindle_speed_lb' in parent.child_names:
-	#	parent.spindle_speed_lb.setText(f'{parent.spindle_speed}')
+	if 'spindle_rev_pb' in parent.child_names:
+		if 'spindle_rev_0_pb' in parent.child_names:
+			parent.spindle_rev_pb.setEnabled(False)
+			msg = ('The old style spindle_rev_pb was found\n'
+			'and the new style spindle_rev_0_pb was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_rev_pb.setCheckable(True)
+			parent.spindle_controls.append('spindle_rev_pb')
 
-	for item in ['spindle_fwd_pb', 'spindle_rev_pb', 'spindle_stop_pb',
-		'spindle_plus_pb', 'spindle_minus_pb']:
-		if item in parent.child_names:
-			getattr(parent, item).clicked.connect(partial(commands.spindle, parent))
-			parent.spindle_controls.append(item)
-			if item in ['spindle_fwd_pb', 'spindle_rev_pb']:
-				getattr(parent, item).setCheckable(True)
+	if 'spindle_stop_pb' in parent.child_names:
+		if 'spindle_stop_0_pb' in parent.child_names:
+			parent.spindle_rev_pb.setEnabled(False)
+			msg = ('The old style spindle_stop_pb was found\n'
+			'and the new style spindle_stop_0_pb was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_stop_pb.setCheckable(True)
+			parent.spindle_controls.append('spindle_stop_pb')
 
-	#if parent.min_rpm and utilities.is_number(parent.min_rpm):
-	#	parent.min_rpm = int(parent.min_rpm)
-	#else:
-	#	parent.min_rpm = 0
+	if 'spindle_plus_pb' in parent.child_names:
+		if 'spindle_plus_0_pb' in parent.child_names:
+			parent.spindle_plus_pb.setEnabled(False)
+			msg = ('The old style spindle_plus_pb was found\n'
+			'and the new style spindle_plus_0_pb was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_plus_pb.setCheckable(True)
+			parent.spindle_controls.append('spindle_plus_pb')
 
-	#if parent.max_rpm and utilities.is_number(parent.max_rpm):
-	#	parent.max_rpm = int(parent.max_rpm)
-	#else:
-	#	parent.max_rpm = 1000
+	if 'spindle_minus_pb' in parent.child_names:
+		if 'spindle_minus_0_pb' in parent.child_names:
+			parent.spindle_minus_pb.setEnabled(False)
+			msg = ('The old style spindle_minus_pb was found\n'
+			'and the new style spindle_minus_0_pb was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_minus_pb.setCheckable(True)
+			parent.spindle_controls.append('spindle_minus_pb')
 
 	if 'spindle_speed_sb' in parent.child_names:
-		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-		parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
-		parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
-		parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
-		parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
+		if 'spindle_minus_0_pb' in parent.child_names:
+			parent.spindle_speed_sb.setEnabled(False)
+			msg = ('The old style spindle_speed_sb was found\n'
+			'and the new style spindle_minus_0_pb was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
+			parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
+			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
+			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
+			parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
 
 	#if 'spindle_speed_setting_lb' in parent.child_names:
 	#	parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
