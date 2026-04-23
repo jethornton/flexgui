@@ -1543,11 +1543,39 @@ def setup_spindle(parent):
 				partial(commands.spindle_control, parent, i, action))
 				parent.spindle_controls.append(f'{item}_{i}_pb')
 
+	for i in range(parent.status.spindles):
+		if f'spindle_override_{i}_sl' in parent.child_names:
+			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
+			partial(utilities.spindle_override, parent, i))
+			getattr(parent, f'spindle_override_{i}_sl').setValue(100)
+
+	for i in range(parent.status.spindles):
+		if f'spindle_speed_{i}_sb' in parent.child_names:
+			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+			getattr(parent, f'spindle_speed_{i}_sb').setMinimum(min_rpm)
+			max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+			getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
+			increment  = getattr(parent, f'spindle_{i}_rpm_increment')
+			getattr(parent, f'spindle_speed_{i}_sb').setSingleStep(increment)
+			getattr(parent, f'spindle_speed_{i}_sb').valueChanged.connect(
+			partial(commands.spindle_control, parent, i, 'speed'))
+			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
+
+	'''
+	spindle_0_min_fwd_rpm 100
+
+		parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
+		parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
+		parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
+		parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
+		parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
+	'''
+
 	# End of Multi Spindles
 
-		for key, value in parent.spindle_cmd_speed.items():
-			override = parent.status.spindle[value[0]]['override']
-			speed = parent.status.spindle[value[0]]['speed']
+	for key, value in parent.spindle_cmd_speed.items():
+		override = parent.status.spindle[value[0]]['override']
+		speed = parent.status.spindle[value[0]]['speed']
 
 	if 'spindle_override_sl' in parent.child_names: # FIXME 
 		parent.spindle_override_sl.valueChanged.connect(partial(
@@ -1557,10 +1585,6 @@ def setup_spindle(parent):
 		if max_spindle_override >= 100:
 			parent.spindle_override_sl.setValue(100)
 
-	for i in range(parent.status.spindles):
-		if f'spindle_override_{i}_sl' in parent.child_names:
-			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(partial(utilities.spindle_override, parent, i))
-			getattr(parent, f'spindle_override_{i}_sl').setValue(100)
 
 	# spindle 0 defaults
 	#if 'spindle_speed_lb' in parent.child_names:

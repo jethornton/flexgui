@@ -252,7 +252,7 @@ def tool_touchoff(parent):
 		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
-def spindle_control(parent, spindle, action): # Fwd Rev and Off
+def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 	#print(f'spindle {spindle}')
 	match action:
 		case 'fwd':
@@ -300,6 +300,16 @@ def spindle_control(parent, spindle, action): # Fwd Rev and Off
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
 			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
+
+		case 'speed':
+			#print(f'Spindle:{spindle} Action:{action}')
+			new_rpm = getattr(parent, f'spindle_speed_{spindle}_sb').value()
+			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
+			if parent.status.spindle[spindle]['direction'] == 1:
+				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
+			elif parent.status.spindle[spindle]['direction'] == -1:
+				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
+
 
 def spindle(parent, value): # value is passed by the spinbox and push button
 	#print(f'value {value}')

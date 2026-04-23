@@ -375,23 +375,20 @@ def read(parent):
 		else:
 			min_fwd_rpm = 0
 		setattr(parent, f'spindle_{i}_min_fwd_rpm', min_fwd_rpm)
-		#print(f'spindle {i} min_fwd_rpm {min_fwd_rpm} {type(min_fwd_rpm)}')
 
-		max_fwd_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or 1000
+		max_fwd_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or False
 		if isinstance(max_fwd_rpm, str):
 			max_fwd_rpm = utilities.to_int(max_fwd_rpm)
 		else:
 			max_fwd_rpm = 1000
 		setattr(parent, f'spindle_{i}_max_fwd_rpm', max_fwd_rpm)
-		#print(f'spindle {i} max_fwd_rpm {max_fwd_rpm}')
 
-		rpm_increment = parent.inifile.find(f'SPINDLE_{i}', 'INCREMENT') or 100
-		if isinstance(rpm_increment, str):
-			rpm_increment = utilities.to_int(rpm_increment)
+		increment = parent.inifile.find(f'SPINDLE_{i}', 'INCREMENT') or False
+		if isinstance(increment, str):
+			increment = utilities.to_int(increment)
 		else:
-			rpm_increment = 100
-		setattr(parent, f'spindle_{i}_rpm_increment', rpm_increment)
-		#print(f'spindle {i} rpm_increment {rpm_increment}')
+			increment = 100
+		setattr(parent, f'spindle_{i}_rpm_increment', increment)
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
