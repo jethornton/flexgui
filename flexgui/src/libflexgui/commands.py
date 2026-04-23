@@ -283,7 +283,8 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
-			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
+			if f'spindle_speed_{spindle}_sb' in parent.child_names:
+				getattr(parent, f'spindle_speed_{spindle}_sb').setValue(new_rpm)
 
 		case 'minus':
 			#print(f'Spindle:{spindle} Action:{action}')
@@ -298,7 +299,8 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
-			#print(f'Spindle {spindle} spindle rpm  {new_rpm}')
+			if f'spindle_speed_{spindle}_sb' in parent.child_names:
+				getattr(parent, f'spindle_speed_{spindle}_sb').setValue(new_rpm)
 
 		case 'speed':
 			#print(f'Spindle:{spindle} Action:{action}')

@@ -1440,6 +1440,8 @@ def setup_spindle(parent):
 	# create spindle tuple
 	parent.status_spindle = ()
 
+	##### Start of Multiple Spindle #####
+
 	# create a spindle rpm variable for each spindle
 	for i in range(parent.status.spindles):
 		min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
