@@ -1515,6 +1515,10 @@ def setup_spindle(parent):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
 
+	#for key, value in parent.spindle_cmd_speed.items():
+	#	override = parent.status.spindle[value[0]]['override']
+	#	speed = parent.status.spindle[value[0]]['speed']
+
 	# check for number of spindles matches the number of controls
 	multi_spindle_controls = ['spindle_fwd', 'spindle_rev', 'spindle_stop',
 	'spindle_plus', 'spindle_minus', 'spindle_speed']
@@ -1571,19 +1575,24 @@ def setup_spindle(parent):
 		parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
 	'''
 
-	# End of Multi Spindles
+	##### End of Multi Spindles #####
 
-	for key, value in parent.spindle_cmd_speed.items():
-		override = parent.status.spindle[value[0]]['override']
-		speed = parent.status.spindle[value[0]]['speed']
+	##### Old Style Spindle Controls #####
 
-	if 'spindle_override_sl' in parent.child_names: # FIXME 
-		parent.spindle_override_sl.valueChanged.connect(partial(
-			utilities.spindle_override, parent, 0))
-		max_spindle_override = int(float(parent.max_spindle_override) * 100)
-		parent.spindle_override_sl.setMaximum(max_spindle_override)
-		if max_spindle_override >= 100:
-			parent.spindle_override_sl.setValue(100)
+	if 'spindle_override_sl' in parent.child_names:
+		if 'spindle_override_0_sl' in parent.child_names:
+			parent.spindle_override_sl.setEnabled(False)
+			msg = ('The old style spindle_override_sl was found\n'
+			'and the new style spindle_override_0_sl was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_override_sl.valueChanged.connect(partial(
+				utilities.spindle_override, parent, 0))
+			max_spindle_override = int(float(parent.max_spindle_override) * 100)
+			parent.spindle_override_sl.setMaximum(max_spindle_override)
+			if max_spindle_override >= 100:
+				parent.spindle_override_sl.setValue(100)
 
 
 	# spindle 0 defaults

@@ -310,7 +310,6 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
 
-
 def spindle(parent, value): # value is passed by the spinbox and push button
 	#print(f'value {value}')
 
