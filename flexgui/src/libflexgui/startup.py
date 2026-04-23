@@ -1442,8 +1442,8 @@ def setup_spindle(parent):
 
 	# create a spindle rpm variable for each spindle
 	for i in range(parent.status.spindles):
-		setattr(parent, f'spindle_rpm_{i}', 0)
-
+		min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+		setattr(parent, f'spindle_rpm_{i}', min_rpm)
 	'''
 	brake (returns integer) - value of the spindle brake flag.
 	direction (returns integer) - rotational direction of the spindle. forward=1, reverse=-1
@@ -1549,9 +1549,16 @@ def setup_spindle(parent):
 
 	for i in range(parent.status.spindles):
 		if f'spindle_override_{i}_sl' in parent.child_names:
+			min_override = getattr(parent, f'spindle_{i}_min_override')
+			getattr(parent, f'spindle_override_{i}_sl').setMinimum(min_override)
+			max_override = getattr(parent, f'spindle_{i}_max_override')
+			getattr(parent, f'spindle_override_{i}_sl').setMaximum(max_override)
 			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
 			partial(utilities.spindle_override, parent, i))
-			getattr(parent, f'spindle_override_{i}_sl').setValue(100)
+			if max_override >= 100:
+				getattr(parent, f'spindle_override_{i}_sl').setValue(100)
+			else:
+				getattr(parent, f'spindle_override_{i}_sl').setValue(max_override)
 
 	for i in range(parent.status.spindles):
 		if f'spindle_speed_{i}_sb' in parent.child_names:
@@ -1568,6 +1575,8 @@ def setup_spindle(parent):
 	##### End of Multi Spindles #####
 
 	##### Old Style Spindle Controls #####
+
+	# FIXME make sure old style spindle labels still work
 
 	# test if new style and old style exist
 	if 'spindle_override_sl' in parent.child_names:
