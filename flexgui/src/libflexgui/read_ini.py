@@ -390,6 +390,20 @@ def read(parent):
 			increment = 100
 		setattr(parent, f'spindle_{i}_rpm_increment', increment)
 
+		min_override = parent.inifile.find(f'SPINDLE_{i}', 'MIN_OVERRIDE') or False
+		if isinstance(min_override, str):
+			min_override = utilities.to_int(min_override)
+		else:
+			min_override = 0
+		setattr(parent, f'spindle_{i}_min_override', min_override)
+
+		max_override = parent.inifile.find(f'SPINDLE_{i}', 'MAX_OVERRIDE') or False
+		if isinstance(max_override, str):
+			max_override = utilities.to_int(max_override)
+		else:
+			max_override = 100
+		setattr(parent, f'spindle_{i}_max_override', max_override)
+
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
 	parent.default_metric = 3

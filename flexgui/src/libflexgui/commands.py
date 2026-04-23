@@ -258,7 +258,6 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 		case 'fwd':
 			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = getattr(parent, f'spindle_rpm_{spindle}')
-			#print(rpm)
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
 
 		case 'rev':
