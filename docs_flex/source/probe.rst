@@ -6,11 +6,38 @@ Probe Enable
 
 Add a QPushButton named `probing_enable_pb` and if it is found it will be set as
 a toggle button. The button will only be enabled when the machine is homed and
-not running a program. The button is set to checkable in code so it can be
-styled with :checked and :enabled pseudo-states among others.
+not running a program. The Probe Enable button will not function if a spindle
+is enabled.
 
 .. note:: The `probing_enable_pb` requires at least one object that starts with
    `probe_` to be enabled.
+
+Function
+--------
+
+When the `probing_enable_pb` is toggled `OFF`, any widget with an object name
+that starts with `probe_` will be disabled.
+
+When the `probing_enable_pb` is toggled `ON` the widgets that start with
+`probe_` will be enabled. In addition, spindle controls will disabled, spindle
+speed set to 0, run controls will be disabled, and MDI controls will be disabled.
+
+QPushButtons with an objectName that start with `probe_` and configured as a
+:ref:`MdiButtonTag` (to launch the probing subroutines) will be enabled when
+probing is enabled and disabled when probing is disabled.
+
+You can create a :ref:`SpinBoxTag` to use in your probing subroutine. Set the
+objectName to start with `probe_` and it will be enabled and disabled with the
+probe buttons.
+
+If you're using a touch-screen, the `QSpinBox` can add a Dynamic Property named
+`input` and set the value to `number`.
+
+Stylesheet
+----------
+
+The button is set to checkable in code so it can be styled with :checked and
+:enabled pseudo-states among others.
 
 .. code-block:: text
 
@@ -29,6 +56,9 @@ styled with :checked and :enabled pseudo-states among others.
 
 For more style sheet options see the :doc:`style` section
 
+Button Text
+-----------
+
 The text on the Probe Enable button can be set by adding two Dynamic Properties
 named `on_text` and `off_text`. Both must be present or no change will take
 place as there is no default text for the Probe Enable button.
@@ -42,29 +72,11 @@ This is what the button would look like with the above settings.
 .. image:: /images/probe-01.png
    :align: center
 
+LED Indicator
+-------------
+
 The Probe Enable button can have a LED indicator. See :ref:`LedButtons` for
 information on LED buttons
-
-Function
---------
-
-When the `probing_enable_pb` is toggled `OFF`, any widget with an object name
-that starts with `probe_` will be disabled.
-
-When the `probing_enable_pb` is toggled `ON` the widgets that start with
-`probe_` will be enabled. In addition, spindle controls will disabled, spindle
-speed set to 0, run controls will be disabled, and MDI controls will be disabled.
-
-QPushButtons with an objectName that start with `probe_` and configured as a
-:ref:`MdiButtonTag` (to launch the probing subroutines) will be enabled when
-probing is enabled and disabled when probing is disabled.
-
-You can create a HAL :ref:`SpinBoxTag` to use in your probing subroutine. Set
-the objectName to start with `probe_` and it will be enabled and disabled with
-the probe buttons.
-
-If you're using a touch-screen, add a Dynamic Property named `input` and set
-the value to `touch`.
 
 Example
 -------
@@ -91,9 +103,9 @@ probe simulation. The debug information will show up in the Information window.
 Subroutine
 ----------
 
-The probe subroutines use the values from the Probe Settings spin boxes. To use
-these values, you need to make the spin box a HAL pin. See the :ref:`SpinBoxTag`
-example in the HAL section.
+The probe subroutines can use the values from Probe Settings spin boxes or from
+user parameters. To use values from a spinbox you need to make the spin box a
+HAL pin. See the :ref:`SpinBoxTag` example in the HAL section.
 
 The subroutine is located in a directory called `subroutines` that is in the
 configuration directory. The ini's [RS274NGC] SUBROUTINE_PATH sets the path

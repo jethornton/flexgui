@@ -6,9 +6,18 @@ Spindle
 Multiple Spindles
 -----------------
 
-If you have more than one spindle the ini sections for `MIN_FORWARD_VELOCITY`,
-`MAX_FORWARD_VELOCITY` and `INCREMENT` are used by Flex GUI to set the limits
-and increments for each spindle.
+Flex GUI can control and display status information about all 8 possible
+spindles in LinuxCNC. To configure more than one spindle you must add
+SPINDLES = number of spindles to the [TRAJ] section of the INI file.
+
+In addition to the above you must add num_spindles=number of spindles to the
+loadrt motmod line in your main hal file.
+
+Optionally to control the spindle minimum, maximum and increments add a
+[SPINDLE_n] section to the ini file where `n` is the spindle number 0-7.
+for more information see :ref:`SpindleINI`
+
+See the LinuxCNC documents for more information.
 
 Spindle Status
 --------------

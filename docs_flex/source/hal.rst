@@ -87,8 +87,6 @@ pin will not change.
    in the Designer. Starting up with none checked could be a problem if you
    expect one to be selected at startup.
 
-.. _SpinBoxTag:
-
 HAL LED Button
 --------------
 
@@ -117,6 +115,8 @@ The option all_homed will disable the HAL LED Button until all joints are homed.
 	Bool, state_on, True
 	Bool, all_homed, True
 	String, led_shape, square
+
+.. _SpinBoxTag:
 
 HAL Spinbox
 -----------

@@ -1,3 +1,4 @@
+============
 INI Settings
 ============
 
@@ -6,7 +7,7 @@ INI Settings
 .. _using_flexgui:
 
 [EMC]
------
+=====
 
 The optional DEBUG key in the [EMC] section can be used to show various levels
 of debug information when running in a terminal. The DEBUG key is not required.
@@ -37,7 +38,7 @@ Debug Options
 	EMC_DEBUG_ALL           7FFFFFFF
 
 [DISPLAY]
----------
+=========
 
 Flex GUI
 --------
@@ -161,7 +162,7 @@ of 1.0 is 100%, to have 120% set the value to 1.2.
 	MAX_SPINDLE_OVERRIDE = 1.2
 
 [FLEXGUI]
----------
+=========
 
 Cycle Time
 ----------
@@ -444,18 +445,30 @@ must be pressed and held as you press a number key.
 	[FLEXGUI]
 	KB_JOG_INCREMENT = True
 
+.. _SpindleINI:
+
 [SPINDLE_n]
-===============
+===========
 
 The spindles are numbered 0-7 so replace the n with the spindle number. The
 default spindle is spindle 0. If any of these are not found the default values
 show here will be used.
 
-MIN_FORWARD_VELOCITY = 0
-MAX_FORWARD_VELOCITY = 1000
-INCREMENT = 100
-MIN_OVERRIDE = 0
-MAX_OVERRIDE = 100
+.. code-block:: text
 
+	MIN_FORWARD_VELOCITY = 0
+	MAX_FORWARD_VELOCITY = 1000
+	INCREMENT = 100
+	MIN_OVERRIDE = 0
+	MAX_OVERRIDE = 100
+
+The keys `MIN_FORWARD_VELOCITY` and `MAX_FORWARD_VELOCITY` set the minimum and
+maximum RPM for the spindle. The `INCREMENT` key sets the increment for the
+faster, slower controls and the speed spinbox up/down arrow key increment.
+
+The `MIN_OVERRIDE` and `MAX_OVERRIDE` set the limits for the spindle speed
+override slider. The value is the percent of override to allow. So if you set
+`MIN_OVERRIDE` to 50 the minimum speed override is 50% of the current programmed
+or manual setting of the spindle.
 
 
