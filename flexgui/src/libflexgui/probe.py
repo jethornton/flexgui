@@ -1,8 +1,22 @@
 import linuxcnc as emc
 
 from libflexgui import utilities
+from libflexgui import dialogs
 
 def toggle(parent):
+	parent.status.poll()
+	for i in range(parent.status.spindles):
+		if parent.status.spindle[i]['enabled'] == 1:
+			msg = (f'Spindle {i} is enabled\n'
+				'probing is not possible.\n'
+				f'Turn off Spindle {i} to\n'
+				'enable probing.')
+			dialogs.warn_msg_ok(parent, msg, 'Error')
+			parent.probing_enable_pb.blockSignals(True)
+			parent.probing_enable_pb.setChecked(False)
+			parent.probing_enable_pb.blockSignals(False)
+			return
+
 	btn = parent.sender()
 	on_text = btn.property('on_text')
 	off_text = btn.property('off_text')
