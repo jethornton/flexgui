@@ -1446,7 +1446,7 @@ def setup_spindle(parent):
 			'spindle_actual_speed_lb has been changed to\n'
 			'spindle_speed_0_lb to limit confustion about\n'
 			'what the name implies. See the spindle\n'
-			'documents for more information.)
+			'documents for more information.')
 		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	##### Start of Multiple Spindle #####
