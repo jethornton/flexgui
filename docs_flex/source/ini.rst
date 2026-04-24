@@ -444,3 +444,18 @@ must be pressed and held as you press a number key.
 	[FLEXGUI]
 	KB_JOG_INCREMENT = True
 
+[SPINDLE_n]
+===============
+
+The spindles are numbered 0-7 so replace the n with the spindle number. The
+default spindle is spindle 0. If any of these are not found the default values
+show here will be used.
+
+MIN_FORWARD_VELOCITY = 0
+MAX_FORWARD_VELOCITY = 1000
+INCREMENT = 100
+MIN_OVERRIDE = 0
+MAX_OVERRIDE = 100
+
+
+

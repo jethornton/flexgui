@@ -3,6 +3,13 @@ Spindle
 
 `Video Tutorial <https://youtu.be/37Sh-lieq9Y>`_
 
+Multiple Spindles
+-----------------
+
+If you have more than one spindle the ini sections for `MIN_FORWARD_VELOCITY`,
+`MAX_FORWARD_VELOCITY` and `INCREMENT` are used by Flex GUI to set the limits
+and increments for each spindle.
+
 Spindle Status
 --------------
 
@@ -39,7 +46,7 @@ to 8 spindles. The spindles are numbered 0 through 7.
    an encoder component and use the encoder.N.velocity-rpm float out connected
    to a HAL float label.
 
-On start-up, Flex will check for the following items in the [SPINDLE_0] section
+On start-up, Flex will check for the following items in the [SPINDLE_n] sections
 of the .ini file
 
 If `INCREMENT` is not found, Flex will look in the .ini [DISPLAY] section for
@@ -54,6 +61,13 @@ If not found, the maximum setting will be 1000.
 
 `INCREMENT` will also set the QSpinBox single step when using the up/down
 arrows.
+
+If `MIN_OVERRIDE` is found, it will be used to set the QSlider minimum
+setting. If not found, the minimum setting will be 0%.
+
+If `MAX_OVERRIDE` is found, it will set the QSlider maximum setting.
+If not found, the maximum setting will be 100%.
+
 
 Spindle Controls
 ----------------
