@@ -1630,7 +1630,6 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle, parent))
-			parent.spindle_stop_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_stop_pb')
 
 	if 'spindle_plus_pb' in parent.child_names:
@@ -1642,7 +1641,6 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle, parent))
-			parent.spindle_plus_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_plus_pb')
 
 	if 'spindle_minus_pb' in parent.child_names:
@@ -1654,7 +1652,6 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle, parent))
-			parent.spindle_minus_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_minus_pb')
 
 	if 'spindle_speed_sb' in parent.child_names:
