@@ -1,18 +1,25 @@
+====================
 Flex GUI Description
 ====================
 
 Flex GUI is a flexible GUI that can be customized to suit your needs.
 
-* Uses stock Qt Designer 5 or 6
+Creating a GUI with Flex requires NO programming or coding experience. All you
+need to do is drag and drop widgets into a Qt Main Window and change the object
+name to match the function. It's just that simple.
+
+* Uses stock Qt Designer 5 or 6 so no special libraries are needed
 * Widget names are used to connect controls to the correct code
-* Widgets are auto-discovered at startup
+* Widget functions are auto-discovered at startup
 * Special widgets only need Dynamic Properties to be discovered and created
 * Your GUI can have exactly the controls and labels you want
 * You can create and use your own style sheet, changing fonts, colors, etc.
 * All Flex GUI configuration is done in the .ini file
 * Flex GUI remembers the size and position of your GUI
+* Flex GUI has built in Touch Screen support for all data entry widgets
+* Flex GUI works on both PC and Raspberry Pi
 
-For more information on Dynamic Properties see :doc:`property`
+For more information about Dynamic Properties see :doc:`property`
 
 Features
 --------
@@ -30,6 +37,7 @@ Features
 * HAL Buttons, Spinboxes, Sliders, Labels and LCDs
 * HAL I/O Controls
 * Touch Screen Controls and Popups
+* Multiple Spindle Support
 
 Acronyms
 --------

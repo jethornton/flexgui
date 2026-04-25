@@ -1,12 +1,14 @@
+=============
 Status Labels
 =============
+
 `Status Labels Tutorial <https://youtu.be/wwT9fDTUa0c>`_
 
-Status labels are created using a QLabel and setting the `Object Name`. Status
-labels come in two forms. A single-status-label like `Machine Status` only
-contains one piece of information, such as `OFF`, `RUN`, etc.
+Status labels are created using a QLabel and setting the `Object Name` to the
+name for that status. Status labels come in two forms. A single-status-label
+like `flood_lb` only contains one piece of information, such as `OFF` or `ON`.
 
-A multiple-status-label like the `axis` or `joint` dictionaries have multiple
+Multiple status labels like the `axis` or `joint` dictionaries have multiple
 items and displays for all joints. Multiple-status-labels use a number
 identifier to select the axis, joint, or spindle information wanted.
 
@@ -376,7 +378,7 @@ float
    :align: center
    :widths: 60 60
 
-	axis_n_max_position_limit_lb, axis_n_min_position_limit_lb
+	axis_n_min_position_limit_lb, axis_n_max_position_limit_lb
 	axis_n_velocity_lb, axis_n_vel_per_min_lb
 
 .. note:: The Axis velocity label only reports back `jogging` speed; use the
@@ -407,7 +409,7 @@ the number of the joint. Joint numbers start at 0 and go through 15
 	joint_n_vel_sec_lb
 
 Joint Descriptions
-^^^^^^^^^^^^^^^^^^
+------------------
 
 backlash (returns float) - Backlash in machine units. configuration parameter,
 reflects [JOINT_n]BACKLASH.
@@ -463,7 +465,8 @@ velocity (returns float) - current velocity.
 Special Labels
 --------------
 
-Run from line label `start_line_lb`
+Run from line label `start_line_lb` displays the current selected line in the NC
+code file.
 
 Axis Position Labels
 --------------------
@@ -574,10 +577,10 @@ Z axes.
 I/O Status
 ----------
 
-The I/O status contains status items for 64 I/O's. Replace the `n` with the
-number of the I/O. I/O numbers start at 0 and go through 63. Analog I/O
+The I/O status contains status items for up to 64 I/O's. Replace the `n` with
+the number of the I/O. I/O numbers start at 0 and go through 63. Analog I/O
 returns a float. For example a QLabel with an object name of din_5_lb will
-show the status of the `motion.digital-in-05` HAL pin
+show the status of the `motion.digital-in-05` HAL pin.
 
 .. csv-table:: I/O Status Labels
    :width: 100%

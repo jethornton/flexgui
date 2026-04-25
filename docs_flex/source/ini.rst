@@ -40,6 +40,9 @@ Debug Options
 [DISPLAY]
 =========
 
+In the [DISPLAY] section of the .ini file you can tell LinuxCNC to use Flex GUI
+and which .ui file to load.
+
 Flex GUI
 --------
 
@@ -55,7 +58,7 @@ If no GUI is specified then the default GUI will be used.
    configuration directory as the .ini file.
 
 To use your .ui file (created with Qt Designer), add a GUI key to the .ini
-with its `filename`:
+with its `filename`
 
 .. code-block:: text
 
@@ -150,16 +153,6 @@ extensions must be in the format `*.ext` with the asterisk and dot
 .. code-block:: text
 
 	EXTENSIONS = `*.nc`, `*.G-code`, `*.ngc`, `*.txt`
-
-Spindle Override
-----------------
-
-To change the default spindle override add the following to the ini. The value
-of 1.0 is 100%, to have 120% set the value to 1.2.
-
-.. code-block:: text
-
-	MAX_SPINDLE_OVERRIDE = 1.2
 
 [FLEXGUI]
 =========
@@ -398,8 +391,9 @@ Touch Screens
 Options for touch screen users.
 
 To set the style sheet used by the popup number pad, NC code pad and popup
-keyboard add the following to the FLEXGUI section with the name of the QSS
-stylesheet to use.
+keyboard add the following to the FLEXGUI section with the name of the .qss
+stylesheet to use. If `POPUP_QSS` is not found then the default .qss file will
+be used.
 
 .. code-block:: text
 

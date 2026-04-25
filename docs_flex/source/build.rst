@@ -1,3 +1,4 @@
+==============
 Building a GUI
 ==============
 
@@ -13,7 +14,8 @@ Copy a Starter
 --------------
 
 From the linuxcnc/configs/flex_examples/starters copy the directory and all the
-contents of one of the starter types to the linuxcnc/configs directory.
+contents of one of the starter types to the linuxcnc/configs directory. This
+will give you a fully working simulator without any coding.
 
 * Rename the directory to the name of your choice.
 * Rename the .ui and .ini files to the name of your choice.

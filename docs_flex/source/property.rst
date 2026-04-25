@@ -1,3 +1,4 @@
+==================
 Dynamic Properties
 ==================
 
@@ -9,7 +10,8 @@ To Create a Dynamic Property the first thing you do is select the widget.
 .. image:: /images/property-01.png
    :align: center
 
-Next left click on the green plus sign in the Property Editor.
+Next left click on the green plus sign in the Property Editor. Select the type
+of property, select Other... if the property is not a String or Bool.
 
 .. image:: /images/property-02.png
    :align: center
@@ -19,8 +21,8 @@ Typically Flex GUI uses a string type Dynamic Property with some exceptions.
 .. image:: /images/property-03.png
    :align: center
 
-Next enter the Dynamic Property Name, which must be exactly like shown in the
-documents.
+Next enter the Dynamic Property Name, which must be exactly as shown in the
+documents and Dynamic Property Names are case sensitive.
 
 .. image:: /images/property-04.png
    :align: center

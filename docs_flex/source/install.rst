@@ -1,3 +1,4 @@
+==========
 Installing
 ==========
 
@@ -73,19 +74,20 @@ If Flex GUI is not installed you can install it with the following command
 
 .. _install_deb:
 
-Install the Deb
----------------
+Install a Deb
+-------------
 
-You can still download the deb from github and install with gdebi if that works
-better for you. If you don't have an internet connection this is the best way to
-install Flex GUI
+You can download the deb from github and install with gdebi if that works better
+for you. If you don't have an internet connection this is the best way to
+install Flex GUI.
 
 .. note:: Between releases the deb will have the latest bug fixes
 
 `Installing Flex GUI Tutorial <https://youtu.be/F8mCt7JJDDM>`_
 
 Download the latest deb file from
-`>HERE< <https://github.com/jethornton/flexgui/releases>`_.
+`>HERE< <https://github.com/jethornton/flexgui/releases>`_. Right click on the
+link and select open link in new tab. 
 
 If the link is not clickable, copy and paste the following URL into your
 browser
@@ -112,7 +114,7 @@ an older version.
 
 .. code-block:: text
 
-	sudo dpkg -i flexgui_1.1.0_amd64.deb
+	sudo dpkg -i flexgui_1.4.1_amd64.deb
 
 .. _install_build:
 

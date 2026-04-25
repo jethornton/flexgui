@@ -1,3 +1,4 @@
+===========
 Qt Designer
 ===========
 
@@ -54,6 +55,8 @@ Right click in the QMainWindow and select Lay out --> Lay out Vertically
 .. image:: /images/designer-06.png
    :align: center
 
+Once you add a layout to the main window the widgets will fill the main window.
+
 .. image:: /images/designer-07.png
    :align: center
 
@@ -62,6 +65,9 @@ the Object Inspector and set the lay out to `grid`
 
 .. image:: /images/designer-08.png
    :align: center
+
+Once you add a layout to a container the container will resize to match the
+objects in the containerl.
 
 .. image:: /images/designer-09.png
    :align: center
