@@ -1098,24 +1098,37 @@ def setup_status_labels(parent):
 		if key in parent.child_names:
 			parent.overrides[key] = value
 
-	# dio din_0_lb dout_0_lb
+	# dio din_0_lb
 	parent.status_dio = {}
-	for i in range(64):
-		for item in ['din', 'dout']:
-			label = f'{item}_{i}_lb'
-			if label in parent.child_names:
-				parent.status_dio[label] = [item, i] # add label and stat
-				parent.stat_dict[f'{item}[{i}]'] = {0: False, 1: True}
+	for i in range(parent.din):
+		label = f'din_{i}_lb'
+		if label in parent.child_names:
+			parent.status_dio[label] = ['din', i] # add label and stat
+			parent.stat_dict[f'din[{i}]'] = {0: False, 1: True}
 
-	# aio ain_0_lb aout_0_lb aio[0] aout[0]
+	# dout_0_lb
+	for i in range(parent.dout):
+		label = f'dout_{i}_lb'
+		if label in parent.child_names:
+			parent.status_dio[label] = ['dout', i] # add label and stat
+			parent.stat_dict[f'dout[{i}]'] = {0: False, 1: True}
+
+	# ain_0_lb
 	parent.status_aio = {}
-	for i in range(64):
-		for item in ['ain', 'aout']:
-			label = f'{item}_{i}_lb'
-			if label in parent.child_names:
-				p = getattr(parent, f'{item}_{i}_lb').property('precision')
-				p = p if p is not None else parent.default_precision
-				parent.status_aio[label] = [item, i, p] # add label, stat and precision
+	for i in range(parent.ain):
+		label = f'ain_{i}_lb'
+		if label in parent.child_names:
+			p = getattr(parent, f'ain_{i}_lb').property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.status_aio[label] = ['ain', i, p] # add label, stat and precision
+
+	# aout_0_lb
+	for i in range(parent.aout):
+		label = f'aout_{i}_lb'
+		if label in parent.child_names:
+			p = getattr(parent, f'aout_{i}_lb').property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.status_aio[label] = ['aout', i, p] # add label, stat and precision
 
 	# check for tool table labels in the ui , 'comment'
 	# id and orientation are integers and the rest are floats
