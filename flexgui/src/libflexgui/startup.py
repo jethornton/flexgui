@@ -1516,6 +1516,11 @@ def setup_spindle(parent):
 		if f'spindle_speed_{i}_lb' in parent.child_names:
 			parent.spindle_speed[f'spindle_speed_{i}_lb'] = [i, 'speed']
 
+	parent.status_spindle_lcd = {}
+	for i in range(parent.status.spindles):
+		if f'spindle_speed_{i}_lcd' in parent.child_names:
+			parent.status_spindle_lcd[f'spindle_speed_{i}_lcd'] = [i, 'speed']
+
 	parent.spindle_override = {}
 	for i in range(parent.status.spindles):
 		if f'spindle_override_{i}_lb' in parent.child_names:
@@ -1676,13 +1681,6 @@ def setup_spindle(parent):
 			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
 			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
 			parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
-
-	#if 'spindle_speed_setting_lb' in parent.child_names:
-	#	parent.spindle_speed_setting_lb.setText(f'{parent.min_rpm}')
-
-	parent.status_spindle_lcd = {}
-	if 'spindle_speed_0_lcd' in parent.child_names:
-		parent.status_spindle_lcd['spindle_speed_0_lcd'] = 'speed'
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()

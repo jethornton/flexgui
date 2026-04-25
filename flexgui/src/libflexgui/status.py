@@ -338,6 +338,10 @@ def update(parent):
 		for key, value in parent.spindle_speed.items():
 			getattr(parent, key).setText(f'{abs(parent.status.spindle[value[0]][value[1]]):.0f}')
 
+		# spindle lcd
+		for key, value in parent.status_spindle_lcd.items():
+			getattr(parent, key).display(f'{abs(parent.status.spindle[value[0]][value[1]]):.0f}')
+
 		# spindle override enabled key is label value is spindle and speed
 		for key, value in parent.spindle_bool.items():
 			getattr(parent, key).setText(f'{parent.status.spindle[value[0]][value[1]]}')
@@ -362,12 +366,6 @@ def update(parent):
 			override = parent.status.spindle[value[0]]['override']
 			speed = parent.status.spindle[value[0]]['speed']
 			getattr(parent, key).setText(f'{speed * override:.0f}')
-
-		'''
-		# spindle lcd
-		for key, value in parent.status_spindle_lcd.items():
-			getattr(parent, key).display(f'{abs(getattr(parent, "status").spindle[0][value]):.0f}')
-		'''
 
 		parent.status_spindle = parent.status.spindle
 	
