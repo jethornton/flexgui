@@ -6,18 +6,18 @@ Spindle
 Multiple Spindles
 -----------------
 
-Flex GUI can control and display status information about all 8 possible
-spindles in LinuxCNC. To configure more than one spindle you must add
-SPINDLES = number of spindles to the [TRAJ] section of the INI file.
+Flex GUI can control and display status information for all 8 spindles in
+LinuxCNC. To configure more than one spindle you must add SPINDLES = 1 to 8 to
+the [TRAJ] section of the INI file.
 
-In addition to the above you must add num_spindles=number of spindles to the
-loadrt motmod line in your main hal file.
+In addition to the above you must add num_spindles=1 to 8 to the loadrt motmod
+line in your main hal file.
 
 Optionally to control the spindle minimum, maximum and increments add a
 [SPINDLE_n] section to the ini file where `n` is the spindle number 0-7.
 for more information see :ref:`SpindleINI`
 
-See the LinuxCNC documents for more information.
+See the LinuxCNC documents for more information about multiple spindles.
 
 Spindle Status
 --------------
