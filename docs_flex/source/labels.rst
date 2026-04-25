@@ -577,10 +577,13 @@ Z axes.
 I/O Status
 ----------
 
-The I/O status contains status items for up to 64 I/O's. Replace the `n` with
-the number of the I/O. I/O numbers start at 0 and go through 63. Analog I/O
-returns a float. For example a QLabel with an object name of din_5_lb will
-show the status of the `motion.digital-in-05` HAL pin.
+The I/O status contains status items for up to 64 I/O's. The default is 4 I/O
+pins for each type. If you have configured more than 4 pins you will need to add
+an .ini entry to show the number of pins. See the ini section...
+
+Analog I/O returns a float. Digital I/O return bool.
+
+For example a QLabel with an object name of din_0_lb will show the status of the `motion.digital-in-00` HAL pin.
 
 .. csv-table:: I/O Status Labels
    :width: 100%
@@ -593,4 +596,6 @@ show the status of the `motion.digital-in-05` HAL pin.
 	motion.digital-in-nn, din_n_lb
 	motion.digital-out-nn, dout_n_lb
 
+Replace the `n` with the number of the I/O. I/O numbers start at 0 and go
+through 63 if you have that many configured.
 
