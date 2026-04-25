@@ -207,7 +207,7 @@ def read(parent):
 				'Was not found. QSS can not be applied')
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
-	else: # TOUCH_QSS not in ini file
+	else: # POPUP_QSS not in ini file
 		parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 
 	# test for both THEME and QSS
