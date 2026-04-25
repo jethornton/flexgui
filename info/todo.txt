@@ -1,4 +1,2 @@
 qss and position touchoff_selected
 qss and position tool_touchoff_selected
-
-read ini check for multi spindle settings
