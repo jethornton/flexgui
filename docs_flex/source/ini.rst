@@ -481,4 +481,5 @@ override slider. The value is the percent of override to allow. So if you set
 `MIN_OVERRIDE` to 50 the minimum speed override is 50% of the current programmed
 or manual setting of the spindle.
 
+The `DEFAULT_RPM` will be the RPM setting at startup.
 
