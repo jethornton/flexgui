@@ -753,7 +753,7 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(False)
 
 		elif task_mode == emc.MODE_MANUAL:
-			print('update run controls MODE_MANUAL')
+			#print('update run controls MODE_MANUAL')
 			if all_homed:
 				for item in parent.probe_enable:
 					getattr(parent, item).setEnabled(True)

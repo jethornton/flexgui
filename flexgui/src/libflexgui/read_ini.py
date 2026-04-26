@@ -344,10 +344,19 @@ def read(parent):
 	else:
 		parent.dro_font_size =  int(parent.dro_font_size)
 
-	parent.din = parent.inifile.find('FLEXGUI', 'DIN') or 4
-	parent.dout = parent.inifile.find('FLEXGUI', 'DOUT') or 4
-	parent.ain = parent.inifile.find('FLEXGUI', 'AIN') or 4
-	parent.aout = parent.inifile.find('FLEXGUI', 'AOUT') or 4
+	# Digital I/O
+	dio = parent.inifile.find('FLEXGUI', 'DIO') or False
+	if isinstance(dio, str):
+		parent.dio = utilities.to_int(dio)
+	else:
+		parent.dio = 4
+
+	# Analog I/O
+	aio = parent.inifile.find('FLEXGUI', 'AIO') or 4
+	if isinstance(aio, str):
+		parent.aio = utilities.to_int(aio)
+	else:
+		parent.aio = 4
 
 	# ***** [EMCIO] Section *****
 	# this ini file items will cause EMC to fail to load if missing
