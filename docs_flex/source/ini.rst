@@ -465,15 +465,16 @@ show here will be used.
 
 .. code-block:: text
 
-	MIN_FORWARD_VELOCITY = 0
-	MAX_FORWARD_VELOCITY = 1000
+	MIN_RPM = 0
+	MAX_RPM = 1000
 	INCREMENT = 100
 	MIN_OVERRIDE = 0
 	MAX_OVERRIDE = 100
+	DEFAULT_RPM = 0
 
-The keys `MIN_FORWARD_VELOCITY` and `MAX_FORWARD_VELOCITY` set the minimum and
-maximum RPM for the spindle. The `INCREMENT` key sets the increment for the
-faster, slower controls and the speed spinbox up/down arrow key increment.
+The keys `MIN_RPM` and `MAX_RPM` set the minimum and maximum RPM for the
+spindle. The `INCREMENT` key sets the increment for the faster, slower controls
+and the speed spinbox up/down arrow key increment.
 
 The `MIN_OVERRIDE` and `MAX_OVERRIDE` set the limits for the spindle speed
 override slider. The value is the percent of override to allow. So if you set
