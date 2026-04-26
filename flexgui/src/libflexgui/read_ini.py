@@ -41,6 +41,21 @@ def read(parent):
 			'for correct INI entries.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
+	old_spindle_items = [
+	['DISPLAY', 'DEFAULT_SPINDLE_SPEED'],
+	['DISPLAY', 'SPINDLE_INCREMENT'],
+	['DISPLAY', 'MAX_SPINDLE_OVERRIDE']
+	]
+
+	for item in old_spindle_items:
+		if parent.inifile.find(item[0], item[1]):
+			msg = (f'The key {item[1]} in the [{item[0]}] section\n'
+			'was depreciated with multiple spindles addition.\n'
+			'The Spindle keys are now in [SPINDLE_0] section.\n'
+			'Check the INI section of the Documents\n'
+			'for correct INI entries.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -112,7 +127,7 @@ def read(parent):
 	# maximum jog velocity
 	parent.max_jog_vel = parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY") or False
 
-	# set max feed override
+	# set max feed override FIXME is this correct
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
 	if utilities.is_number(mfo):
 		parent.max_feed_override = float(mfo)
@@ -122,6 +137,7 @@ def read(parent):
 		dialogs.error_msg_ok(parent, msg, 'INI Error')
 		sys.exit()
 
+	'''
 	# set default spindle speed
 	dss = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or 0
 	if utilities.is_int(dss):
@@ -150,6 +166,7 @@ def read(parent):
 		parent.spindle_increment = int(increment)
 	else:
 		parent.spindle_increment = 10
+	'''
 
 	# ***** [FLEXGUI] Section *****
 
@@ -381,21 +398,39 @@ def read(parent):
 	#parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 
 	# ***** [SPINDLE_n] Sections ***** 
-	# FIXME add MIN_REVERSE_VELOCITY MAX_REVERSE_VELOCITY
+	# FIXME add MIN_REVERSE_VELOCITY MAX_REVERSE_VELOCITY maybe or maybe not
 	for i in range(parent.status.spindles):
-		min_fwd_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_FORWARD_VELOCITY') or False
-		if isinstance(min_fwd_rpm, str):
-			min_fwd_rpm = utilities.to_int(min_fwd_rpm)
+		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM') or False
+		if not min_rpm:
+			min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_FORWARD_VELOCITY') or False
+			if min_rpm:
+				msg = ('The key MIN_FORWARD_VELOCITY has\n'
+				'been changed to MIN_RPM. Please update\n'
+				'your ini file to use the new key.\n'
+				'After the next update MIN_FORWARD_VELOCITY\n'
+				'will no longer be used.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+		if isinstance(min_rpm, str):
+			min_rpm = utilities.to_int(min_rpm)
 		else:
-			min_fwd_rpm = 0
-		setattr(parent, f'spindle_{i}_min_fwd_rpm', min_fwd_rpm)
+			min_rpm = 0
+		setattr(parent, f'spindle_{i}_min_fwd_rpm', min_rpm)
 
-		max_fwd_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or False
-		if isinstance(max_fwd_rpm, str):
-			max_fwd_rpm = utilities.to_int(max_fwd_rpm)
+		max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_RPM') or False
+		if not max_rpm:
+			max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or False
+			if max_rpm:
+				msg = ('The key MAX_FORWARD_VELOCITY has\n'
+				'been changed to MAX_RPM. Please update\n'
+				'your ini file to use the new key.\n'
+				'After the next update MAX_FORWARD_VELOCITY\n'
+				'will no longer be used.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+		if isinstance(max_rpm, str):
+			max_rpm = utilities.to_int(max_rpm)
 		else:
-			max_fwd_rpm = 1000
-		setattr(parent, f'spindle_{i}_max_fwd_rpm', max_fwd_rpm)
+			max_rpm = 1000
+		setattr(parent, f'spindle_{i}_max_fwd_rpm', max_rpm)
 
 		increment = parent.inifile.find(f'SPINDLE_{i}', 'INCREMENT') or False
 		if isinstance(increment, str):
@@ -417,6 +452,14 @@ def read(parent):
 		else:
 			max_override = 100
 		setattr(parent, f'spindle_{i}_max_override', max_override)
+
+		default_rpm = parent.inifile.find(f'SPINDLE_{i}', 'DEFAULT_RPM') or False
+		if isinstance(default_rpm, str):
+			default_rpm = utilities.to_int(default_rpm)
+		else:
+			default_rpm = 0
+		setattr(parent, f'spindle_{i}_default_rpm', default_rpm)
+
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.

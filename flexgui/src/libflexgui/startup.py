@@ -1595,22 +1595,6 @@ def setup_spindle(parent):
 	# FIXME make sure old style spindle labels still work
 
 	# test if new style and old style exist
-	if 'spindle_override_sl' in parent.child_names:
-		if 'spindle_override_0_sl' in parent.child_names:
-			parent.spindle_override_sl.setEnabled(False)
-			msg = ('The old style spindle_override_sl was found\n'
-			'and the new style spindle_override_0_sl was found\n'
-			'the old style will be disabled.')
-			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-		else: # only the old style is present
-			parent.spindle_override_sl.valueChanged.connect(partial(
-				utilities.spindle_override, parent, 0))
-			max_spindle_override = int(float(parent.max_spindle_override) * 100)
-			parent.spindle_override_sl.setMaximum(max_spindle_override)
-			if max_spindle_override >= 100:
-				parent.spindle_override_sl.setValue(100)
-
-	# test if new style and old style exist
 	if 'spindle_fwd_pb' in parent.child_names:
 		if 'spindle_fwd_0_pb' in parent.child_names:
 			parent.spindle_fwd_pb.setEnabled(False)
@@ -1668,6 +1652,19 @@ def setup_spindle(parent):
 			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle, parent))
 			parent.spindle_controls.append('spindle_minus_pb')
 
+	if 'spindle_override_sl' in parent.child_names:
+		if 'spindle_override_0_sl' in parent.child_names:
+			parent.spindle_override_sl.setEnabled(False)
+			msg = ('The old style spindle_override_sl was found\n'
+			'and the new style spindle_override_0_sl was found\n'
+			'the old style will be disabled.')
+			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+		else: # only the old style is present
+			parent.spindle_override_sl.valueChanged.connect(partial(
+				utilities.spindle_override, parent, 0))
+			parent.spindle_override_sl.setMaximum(parent.spindle_0_max_override)
+			parent.spindle_override_sl.setValue(100)
+
 	if 'spindle_speed_sb' in parent.child_names:
 		if 'spindle_minus_0_pb' in parent.child_names:
 			parent.spindle_speed_sb.setEnabled(False)
@@ -1677,10 +1674,10 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
-			parent.spindle_speed_sb.setSingleStep(parent.spindle_increment)
+			parent.spindle_speed_sb.setSingleStep(parent.spindle_0_rpm_increment)
 			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
 			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
-			parent.spindle_speed_sb.setValue(parent.spindle_default_speed)
+			parent.spindle_speed_sb.setValue(parent.spindle_0_default_rpm)
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()

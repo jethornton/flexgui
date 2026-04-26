@@ -380,9 +380,9 @@ def spindle(parent, value): # value is passed by the spinbox and push button
 	elif sender_name == 'spindle_plus_pb':
 		#print('spindle_plus_pb')
 		rpm = parent.spindle_rpm_0
-		if (rpm + parent.spindle_increment) <= parent.spindle_0_max_fwd_rpm:
+		if (rpm + parent.spindle_0_rpm_increment) <= parent.spindle_0_max_fwd_rpm:
 			parent.command.spindle(emc.SPINDLE_INCREASE)
-			rpm += parent.spindle_increment
+			rpm += parent.spindle_0_rpm_increment
 			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(rpm)
 			if 'spindle_speed_setting_lb' in parent.child_names:
@@ -391,9 +391,9 @@ def spindle(parent, value): # value is passed by the spinbox and push button
 	elif sender_name == 'spindle_minus_pb':
 		#print('spindle_minus_pb')
 		rpm = parent.spindle_rpm_0
-		if (rpm - parent.spindle_increment) >= parent.spindle_0_min_fwd_rpm: # it's ok
+		if (rpm - parent.spindle_0_rpm_increment) >= parent.spindle_0_min_fwd_rpm: # it's ok
 			parent.command.spindle(emc.SPINDLE_DECREASE)
-			rpm -= parent.spindle_increment
+			rpm -= parent.spindle_0_rpm_increment
 			if 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.setValue(rpm)
 			if 'spindle_speed_setting_lb' in parent.child_names:
