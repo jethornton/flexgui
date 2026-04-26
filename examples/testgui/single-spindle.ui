@@ -847,7 +847,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
-            <widget class="QLabel" name="spindle_actual_speed_lb">
+            <widget class="QLabel" name="spindle_speed_0_lb">
              <property name="text">
               <string>TextLabel</string>
              </property>
