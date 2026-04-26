@@ -439,7 +439,22 @@ must be pressed and held as you press a number key.
 	[FLEXGUI]
 	KB_JOG_INCREMENT = True
 
-.. _SpindleINI:
+.. _I/O:
+
+I/O
+---
+
+LinuxCNC defaults to 4 each of Digital I/O and Analog I/O. If you configured to
+have more than 4 Digital I/O or Analog I/Os and you want to track them in Flex
+GUI you must tell Flex how many you have configured.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	DIO = Number of Digital I/O
+	AIO = Number of Analog I/O
+
+.. _Spindle_n:
 
 [SPINDLE_n]
 ===========

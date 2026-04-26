@@ -15,7 +15,7 @@ line in your main hal file.
 
 Optionally to control the spindle minimum, maximum and increments add a
 [SPINDLE_n] section to the ini file where `n` is the spindle number 0-7.
-for more information see :ref:`SpindleINI`
+for more information see :ref:`Spindle_n`
 
 See the LinuxCNC documents for more information about multiple spindles.
 

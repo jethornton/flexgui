@@ -579,9 +579,11 @@ I/O Status
 
 The I/O status contains status items for up to 64 I/O's. The default is 4 I/O
 pins for each type. If you have configured more than 4 pins you will need to add
-an .ini entry to show the number of pins. See the ini section...
+an .ini entry to show the number of pins.
 
-Analog I/O returns a float. Digital I/O return bool.
+For more information see see :ref:`I/O` settings in the .ini file.
+
+Analog I/O are a float. Digital I/O are a bool.
 
 For example a QLabel with an object name of din_0_lb will show the status of the `motion.digital-in-00` HAL pin.
 
