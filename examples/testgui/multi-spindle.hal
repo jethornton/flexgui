@@ -1,6 +1,6 @@
 
 loadrt [KINS]KINEMATICS
-loadrt motmod base_period_nsec=200000 servo_period_nsec=1000000 num_joints=[KINS]JOINTS num_spindles=8
+loadrt motmod base_period_nsec=200000 servo_period_nsec=1000000 num_joints=[KINS]JOINTS num_spindles=8 num_dio=5
 
 loadrt stepgen step_type=0,0,0
 addf stepgen.make-pulses base-thread
