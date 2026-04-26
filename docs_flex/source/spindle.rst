@@ -24,7 +24,8 @@ Spindle Status
 --------------
 
 Spindle status labels show the current status of the item. Linuxcnc can have up
-to 8 spindles. The spindles are numbered 0 through 7.
+to 8 spindles. The spindles are numbered 0 through 7. If you have a single
+spindle it is spindle 0.
 
 .. csv-table:: Spindle Status Labels
    :width: 100%
@@ -41,7 +42,6 @@ to 8 spindles. The spindles are numbered 0 through 7.
 	Spindle Override Percent, QLabel, spindle_override_n_lb
 	Spindle Orient State, QLabel, spindle_orient_state_n_lb
 	Spindle Orient Fault, QLabel, spindle_orient_fault_n_lb
-	Spindle Commanded Speed, QLabel, spindle_cmd_speed_n_lb
 
 .. NOTE:: Replace the `n` with 0 - 7 to indicate which spindle to monitor
 
