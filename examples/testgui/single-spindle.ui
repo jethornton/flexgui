@@ -840,29 +840,20 @@
         <string>Spindle</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_27">
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_18">
-          <property name="title">
-           <string>Spindle Status</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_9">
-           <item>
-            <widget class="QLabel" name="spindle_speed_0_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QGroupBox" name="groupBox_19">
           <property name="title">
            <string>Spindle Override</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_28">
-           <item row="0" column="0">
+           <item row="2" column="0" colspan="2">
+            <widget class="QSlider" name="spindle_override_sl">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
             <spacer name="horizontalSpacer_5">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -875,10 +866,10 @@
              </property>
             </spacer>
            </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QSlider" name="spindle_override_sl">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="0" column="0">
+            <widget class="QLabel" name="spindle_override_0_lb">
+             <property name="text">
+              <string>TextLabel</string>
              </property>
             </widget>
            </item>
@@ -973,6 +964,43 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_18">
+          <property name="title">
+           <string>Spindle Status</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_34">
+           <item row="1" column="1">
+            <widget class="QLabel" name="spindle_speed_0_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_53">
+             <property name="text">
+              <string>Speed</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_57">
+             <property name="text">
+              <string>Commanded Speed</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="spindle_cmd_speed_0_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
