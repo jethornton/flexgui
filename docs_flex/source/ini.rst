@@ -381,7 +381,7 @@ The Diameter and Offset values are whole numbers only.
 	LED_ON_COLOR = 0, 255, 0
 	LED_OFF_COLOR= 125, 0, 0, 255
 
-For more information on LED buttons see :ref:`LedButtons`
+For more information see :ref:`LED Buttons <led_buttons>`
 
 .. _touch_ini:
 
@@ -439,7 +439,7 @@ must be pressed and held as you press a number key.
 	[FLEXGUI]
 	KB_JOG_INCREMENT = True
 
-.. _I/O:
+.. _i/o:
 
 I/O
 ---
@@ -454,7 +454,7 @@ GUI you must tell Flex how many you have configured.
 	DIO = Number of Digital I/O
 	AIO = Number of Analog I/O
 
-.. _Spindle_n:
+.. _spindle_n:
 
 [SPINDLE_n]
 ===========

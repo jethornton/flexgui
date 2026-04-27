@@ -122,11 +122,12 @@ can flash when either checked or not checked. To add flashing add the following
 Dynamic Property to the QPushButton.
 
 The default flash time is 1000ms it can be changed in the INI file. See
-:ref:`flash_timer` for more information on setting the flash time.
+:ref:`Flash Timer <flash_timer>` for more information on setting the flash time.
 
-.. csv-table:: Flashing Push Button
+.. csv-table:: **Flashing Push Button**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, flash_state, checked or unchecked
@@ -251,9 +252,10 @@ A tool bar button created from a menu action can be styled by using the
 To set the style of a single tool bar button, you need to use the widget name
 for that action. The tool bar button must exist in the tool bar.
 
-.. csv-table:: Tool Button Names
+.. csv-table:: **Tool Button Names**
    :width: 100%
    :align: left
+   :widths: 30 30 40
 
 	**Menu Item**, **Action Name**, **Widget Name**
 	Open, actionOpen, flex_Open

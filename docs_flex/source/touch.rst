@@ -41,8 +41,8 @@ that location.
 
 If you use a custom stylesheet for the popup keypads the letters and numbers
 start with key so they can be targeted with the following QSS style for example
-to change the font size and weight. See :ref:`touch_ini` section of the ini
-settings document.
+to change the font size and weight. See :ref:`Touch Section<touch_ini>` of the
+ini settings document.
 
 .. code-block:: text
 

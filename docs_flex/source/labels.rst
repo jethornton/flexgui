@@ -373,10 +373,10 @@ The Axis status contains status items for all 9 axes. Replace the `n` with
 the number of the axis. Axis numbers start at 0 and go through 8. Returns a
 float
 
-.. csv-table:: Axis Status Labels
+.. csv-table:: **Axis Status Labels**
    :width: 100%
    :align: center
-   :widths: 60 60
+   :widths: 50 50
 
 	axis_n_min_position_limit_lb, axis_n_max_position_limit_lb
 	axis_n_velocity_lb, axis_n_vel_per_min_lb
@@ -390,10 +390,10 @@ Joint Status Labels
 The Joint status contains status items for 16 joints. Replace the `n` with
 the number of the joint. Joint numbers start at 0 and go through 15
 
-.. csv-table:: Joint Status Labels
+.. csv-table:: **Joint Status Labels**
    :width: 100%
    :align: center
-   :widths: 60 60
+   :widths: 50 50
 
 	joint_n_backlash_lb, joint_n_enabled_lb
 	joint_n_fault_lb, joint_n_ferror_current_lb
@@ -473,10 +473,10 @@ Axis Position Labels
 
 Axis machine position labels (no offsets.) Returns a float
 
-.. csv-table:: Machine Absolute Position Status Labels
+.. csv-table:: **Machine Absolute Position Status Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	actual_lb_x, actual_lb_y, actual_lb_z
 	actual_lb_a, actual_lb_b, actual_lb_c
@@ -484,10 +484,10 @@ Axis machine position labels (no offsets.) Returns a float
 
 Axis position labels `including` all offsets. Returns a float
 
-.. csv-table:: DRO Relative Status Labels
+.. csv-table:: **DRO Relative Status Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	dro_lb_x, dro_lb_y, dro_lb_z
 	dro_lb_a, dro_lb_b, dro_lb_c
@@ -496,10 +496,10 @@ Axis position labels `including` all offsets. Returns a float
 Axis Distance to Go labels
 --------------------------
 
-.. csv-table:: Distance to Go Labels
+.. csv-table:: **Distance to Go Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	dtg_lb_x, dtg_lb_y, dtg_lb_z
 	dtg_lb_a, dtg_lb_b, dtg_lb_c
@@ -508,10 +508,10 @@ Axis Distance to Go labels
 Axis Homed Labels
 -----------------
 
-.. csv-table:: Axis Homed Labels
+.. csv-table:: **Axis Homed Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	home_lb_0, home_lb_1, home_lb_2
 	home_lb_3, home_lb_4, home_lb_5
@@ -522,10 +522,10 @@ Offset Labels
 
 Offsets for the currently active G5x coordinate system. Returns a float
 
-.. csv-table:: G5x Status Labels
+.. csv-table:: **G5x Status Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	g5x_lb_x, g5x_lb_y, g5x_lb_z
 	g5x_lb_a, g5x_lb_b, g5x_lb_c
@@ -533,10 +533,10 @@ Offsets for the currently active G5x coordinate system. Returns a float
 
 Offsets for G92. Returns a float
 
-.. csv-table:: G92 Status Labels
+.. csv-table:: **G92 Status Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	g92_lb_x, g92_lb_y, g92_lb_z
 	g92_lb_a, g92_lb_b, g92_lb_c
@@ -581,13 +581,13 @@ The I/O status contains status items for up to 64 I/O's. The default is 4 I/O
 pins for each type. If you have configured more than 4 pins you will need to add
 an .ini entry to show the number of pins.
 
-For more information see see :ref:`I/O` settings in the .ini file.
+For more information see see :ref:`I/O Settings<i/o>` in the .ini file.
 
 Analog I/O are a float. Digital I/O are a bool.
 
 For example a QLabel with an object name of din_0_lb will show the status of the `motion.digital-in-00` HAL pin.
 
-.. csv-table:: I/O Status Labels
+.. csv-table:: **I/O Status Labels**
    :width: 100%
    :align: center
    :widths: 40 40

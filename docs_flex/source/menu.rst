@@ -28,9 +28,10 @@ The following table shows the menu name you type into Qt Designer and the action
 name that is created by the Qt Designer. Menu categories like `File` don't
 create an action name.
 
-.. csv-table:: Menu Items
+.. csv-table:: **Menu Items**
    :width: 100%
    :align: center
+   :widths: 25 50
 
 	**File**, **Action Name**
 	Open, actionOpen

@@ -49,7 +49,6 @@ the MDI Interface, ready for running.
 .. image:: /images/mdi-history.png
    :align: center
 
-
 The MDI history is kept in a file named `mdi_history.txt` in the configuration
 directory.
 
@@ -59,9 +58,10 @@ MDI Controls
 The following QPushButtons can be used to execute, copy, and clear MDI command
 history
 
-.. csv-table:: MDI Push Buttons
+.. csv-table:: **MDI Push Buttons**
    :width: 100%
    :align: center
+   :widths: 40 30 30
 
 	**Function**, **Widget**, **Object Name**
 	Run MDI Command, QPushButton, run_mdi_pb
@@ -69,7 +69,7 @@ history
 	Save the MDI History to a file, QPushButton, save_mdi_history_pb
 	Clear the MDI History, QPushButton, clear_mdi_history_pb
 
-.. _MdiButtonTag:
+.. _mdi_button:
 
 MDI Button
 ----------
@@ -78,9 +78,10 @@ MDI buttons execute a MDI command when the button is pressed. These are
 created by adding two dynamic properties called `function` and `command` to a
 QPushButton.
 
-.. csv-table:: MDI Command Button
+.. csv-table:: **MDI Command Button**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, mdi

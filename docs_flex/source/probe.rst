@@ -23,12 +23,12 @@ When the `probing_enable_pb` is toggled `ON` the widgets that start with
 speed set to 0, run controls will be disabled, and MDI controls will be disabled.
 
 QPushButtons with an objectName that start with `probe_` and configured as a
-:ref:`MdiButtonTag` (to launch the probing subroutines) will be enabled when
-probing is enabled and disabled when probing is disabled.
+:ref:`MDI Button <mdi_button>` (to launch the probing subroutines) will be
+enabled when probing is enabled and disabled when probing is disabled.
 
-You can create a :ref:`SpinBoxTag` to use in your probing subroutine. Set the
-objectName to start with `probe_` and it will be enabled and disabled with the
-probe buttons.
+You can create a :ref:`HAL Spin Box <hal_spin_box>` to use in your probing
+subroutine. Set the objectName to start with `probe_` and it will be enabled and
+disabled with the probe buttons.
 
 If you're using a touch-screen, the `QSpinBox` can add a Dynamic Property named
 `input` and set the value to `number`.
@@ -75,8 +75,8 @@ This is what the button would look like with the above settings.
 LED Indicator
 -------------
 
-The Probe Enable button can have a LED indicator. See :ref:`LedButtons` for
-information on LED buttons
+The Probe Enable button can have a LED indicator. See
+:ref:`LED Buttons <led_buttons>` for information on LED buttons
 
 Example
 -------
@@ -105,7 +105,7 @@ Subroutine
 
 The probe subroutines can use the values from Probe Settings spin boxes or from
 user parameters. To use values from a spinbox you need to make the spin box a
-HAL pin. See the :ref:`SpinBoxTag` example in the HAL section.
+HAL pin. See the :ref:`HAL Spin Box <hal_spin_box>` example in the HAL section.
 
 The subroutine is located in a directory called `subroutines` that is in the
 configuration directory. The ini's [RS274NGC] SUBROUTINE_PATH sets the path

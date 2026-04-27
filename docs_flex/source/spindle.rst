@@ -14,9 +14,11 @@ the [TRAJ] section of the INI file.
 In addition to the above you must add num_spindles=1 to 8 to the loadrt motmod
 line in your main hal file.
 
-Optionally to control the spindle minimum, maximum and increments add a
-[SPINDLE_n] section to the ini file where `n` is the spindle number 0-7.
-for more information see :ref:`Spindle_n`
+Optionally to control the spindle minimum RPM, maximum RPM, plus/minus
+increments and default RPM add a [SPINDLE_n] section to the ini file where `n`
+is the spindle number 0-7.
+
+For more information see :ref:`Spindle INI Section <spindle_n>`
 
 See the LinuxCNC documents for more information about multiple spindles.
 
@@ -27,9 +29,10 @@ Spindle status labels show the current status of the item. Linuxcnc can have up
 to 8 spindles. The spindles are numbered 0 through 7. If you have a single
 spindle it is spindle 0.
 
-.. csv-table:: Spindle Status Labels
+.. csv-table:: **Spindle Status Labels**
    :width: 100%
    :align: center
+   :widths: 35 30 35
 
 	**Control Function**, **Object Type**, **Object Name**
 	Spindle Brake, QLabel, spindle_brake_n_lb
@@ -60,9 +63,10 @@ Spindle Controls
 
 The following items control the spindle on/off direction and speed
 
-.. csv-table:: Spindle Status Labels
+.. csv-table:: **Spindle Status Labels**
    :width: 100%
    :align: center
+   :widths: 30 30 40
 
 	**Control Function**, **Object Type**, **Object Name**
 	Spindle Forward, QPushButton, spindle_fwd_pb
@@ -80,27 +84,18 @@ Spindle Overrides
 The spindle speed override is set using a QSlider. See the Status Labels above
 for spindle override status labels.
 
-.. csv-table:: Spindle Override
+.. csv-table:: **Multi Spindle Override**
    :width: 100%
    :align: center
+   :widths: 30 30 40
 
 	**Control Function**, **Object Type**, **Object Name**
-	Spindle Override, QSlider, spindle_override_sl
-
-.. WARNING:: The spindle_override_sl will be replaced by spindle_override_n_sl
-   in the next release.
+	Spindle Override, QSlider, spindle_override_n_sl
 
 The spindle speed override is set using a QSlider. The spindles are numbered
 0-7 so replace the `n` with the number of the spindle you want to override.
 
 See the Status Labels above for spindle override status labels.
-
-.. csv-table:: Multi Spindle Override
-   :width: 100%
-   :align: center
-
-	**Control Function**, **Object Type**, **Object Name**
-	Spindle Override, QSlider, spindle_override_n_sl
 
 
 

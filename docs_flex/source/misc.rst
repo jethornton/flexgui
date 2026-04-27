@@ -45,9 +45,10 @@ The Code Viewer allows you to edit the file in Flex GUI without using an externa
 text editor. You can save the current code to the current file name, save the
 current code with a new file name and you can search the code.
 
-.. csv-table:: Code Viewer Controls
+.. csv-table:: **Code Viewer Controls**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Function**, **Type**, **Object Name**
 	Save, QPushButton, save_pb
@@ -130,9 +131,10 @@ A QPushButton can be setup to launch a Help dialog which contains text from a
 file in the configuration directory. A help button can be placed on multiple
 places with different file names. Only one Help dialog can be open at a time.
 
-.. csv-table:: Help Button Dynamic Properties
+.. csv-table:: **Help Button Dynamic Properties**
    :width: 100%
    :align: left
+   :widths: 30 30 40
 
 	**Property Type**, **Property Name**, **Value**
 	String, function, help

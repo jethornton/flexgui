@@ -14,9 +14,10 @@ to, is done with QPushButton named `tool_change_pb` and a QComboBox named
 `tool_change_cb`. The tool change combobox will automatically be populated with
 all the tools found in the tool table.
 
-.. csv-table:: Tool Change Controls
+.. csv-table:: **Tool Change Controls**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Control Function**, **Object Type**, **Object Name**
 	Tool Change, QPushButton, tool_change_pb
@@ -115,9 +116,10 @@ Tool change QPushButtons can be used to change tools without a spinbox by adding
 up to 99 QPushButtons named `tool_change_pb_n`. With `n` being the number of
 the tool you wish to change to using that button
 
-.. csv-table:: Tool Change Buttons
+.. csv-table:: **Tool Change Buttons**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Control Function**, **Object Type**, **Object Name**
 	Tool Change Button, QPushButton, tool_change_pb_(n)
@@ -128,9 +130,10 @@ Tool Touchoff
 To touch-off a tool to an axis, use a tool-touch-off QPushButton and a QLineEdit
 to enter the value of the touch off.
 
-.. csv-table:: Tool Touchoff Controls
+.. csv-table:: **Tool Touchoff Controls**
    :width: 100%
    :align: center
+   :widths: 30 30 43
 
 	**Control Function**, **Object Type**, **Object Name**
 	Tool Touch Off Value, QLineEdit, tool_touchoff_le
@@ -160,9 +163,10 @@ To have Axis style tool touch off add a QPushButton named
 `tool_touchoff_selected_pb`. You must have at least one QRadiobutton for an axis
 to select.
 
-.. csv-table:: Tool Touchoff Selected Widgets
+.. csv-table:: **Tool Touchoff Selected Widgets**
    :width: 100%
    :align: left
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Name**
 	Axis Select (0-8), QRadioButton, axis_select_(0-8)
@@ -176,10 +180,10 @@ Current Tool status of the tool loaded in the spindle. All the labels can have a
 Dynamic Property called `precision` with the number of digits you wish to show.
 The `tool_id_lb` and the `tool_orientation_lb` are integers.
 
-.. csv-table:: Tool Table Status Labels
+.. csv-table:: **Tool Table Status Labels**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	tool_id_lb, tool_xoffset_lb, tool_yoffset_lb
 	tool_zoffset_lb, tool_aoffset_lb, tool_boffset_lb

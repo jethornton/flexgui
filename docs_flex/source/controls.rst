@@ -11,9 +11,10 @@ Controls are QPushButtons that can be placed anywhere you like. Use the Name
 from the list below for each control widget objectName. Replace the `(0-8)`
 with the joint number or `Axis Index`_. More controls are in :doc:`tools`.
 
-.. csv-table:: Control Push Buttons
+.. csv-table:: **Control Push Buttons**
    :width: 100%
    :align: center
+   :widths: 28 25 47
 
 	**Control Name**, **Object Name**, **Function**
 	Open, open_pb, Open a G-code File
@@ -88,7 +89,7 @@ This is how the above looks in the GUI
 .. image:: /images/estop-03.png
    :align: center
 
-.. _LedButtons:
+.. _led_buttons:
 
 LED Buttons
 -----------
@@ -97,9 +98,10 @@ Some push buttons can have a LED to indicate on and off states. The LED is added
 to the push button with a Bool type Dynamic Property called `led_indicator`. All
 other properties are optional.
 
-.. csv-table:: LED Buttons
+.. csv-table:: **LED Buttons**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Control Name**, **Object Name**, **Function**
 	E Stop, estop_pb, E Stop Toggle Button
@@ -115,13 +117,14 @@ buttons will add the default LED to that button. Each control button can have
 different options. The default colors are Red when Off and Green when On. The
 default shape is round.
 
-.. csv-table:: LED Button Dynamic Properties
+.. csv-table:: **LED Button Dynamic Properties**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Function**
 	Bool, led_indicator, Creates a LED
-	, Optional
+	Optional
 	Int, led_diameter, Sets the Diameter of the LED in pixels
 	Int, led_right_offset, Sets the offset from the right edge in pixels
 	Int, led_top_offset, Sets the offset from the top edge in pixels
@@ -130,7 +133,8 @@ default shape is round.
 	String, led_shape, square
 
 To change the LED default options they can be set in the INI file.
-See :ref:`led_defaults`
+
+See :ref:`LED Settings <led_defaults>` for more information.
 
 .. tip:: A space after the button text gives more room for the LED
 
@@ -144,11 +148,12 @@ To clear the G92 coordinate system use 10 as the index.
 
 To clear the current G54x coordinate system rotation use 11 as the index.
 
-.. csv-table:: Clear Coordinate System Offsets
+.. csv-table:: **Clear Coordinate System Offsets**
    :width: 100%
    :align: center
+   :widths: 25 30 
 
-	**Control Function**, **Object Name**
+	**Function**, **Object Name**
 	Clear Current G5x, clear_coord_0
 	Clear G5x Coordinate System, clear_coord_(1-9)
 	Clear G92 Coordinate System, clear_coord_10
@@ -156,11 +161,12 @@ To clear the current G54x coordinate system rotation use 11 as the index.
 
 To clear an axis offset in the current G5x coordinate system use the following.
 
-.. csv-table:: Clear Axis Offsets
+.. csv-table:: **Clear Axis Offsets**
    :width: 100%
    :align: center
+   :widths: 25 30 
 
-	**Control Function**, **Object Name**
+	**Function**, **Object Name**
 	Clear Current G5x X axis, clear_(axis letter)_pb
 
 Options
@@ -170,9 +176,10 @@ The QPushButton options are toggle-type buttons; press to turn on, press again
 to turn off. They are normal push buttons but Flex automatically makes them
 `checkable`.
 
-.. csv-table:: Options
+.. csv-table:: **Options**
    :width: 100%
    :align: left
+   :widths: 30 30 40
 
 	**Function**, **Widget**, **Name**
 	Flood Toggle, QPushButton, flood_pb
@@ -203,19 +210,22 @@ Overrides
 A QSlider is used to control the following functions and the corresponding 
 label shows the value of the slider:
 
-.. csv-table:: Overrides
+.. csv-table:: **Overrides**
    :width: 100%
    :align: left
+   :widths: 40 20 40
 
 	**Function**, **Widget**, **Object Name**
 	Feed Override Slider, QSlider, feed_override_sl
 	Feed Override Percent, QLabel, feed_override_lb
 	Rapid Override Slider, QSlider, rapid_override_sl
 	Rapid Override Percent, QLabel, rapid_override_lb
-	Spindle Override Slider, QSlider, spindle_override_sl
-	Spindle Override Percent, QLabel, spindle_override_0_lb
+	Spindle Override Slider, QSlider, spindle_override_n_sl
+	Spindle Override Percent, QLabel, spindle_override_n_lb
 	Maximum Velocity, QSlider, max_vel_sl
 	Override Limits, QCheckBox, override_limits_cb
+
+For more information on the Spindle Overrides see :doc:`spindle` Documents
 
 The following settings can be used in the DISPLAY section of the ini file:
 
@@ -231,9 +241,10 @@ Feed, Rapid and Spindle overrides can have a preset button(s) for different
 preset amounts. Replace the nnn with the percent of override you want that
 button to use.
 
-.. csv-table:: Override Presets
+.. csv-table:: **Override Presets**
    :width: 100%
    :align: left
+   :widths: 40 20 40
 
 	**Function**, **Widget**, **Object Name**
 	Feed Override Preset, QPushButton, feed_percent_nnn
@@ -248,7 +259,7 @@ Stacked Widget
 To change to a specific page on a QStackedWidget add a QPushButton on each page
 and set a couple of Dynamic Properties. See :doc:`property`
 
-.. csv-table:: Stacked Widget Change Page
+.. csv-table:: **Stacked Widget Change Page**
    :width: 100%
    :align: left
 
@@ -262,9 +273,10 @@ and set a couple of Dynamic Properties. See :doc:`property`
 To create a Next Page and Previous Page buttons for a QStackedWidget add two
 QPushButtons with the following Dynamic Properties. See :doc:`property`
 
-.. csv-table:: Stacked Widget Next/Previous Page
+.. csv-table:: **Stacked Widget Next/Previous Page**
    :width: 100%
    :align: left
+   :widths: 30 30 40
 
 	**Button Function**, **Dynamic Property Name**, **Value**
 	Next Page, next_page, QStackedWidget Object Name
@@ -276,9 +288,10 @@ File Load Buttons
 -----------------
 To create a QPushButton to load a specific file add two Dynamic Properties.
 
-.. csv-table:: File Load Buttons
+.. csv-table:: **File Load Buttons**
    :width: 100%
    :align: left
+   :widths: 30 30
 
 	**Dynamic Property Name**, **Value**
 	function, load_file

@@ -11,10 +11,10 @@ Controls
 If you're using a touch-screen, add pan, zoom, and rotate controls for the 
 plotter
 
-.. csv-table:: Display Controls
+.. csv-table:: **Display Controls**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Control**, **Widget**, **Object Name**
 	Rotate View Up, QPushButton, view_rotate_up_pb
@@ -30,10 +30,10 @@ plotter
 
 The following controls set-predefined views
 
-.. csv-table:: Display Views
+.. csv-table:: **Display Views**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Control**, **Widget**, **Object Name**
 	View Perspective, QPushButton, view_p_pb
@@ -45,10 +45,10 @@ The following controls set-predefined views
 
 To clear the Live plot
 
-.. csv-table:: Display Functions
+.. csv-table:: **Display Functions**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	Control, Widget, Name
 	Clear Live Plot, QPushButton, view_clear_pb
@@ -59,10 +59,10 @@ Display
 The DRO overlaid onto the plotter can be customized by turning on or off
 various features. Use either a QCheckbox or a QPushButton to toggle these
 
-.. csv-table:: Display Checkbox Options
+.. csv-table:: **Display Checkbox Options**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Object Name**
 	View DRO, QCheckBox, view_dro_cb
@@ -79,10 +79,10 @@ various features. Use either a QCheckbox or a QPushButton to toggle these
 	View Offsets, QCheckBox, view_offsets_cb
 	View Overlay, QCheckBox, view_overlay_cb
 
-.. csv-table:: Display PushButton Options
+.. csv-table:: **Display PushButton Options**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Object Name**
 	View DRO, QPushButton, view_dro_pb
@@ -109,10 +109,10 @@ The following menu items can set display options. `Menu Name` is what you
 type when creating the Menu, then press enter. All the items are checkbox type
 menu items that stay coordinated with the checkbox of the same option.
 
-.. csv-table:: Plot Menu Options
+.. csv-table:: **Plot Menu Options**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Function**, **Menu Name**, **Object Name**
 	View DRO, DRO, actionDRO
@@ -133,10 +133,10 @@ menu items that stay coordinated with the checkbox of the same option.
 
 The live plot can be cleared from the menu with this menu item.
 
-.. csv-table:: Clear Live Plot Menu
+.. csv-table:: **Clear Live Plot Menu**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Function**, **Menu Name**, **Object Name**
 	Clear Live Plot, Clear Live Plot, actionClear_Live_Plot
@@ -149,16 +149,16 @@ option of grids add a menu item named `Grids`. The grid size selection will be
 added to the `Grids` menu item. The default grid sizes are based on the machine
 units. The `Grids` menu can be part of the main menu bar, or added to a submenu.
 
-.. csv-table:: Plot Menu Grids
+.. csv-table:: **Plot Menu Grids**
    :width: 100%
    :align: center
-   :widths: 40 40 40
+   :widths: 33 33 33
 
 	**Function**, **Menu Name**, **Object Name**
 	Plotter Grid, Grids, actionGrids
 
-To configure the size options of the grid see the :ref:`plotter` section of the
-ini configuration documents.
+To configure the size options of the grid see the 
+:ref:`Plotter Section <plotter>` of the INI configuration documents.
 
 DRO
 ---

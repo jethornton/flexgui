@@ -38,9 +38,10 @@ enable the control when the power is on. The `all_homed` property will enable
 the control when all joints are homed. They can be combined to make a HAL object
 only enabled when power is on and all joints are homed.
 
-.. csv-table:: HAL Options
+.. csv-table:: **HAL Options**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	Bool, state_on, True
@@ -67,9 +68,10 @@ When toggled a popup will ask for confirmation of the action. If Cancel is
 selected the checked state will be set back to the previous state and the HAL
 pin will not change.
 
-.. csv-table:: HAL Push Button
+.. csv-table:: **HAL Push Button**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -103,9 +105,10 @@ The option state_on will disable the HAL LED Button until the Power is on.
 
 The option all_homed will disable the HAL LED Button until all joints are homed.
 
-.. csv-table:: HAL LED Button Dynamic Properties
+.. csv-table:: **HAL LED Button Dynamic Properties**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_led_button
@@ -116,7 +119,7 @@ The option all_homed will disable the HAL LED Button until all joints are homed.
 	Bool, all_homed, True
 	String, led_shape, square
 
-.. _SpinBoxTag:
+.. _hal_spin_box:
 
 HAL Spinbox
 -----------
@@ -129,9 +132,10 @@ value of the spinbox.
 
 The HAL direction is OUT for a HAL Spinbox.
 
-.. csv-table:: HAL Spin Box
+.. csv-table:: **HAL Spin Box**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -152,9 +156,10 @@ value of the spinbox.
 
 The HAL direction is OUT and the HAL type is float for a HAL Double Spinbox.
 
-.. csv-table:: HAL Spin Box
+.. csv-table:: **HAL Spin Box**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -175,9 +180,10 @@ The HAL direction is OUT for a HAL Slider.
 
 See :doc:`property` for step by step instructions to add a Dynamic Property
 
-.. csv-table:: HAL Slider
+.. csv-table:: **HAL Slider**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -209,9 +215,10 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 
 .. NOTE:: The hal_type for QSpindBox and QSlider must be specified.
 
-.. csv-table:: HAL I/O
+.. csv-table:: **HAL I/O**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_io
@@ -233,9 +240,10 @@ post gui HAL file. The pin_name used will create a HAL pin prefixed with
 
 The HAL direction is IN for a HAL Label.
 
-.. csv-table:: HAL Label
+.. csv-table:: **HAL Label**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -243,7 +251,7 @@ The HAL direction is IN for a HAL Label.
 	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
 	Optional
 	String, precision, Number of decimal digits for HAL_FLOAT type
-	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
+	String, integer_digits, Left padded zeros for HAL_S32 or HAL_U32
 
 HAL Average Float Label
 -----------------------
@@ -268,9 +276,10 @@ create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 
 The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
 
-.. csv-table:: HAL Average Float Label
+.. csv-table:: **HAL Average Float Label**
    :width: 100%
    :align: center
+   :widths: 22 20 60
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_avr_f
@@ -297,9 +306,10 @@ create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 
 The HAL direction is IN.
 
-.. csv-table:: HAL Average Integer Label
+.. csv-table:: **HAL Average Integer Label**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_avr_i
@@ -318,9 +328,10 @@ The HAL direction is IN and the hal_type is bit for a HAL Bool Label
 
 See :doc:`property` for step by step instructions to add a Dynamic Property
 
-.. csv-table:: HAL Bool Label
+.. csv-table:: **HAL Bool Label**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -342,9 +353,10 @@ The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
 If the HAL value is greater than the number of states the last state will be
 displayed.
 
-.. csv-table:: HAL Multi-State Label
+.. csv-table:: **HAL Multi-State Label**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_msl
@@ -370,9 +382,10 @@ connected to a signal.
 
 The HAL direction is IN and the hal_type is bit for a HAL LED
 
-.. csv-table:: HAL LED
+.. csv-table:: **HAL LED**
    :width: 100%
    :align: center
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_led
@@ -398,10 +411,10 @@ default shape is round.
 
 The HAL direction is IN and the hal_type is bit for a HAL LED Label.
 
-
-.. csv-table:: HAL LED Label
+.. csv-table:: **HAL LED Label**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_led_label
@@ -423,9 +436,10 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 
 The HAL direction is IN for a HAL LCD
 
-.. csv-table:: HAL LCD
+.. csv-table:: **HAL LCD**
    :width: 100%
    :align: center
+   :widths: 20 20 60
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -448,9 +462,10 @@ maximum value 0 is displayed.
 
 The HAL direction is IN and the hal_type is u32 for a HAL Progress Bar.
 
-.. csv-table:: HAL Progressbar
+.. csv-table:: **HAL Progressbar**
    :width: 100%
    :align: center
+   :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin

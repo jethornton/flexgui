@@ -8,9 +8,10 @@ is not found, Jogging will be disabled.
 Jogging increments are from the ini entry `INCREMENTS` in the [DISPLAY] section.
 See :ref:`Jog Increments <jog-increments>` for more information.
 
-.. csv-table:: Required Jog Widgets
+.. csv-table:: **Required Jog Widgets**
    :width: 100%
    :align: left
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Name**
 	Jog Velocity Slider, QSlider, jog_vel_sl
@@ -19,9 +20,10 @@ See :ref:`Jog Increments <jog-increments>` for more information.
 The Jog Velocity Label shows the current jog velocity setting from the Jog
 Velocity Slider
 
-.. csv-table:: Optional Jog Widgets
+.. csv-table:: **Optional Jog Widgets**
    :width: 100%
    :align: left
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Name**
 	Jog Velocity Label, QLabel, jog_vel_lb
@@ -56,9 +58,10 @@ The second way to enable keyboard jogging is to add a QCheckBox to turn keyboard
 jog on and off. Currently the jog keys work all the time when the QCheckBox is
 checked.
 
-.. csv-table:: Keyboard Jogging
+.. csv-table:: **Keyboard Jogging**
    :width: 100%
    :align: left
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Name**
 	Jog Enable, QCheckBox, keyboard_jog_cb
@@ -96,9 +99,10 @@ Jog Button Controls
 
 This type of jog controls provides a button for each axis and jog direction.
 
-.. csv-table:: Jog Button Widgets
+.. csv-table:: **Jog Button Widgets**
    :width: 100%
    :align: left
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Name**
 	Jog Plus Axis (0-8), QPushButton, jog_plus_pb_(0-8)
@@ -117,9 +121,10 @@ To add Axis style jog controls where you select an axis then the plus/minus
 buttons jog the selected axis add a QRadioButton for each axis and a QPushButton
 for Plus and Minus. Axes are 0-8 for X, Y, Z, A, B, C, U, V, W.
 
-.. csv-table:: Jog Selected Widgets
+.. csv-table:: **Jog Selected Widgets**
    :width: 100%
    :align: left
+   :widths: 33 33 33
 
 	**Function**, **Widget**, **Name**
 	Axis Select (0-8), QRadioButton, axis_select_(0-8)
