@@ -1584,6 +1584,9 @@ def setup_spindle(parent):
 			getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
 			increment  = getattr(parent, f'spindle_{i}_rpm_increment')
 			getattr(parent, f'spindle_speed_{i}_sb').setSingleStep(increment)
+			def_rpm  = getattr(parent, f'spindle_{i}_default_rpm')
+			getattr(parent, f'spindle_speed_{i}_sb').setValue(def_rpm)
+			setattr(parent, f'spindle_rpm_{i}', def_rpm)
 			getattr(parent, f'spindle_speed_{i}_sb').valueChanged.connect(
 			partial(commands.spindle_control, parent, i, 'speed'))
 			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
