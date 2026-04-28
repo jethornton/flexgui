@@ -398,7 +398,6 @@ def read(parent):
 	#parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
 
 	# ***** [SPINDLE_n] Sections ***** 
-	# FIXME add MIN_REVERSE_VELOCITY MAX_REVERSE_VELOCITY maybe or maybe not
 	for i in range(parent.status.spindles):
 		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM') or False
 		if not min_rpm:
@@ -459,7 +458,6 @@ def read(parent):
 		else:
 			default_rpm = 0
 		setattr(parent, f'spindle_{i}_default_rpm', default_rpm)
-
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
