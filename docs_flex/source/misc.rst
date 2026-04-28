@@ -1,3 +1,4 @@
+===================
 Miscellaneous Items
 ===================
 
@@ -54,17 +55,6 @@ current code with a new file name and you can search the code.
 	Save, QPushButton, save_pb
 	Save As, QPushButton, save_as_pb
 	Search, QPushButton, search_pb
-
-MDI Viewer
-----------
-
-To add a MDI viewer, add a `QListWidget` from Item Widgets and name it
-`mdi_history_lw`
-
-.. image:: /images/mdi-viewer-01.png
-   :align: center
-
-To enter MDI commands, add a Line Edit and name it `mdi_command_le`.
 
 Error Viewer
 ------------
