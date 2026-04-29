@@ -237,18 +237,15 @@ def find(parent):
 
 def info_msg_ok(parent, msg, title=None):
 	# dialogs.info_msg_ok(parent, msg, 'title')
+	#print('info_msg_ok')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Information)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as s:
-		msg_box.setStyleSheet(s.read())
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -258,6 +255,7 @@ def info_msg_ok(parent, msg, title=None):
 
 def confirm_msg_ok_cancel(parent, msg, title=None):
 	# dialogs.confirm_msg_ok_cancle(msg, 'title')
+	#print('confirm_msg_ok_cancel')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Question)
 	msg_box.setWindowTitle(title)
@@ -265,12 +263,8 @@ def confirm_msg_ok_cancel(parent, msg, title=None):
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok |
 	QMessageBox.StandardButton.Cancel)
 
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as s:
-		msg_box.setStyleSheet(s.read())
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -280,11 +274,15 @@ def confirm_msg_ok_cancel(parent, msg, title=None):
 
 def error_msg_ok(parent, msg, title=None): # plain error message
 	# dialogs.error_msg_ok(parent, msg, 'title')
+	#print('error_msg_ok')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -294,18 +292,15 @@ def error_msg_ok(parent, msg, title=None): # plain error message
 
 def warn_msg_ok(parent, msg, title=None):
 	# dialogs.warn_msg_ok(parent, msg, 'title')
+	#print('warn_msg_ok')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as s:
-		msg_box.setStyleSheet(s.read())
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -315,18 +310,15 @@ def warn_msg_ok(parent, msg, title=None):
 
 def warn_msg_yes_no(parent, msg, title=None):
 	# dialogs.warn_msg_yes_no(parent, msg, 'title')
+	#print('warn_msg_yes_no')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as s:
-		msg_box.setStyleSheet(s.read())
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Yes:
@@ -336,18 +328,15 @@ def warn_msg_yes_no(parent, msg, title=None):
 
 def critical_msg_ok(parent, msg, title=None):
 	# dialogs.critical_msg_ok(parent, msg, 'title')
+	#print('critical_msg_ok')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Critical)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as s:
-		msg_box.setStyleSheet(s.read())
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -357,6 +346,7 @@ def critical_msg_ok(parent, msg, title=None):
 
 def critical_msg_ok_cancel(parent, msg, title=None):
 	# dialogs.critical_msg_ok_cancel(parent, msg, 'title')
+	#print('critical_msg_ok_cancel')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Critical)
 	msg_box.setWindowTitle(title)
@@ -364,12 +354,8 @@ def critical_msg_ok_cancel(parent, msg, title=None):
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok |
 	QMessageBox.StandardButton.Cancel)
 
-	if parent.theme: # use the theme
-		stylesheet = os.path.join(parent.lib_path, f'{parent.theme}.qss')
-	else:
-		stylesheet = os.path.join(parent.lib_path, 'touch.qss')
-	with open(stylesheet,'r') as s:
-		msg_box.setStyleSheet(s.read())
+	with open(parent.popup_qss,'r') as fh:
+		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
