@@ -363,7 +363,6 @@ def critical_msg_ok_cancel(parent, msg, title=None):
 	else:
 		return False
 
-
 def about_dialog(parent):
 	dialog_box = QDialog()
 	dialog_box.setMinimumSize(300, 300)

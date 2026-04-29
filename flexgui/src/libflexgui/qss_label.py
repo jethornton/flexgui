@@ -1,6 +1,5 @@
 from functools import partial
 
-
 def startup(parent):
 
 	# QLabel

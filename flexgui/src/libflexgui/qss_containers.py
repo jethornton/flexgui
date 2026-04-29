@@ -35,7 +35,6 @@ def startup(parent):
 	parent.mw_margin_top_normal.valueChanged.connect(parent.margin)
 	parent.mw_margin_bottom_normal.valueChanged.connect(parent.margin)
 
-
 ######### QFrame Setup #########
 	parent.fr_normal = False
 
@@ -59,7 +58,6 @@ def startup(parent):
 
 	parent.gb_apply_style.clicked.connect(partial(create_gb_stylesheet, parent))
 	parent.gb_clear_style.clicked.connect(partial(clear_gb_stylesheet, parent))
-
 
 ######### QMainWindow Stylesheet #########
 

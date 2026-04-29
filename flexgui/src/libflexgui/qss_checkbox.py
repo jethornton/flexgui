@@ -329,5 +329,3 @@ def clear_stylesheet(parent):
 	parent.cb_stylesheet.clear()
 	parent.checkBox.setStyleSheet('')
 
-
-

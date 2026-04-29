@@ -236,7 +236,6 @@ def all_create_stylesheet(parent):
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.lb_bg_color_sel_hover = color
 
-
 	# Foreground Color Checked
 	if parent.all_fg_color_sel_checked:
 		color = parent.all_fg_color_sel_checked
@@ -399,7 +398,6 @@ def all_create_stylesheet(parent):
 	qss_toolbutton.create_stylesheet(parent)
 	qss_spinbox.create_stylesheet(parent)
 	qss_label.create_stylesheet(parent)
-
 
 def clear_stylesheet(parent):
 	qss_containers.clear_stylesheet(parent)

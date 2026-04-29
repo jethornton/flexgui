@@ -163,9 +163,3 @@ class dsf_calc(QWidget):
 		else:
 			self.dsf_material_cb.addItems(smm)
 
-
-
-
-
-
-

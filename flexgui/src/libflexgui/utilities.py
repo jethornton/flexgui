@@ -594,7 +594,6 @@ def update_controls(parent):
 	# parent.on_controls = [] # enabled when power on
 	# parent.homed_controls = [] # enabled when power on, homed
 
-
 	if not file_loaded:
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(False)

@@ -74,7 +74,6 @@ def startup(parent):
 	parent.sb_down_position.currentIndexChanged.connect(partial(sub_controls, parent))
 	parent.sb_down_hide.toggled.connect(partial(sub_controls, parent))
 
-
 ######### QSpinBox Stylesheet #########
 
 def create_stylesheet(parent):
@@ -167,7 +166,6 @@ def create_stylesheet(parent):
 		if parent.sb_up_padding.value() > 0:
 			style += f'\tpadding: {parent.sb_up_padding.value()}px;\n'
 
-
 		style += '}' # End of QAbstractSpinBox up-button
 
 	# QAbstractSpinBox down-button
@@ -251,7 +249,6 @@ def create_stylesheet(parent):
 		for line in lines:
 			parent.sb_stylesheet.appendPlainText(line)
 		parent.spinBox.setStyleSheet(style)
-
 
 def sub_controls(parent):
 	up_origin = False if parent.sb_up_origin.currentText() == 'none' else True

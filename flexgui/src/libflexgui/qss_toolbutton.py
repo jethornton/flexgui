@@ -52,7 +52,6 @@ def startup(parent):
 	parent.tb_margin_top_normal.valueChanged.connect(parent.margin)
 	parent.tb_margin_bottom_normal.valueChanged.connect(parent.margin)
 
-
 ######### QToolButton Stylesheet #########
 
 def create_stylesheet(parent):
@@ -184,7 +183,6 @@ def create_stylesheet(parent):
 
 		style += '}\n' # End of QToolBar QToolButton pressed pseudo-state
 
-
 	# QToolBar QToolButton checked pseudo-state
 	if parent.tb_checked:
 		if style: # style is not False
@@ -236,7 +234,6 @@ def create_stylesheet(parent):
 			style += f'\tborder-radius: {parent.tb_border_radius_disabled.value()}px;\n'
 
 		style += '}' # End of QToolBar QToolButton disabled pseudo-state
-
 
 	parent.tb_stylesheet.clear()
 	if style:

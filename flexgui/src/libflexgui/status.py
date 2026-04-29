@@ -395,7 +395,6 @@ def update(parent):
 	for key, value in parent.status_joint_prec.items():
 		getattr(parent, f'joint_{value[0]}_{key}_lb').setText(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
 
-
 	# update hal labels key is label name and value[0] is pin name value[1] is digits
 	for key, value in parent.hal_readers.items():
 		state = hal.get_value(f'flexhal.{value[0]}')

@@ -156,5 +156,3 @@ class fs_calc(QWidget):
 		self.fsc_sfm_lb.setText('')
 		self.fsc_feed_lb.setText('')
 
-
-

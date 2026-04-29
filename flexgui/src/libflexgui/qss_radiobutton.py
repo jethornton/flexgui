@@ -307,5 +307,3 @@ def clear_stylesheet(parent):
 	parent.radioButton_0.setStyleSheet('')
 	parent.radioButton_1.setStyleSheet('')
 
-
-

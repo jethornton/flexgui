@@ -299,7 +299,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			pass
 		progress.nextphase(len(lines))
 
-
 		td = tempfile.mkdtemp()
 		self._current_file = filename
 		try:
@@ -662,7 +661,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 			return limit, homed, posstrs, droposstrs
 
-
 	def minimumSizeHint(self):
 		return QSize(50, 50)
 
@@ -700,7 +698,6 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 	def setZoom(self, zoom):
 		self.distance = zoom/100.0
 		self.update()
-
 
 	def qglColor(self, color):
 		glColor4f(color.redF(), color.greenF(), color.blueF(), color.alphaF())
