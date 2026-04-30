@@ -1606,7 +1606,7 @@ def setup_spindle(parent):
 			'the old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
-			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
 			parent.spindle_fwd_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_fwd_pb')
 
@@ -1618,7 +1618,7 @@ def setup_spindle(parent):
 			'the old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
-			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
 			parent.spindle_rev_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_rev_pb')
 
@@ -1630,7 +1630,7 @@ def setup_spindle(parent):
 			'the old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
-			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'stop'))
 			parent.spindle_controls.append('spindle_stop_pb')
 
 	if 'spindle_plus_pb' in parent.child_names:
@@ -1641,7 +1641,7 @@ def setup_spindle(parent):
 			'the old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
-			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'plus'))
 			parent.spindle_controls.append('spindle_plus_pb')
 
 	if 'spindle_minus_pb' in parent.child_names:
@@ -1652,7 +1652,7 @@ def setup_spindle(parent):
 			'the old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
-			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle, parent))
+			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'minus'))
 			parent.spindle_controls.append('spindle_minus_pb')
 
 	if 'spindle_override_sl' in parent.child_names:
