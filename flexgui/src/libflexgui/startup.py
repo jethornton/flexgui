@@ -1622,7 +1622,7 @@ def setup_spindle(parent):
 
 	if 'spindle_stop_pb' in parent.child_names:
 		if 'spindle_stop_0_pb' in parent.child_names:
-			parent.spindle_rev_pb.setEnabled(False)
+			parent.spindle_stop_pb.setEnabled(False)
 			msg = ('The old style spindle_stop_pb was found\n'
 			'and the new style spindle_stop_0_pb was found\n'
 			'the old style will be disabled.')
