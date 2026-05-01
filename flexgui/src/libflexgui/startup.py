@@ -1607,7 +1607,6 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
-			parent.spindle_fwd_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_fwd_pb')
 
 	if 'spindle_rev_pb' in parent.child_names:
@@ -1619,7 +1618,6 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
-			parent.spindle_rev_pb.setCheckable(True)
 			parent.spindle_controls.append('spindle_rev_pb')
 
 	if 'spindle_stop_pb' in parent.child_names:
