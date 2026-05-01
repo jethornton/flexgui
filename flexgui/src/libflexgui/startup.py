@@ -1676,7 +1676,7 @@ def setup_spindle(parent):
 			'the old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
-			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle, parent))
+			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle_control, parent, 0, 'speed'))
 			parent.spindle_speed_sb.setSingleStep(parent.spindle_0_rpm_increment)
 			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
 			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)

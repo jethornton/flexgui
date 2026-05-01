@@ -304,7 +304,8 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 
 		case 'speed':
 			#print(f'Spindle:{spindle} Action:{action}')
-			new_rpm = getattr(parent, f'spindle_speed_{spindle}_sb').value()
+			sender = parent.sender().objectName()
+			new_rpm = getattr(parent, sender).value()
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
