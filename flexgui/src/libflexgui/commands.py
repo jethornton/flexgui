@@ -253,7 +253,7 @@ def tool_touchoff(parent):
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
 def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
-	print(f'spindle {spindle}')
+	#print(f'spindle {spindle}')
 	match action:
 		case 'fwd':
 			print(f'Spindle:{spindle} Action:{action}')

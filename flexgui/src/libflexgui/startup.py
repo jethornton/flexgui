@@ -1663,6 +1663,7 @@ def setup_spindle(parent):
 		else: # only the old style is present
 			parent.spindle_override_sl.valueChanged.connect(partial(
 				utilities.spindle_override, parent, 0))
+			parent.spindle_override_sl.setMinimum(parent.spindle_0_min_override)
 			parent.spindle_override_sl.setMaximum(parent.spindle_0_max_override)
 			parent.spindle_override_sl.setValue(100)
 
