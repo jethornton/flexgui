@@ -256,21 +256,21 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 	#print(f'spindle {spindle}')
 	match action:
 		case 'fwd':
-			print(f'Spindle:{spindle} Action:{action}')
+			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = getattr(parent, f'spindle_rpm_{spindle}')
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
 
 		case 'rev':
-			print(f'Spindle:{spindle} Action:{action}')
+			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = getattr(parent, f'spindle_rpm_{spindle}')
 			parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
 
 		case 'stop':
-			print(f'Spindle:{spindle} Action:{action}')
+			#print(f'Spindle:{spindle} Action:{action}')
 			parent.command.spindle(emc.SPINDLE_OFF, spindle)
 
 		case 'plus':
-			print(f'Spindle:{spindle} Action:{action}')
+			#print(f'Spindle:{spindle} Action:{action}')
 			current = getattr(parent, f'spindle_rpm_{spindle}')
 			#print(f'current {current}')
 			increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
@@ -283,7 +283,10 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
-			if f'spindle_speed_{spindle}_sb' in parent.child_names:
+			# we might have spindle_speed_sb
+			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
+				parent.spindle_speed_sb.setValue(new_rpm)
+			elif f'spindle_speed_{spindle}_sb' in parent.child_names:
 				getattr(parent, f'spindle_speed_{spindle}_sb').setValue(new_rpm)
 
 		case 'minus':
@@ -299,7 +302,10 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
-			if f'spindle_speed_{spindle}_sb' in parent.child_names:
+			# we might have spindle_speed_sb
+			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
+				parent.spindle_speed_sb.setValue(new_rpm)
+			elif f'spindle_speed_{spindle}_sb' in parent.child_names:
 				getattr(parent, f'spindle_speed_{spindle}_sb').setValue(new_rpm)
 
 		case 'speed':
