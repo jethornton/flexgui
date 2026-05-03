@@ -82,9 +82,10 @@ Spindle Overrides
 -----------------
 
 The spindle speed override is set using a QSlider. See the Status Labels above
-for spindle override status labels.
+for spindle override status labels. The Multiple Spindle Override is the
+preferred spindle override to use.
 
-.. csv-table:: **Multi Spindle Override**
+.. csv-table:: **Multiple Spindle Override**
    :width: 100%
    :align: center
    :widths: 30 30 40
@@ -97,5 +98,15 @@ The spindle speed override is set using a QSlider. The spindles are numbered
 
 See the Status Labels above for spindle override status labels.
 
+If you just have one spindle you can use either the Multiple Spindle Override
+with n being 0 or the Single Spindle Override.
+
+.. csv-table:: **Single Spindle Override**
+   :width: 100%
+   :align: center
+   :widths: 30 30 40
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Override, QSlider, spindle_override_sl
 
 
