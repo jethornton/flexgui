@@ -357,7 +357,7 @@ def update(parent):
 		for key, value in parent.spindle_int.items():
 			getattr(parent, key).setText(f'{spindle_int[parent.status.spindle[value[0]][value[1]]]}')
 
-		# spindle override key is label value is spindle and speed
+		# spindle override key is label value is spindle and override
 		for key, value in parent.spindle_override.items():
 			getattr(parent, key).setText(f'{parent.status.spindle[value[0]][value[1]]:.0%}')
 

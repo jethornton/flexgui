@@ -325,9 +325,6 @@ def feed_override(parent, value):
 def rapid_override(parent, value):
 	parent.command.rapidrate(float(value / 100))
 
-def spindle_override(parent, s=0, value=0):
-	parent.command.spindleoverride(float(value / 100), s)
-
 def max_velocity(parent,value):
 	# maxvel(float) set maximum velocity
 	parent.command.maxvel(float(value / 60))

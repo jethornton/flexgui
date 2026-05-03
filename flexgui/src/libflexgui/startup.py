@@ -1570,7 +1570,7 @@ def setup_spindle(parent):
 			max_override = getattr(parent, f'spindle_{i}_max_override')
 			getattr(parent, f'spindle_override_{i}_sl').setMaximum(max_override)
 			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
-			partial(utilities.spindle_override, parent, i))
+			partial(commands.spindle_override, parent, i))
 			if max_override >= 100:
 				getattr(parent, f'spindle_override_{i}_sl').setValue(100)
 			else:
@@ -1662,7 +1662,7 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_override_sl.valueChanged.connect(partial(
-				utilities.spindle_override, parent, 0))
+				commands.spindle_override, parent, 0))
 			parent.spindle_override_sl.setMinimum(parent.spindle_0_min_override)
 			parent.spindle_override_sl.setMaximum(parent.spindle_0_max_override)
 			parent.spindle_override_sl.setValue(100)

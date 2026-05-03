@@ -275,9 +275,25 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 			#print(f'current {current}')
 			increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
 			max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
-			new_rpm = current + increment
+			if spindle == 0 and 'spindle_override_sl' in parent.child_names:
+				override = parent.spindle_override_sl.value()
+			elif f'spindle_override_{spindle}_sl' in parent.child_names:
+				override = getattr(parent, f'spindle_override_{spindle}_sl').value()
+			else:
+				override = 100
+			#print(f'override {override}')
+			override_max_rpm = max_rpm * (override / 100)
+			#print(f'override_max_rpm {override_max_rpm}')
+			override_rpm = override_max_rpm - max_rpm
+			#print(f'override_rpm {override_rpm}')
+			max_rpm = int(max_rpm - override_rpm)
+			#print(f'max_rpm {max_rpm}')
+
+			new_rpm = int(current + increment * (override / 100))
+			#print(f'new_rpm {new_rpm}')
 			if new_rpm > max_rpm:
 				new_rpm = max_rpm
+			#print(f'new_rpm {new_rpm}')
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
@@ -294,7 +310,15 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 			current = getattr(parent, f'spindle_rpm_{spindle}')
 			increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
 			min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
-			new_rpm = current - increment
+			if spindle == 0 and 'spindle_override_sl' in parent.child_names:
+				override = parent.spindle_override_sl.value()
+			elif f'spindle_override_{spindle}_sl' in parent.child_names:
+				override = getattr(parent, f'spindle_override_{spindle}_sl').value()
+			else:
+				override = 100
+			#print(f'override {override}')
+
+			new_rpm = int((current - increment) * (override / 100))
 			if new_rpm <= min_rpm:
 				new_rpm = min_rpm
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
@@ -317,6 +341,22 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
+
+def spindle_override(parent, spindle=0, value=0):
+	current_rpm = getattr(parent, f'spindle_rpm_{spindle}')
+	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
+	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
+	#override = getattr(parent, f'status.spindle[spindle]["override"]')
+	override = float(f'{parent.status.spindle[spindle]["override"]}')
+	#print(f'value {value}')
+	#print(f'override {override}')
+	#print(f'type override {type(override)}')
+	override_rpm = int(current_rpm * (value / 100))
+	#print(f'max_rpm {max_rpm}')
+	#print(f'min_rpm {min_rpm}')
+	#print(f'override_rpm {override_rpm}')
+	if override_rpm <= max_rpm and override_rpm >= min_rpm:
+		parent.command.spindleoverride(float(value / 100), spindle)
 
 def flood_toggle(parent):
 	parent.status.poll()
