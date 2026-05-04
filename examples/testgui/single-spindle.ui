@@ -1035,7 +1035,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_35">
            <item row="0" column="0">
-            <widget class="QSlider" name="spindle_speed_sd">
+            <widget class="QSlider" name="spindle_speed_sl">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
