@@ -341,6 +341,8 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
+			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
+				parent.spindle_speed_sb.setValue(new_rpm)
 
 def spindle_override(parent, spindle=0, value=0):
 	parent.command.spindleoverride(float(value / 100), spindle)

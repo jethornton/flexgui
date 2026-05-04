@@ -1595,9 +1595,16 @@ def setup_spindle(parent):
 
 	##### Old Style Spindle Controls #####
 
-	# FIXME make sure old style spindle labels still work
+	if 'spindle_speed_sd' in parent.child_names:
+		min_rpm = parent.spindle_0_min_fwd_rpm
+		max_rpm = parent.spindle_0_max_fwd_rpm
+		parent.spindle_speed_sd.setRange(min_rpm, max_rpm)
+		parent.spindle_speed_sd.setValue(parent.spindle_0_default_rpm)
+		parent.spindle_speed_sd.valueChanged.connect(partial(
+		commands.spindle_control, parent, i, 'speed'))
 
 	# test if new style and old style exist
+
 	if 'spindle_fwd_pb' in parent.child_names:
 		if 'spindle_fwd_0_pb' in parent.child_names:
 			parent.spindle_fwd_pb.setEnabled(False)
