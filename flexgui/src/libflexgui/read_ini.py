@@ -10,52 +10,6 @@ def read(parent):
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
-	# make a list of lists with every old section/item and warn if found
-	old_ini_items = [
-	['FLEX_COLORS', 'ESTOP_OPEN'],
-	['FLEX_COLORS', 'ESTOP_CLOSED'],
-	['FLEX_COLORS', 'POWER_OFF'],
-	['FLEX_COLORS', 'POWER_ON'],
-	['FLEXGUI', 'ESTOP_OPEN_COLOR'],
-	['FLEXGUI', 'ESTOP_CLOSED_COLOR'],
-	['FLEXGUI', 'POWER_OFF_COLOR'],
-	['FLEXGUI', 'POWER_ON_COLOR'],
-	['FLEXGUI', 'TOUCH_QSS'],
-	['DISPLAY', 'RESOURCES'],
-	['DISPLAY', 'SIZE'],
-	['DISPLAY', 'VIEW'],
-	['DISPLAY', 'THEME'],
-	['DISPLAY', 'QSS'],
-	['DISPLAY', 'DRO_FONT_SIZE'],
-	['FLEX', 'PLOT_BACKGROUND_COLOR'],
-	['FLEX', 'TOUCH_FILE_WIDTH'],
-	['FLEX', 'MANUAL_TOOL_CHANGE'],
-	['FLEX', 'IMPORT'],
-	]
-	for item in old_ini_items:
-		if parent.inifile.find(item[0], item[1]):
-			msg = (f'The key {item[1]} has been moved from the\n'
-			f'[{item[0]}] section or is no longer used\n'
-			'by FlexGUI or the name has been changed.\n'
-			'Check the INI section of the Documents\n'
-			'for correct INI entries.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
-	old_spindle_items = [
-	['DISPLAY', 'DEFAULT_SPINDLE_SPEED'],
-	['DISPLAY', 'SPINDLE_INCREMENT'],
-	['DISPLAY', 'MAX_SPINDLE_OVERRIDE']
-	]
-
-	for item in old_spindle_items:
-		if parent.inifile.find(item[0], item[1]):
-			msg = (f'The key {item[1]} in the [{item[0]}] section\n'
-			'was depreciated with multiple spindles addition.\n'
-			'The Spindle keys are now in [SPINDLE_0] section.\n'
-			'Check the INI section of the Documents\n'
-			'for correct INI entries.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
-
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 	if machine_name:
@@ -170,6 +124,64 @@ def read(parent):
 
 	# ***** [FLEXGUI] Section *****
 
+	# check for POPUP_QSS file, this must be checked first before any dialogs
+	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
+	if parent.popup_qss:
+		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)):
+			msg = (f'The Touch Popup QSS file {parent.popup_qss}\n'
+				'Was not found. QSS can not be applied')
+			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
+	else: # POPUP_QSS not in ini file
+		parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
+	print(parent.popup_qss)
+
+	# make a list of lists with every old section/item and warn if found
+	old_ini_items = [
+	['FLEX_COLORS', 'ESTOP_OPEN'],
+	['FLEX_COLORS', 'ESTOP_CLOSED'],
+	['FLEX_COLORS', 'POWER_OFF'],
+	['FLEX_COLORS', 'POWER_ON'],
+	['FLEXGUI', 'ESTOP_OPEN_COLOR'],
+	['FLEXGUI', 'ESTOP_CLOSED_COLOR'],
+	['FLEXGUI', 'POWER_OFF_COLOR'],
+	['FLEXGUI', 'POWER_ON_COLOR'],
+	['FLEXGUI', 'TOUCH_QSS'],
+	['DISPLAY', 'RESOURCES'],
+	['DISPLAY', 'SIZE'],
+	['DISPLAY', 'VIEW'],
+	['DISPLAY', 'THEME'],
+	['DISPLAY', 'QSS'],
+	['DISPLAY', 'DRO_FONT_SIZE'],
+	['FLEX', 'PLOT_BACKGROUND_COLOR'],
+	['FLEX', 'TOUCH_FILE_WIDTH'],
+	['FLEX', 'MANUAL_TOOL_CHANGE'],
+	['FLEX', 'IMPORT'],
+	]
+	for item in old_ini_items:
+		if parent.inifile.find(item[0], item[1]):
+			msg = (f'The key {item[1]} has been moved from the\n'
+			f'[{item[0]}] section or is no longer used\n'
+			'by FlexGUI or the name has been changed.\n'
+			'Check the INI section of the Documents\n'
+			'for correct INI entries.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
+	old_spindle_items = [
+	['DISPLAY', 'DEFAULT_SPINDLE_SPEED'],
+	['DISPLAY', 'SPINDLE_INCREMENT'],
+	['DISPLAY', 'MAX_SPINDLE_OVERRIDE']
+	]
+
+	for item in old_spindle_items:
+		if parent.inifile.find(item[0], item[1]):
+			msg = (f'The key {item[1]} in the [{item[0]}] section\n'
+			'was depreciated with multiple spindles addition.\n'
+			'The Spindle keys are now in [SPINDLE_0] section.\n'
+			'Check the INI section of the Documents\n'
+			'for correct INI entries.')
+			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
 	if isinstance(parent.cycle_time, str): # the ini file had a setting
@@ -216,16 +228,6 @@ def read(parent):
 				'Was not found. QSS can not be applied')
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.qss_file = False
-
-	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
-	if parent.popup_qss:
-		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)):
-			msg = (f'The Touch Popup QSS file {parent.popup_qss}\n'
-				'Was not found. QSS can not be applied')
-			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
-	else: # POPUP_QSS not in ini file
-		parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file:
