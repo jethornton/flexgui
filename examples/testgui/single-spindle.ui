@@ -840,7 +840,7 @@
         <string>Spindle</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_27">
-        <item row="2" column="1">
+        <item row="3" column="1">
          <widget class="QGroupBox" name="groupBox_19">
           <property name="title">
            <string>Spindle Override</string>
@@ -875,79 +875,6 @@
            </item>
           </layout>
          </widget>
-        </item>
-        <item row="0" column="0" rowspan="2">
-         <widget class="QGroupBox" name="groupBox_17">
-          <property name="title">
-           <string>Spindle Controls</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <widget class="QPushButton" name="spindle_fwd_pb">
-             <property name="text">
-              <string>Spindle Forward</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="spindle_rev_pb">
-             <property name="text">
-              <string>Spindle Reverse</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="spindle_stop_pb">
-             <property name="text">
-              <string>Spindle Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="spindle_plus_pb">
-             <property name="text">
-              <string>Spindle Faster</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="spindle_minus_pb">
-             <property name="text">
-              <string>Spindle Slower</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spindle_speed_sb"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="2" colspan="2">
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="0" column="1" rowspan="2">
          <widget class="QGroupBox" name="groupBox_18">
@@ -1022,6 +949,95 @@
             <widget class="QLabel" name="spindle_enabled_0_lb">
              <property name="text">
               <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="2" colspan="2">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_17">
+          <property name="title">
+           <string>Spindle Controls</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="QPushButton" name="spindle_fwd_pb">
+             <property name="text">
+              <string>Spindle Forward</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="spindle_rev_pb">
+             <property name="text">
+              <string>Spindle Reverse</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="spindle_stop_pb">
+             <property name="text">
+              <string>Spindle Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="spindle_plus_pb">
+             <property name="text">
+              <string>Spindle Faster</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="spindle_minus_pb">
+             <property name="text">
+              <string>Spindle Slower</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spindle_speed_sb"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QGroupBox" name="groupBox_25">
+          <property name="title">
+           <string>Spindle Speed Slider</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_35">
+           <item row="0" column="0">
+            <widget class="QSlider" name="spindle_speed_sd">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
