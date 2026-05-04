@@ -61,9 +61,11 @@ spindle it is spindle 0.
 Spindle Controls
 ----------------
 
-The following items control the spindle on/off direction and speed
+The following items control the spindle on/off direction and speed for a single
+spindle configuration. There are two ways to control the spindle speed, using a
+QSpinBox or a QSlider.
 
-.. csv-table:: **Spindle Status Labels**
+.. csv-table:: **Single Spindle Controls**
    :width: 100%
    :align: center
    :widths: 30 30 40
@@ -75,11 +77,38 @@ The following items control the spindle on/off direction and speed
 	Spindle Faster, QPushButton, spindle_plus_pb
 	Spindle Slower, QPushButton, spindle_minus_pb
 	Spindle Speed, QSpinBox, spindle_speed_sb
+	Spindle Speed, QSlider, spindle_speed_sl
 
 .. note:: The spindle can not be started with a spindle speed of zero.
 
+The following items are manual spindle control each spindle up to 8.
+
+.. csv-table:: **Multiple Spindle Controls**
+   :width: 100%
+   :align: center
+   :widths: 30 30 40
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Forward, QPushButton, spindle_fwd_n_pb
+	Spindle Reverse, QPushButton, spindle_rev_n_pb
+	Spindle Stop, QPushButton, spindle_stop_n_pb
+	Spindle Faster, QPushButton, spindle_plus_n_pb
+	Spindle Slower, QPushButton, spindle_minus_n_pb
+	Spindle Speed, QSpinBox, spindle_speed_n_sb
+
 Spindle Overrides
 -----------------
+
+If you just have one spindle you can use either the Multiple Spindle Override
+with n being 0 or the Single Spindle Override.
+
+.. csv-table:: **Single Spindle Override**
+   :width: 100%
+   :align: center
+   :widths: 30 30 40
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Override, QSlider, spindle_override_sl
 
 The spindle speed override is set using a QSlider. See the Status Labels above
 for spindle override status labels. The Multiple Spindle Override is the
@@ -97,16 +126,5 @@ The spindle speed override is set using a QSlider. The spindles are numbered
 0-7 so replace the `n` with the number of the spindle you want to override.
 
 See the Status Labels above for spindle override status labels.
-
-If you just have one spindle you can use either the Multiple Spindle Override
-with n being 0 or the Single Spindle Override.
-
-.. csv-table:: **Single Spindle Override**
-   :width: 100%
-   :align: center
-   :widths: 30 30 40
-
-	**Control Function**, **Object Type**, **Object Name**
-	Spindle Override, QSlider, spindle_override_sl
 
 
