@@ -134,7 +134,6 @@ def read(parent):
 			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 	else: # POPUP_QSS not in ini file
 		parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
-	print(parent.popup_qss)
 
 	# make a list of lists with every old section/item and warn if found
 	old_ini_items = [
@@ -459,7 +458,7 @@ def read(parent):
 			default_rpm = utilities.to_int(default_rpm)
 		else:
 			default_rpm = 0
-		setattr(parent, f'spindle_{i}_default_rpm', default_rpm)
+		setattr(parent, f'spindle_rpm_{i}', default_rpm)
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
