@@ -253,7 +253,7 @@ def tool_touchoff(parent):
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
 def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
-	#print(f'spindle {spindle}')
+	#print(f'spindle {spindle} action {action}')
 	match action:
 		case 'fwd':
 			#print(f'Spindle:{spindle} Action:{action}')
@@ -347,7 +347,15 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.spindle_speed_sl.setValue(new_rpm)
 
 def spindle_override(parent, spindle=0, value=0):
-	parent.command.spindleoverride(float(value / 100), spindle)
+	override = value / 100
+	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
+	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
+	rpm_setting = getattr(parent, f'spindle_rpm_{spindle}')
+	override_rpm = int(rpm_setting * override)
+	if override_rpm <= max_rpm and override_rpm >= min_rpm:
+		parent.command.spindleoverride(float(value / 100), spindle)
+	else:
+		parent.statusBar().showMessage('Override Exceeds Limits', 5000)
 
 def flood_toggle(parent):
 	parent.status.poll()
