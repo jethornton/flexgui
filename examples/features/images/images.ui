@@ -48,13 +48,26 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="0" column="1">
         <widget class="QLabel" name="chips_emc_lb">
          <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
          <property name="text">
           <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>An image requires a resources.py file and a qss stylesheet to display an image in a label or a button.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -107,6 +120,19 @@
       </property>
       <property name="text">
        <string>&lt;a href='https://gnipsel.com/linuxcnc/flexgui/resources.html'&gt;Resources Docs&lt;/a&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>&lt;a href='https://gnipsel.com/linuxcnc/flexgui/style.html'&gt;Stylesheet Docs&lt;/a&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
