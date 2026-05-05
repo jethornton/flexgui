@@ -1339,7 +1339,9 @@ def setup_jog(parent):
 				parent.min_jog_vel_lb.setText(f'{int(float(parent.min_jog_vel) * 60)}')
 
 		if parent.default_jog_vel:
+			parent.jog_vel_sl.blockSignals(True)
 			parent.jog_vel_sl.setValue(int(float(parent.default_jog_vel) * 60))
+			parent.jog_vel_sl.blockSignals(False)
 
 		if parent.max_jog_vel:
 			parent.jog_vel_sl.setMaximum(int(float(parent.max_jog_vel) * 60))
@@ -1452,9 +1454,9 @@ def setup_spindle(parent):
 	##### Start of Multiple Spindle #####
 
 	# create a spindle rpm variable for each spindle
-	for i in range(parent.status.spindles):
-		min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-		setattr(parent, f'spindle_rpm_{i}', min_rpm)
+	#for i in range(parent.status.spindles):
+	#	min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+	#	setattr(parent, f'spindle_rpm_{i}', min_rpm)
 	'''
 	brake (returns integer) - value of the spindle brake flag.
 	direction (returns integer) - rotational direction of the spindle. forward=1, reverse=-1
@@ -1566,27 +1568,32 @@ def setup_spindle(parent):
 	for i in range(parent.status.spindles):
 		if f'spindle_override_{i}_sl' in parent.child_names:
 			min_override = getattr(parent, f'spindle_{i}_min_override')
-			getattr(parent, f'spindle_override_{i}_sl').setMinimum(min_override)
 			max_override = getattr(parent, f'spindle_{i}_max_override')
+			getattr(parent, f'spindle_override_{i}_sl').blockSignals(True)
+			getattr(parent, f'spindle_override_{i}_sl').setMinimum(min_override)
 			getattr(parent, f'spindle_override_{i}_sl').setMaximum(max_override)
-			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
-			partial(commands.spindle_override, parent, i))
 			if max_override >= 100:
 				getattr(parent, f'spindle_override_{i}_sl').setValue(100)
 			else:
 				getattr(parent, f'spindle_override_{i}_sl').setValue(max_override)
+			getattr(parent, f'spindle_override_{i}_sl').blockSignals(False)
+
+			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
+			partial(commands.spindle_override, parent, i))
 
 	for i in range(parent.status.spindles):
 		if f'spindle_speed_{i}_sb' in parent.child_names:
 			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-			getattr(parent, f'spindle_speed_{i}_sb').setMinimum(min_rpm)
 			max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-			getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
 			increment  = getattr(parent, f'spindle_{i}_rpm_increment')
+			getattr(parent, f'spindle_speed_{i}_sb').blockSignals(True)
+			getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
+			getattr(parent, f'spindle_speed_{i}_sb').setMinimum(min_rpm)
 			getattr(parent, f'spindle_speed_{i}_sb').setSingleStep(increment)
-			def_rpm  = getattr(parent, f'spindle_{i}_default_rpm')
+			def_rpm  = getattr(parent, f'spindle_rpm_{i}')
 			getattr(parent, f'spindle_speed_{i}_sb').setValue(def_rpm)
-			setattr(parent, f'spindle_rpm_{i}', def_rpm)
+			getattr(parent, f'spindle_speed_{i}_sb').blockSignals(False)
+
 			getattr(parent, f'spindle_speed_{i}_sb').valueChanged.connect(
 			partial(commands.spindle_control, parent, i, 'speed'))
 			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
@@ -1598,10 +1605,12 @@ def setup_spindle(parent):
 	if 'spindle_speed_sl' in parent.child_names:
 		min_rpm = parent.spindle_0_min_fwd_rpm
 		max_rpm = parent.spindle_0_max_fwd_rpm
-		parent.spindle_speed_sl.setRange(min_rpm, max_rpm)
-		parent.spindle_speed_sl.setValue(parent.spindle_0_default_rpm)
 		parent.spindle_speed_sl.valueChanged.connect(partial(
 		commands.spindle_control, parent, i, 'speed'))
+		parent.spindle_speed_sl.blockSignals(True)
+		parent.spindle_speed_sl.setRange(min_rpm, max_rpm)
+		parent.spindle_speed_sl.setValue(parent.spindle_rpm_0)
+		parent.spindle_speed_sl.blockSignals(False)
 
 	# test if new style and old style exist
 
@@ -1670,9 +1679,11 @@ def setup_spindle(parent):
 		else: # only the old style is present
 			parent.spindle_override_sl.valueChanged.connect(partial(
 				commands.spindle_override, parent, 0))
+			parent.spindle_override_sl.blockSignals(True)
 			parent.spindle_override_sl.setMinimum(parent.spindle_0_min_override)
 			parent.spindle_override_sl.setMaximum(parent.spindle_0_max_override)
 			parent.spindle_override_sl.setValue(100)
+			parent.spindle_override_sl.blockSignals(False)
 
 	if 'spindle_speed_sb' in parent.child_names:
 		if 'spindle_minus_0_pb' in parent.child_names:
@@ -1683,10 +1694,12 @@ def setup_spindle(parent):
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle_control, parent, 0, 'speed'))
+			parent.spindle_speed_sb.blockSignals(True)
 			parent.spindle_speed_sb.setSingleStep(parent.spindle_0_rpm_increment)
 			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
 			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
-			parent.spindle_speed_sb.setValue(parent.spindle_0_default_rpm)
+			parent.spindle_speed_sb.setValue(parent.spindle_rpm_0)
+			parent.spindle_speed_sb.blockSignals(False)
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
@@ -1859,20 +1872,26 @@ def setup_tools(parent):
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.child_names:
 		parent.feed_override_sl.valueChanged.connect(partial(utilities.feed_override, parent))
+		parent.feed_override_sl.blockSignals(True)
 		parent.feed_override_sl.setMaximum(int(float(parent.max_feed_override) * 100))
 		parent.feed_override_sl.setValue(100)
+		parent.feed_override_sl.blockSignals(False)
 
 	if 'rapid_override_sl' in parent.child_names:
 		parent.rapid_override_sl.valueChanged.connect(partial(utilities.rapid_override, parent))
+		parent.rapid_override_sl.blockSignals(True)
 		parent.rapid_override_sl.setMaximum(100)
 		parent.rapid_override_sl.setValue(100)
+		parent.rapid_override_sl.blockSignals(False)
 
 	if 'max_vel_sl' in parent.child_names:
 		if parent.max_linear_vel:
 			parent.max_vel_sl.valueChanged.connect(partial(utilities.max_velocity, parent))
 			max_units_min = int(float(parent.max_linear_vel) * 60)
+			parent.max_vel_sl.blockSignals(True)
 			parent.max_vel_sl.setMaximum(max_units_min)
 			parent.max_vel_sl.setValue(max_units_min)
+			parent.max_vel_sl.blockSignals(False)
 		else:
 			msg = ('The [TRAJ] section key MAX_LINEAR_VELOCITY\n'
 				'was not found. The max_linear_vel slider will be disabled\n')
