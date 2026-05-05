@@ -63,7 +63,10 @@ Spindle Controls
 
 The following items control the spindle on/off direction and speed for a single
 spindle configuration. There are two ways to control the spindle speed, using a
-QSpinBox or a QSlider.
+QSpinBox or a QSlider. You can have both the QSpinBox and the QSlider and
+changing one will update the other. The QSpinBox up/down arrow keys will change
+the value by the `INCREMENT` setting in the [SPINDLE_0] section down to the
+`MIN_RPM` and up to the `MAX_RPM`.
 
 .. csv-table:: **Single Spindle Controls**
    :width: 100%
@@ -81,7 +84,8 @@ QSpinBox or a QSlider.
 
 .. note:: The spindle can not be started with a spindle speed of zero.
 
-The following items are manual spindle control each spindle up to 8.
+The following items are manual spindle control each spindle up to 8 spindles.
+The spindles are numbered 0-7 with the default spindle being 0.
 
 .. csv-table:: **Multiple Spindle Controls**
    :width: 100%
