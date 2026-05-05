@@ -255,7 +255,7 @@ def tool_touchoff(parent):
 def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 	#print(f'spindle {spindle} action {action}')
 	match action:
-		case 'fwd':
+		case 'fwd': # FIXME can't start at 0 rpm
 			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = getattr(parent, f'spindle_rpm_{spindle}')
 			parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
@@ -347,15 +347,19 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.spindle_speed_sl.setValue(new_rpm)
 
 def spindle_override(parent, spindle=0, value=0):
+	parent.status.poll()
+	rpm = parent.status.spindle[spindle]['speed']
+	#print(f'rpm {rpm}')
 	override = value / 100
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	rpm_setting = getattr(parent, f'spindle_rpm_{spindle}')
-	override_rpm = int(rpm_setting * override)
+	override_rpm = int(rpm * override)
+	print(f'override_rpm {override_rpm}')
 	if override_rpm <= max_rpm and override_rpm >= min_rpm:
 		parent.command.spindleoverride(float(value / 100), spindle)
 	else:
-		parent.statusBar().showMessage('Override Exceeds Limits', 5000)
+		parent.statusBar().showMessage(f'Override Exceeds Spindle {spindle} Limits', 5000)
 
 def flood_toggle(parent):
 	parent.status.poll()
