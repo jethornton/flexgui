@@ -449,6 +449,12 @@ def read(parent):
 		max_override = parent.inifile.find(f'SPINDLE_{i}', 'MAX_OVERRIDE') or False
 		if isinstance(max_override, str):
 			max_override = utilities.to_int(max_override)
+			if max_override < 100:
+				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to {max_override}.\n'
+				'The minimum for MAX_OVERRIDE is 100.\n'
+				'MAX_OVERRIDE has been set to 100.')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				max_override = 100
 		else:
 			max_override = 100
 		setattr(parent, f'spindle_{i}_max_override', max_override)
