@@ -258,12 +258,13 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
 	increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
-	if spindle == 0 and 'spindle_override_sl' in parent.child_names:
-		override = parent.spindle_override_sl.value() / 100
-	elif f'spindle_override_{spindle}_sl' in parent.child_names:
-		override = getattr(parent, f'spindle_override_{spindle}_sl').value() / 100
-	else:
-		override = 1
+	override = parent.status.spindle[spindle]['override']
+	#if spindle == 0 and 'spindle_override_sl' in parent.child_names:
+	#	override = parent.spindle_override_sl.value() / 100
+	#elif f'spindle_override_{spindle}_sl' in parent.child_names:
+	#	override = getattr(parent, f'spindle_override_{spindle}_sl').value() / 100
+	#else:
+	#	override = 1
 	#print(f'override {override}')
 	rpm_override = rpm * override
 	#print(f'rpm_override {rpm_override}')
@@ -317,11 +318,17 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 		case 'minus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			#current = getattr(parent, f'spindle_rpm_{spindle}')
-
+			#print(f'minus rpm {rpm}')
+			#print(f'minus increment {increment}')
+			#print(f'minus override {override}')
+			#print(f'minus rpm - increment {rpm - increment}')
 			new_rpm = int((rpm - increment) * override)
+			#print(f'minus new_rpm <= min_rpm {new_rpm <= min_rpm}')
+
 			if new_rpm <= min_rpm:
 				new_rpm = min_rpm
 				parent.statusBar().showMessage(f'RPM Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}', 5000)
+			print(f'minus new_rpm {new_rpm}')
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
