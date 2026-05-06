@@ -479,7 +479,8 @@ and the speed spinbox up/down arrow key increment.
 The `MIN_OVERRIDE` and `MAX_OVERRIDE` set the limits for the spindle speed
 override slider. The value is the percent of override to allow. So if you set
 `MIN_OVERRIDE` to 50 the minimum speed override is 50% of the current programmed
-or manual setting of the spindle.
+or manual setting of the spindle. The key `MAX_OVERRIDE` must be set at 100 or
+higher.
 
 The `DEFAULT_RPM` will be the RPM setting at startup.
 
