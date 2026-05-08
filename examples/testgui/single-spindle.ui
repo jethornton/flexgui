@@ -846,14 +846,28 @@
            <string>Spindle Override</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_28">
-           <item row="2" column="0" colspan="2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="spindle_override_0_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="spindle_percent_100">
+             <property name="text">
+              <string>Override 100</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
             <widget class="QSlider" name="spindle_override_sl">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <spacer name="horizontalSpacer_5">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -865,13 +879,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="spindle_override_0_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -1596,13 +1603,6 @@ Enable</string>
             <widget class="QPushButton" name="rapid_percent_100">
              <property name="text">
               <string>Rapid 100%</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="spindle_percent_100">
-             <property name="text">
-              <string>Spindle 100%</string>
              </property>
             </widget>
            </item>
