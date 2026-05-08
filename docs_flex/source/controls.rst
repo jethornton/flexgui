@@ -239,7 +239,8 @@ Override Presets
 
 Feed, Rapid and Spindle overrides can have a preset button(s) for different
 preset amounts. Replace the nnn with the percent of override you want that
-button to use.
+button to use. For Spindle Override presets see 
+:ref:`Spindle Override Presets <spindle_override_presets>` 
 
 .. csv-table:: **Override Presets**
    :width: 100%
@@ -249,7 +250,6 @@ button to use.
 	**Function**, **Widget**, **Object Name**
 	Feed Override Preset, QPushButton, feed_percent_nnn
 	Rapid Override Preset, QPushButton, rapid_percent_nnn
-	Spindle Override Preset, QPushButton, spindle_percent_nnn
 
 .. note:: The maximum override for Rapid is 100
 
