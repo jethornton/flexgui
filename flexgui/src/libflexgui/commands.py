@@ -399,6 +399,20 @@ def spindle_override(parent, spindle=0, value=0):
 		msg = f'Override RPM {override_rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
 		parent.statusBar().showMessage(msg, 5000)
 
+def spindle_override_preset(parent, spindle, value):
+	#value = int(parent.sender().objectName().split('_')[-1])
+	# spindleoverride(float [, int])
+	# Set spindle override factor. Defaults to spindle 0.
+
+	parent.command.spindleoverride(float(value / 100), spindle)
+	parent.command.wait_complete()
+
+	if 'spindle_override_sl' in parent.child_names:
+		parent.spindle_override_sl.setValue(value)
+
+	if f'spindle_override_{spindle}_sl' in parent.child_names:
+		getattr(parent, f'spindle_override_{spindle}_sl').setValue(value)
+
 def flood_toggle(parent):
 	parent.status.poll()
 	if parent.sender().isChecked():
@@ -449,11 +463,5 @@ def rapid_override_preset(parent):
 	if 'rapid_override_sl' in parent.child_names:
 		parent.rapid_override_sl.setValue(value)
 
-def spindle_override_preset(parent):
-	value = int(parent.sender().objectName().split('_')[-1])
-	parent.command.spindleoverride(float(value / 100))
-	parent.command.wait_complete()
-	if 'spindle_override_sl' in parent.child_names:
-		parent.spindle_override_sl.setValue(value)
 
 
