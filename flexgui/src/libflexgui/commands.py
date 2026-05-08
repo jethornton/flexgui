@@ -252,44 +252,45 @@ def tool_touchoff(parent):
 		msg = ('No Tool in Spindle.')
 		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
 
-def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
+def spindle_control(parent, spindle, action):
 	#print(f'spindle {spindle} action {action}')
 	rpm = getattr(parent, f'spindle_rpm_{spindle}')
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
 	increment = getattr(parent, f'spindle_{spindle}_rpm_increment')
 	override = parent.status.spindle[spindle]['override']
-	rpm_override = rpm * override
 
 	match action:
 		case 'fwd':
 			#print(f'Spindle:{spindle} Action:{action}')
+			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
 			else:
-				parent.statusBar().showMessage(f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}', 5000)
+				msg = f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
+				parent.statusBar().showMessage(msg, 5000)
 
 		case 'rev':
 			#print(f'Spindle:{spindle} Action:{action}')
+			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
 			else:
-				parent.statusBar().showMessage(f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}', 5000)
+				msg = f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
+				parent.statusBar().showMessage(msg, 5000)
 
 		case 'stop':
 			#print(f'Spindle:{spindle} Action:{action}')
 			parent.command.spindle(emc.SPINDLE_OFF, spindle)
 
-		case 'plus': # FIXME cap new_rpm at max_rpm then check override
+		case 'plus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			new_rpm = rpm + increment
 			if new_rpm > max_rpm:
 				msg = f'RPM {new_rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
 				parent.statusBar().showMessage(msg, 5000)
 				new_rpm = max_rpm
-			#print(f'plus new_rpm {new_rpm}')
-			#print(f'plus new_rpm * override {new_rpm * override}')
-			#print(f'new_rpm {new_rpm} override {override} max_rpm {max_rpm}')
+
 			if min_rpm <= new_rpm * override >= max_rpm: # exceeds range
 				if new_rpm * override > max_rpm:
 					new_rpm = int(max_rpm / override)
@@ -309,26 +310,23 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
-			#print(f"Spindle:{spindle} RPM {getattr(parent, f'spindle_rpm_{spindle}')}")
 
-		case 'minus': # FIXME cap new_rpm at min_rpm then check override
+		case 'minus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			new_rpm = rpm - increment
-			print(f'minus new_rpm {new_rpm}')
+
 			if new_rpm < min_rpm:
 				msg = f'RPM {new_rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
 				parent.statusBar().showMessage(msg, 5000)
 				new_rpm = min_rpm
-			#print(f'minus new_rpm {new_rpm}')
-			#print(f'minus new_rpm * override {new_rpm * override}')
+
 			if min_rpm <= new_rpm * override <= max_rpm:
 				setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
 			else: # exceeds range
 				if new_rpm * override <= min_rpm:
 					new_rpm = int(min_rpm / override)
-					print(f'minus exceeds range new_rpm {new_rpm}')
-				parent.statusBar().showMessage(f'RPM Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}', 5000)
-			print(f'minus new_rpm {new_rpm}')
+				msg = f'RPM {new_rpm * override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
+				parent.statusBar().showMessage(msg, 5000)
 
 			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.blockSignals(True)
@@ -344,10 +342,26 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
 
-		case 'speed':
+		case 'speed': # called by spindle spinboxes and slider
 			#print(f'Spindle:{spindle} Action:{action}')
-			sender = parent.sender().objectName()
-			new_rpm = getattr(parent, sender).value()
+			sender = parent.sender()
+			new_rpm = sender.value()
+			rpm_override = new_rpm * override
+
+			# make sure the rpm is within limits
+			if rpm_override > max_rpm:
+				print(f'max_rpm {int(max_rpm / override)}')
+				new_rpm = int(max_rpm / override)
+				sender.setValue(new_rpm)
+				msg = f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
+				parent.statusBar().showMessage(msg, 5000)
+			elif rpm_override < min_rpm:
+				print(f'min_rpm {int(min_rpm / override)}')
+				new_rpm = int(min_rpm / override)
+				sender.setValue(new_rpm)
+				msg = f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
+				parent.statusBar().showMessage(msg, 5000)
+
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
@@ -363,18 +377,25 @@ def spindle_control(parent, spindle, action): # Fwd Rev Off Plus Minus
 			print('Unknown Action')
 
 def spindle_override(parent, spindle=0, value=0):
+	sender = parent.sender()
 	parent.status.poll()
 	rpm = parent.status.spindle[spindle]['speed']
 	override = value / 100
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
-	#rpm_setting = getattr(parent, f'spindle_rpm_{spindle}')
 	override_rpm = int(rpm * override)
-	#if override_rpm <= max_rpm and override_rpm >= min_rpm or rpm == 0:
 	if min_rpm <= override_rpm <= max_rpm or rpm == 0:
 		parent.command.spindleoverride(float(value / 100), spindle)
 		parent.statusBar().clearMessage()
 	else:
+		if override_rpm < min_rpm:
+			min_override = int((min_rpm / rpm) * 100)
+			if min_override >= sender.minimum():
+				sender.setValue(min_override)
+		elif override_rpm > max_rpm:
+			max_override = int((max_rpm / rpm) * 100)
+			if max_override <= sender.maximum():
+				sender.setValue(max_override)
 		msg = f'Override RPM {override_rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
 		parent.statusBar().showMessage(msg, 5000)
 
