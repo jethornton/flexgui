@@ -860,20 +860,6 @@ def setup_buttons(parent): # connect buttons to functions
 				button.setText('Error!')
 				getattr(parent, item).setEnabled(False)
 
-		elif item.startswith('spindle_percent_'):
-			button = getattr(parent, item)
-			value = item.split('_')[-1]
-			if utilities.is_int(value):
-				button.clicked.connect(partial(commands.spindle_override_preset, parent))
-			else:
-				msg = (f'The button named {item}\n'
-				f'with the button text of {button.text()}\n'
-				f'{value} did not evaluate to and integer\n'
-				'The button will be disabled.')
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-				button.setText('Error!')
-				getattr(parent, item).setEnabled(False)
-
 	# nc code search
 	if 'search_pb' in parent.child_names:
 		parent.search_pb.clicked.connect(partial(dialogs.find, parent))
@@ -1598,6 +1584,22 @@ def setup_spindle(parent):
 			partial(commands.spindle_control, parent, i, 'speed'))
 			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
 
+	for i in range(parent.status.spindles):
+		for item in parent.child_names:
+			if item.startswith(f'spindle_percent_{i}'):
+				button = getattr(parent, item)
+				value = item.split('_')[-1]
+				if utilities.is_int(value):
+					button.clicked.connect(partial(commands.spindle_override_preset, parent, i, int(value)))
+				else:
+					msg = (f'The button named {item}\n'
+					f'with the button text of {button.text()}\n'
+					f'{value} did not evaluate to an integer\n'
+					'The button will be disabled.')
+					dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+					button.setText('Error!')
+					getattr(parent, item).setEnabled(False)
+
 	##### End of Multi Spindles #####
 
 	##### Old Style Spindle Controls #####
@@ -1700,6 +1702,22 @@ def setup_spindle(parent):
 			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
 			parent.spindle_speed_sb.setValue(parent.spindle_rpm_0)
 			parent.spindle_speed_sb.blockSignals(False)
+
+	# override preset buttons for Spindle 0
+	for item in parent.child_names:
+		if item.startswith('spindle_percent_'):
+			button = getattr(parent, item)
+			value = item.split('_')[-1]
+			if utilities.is_int(value):
+				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
+			else:
+				msg = (f'The button named {item}\n'
+				f'with the button text of {button.text()}\n'
+				f'{value} did not evaluate to an integer\n'
+				'The button will be disabled.')
+				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
+				button.setText('Error!')
+				getattr(parent, item).setEnabled(False)
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
