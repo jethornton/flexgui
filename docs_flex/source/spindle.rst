@@ -131,4 +131,32 @@ The spindle speed override is set using a QSlider. The spindles are numbered
 
 See the Status Labels above for spindle override status labels.
 
+.. _spindle_override_presets:
+
+Spindle Override Presets
+------------------------
+
+A QPushButton can be used to set the spindle override to a set value. The value
+must be within the range of the override slider.
+
+.. csv-table:: **Single Spindle Override Presets**
+   :width: 100%
+   :align: left
+   :widths: 40 20 40
+
+	**Function**, **Widget**, **Object Name**
+	Spindle Override Preset, QPushButton, spindle_percent_nnn
+
+For multiple spindles you need to add the spindle number to the object name. For
+example for spindle 2 a preset of 75% the QPushbutton name would be
+`spindle_percent_2_75`
+
+.. csv-table:: **Multiple Spindle Override Presets**
+   :width: 100%
+   :align: left
+   :widths: 40 20 40
+
+	**Function**, **Widget**, **Object Name**
+	Spindle Override Preset, QPushButton, spindle_percent_n_nnn
+
 
