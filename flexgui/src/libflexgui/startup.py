@@ -1688,7 +1688,7 @@ def setup_spindle(parent):
 			parent.spindle_override_sl.blockSignals(False)
 
 	if 'spindle_speed_sb' in parent.child_names:
-		if 'spindle_minus_0_pb' in parent.child_names:
+		if 'spindle_speed_0_pb' in parent.child_names:
 			parent.spindle_speed_sb.setEnabled(False)
 			msg = ('The old style spindle_speed_sb was found\n'
 			'and the new style spindle_minus_0_pb was found\n'
