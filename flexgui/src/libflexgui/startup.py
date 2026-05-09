@@ -1619,9 +1619,8 @@ def setup_spindle(parent):
 	if 'spindle_fwd_pb' in parent.child_names:
 		if 'spindle_fwd_0_pb' in parent.child_names:
 			parent.spindle_fwd_pb.setEnabled(False)
-			msg = ('The old style spindle_fwd_pb was found\n'
-			'and the new style spindle_fwd_0_pb was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_fwd_pb was found and the new style '
+			'spindle_fwd_0_pb was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
@@ -1630,9 +1629,8 @@ def setup_spindle(parent):
 	if 'spindle_rev_pb' in parent.child_names:
 		if 'spindle_rev_0_pb' in parent.child_names:
 			parent.spindle_rev_pb.setEnabled(False)
-			msg = ('The old style spindle_rev_pb was found\n'
-			'and the new style spindle_rev_0_pb was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_rev_pb was found and the new style '
+			'spindle_rev_0_pb was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
@@ -1641,9 +1639,8 @@ def setup_spindle(parent):
 	if 'spindle_stop_pb' in parent.child_names:
 		if 'spindle_stop_0_pb' in parent.child_names:
 			parent.spindle_stop_pb.setEnabled(False)
-			msg = ('The old style spindle_stop_pb was found\n'
-			'and the new style spindle_stop_0_pb was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_stop_pb was found and the new style '
+			'spindle_stop_0_pb was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'stop'))
@@ -1652,9 +1649,8 @@ def setup_spindle(parent):
 	if 'spindle_plus_pb' in parent.child_names:
 		if 'spindle_plus_0_pb' in parent.child_names:
 			parent.spindle_plus_pb.setEnabled(False)
-			msg = ('The old style spindle_plus_pb was found\n'
-			'and the new style spindle_plus_0_pb was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_plus_pb was found and the new style '
+			'spindle_plus_0_pb was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'plus'))
@@ -1663,9 +1659,8 @@ def setup_spindle(parent):
 	if 'spindle_minus_pb' in parent.child_names:
 		if 'spindle_minus_0_pb' in parent.child_names:
 			parent.spindle_minus_pb.setEnabled(False)
-			msg = ('The old style spindle_minus_pb was found\n'
-			'and the new style spindle_minus_0_pb was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_minus_pb was found and the new style '
+			'spindle_minus_0_pb was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'minus'))
@@ -1674,9 +1669,8 @@ def setup_spindle(parent):
 	if 'spindle_override_sl' in parent.child_names:
 		if 'spindle_override_0_sl' in parent.child_names:
 			parent.spindle_override_sl.setEnabled(False)
-			msg = ('The old style spindle_override_sl was found\n'
-			'and the new style spindle_override_0_sl was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_override_sl was foundand the new style '
+			'spindle_override_0_sl was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_override_sl.valueChanged.connect(partial(
@@ -1688,11 +1682,10 @@ def setup_spindle(parent):
 			parent.spindle_override_sl.blockSignals(False)
 
 	if 'spindle_speed_sb' in parent.child_names:
-		if 'spindle_speed_0_pb' in parent.child_names:
+		if 'spindle_speed_0_sb' in parent.child_names:
 			parent.spindle_speed_sb.setEnabled(False)
-			msg = ('The old style spindle_speed_sb was found\n'
-			'and the new style spindle_minus_0_pb was found\n'
-			'the old style will be disabled.')
+			msg = ('The old style spindle_speed_sb was found and the new style '
+			'spindle_minus_0_pb was found.\nThe old style will be disabled.')
 			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 		else: # only the old style is present
 			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle_control, parent, 0, 'speed'))
@@ -1711,9 +1704,9 @@ def setup_spindle(parent):
 			if utilities.is_int(value):
 				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
 			else:
-				msg = (f'The button named {item}\n'
-				f'with the button text of {button.text()}\n'
-				f'{value} did not evaluate to an integer\n'
+				msg = (f'The button named {item} '
+				f'with the button text of {button.text()} '
+				f'{value} did not evaluate to an integer '
 				'The button will be disabled.')
 				dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
 				button.setText('Error!')
