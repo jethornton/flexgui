@@ -1608,7 +1608,7 @@ def setup_spindle(parent):
 		min_rpm = parent.spindle_0_min_fwd_rpm
 		max_rpm = parent.spindle_0_max_fwd_rpm
 		parent.spindle_speed_sl.valueChanged.connect(partial(
-		commands.spindle_control, parent, i, 'speed'))
+		commands.spindle_control, parent, 0, 'speed'))
 		parent.spindle_speed_sl.blockSignals(True)
 		parent.spindle_speed_sl.setRange(min_rpm, max_rpm)
 		parent.spindle_speed_sl.setValue(parent.spindle_rpm_0)
