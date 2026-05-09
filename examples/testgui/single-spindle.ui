@@ -840,7 +840,7 @@
         <string>Spindle</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_27">
-        <item row="4" column="1">
+        <item row="3" column="1">
          <widget class="QGroupBox" name="groupBox_19">
           <property name="title">
            <string>Spindle Override</string>
@@ -978,7 +978,7 @@
           </layout>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="3" column="0">
          <spacer name="verticalSpacer_7">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -1049,13 +1049,6 @@
             <widget class="QSpinBox" name="spindle_speed_sb"/>
            </item>
           </layout>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="spindle_fwd_0_pb">
-          <property name="text">
-           <string>Spindle Forward</string>
-          </property>
          </widget>
         </item>
        </layout>
