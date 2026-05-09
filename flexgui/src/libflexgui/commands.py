@@ -350,13 +350,11 @@ def spindle_control(parent, spindle, action):
 
 			# make sure the rpm is within limits
 			if rpm_override > max_rpm:
-				print(f'max_rpm {int(max_rpm / override)}')
 				new_rpm = int(max_rpm / override)
 				sender.setValue(new_rpm)
 				msg = f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
 				parent.statusBar().showMessage(msg, 5000)
 			elif rpm_override < min_rpm:
-				print(f'min_rpm {int(min_rpm / override)}')
 				new_rpm = int(min_rpm / override)
 				sender.setValue(new_rpm)
 				msg = f'RPM {rpm_override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
