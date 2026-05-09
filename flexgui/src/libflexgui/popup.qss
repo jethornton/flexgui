@@ -6,16 +6,14 @@ Popup keyboards only have QLabel, QLineEdit and QPushButton
 QLabel {
 	min-height: 30px;
 	font-family: FreeMono;
-	font-size: 16pt;
-	font-weight: 700;
+	font-size: 14pt;
 }
 
 /***** QLineEdit *****/
 QLineEdit {
 	min-height: 30px;
 	font-family: FreeMono;
-	font-size: 16pt;
-	font-weight: 700;
+	font-size: 14pt;
 }
 
 /***** QAbstractButton *****/
