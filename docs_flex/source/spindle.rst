@@ -131,6 +131,20 @@ The spindle speed override is set using a QSlider. The spindles are numbered
 
 See the Status Labels above for spindle override status labels.
 
+Spindle Speed Presets
+---------------------
+
+Each spindle can have QPushButtons configured to set a speed. Replace `nnn`
+with the speed you want the spindle to change to when you press the button.
+
+.. csv-table:: **Spindle Speed Presets**
+   :width: 100%
+   :align: left
+   :widths: 40 20 40
+
+	**Function**, **Widget**, **Object Name**
+	Spindle Speed Preset, QPushButton, spindle_set_nnn
+
 .. _spindle_override_presets:
 
 Spindle Override Presets
