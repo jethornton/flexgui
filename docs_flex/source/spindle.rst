@@ -27,7 +27,8 @@ Spindle Status
 
 Spindle status labels show the current status of the item. Linuxcnc can have up
 to 8 spindles. The spindles are numbered 0 through 7. If you have a single
-spindle it is spindle 0.
+spindle it is spindle 0. Replace the `s` in the Object Name with the spindle
+number you want to monitor.
 
 .. csv-table:: **Spindle Status Labels**
    :width: 100%
@@ -35,16 +36,16 @@ spindle it is spindle 0.
    :widths: 35 30 35
 
 	**Control Function**, **Object Type**, **Object Name**
-	Spindle Brake, QLabel, spindle_brake_n_lb
-	Spindle Direction, QLabel, spindle_direction_n_lb
-	Spindle Enabled, QLabel, spindle_enabled_n_lb
-	Spindle Override Enabled, QLabel, spindle_override_enabled_n_lb
-	Spindle Speed, QLabel, spindle_speed_n_lb
-	Spindle Speed LCD, QLCDNumber, spindle_speed_n_lcd
-	Spindle Commanded Speed, QLabel, spindle_cmd_speed_n_lb
-	Spindle Override Percent, QLabel, spindle_override_n_lb
-	Spindle Orient State, QLabel, spindle_orient_state_n_lb
-	Spindle Orient Fault, QLabel, spindle_orient_fault_n_lb
+	Spindle Brake, QLabel, spindle_brake_s_lb
+	Spindle Direction, QLabel, spindle_direction_s_lb
+	Spindle Enabled, QLabel, spindle_enabled_s_lb
+	Spindle Override Enabled, QLabel, spindle_override_enabled_s_lb
+	Spindle Speed, QLabel, spindle_speed_s_lb
+	Spindle Speed LCD, QLCDNumber, spindle_speed_s_lcd
+	Spindle Commanded Speed, QLabel, spindle_cmd_speed_s_lb
+	Spindle Override Percent, QLabel, spindle_override_s_lb
+	Spindle Orient State, QLabel, spindle_orient_state_s_lb
+	Spindle Orient Fault, QLabel, spindle_orient_fault_s_lb
 
 .. NOTE:: Replace the `n` with 0 - 7 to indicate which spindle to monitor
 
@@ -85,7 +86,8 @@ the value by the `INCREMENT` setting in the [SPINDLE_0] section down to the
 .. note:: The spindle can not be started with a spindle speed of zero.
 
 The following items are manual spindle control each spindle up to 8 spindles.
-The spindles are numbered 0-7 with the default spindle being 0.
+The spindles are numbered 0-7 with the default spindle being 0. Replace the `s`
+in the Object Name with the spindle number you want to control.
 
 .. csv-table:: **Multiple Spindle Controls**
    :width: 100%
@@ -93,12 +95,12 @@ The spindles are numbered 0-7 with the default spindle being 0.
    :widths: 30 30 40
 
 	**Control Function**, **Object Type**, **Object Name**
-	Spindle Forward, QPushButton, spindle_fwd_n_pb
-	Spindle Reverse, QPushButton, spindle_rev_n_pb
-	Spindle Stop, QPushButton, spindle_stop_n_pb
-	Spindle Faster, QPushButton, spindle_plus_n_pb
-	Spindle Slower, QPushButton, spindle_minus_n_pb
-	Spindle Speed, QSpinBox, spindle_speed_n_sb
+	Spindle Forward, QPushButton, spindle_fwd_s_pb
+	Spindle Reverse, QPushButton, spindle_rev_s_pb
+	Spindle Stop, QPushButton, spindle_stop_s_pb
+	Spindle Faster, QPushButton, spindle_plus_s_pb
+	Spindle Slower, QPushButton, spindle_minus_s_pb
+	Spindle Speed, QSpinBox, spindle_speed_s_sb
 
 Spindle Overrides
 -----------------
@@ -114,9 +116,10 @@ with n being 0 or the Single Spindle Override.
 	**Control Function**, **Object Type**, **Object Name**
 	Spindle Override, QSlider, spindle_override_sl
 
-The spindle speed override is set using a QSlider. See the Status Labels above
-for spindle override status labels. The Multiple Spindle Override is the
-preferred spindle override to use.
+The spindle speed override is set using a QSlider. The Multiple Spindle Override
+is the preferred spindle override to use. The spindles are numbered 0-7 so
+replace the `s` in the Object Name with the number of the spindle you want to override.
+
 
 .. csv-table:: **Multiple Spindle Override**
    :width: 100%
@@ -124,18 +127,16 @@ preferred spindle override to use.
    :widths: 30 30 40
 
 	**Control Function**, **Object Type**, **Object Name**
-	Spindle Override, QSlider, spindle_override_n_sl
-
-The spindle speed override is set using a QSlider. The spindles are numbered
-0-7 so replace the `n` with the number of the spindle you want to override.
+	Spindle Override, QSlider, spindle_override_s_sl
 
 See the Status Labels above for spindle override status labels.
 
 Spindle Speed Presets
 ---------------------
 
-Each spindle can have QPushButtons configured to set a speed. Replace `nnn`
-with the speed you want the spindle to change to when you press the button.
+Each spindle can have QPushButtons configured to set a speed. Replace `s` in the
+Object Name with the spindle number and the `nnn` with the speed you want the
+spindle to change to when you press the button. The default spindle is `0`.
 
 .. csv-table:: **Spindle Speed Presets**
    :width: 100%
@@ -143,7 +144,7 @@ with the speed you want the spindle to change to when you press the button.
    :widths: 40 20 40
 
 	**Function**, **Widget**, **Object Name**
-	Spindle Speed Preset, QPushButton, spindle_set_nnn
+	Spindle Speed Preset, QPushButton, spindle_set_s_nnn
 
 .. _spindle_override_presets:
 
@@ -161,9 +162,10 @@ must be within the range of the override slider.
 	**Function**, **Widget**, **Object Name**
 	Spindle Override Preset, QPushButton, spindle_percent_nnn
 
-For multiple spindles you need to add the spindle number to the object name. For
-example for spindle 2 a preset of 75% the QPushbutton name would be
-`spindle_percent_2_75`
+For multiple spindles you need to add the spindle number to the object name.
+Replace the `s` in the Object Name with the spindle number and the `nnn` with
+the override percentage. For example for spindle 2 a preset of 75% the
+QPushbutton name would be `spindle_percent_2_75`.
 
 .. csv-table:: **Multiple Spindle Override Presets**
    :width: 100%
@@ -171,6 +173,6 @@ example for spindle 2 a preset of 75% the QPushbutton name would be
    :widths: 40 20 40
 
 	**Function**, **Widget**, **Object Name**
-	Spindle Override Preset, QPushButton, spindle_percent_n_nnn
+	Spindle Override Preset, QPushButton, spindle_percent_s_nnn
 
 
