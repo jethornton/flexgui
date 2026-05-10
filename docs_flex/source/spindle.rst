@@ -101,6 +101,7 @@ in the Object Name with the spindle number you want to control.
 	Spindle Faster, QPushButton, spindle_plus_s_pb
 	Spindle Slower, QPushButton, spindle_minus_s_pb
 	Spindle Speed, QSpinBox, spindle_speed_s_sb
+	Spindle Speed, QSlider, spindle_speed_s_sl
 
 Spindle Overrides
 -----------------
