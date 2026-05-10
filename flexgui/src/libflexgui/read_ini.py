@@ -50,10 +50,8 @@ def read(parent):
 		else:
 			parent.nc_code_dir = os.path.expanduser('~/')
 		if ini_dir: # a nc code directory was in the ini file but is not valid
-			msg = (f'The path {directory}\n'
-				'does not exist. Check the\n'
-				'PROGRAM_PREFIX key in the\n'
-				'[DISPLAY] section of the\n'
+			msg = (f'The path {directory} does not exist. Check the '
+				'PROGRAM_PREFIX key in the [DISPLAY] section of the '
 				'INI file for a valid path.\n'
 				f'{parent.nc_code_dir} will be used.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
@@ -159,10 +157,10 @@ def read(parent):
 	]
 	for item in old_ini_items:
 		if parent.inifile.find(item[0], item[1]):
-			msg = (f'The key {item[1]} has been moved from the\n'
-			f'[{item[0]}] section or is no longer used\n'
-			'by FlexGUI or the name has been changed.\n'
-			'Check the INI section of the Documents\n'
+			msg = (f'The key {item[1]} has been moved from the '
+			f'[{item[0]}] section or is no longer used '
+			'by FlexGUI or the name has been changed. '
+			'Check the INI section of the Documents '
 			'for correct INI entries.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
@@ -404,10 +402,10 @@ def read(parent):
 		if not min_rpm:
 			min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_FORWARD_VELOCITY') or False
 			if min_rpm:
-				msg = ('The key MIN_FORWARD_VELOCITY has\n'
-				'been changed to MIN_RPM. Please update\n'
-				'your ini file to use the new key.\n'
-				'After the next update MIN_FORWARD_VELOCITY\n'
+				msg = ('The key MIN_FORWARD_VELOCITY has '
+				'been changed to MIN_RPM. Please update '
+				'your ini file to use the new key. '
+				'After the next update MIN_FORWARD_VELOCITY '
 				'will no longer be used.')
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		if isinstance(min_rpm, str):
@@ -420,10 +418,10 @@ def read(parent):
 		if not max_rpm:
 			max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or False
 			if max_rpm:
-				msg = ('The key MAX_FORWARD_VELOCITY has\n'
-				'been changed to MAX_RPM. Please update\n'
-				'your ini file to use the new key.\n'
-				'After the next update MAX_FORWARD_VELOCITY\n'
+				msg = ('The key MAX_FORWARD_VELOCITY has '
+				'been changed to MAX_RPM. Please update '
+				'your ini file to use the new key. '
+				'After the next update MAX_FORWARD_VELOCITY '
 				'will no longer be used.')
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		if isinstance(max_rpm, str):
@@ -450,8 +448,8 @@ def read(parent):
 		if isinstance(max_override, str):
 			max_override = utilities.to_int(max_override)
 			if max_override < 100:
-				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to {max_override}.\n'
-				'The minimum for MAX_OVERRIDE is 100.\n'
+				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to {max_override}. '
+				'The minimum for MAX_OVERRIDE is 100. '
 				'MAX_OVERRIDE has been set to 100.')
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 				max_override = 100
@@ -464,8 +462,6 @@ def read(parent):
 			default_rpm = utilities.to_int(default_rpm)
 			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
 			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-			print(getattr(parent, f'spindle_{i}_min_fwd_rpm'))
-			print(getattr(parent, f'spindle_{i}_max_fwd_rpm'))
 			if not (min_rpm <= default_rpm <= max_rpm):
 				default_rpm = min_rpm
 				msg = (f'The Default RPM for Spindle {i} is outside the limits. '
