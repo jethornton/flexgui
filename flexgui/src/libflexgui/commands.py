@@ -297,6 +297,7 @@ def spindle_control(parent, spindle, action, value=None):
 				parent.statusBar().showMessage(f'RPM Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}', 5000)
 			setattr(parent, f'spindle_rpm_{spindle}', new_rpm)
 
+			# FIXME this only needs to be done at the end of the function
 			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.blockSignals(True)
 				parent.spindle_speed_sb.setValue(new_rpm)
@@ -305,6 +306,16 @@ def spindle_control(parent, spindle, action, value=None):
 				getattr(parent, f'spindle_speed_{spindle}_sb').blockSignals(True)
 				getattr(parent, f'spindle_speed_{spindle}_sb').setValue(new_rpm)
 				getattr(parent, f'spindle_speed_{spindle}_sb').blockSignals(False)
+
+			# FIXME this only needs to be done at the end of the function
+			if spindle == 0 and 'spindle_speed_sl' in parent.child_names:
+				parent.spindle_speed_sl.blockSignals(True)
+				parent.spindle_speed_sl.setValue(new_rpm)
+				parent.spindle_speed_sl.blockSignals(False)
+			elif f'spindle_speed_{spindle}_sl' in parent.child_names:
+				getattr(parent, f'spindle_speed_{spindle}_sl').blockSignals(True)
+				getattr(parent, f'spindle_speed_{spindle}_sl').setValue(new_rpm)
+				getattr(parent, f'spindle_speed_{spindle}_sl').blockSignals(False)
 
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
@@ -328,6 +339,7 @@ def spindle_control(parent, spindle, action, value=None):
 				msg = f'RPM {new_rpm * override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
 				parent.statusBar().showMessage(msg, 5000)
 
+			# FIXME this only needs to be done at the end of the function
 			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.blockSignals(True)
 				parent.spindle_speed_sb.setValue(new_rpm)
@@ -336,6 +348,16 @@ def spindle_control(parent, spindle, action, value=None):
 				getattr(parent, f'spindle_speed_{spindle}_sb').blockSignals(True)
 				getattr(parent, f'spindle_speed_{spindle}_sb').setValue(new_rpm)
 				getattr(parent, f'spindle_speed_{spindle}_sb').blockSignals(False)
+
+			# FIXME this only needs to be done at the end of the function
+			if spindle == 0 and 'spindle_speed_sl' in parent.child_names:
+				parent.spindle_speed_sl.blockSignals(True)
+				parent.spindle_speed_sl.setValue(new_rpm)
+				parent.spindle_speed_sl.blockSignals(False)
+			elif f'spindle_speed_{spindle}_sl' in parent.child_names:
+				getattr(parent, f'spindle_speed_{spindle}_sl').blockSignals(True)
+				getattr(parent, f'spindle_speed_{spindle}_sl').setValue(new_rpm)
+				getattr(parent, f'spindle_speed_{spindle}_sl').blockSignals(False)
 
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(new_rpm), spindle)
@@ -368,6 +390,7 @@ def spindle_control(parent, spindle, action, value=None):
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(new_rpm), spindle)
 
+			# FIXME this only needs to be done at the end of the function
 			if object_type == 'sl':
 				if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
 					parent.spindle_speed_sb.blockSignals(True)
@@ -412,6 +435,7 @@ def spindle_control(parent, spindle, action, value=None):
 
 			# FIXME add multiple spindle speed spinboxes and sliders like case speed
 			# we might have spindle_speed_sb
+			# FIXME this only needs to be done at the end of the function
 			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
 				parent.spindle_speed_sb.blockSignals(True)
 				parent.spindle_speed_sb.setValue(new_rpm)
@@ -422,12 +446,23 @@ def spindle_control(parent, spindle, action, value=None):
 				getattr(parent, f'spindle_speed_{spindle}_sb').blockSignals(False)
 
 			if spindle == 0 and 'spindle_speed_sb' in parent.child_names:
+				parent.spindle_speed_sb.blockSignals(True)
 				parent.spindle_speed_sb.setValue(new_rpm)
+				parent.spindle_speed_sb.blockSignals(False)
+
 			if spindle == 0 and 'spindle_speed_sl' in parent.child_names:
+				parent.spindle_speed_sl.blockSignals(True)
 				parent.spindle_speed_sl.setValue(new_rpm)
+				parent.spindle_speed_sl.blockSignals(False)
+			elif f'spindle_speed_{spindle}_sl' in parent.child_names:
+				getattr(parent, f'spindle_speed_{spindle}_sl').blockSignals(True)
+				getattr(parent, f'spindle_speed_{spindle}_sl').setValue(new_rpm)
+				getattr(parent, f'spindle_speed_{spindle}_sl').blockSignals(False)
 
 		case _:
 			print('Unknown Action')
+
+	# if spindle speed slider or spinbox value is not == to new_rpm change it.
 
 def spindle_override(parent, spindle=0, value=0):
 	sender = parent.sender()
