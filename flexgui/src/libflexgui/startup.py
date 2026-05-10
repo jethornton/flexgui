@@ -1519,10 +1519,6 @@ def setup_spindle(parent):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
 
-	#for key, value in parent.spindle_cmd_speed.items():
-	#	override = parent.status.spindle[value[0]]['override']
-	#	speed = parent.status.spindle[value[0]]['speed']
-
 	# check for number of spindles matches the number of controls
 	multi_spindle_controls = ['spindle_fwd', 'spindle_rev', 'spindle_stop',
 	'spindle_plus', 'spindle_minus', 'spindle_speed']
@@ -1584,6 +1580,26 @@ def setup_spindle(parent):
 			partial(commands.spindle_control, parent, i, 'speed'))
 			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
 
+	# Spindle Speed Presets FIXME check for in range
+	for i in range(parent.status.spindles):
+		for item in parent.child_names:
+			if item.startswith(f'spindle_set_{i}'):
+				min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+				max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+				button = getattr(parent, item)
+				value = item.split('_')[-1]
+				if utilities.is_int(value):
+					rpm = int(value)
+					if min_rpm <= rpm <= max_rpm:
+						button.clicked.connect(partial(commands.spindle_control, parent, i, 'preset', rpm))
+					else:
+						button.setEnabled(False)
+						msg = (f'The RPM {rpm} of {button.objectName()} exceeds the spindle '
+						f'{i} limits Minimum Limit {min_rpm} Maximum Limit {max_rpm} '
+						f'The Button {button.objectName()} will be disabled.')
+						dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+
+	# Spindle Override Presets
 	for i in range(parent.status.spindles):
 		for item in parent.child_names:
 			if item.startswith(f'spindle_percent_{i}'):
