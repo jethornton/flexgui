@@ -469,7 +469,6 @@ def read(parent):
 				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
 			default_rpm = min_rpm
-		#print(f'')
 		setattr(parent, f'spindle_rpm_{i}', default_rpm)
 
 	# ***** [TRAJ] Section *****
