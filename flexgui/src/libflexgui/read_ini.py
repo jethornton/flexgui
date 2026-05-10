@@ -462,8 +462,18 @@ def read(parent):
 		default_rpm = parent.inifile.find(f'SPINDLE_{i}', 'DEFAULT_RPM') or False
 		if isinstance(default_rpm, str):
 			default_rpm = utilities.to_int(default_rpm)
+			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+			print(getattr(parent, f'spindle_{i}_min_fwd_rpm'))
+			print(getattr(parent, f'spindle_{i}_max_fwd_rpm'))
+			if not (min_rpm <= default_rpm <= max_rpm):
+				default_rpm = min_rpm
+				msg = (f'The Default RPM for Spindle {i} is outside the limits. '
+				f'The Default RPM will be set to the Minimum RPM {min_rpm}')
+				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 		else:
-			default_rpm = 0
+			default_rpm = min_rpm
+		#print(f'')
 		setattr(parent, f'spindle_rpm_{i}', default_rpm)
 
 	# ***** [TRAJ] Section *****
