@@ -89,37 +89,6 @@ def read(parent):
 		dialogs.error_msg_ok(parent, msg, 'INI Error')
 		sys.exit()
 
-	'''
-	# set default spindle speed
-	dss = parent.inifile.find('DISPLAY', 'DEFAULT_SPINDLE_SPEED') or 0
-	if utilities.is_int(dss):
-		parent.spindle_default_speed = int(dss)
-	else:
-		parent.spindle_default_speed = 0
-		msg = (f'The INI value {dss} for [DISPLAY] DEFAULT_SPINDLE_SPEED\n'
-		'did not evaluate to an integer. 0 will be used.')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
-
-	# set max spindle override
-	mso = parent.inifile.find('DISPLAY', 'MAX_SPINDLE_OVERRIDE') or '1.0'
-	if utilities.is_number(mso):
-		parent.max_spindle_override = float(mso)
-	else:
-		parent.max_spindle_override = 1.0
-		msg = (f'The INI value {mso} for [DISPLAY] MAX_SPINDLE_OVERRIDE\n'
-		'did not evaluate to a number. 1.0 will be used')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
-
-	# get spindle increment
-	increment = parent.inifile.find('DISPLAY', 'SPINDLE_INCREMENT') or False
-	if not increment:
-		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT') or False
-	if increment and utilities.is_int(increment):
-		parent.spindle_increment = int(increment)
-	else:
-		parent.spindle_increment = 10
-	'''
-
 	# ***** [FLEXGUI] Section *****
 
 	# check for POPUP_QSS file, this must be checked first before any dialogs
