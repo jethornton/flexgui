@@ -856,7 +856,7 @@
         <item row="0" column="0" rowspan="2" colspan="2">
          <widget class="QTabWidget" name="tabWidget_31">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tabWidget_31Page1">
            <attribute name="title">
@@ -956,6 +956,13 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_42">
+               <item row="4" column="0">
+                <widget class="QPushButton" name="spindle_minus_0_pb">
+                 <property name="text">
+                  <string>Spindle Slower</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="0">
                 <widget class="QPushButton" name="spindle_fwd_0_pb">
                  <property name="text">
@@ -970,13 +977,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
-                <widget class="QPushButton" name="spindle_stop_0_pb">
-                 <property name="text">
-                  <string>Spindle Stop</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QPushButton" name="spindle_rev_0_pb">
                  <property name="text">
@@ -984,15 +984,22 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QPushButton" name="spindle_minus_0_pb">
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_0_sb"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_0_pb">
                  <property name="text">
-                  <string>Spindle Slower</string>
+                  <string>Spindle Stop</string>
                  </property>
                 </widget>
                </item>
-               <item row="5" column="0">
-                <widget class="QSpinBox" name="spindle_speed_0_sb"/>
+               <item row="6" column="0">
+                <widget class="QPushButton" name="spindle_set_0_500">
+                 <property name="text">
+                  <string>Spindle Set 500</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -1255,6 +1262,39 @@
               </layout>
              </widget>
             </item>
+            <item row="20" column="0" colspan="3">
+             <widget class="QFrame" name="frame_10">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_53">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_percent_1_10">
+                 <property name="text">
+                  <string>Override 10%</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="spindle_percent_1_50">
+                 <property name="text">
+                  <string>Override 50%</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="spindle_percent_1_100">
+                 <property name="text">
+                  <string>Override 100%</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
             <item row="3" column="1">
              <widget class="QLabel" name="spindle_enabled_1_lb">
               <property name="text">
@@ -1283,33 +1323,33 @@
               </property>
              </widget>
             </item>
-            <item row="19" column="0" colspan="3">
-             <widget class="QFrame" name="frame_10">
+            <item row="18" column="0" colspan="3">
+             <widget class="QFrame" name="frame_11">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QGridLayout" name="gridLayout_53">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="spindle_percent_1_10">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="spindle_set_1_500">
                  <property name="text">
-                  <string>Override 10%</string>
+                  <string>500 RPM</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QPushButton" name="spindle_percent_1_50">
+               <item>
+                <widget class="QPushButton" name="spindle_set_1_900">
                  <property name="text">
-                  <string>Override 50%</string>
+                  <string>900 RPM</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="spindle_percent_1_100">
+               <item>
+                <widget class="QPushButton" name="spindle_set_1_1800">
                  <property name="text">
-                  <string>Override 100%</string>
+                  <string>1800 RPM</string>
                  </property>
                 </widget>
                </item>
