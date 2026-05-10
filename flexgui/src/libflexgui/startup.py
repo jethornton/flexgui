@@ -1563,6 +1563,7 @@ def setup_spindle(parent):
 			getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
 			partial(commands.spindle_override, parent, i))
 
+	# Spindle Speed Spin Boxes
 	for i in range(parent.status.spindles):
 		if f'spindle_speed_{i}_sb' in parent.child_names:
 			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
@@ -1580,7 +1581,20 @@ def setup_spindle(parent):
 			partial(commands.spindle_control, parent, i, 'speed'))
 			parent.spindle_controls.append(f'spindle_speed_{i}_sb')
 
-	# Spindle Speed Presets FIXME check for in range
+	# Spindle Speed Sliders spindle_speed_0_sl
+	for i in range(parent.status.spindles):
+		if f'spindle_speed_{i}_sl' in parent.child_names:
+			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+			max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+			default_rpm = getattr(parent, f'spindle_rpm_{i}')
+			getattr(parent, f'spindle_speed_{i}_sl').blockSignals(True)
+			getattr(parent, f'spindle_speed_{i}_sl').setRange(min_rpm, max_rpm)
+			getattr(parent, f'spindle_speed_{i}_sl').setValue(default_rpm)
+			getattr(parent, f'spindle_speed_{i}_sl').blockSignals(False)
+			getattr(parent, f'spindle_speed_{i}_sl').valueChanged.connect(partial(
+			commands.spindle_control, parent, i, 'speed'))
+
+	# Spindle Speed Presets
 	for i in range(parent.status.spindles):
 		for item in parent.child_names:
 			if item.startswith(f'spindle_set_{i}'):
@@ -1623,12 +1637,12 @@ def setup_spindle(parent):
 	if 'spindle_speed_sl' in parent.child_names:
 		min_rpm = parent.spindle_0_min_fwd_rpm
 		max_rpm = parent.spindle_0_max_fwd_rpm
-		parent.spindle_speed_sl.valueChanged.connect(partial(
-		commands.spindle_control, parent, 0, 'speed'))
 		parent.spindle_speed_sl.blockSignals(True)
 		parent.spindle_speed_sl.setRange(min_rpm, max_rpm)
 		parent.spindle_speed_sl.setValue(parent.spindle_rpm_0)
 		parent.spindle_speed_sl.blockSignals(False)
+		parent.spindle_speed_sl.valueChanged.connect(partial(
+		commands.spindle_control, parent, 0, 'speed'))
 
 	# test if new style and old style exist
 
