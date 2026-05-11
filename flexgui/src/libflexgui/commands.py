@@ -311,6 +311,13 @@ def spindle_control(parent, spindle, action, value=None):
 				parent.statusBar().showMessage(msg, 5000)
 				rpm = min_rpm
 
+			if min_rpm <= rpm * override <= max_rpm:
+				setattr(parent, f'spindle_rpm_{spindle}', rpm)
+			else: # exceeds range
+				if rpm * override <= min_rpm:
+					rpm = int(min_rpm / override)
+				msg = f'RPM {rpm * override} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}'
+
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
