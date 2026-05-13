@@ -293,7 +293,7 @@
     <item row="7" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>4</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -3741,19 +3741,6 @@ Enable</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="3">
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="2" column="1">
          <widget class="QSpinBox" name="spinBox">
           <property name="minimum">
@@ -3872,6 +3859,48 @@ Enable</string>
           </property>
           <property name="hal_type" stdset="0">
            <string>HAL_S32</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="5">
+         <widget class="QGroupBox" name="groupBox_25">
+          <property name="title">
+           <string>HAL Watch</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_54">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_153">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_watch_float</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>joint.0.motor-pos-cmd</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLabel" name="label_154">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_bool</string>
+          </property>
+          <property name="pin" stdset="0">
+           <string>joint.0.neg-hard-limit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="3" colspan="2">
+         <widget class="QGroupBox" name="groupBox_33">
+          <property name="title">
+           <string>GroupBox</string>
           </property>
          </widget>
         </item>
