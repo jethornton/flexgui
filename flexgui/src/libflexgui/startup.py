@@ -1800,7 +1800,6 @@ def setup_touchoff(parent): # touchoff an axis
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					getattr(parent, source).setText('0')
 				else: # the source was not found
-					print(item)
 					getattr(parent, item).setEnabled(False)
 					parent.axis_touchoff_controls.remove(item)
 					msg = (f'The {source} for {item}\n'
@@ -2800,6 +2799,31 @@ def setup_hal_io_state(parent):
 		hal_value = getattr(parent.halcomp, value)
 		if obj_value != hal_value:
 			setattr(parent.halcomp, value, obj_value)
+
+def setup_hal_watch(parent):
+	parent.hal_watch_bit = {}
+	for label in parent.findChildren(QLabel):
+		if label.property('function') == 'hal_watch_bit':
+			name = label.objectName()
+			pin = label.property('pin_name')
+			parent.hal_watch_bit[name] = pin
+
+	parent.hal_watch_int = {}
+	for label in parent.findChildren(QLabel):
+		if label.property('function') == 'hal_watch_int':
+			name = label.objectName()
+			pin = label.property('pin_name')
+			parent.hal_watch_int[name] = pin
+
+	parent.hal_watch_float = {}
+	for label in parent.findChildren(QLabel):
+		if label.property('function') == 'hal_watch_float':
+			name = label.objectName()
+			pin = label.property('pin_name')
+			p = label.property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.hal_watch_float[name] = [pin, p]
+			#parent.status_float_labels[item] = p # item & precision
 
 def setup_tool_change(parent): # MANUAL TOOL CHANGE
 	if parent.manual_tool_change:
