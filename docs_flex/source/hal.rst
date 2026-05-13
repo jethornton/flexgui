@@ -472,6 +472,49 @@ The HAL direction is IN and the hal_type is u32 for a HAL Progress Bar.
 	String, function, hal_pin
 	String, pin_name, any unique name
 
+HAL Watch
+---------
+
+You can watch the status of a HAL pin in your GUI by adding a QLabel with the
+following Dynamic Properties. You can watch Bit (True/False) pins, S32/U32
+integer pins, Float pins.
+
+.. csv-table:: **HAL Watch Bit**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_watch_bit
+	String, pin_name, any HAL pin that is a bool
+
+.. image:: /images/hal-watch-bit.png
+   :align: center
+
+.. csv-table:: **HAL Watch Integer**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_watch_int
+	String, pin_name, any HAL pin that is a integer
+
+.. image:: /images/hal-watch-int.png
+   :align: center
+
+.. csv-table:: **HAL Watch Float**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_watch_float
+	String, pin_name, any HAL pin that is a float
+
+.. image:: /images/hal-watch-float.png
+   :align: center
+
 Step by Step
 ------------
 

@@ -554,6 +554,17 @@ def update(parent):
 
 		parent.current_tool_info = parent.status.tool_table[0]
 
+	# HAL Watch Pins
+	for key, value in parent.hal_watch_bit.items():
+		getattr(parent, key).setText(f'{hal.get_value(value)}')
+
+	for key, value in parent.hal_watch_int.items():
+		getattr(parent, key).setText(f'{hal.get_value(value)}')
+
+	for key, value in parent.hal_watch_float.items():
+		getattr(parent, key).setText(f'{hal.get_value(value[0]):.{value[1]}f}')
+
+
 	# **** HANDLE ERRORS ****
 	error = parent.error.poll()
 	if error:
