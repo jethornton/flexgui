@@ -1439,23 +1439,6 @@ def setup_spindle(parent):
 
 	##### Start of Multiple Spindle #####
 
-	# create a spindle rpm variable for each spindle
-	#for i in range(parent.status.spindles):
-	#	min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-	#	setattr(parent, f'spindle_rpm_{i}', min_rpm)
-	'''
-	brake (returns integer) - value of the spindle brake flag.
-	direction (returns integer) - rotational direction of the spindle. forward=1, reverse=-1
-	enabled (returns integer) - value of the spindle enabled flag.
-	orient_fault (returns integer)
-	orient_state (returns integer)
-	override (returns float) - spindle speed override scale.
-	override_enabled (returns boolean) - value of the spindle override enabled flag.
-	speed (returns float) - spindle speed value, rpm, > 0: clockwise, < 0:
-	counterclockwise. With G96 active this reflects the maximum speed set by the
-	optional G96 D-word or, if the D-word was missing, the default values +/-1e30
-	'''
-
 	# check for number of spindles matches the number of status labels
 	multi_spindle_labels = ['spindle_brake', 'spindle_enabled',
 		'spindle_orient_state', 'spindle_orient_fault', 'spindle_override_enabled',
