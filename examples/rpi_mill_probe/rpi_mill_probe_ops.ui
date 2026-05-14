@@ -3213,7 +3213,7 @@ ENABLE</string>
         <string>direction</string>
        </property>
       </widget>
-      <widget class="QLabel" name="spindle_actual_speed_lb">
+      <widget class="QLabel" name="spindle_speed_0_lb">
        <property name="geometry">
         <rect>
          <x>60</x>
