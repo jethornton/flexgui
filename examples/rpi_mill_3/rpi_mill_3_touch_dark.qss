@@ -6,13 +6,13 @@ QMenu, QLabel, QPlainTextEdit#gcode_pte {
 	border-color: #051a39;
 	}
 QPlainTextEdit#gcode_pte {
-    border: 1px solid white;
+	border: 1px solid white;
    	}
 
 QPlainTextEdit#errors_pte {
 	background-color: rgba(192, 0, 0, 40%); color: white; 
 	/*background-color: #121212; color: #ffffff; */
-    border: 1px solid white;
+	border: 1px solid white;
 	}
 
 QListWidget, QLineEdit, QComboBox {
@@ -34,14 +34,14 @@ QTabWidget, QTabBar, QMainWindow {
 	}
 
 QMenu {
-    border: 1px solid white;
+	border: 1px solid white;
 	}
 
 QMenu::separator {
-    height: 2px;
-    background: lightblue;
-    margin-left: 3px;
-    margin-right: 3px;
+	height: 2px;
+	background: lightblue;
+	margin-left: 3px;
+	margin-right: 3px;
 	}
 
 QMenu::item:selected{
@@ -60,34 +60,34 @@ QMenu::item:disabled {
 	}
 
 QMenu::icon:checked { /* appearance of a 'checked' icon */
-    background: gray;
-    border: 1px inset gray;
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    bottom: 1px;
-    left: 1px;
+	background: gray;
+	border: 1px inset gray;
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	bottom: 1px;
+	left: 1px;
 	}
 
 QMenu::indicator {
-    width: 13px;
-    height: 13px;
+	width: 13px;
+	height: 13px;
 	}
 
 QPlainTextEdit {
-    border: 1px solid gray;
-    border-radius: 3px;
+	border: 1px solid gray;
+	border-radius: 3px;
 
 	}
 
 QListWidget {
-    border: 1px solid gray;
-    border-radius: 3px;
+	border: 1px solid gray;
+	border-radius: 3px;
 	}
 	
 QCheckBox {
 	background-color: rgba(192, 192, 192, 50%);
-    border: 1px solid white;
+	border: 1px solid white;
 	color: black;
 	}
 QCheckBox:hover {
@@ -95,28 +95,27 @@ QCheckBox:hover {
 	}
 
 QGroupBox {
-    border: 1px solid gray;
-    /* border-radius: 3px; */
+	border: 1px solid gray;
+	/* border-radius: 3px; */
 	color: white
 	/* color: darkgrey */
 	}
 
 QLineEdit{
-    border: 1px solid gray;
-    border-radius: 3px;
+	border: 1px solid gray;
+	border-radius: 3px;
 	}
 
 QMenuBar {
-    background-color: black; color: white;
-    spacing: 3px;
+	background-color: black; color: white;
+	spacing: 3px;
 	border: white;
-	border-spacing: 3px;
 	}
 
 QDoubleSpinBox, QSpinbox, QSlider, QLabel#spindle_actual_speed_lb {
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 1px 1px 1px 1px;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 1px 1px 1px 1px;
 	}
 
 QStatusBar {
@@ -140,13 +139,13 @@ QPushButton {
 
 QTabBar::tab {
 	background-color: rgba(192, 192, 192, 50%);
-    border-bottom-color: #C2C7CB; /* same as the pane color */
+	border-bottom-color: #C2C7CB; /* same as the pane color */
 	border: 2px solid rgba(128, 128, 128, 100%);
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	min-height: 40px; /*	min-height: 50px; */
-    min-width: 8ex;
-    padding: 1px;
+	min-width: 8ex;
+	padding: 1px;
 	}
 
 QToolButton { /* all types of tool button */
@@ -178,8 +177,8 @@ QPushButton:hover {
 QPushButton:pressed {  
 	background-color: rgba(0, 192, 0, 40%); color: white; border none;
 	/*	background-color: rgba(0, 192, 0, 80%); color: white; border none; */
-    border-style: inset;
-    border-width: 2px;
+	border-style: inset;
+	border-width: 2px;
 	}
 
 QPushButton:checked {
@@ -194,13 +193,13 @@ QPushButton:unchecked {
 
 /* ********** General Tabs ********** */
 QTabWidget::pane { /* The tab widget frame */
-    border-top: 1px solid #C2C7CB;
-    position: absolute;
-    top: -0.05em;  /* top: -0.5em; */
+	border-top: 1px solid #C2C7CB;
+	position: absolute;
+	top: -0.05em;  /* top: -0.5em; */
 	} 
 
 QTabWidget::tab-bar {
-    alignment: left;
+	alignment: left;
 	}
 
 QTabBar::tab:hover {
@@ -212,25 +211,25 @@ QTabBar::tab:selected, QTabBar::tab:hover {
 	}
 
 QTabBar::tab:selected {
-    border-color: #9B9B9B;
-    border-bottom-color: #C2C7CB; /* same as pane color */
+	border-color: #9B9B9B;
+	border-bottom-color: #C2C7CB; /* same as pane color */
 	}
 
 /* ********** Sliders ********** */
 QSlider::groove:horizontal {
-    border: 1px solid;
-    height: 10px;
-    margin: 0px;
-    }
-    
+	border: 1px solid;
+	height: 10px;
+	margin: 0px;
+	}
+	
 QSlider::handle:horizontal {
 	background-color: rgba(0, 0, 192, 60%);
 	/*	background-color: rgba(192, 192, 192, 80%); */
-    border: 1px solid;
-    height: 15px;
-    width: 10px;
-    margin: -15px 0px;
-    }
+	border: 1px solid;
+	height: 15px;
+	width: 10px;
+	margin: -15px 0px;
+	}
 
 /* ********** Op Stop RED ********** */
 QPushButton#optional_stop_pb:hover {
