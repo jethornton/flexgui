@@ -10,9 +10,9 @@ class window(QWidget):
 	def __init__(self):
 		super().__init__()
 
+		self.setGeometry(20, 20, 300, 125) # x, y, width, height
 		layout = QGridLayout()
 		self.setLayout(layout)
-		self.resize(300, 125) # width, height
 		self.info_lb = QLabel('test', alignment=Qt.AlignmentFlag.AlignHCenter)
 		layout.addWidget(self.info_lb, 0, 0, 1, 2, Qt.AlignmentFlag.AlignHCenter)
 		self.yes_pb = QPushButton('Yes', self)
