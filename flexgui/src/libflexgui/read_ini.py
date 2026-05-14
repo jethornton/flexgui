@@ -141,11 +141,9 @@ def read(parent):
 
 	for item in old_spindle_items:
 		if parent.inifile.find(item[0], item[1]):
-			msg = (f'The key {item[1]} in the [{item[0]}] section\n'
-			'was depreciated with multiple spindles addition.\n'
-			'The Spindle keys are now in [SPINDLE_0] section.\n'
-			'Check the INI section of the Documents\n'
-			'for correct INI entries.')
+			msg = (f'The key {item[1]} in the [{item[0]}] section was depreciated '
+			'with multiple spindles addition. The Spindle keys are now in [SPINDLE_0] '
+			'section. Check the INI section of the Documents for correct INI entries.')
 			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
 
 	# check for CYCLE_TIME

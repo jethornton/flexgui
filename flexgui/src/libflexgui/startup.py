@@ -1430,11 +1430,9 @@ def setup_spindle(parent):
 
 	##### Check for old object names
 	if 'spindle_actual_speed_lb' in parent.child_names:
-		msg = ('The spindle speed label object name\n'
-			'spindle_actual_speed_lb has been changed to\n'
-			'spindle_speed_0_lb to limit confustion about\n'
-			'what the name implies. See the spindle\n'
-			'documents for more information.')
+		msg = ('The spindle speed label object name spindle_actual_speed_lb has '
+		'been changed to spindle_speed_0_lb to limit confustion about what the name '
+		'implies. See the spindle documents for more information.')
 		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
 	##### Start of Multiple Spindle #####
@@ -1455,8 +1453,8 @@ def setup_spindle(parent):
 						break
 
 	if number_spindle_labels > parent.status.spindles:
-		msg = (f'There are {number_spindle_labels} spindle status items\n'
-		f'but only {parent.status.spindles} spindle(s) is configured.\n'
+		msg = (f'There are {number_spindle_labels} spindle status items '
+		f'but only {parent.status.spindles} spindle(s) is configured. '
 		f'The status items above {parent.status.spindles} will not function.')
 		dialogs.error_msg_ok(parent, msg, 'Configuration Error')
 
