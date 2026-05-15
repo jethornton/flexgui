@@ -72,6 +72,967 @@
       </layout>
      </widget>
     </item>
+    <item row="4" column="6">
+     <widget class="QGroupBox" name="groupBox_17">
+      <property name="title">
+       <string>Joint</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_28">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_146">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_145">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_147">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="joint_0_enabled_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="joint_1_enabled_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="joint_2_enabled_lb">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="title">
+       <string>G92 Offset</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="g92_lb_x">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="g92_lb_y">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="g92_lb_z">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="2">
+     <widget class="QTabWidget" name="tabWidget_7">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabWidget_7Page1">
+       <attribute name="title">
+        <string>Jog</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_50">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="jog_minus_pb_0">
+          <property name="text">
+           <string>X Minus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="jog_modes_cb"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="jog_minus_pb_2">
+          <property name="text">
+           <string>Z Minus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="jog_plus_pb_0">
+          <property name="text">
+           <string>X Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QSlider" name="jog_vel_sl">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="jog_minus_pb_1">
+          <property name="text">
+           <string>Y Minus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="jog_plus_pb_2">
+          <property name="text">
+           <string>Z Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="jog_plus_pb_1">
+          <property name="text">
+           <string>Y Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="label_156">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_17">
+       <attribute name="title">
+        <string>Jog Sel</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_31">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="jog_selected_plus">
+          <property name="text">
+           <string>Jog Selected Plus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="jog_selected_minus">
+          <property name="text">
+           <string>Jog Selected Minus</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_18">
+       <attribute name="title">
+        <string>Clear</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_32">
+        <item row="1" column="1">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="clear_x_pb">
+          <property name="text">
+           <string>Clear X</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="clear_y_pb">
+          <property name="text">
+           <string>Clear Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="clear_z_pb">
+          <property name="text">
+           <string>Clear Z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="8" column="0" colspan="2">
+     <widget class="QTabWidget" name="tabWidget_5">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabWidget_5Page1">
+       <attribute name="title">
+        <string>MDI</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="3" column="0">
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="text">
+           <string>G53 G0 X0</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G53 G0 X0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="mdi_0">
+          <property name="text">
+           <string>G0 X2</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G0 X2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>G92 X0.5</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G92 X0.5</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="mdi_1">
+          <property name="text">
+           <string>G10 L20 P0 X1</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G10 L20 P0 X1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>G10 L2 P0 X0</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G10 L2 P0 X0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="text">
+           <string>G92.1</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G92.1</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>QSS</string>
+       </attribute>
+       <widget class="QPushButton" name="test_pb">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>96</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>Open</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_14">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButton_12">
+          <property name="text">
+           <string>Load 42.ngc</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>load_file</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string>42.ngc</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="text">
+           <string>Load 45.ngc</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>load_file</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string>45.ngc</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_16">
+       <attribute name="title">
+        <string>Flash</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="QPushButton" name="flashing_checked_pb">
+          <property name="text">
+           <string>Flash Checked</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="flash_state" stdset="0">
+           <string>checked</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="flash_unchecked_pb">
+          <property name="text">
+           <string>Flash Unchecked</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="flash_state" stdset="0">
+           <string>unchecked</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="6" rowspan="3">
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_20">
+       <item>
+        <widget class="QPushButton" name="quit_pb">
+         <property name="text">
+          <string>Quit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QGroupBox" name="groupBox_10">
+      <property name="title">
+       <string>Vel/Min</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_24">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_36">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="joint_0_vel_min_lb">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_35">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="joint_1_vel_min_lb">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="joint_2_vel_min_lb">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Actual</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="actual_lb_x">
+         <property name="text">
+          <string>-0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="actual_lb_y">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="actual_lb_z">
+         <property name="text">
+          <string>0.000</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="5" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_8">
+      <property name="title">
+       <string>Homed</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_22">
+       <item row="1" column="3">
+        <widget class="QLabel" name="home_lb_1">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="3">
+        <widget class="QLabel" name="home_lb_2">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="home_lb_0">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_29">
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_30">
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0" rowspan="4" colspan="2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>Mach</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_12">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="estop_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>E Stop</string>
+          </property>
+          <property name="off_text" stdset="0">
+           <string>E Stop</string>
+          </property>
+          <property name="on_text" stdset="0">
+           <string>Danger</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="pause_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Pause</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="stop_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Stop</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="run_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Run</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="run_from_line_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Run From Line</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="resume_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Resume</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="step_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Step</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="power_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Power</string>
+          </property>
+          <property name="on_text" stdset="0">
+           <string>Power On</string>
+          </property>
+          <property name="off_text" stdset="0">
+           <string>Power Off</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_8">
+       <attribute name="title">
+        <string>Home</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_13">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="home_all_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Home All</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="unhome_all_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Unhome All</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="home_pb_0">
+          <property name="text">
+           <string>Home X</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="unhome_pb_0">
+          <property name="text">
+           <string>Unhome X</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="home_pb_1">
+          <property name="text">
+           <string>Home Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="unhome_pb_1">
+          <property name="text">
+           <string>Unhome Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="home_pb_2">
+          <property name="text">
+           <string>Home Z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="unhome_pb_2">
+          <property name="text">
+           <string>Unhome Z</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_10">
+       <attribute name="title">
+        <string>File</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_16">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="save_as_pb">
+          <property name="text">
+           <string>Save As</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="save_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="open_pb">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="edit_pb">
+          <property name="text">
+           <string>Edit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="reload_pb">
+          <property name="text">
+           <string>Reload</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
     <item row="4" column="5">
      <widget class="QGroupBox" name="groupBox_22">
       <property name="title">
@@ -125,57 +1086,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="4" column="2">
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="title">
-       <string>G5x Offset</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="g5x_lb_x">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="g5x_lb_y">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="g5x_lb_z">
-         <property name="text">
-          <string>0.000</string>
          </property>
         </widget>
        </item>
@@ -239,49 +1149,49 @@
       </layout>
      </widget>
     </item>
-    <item row="4" column="4">
-     <widget class="QGroupBox" name="groupBox_10">
+    <item row="4" column="2">
+     <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
-       <string>Vel/Min</string>
+       <string>G5x Offset</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_24">
+      <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_36">
+        <widget class="QLabel" name="label_7">
          <property name="text">
           <string>X</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="joint_0_vel_min_lb">
+        <widget class="QLabel" name="g5x_lb_x">
          <property name="text">
           <string>0.000</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_37">
+        <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Y</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_35">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="joint_1_vel_min_lb">
+        <widget class="QLabel" name="g5x_lb_y">
          <property name="text">
           <string>0.000</string>
          </property>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="joint_2_vel_min_lb">
+        <widget class="QLabel" name="g5x_lb_z">
          <property name="text">
           <string>0.000</string>
          </property>
@@ -293,7 +1203,7 @@
     <item row="7" column="2" rowspan="2" colspan="5">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>7</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -863,87 +1773,63 @@
             <string>0</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_34">
-            <item row="8" column="2">
+            <item row="6" column="2">
+             <widget class="QLabel" name="spindle_override_0_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="2">
+             <widget class="QLabel" name="spindle_override_enabled_0_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="2">
              <widget class="QLabel" name="spindle_cmd_speed_0_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_59">
+            <item row="3" column="2">
+             <widget class="QLabel" name="spindle_speed_0_lb">
               <property name="text">
-               <string>Enabled</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_125">
-              <property name="text">
-               <string>Speed LCD</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_61">
-              <property name="text">
-               <string>Commanded Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_113">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
+            <item row="12" column="1" colspan="3">
+             <widget class="QSlider" name="spindle_speed_0_sl">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
             <item row="5" column="0">
+             <widget class="QLabel" name="label_114">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="spindle_enabled_0_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
              <widget class="QLabel" name="label_60">
               <property name="text">
                <string>Override Percent</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="spindle_brake_0_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2">
-             <widget class="QLabel" name="spindle_orient_fault_0_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="3">
-             <widget class="QPushButton" name="spindle_percent_0_100">
-              <property name="text">
-               <string>Override 100%</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QLabel" name="spindle_direction_0_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_69">
-              <property name="text">
-               <string>Override</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="2">
-             <widget class="QLCDNumber" name="spindle_speed_0_lcd"/>
-            </item>
-            <item row="9" column="1" colspan="3">
+            <item row="10" column="1" colspan="3">
              <widget class="QSlider" name="spindle_override_0_sl">
               <property name="maximum">
                <number>100</number>
@@ -953,49 +1839,21 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_53">
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_69">
               <property name="text">
-               <string>Speed</string>
+               <string>Override</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="2">
-             <widget class="QLabel" name="spindle_override_enabled_0_lb">
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_151">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Spindle Speed</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_57">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="2">
-             <widget class="QLabel" name="spindle_orient_state_0_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_114">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_58">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3" rowspan="9">
+            <item row="0" column="3" rowspan="10">
              <widget class="QFrame" name="frame_2">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1018,12 +1876,15 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QPushButton" name="spindle_plus_0_pb">
+               <item row="2" column="0">
+                <widget class="QPushButton" name="spindle_stop_0_pb">
                  <property name="text">
-                  <string>Spindle Faster</string>
+                  <string>Spindle Stop</string>
                  </property>
                 </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QSpinBox" name="spindle_speed_0_sb"/>
                </item>
                <item row="1" column="0">
                 <widget class="QPushButton" name="spindle_rev_0_pb">
@@ -1032,13 +1893,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="5" column="0">
-                <widget class="QSpinBox" name="spindle_speed_0_sb"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QPushButton" name="spindle_stop_0_pb">
+               <item row="3" column="0">
+                <widget class="QPushButton" name="spindle_plus_0_pb">
                  <property name="text">
-                  <string>Spindle Stop</string>
+                  <string>Spindle Faster</string>
                  </property>
                 </widget>
                </item>
@@ -1049,50 +1907,102 @@
                  </property>
                 </widget>
                </item>
+               <item row="7" column="0">
+                <widget class="QPushButton" name="spindle_percent_0_100">
+                 <property name="text">
+                  <string>Override 100%</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
-            <item row="5" column="2">
-             <widget class="QLabel" name="spindle_override_0_lb">
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_61">
+              <property name="text">
+               <string>Commanded Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_58">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2">
+             <widget class="QLabel" name="spindle_orient_state_0_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
+            <item row="7" column="0">
              <widget class="QLabel" name="label_112">
               <property name="text">
                <string>Spindle Orient State</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="spindle_enabled_0_lb">
+            <item row="1" column="2">
+             <widget class="QLabel" name="spindle_direction_0_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QLabel" name="spindle_speed_0_lb">
+            <item row="0" column="2">
+             <widget class="QLabel" name="spindle_brake_0_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="1" colspan="3">
-             <widget class="QSlider" name="spindle_speed_0_sl">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_53">
+              <property name="text">
+               <string>Speed</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_151">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_59">
               <property name="text">
-               <string>Spindle Speed</string>
+               <string>Enabled</string>
               </property>
              </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_57">
+              <property name="text">
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_113">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="2">
+             <widget class="QLabel" name="spindle_orient_fault_0_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_125">
+              <property name="text">
+               <string>Speed LCD</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QLCDNumber" name="spindle_speed_0_lcd"/>
             </item>
            </layout>
           </widget>
@@ -1101,125 +2011,7 @@
             <string>1</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_35">
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_1_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="0">
-             <widget class="QLabel" name="label_64">
-              <property name="text">
-               <string>Commanded Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_1_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_63">
-              <property name="text">
-               <string>Override Percent</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="QLabel" name="label_123">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_1_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="1">
-             <widget class="QLabel" name="spindle_orient_state_1_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_speed_1_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_65">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="0">
-             <widget class="QLabel" name="label_129">
-              <property name="text">
-               <string>Speed LCD</string>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="0">
-             <widget class="QLabel" name="label_62">
-              <property name="text">
-               <string>Override</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_67">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_68">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="1">
-             <widget class="QLCDNumber" name="spindle_speed_1_lcd"/>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_115">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="1" colspan="2">
-             <widget class="QSlider" name="spindle_override_1_sl">
-              <property name="maximum">
-               <number>100</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_66">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="0" colspan="3">
+            <item row="20" column="0" colspan="3">
              <widget class="QFrame" name="frame_11">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1252,14 +2044,169 @@
               </layout>
              </widget>
             </item>
-            <item row="11" column="0">
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_enabled_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="1" colspan="2">
+             <widget class="QSlider" name="spindle_speed_1_sl">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_115">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="22" column="0" colspan="3">
+             <widget class="QFrame" name="frame_10">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_53">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="spindle_percent_1_10">
+                 <property name="text">
+                  <string>Override 10%</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="spindle_percent_1_50">
+                 <property name="text">
+                  <string>Override 50%</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="spindle_percent_1_100">
+                 <property name="text">
+                  <string>Override 100%</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="label_64">
+              <property name="text">
+               <string>Commanded Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="0">
+             <widget class="QLabel" name="label_152">
+              <property name="text">
+               <string>Spindle Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="1" colspan="2">
+             <widget class="QSlider" name="spindle_override_1_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_67">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_65">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
              <widget class="QLabel" name="label_122">
               <property name="text">
                <string>Spindle Orient State</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2" rowspan="16">
+            <item row="12" column="1">
+             <widget class="QLabel" name="spindle_orient_state_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_68">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_speed_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_63">
+              <property name="text">
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_1_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_66">
+              <property name="text">
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="17">
              <widget class="QFrame" name="frame_3">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1309,57 +2256,24 @@
               </layout>
              </widget>
             </item>
-            <item row="21" column="0" colspan="3">
-             <widget class="QFrame" name="frame_10">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_53">
-               <item row="0" column="0">
-                <widget class="QPushButton" name="spindle_percent_1_10">
-                 <property name="text">
-                  <string>Override 10%</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QPushButton" name="spindle_percent_1_50">
-                 <property name="text">
-                  <string>Override 50%</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="spindle_percent_1_100">
-                 <property name="text">
-                  <string>Override 100%</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_enabled_1_lb">
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_123">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Spindle Orient Fault</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_1_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="1">
+            <item row="10" column="1">
              <widget class="QLabel" name="spindle_override_1_lb">
               <property name="text">
                <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_62">
+              <property name="text">
+               <string>Override</string>
               </property>
              </widget>
             </item>
@@ -1370,19 +2284,15 @@
               </property>
              </widget>
             </item>
-            <item row="18" column="0">
-             <widget class="QLabel" name="label_152">
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_129">
               <property name="text">
-               <string>Spindle Speed</string>
+               <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="18" column="1" colspan="2">
-             <widget class="QSlider" name="spindle_speed_1_sl">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
+            <item row="7" column="1">
+             <widget class="QLCDNumber" name="spindle_speed_1_lcd"/>
             </item>
            </layout>
           </widget>
@@ -1391,35 +2301,14 @@
             <string>2</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_36">
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_speed_2_lb">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_116">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Override Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_74">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_2_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_2_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2" rowspan="9">
+            <item row="0" column="2" rowspan="10">
              <widget class="QFrame" name="frame_4">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1469,62 +2358,10 @@
               </layout>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_73">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_127">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="1" colspan="2">
-             <widget class="QSlider" name="spindle_override_2_sl">
-              <property name="maximum">
-               <number>100</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_76">
-              <property name="text">
-               <string>Override</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_72">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_2_lb">
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_2_lb">
               <property name="text">
                <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_124">
-              <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_70">
-              <property name="text">
-               <string>Override Percent</string>
               </property>
              </widget>
             </item>
@@ -1535,6 +2372,72 @@
               </property>
              </widget>
             </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_state_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_73">
+              <property name="text">
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="text">
+               <string>Commanded Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_speed_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_124">
+              <property name="text">
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1" colspan="2">
+             <widget class="QSlider" name="spindle_override_2_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_2_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_76">
+              <property name="text">
+               <string>Override</string>
+              </property>
+             </widget>
+            </item>
             <item row="2" column="1">
              <widget class="QLabel" name="spindle_enabled_2_lb">
               <property name="text">
@@ -1542,10 +2445,17 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_2_lb">
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_70">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_127">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
               </property>
              </widget>
             </item>
@@ -1556,42 +2466,42 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_2_lb">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_72">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_71">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_74">
               <property name="text">
-               <string>Commanded Speed</string>
+               <string>Speed</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
+            <item row="8" column="1">
              <widget class="QLabel" name="spindle_orient_fault_2_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_116">
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_override_2_lb">
               <property name="text">
-               <string>Override Enabled</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_133">
               <property name="text">
                <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
+            <item row="4" column="1">
              <widget class="QLCDNumber" name="spindle_speed_2_lcd"/>
             </item>
            </layout>
@@ -1601,17 +2511,41 @@
             <string>3</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_37">
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_79">
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_3_lb">
               <property name="text">
-               <string>Enabled</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_state_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1" colspan="2">
+             <widget class="QSlider" name="spindle_override_3_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
              <widget class="QLabel" name="label_83">
               <property name="text">
                <string>Override</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -1622,14 +2556,49 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_131">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_79">
               <property name="text">
-               <string>Spindle Orient Fault</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2" rowspan="9">
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_126">
+              <property name="text">
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_80">
+              <property name="text">
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_82">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="spindle_brake_3_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="10">
              <widget class="QFrame" name="frame_5">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1679,66 +2648,17 @@
               </layout>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_3_lb">
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_speed_3_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="spindle_brake_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_78">
-              <property name="text">
-               <string>Commanded Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
+            <item row="6" column="0">
              <widget class="QLabel" name="label_77">
               <property name="text">
                <string>Override Percent</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_117">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_3_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_80">
-              <property name="text">
-               <string>Brake</string>
               </property>
              </widget>
             </item>
@@ -1749,59 +2669,49 @@
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_3_lb">
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_3_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_3_lb">
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_131">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_78">
+              <property name="text">
+               <string>Commanded Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_override_3_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="1" colspan="2">
-             <widget class="QSlider" name="spindle_override_3_sl">
-              <property name="maximum">
-               <number>100</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_speed_3_lb">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_117">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Override Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_82">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_126">
-              <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_136">
               <property name="text">
                <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
+            <item row="4" column="1">
              <widget class="QLCDNumber" name="spindle_speed_3_lcd"/>
             </item>
            </layout>
@@ -1811,62 +2721,24 @@
             <string>4</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_38">
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_86">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="1" colspan="2">
-             <widget class="QSlider" name="spindle_override_4_sl">
-              <property name="maximum">
-               <number>100</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_90">
-              <property name="text">
-               <string>Override</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
+            <item row="8" column="0">
              <widget class="QLabel" name="label_135">
               <property name="text">
                <string>Spindle Orient Fault</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_87">
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_90">
               <property name="text">
-               <string>Brake</string>
+               <string>Override</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_128">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_86">
               <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_88">
-              <property name="text">
-               <string>Speed</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
@@ -1877,52 +2749,41 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="6" column="1">
              <widget class="QLabel" name="spindle_override_4_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_4_lb">
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_4_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0">
+            <item row="9" column="0">
              <widget class="QLabel" name="label_85">
               <property name="text">
                <string>Commanded Speed</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_84">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_87">
               <property name="text">
-               <string>Override Percent</string>
+               <string>Brake</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_118">
-              <property name="text">
-               <string>Override Enabled</string>
+            <item row="10" column="1" colspan="2">
+             <widget class="QSlider" name="spindle_override_4_sl">
+              <property name="maximum">
+               <number>100</number>
               </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_4_lb">
-              <property name="text">
-               <string>TextLabel</string>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -1940,7 +2801,21 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2" rowspan="9">
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_128">
+              <property name="text">
+               <string>Spindle Orient State</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="10">
              <widget class="QFrame" name="frame_6">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1997,21 +2872,56 @@
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_88">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
              <widget class="QLabel" name="spindle_cmd_speed_4_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_84">
+              <property name="text">
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_118">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_state_4_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
              <widget class="QLabel" name="label_138">
               <property name="text">
                <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
+            <item row="4" column="1">
              <widget class="QLCDNumber" name="spindle_speed_4_lcd"/>
             </item>
            </layout>
@@ -2021,17 +2931,24 @@
             <string>5</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_39">
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_119">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0">
+            <item row="9" column="0">
              <widget class="QLabel" name="label_92">
               <property name="text">
                <string>Commanded Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_130">
+              <property name="text">
+               <string>Spindle Orient State</string>
               </property>
              </widget>
             </item>
@@ -2042,70 +2959,14 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_91">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_95">
               <property name="text">
-               <string>Override Percent</string>
+               <string>Speed</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="spindle_brake_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_enabled_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_96">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_5_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_93">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2" rowspan="9">
+            <item row="0" column="2" rowspan="10">
              <widget class="QFrame" name="frame_7">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -2155,31 +3016,34 @@
               </layout>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_95">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_130">
-              <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_5_lb">
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_enabled_5_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_97">
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_137">
               <property name="text">
-               <string>Override</string>
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1" colspan="2">
+             <widget class="QSlider" name="spindle_override_5_sl">
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -2190,38 +3054,84 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_137">
+            <item row="0" column="1">
+             <widget class="QLabel" name="spindle_brake_5_lb">
               <property name="text">
-               <string>Spindle Orient Fault</string>
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_93">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_97">
+              <property name="text">
+               <string>Override</string>
               </property>
              </widget>
             </item>
             <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_119">
+              <property name="text">
+               <string>Override Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_state_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
              <widget class="QLabel" name="spindle_override_5_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="1" colspan="2">
-             <widget class="QSlider" name="spindle_override_5_sl">
-              <property name="maximum">
-               <number>100</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_5_lb">
+              <property name="text">
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_91">
+              <property name="text">
+               <string>Override Percent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_96">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
              <widget class="QLabel" name="label_140">
               <property name="text">
                <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
+            <item row="4" column="1">
              <widget class="QLCDNumber" name="spindle_speed_5_lcd"/>
             </item>
            </layout>
@@ -2231,55 +3141,27 @@
             <string>6</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_40">
-            <item row="9" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_6_lb">
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_6_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_132">
-              <property name="text">
-               <string>Spindle Orient State</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
+            <item row="11" column="0">
              <widget class="QLabel" name="label_104">
               <property name="text">
                <string>Override</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_103">
-              <property name="text">
-               <string>Direction</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_100">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="1" colspan="2">
+            <item row="11" column="1" colspan="2">
              <widget class="QSlider" name="spindle_override_6_sl">
               <property name="maximum">
                <number>100</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="spindle_enabled_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -2290,14 +3172,70 @@
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
+            <item row="9" column="1">
+             <widget class="QLabel" name="spindle_orient_fault_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="spindle_enabled_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_override_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
              <widget class="QLabel" name="label_99">
               <property name="text">
                <string>Commanded Speed</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2" rowspan="9">
+            <item row="10" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_102">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_direction_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="spindle_speed_6_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_100">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" rowspan="10">
              <widget class="QFrame" name="frame_8">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -2348,30 +3286,23 @@
              </widget>
             </item>
             <item row="6" column="0">
-             <widget class="QLabel" name="label_98">
+             <widget class="QLabel" name="label_120">
               <property name="text">
-               <string>Override Percent</string>
+               <string>Override Enabled</string>
               </property>
              </widget>
             </item>
             <item row="8" column="0">
-             <widget class="QLabel" name="label_139">
+             <widget class="QLabel" name="label_132">
               <property name="text">
-               <string>Spindle Orient Fault</string>
+               <string>Spindle Orient State</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="spindle_orient_state_6_lb">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_103">
               <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_speed_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
+               <string>Direction</string>
               </property>
              </widget>
             </item>
@@ -2382,56 +3313,35 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_direction_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
             <item row="8" column="1">
-             <widget class="QLabel" name="spindle_orient_fault_6_lb">
+             <widget class="QLabel" name="spindle_orient_state_6_lb">
               <property name="text">
                <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_139">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_98">
+              <property name="text">
+               <string>Override Percent</string>
               </property>
              </widget>
             </item>
             <item row="5" column="0">
-             <widget class="QLabel" name="label_120">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_102">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_override_6_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
              <widget class="QLabel" name="label_142">
               <property name="text">
                <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="1">
+            <item row="5" column="1">
              <widget class="QLCDNumber" name="spindle_speed_6_lcd"/>
             </item>
            </layout>
@@ -2441,91 +3351,14 @@
             <string>7</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_41">
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_105">
-              <property name="text">
-               <string>Override Percent</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="spindle_enabled_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_121">
-              <property name="text">
-               <string>Override Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="spindle_override_enabled_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_109">
-              <property name="text">
-               <string>Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="spindle_brake_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_141">
-              <property name="text">
-               <string>Spindle Orient Fault</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_111">
-              <property name="text">
-               <string>Override</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_106">
-              <property name="text">
-               <string>Commanded Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
+            <item row="8" column="1">
              <widget class="QLabel" name="spindle_orient_fault_7_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_108">
-              <property name="text">
-               <string>Brake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="spindle_direction_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2" rowspan="9">
+            <item row="0" column="2" rowspan="10">
              <widget class="QFrame" name="frame_9">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -2575,35 +3408,21 @@
               </layout>
              </widget>
             </item>
-            <item row="6" column="0">
+            <item row="7" column="0">
              <widget class="QLabel" name="label_134">
               <property name="text">
                <string>Spindle Orient State</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_107">
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_105">
               <property name="text">
-               <string>Enabled</string>
+               <string>Override Percent</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="spindle_override_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLabel" name="spindle_orient_state_7_lb">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="1" colspan="2">
+            <item row="10" column="1" colspan="2">
              <widget class="QSlider" name="spindle_override_7_sl">
               <property name="maximum">
                <number>100</number>
@@ -2613,15 +3432,43 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_110">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_121">
               <property name="text">
-               <string>Direction</string>
+               <string>Override Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="spindle_cmd_speed_7_lb">
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_111">
+              <property name="text">
+               <string>Override</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_141">
+              <property name="text">
+               <string>Spindle Orient Fault</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_109">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="spindle_orient_state_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="spindle_enabled_7_lb">
               <property name="text">
                <string>TextLabel</string>
               </property>
@@ -2634,14 +3481,77 @@
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
+            <item row="5" column="1">
+             <widget class="QLabel" name="spindle_override_enabled_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="spindle_override_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QLabel" name="spindle_cmd_speed_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="spindle_brake_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_106">
+              <property name="text">
+               <string>Commanded Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_110">
+              <property name="text">
+               <string>Direction</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_107">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="spindle_direction_7_lb">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_108">
+              <property name="text">
+               <string>Brake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
              <widget class="QLabel" name="label_143">
               <property name="text">
                <string>Speed LCD</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
+            <item row="4" column="1">
              <widget class="QLCDNumber" name="spindle_speed_7_lcd"/>
             </item>
            </layout>
@@ -4237,916 +5147,6 @@ Enable</string>
         </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="2">
-     <widget class="QTabWidget" name="tabWidget_7">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tabWidget_7Page1">
-       <attribute name="title">
-        <string>Jog</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_8">
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_50">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="jog_minus_pb_0">
-          <property name="text">
-           <string>X Minus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QComboBox" name="jog_modes_cb"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="jog_minus_pb_2">
-          <property name="text">
-           <string>Z Minus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="jog_plus_pb_0">
-          <property name="text">
-           <string>X Plus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QSlider" name="jog_vel_sl">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="jog_minus_pb_1">
-          <property name="text">
-           <string>Y Minus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="jog_plus_pb_2">
-          <property name="text">
-           <string>Z Plus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="jog_plus_pb_1">
-          <property name="text">
-           <string>Y Plus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="label_156">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_17">
-       <attribute name="title">
-        <string>Jog Sel</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_31">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="jog_selected_plus">
-          <property name="text">
-           <string>Jog Selected Plus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="jog_selected_minus">
-          <property name="text">
-           <string>Jog Selected Minus</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_18">
-       <attribute name="title">
-        <string>Clear</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_32">
-        <item row="1" column="1">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="clear_x_pb">
-          <property name="text">
-           <string>Clear X</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="clear_y_pb">
-          <property name="text">
-           <string>Clear Y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="clear_z_pb">
-          <property name="text">
-           <string>Clear Z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="8" column="0" colspan="2">
-     <widget class="QTabWidget" name="tabWidget_5">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tabWidget_5Page1">
-       <attribute name="title">
-        <string>MDI</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="3" column="0">
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="text">
-           <string>G53 G0 X0</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G53 G0 X0</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="mdi_0">
-          <property name="text">
-           <string>G0 X2</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G0 X2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="text">
-           <string>G92 X0.5</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G92 X0.5</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="mdi_1">
-          <property name="text">
-           <string>G10 L20 P0 X1</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G10 L20 P0 X1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="text">
-           <string>G10 L2 P0 X0</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G10 L2 P0 X0</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="text">
-           <string>G92.1</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G92.1</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_5">
-       <attribute name="title">
-        <string>QSS</string>
-       </attribute>
-       <widget class="QPushButton" name="test_pb">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>96</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_6">
-       <attribute name="title">
-        <string>Open</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_14">
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButton_12">
-          <property name="text">
-           <string>Load 42.ngc</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>load_file</string>
-          </property>
-          <property name="filename" stdset="0">
-           <string>42.ngc</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="text">
-           <string>Load 45.ngc</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>load_file</string>
-          </property>
-          <property name="filename" stdset="0">
-           <string>45.ngc</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_16">
-       <attribute name="title">
-        <string>Flash</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_11">
-        <item>
-         <widget class="QPushButton" name="flashing_checked_pb">
-          <property name="text">
-           <string>Flash Checked</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="flash_state" stdset="0">
-           <string>checked</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="flash_unchecked_pb">
-          <property name="text">
-           <string>Flash Unchecked</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="flash_state" stdset="0">
-           <string>unchecked</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="1" column="5" rowspan="2">
-     <widget class="QGroupBox" name="groupBox_8">
-      <property name="title">
-       <string>Homed</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_22">
-       <item row="1" column="3">
-        <widget class="QLabel" name="home_lb_1">
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QLabel" name="home_lb_2">
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="home_lb_0">
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_29">
-         <property name="text">
-          <string>Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_30">
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLabel" name="label_32">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="0" rowspan="4" colspan="2">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_7">
-       <attribute name="title">
-        <string>Mach</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_12">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="estop_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>E Stop</string>
-          </property>
-          <property name="off_text" stdset="0">
-           <string>E Stop</string>
-          </property>
-          <property name="on_text" stdset="0">
-           <string>Danger</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="pause_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Pause</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="stop_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Stop</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="run_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Run</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="run_from_line_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Run From Line</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="resume_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Resume</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="step_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Step</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="power_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Power</string>
-          </property>
-          <property name="on_text" stdset="0">
-           <string>Power On</string>
-          </property>
-          <property name="off_text" stdset="0">
-           <string>Power Off</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_8">
-       <attribute name="title">
-        <string>Home</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_13">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="home_all_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Home All</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="unhome_all_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Unhome All</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="home_pb_0">
-          <property name="text">
-           <string>Home X</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="unhome_pb_0">
-          <property name="text">
-           <string>Unhome X</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="home_pb_1">
-          <property name="text">
-           <string>Home Y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="unhome_pb_1">
-          <property name="text">
-           <string>Unhome Y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="home_pb_2">
-          <property name="text">
-           <string>Home Z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="unhome_pb_2">
-          <property name="text">
-           <string>Unhome Z</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_10">
-       <attribute name="title">
-        <string>File</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_16">
-        <item row="2" column="0">
-         <widget class="QPushButton" name="save_as_pb">
-          <property name="text">
-           <string>Save As</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="save_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Save</string>
-          </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="open_pb">
-          <property name="text">
-           <string>Open</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="edit_pb">
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="reload_pb">
-          <property name="text">
-           <string>Reload</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QGroupBox" name="groupBox_4">
-      <property name="title">
-       <string>G92 Offset</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="g92_lb_x">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="g92_lb_y">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="g92_lb_z">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Actual</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="actual_lb_x">
-         <property name="text">
-          <string>-0.000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="actual_lb_y">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="actual_lb_z">
-         <property name="text">
-          <string>0.000</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="6" rowspan="3">
-     <widget class="QFrame" name="frame">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_20">
-       <item>
-        <widget class="QPushButton" name="quit_pb">
-         <property name="text">
-          <string>Quit</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="4" column="6">
-     <widget class="QGroupBox" name="groupBox_17">
-      <property name="title">
-       <string>Joint</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_28">
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_146">
-         <property name="text">
-          <string>Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_145">
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_147">
-         <property name="text">
-          <string>Z</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="joint_0_enabled_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="joint_1_enabled_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="joint_2_enabled_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </item>
    </layout>
