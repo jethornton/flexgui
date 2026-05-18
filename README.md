@@ -1,6 +1,6 @@
 # Flex GUI
 
-Cloning use --depth=1 or you will get over 600MB
+**Cloning use --depth=1 or you will get over 600MB**
 
 <img src='./images/FlexGUI-blackbg.png'>
 
