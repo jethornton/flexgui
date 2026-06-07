@@ -484,3 +484,14 @@ higher.
 
 The `DEFAULT_RPM` will be the RPM setting at startup.
 
+[HAL]
+=====
+
+To make HAL connections to Flex GUI HAL objects it must be done in the post gui
+HAL file and the file must be added to the [HAL] section of the ini file.
+
+.. code-block:: text
+
+	POSTGUI_HALFILE = postgui.hal
+
+
