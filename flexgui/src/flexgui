@@ -156,16 +156,16 @@ class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
-		self.flex_version = '1.4.1'
+		self.flex_version = '2.0.0'
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		# set the library path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
-		else:
-			msg = ('Flex GUI seems to be installed\n'
-			'in a none standard location.')
-			dialogs.error_msg_ok(self, msg, 'Error')
+		else: # FIXME test this
+			title = 'Error'
+			msg = ('Flex GUI seems to be installed in a none standard location.')
+			dialogs.error_msg_ok(self, title, msg)
 			sys.exit()
 
 		# connect to linuxcnc
@@ -191,10 +191,10 @@ class flexgui(QMainWindow):
 				self.inifile = emc.ini(sys.argv[i])
 				self.config_path = os.path.split(sys.argv[i])[0]
 				break
-		else: # no match was found
-			msg = ('Flex GUI must be called from\n'
-			'the LinuxCNC ini file.')
-			dialogs.error_msg_ok(self, msg, 'Error')
+		else: # no match was found # FIXME test this
+			title = 'Error'
+			msg = ('Flex GUI must be called from the LinuxCNC ini file.')
+			dialogs.error_msg_ok(self, title, msg)
 			sys.exit()
 
 		# display splash screen if found
@@ -231,11 +231,11 @@ class flexgui(QMainWindow):
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
 						Qt.AlignmentFlag.AlignCenter, QColor(splash_font_color))
 					app.processEvents()
-			else:
-				msg = (f'The Splash Image {splash_image}\n'
-					'was not found in the configuration\n'
-					'directory')
-				dialogs.error_msg_ok(self, msg, 'Configuration Error!')
+			else: # FIXME test this
+				title = 'Configuration Error'
+				msg = (f'The Splash Image {splash_image} was not found in the '
+				'configuration directory.')
+				dialogs.error_msg_ok(parent, title, msg)
 
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
@@ -274,10 +274,11 @@ class flexgui(QMainWindow):
 			try:
 				sys.path.append(self.config_path)
 				import resources
-			except:
+			except: # FIXME test this
+				title = 'Import Failed'
 				msg = (f'The resources file {resources_file} was\n'
 					'not found, check for file name resources.py.')
-				dialogs.warn_msg_ok(parent, msg, 'Import Failed')
+				dialogs.error_msg_ok(parent, title, msg)
 
 		stylesheet = False
 		if self.theme:
@@ -292,10 +293,10 @@ class flexgui(QMainWindow):
 			if os.path.isfile(stylesheet):
 				with open(stylesheet, 'r') as f:
 					self.setStyleSheet(f.read())
-			else:
-				msg = (f'The Stylesheet {stylesheet}\n'
-					'was not found.')
-				dialogs.warn_msg_ok(parent, msg, 'INI Error')
+			else: # FIXME test this
+				title = 'INI Error!'
+				msg = (f'The Stylesheet {stylesheet} was not found.')
+				dialogs.error_msg_ok(parent, title, msg)
 
 		# set emc states to -0 so they get evaluated in status at least once
 		self.exec_state = -0
