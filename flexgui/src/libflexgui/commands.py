@@ -392,6 +392,7 @@ def spindle_control(parent, spindle, action, value=None):
 			parent.spindle_speed_sb.setValue(rpm)
 			parent.spindle_speed_sb.blockSignals(False)
 
+	# FIXME only do this if it is enabled if both exist this is disabled
 	if 'spindle_speed_sl' in parent.child_names:
 		if parent.spindle_speed_sl.value() != rpm:
 			parent.spindle_speed_sl.blockSignals(True)

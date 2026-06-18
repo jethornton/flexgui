@@ -368,7 +368,7 @@ def update(parent):
 			getattr(parent, key).setText(f'{speed * override:.0f}')
 
 		parent.status_spindle = parent.status.spindle
-	
+
 	# **** STATUS LABELS ****
 	# key is label and value is status item
 	for key, value in parent.status_labels.items(): # update all status labels
@@ -394,16 +394,6 @@ def update(parent):
 	# joint status items with precision key is item value is [joint, precision]
 	for key, value in parent.status_joint_prec.items():
 		getattr(parent, f'joint_{value[0]}_{key}_lb').setText(f'{getattr(parent, "status").joint[value[0]][key]:.{value[1]}f}')
-
-	# update hal labels key is label name and value[0] is pin name value[1] is digits
-	for key, value in parent.hal_readers.items():
-		state = hal.get_value(f'flexhal.{value[0]}')
-		if value[1] is not None:
-			state = f"{state:0{value[1]}d}"
-		if isinstance(getattr(parent, key), QLCDNumber):
-			getattr(parent, key).display(f'{state}')
-		else: # it's a HAL Label
-			getattr(parent, key).setText(f'{state}')
 
 	# update hal average float labels key is label name and value is pin name
 	# [pin_name, deque([0], maxlen=samples), p, r]
@@ -438,23 +428,42 @@ def update(parent):
 		else:
 			getattr(parent, key).setText(value[2])
 
+	# update hal integer labels
+	# key is label name, value[0] is pin name, value[1] is zero padding
+	for key, value in parent.hal_integer_labels.items():
+		hal_value = hal.get_value(f'flexhal.{value[0]}')
+		getattr(parent, key).setText(f'{hal_value:0{value[1]}d}')
+
+	# update hal float labels
+	# key is label name, value[0] is pin name, value[1] is precision
+	for key, value in parent.hal_float_labels.items():
+		hal_value = hal.get_value(f'flexhal.{value[0]}')
+		getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
+
+	for key, value in parent.hal_floats.items(): # FIXME change to hal_lcd_floats
+		# label [status item, precision]
+		hal_value = hal.get_value(f'flexhal.{value[0]}')
+		if isinstance(getattr(parent, key), QLCDNumber):
+			getattr(parent, key).display(f'{hal_value:.{value[1]}f}')
+
+	# update hal labels key is label name and value[0] is pin name value[1] is digits
+	for key, value in parent.hal_readers.items():
+		state = hal.get_value(f'flexhal.{value[0]}')
+		if value[1] is not None:
+			state = f"{state:0{value[1]}d}"
+		if isinstance(getattr(parent, key), QLCDNumber):
+			getattr(parent, key).display(f'{state}')
+		else: # it's a HAL Label
+			getattr(parent, key).setText(f'{state}')
+
 	# update hal progressbars key is the progressbar name and value is the pin name
 	for key, value in parent.hal_progressbars.items():
 		value = hal.get_value(f'flexhal.{value}')
 		getattr(parent, key).setValue(int(value))
 
-	# update hal float labels
-	for key, value in parent.hal_floats.items():
-		# label [status item, precision]
-		hal_value = hal.get_value(f'flexhal.{value[0]}')
-		if isinstance(getattr(parent, key), QLCDNumber):
-			getattr(parent, key).display(f'{hal_value:.{value[1]}f}')
-		else:
-			getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
-
 	# update hal leds
-	for key, value in parent.hal_leds.items():
-		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
+	#for key, value in parent.hal_leds.items():
+	#	getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
 
 	# update hal led labels
 	for key, value in parent.hal_led_labels.items():
@@ -553,8 +562,8 @@ def update(parent):
 			getattr(parent, key).setText(f'{getattr(tr, value[0]):.{value[1]}f}')
 
 		parent.current_tool_info = parent.status.tool_table[0]
-
-	# HAL Watch Pins
+	'''
+	# HAL Watch Pins FIXME this can crash emc if the hal pin does not exist
 	for key, value in parent.hal_watch_bit.items():
 		getattr(parent, key).setText(f'{hal.get_value(value)}')
 
@@ -563,7 +572,7 @@ def update(parent):
 
 	for key, value in parent.hal_watch_float.items():
 		getattr(parent, key).setText(f'{hal.get_value(value[0]):.{value[1]}f}')
-
+	'''
 
 	# **** HANDLE ERRORS ****
 	error = parent.error.poll()

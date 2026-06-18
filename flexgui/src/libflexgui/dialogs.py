@@ -272,17 +272,22 @@ def confirm_msg_ok_cancel(parent, msg, title=None):
 	else:
 		return False
 
-def error_msg_ok(parent, msg, title=None): # plain error message
-	# dialogs.error_msg_ok(parent, msg, 'title')
+#def error_msg_ok(parent, msg, **kwargs): # plain error message
+def error_msg_ok(parent, title, msg, info=None): # plain error message
+	# dialogs.error_msg_ok(parent, title, msg, info)
 	#print('error_msg_ok')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
+	if info is not None:
+		msg_box.setInformativeText(info)
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
-	with open(parent.popup_qss,'r') as fh:
+	with open(os.path.join(parent.lib_path, 'messagebox.qss'),'r') as fh:
 		msg_box.setStyleSheet(fh.read())
+	#with open(parent.popup_qss,'r') as fh:
+	#	msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:

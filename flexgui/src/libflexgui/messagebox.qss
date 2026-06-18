@@ -1,0 +1,36 @@
+QMessageBox {
+	background-color: #2C2C2C;
+}
+
+/* Main message text */
+QLabel#qt_msgbox_label {
+	color: #ffffff;
+	font-family: FreeMono;
+	font-weight: bold;
+	font-size: 22px;
+}
+
+/* Informative text */
+QLabel#qt_msgbox_informativelabel {
+	color: #FF6666;
+	font-family: FreeMono;
+	font-weight: bold;
+	font-size: 22px;
+}
+
+/* Buttons */
+QPushButton {
+	background-color: #4CAF50;
+	color: white;
+	border-radius: 4px;
+	padding: 6px 16px;
+	font-size: 16px;
+}
+QPushButton:hover {
+	border: 1px solid #78879b;
+	background-color: #45a049;
+}
+QPushButton:pressed {
+	background-color: #3e8e41;
+}
+

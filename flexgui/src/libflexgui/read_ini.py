@@ -65,6 +65,7 @@ def read(parent):
 	else:
 		parent.default_view = 'p'
 
+	# the check for valid increments is done in startup.py
 	parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
 	# check for default file to open
@@ -79,14 +80,16 @@ def read(parent):
 	# maximum jog velocity
 	parent.max_jog_vel = parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY") or False
 
-	# set max feed override FIXME is this correct
+	# set max feed override if not a number shut down
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
 	if utilities.is_number(mfo):
 		parent.max_feed_override = float(mfo)
 	else:
-		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE\n'
-		'did not evaluate to a number. LinuxCNC will shut down.')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
+		title = 'Critical Error!'
+		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE '
+		'did not evaluate to a number.')
+		info = 'LinuxCNC will shut down!'
+		dialogs.error_msg_ok(parent, title, msg, info)
 		sys.exit()
 
 	# ***** [FLEXGUI] Section *****
@@ -171,9 +174,11 @@ def read(parent):
 		parent.flash_time = int(flash_time)
 	else:
 		parent.flash_time = 1000
-		msg = (f'The INI value {flash_time} for [FLEXGUI] FLASH_TIME\n'
-		'did not evaluate to an integer. 1000 will be used.')
-		dialogs.error_msg_ok(parent, msg, 'INI Error')
+		title = 'INI Error!'
+		msg = (f'The INI value {flash_time} for [FLEXGUI] FLASH_TIME '
+		'did not evaluate to an integer.')
+		info = '1000 will be used.'
+		dialogs.error_msg_ok(parent, title, msg, info)
 
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
@@ -274,19 +279,25 @@ def read(parent):
 		components = [c.strip() for c in color_string.split(',')]
 		if len(components) == 3:
 			for comp in components:
-				value = float(comp)
-				if not (0.0 <= value <= 1.0):
+				try:
+					value = float(comp)
+				except ValueError:
+					value = False
+				if not (0.0 <= value <= 1.0) or value is False:
 					parent.plot_background_color = False
-					msg = ('The PLOT_BACKGROUND_COLOR in the\n'
-					f'FLEXGUI section {color_string} is not valid.\n'
-					'The plot background color will be black')
-					dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+					title = 'INI Configuration Error!'
+					msg = (f'The PLOT_BACKGROUND_COLOR {color_string} in the FLEXGUI '
+					'section is not valid.\n'
+					'Each color must be 0.0 to 1.0.')
+					info = 'The background color will be black'
+					dialogs.error_msg_ok(parent, title, msg, info)
 					break
 				parent.plot_background_color = tuple(map(float, color_string.split(',')))
 	else:
 		parent.plot_background_color = False
 
 	parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
+
 	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
 	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
 
@@ -300,7 +311,7 @@ def read(parent):
 	else:
 		parent.touch_file_width = False
 
-	# check for keyboard jog increment setting
+	# check for keyboard jog increment setting FIXME does this do anything???
 	parent.kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or False
 	if parent.kb_jog_increment:
 		parent.kb_jog_increment = parent.kb_jog_increment.strip().lower() == "true"
