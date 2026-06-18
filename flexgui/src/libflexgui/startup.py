@@ -2191,7 +2191,7 @@ def setup_set_var(parent):
 						child.setValue(float(line.split()[1]))
 						found = True
 						child.valueChanged.connect(partial(utilities.var_value_changed, parent))
-						parent.set_var[name] = var
+						parent.set_var[obj_name] = var
 						parent.homed_controls.append(obj_name)
 						break
 				if not found:
