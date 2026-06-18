@@ -249,10 +249,36 @@ The HAL direction is IN for a HAL Label.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT or HAL_FLOAT or HAL_S32 or HAL_U32
+	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
 	Optional
 	String, precision, Number of decimal digits for HAL_FLOAT type
-	String, integer_digits, Left padded zeros for HAL_S32 or HAL_U32
+	String, zero_padding, Left padded zeros for HAL_S32 or HAL_U32
+
+HAL Bool Label
+--------------
+
+A QLabel can have optional True and False text by adding two additional Dynamic
+Properties. Default is `True` and `False`.
+
+The HAL direction is IN and the hal_type is bit for a HAL Bool Label
+
+See :doc:`property` for step by step instructions to add a Dynamic Property
+
+.. csv-table:: **HAL Bool Label**
+   :width: 100%
+   :align: center
+   :widths: 25 25 50
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_BIT
+	Optional
+	String, true_text, text to display when True
+	String, false_text, text to display when False
+
+.. image:: /images/hal-bool-label-01.png
+   :align: center
 
 HAL Average Float Label
 -----------------------
@@ -318,30 +344,6 @@ The HAL direction is IN.
 	String, hal_type, HAL_S32 or HAL_U32
 	Optional
 	Int, samples, The number of samples to use default is 10
-
-HAL Bool Label
---------------
-
-A QLabel can have True and False text by adding two additional Dynamic
-Properties. Both true_text and false_text must be set and can not be blank.
-
-The HAL direction is IN and the hal_type is bit for a HAL Bool Label
-
-See :doc:`property` for step by step instructions to add a Dynamic Property
-
-.. csv-table:: **HAL Bool Label**
-   :width: 100%
-   :align: center
-   :widths: 25 25 50
-
-	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_pin
-	String, pin_name, any unique name
-	String, true_text, text to display when True
-	String, false_text, text to display when False
-
-.. image:: /images/hal-bool-label-01.png
-   :align: center
 
 HAL Multi-State Label
 ---------------------
