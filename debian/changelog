@@ -1,3 +1,9 @@
+flexgui (2.0.0) unstable; urgency=medium
+
+  * New release with improved error messages
+
+ -- John Thornton <dev@gnipsel.com>  Thu, 18 Jun 2026 11:29:55 -0500
+
 flexgui (1.4.1) unstable; urgency=medium
 
   * Improve enable/disable logic
