@@ -56,27 +56,31 @@ class dsf_calc(QWidget):
 		self.dfs_surface_speed_le.setText('')
 
 	def check_dia(self, parent):
-		if self.dfs_diameter_le.text() == '':
+		if self.dfs_diameter_le.text() == '': # FIXME test this
+			title = 'Error!'
 			msg = ('Diameter can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_float(self.dfs_diameter_le.text()):
 			return float(self.dfs_diameter_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error!'
 			msg = ('Diameter is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def check_speed(self, parent):
-		if self.dfs_surface_speed_le.text() == '':
+		if self.dfs_surface_speed_le.text() == '': # FIXME test this
+			title = 'Error!'
 			msg = ('Surface Speed can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_float(self.dfs_surface_speed_le.text()):
 			return float(self.dfs_surface_speed_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error!'
 			msg = ('Surface Speed is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def calculate(self, parent):

@@ -29,63 +29,73 @@ class fs_calc(QWidget):
 		self.fsc_units_pb.clicked.connect(self.units)
 
 	def check_cl(self, parent):
-		if self.fsc_chip_load_le.text() == '':
+		if self.fsc_chip_load_le.text() == '': # FIXME test this
+			title = 'Error'
 			msg = ('Chip Load can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_float(self.fsc_chip_load_le.text()):
 			return float(self.fsc_chip_load_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error'
 			msg = ('Chip Load is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def check_feed(self, parent):
-		if self.fsc_feed_le.text() == '':
+		if self.fsc_feed_le.text() == '': # FIXME test this
+			title = 'Error'
 			msg = ('Feed can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_float(self.fsc_feed_le.text()):
 			return float(self.fsc_feed_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error'
 			msg = ('Feed is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def check_rpm(self, parent):
-		if self.fsc_rpm_le.text() == '':
+		if self.fsc_rpm_le.text() == '': # FIXME test this
+			title = 'Error'
 			msg = ('RPM can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_float(self.fsc_rpm_le.text()):
 			return float(self.fsc_rpm_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error'
 			msg = ('RPM is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def check_flutes(self, parent):
-		if self.fsc_flutes_le.text() == '':
+		if self.fsc_flutes_le.text() == '': # FIXME test this
+			title = 'Error'
 			msg = ('Flutes can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_int(self.fsc_flutes_le.text()):
 			return int(self.fsc_flutes_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error'
 			msg = ('Flutes is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def check_dia(self, parent):
-		if self.fsc_diameter_le.text() == '':
+		if self.fsc_diameter_le.text() == '': # FIXME test this
+			title = 'Error'
 			msg = ('Diameter can not be blank')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		if utilities.is_float(self.fsc_diameter_le.text()):
 			return float(self.fsc_diameter_le.text())
-		else:
+		else: # FIXME test this
+			title = 'Error'
 			msg = ('Diameter is not a valid number')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 
 	def calc_cl(self, parent):

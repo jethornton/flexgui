@@ -50,11 +50,12 @@ def read(parent):
 		else:
 			parent.nc_code_dir = os.path.expanduser('~/')
 		if ini_dir: # a nc code directory was in the ini file but is not valid
+			title = 'Configuration Error'
 			msg = (f'The path {directory} does not exist. Check the '
-				'PROGRAM_PREFIX key in the [DISPLAY] section of the '
-				'INI file for a valid path.\n'
-				f'{parent.nc_code_dir} will be used.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+			'PROGRAM_PREFIX key in the [DISPLAY] section of the '
+			'INI file for a valid path.')
+			info = f'{parent.nc_code_dir} will be used.'
+			dialogs.error_msg_ok(parent, title, msg, info)
 
 	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
@@ -84,7 +85,7 @@ def read(parent):
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
 	if utilities.is_number(mfo):
 		parent.max_feed_override = float(mfo)
-	else:
+	else: # FIXME test this
 		title = 'Critical Error!'
 		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE '
 		'did not evaluate to a number.')
@@ -97,10 +98,11 @@ def read(parent):
 	# check for POPUP_QSS file, this must be checked first before any dialogs
 	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
 	if parent.popup_qss:
-		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)):
-			msg = (f'The Touch Popup QSS file {parent.popup_qss}\n'
-				'Was not found. QSS can not be applied')
-			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)): # FIXME test this
+			title = 'INI Error!'
+			msg = (f'The Touch Popup QSS file {parent.popup_qss} Was not found.')
+			info = 'The QSS can not be applied'
+			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 	else: # POPUP_QSS not in ini file
 		parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
@@ -128,13 +130,14 @@ def read(parent):
 	['FLEX', 'IMPORT'],
 	]
 	for item in old_ini_items:
-		if parent.inifile.find(item[0], item[1]):
+		if parent.inifile.find(item[0], item[1]): # FIXME test this
+			title = 'Configuration Error'
 			msg = (f'The key {item[1]} has been moved from the '
 			f'[{item[0]}] section or is no longer used '
 			'by FlexGUI or the name has been changed. '
 			'Check the INI section of the Documents '
 			'for correct INI entries.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+			dialogs.error_msg_ok(parent, title, msg, info)
 
 	old_spindle_items = [
 	['DISPLAY', 'DEFAULT_SPINDLE_SPEED'],
@@ -143,28 +146,33 @@ def read(parent):
 	]
 
 	for item in old_spindle_items:
-		if parent.inifile.find(item[0], item[1]):
+		if parent.inifile.find(item[0], item[1]): # FIXME test this
+			title = 'Configuration Error'
 			msg = (f'The key {item[1]} in the [{item[0]}] section was depreciated '
 			'with multiple spindles addition. The Spindle keys are now in [SPINDLE_0] '
 			'section. Check the INI section of the Documents for correct INI entries.')
-			dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+			dialogs.error_msg_ok(parent, title, msg, info)
 
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
 	if isinstance(parent.cycle_time, str): # the ini file had a setting
 		if utilities.is_int(parent.cycle_time):
 			parent.cycle_time = int(parent.cycle_time)
-			if not 50 <= parent.cycle_time <= 200:
+			if not 50 <= parent.cycle_time <= 200: # FIXME test this
+				title = 'Configuration Error'
 				msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}"\n'
 				'is not in the range of 50-200. The cycle time\n'
 				'will be set to the default 100 ms cycle time')
+				info = ''
 				dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 				parent.cycle_time = 100
-		else:
+		else: # FIXME test this
+			title = 'Configuration Error'
 			msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}"\n'
 			'did not evaluate to a number in the range of\n'
 			'50-200. The cycle time will be set to the\n'
 			'default 100 ms cycle time')
+			info = ''
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.cycle_time = 100
 
@@ -172,7 +180,7 @@ def read(parent):
 	flash_time = parent.inifile.find('FLEXGUI', 'FLASH_TIME') or '1000'
 	if utilities.is_int(flash_time):
 		parent.flash_time = int(flash_time)
-	else:
+	else: # FIXME test this
 		parent.flash_time = 1000
 		title = 'INI Error!'
 		msg = (f'The INI value {flash_time} for [FLEXGUI] FLASH_TIME '
@@ -183,27 +191,33 @@ def read(parent):
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 	if parent.resources_file:
-		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)):
+		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)): # FIXME test this
+			title = 'Configuration Error'
 			msg = (f'The RESOURCES file {parent.resources_file}\n'
-				'Was not found. Resourses can not be imported')
+			'Was not found. Resourses can not be imported')
+			info = ''
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.resources_file = False
 
 	# check for QSS file
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
-	if parent.qss_file:
+	if parent.qss_file: # FIXME test this
 		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)):
+			title = 'Configuration Error'
 			msg = (f'The QSS file {parent.qss_file}\n'
-				'Was not found. QSS can not be applied')
+			'Was not found. QSS can not be applied')
+			info = ''
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 			parent.qss_file = False
 
 	# test for both THEME and QSS
-	if parent.theme and parent.qss_file:
+	if parent.theme and parent.qss_file: # FIXME test this
+		title = 'Configuration Error'
 		msg = (f'The THEME {parent.theme} and QSS {parent.qss_file}\n'
-			'were both found in the ini file.\n'
-			f'the QSS {parent.qss_file} will not be used.\n'
-			'Only one can be specified in the ini.')
+		'were both found in the ini file.\n'
+		f'the QSS {parent.qss_file} will not be used.\n'
+		'Only one can be specified in the ini.')
+		info = ''
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 		parent.qss_file = False
 
@@ -219,10 +233,12 @@ def read(parent):
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER') or False
 	if not parent.led_diameter: # no value found
 		parent.led_diameter = 15
-	elif not utilities.is_int(parent.led_diameter): # not an int
+	elif not utilities.is_int(parent.led_diameter): # not an int # FIXME test this
+		title = 'Configuration Error'
 		msg = (f'The FLEXGUI LED_DIAMETER did not\n'
-			'evaluate to and integer value.\n'
-			'The LED_DIAMETER will be set to 15.')
+		'evaluate to and integer value.\n'
+		'The LED_DIAMETER will be set to 15.')
+		info = ''
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_diameter =  int(parent.led_diameter)
@@ -230,10 +246,12 @@ def read(parent):
 	parent.led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
 	if parent.led_right_offset is None:
 		parent.led_right_offset = 5
-	elif not utilities.is_int(parent.led_right_offset): # not an int
+	elif not utilities.is_int(parent.led_right_offset): # not an int # FIXME test this
+		title = 'Configuration Error'
 		msg = (f'The FLEXGUI LED_RIGHT_OFFSET did not\n'
-			'evaluate to and integer value.\n'
-			'The LED_RIGHT_OFFSET will be set to 15.')
+		'evaluate to and integer value.\n'
+		'The LED_RIGHT_OFFSET will be set to 15.')
+		info = ''
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_right_offset =  int(parent.led_right_offset)
@@ -241,10 +259,12 @@ def read(parent):
 	parent.led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
 	if parent.led_top_offset is None:
 		parent.led_top_offset = 5
-	elif not utilities.is_int(parent.led_top_offset): # not an int
+	elif not utilities.is_int(parent.led_top_offset): # not an int # FIXME test this
+		title = 'Configuration Error'
 		msg = (f'The FLEXGUI LED_TOP_OFFSET did not\n'
-			'evaluate to and integer value.\n'
-			'The LED_TOP_OFFSET will be set to 15.')
+		'evaluate to and integer value.\n'
+		'The LED_TOP_OFFSET will be set to 15.')
+		info = ''
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.led_top_offset =  int(parent.led_top_offset)
@@ -283,7 +303,7 @@ def read(parent):
 					value = float(comp)
 				except ValueError:
 					value = False
-				if not (0.0 <= value <= 1.0) or value is False:
+				if not (0.0 <= value <= 1.0) or value is False: # FIXME test this
 					parent.plot_background_color = False
 					title = 'INI Configuration Error!'
 					msg = (f'The PLOT_BACKGROUND_COLOR {color_string} in the FLEXGUI '
@@ -330,10 +350,12 @@ def read(parent):
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
 	if not parent.dro_font_size: # no value found
 		parent.dro_font_size = 12
-	elif not utilities.is_int(parent.dro_font_size): # not an int
+	elif not utilities.is_int(parent.dro_font_size): # not an int # FIXME test this
+		title = 'Configuration Error'
 		msg = (f'The FLEXGUI DRO_FONT_SIZE did not\n'
-			'evaluate to an integer value.\n'
-			'The DRO_FONT_SIZE will be set to 12.')
+		'evaluate to an integer value.\n'
+		'The DRO_FONT_SIZE will be set to 12.')
+		info = ''
 		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
 	else:
 		parent.dro_font_size =  int(parent.dro_font_size)
@@ -379,13 +401,15 @@ def read(parent):
 		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM') or False
 		if not min_rpm:
 			min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_FORWARD_VELOCITY') or False
-			if min_rpm:
+			if min_rpm: # FIXME test this
+				title = 'Configuration Error'
 				msg = ('The key MIN_FORWARD_VELOCITY has '
 				'been changed to MIN_RPM. Please update '
 				'your ini file to use the new key. '
 				'After the next update MIN_FORWARD_VELOCITY '
 				'will no longer be used.')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				info = ''
+				dialogs.error_msg_ok(parent, title, msg, info)
 		if isinstance(min_rpm, str):
 			min_rpm = utilities.to_int(min_rpm)
 		else:
@@ -395,13 +419,15 @@ def read(parent):
 		max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_RPM') or False
 		if not max_rpm:
 			max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or False
-			if max_rpm:
+			if max_rpm: # FIXME test this
+				title = 'Configuration Error'
 				msg = ('The key MAX_FORWARD_VELOCITY has '
 				'been changed to MAX_RPM. Please update '
 				'your ini file to use the new key. '
 				'After the next update MAX_FORWARD_VELOCITY '
 				'will no longer be used.')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				info = ''
+				dialogs.error_msg_ok(parent, title, msg, info)
 		if isinstance(max_rpm, str):
 			max_rpm = utilities.to_int(max_rpm)
 		else:
@@ -425,11 +451,13 @@ def read(parent):
 		max_override = parent.inifile.find(f'SPINDLE_{i}', 'MAX_OVERRIDE') or False
 		if isinstance(max_override, str):
 			max_override = utilities.to_int(max_override)
-			if max_override < 100:
+			if max_override < 100: # FIXME test this
+				title = 'Configuration Error'
 				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to {max_override}. '
 				'The minimum for MAX_OVERRIDE is 100. '
 				'MAX_OVERRIDE has been set to 100.')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				info = ''
+				dialogs.error_msg_ok(parent, title, msg, info)
 				max_override = 100
 		else:
 			max_override = 100
@@ -440,11 +468,13 @@ def read(parent):
 			default_rpm = utilities.to_int(default_rpm)
 			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
 			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-			if not (min_rpm <= default_rpm <= max_rpm):
+			if not (min_rpm <= default_rpm <= max_rpm): # FIXME test this
+				title = 'Configuration Error'
 				default_rpm = min_rpm
 				msg = (f'The Default RPM for Spindle {i} is outside the limits. '
 				f'The Default RPM will be set to the Minimum RPM {min_rpm}')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				info = ''
+				dialogs.error_msg_ok(parent, title, msg, info)
 		else:
 			default_rpm = min_rpm
 		setattr(parent, f'spindle_rpm_{i}', default_rpm)

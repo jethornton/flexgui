@@ -44,9 +44,10 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 				parent.command.mdi(mdi_command)
-	else:
+	else: # FIXME test this
+		title = 'Error'
 		msg = 'No MDI command was found!'
-		dialogs.warn_msg_ok(parent, msg, 'Error')
+		dialogs.error_msg_ok(parent, title, msg)
 
 def add_mdi(parent): # when you click on the mdi history list widget
 	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
@@ -64,13 +65,15 @@ def jog_check(parent):
 	if 'jog_vel_sl' in parent.child_names:
 		if parent.jog_vel_sl.value() > 0.0:
 			return True
-		else:
+		else: # FIXME test this
+			title = 'Error'
 			msg = ('Can not jog at Zero Velocity!')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
-	else:
+	else: # FIXME test this
+		title = 'Error'
 		msg = ('Can not jog without a\njog velocity slider.')
-		dialogs.warn_msg_ok(msg, 'Error')
+		dialogs.error_msg_ok(parent, title, msg)
 		return False
 
 def set_jog_override(parent):
@@ -184,9 +187,10 @@ def tool_change(parent): # Tool Change Buttons
 				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
 	else: # using tool change cb
 		parent.new_tool_number = parent.tool_change_cb.currentData()
-	if parent.new_tool_number not in tools:
+	if parent.new_tool_number not in tools: # FIXME test this
+		title = 'Tool Change Aborted'
 		msg = (f'Tool {parent.new_tool_number} is not in the Tool Table.')
-		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
+		dialogs.error_msg_ok(parent, title, msg)
 		return
 
 	if parent.new_tool_number != parent.status.tool_in_spindle:
@@ -195,9 +199,10 @@ def tool_change(parent): # Tool Change Buttons
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(mdi_command)
-	else:
+	else: # FIXME test this
+		title = 'Tool Change Aborted'
 		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
-		dialogs.warn_msg_ok(parent, msg, 'Tool Change Aborted')
+		dialogs.error_msg_ok(parent, title, msg)
 
 def touchoff(parent):
 	#print('touchoff')
@@ -235,9 +240,10 @@ def tool_touchoff(parent):
 	elif 'tool_touchoff_le' in parent.child_names:
 		offset = parent.tool_touchoff_le.text()
 
-	if offset == '':
+	if offset == '': # FIXME test this
+		title = 'Error'
 		msg = ('Tool Touchoff Offset\ncan not be blank!')
-		dialogs.warn_msg_ok(parent, msg, 'Error')
+		dialogs.error_msg_ok(parent, title, msg)
 		return
 
 	if cur_tool > 0:
@@ -248,9 +254,10 @@ def tool_touchoff(parent):
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
 			parent.command.wait_complete()
-	else:
+	else: # FIXME test this
+		title = 'Touch Off Aborted'
 		msg = ('No Tool in Spindle.')
-		dialogs.warn_msg_ok(parent, msg, 'Touch Off Aborted')
+		dialogs.error_msg_ok(parent, title, msg)
 
 def spindle_control(parent, spindle, action, value=None):
 	#print(f'spindle {spindle} action {action}')
@@ -392,7 +399,7 @@ def spindle_control(parent, spindle, action, value=None):
 			parent.spindle_speed_sb.setValue(rpm)
 			parent.spindle_speed_sb.blockSignals(False)
 
-	# FIXME only do this if it is enabled if both exist this is disabled
+	# FIXME only do this if it is enabled if both exist this is
 	if 'spindle_speed_sl' in parent.child_names:
 		if parent.spindle_speed_sl.value() != rpm:
 			parent.spindle_speed_sl.blockSignals(True)

@@ -21,9 +21,10 @@ def to_bool(parent, ini_item, string):
 	elif string == 'false':
 		return False
 	else:
-		msg = (f'The INI key {ini_item} value "{string}"\n'
-		'did not evaluate to a True or False Boolean')
-		dialogs.error_msg_ok(parent, msg, 'title')
+		title = 'Configuration Error'
+		msg = (f'The INI key {ini_item} value "{string}" '
+		'did not evaluate to a True or False Boolean.')
+		dialogs.error_msg_ok(parent, title, msg)
 		return False
 
 def to_int(string):
@@ -135,12 +136,10 @@ def string_to_float(string):
 def valid_color_string(string, key):
 	for item in string.split(','):
 		if not item.strip().isdigit():
-			msg = (f'The [FLEXGUI] key {key}\n'
-				f'{string}\n'
-				'is not a valid color\n'
-				'See the INI section of the\n'
-				'documents for proper usage.')
-			dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+			title = 'Configuration Error'
+			msg = (f'The [FLEXGUI] key {key} {string} is not a valid color. '
+			'See the INI section of the documents for proper usage.')
+			dialogs.error_msg_ok(parent, title, msg)
 			return False
 		else:
 			return True
@@ -178,12 +177,10 @@ def string_to_qcolor(parent, string, key):
 			return False
 
 	else: # unknown color value
-		msg = (f'The [FLEXGUI] key {key}\n'
-			f'{string}\n'
-			'is not a valid color\n'
-			'See the INI section of the\n'
-			'documents for proper usage.')
-		dialogs.warn_msg_ok(parent, msg, 'Invalid INI Entry')
+		title = 'Configuration Error'
+		msg = (f'The [FLEXGUI] key {key} {string} is not a valid color '
+			'See the INI section of the documents for proper usage.')
+		dialogs.error_msg_ok(parent, title, msg)
 		return False
 
 def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
@@ -233,7 +230,7 @@ def hal_confirm(parent):
 	sender = parent.sender()
 	text = sender.text()
 	checked_state = sender.isChecked()
-	pin = sender.property('pin_name')
+	pin = sender.property('pin_name') # FIXME different dialog
 	msg = (f'The HAL object "{text}" requests\n'
 	'confirmation before changing the HAL\n'
 	f'state of the {pin} pin.')
@@ -268,11 +265,11 @@ def set_jog_incremtent(parent, position):
 	max_index = len(parent.jog_modes_cb) - 1
 	if position <= max_index:
 		parent.jog_modes_cb.setCurrentIndex(position)
-	else:
-		msg = (f'The key {position} exceeds the\n'
-		'maximum number of items in the\n'
+	else: # FIXME test this
+		title = 'Configuration Error'
+		msg = (f'The key {position} exceeds the maximum number of items in the '
 		'Jog Modes Combobox.')
-		dialogs.error_msg_ok(parent, msg, 'title')
+		dialogs.error_msg_ok(parent, title, msg)
 
 def copy_errors(parent):
 	qclip = QApplication.clipboard()

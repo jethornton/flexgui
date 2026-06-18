@@ -7,11 +7,10 @@ def toggle(parent):
 	parent.status.poll()
 	for i in range(parent.status.spindles):
 		if parent.status.spindle[i]['enabled'] == 1:
-			msg = (f'Spindle {i} is enabled\n'
-				'probing is not possible.\n'
-				f'Turn off Spindle {i} to\n'
-				'enable probing.')
-			dialogs.warn_msg_ok(parent, msg, 'Error')
+			title = 'Error'
+			msg = (f'Spindle {i} is enabled probing is not possible.')
+			info = f'Turn off Spindle {i} to enable probing.'
+			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.probing_enable_pb.blockSignals(True)
 			parent.probing_enable_pb.setChecked(False)
 			parent.probing_enable_pb.blockSignals(False)

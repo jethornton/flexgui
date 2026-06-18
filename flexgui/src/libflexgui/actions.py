@@ -19,10 +19,11 @@ def load_file(parent, nc_code_file=None):
 				if parent.sender().property('filename'):
 					nc_code_file = parent.sender().property('filename')
 					load_file_btn = True
-				else:
-					msg = ('The property filename\n'
-					'was not found. Loading aborted!')
-					dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				else: # FIXME test this
+					title = 'Configuration Error'
+					msg = ('The property filename was not found.')
+					info = 'Loading aborted!'
+					dialogs.error_msg_ok(parent, title, msg, info)
 
 	if '~' in nc_code_file:
 		nc_code_file = os.path.expanduser(nc_code_file)
@@ -90,10 +91,11 @@ def load_file(parent, nc_code_file=None):
 			if hasattr(parent.reload_pb, 'led'):
 				parent.reload_pb.led = False
 
-	else: # file not found
-		msg = (f'{nc_code_file}\n'
-		'was not found. Loading aborted!')
-		dialogs.warn_msg_ok(parent, msg, 'File Missing')
+	else: # file not found # FIXME test this
+		title = 'File Missing'
+		msg = (f'The file {nc_code_file} was not found.')
+		info = 'Loading aborted!'
+		dialogs.error_msg_ok(parent, title, msg, info)
 
 def file_selector(parent): # touch screen file selector
 	item = parent.file_lw.currentItem().text()
@@ -116,7 +118,8 @@ def action_open(parent): # actionOpen
 def action_edit(parent): # actionEdit
 	parent.status.poll
 	nc_code_file = parent.status.file or False
-	if not nc_code_file:
+	if not nc_code_file: # FIXME different dialog and or does this work? # FIXME test this
+		title = 'Configuration Error'
 		msg = ('No File is open.\nDo you want to open a file?')
 		response = dialogs.warn_msg_yes_no(parent, msg, 'No File Loaded')
 		if response:
@@ -130,7 +133,8 @@ def action_edit(parent): # actionEdit
 			subprocess.Popen([parent.editor, nc_code_file])
 		else:
 			select_editor(parent, nc_code_file)
-	else:
+	else: # FIXME different dialog and or does this work? # FIXME test this
+		title = 'Configuration Error'
 		msg = ('No Editor was found\nin the ini Display section\n'
 			'Do you want to select an Editor?')
 		if dialogs.warn_msg_yes_no(parent, msg, 'No Editor Configured'):
@@ -164,7 +168,8 @@ def action_reload(parent): # actionReload
 
 def action_save(parent): # actionSave
 	current_nccode_file = parent.status.file or False
-	if not current_nccode_file:
+	if not current_nccode_file: # FIXME does this work? # FIXME test this
+		title = 'Configuration Error'
 		msg = ('No File is Open')
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 		return
@@ -181,7 +186,7 @@ def action_save(parent): # actionSave
 
 def action_save_as(parent): # actionSave_As
 	current_nc_code_file = parent.status.file or False
-	if not current_nc_code_file:
+	if not current_nc_code_file: # FIXME does this work? # FIXME test this
 		msg = ('No File is Open')
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 		return
@@ -203,7 +208,7 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	tool_table_file = os.path.join(parent.config_path, parent.tool_table)
 	if os.path.isfile(tool_table_file):
 		file_size = os.path.getsize(tool_table_file)
-		if file_size == 0:
+		if file_size == 0: # FIXME different dialog # FIXME test this
 			msg = ('Can not edit an empty tool file.\n'
 			'The tool file must have at least one entry\n'
 			'with a Tool number and a Pocket number.\n'
@@ -272,7 +277,7 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 def action_ladder_editor(parent): # actionLadder_Editor
 	if hal.component_exists("classicladder_rt"):
 		p = os.popen("classicladder  &", "w")
-	else:
+	else: # FIXME does this work? # FIXME test this
 		msg = ('The Classic Ladder component\n is not loaded.')
 		dialogs.warn_msg_ok(parent, msg, 'Error')
 
@@ -354,7 +359,7 @@ def action_save_mdi(parent): # actionSave_MDI
 		mdi_history_file = os.path.join(parent.config_path, 'mdi_history.txt')
 		if os.path.isfile(mdi_history_file):
 			shutil.copyfile(mdi_history_file, file_path)
-		else:
+		else: # FIXME does this work? # FIXME test this
 			msg = ('No MDI history file was found!')
 			dialogs.info_msg_ok(parent, msg , 'No MDI History')
 

@@ -177,8 +177,9 @@ def touchoff_selected(parent):
 	if result == QDialog.DialogCode.Accepted:
 		offset = dialog.coordinate_le.text()
 		if not utilities.is_number(offset):
+			title = ''
 			msg = (f'{offset} is not a number.')
-			warn_msg_ok(parent, msg, 'Invalid Entry')
+			error_msg_ok(parent, title, msg)
 			return
 		cs = dialog.coordinate_systems_cb.currentData()
 		command = f'G10 L20 P{cs} {axis}{offset}'
@@ -217,8 +218,9 @@ def tool_touchoff_selected(parent):
 	if result == QDialog.DialogCode.Accepted:
 		offset = dialog.offset_le.text()
 		if not utilities.is_number(offset):
+			title = 'Invalid Entry'
 			msg = (f'{offset} is not a number.')
-			warn_msg_ok(parent, msg, 'Invalid Entry')
+			error_msg_ok(parent, title, msg)
 			return
 		command = f'G10 L11 P{tool} {axis}{offset}'
 		if utilities.ok_for_mdi(parent):
@@ -516,8 +518,8 @@ def help_dialog(parent):
 
 			parent.help_dialog.show()
 		else:
-			msg = (f'The help file {file_name}\n'
-				'was not found in the configuration directory\n'
-				f'{parent.config_path}')
-			warn_msg_ok(parent, msg, 'Missing File')
+			title = 'Missing File'
+			msg = (f'The help file {file_name} was not found in the configuration '
+			f'directory {parent.config_path}')
+			error_msg_ok(parent, title, msg)
 
