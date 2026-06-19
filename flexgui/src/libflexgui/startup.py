@@ -18,9 +18,10 @@ import hal_glib
 
 import traceback
 
-from libflexgui import led
-from libflexgui.led import LEDButton
+#from libflexgui import led
+from libflexgui.led import Indicator
 from libflexgui.led import IndicatorLabel
+from libflexgui.led import LEDButton
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
@@ -136,6 +137,156 @@ def set_hal_enables(parent, obj):
 		parent.homed_controls.append(obj_name)
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.hal_controls.append(obj_name)
+
+def setup_hal_leds(parent): # HAL LED FIXME this does not work
+	parent.hal_leds = {}
+	for child in parent.findChildren(QLabel):
+		if child.property('function') == 'hal_led':
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+
+			if child.property('pin_name') in [None, '']:
+				title = 'Configuration Error'
+				msg = (f'The HAL LED "{obj_name}" is missing the Dynamic '
+				'Property "pin_name" or it is blank.')
+				info = 'The LED will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				child.setProperty('function', '')
+				continue
+
+			if pin_name in dir(parent):
+				title = 'Configuration Error'
+				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" already exists in '
+				'Flex GUI. The HAL pin can not be created.')
+				info = f'The LED "{obj_name}" label will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				# set the function to an empty string to prevent trying to create a HAL pin
+				child.setProperty('function', '')
+				continue
+
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			dia = child.property('diameter') or False
+			if dia:
+				led_dict['diameter'] = int(dia)
+			else: # use the label size
+				led_dict['diameter'] = min(child.width(), child.height())
+
+			margins = child.contentsMargins()
+			margin = max((margins.left() + margins.right()), (margins.top() + margins.bottom()))
+			edge_margin = child.property('edge_margin')
+			if edge_margin:
+				led_dict['margin'] = max(margin, edge_margin)
+			else:
+				led_dict['margin'] = margin
+
+			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
+			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
+			led_shape = child.property('led_shape') # validate shape
+			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
+			led_dict['function'] = child.property('function')
+			# set old object function to none so the hal pin is not duplicated
+			child.setProperty('function', 'none')
+			led_dict['pin_name'] = child.property('pin_name')
+
+			new_led = Indicator(**led_dict)
+			new_led.setProperty('function', led_dict['function'])
+			new_led.setProperty('pin_name', led_dict['pin_name'])
+
+			layout = child.parent().layout()
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_led)
+			else: # widget is not in a layout
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_led.setParent(child_parent)
+				new_led.setGeometry(geometry)
+
+			child.deleteLater()
+			gc.collect()
+			new_led.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_led) # give the new button the old name
+			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
+
+def setup_hal_led_labels(parent):
+	parent.hal_led_labels = {}
+	for child in parent.findChildren(QLabel):
+		if child.property('function') == 'hal_led_label':
+			pin_name = child.property('pin_name')
+			obj_name = child.objectName()
+
+			if pin_name in [None, '']:
+				title = 'Configuration Error'
+				msg = (f'The HAL LED Label"{obj_name}" is missing the Dynamic '
+				'Property "pin_name" or it is blank.')
+				info = f'The LED "{obj_name}" will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				# set the function to an empty string to prevent trying to create a HAL pin
+				child.setProperty('function', '')
+				continue
+
+			if pin_name in dir(parent):
+				title = 'Configuration Error'
+				msg = (f'HAL LED Label "{name}" pin name "{pin_name}" already exists in '
+				'Flex GUI. The HAL pin can not be created.')
+				info = f'The LED "{obj_name}" label will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				# set the function to an empty string to prevent trying to create a HAL pin
+				child.setProperty('function', '')
+				continue
+
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['text'] = child.text()
+			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
+			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
+			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
+			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
+			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
+			led_shape = child.property('led_shape') # validate shape
+			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
+			led_dict['function'] = child.property('function')
+			# set old object function to none so the hal pin is not duplicated
+			child.setProperty('function', 'none')
+			led_dict['pin_name'] = child.property('pin_name')
+
+			new_label = IndicatorLabel(**led_dict)
+			new_label.setProperty('function', led_dict['function'])
+			new_label.setProperty('pin_name', led_dict['pin_name'])
+
+			layout = child.parent().layout()
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_label)
+			else: # widget is not in a layout
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_label.setParent(child_parent)
+				new_label.setGeometry(geometry)
+
+			# copy style from old label to new label
+			new_label.setAlignment(child.alignment())
+			new_label.setSizePolicy(child.sizePolicy())
+			new_label.setFrameShape(child.frameShape())
+			new_label.setFrameShadow(child.frameShadow())
+			new_label.setFont(child.font())
+
+			child.deleteLater()
+			gc.collect()
+			new_label.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_label) # give the new label the old name
+			parent.hal_led_labels[led_dict['name']] = led_dict['pin_name']
 
 def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
@@ -284,156 +435,6 @@ def setup_hal_led_buttons(parent):
 			gc.collect()
 			new_button.setObjectName(btn_dict['name'])
 			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
-
-def setup_hal_led_labels(parent):
-	parent.hal_led_labels = {}
-	for child in parent.findChildren(QLabel):
-		if child.property('function') == 'hal_led_label':
-			pin_name = child.property('pin_name')
-			obj_name = child.objectName()
-
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL LED Label"{obj_name}" is missing the Dynamic '
-				'Property "pin_name" or it is blank.')
-				info = f'The LED "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to prevent trying to create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL LED Label "{name}" pin name "{pin_name}" already exists in '
-				'Flex GUI. The HAL pin can not be created.')
-				info = f'The LED "{obj_name}" label will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to prevent trying to create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			led_dict = {}
-			led_dict['name'] = child.objectName()
-			led_dict['text'] = child.text()
-			led_dict['diameter'] = child.property('led_diameter') or parent.led_diameter
-			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
-			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
-			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
-			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-			led_shape = child.property('led_shape') # validate shape
-			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
-			led_dict['function'] = child.property('function')
-			# set old object function to none so the hal pin is not duplicated
-			child.setProperty('function', 'none')
-			led_dict['pin_name'] = child.property('pin_name')
-
-			new_label = led.IndicatorLabel(**led_dict)
-			new_label.setProperty('function', led_dict['function'])
-			new_label.setProperty('pin_name', led_dict['pin_name'])
-
-			layout = child.parent().layout()
-			if layout is not None:
-				child_layout = find_widget_layout(layout, child)
-				if child_layout is not None:
-					child_layout.replaceWidget(child, new_label)
-			else: # widget is not in a layout
-				geometry = child.geometry()
-				child_parent = child.parent()
-				new_label.setParent(child_parent)
-				new_label.setGeometry(geometry)
-
-			# copy style from old label to new label
-			new_label.setAlignment(child.alignment())
-			new_label.setSizePolicy(child.sizePolicy())
-			new_label.setFrameShape(child.frameShape())
-			new_label.setFrameShadow(child.frameShadow())
-			new_label.setFont(child.font())
-
-			child.deleteLater()
-			gc.collect()
-			new_label.setObjectName(led_dict['name'])
-			setattr(parent, led_dict['name'], new_label) # give the new label the old name
-			parent.hal_led_labels[led_dict['name']] = led_dict['pin_name']
-
-def setup_hal_leds(parent): # HAL LED FIXME this does not work
-	parent.hal_leds = {}
-	for child in parent.findChildren(QLabel):
-		if child.property('function') == 'hal_led':
-			obj_name = child.objectName()
-			pin_name = child.property('pin_name')
-
-			if child.property('pin_name') in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL LED "{obj_name}" is missing the Dynamic '
-				'Property "pin_name" or it is blank.')
-				info = 'The LED will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setText('Error!')
-				child.setEnabled(False)
-				child.setProperty('function', '')
-				continue
-
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" already exists in '
-				'Flex GUI. The HAL pin can not be created.')
-				info = f'The LED "{obj_name}" label will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to prevent trying to create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			led_dict = {}
-			led_dict['name'] = child.objectName()
-			dia = child.property('diameter') or False
-			if dia:
-				led_dict['diameter'] = int(dia)
-			else: # use the label size
-				led_dict['diameter'] = min(child.width(), child.height())
-
-			margins = child.contentsMargins()
-			margin = max((margins.left() + margins.right()), (margins.top() + margins.bottom()))
-			edge_margin = child.property('edge_margin')
-			if edge_margin:
-				led_dict['margin'] = max(margin, edge_margin)
-			else:
-				led_dict['margin'] = margin
-
-			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
-			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
-			led_shape = child.property('led_shape') # validate shape
-			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
-			led_dict['function'] = child.property('function')
-			# set old object function to none so the hal pin is not duplicated
-			child.setProperty('function', 'none')
-			led_dict['pin_name'] = child.property('pin_name')
-
-			new_led = led.Indicator(**led_dict)
-			new_led.setProperty('function', led_dict['function'])
-			new_led.setProperty('pin_name', led_dict['pin_name'])
-
-			layout = child.parent().layout()
-			if layout is not None:
-				child_layout = find_widget_layout(layout, child)
-				if child_layout is not None:
-					child_layout.replaceWidget(child, new_led)
-			else: # widget is not in a layout
-				geometry = child.geometry()
-				child_parent = child.parent()
-				new_led.setParent(child_parent)
-				new_led.setGeometry(geometry)
-
-			child.deleteLater()
-			gc.collect()
-			new_led.setObjectName(led_dict['name'])
-			setattr(parent, led_dict['name'], new_led) # give the new button the old name
-			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
 
 '''
 from this point on use parent.child_names to get the widgets because the LED
@@ -2233,7 +2234,6 @@ def setup_hal(parent):
 	hal_dbl_spinboxes = []
 	hal_sliders = []
 	hal_lcds = []
-	hal_leds = []
 	hal_progressbar = []
 	parent.hal_io_check = {}
 	parent.hal_io_int = {}
@@ -2252,48 +2252,36 @@ def setup_hal(parent):
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
+	##### HAL LED #####
+	# These are not QLabel but Indicator
+	# All validity checks are done when the Indicator is created
+	for label in parent.findChildren(Indicator):
+		if label.property('function') == 'hal_led':
+			pin_name = label.property('pin_name')
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, f'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+	##### HAL_LED_LABELS #####
+	# These are not QLabel but IndicatorLabel
+	# All validity checks are done when the IndicatorLabel is created
+	for label in parent.findChildren(IndicatorLabel):
+		if label.property('function') == 'hal_led_label':
+			pin_name = label.property('pin_name')
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, 'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
 	##### HAL_LED_BUTTONS ##### 
 	# these are not QPushButtons but LEDButton
 	# All validity checks are done when the LEDButton is created
 	for button in parent.findChildren(LEDButton):
 
 		if button.property('function') == 'hal_led_button':
-			# FIXME these are no longer used I don't think
-			obj_name = button.objectName()
 			pin_name = button.property('pin_name')
-
-			''' These checks are done when the LEDButton is created
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL LED Button "{button_name} with the text '
-				f'{button.text()} pin name is blank or missing The HAL pin can not be '
-				'created.')
-				info = f'The "{button_name} button will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				continue
-
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL LED Button "{button_name} pin name "{pin_name} is already '
-				'used in Flex GUI The HAL pin can not be created.')
-				info = f'The "{button_name} button will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				continue
-
-			if button_name == pin_name: # FIXME this never happens because it's caught by the above
-				title = 'Configuration Error'
-				msg = (f'The object name "{button_name} can not be the same as the '
-				f'pin name "{pin_name}. The HAL object will not be created')
-				info = f'The "{button_name} button will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				continue
-			'''
-
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, 'HAL_OUT')
+
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			pin = getattr(parent, f'{pin_name}')
 
@@ -2306,52 +2294,6 @@ def setup_hal(parent):
 				button.released.connect(lambda pin=pin: (pin.set(False)))
 
 			set_hal_enables(parent, button)
-
-	##### HAL_LED_LABELS #####
-	# These are not QLabel but IndicatorLabel
-	# All validity checks are done when the IndicatorLabel is created
-
-	for button in parent.findChildren(IndicatorLabel):
-		if button.property('function') == 'hal_led_label':
-			# FIXME these are no longer used I don't think
-			obj_name = button.objectName()
-			pin_name = button.property('pin_name')
-
-			'''
-			if pin_name in [None, '']:
-				button.setEnabled(False)
-				title = 'Configuration Error'
-				msg = (f'The HAL LED Button "{button_name} with the text '
-				f'{button.text()} pin name is blank or missing. The HAL pin '
-				'can not be created.')
-				info = f'The "{button_name} button will be disabled.'
-				dialogs.error_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if pin_name in dir(parent):
-				button.setEnabled(False)
-				msg = (f'HAL LED Button "{button_name}\n'
-				f'pin name "{pin_name}\n'
-				'is already used in Flex GUI\n'
-				'The HAL pin can not be created.'
-				f'The "{button_name} button will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error')
-				continue
-
-			if button_name == pin_name:
-				button.setEnabled(False)
-				msg = (f'The object name "{button_name}\n'
-					'can not be the same as the\n'
-					f'pin name "{pin_name}.\n'
-					'The HAL object will not be created\n'
-					f'The "{button_name} button will be disabled.')
-				dialogs.critical_msg_ok(parent, msg, 'Configuration Error!')
-				continue
-			'''
-
-			hal_type = getattr(hal, 'HAL_BIT')
-			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	##### HAL_IO #####
 	io_errors = {}
@@ -2459,9 +2401,6 @@ def setup_hal(parent):
 		elif child.property('function') == 'hal_msl':
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
-		elif child.property('function') == 'hal_led':
-			if isinstance(child, QLabel):
-				hal_leds.append(child)
 
 	##### HAL BUTTON & CHECKBOX & RADIO BUTTON #####
 	if len(hal_buttons) > 0:
@@ -2946,14 +2885,6 @@ def setup_hal(parent):
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			parent.hal_progressbars[obj_name] = pin_name
-
-	##### HAL LED #####
-	if len(hal_leds) > 0: # all error checking is done in setup_hal_leds
-		for led in hal_leds:
-			pin_name = led.property('pin_name')
-			hal_type = getattr(hal, 'HAL_BIT')
-			hal_dir = getattr(hal, f'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	##### HAL TOOL CHANGE #####
 	#setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))

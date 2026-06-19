@@ -462,8 +462,8 @@ def update(parent):
 		getattr(parent, key).setValue(int(value))
 
 	# update hal leds
-	#for key, value in parent.hal_leds.items():
-	#	getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
+	for key, value in parent.hal_leds.items():
+		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
 
 	# update hal led labels
 	for key, value in parent.hal_led_labels.items():
