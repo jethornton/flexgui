@@ -1926,8 +1926,10 @@ def setup_jog_selected(parent):
 def setup_tool_touchoff_selected(parent):
 	# Axis style tool touch off
 	if 'tool_touchoff_selected_pb' in parent.child_names:
-		for i in range(9):
-			if f'axis_select_{i}' in parent.child_names:
+		 # check to see if at least one axis select radio button is there
+		for joint in range(9):
+			item = f'axis_select_{joint}'
+			if item in parent.child_names:
 				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
 				parent.tool_touchoff_controls.append(item)
 				break
