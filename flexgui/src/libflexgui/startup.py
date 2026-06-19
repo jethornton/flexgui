@@ -2498,10 +2498,9 @@ def setup_hal(parent):
 			'edit_ladder_pb', 'reload_tool_table_pb', 'save_pb', 'save_as_pb',
 			'quit_pb', 'estop_pb', 'power_pb', 'run_pb', 'run_from_line_pb',
 			'step_pb', 'pause_pb', 'resume_pb', 'stop_pb', 'home_all_pb',
-			'unhome_all_pb', 'manual_mode_pb', 'probing_enable_pb', 'flood_pb',
-			'mist_pb', 'clear_errors_pb', 'copy_errors_pb', 'clear_info_pb',
-			'show_hal_pb', 'hal_meter_pb', 'hal_scope_pb', 'about_pb',
-			'quick_reference_pb']
+			'unhome_all_pb', 'manual_mode_pb', 'flood_pb', 'mist_pb',
+			'clear_errors_pb', 'copy_errors_pb', 'clear_info_pb', 'show_hal_pb',
+			'hal_meter_pb', 'hal_scope_pb', 'about_pb', 'quick_reference_pb']
 			for i in range(9):
 				controls.append(f'home_pb_{i}')
 				controls.append(f'unhome_pb_{i}')
