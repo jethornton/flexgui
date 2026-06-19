@@ -14,56 +14,61 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QRadioButton" name="axis_select_0">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>110</y>
-      <width>109</width>
-      <height>25</height>
+      <x>140</x>
+      <y>60</y>
+      <width>91</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
-     <string>X</string>
+     <string>TextLabel</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_led</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>hal-led</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="axis_select_1">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>150</y>
-      <width>109</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Y</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="axis_select_2">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>190</y>
-      <width>109</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Z</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="tool_touchoff_selected_pb">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>250</y>
-      <width>87</width>
-      <height>27</height>
+      <x>140</x>
+      <y>220</y>
+      <width>121</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
      <string>PushButton</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_led_button</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>hal-led-pb</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>90</y>
+      <width>131</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>led label</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_led_label</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>hal-led-lb</string>
     </property>
    </widget>
   </widget>
@@ -76,8 +81,130 @@
      <height>24</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuMachine">
+    <property name="title">
+     <string>Machine</string>
+    </property>
+    <addaction name="actionE_Stop"/>
+    <addaction name="actionPower"/>
+    <addaction name="actionRun"/>
+    <addaction name="actionRun_From_Line"/>
+    <addaction name="actionStep"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionResume"/>
+    <addaction name="actionStop"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_MDI_History"/>
+    <addaction name="actionCopy_MDI_History"/>
+    <addaction name="actionSave_MDI"/>
+    <addaction name="separator"/>
+    <addaction name="actionHoming"/>
+    <addaction name="actionUnhoming"/>
+    <addaction name="actionClear_Offsets"/>
+   </widget>
+   <widget class="QMenu" name="menuPrograms">
+    <property name="title">
+     <string>Programs</string>
+    </property>
+    <addaction name="actionShow_HAL"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuMachine"/>
+   <addaction name="menuPrograms"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionShow_HAL">
+   <property name="text">
+    <string>Show HAL</string>
+   </property>
+  </action>
+  <action name="actionE_Stop">
+   <property name="text">
+    <string>E Stop</string>
+   </property>
+  </action>
+  <action name="actionPower">
+   <property name="text">
+    <string>Power</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </action>
+  <action name="actionRun_From_Line">
+   <property name="text">
+    <string>Run From Line</string>
+   </property>
+  </action>
+  <action name="actionStep">
+   <property name="text">
+    <string>Step</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionResume">
+   <property name="text">
+    <string>Resume</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="text">
+    <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionClear_MDI_History">
+   <property name="text">
+    <string>Clear MDI History</string>
+   </property>
+  </action>
+  <action name="actionCopy_MDI_History">
+   <property name="text">
+    <string>Copy MDI History</string>
+   </property>
+  </action>
+  <action name="actionSave_MDI">
+   <property name="text">
+    <string>Save MDI</string>
+   </property>
+  </action>
+  <action name="actionHoming">
+   <property name="text">
+    <string>Homing</string>
+   </property>
+  </action>
+  <action name="actionUnhoming">
+   <property name="text">
+    <string>Unhoming</string>
+   </property>
+  </action>
+  <action name="actionClear_Offsets">
+   <property name="text">
+    <string>Clear Offsets</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
