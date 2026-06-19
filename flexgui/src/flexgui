@@ -10,7 +10,7 @@ from functools import partial
 from PyQt6.QtWidgets import QApplication, QMainWindow, QSplashScreen
 from PyQt6.QtWidgets import QComboBox, QListWidget, QRadioButton
 from PyQt6.QtWidgets import QListView, QSpinBox, QDoubleSpinBox
-from PyQt6.QtWidgets import QLineEdit, QPlainTextEdit
+from PyQt6.QtWidgets import QLineEdit, QPlainTextEdit, QMessageBox
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QObject, Qt, QTimer, QEvent, QProcess
 from PyQt6.QtGui import QPixmap, QFont
@@ -162,9 +162,24 @@ class flexgui(QMainWindow):
 		# set the library path
 		if self.path == '/usr/bin':
 			self.lib_path = '/usr/lib/libflexgui'
-		else: # FIXME test this
+		else: # this test checks for proper install directory
+			msg_box = QMessageBox()
+			msg_box.setIcon(QMessageBox.Icon.Critical)
+			msg_box.setText('Flex GUI seems to be installed in a none standard location.')
+			msg_box.setInformativeText('Flex GUI will shut down!')
+			msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+			msg_box.exec()
+			sys.exit()
+
+		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
+			if sys.argv[i].endswith('.ini'):
+				self.ini_path = sys.argv[i]
+				self.inifile = emc.ini(sys.argv[i])
+				self.config_path = os.path.split(sys.argv[i])[0]
+				break
+		else: # this test must run before connecting to emc
 			title = 'Error'
-			msg = ('Flex GUI seems to be installed in a none standard location.')
+			msg = ('Flex GUI must be called from the LinuxCNC ini file.')
 			dialogs.error_msg_ok(self, title, msg)
 			sys.exit()
 
@@ -184,18 +199,6 @@ class flexgui(QMainWindow):
 		# setup hal components
 		self.halcomp = hal.component('flexhal')
 		self.toolcomp = hal.component('tool-change')
-
-		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
-			if sys.argv[i].endswith('.ini'):
-				self.ini_path = sys.argv[i]
-				self.inifile = emc.ini(sys.argv[i])
-				self.config_path = os.path.split(sys.argv[i])[0]
-				break
-		else: # no match was found # FIXME test this
-			title = 'Error'
-			msg = ('Flex GUI must be called from the LinuxCNC ini file.')
-			dialogs.error_msg_ok(self, title, msg)
-			sys.exit()
 
 		# display splash screen if found
 		splash_image = self.inifile.find('FLEXGUI', 'SPLASH_IMAGE') or False
@@ -235,7 +238,8 @@ class flexgui(QMainWindow):
 				title = 'Configuration Error'
 				msg = (f'The Splash Image {splash_image} was not found in the '
 				'configuration directory.')
-				dialogs.error_msg_ok(parent, title, msg)
+				info = 'The Splash Image will not load!'
+				dialogs.error_msg_ok(self, title, msg, info)
 
 		# find and load the gui
 		gui_file = self.inifile.find('DISPLAY', 'GUI') or False
