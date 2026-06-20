@@ -2919,27 +2919,34 @@ def setup_hal_io_state(parent):
 
 def setup_hal_watch(parent):
 	parent.hal_watch_bit = {}
+	parent.hal_watch_int = {}
+	parent.hal_watch_float = {}
+	parent.hal_watch_time = {}
+
 	for label in parent.findChildren(QLabel):
 		if label.property('function') == 'hal_watch_bit':
 			obj_name = label.objectName()
 			pin = label.property('pin_name')
 			parent.hal_watch_bit[obj_name] = pin
 
-	parent.hal_watch_int = {}
-	for label in parent.findChildren(QLabel):
 		if label.property('function') == 'hal_watch_int':
 			obj_name = label.objectName()
 			pin = label.property('pin_name')
 			parent.hal_watch_int[obj_name] = pin
 
-	parent.hal_watch_float = {}
-	for label in parent.findChildren(QLabel):
 		if label.property('function') == 'hal_watch_float':
 			obj_name = label.objectName()
 			pin = label.property('pin_name')
 			p = label.property('precision')
 			p = p if p is not None else parent.default_precision
 			parent.hal_watch_float[obj_name] = [pin, p]
+
+		if label.property('function') == 'hal_watch_time':
+			obj_name = label.objectName()
+			hr_pin = label.property('hours')
+			min_pin = label.property('minutes')
+			sec_pin = label.property('seconds')
+			parent.hal_watch_time[obj_name] = [hr_pin, min_pin, sec_pin]
 
 def setup_tool_change(parent): # MANUAL TOOL CHANGE
 	if parent.manual_tool_change:

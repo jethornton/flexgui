@@ -562,7 +562,7 @@ def update(parent):
 			getattr(parent, key).setText(f'{getattr(tr, value[0]):.{value[1]}f}')
 
 		parent.current_tool_info = parent.status.tool_table[0]
-	'''
+
 	# HAL Watch Pins FIXME this can crash emc if the hal pin does not exist
 	for key, value in parent.hal_watch_bit.items():
 		getattr(parent, key).setText(f'{hal.get_value(value)}')
@@ -572,7 +572,12 @@ def update(parent):
 
 	for key, value in parent.hal_watch_float.items():
 		getattr(parent, key).setText(f'{hal.get_value(value[0]):.{value[1]}f}')
-	'''
+
+	for key, value in parent.hal_watch_time.items():
+		hrs = hal.get_value(value[0])
+		mins = hal.get_value(value[1])
+		secs = hal.get_value(value[2])
+		getattr(parent, key).setText(f'{hrs:02}:{mins:02}:{secs:02}')
 
 	# **** HANDLE ERRORS ****
 	error = parent.error.poll()

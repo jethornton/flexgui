@@ -481,6 +481,8 @@ You can watch the status of a HAL pin in your GUI by adding a QLabel with the
 following Dynamic Properties. You can watch Bit (True/False) pins, S32/U32
 integer pins, Float pins.
 
+.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
+
 .. csv-table:: **HAL Watch Bit**
    :width: 100%
    :align: center
@@ -492,6 +494,8 @@ integer pins, Float pins.
 
 .. image:: /images/hal-watch-bit.png
    :align: center
+
+.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
 .. csv-table:: **HAL Watch Integer**
    :width: 100%
@@ -505,6 +509,8 @@ integer pins, Float pins.
 .. image:: /images/hal-watch-int.png
    :align: center
 
+.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
+
 .. csv-table:: **HAL Watch Float**
    :width: 100%
    :align: center
@@ -515,6 +521,28 @@ integer pins, Float pins.
 	String, pin_name, any HAL pin that is a float
 
 .. image:: /images/hal-watch-float.png
+   :align: center
+
+HAL Time Label
+--------------
+
+To have a label monitor the HAL time component add the following Dynamic
+Properties to a QLabel.
+
+.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
+
+.. csv-table:: **HAL Watch Integer**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_watch_time
+	String, hours, time hours pin
+	String, minutes, time minutes pin
+	String, seconds, time seconds pin
+
+.. image:: /images/hal-watch-time-01.png
    :align: center
 
 Step by Step
