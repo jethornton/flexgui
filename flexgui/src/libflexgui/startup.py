@@ -569,7 +569,7 @@ def setup_actions(parent): # setup menu actions
 	for key, value in save_actions.items():
 		if key in parent.child_names:
 			if 'gcode_pte' in parent.child_names:
-				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+				getattr(parent, key).triggered.connect(partial(getattr(actions, value), parent))
 			else: # verified
 				getattr(parent, key).setEnabled(False)
 				title = 'Configuration Error'
