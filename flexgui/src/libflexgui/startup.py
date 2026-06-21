@@ -536,8 +536,6 @@ def setup_actions(parent): # setup menu actions
 		'actionOpen': 'action_open',
 		'actionEdit': 'action_edit',
 		'actionReload': 'action_reload',
-		'actionSave': 'action_save',
-		'actionSave_As': 'action_save_as',
 		'actionEdit_Tool_Table': 'action_edit_tool_table',
 		'actionReload_Tool_Table': 'action_reload_tool_table',
 		'actionLadder_Editor': 'action_ladder_editor',
@@ -565,6 +563,15 @@ def setup_actions(parent): # setup menu actions
 	for key, value in actions_dict.items():
 		if key in parent.child_names:
 			getattr(parent, f'{key}').triggered.connect(partial(getattr(actions, f'{value}'), parent))
+
+	save_actions = {'actionSave': 'action_save', 'actionSave_As': 'action_save_as'}
+
+	for key, value in save_actions.items():
+		if key in parent.child_names:
+			if 'gcode_pte' in parent.child_names:
+				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+			else: # FIXME bitch if menu item and no gcode_pte
+				getattr(parent, key).setEnabled(False)
 
 	# special check for the classicladder editor
 	if not hal.component_exists("classicladder_rt"):
@@ -641,9 +648,10 @@ def setup_enables(parent):
 			parent.file_open_controls.append(child.objectName())
 
 	# file save controls
-	for item in ['save_pb', 'actionSave', 'save_as_pb', 'actionSave_As']:
-		if item in parent.child_names:
-			parent.file_save_controls.append(item)
+	if 'gcode_pte' in parent.child_names:
+		for item in ['save_pb', 'actionSave', 'save_as_pb', 'actionSave_As']:
+			if item in parent.child_names:
+				parent.file_save_controls.append(item)
 
 	# file edit controls
 	for item in ['edit_pb', 'actionEdit', 'actionEdit_Tool_Table',
@@ -763,8 +771,6 @@ def setup_buttons(parent): # connect buttons to functions
 	'open_pb': 'action_open',
 	'edit_pb': 'action_edit',
 	'reload_pb': 'action_reload',
-	'save_pb': 'action_save',
-	'save_as_pb': 'action_save_as',
 	'edit_tool_table_pb': 'action_edit_tool_table',
 	'edit_ladder_pb': 'action_ladder_editor',
 	'reload_tool_table_pb': 'action_reload_tool_table',
@@ -782,6 +788,15 @@ def setup_buttons(parent): # connect buttons to functions
 	for key, value in action_buttons.items():
 		if key in parent.child_names:
 			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+
+	save_buttons = {'save_pb': 'action_save', 'save_as_pb': 'action_save_as'}
+
+	for key, value in save_buttons.items():
+		if key in parent.child_names:
+			if 'gcode_pte' in parent.child_names:
+				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+			else: # FIXME bitch if save item and no gcode_pte
+				getattr(parent, key).setEnabled(False)
 
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
