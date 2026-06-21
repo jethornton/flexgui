@@ -474,12 +474,15 @@ The HAL direction is IN and the hal_type is u32 for a HAL Progress Bar.
 	String, function, hal_pin
 	String, pin_name, any unique name
 
-HAL Watch
----------
+HAL Watch Labels
+----------------
 
 You can watch the status of a HAL pin in your GUI by adding a QLabel with the
 following Dynamic Properties. You can watch Bit (True/False) pins, S32/U32
 integer pins, Float pins.
+
+HAL Watch Bool
+==============
 
 .. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
@@ -495,6 +498,9 @@ integer pins, Float pins.
 .. image:: /images/hal-watch-bit.png
    :align: center
 
+HAL Watch Integer
+=================
+
 .. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
 .. csv-table:: **HAL Watch Integer**
@@ -508,6 +514,9 @@ integer pins, Float pins.
 
 .. image:: /images/hal-watch-int.png
    :align: center
+
+HAL Watch Float
+===============
 
 .. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
@@ -523,26 +532,43 @@ integer pins, Float pins.
 .. image:: /images/hal-watch-float.png
    :align: center
 
-HAL Time Label
---------------
+HAL Watch Time
+==============
 
 To have a label monitor the HAL time component add the following Dynamic
-Properties to a QLabel.
+Properties to a QLabel. You can have as many Time Watch labels as you want.
+There are two types of HAL Watch Time labels, the `hal_watch_time_hms` displays
+the hours, minutes and seconds and the `hal_watch_time_hm` displays the hours
+and minutes. You need to load the `time` component on your hal file and use the
+`start` pin to start and stop the `time` component.
 
 .. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
-.. csv-table:: **HAL Watch Integer**
+.. csv-table:: **HAL Watch Hours, Minutes, Seconds**
    :width: 100%
    :align: center
    :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_watch_time
+	String, function, hal_watch_time_hms
 	String, hours, time hours pin
 	String, minutes, time minutes pin
 	String, seconds, time seconds pin
 
 .. image:: /images/hal-watch-time-01.png
+   :align: center
+
+.. csv-table:: **HAL Watch Hours, Minutes**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_watch_time_hm
+	String, hours, time hours pin
+	String, minutes, time minutes pin
+
+.. image:: /images/hal-watch-time-02.png
    :align: center
 
 Step by Step

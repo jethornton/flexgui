@@ -564,7 +564,17 @@ def update(parent):
 		parent.current_tool_info = parent.status.tool_table[0]
 
 	# HAL Watch Pins FIXME this can crash emc if the hal pin does not exist
+	# if the hal pin does not exist remove from the dictionary and pop up a warning
+
 	for key, value in parent.hal_watch_bit.items():
+		if not parent.hal_watch_bit_verified:
+			try:
+				hal.get_value(value)
+			except Exception:
+				del parent.hal_watch_bit[key]
+				print(f'key {key} deleted')
+				break
+			parent.hal_watch_bit_verified = True
 		getattr(parent, key).setText(f'{hal.get_value(value)}')
 
 	for key, value in parent.hal_watch_int.items():
@@ -573,7 +583,12 @@ def update(parent):
 	for key, value in parent.hal_watch_float.items():
 		getattr(parent, key).setText(f'{hal.get_value(value[0]):.{value[1]}f}')
 
-	for key, value in parent.hal_watch_time.items():
+	for key, value in parent.hal_watch_time_hm.items():
+		hrs = hal.get_value(value[0])
+		mins = hal.get_value(value[1])
+		getattr(parent, key).setText(f'{hrs:02}:{mins:02}')
+
+	for key, value in parent.hal_watch_time_hms.items():
 		hrs = hal.get_value(value[0])
 		mins = hal.get_value(value[1])
 		secs = hal.get_value(value[2])
