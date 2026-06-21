@@ -90,7 +90,7 @@
      <set>Qt::AlignCenter</set>
     </property>
     <property name="function" stdset="0">
-     <string>hal_watch_time</string>
+     <string>hal_watch_time_hms</string>
     </property>
     <property name="hours" stdset="0">
      <string>time.0.hours</string>
@@ -100,6 +100,104 @@
     </property>
     <property name="seconds" stdset="0">
      <string>time.0.seconds</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>270</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_watch_bit</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>iocontrol.0.coolant-flood</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>440</y>
+      <width>66</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="time_0_lb_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>390</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_watch_time_hm</string>
+    </property>
+    <property name="hours" stdset="0">
+     <string>time.1.hours</string>
+    </property>
+    <property name="minutes" stdset="0">
+     <string>time.1.minutes</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>350</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_watch_int</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>motion.program-line</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>430</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="function" stdset="0">
+     <string>hal_watch_float</string>
+    </property>
+    <property name="pin_name" stdset="0">
+     <string>spindle.0.speed-out</string>
     </property>
    </widget>
   </widget>
