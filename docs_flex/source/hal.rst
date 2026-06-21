@@ -484,8 +484,6 @@ integer pins, Float pins.
 HAL Watch Bool
 ==============
 
-.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
-
 .. csv-table:: **HAL Watch Bit**
    :width: 100%
    :align: center
@@ -501,8 +499,6 @@ HAL Watch Bool
 HAL Watch Integer
 =================
 
-.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
-
 .. csv-table:: **HAL Watch Integer**
    :width: 100%
    :align: center
@@ -517,8 +513,6 @@ HAL Watch Integer
 
 HAL Watch Float
 ===============
-
-.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
 .. csv-table:: **HAL Watch Float**
    :width: 100%
@@ -541,8 +535,6 @@ There are two types of HAL Watch Time labels, the `hal_watch_time_hms` displays
 the hours, minutes and seconds and the `hal_watch_time_hm` displays the hours
 and minutes. You need to load the `time` component on your hal file and use the
 `start` pin to start and stop the `time` component.
-
-.. WARNING:: If the HAL pin does not exist LinuxCNC will crash!
 
 .. csv-table:: **HAL Watch Hours, Minutes, Seconds**
    :width: 100%
