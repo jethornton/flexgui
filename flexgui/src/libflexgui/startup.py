@@ -570,8 +570,12 @@ def setup_actions(parent): # setup menu actions
 		if key in parent.child_names:
 			if 'gcode_pte' in parent.child_names:
 				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-			else: # FIXME bitch if menu item and no gcode_pte
+			else: # verified
 				getattr(parent, key).setEnabled(False)
+				title = 'Configuration Error'
+				msg = ('File Save controls require the gcode_pte.')
+				info = f'The File Save control {key} will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
 
 	# special check for the classicladder editor
 	if not hal.component_exists("classicladder_rt"):
@@ -795,8 +799,12 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.child_names:
 			if 'gcode_pte' in parent.child_names:
 				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-			else: # FIXME bitch if save item and no gcode_pte
+			else: # verified
 				getattr(parent, key).setEnabled(False)
+				title = 'Configuration Error'
+				msg = ('File Save controls require the gcode_pte.')
+				info = f'The File Save control {key} will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
 
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
@@ -2946,7 +2954,7 @@ def setup_hal_watch(parent):
 			try:
 				hal.get_value(pin)
 				parent.hal_watch_bit[obj_name] = pin
-			except Exception: # Verified
+			except Exception: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
 				'found.')
@@ -2961,7 +2969,7 @@ def setup_hal_watch(parent):
 			try:
 				hal.get_value(pin)
 				parent.hal_watch_int[obj_name] = pin
-			except Exception: # Verified
+			except Exception: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
 				'found.')
@@ -2978,7 +2986,7 @@ def setup_hal_watch(parent):
 			try:
 				hal.get_value(pin)
 				parent.hal_watch_float[obj_name] = [pin, p]
-			except Exception: # Verified
+			except Exception: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
 				'found.')
@@ -2996,7 +3004,7 @@ def setup_hal_watch(parent):
 				try:
 					hal.get_value(pin)
 					test = True
-				except Exception: # Verified
+				except Exception: # verified
 					title = 'Configuration Error'
 					msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was '
 					'not found.')
@@ -3020,7 +3028,7 @@ def setup_hal_watch(parent):
 				try:
 					hal.get_value(pin)
 					test = True
-				except Exception: # Verified
+				except Exception: # verified
 					title = 'Configuration Error'
 					msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was '
 					'not found.')
