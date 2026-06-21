@@ -604,7 +604,7 @@ def setup_actions(parent): # setup menu actions
 			parent.actionCopy_MDI_History.setEnabled(False)
 
 def update_check(parent):
-	if 'feedrate_lb' in parent.child_names:
+	if 'feedrate_lb' in parent.child_names: # verified
 		title = 'Object Name Changed'
 		msg = ('The Feed Override Percent Label object name "feedrate_lb" has been '
 		'changed to "feed_override_lb". Change the object name in the ui file.')
@@ -758,7 +758,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
 
-	if 'manual_mode_pb' in parent.child_names:
+	if 'manual_mode_pb' in parent.child_names: # verified
 		title = 'Depreciated Control'
 		msg = ('The manual_mode_pb is no longer used. This was only used for '
 		'testing in the early days.')
@@ -882,7 +882,7 @@ def setup_buttons(parent): # connect buttons to functions
 			value = item.split('_')[-1]
 			if utilities.is_int(value):
 				button.clicked.connect(partial(commands.feed_override_preset, parent))
-			else:
+			else: # verified
 				title = 'Object Name Error'
 				msg = (f'The button named "{item}" with the button text of '
 				f'"{button.text()}" the value "{value}" did not evaluate to an integer')
@@ -897,7 +897,7 @@ def setup_buttons(parent): # connect buttons to functions
 			if utilities.is_int(value):
 				if int(value) <= 100:
 					button.clicked.connect(partial(commands.rapid_override_preset, parent))
-				else:
+				else: # verified
 					title = 'Object Name Error'
 					msg = (f'The button named "{item}" with the button text of '
 					f'"{button.text()}". The value "{value}" is higher than the maximum '
@@ -906,7 +906,7 @@ def setup_buttons(parent): # connect buttons to functions
 					dialogs.error_msg_ok(parent, title, msg, info)
 					button.setText('Error!')
 					getattr(parent, item).setEnabled(False)
-			else:
+			else: # verified
 				title = 'Object Name Error'
 				msg = (f'The button named "{item}" with the button text of '
 				f'"{button.text()}" the value "{value}" did not evaluate to an integer')
@@ -922,6 +922,8 @@ def setup_buttons(parent): # connect buttons to functions
 	# flashing buttons
 	parent.flashing_buttons = []
 	for child in parent.findChildren(QPushButton):
+		if isdeleted(child): # check if the QPushButton has been deleted
+			continue
 		if child.property('flash_state') in ['checked', 'unchecked']:
 			if child.isCheckable():
 				parent.flashing_buttons.append(child.objectName())
