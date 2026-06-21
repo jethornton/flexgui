@@ -237,7 +237,7 @@ def find(parent):
 	sr = search.FindDialog(parent)
 	result = sr.exec()
 
-def info_msg_ok(parent, msg, title=None):
+def info_msg_ok(parent, msg, title=None): # FIXME not used
 	# dialogs.info_msg_ok(parent, msg, 'title')
 	#print('info_msg_ok')
 	msg_box = QMessageBox(parent)
@@ -274,8 +274,7 @@ def confirm_msg_ok_cancel(parent, msg, title=None):
 	else:
 		return False
 
-#def error_msg_ok(parent, msg, **kwargs): # plain error message
-def error_msg_ok(parent, title, msg, info=None): # plain error message
+def error_msg_ok(parent, title, msg, info=None):
 	# dialogs.error_msg_ok(parent, title, msg, info)
 	#print('error_msg_ok')
 	msg_box = QMessageBox(parent)
@@ -297,7 +296,7 @@ def error_msg_ok(parent, title, msg, info=None): # plain error message
 	else:
 		return False
 
-def warn_msg_ok(parent, msg, title=None):
+def warn_msg_ok(parent, msg, title=None): # FIXME use error_msg_ok maybe
 	# dialogs.warn_msg_ok(parent, msg, 'title')
 	#print('warn_msg_ok')
 	msg_box = QMessageBox(parent)
