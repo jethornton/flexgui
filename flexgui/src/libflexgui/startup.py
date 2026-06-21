@@ -21,6 +21,7 @@ import traceback
 #from libflexgui import led
 from libflexgui.led import Indicator
 from libflexgui.led import IndicatorLabel
+from libflexgui.led import IndicatorButton
 from libflexgui.led import LEDButton
 from libflexgui import actions
 from libflexgui import commands
@@ -138,14 +139,14 @@ def set_hal_enables(parent, obj):
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.hal_controls.append(obj_name)
 
-def setup_hal_leds(parent): # HAL LED FIXME this does not work
+def setup_hal_leds(parent):
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
 		if child.property('function') == 'hal_led':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if child.property('pin_name') in [None, '']:
+			if child.property('pin_name') in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL LED "{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -156,9 +157,9 @@ def setup_hal_leds(parent): # HAL LED FIXME this does not work
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
-				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" already exists in '
+				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" is already used in '
 				'Flex GUI. The HAL pin can not be created.')
 				info = f'The LED "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
@@ -221,7 +222,7 @@ def setup_hal_led_labels(parent):
 			pin_name = child.property('pin_name')
 			obj_name = child.objectName()
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL LED Label"{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -233,10 +234,10 @@ def setup_hal_led_labels(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
-				msg = (f'HAL LED Label "{name}" pin name "{pin_name}" already exists in '
-				'Flex GUI. The HAL pin can not be created.')
+				msg = (f'HAL LED Label "{obj_name}" pin name "{pin_name}" is already '
+				'used in Flex GUI. The HAL pin can not be created.')
 				info = f'The LED "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
@@ -296,7 +297,7 @@ def setup_hal_led_buttons(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL LED Button "{obj_name}" with this text "{child.text()}" '
 				'is missing the Dynamic Property pin_name or it is blank.')
@@ -307,7 +308,7 @@ def setup_hal_led_buttons(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL LED Button "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI The HAL pin can not be created.')
@@ -374,16 +375,27 @@ def setup_hal_led_buttons(parent):
 	for child in parent.findChildren(QPushButton):
 		if child.property('led_indicator'):
 			obj_name = child.objectName()
-			pin_name = child.property('pin_name') # FIXME add pin name in dir check
+			pin_name = child.property('pin_name')
 			btn_text = child.text()
 
-			if child.property('function') in hal_types:
+			if child.property('function') in hal_types: # verified
 				title = 'Configuration Error'
 				msg = (f'The button "{obj_name}" and with the text of "{btn_text}" can not '
 				'be a LED Indicator and a HAL pin. If it is a valid HAL pin the HAL '
 				'connection will be made.')
 				info = f'The button "{obj_name}" LED will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
+				continue
+
+			if pin_name in dir(parent): # verified
+				title = 'Configuration Error'
+				msg = (f'HAL LED Button "{obj_name}" pin name "{pin_name}" is already '
+				'used in Flex GUI The HAL pin can not be created.')
+				info = f'The button "{obj_name}" will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				child.setProperty('function', '')
 				continue
 
 			btn_dict = {}
@@ -403,7 +415,7 @@ def setup_hal_led_buttons(parent):
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
 			led_shape = child.property('led_shape') # validate shape
 			btn_dict['shape'] = led_shape if led_shape == 'square' else 'round'
-			new_button = led.IndicatorButton(**btn_dict)
+			new_button = IndicatorButton(**btn_dict)
 
 			layout = child.parent().layout()
 			if layout is not None:
@@ -573,7 +585,7 @@ def setup_actions(parent): # setup menu actions
 			else: # verified
 				getattr(parent, key).setEnabled(False)
 				title = 'Configuration Error'
-				msg = ('File Save controls require the gcode_pte.')
+				msg = ('File Save controls require the "gcode_pte" Plain Text Edit.')
 				info = f'The File Save control {key} will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 
@@ -802,7 +814,7 @@ def setup_buttons(parent): # connect buttons to functions
 			else: # verified
 				getattr(parent, key).setEnabled(False)
 				title = 'Configuration Error'
-				msg = ('File Save controls require the gcode_pte.')
+				msg = ('File Save controls require the "gcode_pte" Plain Text Edit.')
 				info = f'The File Save control {key} will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 
@@ -2337,8 +2349,8 @@ def setup_hal(parent):
 
 				if pin_name in dir(parent):
 					title = 'Configuration Error'
-					msg = (f'HAL I/O "{obj_name}" pin name "{pin_name}" is already present in '
-					'Flex GUI. The HAL pin can not be created.')
+					msg = (f'HAL I/O "{obj_name}" pin name "{pin_name}" is already used '
+					'in Flex GUI. The HAL pin can not be created.')
 					info = f'The HAL I/O "{obj_name}" will be disabled.'
 					dialogs.error_msg_ok(parent, title, msg, info)
 					child.setEnabled(False)
@@ -2450,7 +2462,7 @@ def setup_hal(parent):
 			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'The HAL button "{obj_name}" with the pin name "{pin_name}" '
-				'is already present in Flex GUI. The HAL pin can not be created.')
+				'is already used in Flex GUI. The HAL pin can not be created.')
 				info = f'The button "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				button.setEnabled(False)
@@ -2512,7 +2524,7 @@ def setup_hal(parent):
 			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Spinbox "{obj_name}" pin name "{pin_name}" is already '
-				'present in Flex GUI The HAL pin can not be created.')
+				'used in Flex GUI The HAL pin can not be created.')
 				info = f'The spinbox "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				spinbox.setEnabled(False)
@@ -2558,7 +2570,7 @@ def setup_hal(parent):
 				spinbox.setEnabled(False)
 				title = 'Configuration Error'
 				msg = (f'HAL Spinbox "{obj_name}" pin name "{pin_name}" is already '
-				'present in Flex GUI. The HAL pin can not be created.')
+				'used in Flex GUI. The HAL pin can not be created.')
 				info = f'The spinbox "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
@@ -2594,7 +2606,7 @@ def setup_hal(parent):
 			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Slider "{obj_name}" pin name "{pin_name}" is already '
-				'present in Flex GUI. The HAL pin can not be created.')
+				'used in Flex GUI. The HAL pin can not be created.')
 				info = f'The slider "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				slider.setEnabled(False)
@@ -2641,7 +2653,7 @@ def setup_hal(parent):
 
 			if pin_name in dir(parent):
 				title = 'Configuration Error'
-				msg = (f'HAL LCD "{obj_name}" pin name "{pin_name}" is already present '
+				msg = (f'HAL LCD "{obj_name}" pin name "{pin_name}" is already used '
 				'in Flex GUI. The HAL pin can not be created.')
 				info = f'The HAL LCD "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
@@ -2694,7 +2706,7 @@ def setup_hal(parent):
 			if pin_name in parent.child_names:
 				title = 'Configuration Error'
 				msg = (f'HAL Label "{obj_name}" pin name "{pin_name}" is already '
-				'present in Flex GUI. The HAL pin can not be created.')
+				'used in Flex GUI. The HAL pin can not be created.')
 				info = f'The "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)
@@ -2898,7 +2910,7 @@ def setup_hal(parent):
 			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name "{pin_name}" is already '
-				'present in Flex GUI. The HAL pin can not be created.')
+				'used in Flex GUI. The HAL pin can not be created.')
 				info = f'The "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				progressbar.setEnabled(False)
