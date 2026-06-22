@@ -469,7 +469,7 @@ Run from line label `start_line_lb` displays the current selected line in the NC
 code file.
 
 Axis Position Labels
---------------------
+====================
 
 Axis machine position labels (no offsets.) Returns a float
 
@@ -494,7 +494,7 @@ Axis position labels `including` all offsets. Returns a float
 	dro_lb_u, dro_lb_v, dro_lb_w
 
 Axis Distance to Go labels
---------------------------
+==========================
 
 .. csv-table:: **Distance to Go Labels**
    :width: 100%
@@ -506,7 +506,7 @@ Axis Distance to Go labels
 	dtg_lb_u, dtg_lb_v, dtg_lb_w
 
 Axis Homed Labels
------------------
+=================
 
 .. csv-table:: **Axis Homed Labels**
    :width: 100%
@@ -518,7 +518,7 @@ Axis Homed Labels
 	home_lb_6, home_lb_7, home_lb_8
 
 Offset Labels
--------------
+=============
 
 Offsets for the currently active G5x coordinate system. Returns a float
 
@@ -543,13 +543,27 @@ Offsets for G92. Returns a float
 	g92_lb_u, g92_lb_v, g92_lb_w
 
 Velocity Labels
----------------
+===============
+
+.. admonition:: NEW
+
+   Version 2.0.0 allows multiple Velocity Labels
 
 Tool velocity using two perpendicular joint velocities.
 
-Name the label `two_vel_lb` and add two int type Dynamic Properties called
-`joint_0` and `joint_1` and set the values to the perpendicular joint numbers
-you want to calculate. Typically this would be for the X and Y axes.
+To create label(s) that show the combined velocity of two joints add the
+following Dynamic Properties. You can have as many two joint velocity labels as
+you want.
+
+.. csv-table:: **Two Joint Velocicy**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, two_joint_velocity
+	Int, joint_0, the first joint number
+	Int, joint_1, the second joint number
 
 To select an int type of Dynamic Property, select `Other` after clicking on
 the green plus sign
@@ -569,10 +583,20 @@ The two Dynamic Properties should look like this
 
 Tool velocity using `three` perpendicular joint velocities.
 
-Name the label `three_vel_lb` and add three int type Dynamic Properties called
-`joint_0`, `joint_1` and `joint_2` and set the values to the perpendicular
-joint numbers you want to calculate. Typically this would be for the X, Y and
-Z axes.
+To create label(s) that show the combined velocity of three joints add the
+following Dynamic Properties. You can have as many three joint velocity labels
+as you want.
+
+.. csv-table:: **Three Joint Velocicy**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, three_joint_velocity
+	Int, joint_0, the first joint number
+	Int, joint_1, the second joint number
+	Int, joint_2, the third joint number
 
 I/O Status
 ----------

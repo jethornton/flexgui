@@ -927,7 +927,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if child.property('flash_state') in ['checked', 'unchecked']:
 			if child.isCheckable():
 				parent.flashing_buttons.append(child.objectName())
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The flashing button named "{child.objectName()}" with the text '
 				f'of "{child.text()}" is not set to checkable.')
@@ -1087,43 +1087,126 @@ def setup_status_labels(parent):
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
 	# two joint velocity
+	if 'two_vel_lb' in parent.child_names: # verified
+		title = 'Configuration Error'
+		msg = ('The "two_vel_lb" label is depreciated. See the  Velocity Labels '
+		'section of the Labels Documents for correct configuration.')
+		info = 'The label will not function!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.two_vel_lb.setText('Error!')
+		parent.two_vel_lb.setEnabled(False)
+
 	parent.two_vel = {}
-	if 'two_vel_lb' in parent.child_names:
-		joint_0 = parent.two_vel_lb.property('joint_0')
-		joint_1 = parent.two_vel_lb.property('joint_1')
-		p = getattr(parent, f'two_vel_lb').property('precision')
-		p = p if p is not None else parent.default_precision
-		if len(set([joint_0, joint_1])) != 2 or None in (joint_0, joint_1):
-			title = 'Configuration Error'
-			msg = ('The two joint velocity label has property errors. See the '
-			'Velocity Labels section of the Labels Documents for correct '
-			'configuration.')
-			info = 'The label will not function!'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.two_vel_lb.setText('Error!')
-			parent.two_vel_lb.setEnabled(False)
-		else:
-			parent.two_vel['two_vel_lb'] = [joint_0, joint_1, p]
+
+	for child in parent.findChildren(QLabel):
+		if child.property('function') == 'two_joint_velocity':
+			obj_name = child.objectName()
+			joint_0 = child.property('joint_0')
+			joint_1 = child.property('joint_1')
+
+			if not isinstance(joint_0, int): # verified
+				title = 'Configuration Error'
+				msg = (f'The two joint velocity label {obj_name} "joint_0" property '
+				'is missing or not an integer type. See the Velocity Labels section of '
+				'the Labels Documents for correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			if not isinstance(joint_1, int): # verified
+				title = 'Configuration Error'
+				msg = (f'The two joint velocity label {obj_name} "joint_1" property '
+				'is missing or not an integer type. See the Velocity Labels section of '
+				'the Labels Documents for correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			if len(set([joint_0, joint_1])) != 2: # verified
+				title = 'Configuration Error'
+				msg = (f'The two joint velocity label {obj_name} the joints are not '
+				'unique. See the Velocity Labels section of the Labels Documents for '
+				'correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			p = child.property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.two_vel[obj_name] = [joint_0, joint_1, p]
 
 	# three joint velocity
+	if 'three_vel_lb' in parent.child_names: # verified
+		title = 'Configuration Error'
+		msg = ('The "three_vel_lb" label is depreciated. See the  Velocity Labels '
+		'section of the Labels Documents for correct configuration.')
+		info = 'The label will not function!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.three_vel_lb.setText('Error!')
+		parent.three_vel_lb.setEnabled(False)
+
 	parent.three_vel = {}
-	if 'three_vel_lb' in parent.child_names:
-		joint_0 = parent.three_vel_lb.property('joint_0')
-		joint_1 = parent.three_vel_lb.property('joint_1')
-		joint_2 = parent.three_vel_lb.property('joint_2')
-		p = getattr(parent, f'three_vel_lb').property('precision')
-		p = p if p is not None else parent.default_precision
-		if len(set([joint_0, joint_1, joint_2])) != 3 or None in (joint_0, joint_1, joint_2):
-			title = 'Configuration Error'
-			msg = ('The three joint velocity label has property errors. See the '
-			'Velocity Labels section of the Labels Documents for correct '
-			'configuration.')
-			info = 'The label will not function!'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.three_vel_lb.setText('Error!')
-			parent.three_vel_lb.setEnabled(False)
-		else:
-			parent.three_vel['three_vel_lb'] = [joint_0, joint_1, joint_2, p]
+
+	for child in parent.findChildren(QLabel):
+		if child.property('function') == 'three_joint_velocity':
+			obj_name = child.objectName()
+			joint_0 = child.property('joint_0')
+			joint_1 = child.property('joint_1')
+			joint_2 = child.property('joint_2')
+
+			if not isinstance(joint_0, int): # verified
+				title = 'Configuration Error'
+				msg = (f'The three joint velocity label {obj_name} "joint_0" property '
+				'is missing or not an integer type. See the Velocity Labels section of '
+				'the Labels Documents for correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			if not isinstance(joint_1, int): # verified
+				title = 'Configuration Error'
+				msg = (f'The three joint velocity label {obj_name} "joint_1" property '
+				'is missing or not an integer type. See the Velocity Labels section of '
+				'the Labels Documents for correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			if not isinstance(joint_2, int): # verified
+				title = 'Configuration Error'
+				msg = (f'The three joint velocity label {obj_name} "joint_2" property '
+				'is missing or not an integer type. See the Velocity Labels section of '
+				'the Labels Documents for correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			if len(set([joint_0, joint_1, joint_2])) != 3: # verified
+				title = 'Configuration Error'
+				msg = (f'The three joint velocity label "{obj_name}" the joints are '
+				'not unique. See the Velocity Labels section of the Labels Documents '
+				'for the correct configuration.')
+				info = 'The label will not function!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				continue
+
+			p = child.property('precision')
+			p = p if p is not None else parent.default_precision
+			parent.three_vel[obj_name] = [joint_0, joint_1, joint_2, p]
 
 	# joint velocity joint_velocity_n_lb parent.status.joint[0]['velocity']
 	parent.joint_vel_sec = {}
@@ -1237,8 +1320,7 @@ def setup_plain_text_edits(parent):
 			parent.nc_viewer.append('gcode_pte_viewport')
 
 def setup_stacked_widgets(parent):
-	children = parent.findChildren(QPushButton)
-	for child in children:
+	for child in parent.findChildren(QPushButton):
 		if child.property('change_page'):
 			child.clicked.connect(partial(utilities.change_page, parent))
 		elif child.property('next_page'):
@@ -1276,7 +1358,7 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				else:
 					res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 				if res: raise SystemExit(res)
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The POSTGUI_HALFILE "{f}" was not found in the configuration '
 				'directory.')
@@ -1305,21 +1387,21 @@ def setup_mdi(parent):
 		parent.mdi_history_lw.itemSelectionChanged.connect(partial(commands.add_mdi, parent))
 
 def setup_mdi_buttons(parent):
-	for button in parent.findChildren(QPushButton):
-		if button.property('function') == 'mdi':
-			if button.property('command'):
-				obj_name = button.objectName()
-				button.clicked.connect(partial(commands.mdi_button, parent))
+	for child in parent.findChildren(QPushButton):
+		if child.property('function') == 'mdi':
+			if child.property('command'):
+				obj_name = child.objectName()
+				child.clicked.connect(partial(commands.mdi_button, parent))
 				if not obj_name.startswith('probe_'):
 					parent.mdi_controls.append(obj_name)
-			else:
+			else: # verified
 				title = 'Configuration Error'
-				msg = (f'The MDI Button "{button.text()}" does not have a Dynamic '
-				'Property with a MDI command')
-				info = f'"{button.text()}" will be disabled.'
+				msg = (f'The MDI Button "{child.text()}" does not have the Dynamic '
+				'Property "command" with a MDI command')
+				info = f'"{child.text()}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setText('Error!')
-				button.setEnabled(False)
+				child.setText('Error!')
+				child.setEnabled(False)
 
 def setup_jog(parent):
 	# keyboard jog
@@ -1499,12 +1581,15 @@ def setup_spindle(parent):
 	parent.status_spindle = ()
 
 	##### Check for old object names
-	if 'spindle_actual_speed_lb' in parent.child_names:
+	if 'spindle_actual_speed_lb' in parent.child_names: # verified
 		title = 'Configuration Error'
-		msg = ('The spindle speed label object name spindle_actual_speed_lb has '
-		'been changed to spindle_speed_0_lb to limit confustion about what the name '
-		'implies. See the spindle documents for more information.')
-		dialogs.error_msg_ok(parent, title, msg)
+		msg = ('The spindle speed label "spindle_actual_speed_lb" name has '
+		'been changed to "spindle_speed_0_lb" to limit confustion about what the '
+		'name implies. See the spindle documents for more information.')
+		info = 'The label will be disabled!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.spindle_actual_speed_lb.setEnabled(False)
+		parent.spindle_actual_speed_lb.setText('Error!')
 
 	##### Start of Multiple Spindle #####
 
@@ -1515,8 +1600,9 @@ def setup_spindle(parent):
 		'spindle_cmd_speed']
 
 	# FIXME this needs to be cleaned up and better error msg
-	#### if no spindles are found emc reports 1
-	#print(f'spindles {parent.status.spindles}')
+	#### emc reports at least 1 spindle no matter what
+	# spindles are numbered 0-7 but parent.status.spindles reports 1-8
+	print(f'spindles {parent.status.spindles}')
 	max_spindle = parent.status.spindles - 1
 	'''
 	for i in range(8):
