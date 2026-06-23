@@ -1602,38 +1602,8 @@ def setup_spindle(parent):
 	# FIXME this needs to be cleaned up and better error msg
 	#### emc reports at least 1 spindle no matter what
 	# spindles are numbered 0-7 but parent.status.spindles reports 1-8
-	print(f'spindles {parent.status.spindles}')
+	#print(f'spindles {parent.status.spindles}')
 	max_spindle = parent.status.spindles - 1
-	'''
-	for i in range(8):
-		for item in multi_spindle_labels:
-			if f'{item}_{i}_lb' in parent.child_names:
-				if i > max_spindle:
-					title = 'Configuration Error'
-					msg = (f'The spindle status label {item}_{i}_lb is more than the '
-					f'number of spindles')
-					info = 'The label will be disabled!'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					getattr(parent, f'{item}_{i}_lb').setText('Error!')
-					getattr(parent, f'{item}_{i}_lb').setEnabled(False)
-
-
-	number_spindle_labels = 0
-	for item in multi_spindle_labels:
-		for i in range(8):
-			if f'{item}_{i}_lb' in parent.child_names:
-				if i > number_spindle_labels:
-					number_spindle_labels = i
-					if i == 7:
-						break
-
-	if number_spindle_labels > parent.status.spindles:
-		title = 'Configuration Error'
-		msg = (f'There are {number_spindle_labels} spindle status items '
-		f'but only {parent.status.spindles} spindle(s) are configured.')
-		info = f'The status items will be disabled'
-		dialogs.error_msg_ok(parent, title, msg, info)
-	'''
 
 	parent.spindle_int = {}
 	spindle_int = {
@@ -1648,7 +1618,7 @@ def setup_spindle(parent):
 			if f'{key}_{i}_lb' in parent.child_names:
 				if i <= max_spindle:
 					parent.spindle_int[f'{key}_{i}_lb'] = [i, value]
-				else:
+				else: # verified
 					title = 'Configuration Error'
 					msg = (f'The spindle status label "{key}_{i}_lb" is more than the '
 					f'number of spindles')
@@ -1662,7 +1632,7 @@ def setup_spindle(parent):
 		if f'spindle_override_enabled_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_bool[f'spindle_override_enabled_{i}_lb'] = [i, 'override_enabled']
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_override_enabled_{i}_lb" is '
 				'more than the number of spindles')
@@ -1676,7 +1646,7 @@ def setup_spindle(parent):
 		if f'spindle_direction_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_dir[f'spindle_direction_{i}_lb'] = [i, 'direction']
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_direction_{i}_lb" is '
 				'more than the number of spindles')
@@ -1690,7 +1660,7 @@ def setup_spindle(parent):
 		if f'spindle_speed_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_speed[f'spindle_speed_{i}_lb'] = [i, 'speed']
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_speed_{i}_lb" is '
 				'more than the number of spindles')
@@ -1704,21 +1674,20 @@ def setup_spindle(parent):
 		if f'spindle_speed_{i}_lcd' in parent.child_names:
 			if i <= max_spindle:
 				parent.status_spindle_lcd[f'spindle_speed_{i}_lcd'] = [i, 'speed']
-			else:
+			else: # verified
 				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_speed_{i}_lb" is '
+				msg = (f'The spindle status label "spindle_speed_{i}_lcd" is '
 				'more than the number of spindles')
 				info = 'The label will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_speed_{i}_lb').setText('Error!')
-				getattr(parent, f'spindle_speed_{i}_lb').setEnabled(False)
+				getattr(parent, f'spindle_speed_{i}_lcd').setEnabled(False)
 
 	parent.spindle_override = {}
 	for i in range(8):
 		if f'spindle_override_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_override[f'spindle_override_{i}_lb'] = [i, 'override']
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_override_{i}_lb" is '
 				'more than the number of spindles')
@@ -1732,7 +1701,7 @@ def setup_spindle(parent):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_cmd_speed_{i}_lb" is '
 				'more than the number of spindles')
