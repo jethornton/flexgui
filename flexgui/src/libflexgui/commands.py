@@ -393,14 +393,16 @@ def spindle_control(parent, spindle, action, value=None):
 			print('Unknown Action')
 
 	# if spindle speed slider or spinbox value is not == to rpm change it.
-	if 'spindle_speed_sb' in parent.child_names:
+	if ('spindle_speed_sb' in parent.child_names
+	and parent.spindle_speed_sb.isEnabled()):
 		if parent.spindle_speed_sb.value() != rpm:
 			parent.spindle_speed_sb.blockSignals(True)
 			parent.spindle_speed_sb.setValue(rpm)
 			parent.spindle_speed_sb.blockSignals(False)
 
-	# FIXME only do this if it is enabled if both exist this is
-	if 'spindle_speed_sl' in parent.child_names:
+	# FIXME only do this if it is enabled
+	if ('spindle_speed_sl' in parent.child_names
+	and parent.spindle_speed_sl.isEnabled()):
 		if parent.spindle_speed_sl.value() != rpm:
 			parent.spindle_speed_sl.blockSignals(True)
 			parent.spindle_speed_sl.setValue(rpm)
