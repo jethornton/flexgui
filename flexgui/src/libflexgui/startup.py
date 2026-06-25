@@ -1827,10 +1827,10 @@ def setup_spindle(parent):
 					button.setEnabled(False)
 					button.setText('Error!')
 
-	# Spindle Override Presets
+	# Spindle Override Presets spindle_percent_0_100
 	for i in range(8):
 		for item in parent.child_names:
-			if item.startswith(f'spindle_percent_{i}'):
+			if item.startswith(f'spindle_percent_{i}') and len(item.split('_')) == 4:
 				if i <= max_spindle:
 					button = getattr(parent, item)
 					value = item.split('_')[-1]
@@ -1858,7 +1858,7 @@ def setup_spindle(parent):
 	##### Old Style Spindle Controls #####
 	# test if new style and old style exist
 
-	if 'spindle_speed_sl' in parent.child_names:
+	if 'spindle_speed_sl' in parent.child_names: # verified
 		if 'spindle_speed_0_sl' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_speed_sl" was found and the new style '
@@ -1876,7 +1876,7 @@ def setup_spindle(parent):
 			parent.spindle_speed_sl.valueChanged.connect(partial(
 			commands.spindle_control, parent, 0, 'speed'))
 
-	if 'spindle_fwd_pb' in parent.child_names:
+	if 'spindle_fwd_pb' in parent.child_names: # verified
 		if 'spindle_fwd_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_fwd_pb" was found and the new style '
@@ -1888,7 +1888,7 @@ def setup_spindle(parent):
 			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
 			parent.spindle_controls.append('spindle_fwd_pb')
 
-	if 'spindle_rev_pb' in parent.child_names:
+	if 'spindle_rev_pb' in parent.child_names: # verified
 		if 'spindle_rev_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_rev_pb" was found and the new style '
@@ -1900,18 +1900,19 @@ def setup_spindle(parent):
 			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
 			parent.spindle_controls.append('spindle_rev_pb')
 
-	if 'spindle_stop_pb' in parent.child_names:
+	if 'spindle_stop_pb' in parent.child_names: # verified
 		if 'spindle_stop_0_pb' in parent.child_names:
 			parent.spindle_stop_pb.setEnabled(False)
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_stop_pb" was found and the new style '
-			'"spindle_stop_0_pb" was found.\nThe old style will be disabled.')
-			dialogs.error_msg_ok(parent, msg, 'Configuration Error')
+			'"spindle_stop_0_pb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
 		else: # only the old style is present
 			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'stop'))
 			parent.spindle_controls.append('spindle_stop_pb')
 
-	if 'spindle_plus_pb' in parent.child_names:
+	if 'spindle_plus_pb' in parent.child_names: # verified
 		if 'spindle_plus_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_plus_pb" was found and the new style '
@@ -1923,7 +1924,7 @@ def setup_spindle(parent):
 			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'plus'))
 			parent.spindle_controls.append('spindle_plus_pb')
 
-	if 'spindle_minus_pb' in parent.child_names:
+	if 'spindle_minus_pb' in parent.child_names: # verified
 		if 'spindle_minus_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_minus_pb" was found and the new style '
@@ -1935,7 +1936,7 @@ def setup_spindle(parent):
 			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'minus'))
 			parent.spindle_controls.append('spindle_minus_pb')
 
-	if 'spindle_override_sl' in parent.child_names:
+	if 'spindle_override_sl' in parent.child_names: # verified
 		if 'spindle_override_0_sl' in parent.child_names:
 			parent.spindle_override_sl.setEnabled(False)
 			title = 'Configuration Error'
@@ -1952,7 +1953,7 @@ def setup_spindle(parent):
 			parent.spindle_override_sl.setValue(100)
 			parent.spindle_override_sl.blockSignals(False)
 
-	if 'spindle_speed_sb' in parent.child_names:
+	if 'spindle_speed_sb' in parent.child_names: # verified
 		if 'spindle_speed_0_sb' in parent.child_names:
 			parent.spindle_speed_sb.setEnabled(False)
 			title = 'Configuration Error'
@@ -1969,22 +1970,21 @@ def setup_spindle(parent):
 			parent.spindle_speed_sb.setValue(parent.spindle_rpm_0)
 			parent.spindle_speed_sb.blockSignals(False)
 
-	# override preset buttons for Spindle 0 spindle_percent_nnn
+	# override preset buttons for Spindle 0 spindle_percent_100
 	for item in parent.child_names:
-		if item.startswith('spindle_percent_'):
-			if len(item.split('_')) == 3:
-				button = getattr(parent, item)
-				value = item.split('_')[-1]
-				if utilities.is_int(value):
-					button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
-				else:
-					title = 'Configuration Error'
-					msg = (f'The button named "{item}" with the button text of '
-					f'{button.text()}" "{value}" did not evaluate to an integer.')
-					info = 'The button will be disabled.'
-					dialogs.error_msg_ok(parent, msg, 'Configuration Error!')
-					button.setText('Error!')
-					getattr(parent, item).setEnabled(False)
+		if item.startswith('spindle_percent_') and len(item.split('_')) == 3:
+			button = getattr(parent, item)
+			value = item.split('_')[-1]
+			if utilities.is_int(value):
+				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
+			else:
+				title = 'Configuration Error'
+				msg = (f'The button named "{item}" with the button text of '
+				f'{button.text()}" "{value}" did not evaluate to an integer.')
+				info = 'The button will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				button.setText('Error!')
+				getattr(parent, item).setEnabled(False)
 
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
