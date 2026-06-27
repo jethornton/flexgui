@@ -173,9 +173,12 @@ class flexgui(QMainWindow):
 
 		for i in range(len(sys.argv)): # check if running from ini DISPLAY entry
 			if sys.argv[i].endswith('.ini'):
+				# the full path to the ini file
 				self.ini_path = sys.argv[i]
-				self.inifile = emc.ini(sys.argv[i])
+				# the path to the configuration directory
 				self.config_path = os.path.split(sys.argv[i])[0]
+				# the ini file object
+				self.inifile = emc.ini(sys.argv[i])
 				break
 		else: # this test must run before connecting to emc
 			title = 'Error'
@@ -341,7 +344,9 @@ class flexgui(QMainWindow):
 		startup.setup_mdi_buttons(self)
 		startup.setup_set_var(self)
 		startup.setup_watch_var(self)
-		startup.setup_tools(self)
+		startup.setup_tool_change(self)
+		startup.setup_tool_change_buttons(self)
+		startup.setup_manual_tool_change(self)
 		startup.setup_tool_touchoff_selected(self)
 		startup.setup_hal(self)
 		startup.setup_hal_io_state(self)
@@ -351,7 +356,6 @@ class flexgui(QMainWindow):
 		startup.setup_sliders(self)
 		startup.setup_overrides(self)
 		startup.setup_defaults(self)
-		startup.setup_tool_change(self)
 		startup.setup_toolbar(self)
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)

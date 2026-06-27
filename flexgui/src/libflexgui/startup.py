@@ -1995,24 +1995,6 @@ def setup_jog_selected(parent):
 			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
 			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
-def setup_tool_touchoff_selected(parent):
-	# Axis style tool touch off
-	if 'tool_touchoff_selected_pb' in parent.child_names:
-		 # check to see if at least one axis select radio button is there
-		for joint in range(9):
-			item = f'axis_select_{joint}'
-			if item in parent.child_names:
-				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
-				parent.tool_touchoff_controls.append(item)
-				break
-		else: # verified
-			title = 'Configuration Error'
-			msg = ('The "tool_touchoff_selected_pb" was found '
-			'but no axis_select radio buttons were found.')
-			info = 'The "tool_touchoff_selected_pb" will be disabled!'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.tool_touchoff_selected_pb.setEnabled(False)
-
 def setup_touchoff(parent): # touchoff an axis
 	# check for required items touchoff_le touchoff_pb_{axis} touchoff_system_cb
 	if 'touchoff_le' in parent.child_names:
@@ -2055,7 +2037,7 @@ def setup_touchoff(parent): # touchoff an axis
 					getattr(parent, item).setEnabled(False)
 					getattr(parent, item).setText('Error!')
 
-def setup_tool_change(parent): # FIXME do all tests here for tool table
+def setup_tool_change(parent):
 	tool_change_required = ['tool_change_pb', 'tool_change_cb']
 
 	# if neither required is present just skip on by
@@ -2084,7 +2066,6 @@ def setup_tool_change(parent): # FIXME do all tests here for tool table
 		else:
 			missing = ' '.join(list(set(tool_change_required) - set(parent.child_names)))
 			found = ' '.join(list(set(tool_change_required) & set(parent.child_names)))
-			print('required item missing')
 			title = 'Configuration Error'
 			msg = ('Tool change requires both the "tool_change_cb" combo box and the '
 			f'"tool_change_pb" push button. The "{missing}" item was not found.')
@@ -2093,33 +2074,12 @@ def setup_tool_change(parent): # FIXME do all tests here for tool table
 			for item in tool_change_required:
 				if item in parent.child_names:
 					getattr(parent, item).setEnabled(False)
+			return
 
 	# if we get this far everything checks out ok
-	print('tool change ok')
+	parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+	parent.tool_change_controls.append('tool_change_pb')
 
-
-	'''
-					if os.path.getsize(tool_table) > 0:
-					parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-					parent.tool_change_cb.setView(QListView())
-					parent.tool_change_controls.append('tool_change_pb')
-				el
-	# test to see if any tool change items are in the ui
-	# Returns True if at least one element in both lists
-		# at least one item is found check if all items in list1 are in list2
-		if set(tool_change_required).issubset(parent.child_names):
-			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-			parent.tool_change_cb.setView(QListView())
-			parent.tool_change_controls.append('tool_change_pb')
-		else: # verified
-			missing_items = )
-			found_items = list(set(tool_change_required) & set(parent.child_names))
-			
-			for item in found_items:
-				getattr(parent, item).setEnabled(False)
-				getattr(parent, item).setText('Error!')
-			return
-	'''
 	# tool change with description
 	if parent.tool_change_cb.property('option') == 'description':
 		parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
@@ -2131,17 +2091,21 @@ def setup_tool_change(parent): # FIXME do all tests here for tool table
 				t = line.find('T')
 				p = line.find('P')
 				tool = line[t:p].strip()
-				desc = line.split(";")[-1]
+				d = line.find(';')
+				if d > 0:
+					desc = line[d:]
+				else:
+					desc = 'No Description'
 				number = int(line[t+1:p].strip())
 				parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
 
 	elif parent.tool_change_cb.property('prefix') is not None:
 		prefix = parent.tool_change_cb.property('prefix')
 		tool_len = len(parent.status.tool_table)
-		parent.tool_change_cb.addItem(f'{prefix} 0', 0)
+		parent.tool_change_cb.addItem(f'{prefix}0', 0)
 		for i in range(1, tool_len):
 			tool_id = parent.status.tool_table[i][0]
-			parent.tool_change_cb.addItem(f'"{prefix} "{tool_id}', tool_id)
+			parent.tool_change_cb.addItem(f'{prefix}{tool_id}', tool_id)
 
 	else:
 		tool_len = len(parent.status.tool_table)
@@ -2151,7 +2115,6 @@ def setup_tool_change(parent): # FIXME do all tests here for tool table
 			parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
 
 def setup_tool_change_buttons(parent): # Tool Change Buttons
-	return
 	# tool change push buttons is a MDI command so power on and all homed
 	parent.tool_button = False
 	for i in range(100):
@@ -2159,7 +2122,7 @@ def setup_tool_change_buttons(parent): # Tool Change Buttons
 		if item in parent.child_names:
 			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
 
-	if 'tool_touchoff_le' in parent.child_names:
+	if 'tool_touchoff_le' in parent.child_names: # FIXME where does this belong
 		parent.tool_touchoff_le.setText('0')
 		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
 			parent.tool_touchoff_le.installEventFilter(parent)
@@ -2170,9 +2133,10 @@ def setup_manual_tool_change(parent): # MANUAL TOOL CHANGE
 		if hal.component_exists('hal_manualtoolchange'):
 			title = 'Configuration Error'
 			msg = ('The Flex Manual Tool Change can not function with the '
-			'hal_manualtoolchange component. You must find and remove the '
-			'hal_manualtoolchange component! See the Docs for more info.')
-			dialogs.error_msg_ok(parent, title, msg)
+			'"hal_manualtoolchange" component. You must find and remove the '
+			'"hal_manualtoolchange" component! See the Docs for more info.')
+			info = 'The Flex Manual Tool Change will be disabled!'
+			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.manual_tool_change = False
 			return
 
@@ -2194,15 +2158,25 @@ def setup_manual_tool_change(parent): # MANUAL TOOL CHANGE
 		hal.connect('iocontrol.0.tool-change','tool-change')
 		hal.connect('tool-change.change','tool-change')
 
-def setup_touchoff_selected(parent):
-	return
-	'''
-	# axis touch off controls
-	for item in ['touchoff_selected_pb']:
-		if item in parent.child_names:
-			parent.axis_touchoff_controls.append(item)
-	'''
+def setup_tool_touchoff_selected(parent):
+	# Axis style tool touch off
+	if 'tool_touchoff_selected_pb' in parent.child_names:
+		 # check to see if at least one axis select radio button is there
+		for joint in range(9):
+			item = f'axis_select_{joint}'
+			if item in parent.child_names:
+				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
+				parent.tool_touchoff_controls.append(item)
+				break
+		else: # verified
+			title = 'Configuration Error'
+			msg = ('The "tool_touchoff_selected_pb" was found '
+			'but no axis_select radio buttons were found.')
+			info = 'The "tool_touchoff_selected_pb" will be disabled!'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.tool_touchoff_selected_pb.setEnabled(False)
 
+def setup_touchoff_selected(parent):
 	# setup Axis style touch off buttons
 	if 'touchoff_selected_pb' in parent.child_names:
 		for i in range(9):
@@ -2218,7 +2192,6 @@ def setup_touchoff_selected(parent):
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.touchoff_selected_pb.setEnabled(False)
 
-
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
 		if item in parent.child_names:
@@ -2227,24 +2200,26 @@ def setup_touchoff_selected(parent):
 				if 'tool_touchoff_le' in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.tool_touchoff_controls.append(item)
-				else:
+				else: # verified
 					title = 'Configuration Error'
-					msg = ('Tool Touchoff Button requires the Tool Offset Line Edit '
-					'tool_touchoff_le or a Dynamic Property named source that '
-					'has the object name of the QLineEdit to be used.')
+					msg = ('The Tool Touchoff Button requires the Tool Offset Line Edit '
+					'"tool_touchoff_le" or a Dynamic Property named "source" that '
+					'has the object name of the Line Edit to be used.')
 					info = 'The Tool Touch Off Button will be disabled'
 					dialogs.error_msg_ok(parent, title, msg, info)
 					getattr(parent, item).setEnabled(False)
+					getattr(parent, item).setText('Error!')
 			else: # property source is found
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.tool_touchoff_controls.append(item)
-				else: # the source was not found
+				else: # the source was not found # verified
 					title = 'Configuration Error'
 					msg = (f'The Tool Touch Off line edit "{source}" for "{item}" was not found.')
 					info = f'The push button "{item}" will be disabled.'
 					dialogs.error_msg_ok(parent, title, msg, info)
 					getattr(parent, item).setEnabled(False)
+					getattr(parent, item).setText('Error!')
 
 def setup_sliders(parent):
 	if 'feed_override_sl' in parent.child_names:
@@ -2269,7 +2244,7 @@ def setup_sliders(parent):
 			parent.max_vel_sl.setMaximum(max_units_min)
 			parent.max_vel_sl.setValue(max_units_min)
 			parent.max_vel_sl.blockSignals(False)
-		else:
+		else: # verified
 			title = 'Configuration Error'
 			msg = ('The [TRAJ] section key MAX_LINEAR_VELOCITY was not found.')
 			info = 'The max_linear_vel slider will be disabled\n'
@@ -2293,12 +2268,21 @@ def setup_defaults(parent):
 def setup_probing(parent):
 	# any object name that starts with probe_ is disabled
 	for child in parent.child_names:
-		if child.startswith('probe_') and not isinstance(child, QLabel):
-			if not isinstance(parent.findChild(QWidget, child), QLabel):
+		if child.startswith('probe_'):
+			if isinstance(parent.findChild(QWidget, child), QPushButton):
 				getattr(parent, child).setEnabled(False)
-				parent.probe_controls.append(child)
+				if 'probing_enable_pb' in parent.child_names:
+					parent.probe_controls.append(child)
+				else: # verified
+					title = 'Configuration Error'
+					msg = (f'The Probe Control "{child}" was found but the Probing Enable '
+					'Push Button "probing_enable_pb" was not found. Probe controls '
+					'require the "probing_enable_pb" to function.')
+					info = f'The "{child}" will be disabled.'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, child).setText('Error!')
 
-	if len(parent.probe_controls) > 0: # make sure the probe enable is present
+	if len(parent.probe_controls) > 0:
 		if 'probing_enable_pb' in parent.child_names:
 			if not parent.probing_enable_pb.isCheckable():
 				parent.probing_enable_pb.setCheckable(True)
@@ -2312,21 +2296,6 @@ def setup_probing(parent):
 			if parent.probe_enable_off_color:
 				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
-		else: # not probe enable button found
-			title = 'Configuration Error'
-			msg = ('Probe Controls were found but the Probing Enable Push Button was '
-			'not found')
-			info = 'All probe controls will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-	else: # no probe controls found
-		if 'probing_enable_pb' in parent.child_names:
-			title = 'Configuration Error'
-			msg = ('The Probing Enable Push Button was found, but no probe controls '
-			'were found.')
-			info = 'The Probing Enable button will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.probing_enable_pb.setEnabled(False)
-
 def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox
 	var_file = os.path.join(parent.config_path, parent.var_file)
@@ -2338,8 +2307,7 @@ def setup_set_var(parent):
 		if child.property('function') == 'set_var':
 			obj_name = child.objectName()
 			var = child.property('variable')
-			found = False
-			if var is not None:
+			if var not in ['', None]:
 				for line in var_list:
 					if line.startswith(var):
 						child.setValue(float(line.split()[1]))
@@ -2348,13 +2316,21 @@ def setup_set_var(parent):
 						parent.set_var[obj_name] = var
 						parent.homed_controls.append(obj_name)
 						break
-				if not found:
+				else: # verified
 					title = 'Configuration Error'
-					msg = (f'The variable "{var}" for "{obj_name}" was not found in the variables '
-					f'file "{parent.var_file}".')
+					msg = (f'The set parameter Dynamic Property "variable" "{var}" for '
+					f'"{obj_name}" was not found in the parameters file '
+					f'"{parent.var_file}".')
 					info = f'The "{obj_name}"" will be disabled'
 					dialogs.error_msg_ok(parent, title, msg, info)
 					child.setEnabled(False)
+			else: # verified
+				title = 'Configuration Error'
+				msg = (f'The set parameter Dynamic Property "variable" for '
+				f'"{obj_name}" was not found or it is blank.')
+				info = f'The "{obj_name}" will be disabled'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
 
 def setup_watch_var(parent):
 	parent.watch_var = {}
@@ -2454,7 +2430,7 @@ def setup_hal(parent):
 				obj_name = child.objectName()
 				pin_name = child.property('pin_name')
 
-				if pin_name in [None, '']:
+				if pin_name in [None, '']: # verified
 					title = 'Configuration Error'
 					msg = (f'The HAL I/O "{obj_name}" pin name is blank or missing '
 					'The HAL pin can not be created.')
@@ -2463,7 +2439,7 @@ def setup_hal(parent):
 					child.setEnabled(False)
 					continue
 
-				if pin_name in dir(parent):
+				if pin_name in dir(parent): # verified
 					title = 'Configuration Error'
 					msg = (f'HAL I/O "{obj_name}" pin name "{pin_name}" is already used '
 					'in Flex GUI. The HAL pin can not be created.')
@@ -2482,7 +2458,7 @@ def setup_hal(parent):
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
 						child.toggled.connect(partial(utilities.update_hal_io, parent))
 						parent.hal_io_check[obj_name] = pin_name
-					else:
+					else: # verified
 						title = 'Configuration Error'
 						msg = (f'The push button "{obj_name}" must be '
 						'set to checkable to be a I/O button.')
@@ -2508,7 +2484,7 @@ def setup_hal(parent):
 						child.setEnabled(False)
 						if isinstance(child, QSpinBox):
 							obj_type = 'QSpinBox'
-						else:
+						else: # verified
 							obj_type = 'QSlider'
 						title = 'Configuration Error'
 						msg = (f'The "{obj_type}" "{obj_name}" hal_type must be HAL_S32 or '
@@ -2565,25 +2541,6 @@ def setup_hal(parent):
 			else:
 				confirm = False
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL Button "{obj_name}" with the text "{button.text()}" '
-				f'pin name is blank or missing The HAL pin can not be created.')
-				info = f'The button "{obj_name}" will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				button.setText('Error !')
-				continue
-
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'The HAL button "{obj_name}" with the pin name "{pin_name}" '
-				'is already used in Flex GUI. The HAL pin can not be created.')
-				info = f'The button "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				continue
-
 			controls = ['open_pb', 'edit_pb', 'reload_pb', 'edit_tool_table_pb',
 			'edit_ladder_pb', 'reload_tool_table_pb', 'save_pb', 'save_as_pb',
 			'quit_pb', 'estop_pb', 'power_pb', 'run_pb', 'run_from_line_pb',
@@ -2596,11 +2553,31 @@ def setup_hal(parent):
 				controls.append(f'unhome_pb_{i}')
 			for axis in AXES:
 				controls.append(f'clear_{axis}_pb')
-			if obj_name in controls:
+			if obj_name in controls: # verified
 				title = 'Configuration Error'
 				msg = (f'The control "{obj_name}" can not be a HAL pin.')
 				info = 'The HAL pin will not be created!'
 				dialogs.error_msg_ok(parent, title, msg, info)
+				continue
+
+			if pin_name in [None, '']: # verified
+				title = 'Configuration Error'
+				msg = (f'The HAL Button "{obj_name}" with the text "{button.text()}" '
+				f'pin name is blank or missing The HAL pin can not be created.')
+				info = f'The button "{obj_name}" will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				button.setEnabled(False)
+				button.setText('Error !')
+				continue
+
+			if pin_name in dir(parent): # verified
+				title = 'Configuration Error'
+				msg = (f'The HAL button "{obj_name}" with the pin name "{pin_name}" '
+				'is already used in Flex GUI. The HAL pin can not be created.')
+				info = f'The button "{obj_name}" will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				button.setEnabled(False)
+				button.setText('Error !')
 				continue
 
 			hal_type = getattr(hal, 'HAL_BIT')
@@ -2628,7 +2605,7 @@ def setup_hal(parent):
 			pin_name = spinbox.property('pin_name')
 			hal_type = spinbox.property('hal_type')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Spinbox "{obj_name}" pin name is blank or missing '
 				'The HAL pin can not be created.')
@@ -2637,7 +2614,7 @@ def setup_hal(parent):
 				spinbox.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Spinbox "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI The HAL pin can not be created.')
@@ -2646,10 +2623,10 @@ def setup_hal(parent):
 				spinbox.setEnabled(False)
 				continue
 
-			if hal_type not in valid_types:
+			if hal_type not in valid_types: # verified
 				title = 'Configuration Error'
-				msg = (f'"{hal_type}" is not valid for a HAL spinbox, only HAL_S32 or '
-				'HAL_U32 are valid for a Spinbox')
+				msg = (f'The HAL type "{hal_type}" is not valid for a HAL spinbox, '
+				'only HAL_S32 or HAL_U32 are valid for a HAL Spinbox')
 				info = f'The "{obj_name}" spinbox will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				spinbox.setEnabled(False)
@@ -2664,29 +2641,26 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, spinbox)
 
-			if spinbox_name.startswith('probe_'): # don't enable it when power is on
-				parent.probe_controls.append(spinbox_name)
-
 	##### HAL Double Spinboxes #####
 	if len(hal_dbl_spinboxes) > 0:
 		for spinbox in hal_dbl_spinboxes:
 			obj_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				spinbox.setEnabled(False)
 				title = 'Configuration Error'
-				msg = (f'HAL SPINBOX "{obj_name}" pin name is blank or missing. '
-				'The HAL pin can not be created.')
+				msg = (f'The HAL Double Spinbox "{obj_name}" pin name is blank or '
+				'missing. The HAL pin can not be created.')
 				info = f'The spinbox "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				spinbox.setEnabled(False)
 				title = 'Configuration Error'
-				msg = (f'HAL Spinbox "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI. The HAL pin can not be created.')
+				msg = (f'The HAL Double Spinbox "{obj_name}" pin name "{pin_name}" is '
+				'already  used in Flex GUI. The HAL pin can not be created.')
 				info = f'The spinbox "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
@@ -2700,9 +2674,6 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, spinbox)
 
-			if spinbox_name.startswith('probe_'): # don't enable it when power is on
-				parent.probe_controls.append(spinbox_name)
-
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
 		valid_types = ['HAL_S32', 'HAL_U32']
@@ -2710,7 +2681,7 @@ def setup_hal(parent):
 			obj_name = slider.objectName()
 			pin_name = slider.property('pin_name')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL SLIDER "{obj_name}" pin name is blank or missing.'
 				'The HAL pin can not be created.')
@@ -2719,7 +2690,7 @@ def setup_hal(parent):
 				slider.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Slider "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -2729,7 +2700,7 @@ def setup_hal(parent):
 				continue
 
 			hal_type = slider.property('hal_type')
-			if hal_type not in valid_types:
+			if hal_type not in valid_types: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL slider, only '
 				'HAL_S32 or HAL_U32 are valid HAL Types for a slider')
@@ -2747,9 +2718,6 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, slider)
 
-			if slider_name.startswith('probe_'): # don't enable it when power is on
-				parent.probe_controls.append(slider_name)
-
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
 		valid_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_U32']
@@ -2758,7 +2726,7 @@ def setup_hal(parent):
 			pin_name = lcd.property('pin_name')
 			hal_type = lcd.property('hal_type')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL LCD "{obj_name}" pin name is blank or missing.'
 				'The HAL pin can not be created.')
@@ -2767,7 +2735,7 @@ def setup_hal(parent):
 				lcd.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL LCD "{obj_name}" pin name "{pin_name}" is already used '
 				'in Flex GUI. The HAL pin can not be created.')
@@ -2776,7 +2744,7 @@ def setup_hal(parent):
 				lcd.setEnabled(False)
 				continue
 
-			if hal_type not in valid_types:
+			if hal_type not in valid_types: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not a valid type for a HAL LCD, '
 				'only HAL_FLOAT or HAL_S32 or HAL_U32 can be used.')
@@ -2809,7 +2777,7 @@ def setup_hal(parent):
 			hal_dir = getattr(hal, 'HAL_IN')
 
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL LABEL "{obj_name}" pin name is blank or missing '
 				'The HAL pin can not be created.')
@@ -2819,7 +2787,7 @@ def setup_hal(parent):
 				continue
 
 			# the pin_name can not be the same as a built in variable or object name
-			if pin_name in parent.child_names:
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Label "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -2828,7 +2796,7 @@ def setup_hal(parent):
 				label.setEnabled(False)
 				continue
 
-			if hal_type not in valid_types:
+			if hal_type not in valid_types: # verified
 				label.setEnabled(False)
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label. '
@@ -2851,7 +2819,7 @@ def setup_hal(parent):
 
 			##### HAL S32/U32 Label #####
 			if hal_type in ['HAL_S32', 'HAL_U32']:
-				if label.property('integer_digits'):
+				if label.property('integer_digits'): # verified
 					title = 'Configuration Error'
 					msg = ('The Dynamic Property "integer_digits" has been replaced with '
 					'"zero_padding" which better describes what the property is for.')
