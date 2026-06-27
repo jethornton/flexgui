@@ -685,11 +685,6 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.tool_table_controls.append(item)
 
-	# tool change controls
-	for item in ['tool_change_pb']:
-		if item in parent.child_names:
-			parent.tool_change_controls.append(item)
-
 	for i in range(100):
 		if f'tool_change_pb_{i}' in parent.child_names:
 			parent.tool_change_controls.append(f'tool_change_pb_{i}')
@@ -1977,7 +1972,7 @@ def setup_spindle(parent):
 			value = item.split('_')[-1]
 			if utilities.is_int(value):
 				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
-			else:
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'The button named "{item}" with the button text of '
 				f'{button.text()}" "{value}" did not evaluate to an integer.')
@@ -2010,11 +2005,11 @@ def setup_tool_touchoff_selected(parent):
 				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
 				parent.tool_touchoff_controls.append(item)
 				break
-		else:
+		else: # verified
 			title = 'Configuration Error'
-			msg = ('The tool_touchoff_selected_pb was found '
+			msg = ('The "tool_touchoff_selected_pb" was found '
 			'but no axis_select radio buttons were found.')
-			info = 'The tool_touchoff_selected_pb will be disabled!'
+			info = 'The "tool_touchoff_selected_pb" will be disabled!'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.tool_touchoff_selected_pb.setEnabled(False)
 
@@ -2037,7 +2032,7 @@ def setup_touchoff(parent): # touchoff an axis
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					parent.axis_touchoff_controls.append(item)
-				else:
+				else: # verified
 					title = 'Configuration Error'
 					msg = ('The Touchoff Axis button requires a QLineEdit named '
 					'touchoff_le or a Dynamic Property named source that '
@@ -2051,7 +2046,7 @@ def setup_touchoff(parent): # touchoff an axis
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					parent.axis_touchoff_controls.append(item)
 					getattr(parent, source).setText('0')
-				else: # the source was not found
+				else: # verified
 					title = 'Configuration Error'
 					msg = (f'The Tool Touchoff button source object name "{source}" for '
 					f'button "{item}" was not found.')
@@ -2060,7 +2055,147 @@ def setup_touchoff(parent): # touchoff an axis
 					getattr(parent, item).setEnabled(False)
 					getattr(parent, item).setText('Error!')
 
+def setup_tool_change(parent): # FIXME do all tests here for tool table
+	tool_change_required = ['tool_change_pb', 'tool_change_cb']
+
+	# if neither required is present just skip on by
+	if set(tool_change_required).isdisjoint(parent.child_names):
+		return
+
+	# if either required is present check everything
+	if not set(tool_change_required).isdisjoint(parent.child_names):
+		# check that both required items are present
+		if set(tool_change_required).issubset(parent.child_names):
+
+			# check the tool table has tools
+			for tool in parent.status.tool_table[1:]:
+				if tool.id > 0:
+					break
+			else: # no tools found
+				title = 'Configuration Error'
+				msg = (f'No tools were found in the tool table {parent.tool_table}.')
+				info = 'The Tool Change controls will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				for item in tool_change_required:
+					if item in parent.child_names:
+						getattr(parent, item).setEnabled(False)
+				return
+
+		else:
+			missing = ' '.join(list(set(tool_change_required) - set(parent.child_names)))
+			found = ' '.join(list(set(tool_change_required) & set(parent.child_names)))
+			print('required item missing')
+			title = 'Configuration Error'
+			msg = ('Tool change requires both the "tool_change_cb" combo box and the '
+			f'"tool_change_pb" push button. The "{missing}" item was not found.')
+			info = f'The "{found}" item will be disabled!'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			for item in tool_change_required:
+				if item in parent.child_names:
+					getattr(parent, item).setEnabled(False)
+
+	# if we get this far everything checks out ok
+	print('tool change ok')
+
+
+	'''
+					if os.path.getsize(tool_table) > 0:
+					parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+					parent.tool_change_cb.setView(QListView())
+					parent.tool_change_controls.append('tool_change_pb')
+				el
+	# test to see if any tool change items are in the ui
+	# Returns True if at least one element in both lists
+		# at least one item is found check if all items in list1 are in list2
+		if set(tool_change_required).issubset(parent.child_names):
+			parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
+			parent.tool_change_cb.setView(QListView())
+			parent.tool_change_controls.append('tool_change_pb')
+		else: # verified
+			missing_items = )
+			found_items = list(set(tool_change_required) & set(parent.child_names))
+			
+			for item in found_items:
+				getattr(parent, item).setEnabled(False)
+				getattr(parent, item).setText('Error!')
+			return
+	'''
+	# tool change with description
+	if parent.tool_change_cb.property('option') == 'description':
+		parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
+		tools = os.path.join(parent.config_path, parent.tool_table)
+		with open(tools, 'r') as t:
+			tool_list = t.readlines()
+		for line in tool_list:
+			if line.find('T') >= 0:
+				t = line.find('T')
+				p = line.find('P')
+				tool = line[t:p].strip()
+				desc = line.split(";")[-1]
+				number = int(line[t+1:p].strip())
+				parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
+
+	elif parent.tool_change_cb.property('prefix') is not None:
+		prefix = parent.tool_change_cb.property('prefix')
+		tool_len = len(parent.status.tool_table)
+		parent.tool_change_cb.addItem(f'{prefix} 0', 0)
+		for i in range(1, tool_len):
+			tool_id = parent.status.tool_table[i][0]
+			parent.tool_change_cb.addItem(f'"{prefix} "{tool_id}', tool_id)
+
+	else:
+		tool_len = len(parent.status.tool_table)
+		parent.tool_change_cb.addItem('Tool 0', 0)
+		for i in range(1, tool_len):
+			tool_id = parent.status.tool_table[i][0]
+			parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
+
+def setup_tool_change_buttons(parent): # Tool Change Buttons
+	return
+	# tool change push buttons is a MDI command so power on and all homed
+	parent.tool_button = False
+	for i in range(100):
+		item = f'tool_change_pb_{i}'
+		if item in parent.child_names:
+			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+
+	if 'tool_touchoff_le' in parent.child_names:
+		parent.tool_touchoff_le.setText('0')
+		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
+			parent.tool_touchoff_le.installEventFilter(parent)
+			parent.number_le.append('tool_touchoff_le')
+
+def setup_manual_tool_change(parent): # MANUAL TOOL CHANGE
+	if parent.manual_tool_change:
+		if hal.component_exists('hal_manualtoolchange'):
+			title = 'Configuration Error'
+			msg = ('The Flex Manual Tool Change can not function with the '
+			'hal_manualtoolchange component. You must find and remove the '
+			'hal_manualtoolchange component! See the Docs for more info.')
+			dialogs.error_msg_ok(parent, title, msg)
+			parent.manual_tool_change = False
+			return
+
+		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
+		parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
+		parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
+		parent.toolcomp.ready()
+		parent.tool_change = hal.get_value('tool-change.change')
+
+		hal.new_sig('tool-prepare-loopback',hal.HAL_BIT)
+		hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
+		hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
+
+		hal.new_sig('tool-number',hal.HAL_S32)
+		hal.connect('iocontrol.0.tool-prep-number','tool-number')
+		hal.connect('tool-change.number','tool-number')
+
+		hal.new_sig('tool-change',hal.HAL_BIT)
+		hal.connect('iocontrol.0.tool-change','tool-change')
+		hal.connect('tool-change.change','tool-change')
+
 def setup_touchoff_selected(parent):
+	return
 	'''
 	# axis touch off controls
 	for item in ['touchoff_selected_pb']:
@@ -2075,74 +2210,14 @@ def setup_touchoff_selected(parent):
 				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
 				parent.axis_touchoff_controls.append('touchoff_selected_pb')
 				break
-		else:
+		else: # verified
 			title = 'Configuration Error'
-			msg = ('The touchoff_selected_pb was found '
+			msg = ('The "touchoff_selected_pb" was found '
 			'but no axis_select radio buttons were found.')
-			info = 'The Push Button touchoff_selected_pb will be disabled.'
+			info = 'The push button "touchoff_selected_pb" will be disabled.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.touchoff_selected_pb.setEnabled(False)
 
-def setup_tools(parent):
-	# tool change using a combo box
-	tool_change_required = ['tool_change_pb', 'tool_change_cb']
-	# test to see if any tool change items are in the ui
-	if set(tool_change_required) & set(parent.child_names):
-		# test to make sure all items required are in the ui
-		if not all(item in parent.child_names for item in tool_change_required):
-			missing_items = list(sorted(set(tool_change_required) - set(parent.child_names)))
-			missing = ' '.join(missing_items)
-			title = 'Configuration Error'
-			msg = ('Tool change requires both the tool_change_cb combo box and the '
-			'tool_change_pb push button.')
-			info = f'The "{missing}" was not found.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			return
-		parent.tool_change_pb.clicked.connect(partial(commands.tool_change, parent))
-		parent.tool_change_cb.setView(QListView())
-
-		# tool change with description
-		if parent.tool_change_cb.property('option') == 'description':
-			parent.tool_change_cb.addItem('T0: No Tool in Spindle', 0)
-			tools = os.path.join(parent.config_path, parent.tool_table)
-			with open(tools, 'r') as t:
-				tool_list = t.readlines()
-			for line in tool_list:
-				if line.find('T') >= 0:
-					t = line.find('T')
-					p = line.find('P')
-					tool = line[t:p].strip()
-					desc = line.split(";")[-1]
-					number = int(line[t+1:p].strip())
-					parent.tool_change_cb.addItem(f'{tool} {desc.strip()}', number)
-
-		elif parent.tool_change_cb.property('prefix') is not None:
-			prefix = parent.tool_change_cb.property('prefix')
-			tool_len = len(parent.status.tool_table)
-			parent.tool_change_cb.addItem(f'{prefix} 0', 0)
-			for i in range(1, tool_len):
-				tool_id = parent.status.tool_table[i][0]
-				parent.tool_change_cb.addItem(f'"{prefix} "{tool_id}', tool_id)
-
-		else:
-			tool_len = len(parent.status.tool_table)
-			parent.tool_change_cb.addItem('Tool 0', 0)
-			for i in range(1, tool_len):
-				tool_id = parent.status.tool_table[i][0]
-				parent.tool_change_cb.addItem(f'Tool {tool_id}', tool_id)
-
-	# tool change push buttons is a MDI command so power on and all homed
-	parent.tool_button = False
-	for i in range(100):
-		item = f'tool_change_pb_{i}'
-		if item in parent.child_names:
-			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
-
-	if 'tool_touchoff_le' in parent.child_names:
-		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
-			parent.tool_touchoff_le.installEventFilter(parent)
-			parent.number_le.append('tool_touchoff_le')
 
 	for axis in AXES:
 		item = f'tool_touchoff_{axis}'
@@ -2167,7 +2242,7 @@ def setup_tools(parent):
 				else: # the source was not found
 					title = 'Configuration Error'
 					msg = (f'The Tool Touch Off line edit "{source}" for "{item}" was not found.')
-					info = f'The QPushButton "{item}" will be disabled.'
+					info = f'The push button "{item}" will be disabled.'
 					dialogs.error_msg_ok(parent, title, msg, info)
 					getattr(parent, item).setEnabled(False)
 
@@ -2409,9 +2484,9 @@ def setup_hal(parent):
 						parent.hal_io_check[obj_name] = pin_name
 					else:
 						title = 'Configuration Error'
-						msg = (f'The QPushButton "{obj_name}" must be '
+						msg = (f'The push button "{obj_name}" must be '
 						'set to checkable to be a I/O button.')
-						info = 'The QPushButton will be disabled.'
+						info = 'The push button will be disabled.'
 						dialogs.error_msg_ok(parent, title, msg, info)
 						child.setEnabled(False)
 						child.setText('Error!')
@@ -3094,35 +3169,6 @@ def setup_hal_watch(parent):
 
 			if test:
 				parent.hal_watch_time_hms[obj_name] = [hr_pin, min_pin, sec_pin]
-
-def setup_tool_change(parent): # MANUAL TOOL CHANGE
-	if parent.manual_tool_change:
-		if hal.component_exists('hal_manualtoolchange'):
-			title = 'Configuration Error'
-			msg = ('The Flex Manual Tool Change can not function with the '
-			'hal_manualtoolchange component. You must find and remove the '
-			'hal_manualtoolchange component! See the Docs for more info.')
-			dialogs.error_msg_ok(parent, title, msg)
-			parent.manual_tool_change = False
-			return
-
-		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
-		parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
-		parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
-		parent.toolcomp.ready()
-		parent.tool_change = hal.get_value('tool-change.change')
-
-		hal.new_sig('tool-prepare-loopback',hal.HAL_BIT)
-		hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
-		hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
-
-		hal.new_sig('tool-number',hal.HAL_S32)
-		hal.connect('iocontrol.0.tool-prep-number','tool-number')
-		hal.connect('tool-change.number','tool-number')
-
-		hal.new_sig('tool-change',hal.HAL_BIT)
-		hal.connect('iocontrol.0.tool-change','tool-change')
-		hal.connect('tool-change.change','tool-change')
 
 def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:

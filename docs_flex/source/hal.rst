@@ -214,7 +214,7 @@ The HAL direction is I/O for a HAL I/O QSpinBox.
 The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 
 
-.. NOTE:: The hal_type for QSpindBox and QSlider must be specified.
+.. NOTE:: The hal_type for QSpinBox and QSlider must be specified.
 
 .. csv-table:: **HAL I/O**
    :width: 100%
