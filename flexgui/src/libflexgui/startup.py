@@ -2953,7 +2953,6 @@ def setup_hal(parent):
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}"', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			# FIXME make sure the text_n is in numeric order starting at 0
 			# 1. Get the list of all dynamic property names (as QByteArray)
 			prop_names = label.dynamicPropertyNames()
 			# 2. Iterate through them, decode, and fetch values
@@ -2963,13 +2962,9 @@ def setup_hal(parent):
 				prop_value = label.property(prop_name)
 				# Store in a dictionary
 				dynamic_props[prop_name] = prop_value
-			#text_list = []
 			text_dict = {}
 			for key, value in dynamic_props.items():
-				#print(key, value)
 				if key.startswith('text_'):
-					#print(f"key {key.split('_')[-1]}")
-					# FIXME test for a valid int
 					num = key.split('_')[-1]
 					if utilities.is_int(num):
 						text_dict[int(num)] = value
@@ -2988,12 +2983,11 @@ def setup_hal(parent):
 
 	##### HAL PROGRESSBAR #####
 	if len(hal_progressbar) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32']
 		for progressbar in hal_progressbar:
 			obj_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name is blank or missing. '
 				'The HAL pin can not be created.')
@@ -3002,7 +2996,7 @@ def setup_hal(parent):
 				progressbar.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -3153,7 +3147,7 @@ def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
 
-def setup_plot(parent):
+def setup_plot(parent): # gnipsel
 	if 'plot_widget' in parent.child_names:
 		# add the plotter to the container
 		from libflexgui import flexplot
@@ -3276,7 +3270,7 @@ def setup_plot(parent):
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
-		if parent.auto_plot_units: # disable metric units
+		if parent.auto_plot_units: # disable metric units gnipsel
 			bitch = False
 			if 'view_metric_units_cb' in parent.child_names:
 				parent.view_metric_units_cb.setEnabled(False)
@@ -3288,10 +3282,10 @@ def setup_plot(parent):
 				parent.actionMetric_Units.setEnabled(False)
 				bitch = True
 			if bitch:
-				msg = ('The INI entry PLOT_UNITS = True\n'
-				'in the [FLEXGUI] section\n'
-				'disables any metric unit controls.')
-				dialogs.warn_msg_ok(parent, msg, 'Configuration Error')
+				title = 'Configuration Error'
+				msg = ('The INI entry PLOT_UNITS = True\ in the [FLEXGUI] section '
+				'disables any metric unit plotter controls.')
+				dialogs.error_msg_ok(parent, title, msg)
 
 		parent.plotter.update()
 
