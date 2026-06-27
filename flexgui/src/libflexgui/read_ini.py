@@ -13,6 +13,7 @@ def read(parent):
 
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
+
 	if machine_name:
 		parent.settings = QSettings('Flex', machine_name)
 	else:
@@ -226,9 +227,8 @@ def read(parent):
 	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
 
 	# check for touch screen defaults, anything other than true is false
-	parent.touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or False
-	if parent.touch_spinbox:
-		parent.touch_spinbox = parent.touch_spinbox.strip().lower() == "true"
+	touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or 'false'
+	parent.touch_spinbox = touch_spinbox.strip().lower() == 'true'
 
 	# check for LED defaults in the ini file, find returns a string must be an int
 	parent.led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER') or False
@@ -329,34 +329,30 @@ def read(parent):
 		auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or 'false'
 		parent.auto_plot_units = auto_plot_units.strip().lower() == 'true'
 	else: # FIXME check for ini entries and if found complain
-		print('no plotter')
+		parent.plot_background_color = False
+		parent.grids = False
+		parent.auto_plot_units = False
 
-	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
+	auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or 'false'
+	parent.auto_dro_units = auto_dro_units.strip().lower() == 'true'
 
-	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
-	if parent.manual_tool_change:
-		parent.manual_tool_change = parent.manual_tool_change.strip().lower() == "true"
+	manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or 'false'
+	parent.manual_tool_change = manual_tool_change.strip().lower() == 'true'
 
-	parent.touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or False
-	if parent.touch_file_width in ['True', 'true', '1']:
-		parent.touch_file_width = True
-	else:
-		parent.touch_file_width = False
+	touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or 'false'
+	parent.touch_file_width = touch_file_width.strip().lower() == 'true'
 
 	# check for keyboard jog increment setting FIXME does this do anything???
-	parent.kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or False
-	if parent.kb_jog_increment:
-		parent.kb_jog_increment = parent.kb_jog_increment.strip().lower() == 'true'
+	kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or 'false'
+	parent.kb_jog_increment = kb_jog_increment.strip().lower() == 'true'
 
 	# check for keyboard jogging
-	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
-	if parent.ctrl_kb_jogging:
-		parent.ctrl_kb_jogging = parent.ctrl_kb_jogging.strip().lower() == 'true'
+	ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or 'false'
+	parent.ctrl_kb_jogging = ctrl_kb_jogging.strip().lower() == 'true'
 
 	# check for kb_jog_focus
-	parent.kb_jog_focus = parent.inifile.find('FLEXGUI', 'KB_JOG_FOCUS')
-	if parent.kb_jog_focus:
-		parent.kb_jog_focus = parent.kb_jog_focus.strip().lower() == 'true'
+	kb_jog_focus = parent.inifile.find('FLEXGUI', 'KB_JOG_FOCUS') or 'false'
+	parent.kb_jog_focus = kb_jog_focus.strip().lower() == 'true'
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
