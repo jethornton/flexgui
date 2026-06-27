@@ -2932,7 +2932,7 @@ def setup_hal(parent):
 
 			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
-				msg = (f'HAL MULTI STATE LABEL "{obj_name}" pin name is blank or '
+				msg = (f'HAL Multi State Label "{obj_name}" pin name is blank or '
 				'missing. The HAL pin can not be created.')
 				info = f'The "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
@@ -2950,30 +2950,41 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if label.property('text_0') == None: # verified
-				title = 'Configuration Error'
-				msg = (f'HAL MULTI STATE LABEL "{obj_name}" text_0 Dynamic Property is '
-				'blank or missing. A HAL Multi State Label requires at least one text '
-				'message to display starting with text_0. '
-				'The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
 			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}"', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			text = ''
-			text_list = []
-			i = 0
-			while text is not None:
-				text = label.property(f'text_{i}')
-				if text is not None:
-					text_list.append(text)
-				i += 1
-			parent.hal_ms_labels[obj_name] = [pin_name, text_list]
+			# FIXME make sure the text_n is in numeric order starting at 0
+			# 1. Get the list of all dynamic property names (as QByteArray)
+			prop_names = label.dynamicPropertyNames()
+			# 2. Iterate through them, decode, and fetch values
+			dynamic_props = {}
+			for name in prop_names:
+				prop_name = name.data().decode("utf-8")
+				prop_value = label.property(prop_name)
+				# Store in a dictionary
+				dynamic_props[prop_name] = prop_value
+			#text_list = []
+			text_dict = {}
+			for key, value in dynamic_props.items():
+				#print(key, value)
+				if key.startswith('text_'):
+					#print(f"key {key.split('_')[-1]}")
+					# FIXME test for a valid int
+					num = key.split('_')[-1]
+					if utilities.is_int(num):
+						text_dict[int(num)] = value
+					else: # verified
+						title = 'Configuration Error'
+						msg = (f'HAL Multi State Label "{obj_name}" Dynamic Property '
+						f'"{key}" suffix "{num}" did not evaluate to an integer. The HAL '
+						'pin can not be created.')
+						info = f'The "{obj_name}" will be disabled.'
+						dialogs.error_msg_ok(parent, title, msg, info)
+						label.setEnabled(False)
+						label.setText('Error!')
+						continue
+
+			parent.hal_ms_labels[obj_name] = [pin_name, text_dict]
 
 	##### HAL PROGRESSBAR #####
 	if len(hal_progressbar) > 0:

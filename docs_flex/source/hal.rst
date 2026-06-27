@@ -232,8 +232,11 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 
 .. NOTE:: The hal_type is required for QSpinBox, QSlider or QDoubleSpinBox
 
+HAL Labels
+----------
+
 HAL Label
----------
+=========
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
@@ -255,7 +258,7 @@ The HAL direction is IN for a HAL Label.
 	String, zero_padding, Left padded zeros for HAL_S32 or HAL_U32
 
 HAL Bool Label
---------------
+==============
 
 A QLabel can have optional True and False text by adding two additional Dynamic
 Properties. Default is `True` and `False`.
@@ -281,7 +284,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
    :align: center
 
 HAL Average Float Label
------------------------
+=======================
 
 A QLabel can be used to monitor HAL float number pins and display an average of
 the number of samples. The sample stack is LIFO so a new value pushes the oldest
@@ -317,7 +320,7 @@ The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
 	Int, precision, Number of decimal digits
 
 HAL Average Integer Label
--------------------------
+=========================
 
 A QLabel can be used to monitor HAL_S32 or HAL_U32 pins and display an average
 of the number of samples. The sample stack is LIFO so a new value pushes the
@@ -346,15 +349,13 @@ The HAL direction is IN.
 	Int, samples, The number of samples to use default is 10
 
 HAL Multi-State Label
----------------------
+=====================
 
 A QLabel can have multiple text by adding as many Dynamic Properties as needed
-for each text. The `text_n` starts at 0 for example text_0, text_1 etc.
+for each text. The `text_n` property the `n` is the integer value for that
+text. Setting the pin name value will change the label text
 
 The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
-
-If the HAL value is greater than the number of states the last state will be
-displayed.
 
 .. csv-table:: **HAL Multi-State Label**
    :width: 100%

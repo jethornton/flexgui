@@ -413,10 +413,10 @@ def update(parent):
 		getattr(parent, key).setText(f'{round(stat)}')
 
 	# update multi state labels
-	# key is label name and value[0] is the pin name
+	# key is label name and value[0] is the pin name value[1] is dict int, text
 	for key, value in parent.hal_ms_labels.items():
 		state = hal.get_value(f'flexhal.{value[0]}')
-		if state < len(value[1]):
+		if state in value[1].keys():
 			getattr(parent, key).setText(f'{value[1][state]}')
 
 	# update hal bool labels
