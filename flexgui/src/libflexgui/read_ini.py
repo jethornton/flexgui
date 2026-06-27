@@ -2,6 +2,7 @@ import os, sys
 
 from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import QColor
+from PyQt6.QtWidgets import QWidget
 
 from libflexgui import dialogs
 from libflexgui import utilities
@@ -294,31 +295,42 @@ def read(parent):
 		if color:
 			parent.probe_enable_off_color = f'background-color: {color};'
 
-	color_string = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
-	if color_string:
-		components = [c.strip() for c in color_string.split(',')]
-		if len(components) == 3:
-			for comp in components:
-				try:
-					value = float(comp)
-				except ValueError:
-					value = False
-				if not (0.0 <= value <= 1.0) or value is False: # FIXME test this
-					parent.plot_background_color = False
-					title = 'INI Configuration Error!'
-					msg = (f'The PLOT_BACKGROUND_COLOR {color_string} in the FLEXGUI '
-					'section is not valid.\n'
-					'Each color must be 0.0 to 1.0.')
-					info = 'The background color will be black'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					break
-				parent.plot_background_color = tuple(map(float, color_string.split(',')))
-	else:
-		parent.plot_background_color = False
+	#### Plotter Settings ####
+	plotter = parent.findChild(QWidget, 'plot_widget')
 
-	parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
+	if plotter is not None:
+		# FIXME test False
+		color_string = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
+		if color_string:
+			components = [c.strip() for c in color_string.split(',')]
+			if len(components) == 3:
+				for comp in components:
+					try:
+						value = float(comp)
+					except ValueError:
+						value = False
+					if not (0.0 <= value <= 1.0) or value is False: # FIXME test this
+						parent.plot_background_color = False
+						title = 'INI Configuration Error!'
+						msg = (f'The PLOT_BACKGROUND_COLOR {color_string} in the FLEXGUI '
+						'section is not valid.\n'
+						'Each color must be 0.0 to 1.0.')
+						info = 'The background color will be black'
+						dialogs.error_msg_ok(parent, title, msg, info)
+						break
+					parent.plot_background_color = tuple(map(float, color_string.split(',')))
+		else:
+			parent.plot_background_color = False
 
-	parent.auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or False
+		grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or 'false'
+		parent.grids = grids.strip().lower() == 'true'
+
+		# FIXME make all true/false use this format
+		auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or 'false'
+		parent.auto_plot_units = auto_plot_units.strip().lower() == 'true'
+	else: # FIXME check for ini entries and if found complain
+		print('no plotter')
+
 	parent.auto_dro_units = parent.inifile.find('FLEXGUI', 'DRO_UNITS') or False
 
 	parent.manual_tool_change = parent.inifile.find('FLEXGUI', 'MANUAL_TOOL_CHANGE') or False
@@ -334,17 +346,17 @@ def read(parent):
 	# check for keyboard jog increment setting FIXME does this do anything???
 	parent.kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or False
 	if parent.kb_jog_increment:
-		parent.kb_jog_increment = parent.kb_jog_increment.strip().lower() == "true"
+		parent.kb_jog_increment = parent.kb_jog_increment.strip().lower() == 'true'
 
 	# check for keyboard jogging
 	parent.ctrl_kb_jogging = parent.inifile.find('FLEXGUI', 'KEYBOARD_JOG') or False
 	if parent.ctrl_kb_jogging:
-		parent.ctrl_kb_jogging = parent.ctrl_kb_jogging.strip().lower() == "true"
+		parent.ctrl_kb_jogging = parent.ctrl_kb_jogging.strip().lower() == 'true'
 
 	# check for kb_jog_focus
 	parent.kb_jog_focus = parent.inifile.find('FLEXGUI', 'KB_JOG_FOCUS')
 	if parent.kb_jog_focus:
-		parent.kb_jog_focus = parent.kb_jog_focus.strip().lower() == "true"
+		parent.kb_jog_focus = parent.kb_jog_focus.strip().lower() == 'true'
 
 	# check for dro font size
 	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
