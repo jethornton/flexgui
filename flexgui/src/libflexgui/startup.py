@@ -2851,7 +2851,7 @@ def setup_hal(parent):
 			if r > 0:
 				r = -r
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Average Float Label "{obj_name}" pin name is blank or '
 				'missing. The HAL pin can not be created.')
@@ -2861,7 +2861,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Average Float Label "{obj_name}" pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -2878,7 +2878,7 @@ def setup_hal(parent):
 			p = label.property('precision')
 			p = p if p is not None else parent.default_precision
 
-			parent.hal_avr_float[label_name] = [pin_name, deque([0], maxlen=s), p, r]
+			parent.hal_avr_float[obj_name] = [pin_name, deque([0], maxlen=s), p, r]
 
 	##### HAL AVERAGE INT LABEL #####
 	if len(hal_avr_i_labels) > 0:
@@ -2888,7 +2888,7 @@ def setup_hal(parent):
 			pin_name = label.property('pin_name')
 			s = label.property('samples') or 10
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Average Integer Label "{obj_name}" pin name is blank or '
 				'missing The HAL pin can not be created.')
@@ -2898,7 +2898,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Average Integer Label "{obj_name}" pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -2909,10 +2909,10 @@ def setup_hal(parent):
 				continue
 
 			hal_type = label.property('hal_type')
-			if hal_type not in valid_types:
+			if hal_type not in valid_types: # verified
 				title = 'Configuration Error'
-				msg = (f'The HAL Type {hal_type}" is not valid for a HAL Average '
-				'Integer Label , only HAL_S32 or HAL_U32 can be used.')
+				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL Average '
+				'Integer Label, only HAL_S32 or HAL_U32 can be used.')
 				info = f'The "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)
@@ -2930,7 +2930,7 @@ def setup_hal(parent):
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
 
-			if pin_name in [None, '']:
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL MULTI STATE LABEL "{obj_name}" pin name is blank or '
 				'missing. The HAL pin can not be created.')
@@ -2940,7 +2940,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if pin_name in dir(parent):
+			if pin_name in dir(parent): # verified
 				title = 'Configuration Error'
 				msg = (f'HAL Multi-State Label "{obj_name}" pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -2950,10 +2950,10 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if label.property('text_0') == None:
+			if label.property('text_0') == None: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL MULTI STATE LABEL "{obj_name}" text_0 Dynamic Property is '
-				'blank or missing. A HAL MULTI STATE LABEL requires at least one text '
+				'blank or missing. A HAL Multi State Label requires at least one text '
 				'message to display starting with text_0. '
 				'The HAL pin can not be created.')
 				info = f'The "{obj_name}" will be disabled.'
