@@ -79,6 +79,7 @@ create an action name.
 	Offsets, actionOffsets
 	Overlay, actionOverlay
 	Clear Live Plot, actionClear_Live_Plot
+	Grids, actionGrids
 
 	**Help**, **Action Name**
 	About, actionAbout
