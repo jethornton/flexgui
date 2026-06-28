@@ -322,10 +322,8 @@ def read(parent):
 		else:
 			parent.plot_background_color = False
 
-		grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or 'false'
-		parent.grids = grids.strip().lower() == 'true'
+		parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
 
-		# FIXME make all true/false use this format
 		auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or 'false'
 		parent.auto_plot_units = auto_plot_units.strip().lower() == 'true'
 	else: # FIXME check for ini entries and if found complain

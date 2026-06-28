@@ -3147,7 +3147,7 @@ def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
 
-def setup_plot(parent): # gnipsel
+def setup_plot(parent):
 	if 'plot_widget' in parent.child_names:
 		# add the plotter to the container
 		from libflexgui import flexplot
@@ -3270,22 +3270,32 @@ def setup_plot(parent): # gnipsel
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
-		if parent.auto_plot_units: # disable metric units gnipsel
-			bitch = False
-			if 'view_metric_units_cb' in parent.child_names:
-				parent.view_metric_units_cb.setEnabled(False)
-				bitch = True
-			if 'view_metric_units_pb' in parent.child_names:
-				parent.view_metric_units_pb.setEnabled(False)
-				bitch = True
-			if 'actionMetric_Units' in parent.child_names:
-				parent.actionMetric_Units.setEnabled(False)
-				bitch = True
-			if bitch:
+		if parent.auto_plot_units: # disable metric units
+			if 'view_metric_units_cb' in parent.child_names: # verified
 				title = 'Configuration Error'
-				msg = ('The INI entry PLOT_UNITS = True\ in the [FLEXGUI] section '
+				msg = ('The INI entry PLOT_UNITS = True in the [FLEXGUI] section '
 				'disables any metric unit plotter controls.')
-				dialogs.error_msg_ok(parent, title, msg)
+				info = 'The "view_metric_units_cb" will be disabled'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				parent.view_metric_units_cb.setEnabled(False)
+
+				bitch = True
+			if 'view_metric_units_pb' in parent.child_names: # verified
+				parent.view_metric_units_pb.setEnabled(False)
+				title = 'Configuration Error'
+				msg = ('The INI entry PLOT_UNITS = True in the [FLEXGUI] section '
+				'disables any metric unit plotter controls.')
+				info = 'The "view_metric_units_pb" will be disabled'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				parent.view_metric_units_pb.setEnabled(False)
+
+			if 'actionMetric_Units' in parent.child_names: # verified
+				title = 'Configuration Error'
+				msg = ('The INI entry PLOT_UNITS = True in the [FLEXGUI] section '
+				'disables any metric unit plotter controls.')
+				info = 'The "actionMetric_Units" will be disabled'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				parent.actionMetric_Units.setEnabled(False)
 
 		parent.plotter.update()
 
@@ -3375,7 +3385,7 @@ def setup_plot(parent): # gnipsel
 
 		# Handle both a QMenu and QAction submenus
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-		if parent.grids and not menu: # gnipsel
+		if parent.grids and not menu: # verified
 			# If an INI setting and no GRIDS menu, show an error
 			title = 'Configuration Error'
 			msg = (f'The Plottter GRIDS configuration was found in the INI file. '
@@ -3400,7 +3410,7 @@ def setup_plot(parent): # gnipsel
 				text, data, suffix = utilities.is_valid_increment(parent, item)
 				if data:
 					grid_size = conv_units(data, suffix.lower(), parent.units)
-				else:
+				else: # verified
 					title = 'Configuration Error'
 					msg = (f'The FLEXGUI PLOT_GRID entry "{item}" is not a '
 					'valid unit and will not be used.')
@@ -3470,13 +3480,22 @@ def setup_import(parent):
 	modules = parent.inifile.findall('FLEXGUI', 'IMPORT_PYTHON') or False
 	if modules:
 		for module_name in modules:
+			_, ext = os.path.splitext(module_name)
+			if bool(ext): # verified
+				title = 'Configuration Error'
+				msg = (f'The INI entry for "IMPORT_PYTHON" "{module_name}" has an '
+				'extension. The INI entry is the name only of the python file.')
+				info = 'The python module will not be loaded!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				continue
+
 			module_path = os.path.join(parent.config_path, f'{module_name}.py')
 			if os.path.exists(module_path):
 				try:
 					sys.path.append(parent.config_path)
 					module = importlib.import_module(module_name)
 					module.startup(parent)
-				except Exception as e:
+				except Exception as e: # verified
 					print(traceback.format_exc())
 					title = 'Import Failed'
 					msg = (f'The python file {module_path} has an error in the module '
@@ -3484,7 +3503,7 @@ def setup_import(parent):
 					f'{traceback.format_exc()}')
 					info = 'The python module will not be loaded!'
 					dialogs.error_msg_ok(parent, title, msg, info)
-			else:
+			else: # verified
 				title = 'Import Failed'
 				msg = (f'The python file "{module_path}" was not found.\n')
 				info = 'The python module will not be loaded!'
