@@ -376,7 +376,7 @@ def warn_msg_ok(parent, msg, title=None): # FIXME use error_msg_ok maybe
 		return False
 
 def warn_msg_yes_no(parent, title, msg, info=None): # messagebox.qss added
-	# dialogs.warn_msg_yes_no(parent, msg, 'title')
+	# dialogs.warn_msg_yes_no(parent, title, msg, info)
 	#print('warn_msg_yes_no')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)

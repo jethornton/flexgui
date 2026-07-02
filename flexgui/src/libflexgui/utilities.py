@@ -570,6 +570,7 @@ def update_home_controls(parent):
 
 def update_controls(parent):
 	parent.status.poll()
+	#print('update_controls')
 	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
 	file_loaded = len(parent.status.file) > 0 # currently loaded g code file
 	tool_loaded = parent.status.tool_in_spindle
@@ -632,6 +633,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.tool_table_controls:
 			getattr(parent, item).setEnabled(True)
+		for item in parent.ladder_editor_control:
+			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ESTOP_RESET:
 		#print('update run controls STATE_ESTOP_RESET')
@@ -671,6 +674,8 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 		for item in parent.tool_table_controls:
 			getattr(parent, item).setEnabled(True)
+		for item in parent.ladder_editor_control:
+			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ON:
 		#print('update run controls STATE_ON')
@@ -703,6 +708,8 @@ def update_controls(parent):
 			for item in parent.coordinate_system_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.tool_table_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.ladder_editor_control:
 				getattr(parent, item).setEnabled(False)
 
 			if state == emc.RCS_EXEC: # INTERPRETER RUNNING
@@ -779,6 +786,8 @@ def update_controls(parent):
 					getattr(parent, item).setEnabled(True)
 				for item in parent.tool_table_controls:
 					getattr(parent, item).setEnabled(True)
+				for item in parent.ladder_editor_control:
+					getattr(parent, item).setEnabled(False)
 				for item in parent.spindle_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.probe_controls:
@@ -848,6 +857,8 @@ def update_controls(parent):
 			for item in parent.probe_enable:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.tool_table_controls:
+				getattr(parent, item).setEnabled(False)
+			for item in parent.ladder_editor_control:
 				getattr(parent, item).setEnabled(False)
 
 def update_hal_io(parent, value):

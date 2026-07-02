@@ -87,6 +87,7 @@ def setup_vars(parent):
 	parent.jog_controls = [] # enabled when power on and in manual
 	parent.coolant_controls = [] # enabled when power is on
 	parent.tool_table_controls = [] # disable when a program or mdi is running
+	parent.ladder_editor_control = [] # disable when a program or mdi is running
 	parent.tool_change_controls = [] # enabled when power is on and in manual
 	parent.tool_touchoff_controls = [] # enabled when tool is loaded and power is on and in manual
 	parent.axis_touchoff_controls = [] # enabled when power on, homed, in manual
@@ -589,13 +590,6 @@ def setup_actions(parent): # setup menu actions
 				info = f'The File Save control {key} will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 
-	# special check for the classicladder editor
-	if not hal.component_exists("classicladder_rt"):
-		if 'actionLadder_Editor' in parent.child_names:
-			parent.actionLadder_Editor.setEnabled(False)
-		if 'edit_ladder_pb' in parent.child_names:
-			parent.edit_ladder_pb.setEnabled(False)
-
 	# special check for MDI
 	if 'mdi_history_lw' in parent.child_names:
 		if 'actionClear_MDI_History' in parent.child_names:
@@ -679,14 +673,28 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.coolant_controls.append(item)
 
-	# tool table controls
-	for item in ['edit_tool_table_pb', 'edit_ladder_pb', 'reload_tool_table_pb']:
+	# tool table controls FIXME why is edit_ladder_pb in this group
+	for item in ['edit_tool_table_pb', 'reload_tool_table_pb',
+	'actionEdit_Tool_Table', 'actionReload_Tool_Table']:
 		if item in parent.child_names:
 			parent.tool_table_controls.append(item)
 
 	for i in range(100):
 		if f'tool_change_pb_{i}' in parent.child_names:
 			parent.tool_change_controls.append(f'tool_change_pb_{i}')
+
+	# classic ladder
+	for item in ['edit_ladder_pb', 'actionLadder_Editor']:
+		if item in parent.child_names:
+			if hal.component_exists("classicladder_rt"):
+				parent.ladder_editor_control.append(item)
+			else:
+				title = 'Configuration Error'
+				msg = (f'The Classic Ladder control "{item}" was found but Classic '
+				'Ladder is not loaded.')
+				info = f'The "{item}" will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				getattr(parent, item).setEnabled(False)
 
 	# home controls
 	for item in ['home_all_pb', 'actionHoming', 'actionHome_All']:
@@ -2052,15 +2060,23 @@ def setup_tool_change(parent):
 			for tool in parent.status.tool_table[1:]:
 				if tool.id > 0:
 					break
-			else: # no tools found
+			else: # no tools found FIXME offer to add a tool
 				title = 'Configuration Error'
-				msg = (f'No tools were found in the tool table {parent.tool_table}.')
-				info = 'The Tool Change controls will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				for item in tool_change_required:
-					if item in parent.child_names:
-						getattr(parent, item).setEnabled(False)
-				return
+				msg = (f'Tool Change controls were found but no tools were found in the '
+				f'tool table "{parent.tool_table}".')
+				info = 'Would you like to add one? Otherwise the Tool Change '
+				'controls will be disabled!'
+				result = dialogs.warn_msg_yes_no(parent, title, msg, info)
+				if result:
+					tool_table_file = os.path.join(parent.config_path, parent.tool_table)
+					# FIXME update tool table controls gnipsel
+					with open(tool_table_file, "w") as file:
+						file.write(';\nT1 P1 ;Added by Flex GUI\n')
+				else:
+					for item in tool_change_required:
+						if item in parent.child_names:
+							getattr(parent, item).setEnabled(False)
+					return
 
 		else:
 			missing = ' '.join(list(set(tool_change_required) - set(parent.child_names)))

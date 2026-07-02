@@ -152,12 +152,7 @@ def action_reload(parent): # actionReload
 				parent.reload_pb.led = False
 
 def action_save(parent): # actionSave
-	current_nccode_file = parent.status.file or False
-	if not current_nccode_file: # FIXME does this work? # FIXME test this
-		title = 'Configuration Error'
-		msg = ('No File is Open')
-		dialogs.warn_msg_ok(parent, msg, 'Error')
-		return
+	current_nccode_file = parent.status.file
 	text = parent.gcode_pte.toPlainText()
 	nc_code = text.splitlines()
 	with open(current_nccode_file, 'w') as f:
@@ -170,11 +165,7 @@ def action_save(parent): # actionSave
 			parent.reload_pb.led = True
 
 def action_save_as(parent): # actionSave_As
-	current_nc_code_file = parent.status.file or False
-	if not current_nc_code_file: # FIXME does this work? # FIXME test this
-		msg = ('No File is Open')
-		dialogs.warn_msg_ok(parent, msg, 'Error')
-		return
+	current_nc_code_file = parent.status.file
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
 	else:
@@ -193,12 +184,12 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	tool_table_file = os.path.join(parent.config_path, parent.tool_table)
 	if os.path.isfile(tool_table_file):
 		file_size = os.path.getsize(tool_table_file)
-		if file_size == 0: # FIXME different dialog # FIXME test this
-			msg = ('Can not edit an empty tool file.\n'
-			'The tool file must have at least one entry\n'
-			'with a Tool number and a Pocket number.\n'
-			'Would you like that line added for you?')
-			result = dialogs.critical_msg_ok_cancel(parent, msg, 'Empty File')
+		if file_size == 0: # verified
+			title = 'Empty Tool Table!'
+			msg = ('Can not edit an empty tool file. The tool file must have at '
+			'least one entry with a Tool number and a Pocket number.')
+			info = 'Would you like that line added for you?'
+			result = dialogs.warn_msg_yes_no(parent, title, msg, info)
 			if result:
 				with open(tool_table_file, "w") as file:
 					file.write(';\nT1 P1 ;Added by Flex GUI\n')
