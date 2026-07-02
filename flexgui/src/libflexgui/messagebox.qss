@@ -1,3 +1,4 @@
+/* QMessageBox */
 QMessageBox {
 	background-color: #2C2C2C;
 }
@@ -33,4 +34,23 @@ QPushButton:hover {
 QPushButton:pressed {
 	background-color: #3e8e41;
 }
+
+/* QDialog */
+QDialog {
+	background-color: #2C2C2C;
+}
+
+QComboBox#editors {
+	margin-bottom: 10px;
+}
+
+/* Main message text */
+QLabel#msg_lb {
+	color: #ffffff;
+	font-family: FreeMono;
+	font-weight: bold;
+	font-size: 22px;
+	margin: 15px;
+}
+
 
