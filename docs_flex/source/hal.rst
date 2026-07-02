@@ -30,7 +30,7 @@ The property `pin_name` defines the HAL pin name that is prefixed with
    underscore.
 
 Options
--------
+=======
 
 The default behavior for HAL objects that are a HAL_OUT or HAL_IO is to be
 enabled when the E Stop is released. To change this behaviour add a Dynamic
@@ -47,6 +47,9 @@ only enabled when power is on and all joints are homed.
 	**Property Type**, **Property Name**, **Pin Value**
 	Bool, state_on, True
 	Bool, all_homed, True
+
+HAL Buttons
+===========
 
 HAL Button
 ----------
@@ -121,6 +124,9 @@ The option all_homed will disable the HAL LED Button until all joints are homed.
 	String, led_shape, square
 
 .. _hal_spin_box:
+
+HAL Spinboxs
+============
 
 HAL Spinbox
 -----------
@@ -233,10 +239,10 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 .. NOTE:: The hal_type is required for QSpinBox, QSlider or QDoubleSpinBox
 
 HAL Labels
-----------
+==========
 
 HAL Label
-=========
+---------
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
@@ -258,7 +264,7 @@ The HAL direction is IN for a HAL Label.
 	String, zero_padding, Left padded zeros for HAL_S32 or HAL_U32
 
 HAL Bool Label
-==============
+--------------
 
 A QLabel can have optional True and False text by adding two additional Dynamic
 Properties. Default is `True` and `False`.
@@ -284,7 +290,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
    :align: center
 
 HAL Average Float Label
-=======================
+-----------------------
 
 A QLabel can be used to monitor HAL float number pins and display an average of
 the number of samples. The sample stack is LIFO so a new value pushes the oldest
@@ -320,7 +326,7 @@ The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
 	Int, precision, Number of decimal digits
 
 HAL Average Integer Label
-=========================
+-------------------------
 
 A QLabel can be used to monitor HAL_S32 or HAL_U32 pins and display an average
 of the number of samples. The sample stack is LIFO so a new value pushes the
@@ -349,7 +355,7 @@ The HAL direction is IN.
 	Int, samples, The number of samples to use default is 10
 
 HAL Multi-State Label
-=====================
+---------------------
 
 A QLabel can have multiple text by adding as many Dynamic Properties as needed
 for each text. The `text_n` property the `n` is the integer value for that
@@ -372,8 +378,12 @@ The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
 .. image:: /images/hal-msl.png
    :align: center
 
+HAL LED's
+=========
+
 HAL LED
 -------
+
 A QLabel can be used as a HAL LED indicator by adding the following properties
 to a blank label. The default colors are Red when Off and Green when On. The
 pin_name is the hal name the LED will have. The default shape is round.
@@ -456,7 +466,7 @@ The HAL direction is IN for a HAL LCD
    `precision` with a value of the number of decimal digits.
 
 HAL Progress Bar
-----------------
+================
 
 A QProgressBar can be used to monitor HAL pins. HAL connections must be made in
 the post gui HAL file. The pin_name used will create a HAL pin prefixed with
@@ -476,14 +486,14 @@ The HAL direction is IN and the hal_type is u32 for a HAL Progress Bar.
 	String, pin_name, any unique name
 
 HAL Watch Labels
-----------------
+================
 
 You can watch the status of a HAL pin in your GUI by adding a QLabel with the
 following Dynamic Properties. You can watch Bit (True/False) pins, S32/U32
 integer pins, Float pins.
 
 HAL Watch Bool
-==============
+--------------
 
 .. csv-table:: **HAL Watch Bit**
    :width: 100%
@@ -498,7 +508,7 @@ HAL Watch Bool
    :align: center
 
 HAL Watch Integer
-=================
+-----------------
 
 .. csv-table:: **HAL Watch Integer**
    :width: 100%
@@ -513,7 +523,7 @@ HAL Watch Integer
    :align: center
 
 HAL Watch Float
-===============
+---------------
 
 .. csv-table:: **HAL Watch Float**
    :width: 100%
@@ -528,7 +538,7 @@ HAL Watch Float
    :align: center
 
 HAL Watch Time
-==============
+--------------
 
 To have a label monitor the HAL time component add the following Dynamic
 Properties to a QLabel. You can have as many Time Watch labels as you want.
@@ -565,7 +575,7 @@ and minutes. You need to load the `time` component on your hal file and use the
    :align: center
 
 Step by Step
-------------
+============
 
 .. note:: This example is for a QPushButton
 

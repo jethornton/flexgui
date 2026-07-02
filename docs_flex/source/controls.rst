@@ -291,11 +291,11 @@ To create a QPushButton to load a specific file add two Dynamic Properties.
 .. csv-table:: **File Load Buttons**
    :width: 100%
    :align: left
-   :widths: 30 30
+   :widths: 40 30 30
 
-	**Dynamic Property Name**, **Value**
-	function, load_file
-	filename, file to load
+	**Button Function**, **Dynamic Property Name**, **Value**
+	Load File Button, function, load_file
+	Path to file, filename, file to load
 
 File Name in the PROGRAM_PREFIX path.
 
