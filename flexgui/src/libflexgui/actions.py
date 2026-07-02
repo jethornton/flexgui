@@ -122,23 +122,14 @@ def action_open(parent): # actionOpen
 
 def action_edit(parent): # actionEdit
 	parent.status.poll
-	nc_code_file = parent.status.file or False
-	if not nc_code_file: # FIXME different dialog and or does this work? # FIXME test this
-		title = 'Configuration Error'
-		msg = ('No File is open. Do you want to open a file?')
-		response = dialogs.warn_msg_yes_no(parent, msg, 'No File Loaded')
-		if response:
-			action_open(parent)
-			return
-		else:
-			return
+	nc_code_file = parent.status.file
 
 	if parent.editor:
 		if shutil.which(parent.editor.lower()) is not None:
 			subprocess.Popen([parent.editor, nc_code_file])
 		else:
-			select_editor(parent, nc_code_file)
-	else: # FIXME different dialog and or does this work? # FIXME test this
+			dialogs.select_editor(parent, nc_code_file)
+	else:
 		dialogs.select_editor(parent, nc_code_file)
 
 def action_reload(parent): # actionReload
