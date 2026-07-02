@@ -294,39 +294,7 @@
           <property name="frameShape">
            <enum>QFrame::Box</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="2" column="0" colspan="2">
-            <widget class="QComboBox" name="tool_change_cb"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="tool_change_pb">
-             <property name="text">
-              <string>Tool Change</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="tool_change_pb_0">
-             <property name="text">
-              <string>T0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="tool_change_pb_1">
-             <property name="text">
-              <string>T1</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="tool_change_pb_2">
-             <property name="text">
-              <string>T2</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <layout class="QGridLayout" name="gridLayout_3"/>
          </widget>
         </item>
         <item row="2" column="1">
@@ -557,7 +525,6 @@
     <addaction name="actionEdit_Tool_Table"/>
     <addaction name="actionReload_Tool_Table"/>
     <addaction name="separator"/>
-    <addaction name="actionLadder_Editor"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuMachine">
@@ -722,11 +689,6 @@
   <action name="actionReload_Tool_Table">
    <property name="text">
     <string>Reload Tool Table</string>
-   </property>
-  </action>
-  <action name="actionLadder_Editor">
-   <property name="text">
-    <string>Ladder Editor</string>
    </property>
   </action>
   <action name="actionQuit">
