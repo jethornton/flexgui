@@ -652,8 +652,7 @@ def setup_enables(parent):
 			parent.jog_controls.append(f'jog_minus_pb_{i}')
 
 	# file open controls
-	for item in ['open_pb', 'actionOpen', 'reload_pb', 'actionReload',
-		'menuRecent']:
+	for item in ['open_pb', 'actionOpen', 'menuRecent']:
 		if item in parent.child_names:
 			parent.file_open_controls.append(item)
 
@@ -669,9 +668,9 @@ def setup_enables(parent):
 			if item in parent.child_names:
 				parent.file_save_controls.append(item)
 
-	# file edit controls
-	for item in ['edit_pb', 'actionEdit', 'actionEdit_Tool_Table',
-		'actionReload_Tool_Table']:
+	# file edit controls FIXME why is tool table here
+	for item in ['edit_pb', 'actionEdit', 'reload_pb', 'actionReload', 
+	'actionEdit_Tool_Table', 'actionReload_Tool_Table']:
 		if item in parent.child_names:
 			parent.file_edit_controls.append(item)
 
