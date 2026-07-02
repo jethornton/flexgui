@@ -16,12 +16,10 @@ def load_file(parent, nc_code_file=None):
 	if not nc_code_file: # function called by a file load button
 		if parent.sender() is not None:
 			if parent.sender().property('function') == 'load_file':
-				if parent.sender().property('filename'):
-					nc_code_file = parent.sender().property('filename')
-					load_file_btn = True
-				else: # FIXME test this
+				nc_code_file = parent.sender().property('filename')
+				if nc_code_file in ['', None]: # verified
 					title = 'Configuration Error'
-					msg = ('The property filename was not found.')
+					msg = ('The property "filename" was not found or it was blank.')
 					info = 'Loading aborted!'
 					dialogs.error_msg_ok(parent, title, msg, info)
 
@@ -29,15 +27,19 @@ def load_file(parent, nc_code_file=None):
 		nc_code_file = os.path.expanduser(nc_code_file)
 	elif not os.path.isfile(nc_code_file): # try adding the nc code dir path to the file name
 		nc_code_file = os.path.join(parent.nc_code_dir, nc_code_file)
+
 	if os.path.isfile(nc_code_file):
 		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
+
 		if 'plot_widget' in parent.child_names:
 			parent.plotter.clear_live_plotter()
 
 		if 'gcode_pte' in parent.child_names:
+			print('gcode pte')
 			text = open(nc_code_file).read()
 			parent.gcode_pte.setPlainText(text)
+
 		if 'file_lb' in parent.child_names:
 			base = os.path.basename(nc_code_file)
 			parent.file_lb.setText(base)
@@ -45,8 +47,10 @@ def load_file(parent, nc_code_file=None):
 		# update controls
 		for item in parent.file_edit_controls:
 			getattr(parent, item).setEnabled(True)
+
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(True)
+
 		if 'start_line_lb' in parent.child_names:
 			parent.start_line_lb.setText('0')
 
@@ -87,11 +91,12 @@ def load_file(parent, nc_code_file=None):
 		if 'save_pb' in parent.child_names:
 			if hasattr(parent.save_pb, 'led'):
 				parent.save_pb.led = False
+
 		if 'reload_pb' in parent.child_names:
 			if hasattr(parent.reload_pb, 'led'):
 				parent.reload_pb.led = False
 
-	else: # file not found # FIXME test this
+	else: # verified
 		title = 'File Missing'
 		msg = (f'The file {nc_code_file} was not found.')
 		info = 'Loading aborted!'
@@ -120,7 +125,7 @@ def action_edit(parent): # actionEdit
 	nc_code_file = parent.status.file or False
 	if not nc_code_file: # FIXME different dialog and or does this work? # FIXME test this
 		title = 'Configuration Error'
-		msg = ('No File is open.\nDo you want to open a file?')
+		msg = ('No File is open. Do you want to open a file?')
 		response = dialogs.warn_msg_yes_no(parent, msg, 'No File Loaded')
 		if response:
 			action_open(parent)
@@ -134,18 +139,7 @@ def action_edit(parent): # actionEdit
 		else:
 			select_editor(parent, nc_code_file)
 	else: # FIXME different dialog and or does this work? # FIXME test this
-		title = 'Configuration Error'
-		msg = ('No Editor was found\nin the ini Display section\n'
-			'Do you want to select an Editor?')
-		if dialogs.warn_msg_yes_no(parent, msg, 'No Editor Configured'):
-			select_editor(parent, nc_code_file)
-
-def select_editor(parent, nc_code_file):
-	select_dialog = select.editor_dialog()
-	if select_dialog.exec():
-		editor = select_dialog.choice.currentData()
-		if editor:
-			subprocess.Popen([editor, nc_code_file])
+		dialogs.select_editor(parent, nc_code_file)
 
 def action_reload(parent): # actionReload
 	parent.status.poll()

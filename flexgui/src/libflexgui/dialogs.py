@@ -1,7 +1,7 @@
-import os
+import os, shutil, subprocess
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
-from PyQt6.QtWidgets import QMessageBox, QPlainTextEdit
+from PyQt6.QtWidgets import QMessageBox, QPlainTextEdit, QComboBox
 from PyQt6.QtWidgets import QSpinBox, QDoubleSpinBox
 from PyQt6.QtGui import QPixmap, QTextCursor
 from PyQt6.QtCore import Qt
@@ -116,7 +116,7 @@ def manual_tool_change(parent):
 	dialog = tool_change.app(parent)
 	def dia_acc(pin):
 		current_value = pin.get()
-		print(current_value)
+		#print(current_value)
 		if current_value:
 			dialog.accept()
 
@@ -237,6 +237,69 @@ def find(parent):
 	sr = search.FindDialog(parent)
 	result = sr.exec()
 
+def select_editor(parent, nc_file):
+	dialog = QDialog(parent)
+	dialog.setMinimumSize(300, 300)
+	dialog.setWindowTitle('Select Editor')
+
+	layout = QVBoxLayout(dialog)
+
+	message = QLabel('The [DISPLAY] EDITOR in the ini file is\n'
+	'not installed or no Text Editor was specified.\n'
+	'Select the Editor you want to use or Cancel.')
+	message.setObjectName('msg_lb')
+	layout.addWidget(message)
+
+	editors = QComboBox()
+	editors.setObjectName('editors')
+	editors.addItem('Select', False)
+
+	editor_dict = {'Gedit':'gedit', 'Geany':'geany', 'Pyroom':'pyroom',
+		'Pluma':'pluma', 'Scite':'scite', 'Kwrite':'kwrite',
+		'Kate':'kate', 'Mousepad':'mousepad', 'Jedit':'jedit',
+		'XED':'xed'}
+
+	editor_list = []
+	for key, value in editor_dict.items(): # get a list of installed editors
+		if shutil.which(value) is not None:
+			editors.addItem(key, value)
+
+	layout.addWidget(editors)
+
+	layout.addStretch(1)
+
+	buttons = (QDialogButtonBox.StandardButton.Ok |
+	QDialogButtonBox.StandardButton.Cancel)
+	button_box = QDialogButtonBox(buttons)
+
+	# Connect signals to Dialog's built-in accept/reject slots
+	button_box.accepted.connect(dialog.accept)
+	button_box.rejected.connect(dialog.reject)
+
+	layout.addWidget(button_box)
+
+	with open(os.path.join(parent.lib_path, 'messagebox.qss'),'r') as fh:
+		dialog.setStyleSheet(fh.read())
+
+	returnValue = dialog.exec()
+
+	if returnValue == QDialog.DialogCode.Accepted:
+		editor = editors.currentData()
+
+		# Guard clause: Check if the user left it on the default 'Select' option
+		if editor is False:
+			print("User clicked OK but did not choose a valid editor.")
+			return None
+
+		print(f"User accepted. Selected command: {editor}")
+		if shutil.which(editor) is not None:
+			subprocess.Popen([editor, nc_file])
+
+	else:
+		print('User cancelled the dialog.')
+		return None
+
+
 def info_msg_ok(parent, msg, title=None): # FIXME not used
 	# dialogs.info_msg_ok(parent, msg, 'title')
 	#print('info_msg_ok')
@@ -274,8 +337,8 @@ def confirm_msg_ok_cancel(parent, msg, title=None):
 	else:
 		return False
 
-def error_msg_ok(parent, title, msg, info=None):
-	# dialogs.error_msg_ok(parent, title, msg, info)
+def error_msg_ok(parent, title, msg, info=None): # messagebox.qss added
+	# dialogs.error_msg_ok(parent, title, msg, info) FIXME this is the same as warn_msg_ok
 	#print('error_msg_ok')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
@@ -287,8 +350,6 @@ def error_msg_ok(parent, title, msg, info=None):
 
 	with open(os.path.join(parent.lib_path, 'messagebox.qss'),'r') as fh:
 		msg_box.setStyleSheet(fh.read())
-	#with open(parent.popup_qss,'r') as fh:
-	#	msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Ok:
@@ -314,16 +375,19 @@ def warn_msg_ok(parent, msg, title=None): # FIXME use error_msg_ok maybe
 	else:
 		return False
 
-def warn_msg_yes_no(parent, msg, title=None):
+def warn_msg_yes_no(parent, title, msg, info=None): # messagebox.qss added
 	# dialogs.warn_msg_yes_no(parent, msg, 'title')
 	#print('warn_msg_yes_no')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
 	msg_box.setText(msg)
+	if info is not None:
+		msg_box.setInformativeText(info)
+
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
-	with open(parent.popup_qss,'r') as fh:
+	with open(os.path.join(parent.lib_path, 'messagebox.qss'),'r') as fh:
 		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
@@ -370,7 +434,7 @@ def critical_msg_ok_cancel(parent, msg, title=None):
 		return False
 
 def about_dialog(parent):
-	dialog_box = QDialog()
+	dialog_box = QDialog(parent)
 	dialog_box.setMinimumSize(300, 300)
 	dialog_box.setWindowTitle('About')
 
@@ -447,7 +511,7 @@ def about_dialog(parent):
 	dialog_box.exec()
 
 def quick_reference_dialog(parent):
-	dialog_box = QDialog()
+	dialog_box = QDialog(parent)
 	dialog_box.setMinimumSize(300, 300)
 	dialog_box.setWindowTitle('Keyboard Shortcuts')
 
