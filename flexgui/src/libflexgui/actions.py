@@ -251,11 +251,7 @@ def action_reload_tool_table(parent): # actionReload_Tool_Table
 			parent.tool_change_cb.setCurrentIndex(index)
 
 def action_ladder_editor(parent): # actionLadder_Editor
-	if hal.component_exists("classicladder_rt"):
-		p = os.popen("classicladder  &", "w")
-	else: # FIXME does this work? # FIXME test this
-		msg = ('The Classic Ladder component\n is not loaded.')
-		dialogs.warn_msg_ok(parent, msg, 'Error')
+	p = os.popen("classicladder  &", "w")
 
 def action_quit(parent): # actionQuit
 	parent.close()
