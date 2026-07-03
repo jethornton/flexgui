@@ -322,22 +322,34 @@ def action_clear_mdi(parent): # actionClear_MDI_History
 		f.write('')
 
 def action_copy_mdi(parent): # actionCopy_MDI
-	items = [parent.mdi_history_lw.item(x) for x in range(parent.mdi_history_lw.count())]
-	mdi_list = []
-	for item in items:
-		mdi_list.append(item.text())
-	qclip = QApplication.clipboard()
-	qclip.setText('\n'.join(mdi_list))
+	if parent.mdi_history_lw.count() > 0:
+		items = [parent.mdi_history_lw.item(x) for x in range(parent.mdi_history_lw.count())]
+		mdi_list = []
+		for item in items:
+			mdi_list.append(item.text())
+		qclip = QApplication.clipboard()
+		qclip.setText('\n'.join(mdi_list))
+	else: # verified
+		title = 'No History'
+		msg = ('There is no MDI history to copy.')
+		dialogs.error_msg_ok(parent, title, msg)
 
 def action_save_mdi(parent): # actionSave_MDI
-	file_path = utilities.file_chooser(parent, 'Caption', 'save')
-	if file_path:
+	if parent.mdi_history_lw.count() > 0:
 		mdi_history_file = os.path.join(parent.config_path, 'mdi_history.txt')
-		if os.path.isfile(mdi_history_file):
-			shutil.copyfile(mdi_history_file, file_path)
-		else: # FIXME does this work? # FIXME test this
-			msg = ('No MDI history file was found!')
-			dialogs.info_msg_ok(parent, msg , 'No MDI History')
+		# Add a newline character to the end of every item
+		#history = [parent.mdi_history_lw.item(i).text() + '\n' for i in range(parent.mdi_history_lw.count())]
+		#history = [parent.mdi_history_lw.item(i).text() for i in range(parent.mdi_history_lw.count())]
+		history = []
+		for i in range(parent.mdi_history_lw.count()):
+			history.append(parent.mdi_history_lw.item(i).text() + '\n')
+
+		with open(mdi_history_file, 'w') as file:
+			file.writelines(history)
+	else: # verified
+		title = 'No History'
+		msg = ('There is no MDI history to save.')
+		dialogs.error_msg_ok(parent, title, msg)
 
 def action_toggle_dro(parent):
 	if parent.sender().isChecked():
