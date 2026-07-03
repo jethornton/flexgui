@@ -45,6 +45,12 @@
              <property name="text">
               <string>Power</string>
              </property>
+             <property name="led_indicator" stdset="0">
+              <bool>true</bool>
+             </property>
+             <property name="led_diameter" stdset="0">
+              <number>10</number>
+             </property>
             </widget>
            </item>
            <item row="2" column="0">
@@ -52,22 +58,24 @@
              <property name="text">
               <string>Home All</string>
              </property>
+             <property name="led_indicator" stdset="0">
+              <bool>true</bool>
+             </property>
+             <property name="led_diameter" stdset="0">
+              <number>10</number>
+             </property>
             </widget>
            </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="estop_pb">
              <property name="text">
-              <string>E Stop</string>
+              <string>E Stop  </string>
              </property>
              <property name="led_indicator" stdset="0">
               <bool>true</bool>
              </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="edit_pb">
-             <property name="text">
-              <string>Edit</string>
+             <property name="led_diameter" stdset="0">
+              <number>10</number>
              </property>
             </widget>
            </item>
@@ -347,6 +355,13 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="edit_ladder_pb">
+             <property name="text">
+              <string>Edit</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -449,7 +464,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -496,6 +511,47 @@
         </item>
         <item row="0" column="0" colspan="2">
          <widget class="QPlainTextEdit" name="gcode_pte"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_12">
+        <item row="0" column="0" colspan="4">
+         <widget class="QListWidget" name="mdi_history_lw"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="run_mdi_pb">
+          <property name="text">
+           <string>Run MDI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="copy_mdi_history_pb">
+          <property name="text">
+           <string>Copy History</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="save_mdi_history_pb">
+          <property name="text">
+           <string>Save History</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QPushButton" name="clear_mdi_history_pb">
+          <property name="text">
+           <string>Clear History</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QLineEdit" name="mdi_command_le"/>
         </item>
        </layout>
       </widget>
