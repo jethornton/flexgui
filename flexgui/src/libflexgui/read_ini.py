@@ -153,7 +153,7 @@ def read(parent):
 			msg = (f'The key {item[1]} in the [{item[0]}] section was depreciated '
 			'with multiple spindles addition. The Spindle keys are now in [SPINDLE_0] '
 			'section. Check the INI section of the Documents for correct INI entries.')
-			dialogs.error_msg_ok(parent, title, msg, info)
+			dialogs.error_msg_ok(parent, title, msg)
 
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
