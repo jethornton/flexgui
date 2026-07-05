@@ -431,6 +431,16 @@ QPushButton#power_pb:checked {
         border-style: inset;
 /*        border-color: grey; */
 }	
+
+QPushButton#probing_enable_pb:enabled:checked {
+        color: white;
+        background-color: 192, 0, 0, 80%;
+}
+
+QPushButton#probing_enable_pb:enabled {
+        color: white;
+        background-color: 0, 192, 0, 80%;
+}
 /******************************************************/
 
 
