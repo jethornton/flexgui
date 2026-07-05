@@ -822,16 +822,18 @@ def setup_buttons(parent): # connect buttons to functions
 	'copy_mdi_history_pb': 'action_copy_mdi',
 	'save_mdi_history_pb': 'action_save_mdi',
 	}
+
 	for key, value in mdi_history_buttons.items():
-		if 'mdi_history_lw' in parent.child_names:
-			getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-		else: # verified
-			title = 'Configuration Error'
-			msg = (f'The "{key}" button was found but the "mdi_history_lw" was not '
-			'found.')
-			info = f'The {key}" button will be disabled!'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			getattr(parent, key).setEnabled(False)
+		if key in parent.child_names:
+			if 'mdi_history_lw' in parent.child_names:
+				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
+			else: # verified
+				title = 'Configuration Error'
+				msg = (f'The "{key}" button was found but the "mdi_history_lw" was not '
+				'found.')
+				info = f'The {key}" button will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				getattr(parent, key).setEnabled(False)
 
 	if 'errors_pte' in parent.child_names:
 		if 'clear_errors_pb' in parent.child_names:
