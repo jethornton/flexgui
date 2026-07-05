@@ -130,6 +130,7 @@ def read(parent):
 	['FLEX', 'TOUCH_FILE_WIDTH'],
 	['FLEX', 'MANUAL_TOOL_CHANGE'],
 	['FLEX', 'IMPORT'],
+
 	]
 	for item in old_ini_items:
 		if parent.inifile.find(item[0], item[1]): # FIXME test this
@@ -154,6 +155,20 @@ def read(parent):
 			'with multiple spindles addition. The Spindle keys are now in [SPINDLE_0] '
 			'section. Check the INI section of the Documents for correct INI entries.')
 			dialogs.error_msg_ok(parent, title, msg)
+
+	old_probe_items = [
+	['FLEXGUI', 'PROBE_ENABLE_ON_COLOR'],
+	['FLEXGUI', 'PROBE_ENABLE_OFF_COLOR'],
+	]
+
+	for item in old_probe_items:
+		if parent.inifile.find(item[0], item[1]): # FIXME test this
+			title = 'Configuration Error'
+			msg = (f'The key {item[1]} in the [{item[0]}] section was depreciated. '
+			'Use the stylesheet to set the On and Off colors. See the probing '
+			'section of the manual.')
+			info = 'The Probe On/Off Colors will not function!'
+			dialogs.error_msg_ok(parent, title, msg, info)
 
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
@@ -262,27 +277,42 @@ def read(parent):
 		parent.led_top_offset = 5
 	elif not utilities.is_int(parent.led_top_offset): # not an int # FIXME test this
 		title = 'Configuration Error'
-		msg = (f'The FLEXGUI LED_TOP_OFFSET did not\n'
-		'evaluate to and integer value.\n'
-		'The LED_TOP_OFFSET will be set to 15.')
-		info = ''
-		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+		msg = (f'The FLEXGUI LED_TOP_OFFSET did not evaluate to an integer value.')
+		info = 'The LED_TOP_OFFSET will be set to 15.'
+		dialogs.error_msg_ok(parent, title, msg, info)
 	else:
 		parent.led_top_offset =  int(parent.led_top_offset)
 
-	# Colors are checked for validity in string_to_qcolor
-	parent.led_on_color = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR') or False
-	if parent.led_on_color: # convert string to QColor
-		parent.led_on_color = utilities.string_to_qcolor(parent, parent.led_on_color, 'LED_ON_COLOR')
-	if not parent.led_on_color: # use default led on color
+	led_on = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR')
+	if led_on is not None:
+		led_on_color = utilities.is_valid_qcolor(led_on)
+		if led_on_color:
+			parent.led_on_color = led_on_color
+		else:
+			title = 'Configuration Error'
+			msg = (f'The INI entry "LED_ON_COLOR" value "{led_on}" is not a valid color.')
+			info = 'The default color will be used.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.led_on_color = QColor(0, 255, 0, 255)
+	else:
 		parent.led_on_color = QColor(0, 255, 0, 255)
 
-	parent.led_off_color = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR') or False
-	if parent.led_off_color: # convert string to QColor
-		parent.led_off_color = utilities.string_to_qcolor(parent, parent.led_off_color, 'LED_OFF_COLOR')
-	if not parent.led_off_color: # use default led off color
+	led_off = parent.inifile.find('FLEXGUI', 'LED_OFF_COLOR')
+	if led_off is not None:
+		led_off_color = utilities.is_valid_qcolor(led_off)
+		if led_off_color:
+			parent.led_off_color = led_off_color
+		else:
+			title = 'Configuration Error'
+			msg = (f'The INI entry "LED_OFF_COLOR" value "{led_off}" is not a valid '
+			'color.')
+			info = 'The default color will be used.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.led_off_color = QColor(255, 0, 0, 255)
+	else:
 		parent.led_off_color = QColor(255, 0, 0, 255)
 
+	'''
 	parent.probe_enable_on_color = parent.inifile.find('FLEXGUI', 'PROBE_ENABLE_ON_COLOR') or False
 	if parent.probe_enable_on_color: # get a valid color string
 		color = utilities.string_to_rgba(parent, parent.probe_enable_on_color, 'PROBE_ENABLE_ON_COLOR')
@@ -294,7 +324,7 @@ def read(parent):
 		color = utilities.string_to_rgba(parent, parent.probe_enable_off_color, 'PROBE_ENABLE_OFF_COLOR')
 		if color:
 			parent.probe_enable_off_color = f'background-color: {color};'
-
+	'''
 	#### Plotter Settings ####
 	plotter = parent.findChild(QWidget, 'plot_widget')
 

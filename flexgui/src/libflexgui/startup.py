@@ -2321,8 +2321,8 @@ def setup_probing(parent):
 			off_text = parent.probing_enable_pb.property('off_text')
 			if None not in [on_text, off_text]:
 				parent.probing_enable_pb.setText(off_text)
-			if parent.probe_enable_off_color:
-				parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+			#if parent.probe_enable_off_color:
+			#	parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
 def setup_set_var(parent):
 	# variables are floats so only put them in a QDoubleSpinBox

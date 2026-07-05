@@ -120,8 +120,41 @@ def string_to_float(string):
 	except ValueError:
 		return False
 
+def is_valid_qcolor(color_str):
+	# Strip whitespace
+	color_str = color_str.strip()
+
+	# Check if hex color
+	if color_str.startswith("#"):
+		color = QColor(color_str)
+		if color.isValid():
+			print('valid hex color')
+			return color
+
+	# Check if comma-separated (RGB / RGBA)
+	elif ',' in color_str:
+		try:
+			# Split by comma and convert to integers
+			parts = [int(p.strip()) for p in color_str.split(",")]
+			print(f'parts {parts}')
+			# RGB must have 3 parts, RGBA must have 4 parts
+			if len(parts) in [3, 4]:
+				# Validate that all color components are between 0 and 255
+				if all(0 <= p <= 255 for p in parts):
+					if len(parts) == 3: # RGB
+						return QColor(parts[0], parts[1], parts[2])
+					elif len(parts) == 4: # RGBA
+						return QColor(parts[0], parts[1], parts[2], parts[3])
+					else:
+						return False
+		except ValueError:
+			pass # Failed to parse numbers
+	return False
+
+'''
 def valid_color_string(string, key):
 	for item in string.split(','):
+		print(f'item {item}')
 		if not item.strip().isdigit():
 			title = 'Configuration Error'
 			msg = (f'The [FLEXGUI] key {key} {string} is not a valid color. '
@@ -140,16 +173,13 @@ def string_to_rgba(parent, string, key):
 		elif string.count(',') == 3: # rgba
 			return f'rgba({string})'
 
-def string_to_qcolor(parent, string, key):
-	if valid_color_string(string, key):
-		colors = [int(s) for s in string.split(',')]
-		if len(colors) == 3:
-			r, g, b = colors
-			a = 255
-		elif len(colors) == 4:
-			r, g, b, a = colors
-		else:
-			return False
+def string_to_qcolor(parent, colors, key):
+	# colors is a list of colors
+	if len(colors) == 3:
+		r, g, b = colors
+		a = 255
+	elif len(colors) == 4:
+		r, g, b, a = colors
 		return QColor(r,g,b,a)
 	elif string.startswith('#'):
 		color = string.lstrip('#')
@@ -169,6 +199,7 @@ def string_to_qcolor(parent, string, key):
 			'See the INI section of the documents for proper usage.')
 		dialogs.error_msg_ok(parent, title, msg)
 		return False
+'''
 
 def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
 	if nc_code_dir is None:
@@ -217,11 +248,12 @@ def hal_confirm(parent):
 	sender = parent.sender()
 	text = sender.text()
 	checked_state = sender.isChecked()
-	pin = sender.property('pin_name') # FIXME different dialog
-	msg = (f'The HAL object "{text}" requests\n'
-	'confirmation before changing the HAL\n'
-	f'state of the {pin} pin.')
-	result = dialogs.confirm_msg_ok_cancel(parent, msg, 'HAL')
+	pin = sender.property('pin_name') # verified
+	title = 'Confirm Change'
+	msg = (f'The HAL object "{text}" requests confirmation before changing the '
+	f'HAL state of the {pin} pin.')
+	info = 'Change State?'
+	result = dialogs.warn_msg_yes_no(parent, title, msg, info)
 	if result:
 		setattr(parent.halcomp, pin, checked_state)
 	else: # reset the checked state

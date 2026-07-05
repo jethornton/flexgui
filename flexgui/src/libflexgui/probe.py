@@ -29,8 +29,8 @@ def toggle(parent):
 		if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 			parent.probing_enable_pb.led = True
 
-		if parent.probe_enable_on_color:
-			parent.probing_enable_pb.setStyleSheet(parent.probe_enable_on_color)
+		#if parent.probe_enable_on_color:
+		#	parent.probing_enable_pb.setStyleSheet(parent.probe_enable_on_color)
 
 	else: # probing is disabled
 		parent.probing = False
@@ -41,8 +41,8 @@ def toggle(parent):
 		if 'probing_enable_pb' in parent.child_names and hasattr(parent.probing_enable_pb, 'led'):
 			parent.probing_enable_pb.led = False
 
-		if parent.probe_enable_off_color:
-			parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
+		#if parent.probe_enable_off_color:
+		#	parent.probing_enable_pb.setStyleSheet(parent.probe_enable_off_color)
 
 	utilities.update_home_controls(parent)
 	utilities.update_controls(parent)
