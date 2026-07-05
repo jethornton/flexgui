@@ -1,0 +1,12 @@
+
+
+QPushButton#probing_enable_pb:enabled:checked {
+	color: white;
+	background-color: red;
+}
+
+QPushButton#probing_enable_pb:enabled {
+	color: green;
+	background-color: yellow;
+}
+
