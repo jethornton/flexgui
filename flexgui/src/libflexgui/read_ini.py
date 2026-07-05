@@ -32,7 +32,7 @@ def read(parent):
 	else:
 		parent.ext_filter = 'G code Files (*.ngc *.NGC);;All Files (*)'
 
-	# set the nc code directory to some valid directory
+	# set the nc code directory to some valid directory FIXME test this
 	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX') or False
 	ini_dir = False
 	if directory: # expand directory if needed
@@ -60,7 +60,9 @@ def read(parent):
 			dialogs.error_msg_ok(parent, title, msg, info)
 
 	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
+
 	parent.tool_editor = parent.inifile.find('DISPLAY', 'TOOL_EDITOR') or False
+
 	if parent.inifile.find('DISPLAY', 'LATHE') is not None:
 		parent.default_view = 'y'
 	elif parent.inifile.find('FLEXGUI', 'PLOT_VIEW') is not None:
@@ -103,7 +105,7 @@ def read(parent):
 		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)): # FIXME test this
 			title = 'INI Error!'
 			msg = (f'The Touch Popup QSS file {parent.popup_qss} Was not found.')
-			info = 'The QSS can not be applied'
+			info = 'The default Popup QSS will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
 	else: # POPUP_QSS not in ini file
