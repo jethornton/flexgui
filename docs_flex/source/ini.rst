@@ -243,6 +243,9 @@ To use a built in theme with coloring add one of the following to the
 
 .. note:: THEME is checked first then QSS so the first entry found is used.
 
+Style Sheet
+-----------
+
 To use a custom .qss style sheet you created add the name of the stylesheet to
 the QSS option in [FLEXGUI] section of the ini file.
 
