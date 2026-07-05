@@ -2287,7 +2287,7 @@
                   </widget>
                  </item>
                  <item row="0" column="3">
-                  <widget class="QLabel" name="two_vel_lb">
+                  <widget class="QLabel" name="two_vel_lb1">
                    <property name="minimumSize">
                     <size>
                      <width>75</width>
@@ -2302,6 +2302,9 @@
                    </property>
                    <property name="joint_1" stdset="0">
                     <number>1</number>
+                   </property>
+                   <property name="function" stdset="0">
+                    <string>two_joint_velocity</string>
                    </property>
                   </widget>
                  </item>
@@ -2319,7 +2322,7 @@
                   </widget>
                  </item>
                  <item row="2" column="3">
-                  <widget class="QLabel" name="three_vel_lb">
+                  <widget class="QLabel" name="three_vel_lb1">
                    <property name="minimumSize">
                     <size>
                      <width>75</width>
@@ -2337,6 +2340,9 @@
                    </property>
                    <property name="joint_2" stdset="0">
                     <number>2</number>
+                   </property>
+                   <property name="function" stdset="0">
+                    <string>three_joint_velocity</string>
                    </property>
                   </widget>
                  </item>
