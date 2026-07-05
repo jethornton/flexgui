@@ -797,7 +797,7 @@ Off</string>
         <string>X Y</string>
        </property>
       </widget>
-      <widget class="QLabel" name="two_vel_lb">
+      <widget class="QLabel" name="two_vel_lb1">
        <property name="geometry">
         <rect>
          <x>165</x>
@@ -815,8 +815,11 @@ Off</string>
        <property name="joint_1" stdset="0">
         <number>1</number>
        </property>
+       <property name="function" stdset="0">
+        <string>two_joint_velocity</string>
+       </property>
       </widget>
-      <widget class="QLabel" name="three_vel_lb">
+      <widget class="QLabel" name="three_vel_lb1">
        <property name="geometry">
         <rect>
          <x>165</x>
@@ -836,6 +839,9 @@ Off</string>
        </property>
        <property name="joint_2" stdset="0">
         <number>2</number>
+       </property>
+       <property name="function" stdset="0">
+        <string>three_joint_velocity</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_118">
@@ -7886,7 +7892,7 @@ ERROR</string>
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>24</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
