@@ -34,21 +34,16 @@ def read(parent):
 
 	# set the nc code directory to some valid directory
 	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX')
-	print(f'directory {directory}')
 
 	# get the path to the nc code directory
 	if directory == None: # no directory
 		directory = os.path.expanduser('~/linuxcnc/nc_files')
-		print(f'None {directory}')
 	elif directory.startswith('./'): # in this directory
 		directory = os.path.join(parent.config_path, directory[2:])
-		print(f'startswith ./ {directory}')
 	elif directory.startswith('../'): # up one directory
 		directory = os.path.join(os.path.dirname(parent.config_path), directory[3:])
-		print(f'startswith ../ {directory}')
 	elif directory.startswith('~'): # users home directory
 		directory = os.path.expanduser(directory)
-		print(f'startswith ~ {directory}')
 
 	# validate the path
 	if os.path.isdir(directory):
@@ -201,10 +196,10 @@ def read(parent):
 	flash_time = parent.inifile.find('FLEXGUI', 'FLASH_TIME') or '1000'
 	if utilities.is_int(flash_time):
 		parent.flash_time = int(flash_time)
-	else: # FIXME test this
+	else: # verified
 		parent.flash_time = 1000
 		title = 'INI Error!'
-		msg = (f'The INI value {flash_time} for [FLEXGUI] FLASH_TIME '
+		msg = (f'The [FLEXGUI] Section FLASH_TIME value "{flash_time}" '
 		'did not evaluate to an integer.')
 		info = '1000 will be used.'
 		dialogs.error_msg_ok(parent, title, msg, info)
@@ -214,11 +209,10 @@ def read(parent):
 	if parent.resources_file:
 		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)): # FIXME test this
 			title = 'Configuration Error'
-			msg = (f'The RESOURCES file {parent.resources_file}\n'
-			'Was not found. Resourses can not be imported')
-			info = ''
+			msg = (f'The RESOURCES file "{parent.resources_file}" Was not found.')
+			info = 'Resourses can not be imported!'
 			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-			parent.resources_file = False
+		dialogs.error_msg_ok(parent, title, msg, info)
 
 	# check for QSS file
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
