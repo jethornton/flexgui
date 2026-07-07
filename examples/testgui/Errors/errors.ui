@@ -374,6 +374,13 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="open_pb">
+             <property name="text">
+              <string>Open</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -476,7 +483,7 @@
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
