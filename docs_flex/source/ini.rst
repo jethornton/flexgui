@@ -114,13 +114,14 @@ item.
 
 .. code-block:: text
 
-	PROGRAM_PREFIX = /home/john/linuxcnc/configs/myconfig
-	or
-	PROGRAM_PREFIX = ~/linuxcnc/configs/flex_examples/probe_sim
-	or
-	PROGRAM_PREFIX = ./
-	or
-	PROGRAM_PREFIX = ../
+	Full Path to the file
+	PROGRAM_PREFIX = /home/john/linuxcnc/my_files
+	or use the ~ for the users home directory
+	PROGRAM_PREFIX = ~/linuxcnc/my_files
+	or use the ./ to use the current configuration directory
+	PROGRAM_PREFIX = ./my_local_files
+	or use the ../ to use the parent directory of the configuration
+	PROGRAM_PREFIX = ../my_files
 
 Tool Table Editor
 -----------------
