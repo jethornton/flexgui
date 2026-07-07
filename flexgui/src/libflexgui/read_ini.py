@@ -96,7 +96,7 @@ def read(parent):
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
 	if utilities.is_number(mfo):
 		parent.max_feed_override = float(mfo)
-	else: # FIXME test this
+	else: # verified
 		title = 'Critical Error!'
 		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE '
 		'did not evaluate to a number.')
@@ -109,9 +109,9 @@ def read(parent):
 	# check for POPUP_QSS file, this must be checked first before any dialogs
 	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
 	if parent.popup_qss:
-		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)): # FIXME test this
+		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)): # verified
 			title = 'INI Error!'
-			msg = (f'The Touch Popup QSS file {parent.popup_qss} Was not found.')
+			msg = (f'The Touch Popup QSS file "{parent.popup_qss}" Was not found.')
 			info = 'The default Popup QSS will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
@@ -142,14 +142,12 @@ def read(parent):
 
 	]
 	for item in old_ini_items:
-		if parent.inifile.find(item[0], item[1]): # FIXME test this
+		if parent.inifile.find(item[0], item[1]): # verified
 			title = 'Configuration Error'
-			msg = (f'The key {item[1]} has been moved from the '
-			f'[{item[0]}] section or is no longer used '
-			'by FlexGUI or the name has been changed. '
-			'Check the INI section of the Documents '
-			'for correct INI entries.')
-			dialogs.error_msg_ok(parent, title, msg, info)
+			msg = (f'The key "{item[1]}" has been moved from the [{item[0]}] section '
+			'or is no longer used by FlexGUI or the name has been changed. Check the '
+			'INI section of the Documents for correct INI entries.')
+			dialogs.error_msg_ok(parent, title, msg)
 
 	old_spindle_items = [
 	['DISPLAY', 'DEFAULT_SPINDLE_SPEED'],
@@ -158,9 +156,9 @@ def read(parent):
 	]
 
 	for item in old_spindle_items:
-		if parent.inifile.find(item[0], item[1]): # FIXME test this
+		if parent.inifile.find(item[0], item[1]): # verified
 			title = 'Configuration Error'
-			msg = (f'The key {item[1]} in the [{item[0]}] section was depreciated '
+			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated '
 			'with multiple spindles addition. The Spindle keys are now in [SPINDLE_0] '
 			'section. Check the INI section of the Documents for correct INI entries.')
 			dialogs.error_msg_ok(parent, title, msg)
@@ -171,9 +169,9 @@ def read(parent):
 	]
 
 	for item in old_probe_items:
-		if parent.inifile.find(item[0], item[1]): # FIXME test this
+		if parent.inifile.find(item[0], item[1]): # verified
 			title = 'Configuration Error'
-			msg = (f'The key {item[1]} in the [{item[0]}] section was depreciated. '
+			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated. '
 			'Use the stylesheet to set the On and Off colors. See the probing '
 			'section of the manual.')
 			info = 'The Probe On/Off Colors will not function!'
@@ -184,22 +182,19 @@ def read(parent):
 	if isinstance(parent.cycle_time, str): # the ini file had a setting
 		if utilities.is_int(parent.cycle_time):
 			parent.cycle_time = int(parent.cycle_time)
-			if not 50 <= parent.cycle_time <= 200: # FIXME test this
+			if not 50 <= parent.cycle_time <= 200: # verified
 				title = 'Configuration Error'
-				msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}"\n'
-				'is not in the range of 50-200. The cycle time\n'
-				'will be set to the default 100 ms cycle time')
-				info = ''
-				dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+				msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}" '
+				'is not in the range of 50-200.')
+				info = 'The cycle time will be set to 100 ms!'
+				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.cycle_time = 100
-		else: # FIXME test this
+		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}"\n'
-			'did not evaluate to a number in the range of\n'
-			'50-200. The cycle time will be set to the\n'
-			'default 100 ms cycle time')
-			info = ''
-			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			msg = (f'The [FLEXGUI] Section CYCLE_TIME value "{parent.cycle_time}" '
+			'did not evaluate to a number.')
+			info = 'The cycle time will be set to 100 ms!'
+			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.cycle_time = 100
 
 	# check for FLASH time
