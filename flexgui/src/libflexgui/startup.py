@@ -2084,7 +2084,7 @@ def setup_tool_change(parent):
 				result = dialogs.warn_msg_yes_no(parent, title, msg, info)
 				if result:
 					tool_table_file = os.path.join(parent.config_path, parent.tool_table)
-					# FIXME update tool table controls gnipsel
+					# FIXME update tool table controls
 					with open(tool_table_file, "w") as file:
 						file.write(';\nT1 P1 ;Added by Flex GUI\n')
 				else:

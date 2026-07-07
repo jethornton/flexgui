@@ -278,18 +278,19 @@ class flexgui(QMainWindow):
 			try:
 				sys.path.append(self.config_path)
 				import resources
-			except: # FIXME test this
+			except: # verified
 				title = 'Import Failed'
-				msg = (f'The resources file {resources_file} was\n'
-					'not found, check for file name resources.py.')
-				dialogs.error_msg_ok(parent, title, msg)
+				msg = (f'The resources file "{self.resources_file}" was not found or it '
+				'contained errors. The file name must be "resources.py" to be imported. '
+				'If it is there then rebuild it with the Flex Resource Tool.')
+				dialogs.error_msg_ok(self, title, msg)
 
 		stylesheet = False
 		if self.theme:
 			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
 			if self.theme in valid_themes:
 				stylesheet = os.path.join(self.lib_path, f'{self.theme}.qss')
-				from libflexgui import resources
+				#from libflexgui import resources FIXME somehow I erased this file for themes
 		elif self.qss_file: # use a local qss file
 			stylesheet = os.path.join(self.config_path, self.qss_file)
 

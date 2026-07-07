@@ -207,33 +207,30 @@ def read(parent):
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 	if parent.resources_file:
-		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)): # FIXME test this
+		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)): # verified
 			title = 'Configuration Error'
 			msg = (f'The RESOURCES file "{parent.resources_file}" Was not found.')
 			info = 'Resourses can not be imported!'
-			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
-		dialogs.error_msg_ok(parent, title, msg, info)
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.resources_file = False
 
 	# check for QSS file
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
-	if parent.qss_file: # FIXME test this
-		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)):
+	if parent.qss_file:
+		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)): # verified
 			title = 'Configuration Error'
-			msg = (f'The QSS file {parent.qss_file}\n'
-			'Was not found. QSS can not be applied')
-			info = ''
-			dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+			msg = (f'The QSS file "{parent.qss_file}" was not found.')
+			info = 'The Style Sheet can not be applied!'
+			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.qss_file = False
 
 	# test for both THEME and QSS
-	if parent.theme and parent.qss_file: # FIXME test this
+	if parent.theme and parent.qss_file: # verified
 		title = 'Configuration Error'
-		msg = (f'The THEME {parent.theme} and QSS {parent.qss_file}\n'
-		'were both found in the ini file.\n'
-		f'the QSS {parent.qss_file} will not be used.\n'
-		'Only one can be specified in the ini.')
-		info = ''
-		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+		msg = (f'The THEME "{parent.theme}" and QSS "{parent.qss_file}" were both '
+		f'found in the ini file. The QSS "{parent.qss_file}" will not be used.')
+		info = 'Only one can be specified in the ini.'
+		dialogs.error_msg_ok(parent, title, msg, info)
 		parent.qss_file = False
 
 	# check for screen size, a non valid entry will just use self.show()
