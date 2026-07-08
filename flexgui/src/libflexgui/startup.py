@@ -2075,18 +2075,21 @@ def setup_tool_change(parent):
 			for tool in parent.status.tool_table[1:]:
 				if tool.id > 0:
 					break
-			else: # no tools found FIXME offer to add a tool
+			else: # verified
 				title = 'Configuration Error'
 				msg = (f'Tool Change controls were found but no tools were found in the '
-				f'tool table "{parent.tool_table}".')
-				info = 'Would you like to add one? Otherwise the Tool Change '
-				'controls will be disabled!'
+				f'tool table "{parent.tool_table}". Tool change controls are disabled '
+				'if no tools are in the tool table')
+				info = 'Would you like to add one?'
 				result = dialogs.warn_msg_yes_no(parent, title, msg, info)
 				if result:
 					tool_table_file = os.path.join(parent.config_path, parent.tool_table)
-					# FIXME update tool table controls
 					with open(tool_table_file, "w") as file:
 						file.write(';\nT1 P1 ;Added by Flex GUI\n')
+					# update the tool table
+					parent.command.load_tool_table()
+					parent.command.wait_complete()
+					parent.status.poll()
 				else:
 					for item in tool_change_required:
 						if item in parent.child_names:
