@@ -51,13 +51,13 @@ def read(parent):
 	elif os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')): # verified
 		parent.nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
 		title = 'Configuration Error'
-		msg = (f'The nc code directory "{directory}" does not exist.')
+		msg = (f'The INI entry [DISPLAY] PROGRAM_PREFIX "{directory}" does not exist.')
 		info = f'{parent.nc_code_dir} will be used.'
 		dialogs.error_msg_ok(parent, title, msg, info)
 	else: # verified
 		parent.nc_code_dir = os.path.expanduser('~/')
 		title = 'Configuration Error'
-		msg = (f'The nc code directory "{directory}" does not exist.')
+		msg = (f'The INI entry [DISPLAY] PROGRAM_PREFIX "{directory}" does not exist.')
 		info = f'{parent.nc_code_dir} will be used.'
 		dialogs.error_msg_ok(parent, title, msg, info)
 
@@ -93,7 +93,7 @@ def read(parent):
 		parent.max_feed_override = float(mfo)
 	else: # verified
 		title = 'Critical Error!'
-		msg = (f'The INI value {mfo} for [DISPLAY] MAX_FEED_OVERRIDE '
+		msg = (f'The INI entry [DISPLAY] MAX_FEED_OVERRIDE "{mfo}" '
 		'did not evaluate to a number.')
 		info = 'LinuxCNC will shut down!'
 		dialogs.error_msg_ok(parent, title, msg, info)
@@ -106,7 +106,8 @@ def read(parent):
 	if parent.popup_qss:
 		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)): # verified
 			title = 'INI Error!'
-			msg = (f'The Touch Popup QSS file "{parent.popup_qss}" Was not found.')
+			msg = (f'The INI entry [FLEXGUI] POPUP_QSS file "{parent.popup_qss}" Was '
+			'not found.')
 			info = 'The default Popup QSS will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.popup_qss = os.path.join(parent.lib_path, 'popup.qss')
@@ -179,14 +180,14 @@ def read(parent):
 			parent.cycle_time = int(parent.cycle_time)
 			if not 50 <= parent.cycle_time <= 200: # verified
 				title = 'Configuration Error'
-				msg = (f'The INI entry [FLEXGUI] Section CYCLE_TIME value '
+				msg = (f'The INI entry [FLEXGUI] CYCLE_TIME value '
 				'"{parent.cycle_time}" is not in the range of 50-200.')
 				info = 'The cycle time will be set to 100 ms!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.cycle_time = 100
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry [FLEXGUI] Section CYCLE_TIME value '
+			msg = (f'The INI entry [FLEXGUI] CYCLE_TIME value '
 			'"{parent.cycle_time}" did not evaluate to a number.')
 			info = 'The cycle time will be set to 100 ms!'
 			dialogs.error_msg_ok(parent, title, msg, info)
@@ -199,7 +200,7 @@ def read(parent):
 	else: # verified
 		parent.flash_time = 1000
 		title = 'INI Error!'
-		msg = (f'The INI entry [FLEXGUI] Section FLASH_TIME value "{flash_time}" '
+		msg = (f'The INI entry [FLEXGUI] FLASH_TIME value "{flash_time}" '
 		'did not evaluate to an integer.')
 		info = '1000 will be used.'
 		dialogs.error_msg_ok(parent, title, msg, info)
@@ -209,8 +210,8 @@ def read(parent):
 	if parent.resources_file:
 		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)): # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry RESOURCES file "{parent.resources_file}" was not '
-			'found.')
+			msg = (f'The INI entry [FLEXGUI] RESOURCES file "{parent.resources_file}" '
+			'was not found.')
 			info = 'Resourses can not be imported!'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.resources_file = False
@@ -220,7 +221,7 @@ def read(parent):
 	if parent.qss_file:
 		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)): # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry QSS file "{parent.qss_file}" was not found.')
+			msg = (f'The INI entry [FLEXGUI] QSS file "{parent.qss_file}" was not found.')
 			info = 'The Style Sheet can not be applied!'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.qss_file = False
@@ -228,9 +229,9 @@ def read(parent):
 	# test for both THEME and QSS
 	if parent.theme and parent.qss_file: # verified
 		title = 'Configuration Error'
-		msg = (f'The INI entry THEME "{parent.theme}" and QSS "{parent.qss_file}" '
-		f'were both found in the ini file. The QSS "{parent.qss_file}" will not be '
-		'used.')
+		msg = (f'The INI entry [FLEXGUI] THEME "{parent.theme}" and QSS '
+		f'"{parent.qss_file}" were both found in the ini file. The QSS '
+		f'"{parent.qss_file}" will not be used.')
 		info = 'Only one can be specified in the ini.'
 		dialogs.error_msg_ok(parent, title, msg, info)
 		parent.qss_file = False
@@ -248,7 +249,7 @@ def read(parent):
 		parent.led_diameter = 15
 	elif not utilities.is_int(led_diameter): # verified
 		title = 'Configuration Error'
-		msg = (f'The INI entry FLEXGUI LED_DIAMETER "{led_diameter}" did not '
+		msg = (f'The INI entry [FLEXGUI] LED_DIAMETER "{led_diameter}" did not '
 		'evaluate to an integer value.')
 		info = 'The LED_DIAMETER will be set to 15.'
 		dialogs.error_msg_ok(parent, title, msg, info)
@@ -261,7 +262,7 @@ def read(parent):
 		parent.led_right_offset = 5
 	elif not utilities.is_int(led_right_offset): # verified
 		title = 'Configuration Error'
-		msg = (f'The INI entry FLEXGUI LED_RIGHT_OFFSET "{led_right_offset}" did '
+		msg = (f'The INI entry [FLEXGUI] LED_RIGHT_OFFSET "{led_right_offset}" did '
 		'not evaluate to an integer value.')
 		info = 'The LED_RIGHT_OFFSET will be set to 5.'
 		dialogs.error_msg_ok(parent, title, msg, info)
@@ -274,7 +275,7 @@ def read(parent):
 		parent.led_top_offset = 5
 	elif not utilities.is_int(led_top_offset): # verified
 		title = 'Configuration Error'
-		msg = (f'The INI entry FLEXGUI LED_TOP_OFFSET "{led_top_offset}" did not '
+		msg = (f'The INI entry [FLEXGUI] LED_TOP_OFFSET "{led_top_offset}" did not '
 		'evaluate to an integer value.')
 		info = 'The LED_TOP_OFFSET will be set to 5.'
 		dialogs.error_msg_ok(parent, title, msg, info)
@@ -289,8 +290,8 @@ def read(parent):
 			parent.led_on_color = led_on_color
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry "LED_ON_COLOR" value "{led_on}" is not a valid '
-			'RGB or HEX color string.')
+			msg = (f'The INI entry [FLEXGUI] LED_ON_COLO" value "{led_on}" is not a '
+			'valid RGB or HEX color string.')
 			info = 'The default color will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.led_on_color = QColor(0, 255, 0, 255)
@@ -304,8 +305,8 @@ def read(parent):
 			parent.led_off_color = led_off_color
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry "LED_OFF_COLOR" value "{led_off}" is not a valid '
-			'RGB or HEX color string.')
+			msg = (f'The INI entry [FLEXGUI] LED_OFF_COLOR value "{led_off}" is not a '
+			'valid RGB or HEX color string.')
 			info = 'The default color will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.led_off_color = QColor(255, 0, 0, 255)
@@ -326,12 +327,12 @@ def read(parent):
 						value = float(comp)
 					except ValueError:
 						value = False
-					if not (0.0 <= value <= 1.0) or value is False: # FIXME test this
+					if not (0.0 <= value <= 1.0) or value is False: # verified
 						parent.plot_background_color = False
 						title = 'INI Configuration Error!'
-						msg = (f'The PLOT_BACKGROUND_COLOR {color_string} in the FLEXGUI '
-						'section is not valid.\n'
-						'Each color must be 0.0 to 1.0.')
+						msg = (f'The INI entry [FLEXGUI] PLOT_BACKGROUND_COLOR '
+						f'"{color_string}" is not a valid plotter color. Each color must '
+						'be in the range of 0.0 to 1.0.')
 						info = 'The background color will be black'
 						dialogs.error_msg_ok(parent, title, msg, info)
 						break
@@ -370,18 +371,18 @@ def read(parent):
 	parent.kb_jog_focus = kb_jog_focus.strip().lower() == 'true'
 
 	# check for dro font size
-	parent.dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
-	if not parent.dro_font_size: # no value found
+	dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
+	if not dro_font_size: # no value found
 		parent.dro_font_size = 12
-	elif not utilities.is_int(parent.dro_font_size): # not an int # FIXME test this
+	elif not utilities.is_int(dro_font_size): # verified
 		title = 'Configuration Error'
-		msg = (f'The FLEXGUI DRO_FONT_SIZE did not\n'
-		'evaluate to an integer value.\n'
-		'The DRO_FONT_SIZE will be set to 12.')
-		info = ''
-		dialogs.warn_msg_ok(parent, msg, 'INI Configuration ERROR!')
+		msg = (f'The INI entry [FLEXGUI] DRO_FONT_SIZE "{dro_font_size}" did not '
+		'evaluate to an integer value.')
+		info = 'The DRO_FONT_SIZE will be set to 12.'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.dro_font_size = 12
 	else:
-		parent.dro_font_size =  int(parent.dro_font_size)
+		parent.dro_font_size =  int(dro_font_size)
 
 	# Digital I/O
 	dio = parent.inifile.find('FLEXGUI', 'DIO') or False
