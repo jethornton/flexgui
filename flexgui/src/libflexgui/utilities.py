@@ -136,7 +136,6 @@ def is_valid_qcolor(color_str):
 		try:
 			# Split by comma and convert to integers
 			parts = [int(p.strip()) for p in color_str.split(",")]
-			print(f'parts {parts}')
 			# RGB must have 3 parts, RGBA must have 4 parts
 			if len(parts) in [3, 4]:
 				# Validate that all color components are between 0 and 255
@@ -150,56 +149,6 @@ def is_valid_qcolor(color_str):
 		except ValueError:
 			pass # Failed to parse numbers
 	return False
-
-'''
-def valid_color_string(string, key):
-	for item in string.split(','):
-		print(f'item {item}')
-		if not item.strip().isdigit():
-			title = 'Configuration Error'
-			msg = (f'The [FLEXGUI] key {key} {string} is not a valid color. '
-			'See the INI section of the documents for proper usage.')
-			dialogs.error_msg_ok(parent, title, msg)
-			return False
-		else:
-			return True
-
-def string_to_rgba(parent, string, key):
-	if string.startswith('#') and len(string) == 7: # hex color
-		return string
-	if valid_color_string(string, key):
-		if string.count(',') == 2: # rgb
-			return f'rgb({string})'
-		elif string.count(',') == 3: # rgba
-			return f'rgba({string})'
-
-def string_to_qcolor(parent, colors, key):
-	# colors is a list of colors
-	if len(colors) == 3:
-		r, g, b = colors
-		a = 255
-	elif len(colors) == 4:
-		r, g, b, a = colors
-		return QColor(r,g,b,a)
-	elif string.startswith('#'):
-		color = string.lstrip('#')
-		if len(color) != 6:
-			return False
-		try:
-			r = int(color[0:2], 16)
-			g = int(color[2:4], 16)
-			b = int(color[4:6], 16)
-			return QColor(r, g, b)
-		except ValueError:
-			return False
-
-	else: # unknown color value
-		title = 'Configuration Error'
-		msg = (f'The [FLEXGUI] key {key} {string} is not a valid color '
-			'See the INI section of the documents for proper usage.')
-		dialogs.error_msg_ok(parent, title, msg)
-		return False
-'''
 
 def file_chooser(parent, caption, dialog_type, nc_code_dir=None):
 	if nc_code_dir is None:
