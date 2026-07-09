@@ -73,7 +73,15 @@ def read(parent):
 		parent.default_view = 'p'
 
 	# the check for valid increments is done in startup.py
-	parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
+	if (parent.inifile.find('FLEXGUI', 'JOG_INCREMENTS') and
+		parent.inifile.find('DISPLAY', 'INCREMENTS')):
+		title = 'Configuration Error'
+		msg = ('Both DISPLAY INCREMENTS and FLEXGUI JOG_INCREMENTS were found.')
+		info = 'FLEXGUI JOG_INCREMENTS will be used.'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.jog_increments = False
+	else:
+		parent.jog_increments = parent.inifile.find('DISPLAY', 'INCREMENTS') or False
 
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
