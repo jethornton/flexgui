@@ -145,13 +145,13 @@ def read(parent):
 			'INI section of the Documents for correct INI entries.')
 			dialogs.error_msg_ok(parent, title, msg)
 
-	old_spindle_items = [
+	old_display_spindle_items = [
 	['DISPLAY', 'DEFAULT_SPINDLE_SPEED'],
 	['DISPLAY', 'SPINDLE_INCREMENT'],
 	['DISPLAY', 'MAX_SPINDLE_OVERRIDE']
 	]
 
-	for item in old_spindle_items:
+	for item in old_display_spindle_items:
 		if parent.inifile.find(item[0], item[1]): # verified
 			title = 'Configuration Error'
 			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated '
@@ -172,6 +172,18 @@ def read(parent):
 			'section of the manual.')
 			info = 'The Probe On/Off Colors will not function!'
 			dialogs.error_msg_ok(parent, title, msg, info)
+
+	old_spindle_items = []
+	old_spindle_keys = ['MIN_FORWARD_VELOCITY', 'MAX_FORWARD_VELOCITY']
+	for item in old_spindle_keys:
+		for i in range(9):
+			old_spindle_items.append([f'SPINDLE_{i}', item])
+	for item in old_spindle_items:
+		if parent.inifile.find(item[0], item[1]): # verified
+			title = 'Configuration Error'
+			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated. '
+			'Check the INI section of the Documents for correct INI entries.')
+			dialogs.error_msg_ok(parent, title, msg)
 
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
@@ -317,7 +329,6 @@ def read(parent):
 	plotter = parent.findChild(QWidget, 'plot_widget')
 
 	if plotter is not None:
-		# FIXME test False
 		color_string = parent.inifile.find('FLEXGUI', 'PLOT_BACKGROUND_COLOR') or False
 		if color_string:
 			components = [c.strip() for c in color_string.split(',')]
@@ -358,7 +369,11 @@ def read(parent):
 	touch_file_width = parent.inifile.find('FLEXGUI', 'TOUCH_FILE_WIDTH') or 'false'
 	parent.touch_file_width = touch_file_width.strip().lower() == 'true'
 
-	# check for keyboard jog increment setting FIXME does this do anything???
+	# the check for valid increments is done in startup.py
+	if not parent.jog_increments:
+		parent.jog_increments = parent.inifile.find('FLEXGUI', 'JOG_INCREMENTS') or False
+
+	# check for keyboard jog increment setting FIXME does this do anything??? YES IT WORKS
 	kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or 'false'
 	parent.kb_jog_increment = kb_jog_increment.strip().lower() == 'true'
 
@@ -416,43 +431,17 @@ def read(parent):
 	if parent.joints: # convert string to int
 		parent.joints = int(parent.joints)
 
-	# ***** [SPINDLE_0] Section *****
-	#parent.min_rpm = parent.inifile.find('SPINDLE_0', 'MIN_FORWARD_VELOCITY') or False
-	#parent.max_rpm = parent.inifile.find('SPINDLE_0', 'MAX_FORWARD_VELOCITY') or False
-
 	# ***** [SPINDLE_n] Sections ***** 
 	for i in range(parent.status.spindles):
 		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM') or False
-		if not min_rpm:
-			min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_FORWARD_VELOCITY') or False
-			if min_rpm: # FIXME test this
-				title = 'Configuration Error'
-				msg = ('The key MIN_FORWARD_VELOCITY has '
-				'been changed to MIN_RPM. Please update '
-				'your ini file to use the new key. '
-				'After the next update MIN_FORWARD_VELOCITY '
-				'will no longer be used.')
-				info = ''
-				dialogs.error_msg_ok(parent, title, msg, info)
-		if isinstance(min_rpm, str):
+		if min_rpm:
 			min_rpm = utilities.to_int(min_rpm)
 		else:
 			min_rpm = 0
 		setattr(parent, f'spindle_{i}_min_fwd_rpm', min_rpm)
 
 		max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_RPM') or False
-		if not max_rpm:
-			max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_FORWARD_VELOCITY') or False
-			if max_rpm: # FIXME test this
-				title = 'Configuration Error'
-				msg = ('The key MAX_FORWARD_VELOCITY has '
-				'been changed to MAX_RPM. Please update '
-				'your ini file to use the new key. '
-				'After the next update MAX_FORWARD_VELOCITY '
-				'will no longer be used.')
-				info = ''
-				dialogs.error_msg_ok(parent, title, msg, info)
-		if isinstance(max_rpm, str):
+		if max_rpm:
 			max_rpm = utilities.to_int(max_rpm)
 		else:
 			max_rpm = 1000
@@ -475,12 +464,11 @@ def read(parent):
 		max_override = parent.inifile.find(f'SPINDLE_{i}', 'MAX_OVERRIDE') or False
 		if isinstance(max_override, str):
 			max_override = utilities.to_int(max_override)
-			if max_override < 100: # FIXME test this
+			if max_override < 100: # verified
 				title = 'Configuration Error'
-				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to {max_override}. '
-				'The minimum for MAX_OVERRIDE is 100. '
-				'MAX_OVERRIDE has been set to 100.')
-				info = ''
+				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to "{max_override}". '
+				'The minimum for MAX_OVERRIDE is 100.')
+				info = 'MAX_OVERRIDE has been set to 100.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				max_override = 100
 		else:
@@ -492,13 +480,13 @@ def read(parent):
 			default_rpm = utilities.to_int(default_rpm)
 			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
 			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-			if not (min_rpm <= default_rpm <= max_rpm): # FIXME test this
+			if not (min_rpm <= default_rpm <= max_rpm): # verified
 				title = 'Configuration Error'
-				default_rpm = min_rpm
-				msg = (f'The Default RPM for Spindle {i} is outside the limits. '
-				f'The Default RPM will be set to the Minimum RPM {min_rpm}')
-				info = ''
+				msg = (f'The Default RPM "{default_rpm}" for Spindle {i} is outside the '
+				f'minumum "{min_rpm}" or maximum "{max_rpm}" RPM settings.')
+				info = 'Default RPM will be set to minimum!'
 				dialogs.error_msg_ok(parent, title, msg, info)
+				default_rpm = min_rpm
 		else:
 			default_rpm = min_rpm
 		setattr(parent, f'spindle_rpm_{i}', default_rpm)
