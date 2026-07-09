@@ -230,10 +230,11 @@ def update_jog_lb(parent):
 			getattr(parent, item).setEnabled(False)
 
 def set_jog_incremtent(parent, position):
+	print(f'set_jog_incremtent {set_jog_incremtent}')
 	max_index = len(parent.jog_modes_cb) - 1
 	if position <= max_index:
 		parent.jog_modes_cb.setCurrentIndex(position)
-	else: # FIXME test this
+	else: # FIXME test this called by flexgui line 70
 		title = 'Configuration Error'
 		msg = (f'The key {position} exceeds the maximum number of items in the '
 		'Jog Modes Combobox.')
