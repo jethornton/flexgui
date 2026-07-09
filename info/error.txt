@@ -19,10 +19,10 @@ dialogs.warn_msg_yes_no(parent, title, msg, info)
 libflexgui/startup.py
 libflexgui/actions.py
 libflexgui/read_ini.py
+libflexgui/utilities.py
 
 ## NOT VERIFIED ##
 
-libflexgui/utilities.py
 libflexgui/dsf.py
 libflexgui/commands.py
 libflexgui/fsc.py
