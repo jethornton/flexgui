@@ -44,8 +44,8 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 				parent.command.mdi(mdi_command)
-	else: # FIXME test this
-		title = 'Error'
+	else: # verified
+		title = 'Operator Error'
 		msg = 'No MDI command was found!'
 		dialogs.error_msg_ok(parent, title, msg)
 
@@ -66,7 +66,7 @@ def jog_check(parent):
 		if parent.jog_vel_sl.value() > 0.0:
 			return True
 		else: # FIXME test this
-			title = 'Error'
+			title = 'Operator Error'
 			msg = ('Can not jog at Zero Velocity!')
 			dialogs.error_msg_ok(parent, title, msg)
 			return False

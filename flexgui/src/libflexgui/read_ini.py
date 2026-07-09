@@ -74,7 +74,7 @@ def read(parent):
 
 	# the check for valid increments is done in startup.py
 	if (parent.inifile.find('FLEXGUI', 'JOG_INCREMENTS') and
-		parent.inifile.find('DISPLAY', 'INCREMENTS')):
+		parent.inifile.find('DISPLAY', 'INCREMENTS')): # verified
 		title = 'Configuration Error'
 		msg = ('Both DISPLAY INCREMENTS and FLEXGUI JOG_INCREMENTS were found.')
 		info = 'FLEXGUI JOG_INCREMENTS will be used.'
