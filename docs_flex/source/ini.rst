@@ -64,8 +64,12 @@ with its `filename`
 
 	GUI = my-file-name.ui
 
+.. _jog-increments:
+
 Jog Increments
 --------------
+
+.. warning:: Jog Increments are being moved to the [FLEXGUI] section
 
 The following settings can be used in the [DISPLAY] section of the ini file to
 preset jog items. While you can mix units usually machine units are used. Units
@@ -256,9 +260,6 @@ the QSS option in [FLEXGUI] section of the ini file.
 
 For more information on style sheets see :doc:`style`
 
-.. _jog-increments:
-
-
 Resource File
 -------------
 
@@ -327,6 +328,7 @@ G20/G21 change. Setting to `True` disables the manual unit change controls.
 
 .. code-block:: text
 
+	[FLEXGUI]
 	PLOT_UNITS = True
 
 The plot grid sizes are set in the ini file. Fraction and decimal numbers are
@@ -338,6 +340,7 @@ skipped and a warning will appear.
 
 .. code-block:: text
 
+	[FLEXGUI]
 	PLOT_GRID = 1/2, 1 in, 1 1/2, 2 inch
 	or for metric
 	PLOT_GRID = 10mm, 20mm, 50mm, 100mm
@@ -353,7 +356,31 @@ To set the DRO labels to follow the program units add the following
 
 .. code-block:: text
 
+	[FLEXGUI]
 	DRO_UNITS = True
+
+Jog Increments
+--------------
+
+The Jog Increments Combobox is populated from the `JOG_INCREMENTS` entry.
+Units can be mm, cm, um, in, inch, mil or left out. A space can be between the
+distance and the units for better readability. Fractions are are in inch units
+and can be a whole number with a space then the fraction.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	JOG_INCREMENTS = 0.250, 0.100, 0.010, 0.001
+	or
+	JOG_INCREMENTS = 1 1/2, 1 inch, 0.5 in, 1 cm, 1 mm
+
+.. warning:: [FLEXGUI] JOG_INCREMENTS must be a comma seperated list or it will
+   be ignored.
+
+.. note:: Jog incremnts can have unit labels, the following are valid unit
+   labels cm, mm, um, inch, in or mil. If no unit labels are found the the
+   configuration units are used.
+
 
 .. _led_defaults:
 
@@ -434,9 +461,11 @@ Keyboard Shortcuts
 To add keyboard jog increment to Flex GUI add the following to the FLEXGUI
 section. The keys 0 through the maximum index position will set the index
 position in the Jog Modes Combobox. A maximum of 10 positions can be used 0-9.
+The Jog Modes Combobox must have jog increments set in the INI section
+[FLEXGUI] JOG_INCREMENTS.
 
-To change the jog increment the control must be in manual mode and the Ctrl key
-must be pressed and held as you press a number key.
+To change the jog increment the control must be out of E-Stop and in manual mode
+and the Ctrl key must be pressed and held as you press a number key.
 
 .. code-block:: text
 
