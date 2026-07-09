@@ -1,0 +1,38 @@
+None is not a valid type
+for a HAL LCD, only HAL_FLOAT or 
+HAL_S32 or HAL_U32 can be used.
+The lcdNumber will be disabled.
+
+title = 'Configuration Error'
+title = 'INI Error!'
+title = ''
+msg = ('')
+info = ''
+info = 
+
+dialogs.error_msg_ok(parent, title, msg, info)
+dialogs.error_msg_ok(parent, title, msg)
+
+dialogs.warn_msg_yes_no(parent, title, msg, info)
+
+ # verified
+libflexgui/startup.py
+libflexgui/actions.py
+libflexgui/read_ini.py
+
+## NOT VERIFIED ##
+
+libflexgui/utilities.py
+libflexgui/dsf.py
+libflexgui/commands.py
+libflexgui/fsc.py
+libflexgui/probe.py
+libflexgui/dialogs.py
+
+flexgui
+
+
+check setup_jog carefully
+
+grep -irl 'msg ='
+
