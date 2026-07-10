@@ -53,17 +53,9 @@ def run_mdi(parent, cmd=''):
 def add_mdi(parent): # when you click on the mdi history list widget
 	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
-def mdi_button(parent): # FIXME test this change
+def mdi_button(parent):
 	cmd = parent.sender().property('command')
 	run_mdi(parent, cmd)
-	'''
-	parent.status.poll()
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode == emc.MODE_MANUAL:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
-	'''
 
 def jog_check(parent):
 	if parent.jog_vel_sl.value() > 0.0:
@@ -136,27 +128,16 @@ def keyboard_jog(parent, action, axis=None, direction=None):
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis)
 		set_jog_override(parent)
 
-def change_cs(parent): # FIXME use run_mdi(parent, cmd)
+def change_cs(parent):
 	cs = parent.sender().objectName()[-1]
 	cd_dict = {'1': 'G54', '2': 'G55', '3': 'G56', '4': 'G57', '5': 'G58',
 		'6': 'G59', '7': 'G59.1', '8': 'G59.2', '9': 'G59.3', }
-	mdi_command = cd_dict[cs]
-	parent.status.poll()
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_MDI:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-		parent.command.mdi(mdi_command)
-		parent.command.wait_complete()
+	cmd = cd_dict[cs]
+	run_mdi(parent, cmd)
 
-def clear_axis_offset(parent, axis): # FIXME use run_mdi(parent, cmd)
-	mdi_command = f'G10 L2 P0 {axis}0'
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_MDI:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-		parent.command.mdi(mdi_command)
-		parent.command.wait_complete()
+def clear_axis_offset(parent, axis):
+	cmd = f'G10 L2 P0 {axis}0'
+	run_mdi(parent, cmd)
 
 def clear_cs(parent):
 	cs = parent.sender().objectName().split("_")[-1]
@@ -192,12 +173,10 @@ def tool_change(parent): # Tool Change Buttons FIXME make sure there is one tool
 		dialogs.error_msg_ok(parent, title, msg, info)
 		return
 
-	if parent.new_tool_number != parent.status.tool_in_spindle: # FIXME use run_mdi(parent, cmd)
-		mdi_command = f'M6 T{parent.new_tool_number}'
-		if parent.status.task_mode != emc.MODE_MDI:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-		parent.command.mdi(mdi_command)
+	if parent.new_tool_number != parent.status.tool_in_spindle:
+		cmd = f'M6 T{parent.new_tool_number}'
+		run_mdi(parent, cmd)
+
 	else: # verified
 		title = 'Tool Change Aborted'
 		msg = (f'Tool "{parent.new_tool_number}" is already in the Spindle.')
@@ -219,14 +198,8 @@ def touchoff(parent):
 	elif 'touchoff_le' in parent.child_names:
 		offset = parent.touchoff_le.text()
 
-	# FIXME use run_mdi(parent, cmd)
-	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
-	if parent.status.task_state == emc.STATE_ON:
-		if parent.status.task_mode != emc.MODE_MDI:
-			parent.command.mode(emc.MODE_MDI)
-			parent.command.wait_complete()
-		parent.command.mdi(mdi_command)
-		parent.command.wait_complete()
+	cmd = f'G10 L20 P{coordinate_system} {axis}{offset}'
+	run_mdi(parent, cmd)
 
 def tool_touchoff(parent):
 	parent.status.poll()
@@ -246,18 +219,12 @@ def tool_touchoff(parent):
 		dialogs.error_msg_ok(parent, title, msg)
 		return
 
-	if cur_tool > 0: # FIXME use run_mdi(parent, cmd)
-		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
-		if parent.status.task_state == emc.STATE_ON:
-			if parent.status.task_mode != emc.MODE_MDI:
-				parent.command.mode(emc.MODE_MDI)
-				parent.command.wait_complete()
-			parent.command.mdi(mdi_command)
-			parent.command.wait_complete()
-			parent.plotter.update()
+	if cur_tool > 0:
+		cmd = f'G10 L10 P{cur_tool} {axis}{offset} G43'
+		run_mdi(parent, cmd)
 
 def spindle_control(parent, spindle, action, value=None):
-	#print(f'spindle {spindle} action {action}')
+	#print(f'spindle {spindle} action {action} value {value}')
 	rpm = getattr(parent, f'spindle_rpm_{spindle}')
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
@@ -269,9 +236,9 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
-			else:
+			else: # verified
 				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
+				f'{min_rpm}-{max_rpm}')
 				parent.statusBar().showMessage(msg, 5000)
 
 		case 'rev':
@@ -279,9 +246,9 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
-			else:
+			else: # verified
 				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
+				f'{min_rpm}-{max_rpm}')
 				parent.statusBar().showMessage(msg, 5000)
 
 		case 'stop':
@@ -291,7 +258,7 @@ def spindle_control(parent, spindle, action, value=None):
 		case 'plus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = rpm + increment
-			if rpm > max_rpm:
+			if rpm > max_rpm: # verified
 				msg = (f'RPM {rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}')
 				parent.statusBar().showMessage(msg, 5000)
 				rpm = max_rpm
@@ -299,7 +266,7 @@ def spindle_control(parent, spindle, action, value=None):
 			if min_rpm <= rpm * override >= max_rpm: # exceeds range
 				if rpm * override > max_rpm:
 					rpm = int(max_rpm / override)
-				msg (f'RPM Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}')
+				msg = (f'RPM {rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}')
 				parent.statusBar().showMessage(msg, 5000)
 			setattr(parent, f'spindle_rpm_{spindle}', rpm)
 
@@ -312,7 +279,7 @@ def spindle_control(parent, spindle, action, value=None):
 			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = rpm - increment
 
-			if rpm < min_rpm:
+			if rpm < min_rpm: # verified
 				msg = (f'RPM {rpm} Exceeds Spindle {spindle} Limits '
 				'{min_rpm}-{max_rpm}')
 				parent.statusBar().showMessage(msg, 5000)
@@ -320,7 +287,7 @@ def spindle_control(parent, spindle, action, value=None):
 
 			if min_rpm <= rpm * override <= max_rpm:
 				setattr(parent, f'spindle_rpm_{spindle}', rpm)
-			else: # exceeds range
+			else: # verified
 				if rpm * override <= min_rpm:
 					rpm = int(min_rpm / override)
 				msg = (f'RPM {rpm * override} Exceeds Spindle {spindle} Limits '
