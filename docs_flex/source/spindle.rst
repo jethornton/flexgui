@@ -103,6 +103,21 @@ in the Object Name with the spindle number you want to control.
 	Spindle Speed, QSpinBox, spindle_speed_s_sb
 	Spindle Speed, QSlider, spindle_speed_s_sl
 
+Set S Word
+----------
+
+To set the `S` word to the current spindle RPM use the following button with the
+object name and the spindle number. Replace the `s` in the Object Name with the
+spindle number you want to set the `S` word for.
+
+.. csv-table:: **Set the S Word**
+   :width: 100%
+   :align: center
+   :widths: 30 30 40
+
+	**Control Function**, **Object Type**, **Object Name**
+	Set S Word, QPushButton, set_speed_s_pb
+
 Spindle Overrides
 -----------------
 
