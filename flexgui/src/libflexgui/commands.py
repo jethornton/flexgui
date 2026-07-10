@@ -61,18 +61,12 @@ def mdi_button(parent):
 			parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
 
-def jog_check(parent):
-	if 'jog_vel_sl' in parent.child_names:
-		if parent.jog_vel_sl.value() > 0.0:
-			return True
-		else: # FIXME test this
-			title = 'Operator Error'
-			msg = ('Can not jog at Zero Velocity!')
-			dialogs.error_msg_ok(parent, title, msg)
-			return False
-	else: # FIXME test this
-		title = 'Error'
-		msg = ('Can not jog without a\njog velocity slider.')
+def jog_check(parent): # FIXME jog_vel_sl is checked at startup
+	if parent.jog_vel_sl.value() > 0.0:
+		return True
+	else: # verified
+		title = 'Operator Error'
+		msg = ('Can not jog at Zero Velocity!')
 		dialogs.error_msg_ok(parent, title, msg)
 		return False
 
