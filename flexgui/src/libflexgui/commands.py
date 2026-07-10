@@ -44,6 +44,7 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 				parent.command.mdi(mdi_command)
+				parent.plotter.update()
 	else: # verified
 		title = 'Operator Error'
 		msg = 'No MDI command was found!'
@@ -52,16 +53,19 @@ def run_mdi(parent, cmd=''):
 def add_mdi(parent): # when you click on the mdi history list widget
 	parent.mdi_command_le.setText(f'{parent.mdi_history_lw.currentItem().text()}')
 
-def mdi_button(parent):
-	mdi_command = parent.sender().property('command')
+def mdi_button(parent): # FIXME test this change
+	cmd = parent.sender().property('command')
+	run_mdi(parent, cmd)
+	'''
 	parent.status.poll()
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode == emc.MODE_MANUAL:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
+	'''
 
-def jog_check(parent): # FIXME jog_vel_sl is checked at startup
+def jog_check(parent):
 	if parent.jog_vel_sl.value() > 0.0:
 		return True
 	else: # verified
@@ -132,7 +136,7 @@ def keyboard_jog(parent, action, axis=None, direction=None):
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis)
 		set_jog_override(parent)
 
-def change_cs(parent):
+def change_cs(parent): # FIXME use run_mdi(parent, cmd)
 	cs = parent.sender().objectName()[-1]
 	cd_dict = {'1': 'G54', '2': 'G55', '3': 'G56', '4': 'G57', '5': 'G58',
 		'6': 'G59', '7': 'G59.1', '8': 'G59.2', '9': 'G59.3', }
@@ -145,7 +149,7 @@ def change_cs(parent):
 		parent.command.mdi(mdi_command)
 		parent.command.wait_complete()
 
-def clear_axis_offset(parent, axis):
+def clear_axis_offset(parent, axis): # FIXME use run_mdi(parent, cmd)
 	mdi_command = f'G10 L2 P0 {axis}0'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
@@ -181,22 +185,24 @@ def tool_change(parent): # Tool Change Buttons FIXME make sure there is one tool
 				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
 	else: # using tool change cb
 		parent.new_tool_number = parent.tool_change_cb.currentData()
-	if parent.new_tool_number not in tools: # FIXME test this
+	if parent.new_tool_number not in tools: # verified
 		title = 'Tool Change Aborted'
 		msg = (f'Tool {parent.new_tool_number} is not in the Tool Table.')
-		dialogs.error_msg_ok(parent, title, msg)
+		info = 'Tool Change Aborted!'
+		dialogs.error_msg_ok(parent, title, msg, info)
 		return
 
-	if parent.new_tool_number != parent.status.tool_in_spindle:
+	if parent.new_tool_number != parent.status.tool_in_spindle: # FIXME use run_mdi(parent, cmd)
 		mdi_command = f'M6 T{parent.new_tool_number}'
 		if parent.status.task_mode != emc.MODE_MDI:
 			parent.command.mode(emc.MODE_MDI)
 			parent.command.wait_complete()
 		parent.command.mdi(mdi_command)
-	else: # FIXME test this
+	else: # verified
 		title = 'Tool Change Aborted'
-		msg = (f'Tool {parent.new_tool_number} is already in the Spindle.')
-		dialogs.error_msg_ok(parent, title, msg)
+		msg = (f'Tool "{parent.new_tool_number}" is already in the Spindle.')
+		info = 'Tool Change Aborted!'
+		dialogs.error_msg_ok(parent, title, msg, info)
 
 def touchoff(parent):
 	#print('touchoff')
@@ -213,6 +219,7 @@ def touchoff(parent):
 	elif 'touchoff_le' in parent.child_names:
 		offset = parent.touchoff_le.text()
 
+	# FIXME use run_mdi(parent, cmd)
 	mdi_command = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	if parent.status.task_state == emc.STATE_ON:
 		if parent.status.task_mode != emc.MODE_MDI:
@@ -222,7 +229,6 @@ def touchoff(parent):
 		parent.command.wait_complete()
 
 def tool_touchoff(parent):
-	#print('tool_touchoff')
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
 	cur_tool = parent.status.tool_in_spindle
@@ -234,13 +240,13 @@ def tool_touchoff(parent):
 	elif 'tool_touchoff_le' in parent.child_names:
 		offset = parent.tool_touchoff_le.text()
 
-	if offset == '': # FIXME test this
+	if offset == '': # verified
 		title = 'Error'
-		msg = ('Tool Touchoff Offset\ncan not be blank!')
+		msg = ('The Tool Touchoff Offset can not be blank!')
 		dialogs.error_msg_ok(parent, title, msg)
 		return
 
-	if cur_tool > 0:
+	if cur_tool > 0: # FIXME use run_mdi(parent, cmd)
 		mdi_command = f'G10 L10 P{cur_tool} {axis}{offset} G43'
 		if parent.status.task_state == emc.STATE_ON:
 			if parent.status.task_mode != emc.MODE_MDI:
@@ -248,10 +254,7 @@ def tool_touchoff(parent):
 				parent.command.wait_complete()
 			parent.command.mdi(mdi_command)
 			parent.command.wait_complete()
-	else: # FIXME test this
-		title = 'Touch Off Aborted'
-		msg = ('No Tool in Spindle.')
-		dialogs.error_msg_ok(parent, title, msg)
+			parent.plotter.update()
 
 def spindle_control(parent, spindle, action, value=None):
 	#print(f'spindle {spindle} action {action}')
@@ -263,7 +266,6 @@ def spindle_control(parent, spindle, action, value=None):
 
 	match action:
 		case 'fwd':
-			#print(f'Spindle:{spindle} Action:{action}')
 			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
@@ -382,6 +384,9 @@ def spindle_control(parent, spindle, action, value=None):
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
 			elif parent.status.spindle[spindle]['direction'] == -1:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
+
+		case 'set_s_word': # use MDI to set the S word
+			run_mdi(parent, f'S{rpm} ${spindle}')
 
 		case _:
 			print('Unknown Action')

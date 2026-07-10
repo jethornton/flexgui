@@ -1740,6 +1740,13 @@ def setup_spindle(parent):
 				partial(commands.spindle_control, parent, i, action))
 				parent.spindle_controls.append(f'{item}_{i}_pb')
 
+	for i in range(parent.status.spindles): # set_speed_0_pb FIXME test me
+		if f'set_speed_{i}_pb' in parent.child_names:
+			action = 'set_s_word'
+			getattr(parent, f'set_speed_{i}_pb').clicked.connect(
+			partial(commands.spindle_control, parent, i, action))
+			parent.mdi_controls.append(f'set_speed_{i}_pb')
+
 	# set up multiple spindle controls FIXME test here for too many
 	for i in range(8):
 		if f'spindle_override_{i}_sl' in parent.child_names:
