@@ -118,6 +118,9 @@ spindle number you want to set the `S` word for.
 	**Control Function**, **Object Type**, **Object Name**
 	Set S Word, QPushButton, set_speed_s_pb
 
+.. note:: The Set S Word button uses MDI so all axes must be homed before it's
+   enabled.
+
 Spindle Overrides
 -----------------
 
