@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
 from PyQt6.QtWidgets import QMessageBox, QPlainTextEdit, QComboBox
 from PyQt6.QtWidgets import QSpinBox, QDoubleSpinBox
 from PyQt6.QtGui import QPixmap, QTextCursor
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 
 import linuxcnc as emc
 import hal
@@ -299,6 +299,19 @@ def select_editor(parent, nc_file):
 		print('User cancelled the dialog.')
 		return None
 
+def status_warning(parent, msg):
+	parent.statusbar.setStyleSheet('''
+		QStatusBar {background-color: red; color: white;}''')
+
+	# Show the alert message
+	parent.statusbar.showMessage(f"⚠️ {msg}")
+
+	# Set a timer to clear the message and reset colors after 5000 milliseconds (5 seconds)
+	QTimer.singleShot(5000, lambda: reset_status_bar(parent))
+
+def reset_status_bar(parent):
+	parent.statusbar.clearMessage()
+	parent.statusbar.setStyleSheet('')  # Reset to default stylesheet
 
 def info_msg_ok(parent, msg, title=None): # FIXME not used
 	# dialogs.info_msg_ok(parent, msg, 'title')

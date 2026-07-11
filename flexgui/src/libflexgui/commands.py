@@ -237,9 +237,9 @@ def spindle_control(parent, spindle, action, value=None):
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
 			else: # verified
-				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				f'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
+				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
+				f'{min_rpm}-{max_rpm}. Spindle will not start!')
+				dialogs.status_warning(parent, msg)
 
 		case 'rev':
 			#print(f'Spindle:{spindle} Action:{action}')
@@ -247,9 +247,9 @@ def spindle_control(parent, spindle, action, value=None):
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
 			else: # verified
-				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				f'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
+				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
+				f'{min_rpm}-{max_rpm}. Spindle will not start!')
+				dialogs.status_warning(parent, msg)
 
 		case 'stop':
 			#print(f'Spindle:{spindle} Action:{action}')
@@ -258,16 +258,14 @@ def spindle_control(parent, spindle, action, value=None):
 		case 'plus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = rpm + increment
-			if rpm > max_rpm: # verified
-				msg = (f'RPM {rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
-				rpm = max_rpm
+			rpm_override = rpm * override
 
-			if min_rpm <= rpm * override >= max_rpm: # exceeds range
+			if min_rpm <= rpm_override >= max_rpm: # exceeds range
 				if rpm * override > max_rpm:
 					rpm = int(max_rpm / override)
-				msg = (f'RPM {rpm} Exceeds Spindle {spindle} Limits {min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
+				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
+				f'{min_rpm}-{max_rpm}')
+				dialogs.status_warning(parent, msg)
 			setattr(parent, f'spindle_rpm_{spindle}', rpm)
 
 			if parent.status.spindle[spindle]['direction'] == 1:
@@ -278,21 +276,16 @@ def spindle_control(parent, spindle, action, value=None):
 		case 'minus':
 			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = rpm - increment
+			rpm_override = rpm * override
 
-			if rpm < min_rpm: # verified
-				msg = (f'RPM {rpm} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
-				rpm = min_rpm
-
-			if min_rpm <= rpm * override <= max_rpm:
+			if min_rpm <= rpm_override <= max_rpm:
 				setattr(parent, f'spindle_rpm_{spindle}', rpm)
 			else: # verified
 				if rpm * override <= min_rpm:
 					rpm = int(min_rpm / override)
-				msg = (f'RPM {rpm * override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
+				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
+				f'{min_rpm}-{max_rpm}')
+				dialogs.status_warning(parent, msg)
 
 			if parent.status.spindle[spindle]['direction'] == 1:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
@@ -301,25 +294,18 @@ def spindle_control(parent, spindle, action, value=None):
 
 		case 'speed': # called by spindle spinboxes and slider
 			#print(f'Spindle:{spindle} Action:{action}')
-			# spindle_speed_{i}_sl or spindle_speed_{i}_sb
 			sender = parent.sender()
 			rpm = sender.value()
 			object_type = sender.objectName().split('_')[-1]
 			rpm_override = rpm * override
 
 			# make sure the rpm is within limits
-			if rpm_override > max_rpm:
+			if min_rpm < rpm_override > max_rpm:
 				rpm = int(max_rpm / override)
 				sender.setValue(rpm)
-				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
-			elif rpm_override < min_rpm:
-				rpm = int(min_rpm / override)
-				sender.setValue(rpm)
-				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
+				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
+				f'{min_rpm}-{max_rpm}')
+				dialogs.status_warning(parent, msg)
 
 			setattr(parent, f'spindle_rpm_{spindle}', rpm)
 			if parent.status.spindle[spindle]['direction'] == 1:
@@ -333,18 +319,12 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = rpm * override
 
 			# make sure the rpm is within limits
-			if rpm_override > max_rpm:
+			if min_rpm < rpm_override > max_rpm:
 				rpm = int(max_rpm / override)
 				sender.setValue(rpm)
-				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
-			elif rpm_override < min_rpm:
-				rpm = int(min_rpm / override)
-				sender.setValue(rpm)
-				msg = (f'RPM {rpm_override} Exceeds Spindle {spindle} Limits '
-				'{min_rpm}-{max_rpm}')
-				parent.statusBar().showMessage(msg, 5000)
+				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
+				f'{min_rpm}-{max_rpm}')
+				dialogs.status_warning(parent, msg)
 
 			setattr(parent, f'spindle_rpm_{spindle}', rpm)
 			if parent.status.spindle[spindle]['direction'] == 1:
@@ -395,7 +375,6 @@ def spindle_override(parent, spindle=0, value=0):
 	override_rpm = int(rpm * override)
 	if min_rpm <= override_rpm <= max_rpm or rpm == 0:
 		parent.command.spindleoverride(float(value / 100), spindle)
-		parent.statusBar().clearMessage()
 	else:
 		if override_rpm < min_rpm:
 			min_override = int((min_rpm / rpm) * 100)
@@ -405,9 +384,9 @@ def spindle_override(parent, spindle=0, value=0):
 			max_override = int((max_rpm / rpm) * 100)
 			if max_override <= sender.maximum():
 				sender.setValue(max_override)
-		msg = (f'Override RPM {override_rpm} Exceeds Spindle {spindle} Limits '
-		'{min_rpm}-{max_rpm}')
-		parent.statusBar().showMessage(msg, 5000)
+		msg = (f'Override RPM {override_rpm:.0f} Exceeds Spindle {spindle} Limits '
+		f'{min_rpm}-{max_rpm}')
+		dialogs.status_warning(parent, msg)
 
 def spindle_override_preset(parent, spindle, value):
 	#value = int(parent.sender().objectName().split('_')[-1])
