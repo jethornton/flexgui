@@ -20,15 +20,13 @@ libflexgui/startup.py
 libflexgui/actions.py
 libflexgui/read_ini.py
 libflexgui/utilities.py
-
-## NOT VERIFIED ##
-
-libflexgui/dsf.py
 libflexgui/commands.py
-libflexgui/fsc.py
-libflexgui/probe.py
 libflexgui/dialogs.py
 
+## NOT VERIFIED ##
+libflexgui/dsf.py
+libflexgui/fsc.py
+libflexgui/probe.py
 flexgui
 
 

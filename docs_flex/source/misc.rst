@@ -120,6 +120,7 @@ Help System
 A QPushButton can be setup to launch a Help dialog which contains text from a
 file in the configuration directory. A help button can be placed on multiple
 places with different file names. Only one Help dialog can be open at a time.
+The Help dialog will be centered over the GUI.
 
 .. csv-table:: **Help Button Dynamic Properties**
    :width: 100%
@@ -130,8 +131,6 @@ places with different file names. Only one Help dialog can be open at a time.
 	String, function, help
 	String, file, file name
 	String, topic, title of topic
-	String, x_pos, x location of upper left corner
-	String, y_pos, y location of upper left corner
 	String, horz_size, width
 	String, vert_size, height
 
