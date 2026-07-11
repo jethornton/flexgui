@@ -216,6 +216,9 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
+           <item row="1" column="0">
+            <widget class="QComboBox" name="jog_modes_cb"/>
+           </item>
            <item row="0" column="0">
             <widget class="QSlider" name="jog_vel_sl">
              <property name="orientation">
@@ -223,8 +226,18 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QComboBox" name="jog_modes_cb"/>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="pushButton_6">
+             <property name="text">
+              <string>Help Dialog</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>help</string>
+             </property>
+             <property name="file" stdset="0">
+              <string>help.txt</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -327,22 +340,29 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
+           <item row="1" column="0">
             <widget class="QPushButton" name="tool_change_pb_1">
              <property name="text">
               <string>T1</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QPushButton" name="tool_change_pb">
              <property name="text">
               <string>Tool Change</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QComboBox" name="tool_change_cb"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="tool_touchoff_selected_pb">
+             <property name="text">
+              <string>Touch Off Selected</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
