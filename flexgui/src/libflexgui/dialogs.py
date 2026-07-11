@@ -176,8 +176,8 @@ def touchoff_selected(parent):
 
 	if result == QDialog.DialogCode.Accepted:
 		offset = dialog.coordinate_le.text()
-		if not utilities.is_number(offset):
-			title = ''
+		if not utilities.is_number(offset): # verified
+			title = 'Operator Error!'
 			msg = (f'{offset} is not a number.')
 			error_msg_ok(parent, title, msg)
 			return
@@ -217,8 +217,8 @@ def tool_touchoff_selected(parent):
 	result = dialog.exec()
 	if result == QDialog.DialogCode.Accepted:
 		offset = dialog.offset_le.text()
-		if not utilities.is_number(offset):
-			title = 'Invalid Entry'
+		if not utilities.is_number(offset): # verified
+			title = 'Operator Error!'
 			msg = (f'{offset} is not a number.')
 			error_msg_ok(parent, title, msg)
 			return
@@ -556,30 +556,53 @@ def help_dialog(parent):
 	if parent.help_dialog is not None:
 		if not parent.help_dialog.isVisible():
 			parent.help_dialog = None
+
 	if parent.help_dialog is None:
 		btn = parent.sender()
 		file_name = btn.property('file')
-		help_file = os.path.join(parent.config_path, file_name)
+		if file_name is not None:
+			help_file = os.path.join(parent.config_path, file_name)
+		else: # verified
+			title = 'Configuration Error'
+			msg = ('The property "file" is blank or missing.')
+			info = 'The Help Dialog can not be launched!'
+			error_msg_ok(parent, title, msg, info)
+			return
+
+		topic = btn.property('topic')
+		if topic is None:
+			topic = 'FlexGUI Help'
+
 		width = btn.property('horz_size') or 250
 		if isinstance(width, str):
 			width = int(width)
 		height = btn.property('vert_size') or 250
 		if isinstance(height, str):
 			height = int(height)
+		'''
 		x_pos = btn.property('x_pos') or 100
 		if isinstance(x_pos, str):
 			x_pos = int(x_pos)
 		y_pos = btn.property('y_pos') or 100
 		if isinstance(y_pos, str):
 			y_pos = int(y_pos)
+		'''
 
 		if os.path.isfile(help_file):
-			parent.help_dialog = QDialog()
-			parent.help_dialog.setWindowTitle(btn.property('topic'))
-			parent.help_dialog.setGeometry(x_pos, y_pos, width, height)
+			parent.help_dialog = QDialog(parent)
+			parent.help_dialog.setWindowTitle(topic)
+			parent.help_dialog.resize(width, height)
 			layout = QVBoxLayout(parent.help_dialog)
+
 			text_edit = QPlainTextEdit()
 			layout.addWidget(text_edit)
+
+			buttonBox = QDialogButtonBox()
+			buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Close)
+			buttonBox.setCenterButtons(True)
+			buttonBox.rejected.connect(parent.help_dialog.close)
+			layout.addWidget(buttonBox)
+
 			with open(help_file) as f:
 				lines = f.readlines()
 			for line in lines:
@@ -593,9 +616,10 @@ def help_dialog(parent):
 			text_edit.setTextCursor(cursor)
 
 			parent.help_dialog.show()
-		else:
+		else: # verified
 			title = 'Missing File'
 			msg = (f'The help file {file_name} was not found in the configuration '
 			f'directory {parent.config_path}')
-			error_msg_ok(parent, title, msg)
+			info = 'The Help Dialog can not be launched!'
+			error_msg_ok(parent, title, msg, info)
 
