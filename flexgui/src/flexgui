@@ -290,7 +290,7 @@ class flexgui(QMainWindow):
 			valid_themes = ['keyboard', 'touch', 'blue', 'blue-touch', 'dark', 'dark-touch']
 			if self.theme in valid_themes:
 				stylesheet = os.path.join(self.lib_path, f'{self.theme}.qss')
-				#from libflexgui import resources FIXME somehow I erased this file for themes
+				from libflexgui import resources # FIXME somehow I erased this file for themes
 		elif self.qss_file: # use a local qss file
 			stylesheet = os.path.join(self.config_path, self.qss_file)
 
