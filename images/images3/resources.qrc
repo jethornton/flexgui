@@ -1,0 +1,24 @@
+<RCC>
+  <qresource prefix="/">
+    <file>blue_down_32.png</file>
+    <file>blue_down_disabled_32.png</file>
+    <file>blue_left_32.png</file>
+    <file>blue_left_disabled_32.png</file>
+    <file>blue_right_32.png</file>
+    <file>blue_right_disabled_32.png</file>
+    <file>blue_up_32.png</file>
+    <file>blue_up_disabled_32.png</file>
+    <file>dark_down_32.png</file>
+    <file>dark_down_disabled_32.png</file>
+    <file>dark_left_32.png</file>
+    <file>dark_left_disabled_32.png</file>
+    <file>dark_right_32.png</file>
+    <file>dark_right_disabled_32.png</file>
+    <file>dark_up_32.png</file>
+    <file>dark_up_disabled_32.png</file>
+    <file>up_arrow.png</file>
+    <file>up_arrow_disabled.png</file>
+    <file>down_arrow_disabled.png</file>
+    <file>down_arrow.png</file>
+  </qresource>
+</RCC>
