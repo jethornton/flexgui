@@ -180,7 +180,7 @@ class flexgui(QMainWindow):
 				# the ini file object
 				self.inifile = emc.ini(sys.argv[i])
 				break
-		else: # this test must run before connecting to emc
+		else: # verified
 			title = 'Error'
 			msg = ('Flex GUI must be called from the LinuxCNC ini file.')
 			dialogs.error_msg_ok(self, title, msg)
@@ -234,9 +234,9 @@ class flexgui(QMainWindow):
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
 						Qt.AlignmentFlag.AlignCenter, QColor(splash_font_color))
 					app.processEvents()
-			else: # FIXME test this
+			else: # verified
 				title = 'Configuration Error'
-				msg = (f'The Splash Image {splash_image} was not found in the '
+				msg = (f'The Splash Image "{splash_image}" was not found in the '
 				'configuration directory.')
 				info = 'The Splash Image will not load!'
 				dialogs.error_msg_ok(self, title, msg, info)
@@ -298,9 +298,9 @@ class flexgui(QMainWindow):
 			if os.path.isfile(stylesheet):
 				with open(stylesheet, 'r') as f:
 					self.setStyleSheet(f.read())
-			else: # FIXME test this
+			else: # verified
 				title = 'INI Error!'
-				msg = (f'The Stylesheet {stylesheet} was not found.')
+				msg = (f'The Stylesheet "{stylesheet}" was not found.')
 				dialogs.error_msg_ok(parent, title, msg)
 
 		# set emc states to -0 so they get evaluated in status at least once

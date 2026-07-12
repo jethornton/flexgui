@@ -6,10 +6,10 @@ from libflexgui import dialogs
 def toggle(parent):
 	parent.status.poll()
 	for i in range(parent.status.spindles):
-		if parent.status.spindle[i]['enabled'] == 1:
+		if parent.status.spindle[i]['enabled'] == 1: # verified
 			title = 'Error'
-			msg = (f'Spindle {i} is enabled probing is not possible.')
-			info = f'Turn off Spindle {i} to enable probing.'
+			msg = (f'Spindle "{i}" is enabled, probing is not possible.')
+			info = f'Turn off Spindle "{i}" to enable probing.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.probing_enable_pb.blockSignals(True)
 			parent.probing_enable_pb.setChecked(False)
