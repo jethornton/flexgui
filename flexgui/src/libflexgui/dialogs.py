@@ -313,43 +313,6 @@ def reset_status_bar(parent):
 	parent.statusbar.clearMessage()
 	parent.statusbar.setStyleSheet('')  # Reset to default stylesheet
 
-def info_msg_ok(parent, msg, title=None): # FIXME not used
-	# dialogs.info_msg_ok(parent, msg, 'title')
-	#print('info_msg_ok')
-	msg_box = QMessageBox(parent)
-	msg_box.setIcon(QMessageBox.Icon.Information)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(msg)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
-
-	with open(parent.popup_qss,'r') as fh:
-		msg_box.setStyleSheet(fh.read())
-
-	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.StandardButton.Ok:
-		return True
-	else:
-		return False
-
-def confirm_msg_ok_cancel(parent, msg, title=None):
-	# dialogs.confirm_msg_ok_cancle(msg, 'title')
-	#print('confirm_msg_ok_cancel')
-	msg_box = QMessageBox(parent)
-	msg_box.setIcon(QMessageBox.Icon.Question)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(msg)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok |
-	QMessageBox.StandardButton.Cancel)
-
-	with open(parent.popup_qss,'r') as fh:
-		msg_box.setStyleSheet(fh.read())
-
-	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.StandardButton.Ok:
-		return True
-	else:
-		return False
-
 def error_msg_ok(parent, title, msg, info=None): # messagebox.qss added
 	# dialogs.error_msg_ok(parent, title, msg, info) FIXME this is the same as warn_msg_ok
 	#print('error_msg_ok')
@@ -362,24 +325,6 @@ def error_msg_ok(parent, title, msg, info=None): # messagebox.qss added
 	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
 
 	with open(os.path.join(parent.lib_path, 'messagebox.qss'),'r') as fh:
-		msg_box.setStyleSheet(fh.read())
-
-	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.StandardButton.Ok:
-		return True
-	else:
-		return False
-
-def warn_msg_ok(parent, msg, title=None): # FIXME use error_msg_ok maybe
-	# dialogs.warn_msg_ok(parent, msg, 'title')
-	#print('warn_msg_ok')
-	msg_box = QMessageBox(parent)
-	msg_box.setIcon(QMessageBox.Icon.Warning)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(msg)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
-
-	with open(parent.popup_qss,'r') as fh:
 		msg_box.setStyleSheet(fh.read())
 
 	returnValue = msg_box.exec()
@@ -405,43 +350,6 @@ def warn_msg_yes_no(parent, title, msg, info=None): # messagebox.qss added
 
 	returnValue = msg_box.exec()
 	if returnValue == QMessageBox.StandardButton.Yes:
-		return True
-	else:
-		return False
-
-def critical_msg_ok(parent, msg, title=None):
-	# dialogs.critical_msg_ok(parent, msg, 'title')
-	#print('critical_msg_ok')
-	msg_box = QMessageBox(parent)
-	msg_box.setIcon(QMessageBox.Icon.Critical)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(msg)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
-
-	with open(parent.popup_qss,'r') as fh:
-		msg_box.setStyleSheet(fh.read())
-
-	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.StandardButton.Ok:
-		return True
-	else:
-		return False
-
-def critical_msg_ok_cancel(parent, msg, title=None):
-	# dialogs.critical_msg_ok_cancel(parent, msg, 'title')
-	#print('critical_msg_ok_cancel')
-	msg_box = QMessageBox(parent)
-	msg_box.setIcon(QMessageBox.Icon.Critical)
-	msg_box.setWindowTitle(title)
-	msg_box.setText(msg)
-	msg_box.setStandardButtons(QMessageBox.StandardButton.Ok |
-	QMessageBox.StandardButton.Cancel)
-
-	with open(parent.popup_qss,'r') as fh:
-		msg_box.setStyleSheet(fh.read())
-
-	returnValue = msg_box.exec()
-	if returnValue == QMessageBox.StandardButton.Ok:
 		return True
 	else:
 		return False
