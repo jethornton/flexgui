@@ -439,7 +439,7 @@
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -875,6 +875,40 @@
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>SFC</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_18">
+        <item row="0" column="0">
+         <widget class="QFrame" name="fsc_container">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>DSF</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="0" column="0">
+         <widget class="QFrame" name="dsf_container">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
          </widget>
         </item>
        </layout>
