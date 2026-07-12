@@ -16,18 +16,19 @@ dialogs.error_msg_ok(parent, title, msg)
 dialogs.warn_msg_yes_no(parent, title, msg, info)
 
  # verified
+flexgui
 libflexgui/startup.py
 libflexgui/actions.py
 libflexgui/read_ini.py
 libflexgui/utilities.py
 libflexgui/commands.py
 libflexgui/dialogs.py
+libflexgui/probe.py
 
 ## NOT VERIFIED ##
 libflexgui/dsf.py
 libflexgui/fsc.py
-libflexgui/probe.py
-flexgui
+
 
 
 check setup_jog carefully
