@@ -1,3 +1,0 @@
-net external-spindle-start halui.spindle.0.start <= flexhal.spindle-start
-net external-spindle-stop halui.spindle.0.stop <= flexhal.spindle-stop
-

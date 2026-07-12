@@ -1,4 +1,0 @@
-setp flexhal.hal-normal-io-sd 50
-setp flexhal.hal-state-on-io-sd 50
-setp flexhal.hal-all-homed-io-sd 50
-setp flexhal.hal-state-on-all-homed-io-sd 50
