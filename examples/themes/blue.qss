@@ -2,18 +2,6 @@
 or sub-control is customized, all the other properties or sub-controls must be
 customized as well. */
 
-/*
-Colors
-background-color: #0000ff;
-background-color: #0000e6;
-background-color: #0000cc;
-background-color: #0000b3;
-background-color: #000099;
-background-color: #000080;
-background-color: #000066;
-*/
-
-
 /***** QMainWindow *****/
 QMainWindow {
 	color: #ffffff;
