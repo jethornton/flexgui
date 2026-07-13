@@ -378,6 +378,30 @@ The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
 .. image:: /images/hal-msl.png
    :align: center
 
+HAL LCD
+-------
+
+A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in
+the post gui HAL file. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+
+The HAL direction is IN for a HAL LCD
+
+.. csv-table:: **HAL LCD**
+   :width: 100%
+   :align: center
+   :widths: 20 20 60
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	Optional
+	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
+
+.. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
+   `precision` with a value of the number of decimal digits.
+
 HAL LED's
 =========
 
@@ -440,30 +464,6 @@ The HAL direction is IN and the hal_type is bit for a HAL LED Label.
 	Int, led_right_offset, offset from right edge
 	Int, led_top_offset, offset from top edge
 	String, led_shape, square
-
-HAL LCD
--------
-
-A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in
-the post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
-
-The HAL direction is IN for a HAL LCD
-
-.. csv-table:: **HAL LCD**
-   :width: 100%
-   :align: center
-   :widths: 20 20 60
-
-	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_pin
-	String, pin_name, any unique name
-	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	Optional
-	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
-
-.. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
-   `precision` with a value of the number of decimal digits.
 
 HAL Progress Bar
 ================
