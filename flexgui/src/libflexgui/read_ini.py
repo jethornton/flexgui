@@ -363,7 +363,7 @@ def read(parent):
 
 		auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or 'false'
 		parent.auto_plot_units = auto_plot_units.strip().lower() == 'true'
-	else: # FIXME check for ini entries and if found complain
+	else:
 		parent.plot_background_color = False
 		parent.grids = False
 		parent.auto_plot_units = False
@@ -381,7 +381,7 @@ def read(parent):
 	if not parent.jog_increments:
 		parent.jog_increments = parent.inifile.find('FLEXGUI', 'JOG_INCREMENTS') or False
 
-	# check for keyboard jog increment setting FIXME does this do anything??? YES IT WORKS
+	# check for keyboard jog increment setting
 	kb_jog_increment = parent.inifile.find('FLEXGUI', 'KB_JOG_INCREMENT') or 'false'
 	parent.kb_jog_increment = kb_jog_increment.strip().lower() == 'true'
 
