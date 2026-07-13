@@ -440,11 +440,11 @@ def update(parent):
 		hal_value = hal.get_value(f'flexhal.{value[0]}')
 		getattr(parent, key).setText(f'{hal_value:.{value[1]}f}')
 
-	for key, value in parent.hal_floats.items(): # FIXME change to hal_lcd_floats
-		# label [status item, precision]
+	# update hal float lcds
+	# key is lcd name, value[0] is pin name, value[1] is precision
+	for key, value in parent.hal_float_lcds.items():
 		hal_value = hal.get_value(f'flexhal.{value[0]}')
-		if isinstance(getattr(parent, key), QLCDNumber):
-			getattr(parent, key).display(f'{hal_value:.{value[1]}f}')
+		getattr(parent, key).display(f'{hal_value:.{value[1]}f}')
 
 	# update hal labels key is label name and value[0] is pin name value[1] is digits
 	for key, value in parent.hal_readers.items():

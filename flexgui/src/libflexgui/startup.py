@@ -2412,8 +2412,8 @@ def setup_hal(parent):
 	parent.hal_bool_labels = {}
 	parent.hal_integer_labels = {}
 	parent.hal_float_labels = {}
+	parent.hal_float_lcds = {}
 	parent.hal_progressbars = {}
-	parent.hal_floats = {}
 
 	var_file = os.path.join(parent.config_path, parent.var_file)
 	with open(var_file, 'r') as f:
@@ -2800,7 +2800,7 @@ def setup_hal(parent):
 			if hal_type == 2: # HAL_FLOAT
 				p = lcd.property('precision')
 				p = p if p is not None else parent.default_precision
-				parent.hal_floats[f'{obj_name}'] = [pin_name, p] # lcd ,status item, precision
+				parent.hal_float_lcds[f'{obj_name}'] = [pin_name, p] # lcd ,status item, precision
 			else:
 				integer_digits = lcd.property('integer_digits')
 				parent.hal_readers[obj_name] = [pin_name, integer_digits]
@@ -2824,6 +2824,7 @@ def setup_hal(parent):
 				info = f'The "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)
+				label.setText('Error!')
 				continue
 
 			# the pin_name can not be the same as a built in variable or object name
@@ -2834,6 +2835,7 @@ def setup_hal(parent):
 				info = f'The "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)
+				label.setText('Error!')
 				continue
 
 			if hal_type not in valid_types: # verified
@@ -2844,6 +2846,7 @@ def setup_hal(parent):
 				info = f'The "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)
+				label.setText('Error!')
 				continue
 
 			##### HAL BIT Label #####
@@ -3003,6 +3006,18 @@ def setup_hal(parent):
 				# Store in a dictionary
 				dynamic_props[prop_name] = prop_value
 			text_dict = {}
+
+			# test for at least one key
+			if not any(key.startswith('text_') for key in dynamic_props.keys()):
+				title = 'Configuration Error'
+				msg = (f'The HAL Multi State Label requires at least one Dynamic '
+				'Property that starts with "text_".')
+				info = f'The "{obj_name}" will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				label.setEnabled(False)
+				label.setText('Error!')
+				continue
+
 			for key, value in dynamic_props.items():
 				if key.startswith('text_'):
 					num = key.split('_')[-1]
