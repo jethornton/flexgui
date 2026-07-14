@@ -74,7 +74,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
      <widget class="QGroupBox" name="groupBox_5">
       <property name="minimumSize">
        <size>
-        <width>500</width>
+        <width>0</width>
         <height>0</height>
        </size>
       </property>
@@ -82,23 +82,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
        <string>Status</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="2" column="0">
-        <widget class="QLabel" name="task_mode_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" rowspan="2">
-        <widget class="QLabel" name="hal_comp_name_lb">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="task_state_lb">
          <property name="text">
@@ -106,22 +89,22 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="interp_state_lb">
+       <item row="3" column="0">
+        <widget class="QLabel" name="motion_mode_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_7">
+       <item row="2" column="0">
+        <widget class="QLabel" name="task_mode_lb">
          <property name="text">
-          <string>HAL Component Name</string>
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="motion_mode_lb">
+       <item row="0" column="0">
+        <widget class="QLabel" name="interp_state_lb">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -220,8 +203,14 @@ change in the GUI</string>
     </item>
     <item row="1" column="0" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget_3">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
@@ -1027,6 +1016,102 @@ after 1/2 second</string>
           </property>
           <property name="hal_type" stdset="0">
            <string>HAL_U32</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_8">
+       <attribute name="title">
+        <string>Watch</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_12">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Watch Bit</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_47">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_bit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_36">
+          <property name="text">
+           <string>Watch Integer</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_48">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_int</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_45">
+          <property name="text">
+           <string>Wath Float</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_49">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_float</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_50">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
