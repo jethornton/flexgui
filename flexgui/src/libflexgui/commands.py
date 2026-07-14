@@ -152,7 +152,7 @@ def clear_cs(parent):
 		cmd = 'G10 L2 P0 R0'
 	run_mdi(parent, cmd)
 
-def tool_change(parent): # Tool Change Buttons FIXME make sure there is one tool
+def tool_change(parent):
 	parent.status.poll()
 	tool_len = len(parent.status.tool_table)
 	tools = [0]

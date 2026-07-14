@@ -2156,11 +2156,25 @@ def setup_tool_change(parent):
 
 def setup_tool_change_buttons(parent): # Tool Change Buttons
 	# tool change push buttons is a MDI command so power on and all homed
-	parent.tool_button = False
+	tool_list = []
+	parent.status.poll()
+	for tool in parent.status.tool_table:
+		if tool.id > 0:
+			tool_list.append(tool.id)
+
 	for i in range(100):
 		item = f'tool_change_pb_{i}'
 		if item in parent.child_names:
-			getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+			if i == 0 or i in tool_list:
+				getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+			else:
+				title = 'Configuration Error'
+				msg = (f'The tool "{i}" for the tool change button is not in the Tool '
+				'Table.')
+				info = 'The Tool Change button will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				getattr(parent, item).setEnabled(False)
+				getattr(parent, item).setText('Error')
 
 	if 'tool_touchoff_le' in parent.child_names: # FIXME where does this belong
 		parent.tool_touchoff_le.setText('0')
