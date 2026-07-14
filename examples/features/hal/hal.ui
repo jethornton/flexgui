@@ -990,6 +990,15 @@ after 1/2 second</string>
           <property name="pin_name" stdset="0">
            <string>hal-msl-lb</string>
           </property>
+          <property name="text_0" stdset="0">
+           <string>Text 0</string>
+          </property>
+          <property name="text_5" stdset="0">
+           <string>Text 5</string>
+          </property>
+          <property name="text_10" stdset="0">
+           <string>Text 10</string>
+          </property>
          </widget>
         </item>
         <item row="6" column="0">
