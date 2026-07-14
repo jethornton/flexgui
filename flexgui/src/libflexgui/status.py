@@ -565,9 +565,7 @@ def update(parent):
 
 		parent.current_tool_info = parent.status.tool_table[0]
 
-	# HAL Watch Pins FIXME this can crash emc if the hal pin does not exist
-	# if the hal pin does not exist remove from the dictionary and pop up a warning
-
+	# HAL Watch Pins
 	for key, value in parent.hal_watch_bit.items():
 		getattr(parent, key).setText(f'{hal.get_value(value)}')
 
