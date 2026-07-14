@@ -418,6 +418,8 @@ def update(parent):
 		state = hal.get_value(f'flexhal.{value[0]}')
 		if state in value[1].keys():
 			getattr(parent, key).setText(f'{value[1][state]}')
+		else:
+			getattr(parent, key).setText(f'Unknown {state}')
 
 	# update hal bool labels
 	# key is label name, value[0] is pin name, value[1] is true text, value[2] is false text

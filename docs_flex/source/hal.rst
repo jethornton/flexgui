@@ -373,7 +373,8 @@ The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
 	String, pin_name, any unique name
 	String, text_n, text to display when value is equal to n
 
-.. NOTE:: Setting the HAL pin to a value that is not a text_n will be ignored.
+.. NOTE:: Setting the HAL pin to a value that is not a text_n will show an
+   error with the HAL pin value.
 
 .. image:: /images/hal-msl.png
    :align: center
