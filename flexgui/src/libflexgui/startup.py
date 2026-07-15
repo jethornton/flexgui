@@ -662,9 +662,8 @@ def setup_enables(parent):
 			if item in parent.child_names:
 				parent.file_save_controls.append(item)
 
-	# file edit controls FIXME why is tool table here
-	for item in ['edit_pb', 'actionEdit', 'reload_pb', 'actionReload', 
-	'actionEdit_Tool_Table', 'actionReload_Tool_Table']:
+	# file edit controls
+	for item in ['edit_pb', 'actionEdit', 'reload_pb', 'actionReload']:
 		if item in parent.child_names:
 			parent.file_edit_controls.append(item)
 
@@ -673,7 +672,7 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.coolant_controls.append(item)
 
-	# tool table controls FIXME why is edit_ladder_pb in this group
+	# tool table controls
 	for item in ['edit_tool_table_pb', 'reload_tool_table_pb',
 	'actionEdit_Tool_Table', 'actionReload_Tool_Table']:
 		if item in parent.child_names:
