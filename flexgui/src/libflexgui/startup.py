@@ -2182,8 +2182,9 @@ def setup_tool_change_buttons(parent): # Tool Change Buttons
 			parent.tool_touchoff_le.installEventFilter(parent)
 			parent.number_le.append('tool_touchoff_le')
 
-def setup_manual_tool_change(parent): # MANUAL TOOL CHANGE
+def setup_manual_tool_change(parent):
 	if parent.manual_tool_change:
+		# verify the hal_manualtoolchange componen is not loaded
 		if hal.component_exists('hal_manualtoolchange'):
 			title = 'Configuration Error'
 			msg = ('The Flex Manual Tool Change can not function with the '
@@ -2193,6 +2194,20 @@ def setup_manual_tool_change(parent): # MANUAL TOOL CHANGE
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.manual_tool_change = False
 			return
+
+		# verify these pins are not connected
+		tool_change_pins = ['iocontrol.0.tool-prepare', 'iocontrol.0.tool-prepared',
+		'iocontrol.0.tool-prep-number', 'iocontrol.0.tool-change']
+		for pin_name in tool_change_pins:
+			if hal.pin_has_writer(pin_name):
+				title = 'Configuration Error'
+				msg = (f'The "{pin_name}" is connected in HAL. The Flex Manual Tool '
+				'Change uses this pin so it can not be connected. See the Docs for '
+				'more info.')
+				info = 'The Flex Manual Tool Change will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				parent.manual_tool_change = False
+				return
 
 		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
 		parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
