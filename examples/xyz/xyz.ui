@@ -376,7 +376,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QLabel" name="two_vel_lb">
+         <widget class="QLabel" name="label_44">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -403,6 +403,9 @@
           </property>
           <property name="precision" stdset="0">
            <string>1</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>two_joint_velocity</string>
           </property>
          </widget>
         </item>
@@ -442,7 +445,7 @@
          </widget>
         </item>
         <item row="4" column="5">
-         <widget class="QLabel" name="three_vel_lb">
+         <widget class="QLabel" name="label_48">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -472,6 +475,9 @@
           </property>
           <property name="precision" stdset="0">
            <string>2</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>three_joint_velocity</string>
           </property>
          </widget>
         </item>
@@ -853,7 +859,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -2019,7 +2025,7 @@
             </widget>
            </item>
            <item row="4" column="3">
-            <widget class="QLabel" name="spindle_actual_speed_lb">
+            <widget class="QLabel" name="spindle_speed_0_lb_2">
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -2716,92 +2722,6 @@
            <string>HAL Buttons</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_34">
-           <item row="6" column="0">
-            <widget class="QLabel" name="test_lb_4">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-bit</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_4">
-             <property name="text">
-              <string>Just HAL</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>just-hal-btn</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_OUT</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="test_lb_5">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-bit</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="test_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-s32</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_S32</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="0">
-            <widget class="QPushButton" name="test_btn">
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="pushButton_3">
              <property name="text">
@@ -2815,25 +2735,6 @@
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-btn-1</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_OUT</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton_5">
-             <property name="text">
-              <string>More Hal</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>more-hal-btn</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>HAL_BIT</string>
@@ -2862,6 +2763,25 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="pushButton_5">
+             <property name="text">
+              <string>More Hal</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>more-hal-btn</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
            <item row="5" column="0">
             <widget class="QLabel" name="test_lb_3">
              <property name="text">
@@ -2881,8 +2801,56 @@
              </property>
             </widget>
            </item>
-           <item row="8" column="0">
-            <widget class="QLabel" name="test_lb_6">
+           <item row="7" column="0">
+            <widget class="QPushButton" name="test_btn">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pushButton_4">
+             <property name="text">
+              <string>Just HAL</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>just-hal-btn</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="test_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>test-reader-s32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="test_lb_4">
              <property name="text">
               <string>TextLabel</string>
              </property>
@@ -3320,7 +3288,6 @@
     <addaction name="separator"/>
     <addaction name="actionEdit_Tool_Table"/>
     <addaction name="actionReload_Tool_Table"/>
-    <addaction name="actionLadder_Editor"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -3434,11 +3401,6 @@
   <action name="actionReload_Tool_Table">
    <property name="text">
     <string>Reload Tool Table</string>
-   </property>
-  </action>
-  <action name="actionLadder_Editor">
-   <property name="text">
-    <string>Ladder Editor</string>
    </property>
   </action>
   <action name="actionQuit">
