@@ -314,8 +314,7 @@ def reset_status_bar(parent):
 	parent.statusbar.setStyleSheet('')  # Reset to default stylesheet
 
 def error_msg_ok(parent, title, msg, info=None): # messagebox.qss added
-	# dialogs.error_msg_ok(parent, title, msg, info) FIXME this is the same as warn_msg_ok
-	#print('error_msg_ok')
+	# dialogs.error_msg_ok(parent, title, msg, info)
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)
