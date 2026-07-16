@@ -859,7 +859,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1749,6 +1749,13 @@
            <string>Spindle Controls</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_14">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="spindle_rev_pb">
+             <property name="text">
+              <string>Spindle Rev</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="spindle_stop_pb">
              <property name="text">
@@ -1763,13 +1770,6 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="spindle_fwd_pb">
-             <property name="text">
-              <string>Spindle Fwd</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="0">
             <widget class="QPushButton" name="spindle_plus_pb">
              <property name="text">
@@ -1777,10 +1777,17 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="spindle_rev_pb">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="spindle_fwd_pb">
              <property name="text">
-              <string>Spindle Rev</string>
+              <string>Spindle Fwd</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QPushButton" name="set_speed_0_pb">
+             <property name="text">
+              <string>Set S Word</string>
              </property>
             </widget>
            </item>
@@ -1793,6 +1800,16 @@
            <string>Spindle Speed</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_16">
+           <item row="2" column="0">
+            <widget class="QSpinBox" name="spindle_speed_sb">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_26">
              <property name="text">
@@ -1804,12 +1821,15 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="spindle_speed_sb">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
+            <widget class="QSlider" name="spindle_speed_sl">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
