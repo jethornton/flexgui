@@ -1593,6 +1593,9 @@ def conv_units(value, suffix, units):
 			return float(value) / 1000
 
 def setup_spindle(parent):
+	#### emc reports at least 1 spindle no matter what
+	# spindles are numbered 0-7 but parent.status.spindles reports 1-8
+
 	# create spindle tuple
 	parent.status_spindle = ()
 
@@ -1615,10 +1618,6 @@ def setup_spindle(parent):
 		'spindle_direction', 'spindle_speed', 'spindle_override',
 		'spindle_cmd_speed']
 
-	# FIXME this needs to be cleaned up and better error msg
-	#### emc reports at least 1 spindle no matter what
-	# spindles are numbered 0-7 but parent.status.spindles reports 1-8
-	#print(f'spindles {parent.status.spindles}')
 	max_spindle = parent.status.spindles - 1
 
 	parent.spindle_int = {}
@@ -1739,7 +1738,8 @@ def setup_spindle(parent):
 				partial(commands.spindle_control, parent, i, action))
 				parent.spindle_controls.append(f'{item}_{i}_pb')
 
-	for i in range(parent.status.spindles): # set_speed_0_pb FIXME test me
+	# set spindle S word
+	for i in range(parent.status.spindles):
 		if f'set_speed_{i}_pb' in parent.child_names:
 			action = 'set_s_word'
 			getattr(parent, f'set_speed_{i}_pb').clicked.connect(
@@ -1777,8 +1777,8 @@ def setup_spindle(parent):
 		if f'spindle_speed_{i}_sb' in parent.child_names:
 			if i <= max_spindle:
 				min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-				max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-				increment  = getattr(parent, f'spindle_{i}_rpm_increment')
+				max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+				increment = getattr(parent, f'spindle_{i}_rpm_increment')
 				getattr(parent, f'spindle_speed_{i}_sb').blockSignals(True)
 				getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
 				getattr(parent, f'spindle_speed_{i}_sb').setMinimum(min_rpm)

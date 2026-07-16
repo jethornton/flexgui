@@ -14,12 +14,12 @@ import linuxcnc as emc
 from libflexgui import dialogs
 from libflexgui import commands
 
-def to_int(string):
+def to_int(string, default=0):
 	try:
 		number = int(string)
 		return number
 	except ValueError:
-		return False
+		return default
 
 def is_float(string):
 	try:

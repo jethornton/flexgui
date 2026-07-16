@@ -440,38 +440,131 @@ def read(parent):
 		parent.joints = int(parent.joints)
 
 	# ***** [SPINDLE_n] Sections ***** 
+	if parent.status.spindles == 0:
+		increment = parent.inifile.find('SPINDLE_0', 'INCREMENT')
+		if increment is not None:
+			title = 'Configuration Error'
+			msg = (f'The INI entry SPINDLE_0 INCREMENT "{increment}" did not '
+			'evaluate to an integer value. This entry is used somehow by LinuxCNC.')
+			info = 'LinuxCNC will now SHUT DOWN!'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			sys.exit()
+
 	for i in range(parent.status.spindles):
-		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM') or False
-		if min_rpm:
-			min_rpm = utilities.to_int(min_rpm)
-		else:
-			min_rpm = 0
-		setattr(parent, f'spindle_{i}_min_fwd_rpm', min_rpm)
 
-		max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_RPM') or False
-		if max_rpm:
-			max_rpm = utilities.to_int(max_rpm)
-		else:
-			max_rpm = 1000
-		setattr(parent, f'spindle_{i}_max_fwd_rpm', max_rpm)
+		#### MIN_RPM ####
+		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM')
+		if min_rpm is None: # no ini entry
+			setattr(parent, f'spindle_{i}_min_fwd_rpm', 0)
+		elif not utilities.is_int(min_rpm): # ini entry not a valid int
+			title = 'Configuration Error'
+			msg = (f'The INI entry SPINDLE_{i} MIN_RPM "{min_rpm}" did not '
+			'evaluate to an integer value.')
+			info = 'The "MIN_RPM" will be set to 0.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			setattr(parent, f'spindle_{i}_min_fwd_rpm', 0)
+		else: # valid ini entry
+			min_rpm = utilities.to_int(min_rpm, 0)
+			if min_rpm >= 0:
+				setattr(parent, f'spindle_{i}_min_fwd_rpm', min_rpm)
+			else:
+				title = 'Configuration Error'
+				msg = (f'The INI entry SPINDLE_{i} MIN_RPM "{min_rpm}" is not greater '
+				'than or equal to 0')
+				info = 'The "MIN_RPM" will be set to 0.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				setattr(parent, f'spindle_{i}_min_fwd_rpm', 0)
 
-		increment = parent.inifile.find(f'SPINDLE_{i}', 'INCREMENT') or False
-		if isinstance(increment, str):
-			increment = utilities.to_int(increment)
-		else:
-			increment = 100
-		setattr(parent, f'spindle_{i}_rpm_increment', increment)
+		#### MAX_RPM ####
+		max_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MAX_RPM')
+		if max_rpm is None: # no ini entry
+			setattr(parent, f'spindle_{i}_max_fwd_rpm', 1000)
+		elif not utilities.is_int(max_rpm): # ini entry not a valid int
+			title = 'Configuration Error'
+			msg = (f'The INI entry SPINDLE_{i} MAX_RPM "{max_rpm}" did not '
+			'evaluate to an integer value.')
+			info = 'The "MAX_RPM" will be set to 1000.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			setattr(parent, f'spindle_{i}_max_fwd_rpm', 1000)
+		else: # valid ini entry
+			max_rpm = utilities.to_int(max_rpm, 1000)
+			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+			if max_rpm > 0:
+				setattr(parent, f'spindle_{i}_max_fwd_rpm', max_rpm)
+			else:
+				title = 'Configuration Error'
+				msg = (f'The INI entry SPINDLE_{i} MAX_RPM "{max_rpm}" is not greater '
+				'than 0')
+				info = 'The "MAX_RPM" will be set to 1000.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				setattr(parent, f'spindle_{i}_max_fwd_rpm', 1000)
+			if min_rpm > max_rpm:
+				title = 'Configuration Error'
+				msg = (f'The INI entry SPINDLE_{i} MIN_RPM "{min_rpm}" is greater '
+				f'than MAX_RPM "{max_rpm}"')
+				info = f'The "MIN_RPM" will be set to "{max_rpm}".'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				setattr(parent, f'spindle_{i}_min_fwd_rpm', max_rpm)
+
+		#### INCREMENT ####
+		increment = parent.inifile.find(f'SPINDLE_{i}', 'INCREMENT')
+		if increment is None: # no ini entry
+			setattr(parent, f'spindle_{i}_rpm_increment', 100)
+		elif not utilities.is_int(increment): # ini entry not a valid int
+			title = 'Configuration Error'
+			msg = (f'The INI entry SPINDLE_{i} INCREMENT "{increment}" did not '
+			'evaluate to an integer value.')
+			info = 'The "INCREMENT" will be set to 100.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			setattr(parent, f'spindle_{i}_rpm_increment', 100)
+		else: # valid ini entry
+			increment = utilities.to_int(increment, 100)
+			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+			if 0 < increment <= max_rpm:
+				setattr(parent, f'spindle_{i}_rpm_increment', utilities.to_int(increment, 100))
+			else:
+				title = 'Configuration Error'
+				msg = (f'The INI entry SPINDLE_{i} INCREMENT "{increment}" is not '
+				f'greater than 0 or less than MAX_RPM "{max_rpm}".')
+				info = 'The "INCREMENT" will be set to 100.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				setattr(parent, f'spindle_{i}_rpm_increment', 100)
+
+		#### DEFAULT_RPM ####
+		default_rpm = parent.inifile.find(f'SPINDLE_{i}', 'DEFAULT_RPM')
+		if default_rpm is None: # no ini entry
+			setattr(parent, f'spindle_rpm_{i}', 100)
+		elif not utilities.is_int(default_rpm): # ini entry not a valid int
+			title = 'Configuration Error'
+			msg = (f'The INI entry SPINDLE_{i} DEFAULT_RPM "{default_rpm}" did not '
+			'evaluate to an integer value.')
+			info = 'The "DEFAULT_RPM" will be set to 100.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			setattr(parent, f'spindle_rpm_{i}', 100)
+		else: # verified
+			default_rpm = utilities.to_int(default_rpm, 100)
+			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+			if min_rpm <= default_rpm <= max_rpm:
+				setattr(parent, f'spindle_rpm_{i}', default_rpm)
+			else:
+				title = 'Configuration Error'
+				msg = (f'The INI entry SPINDLE_{i} DEFAULT_RPM "{default_rpm}" is not '
+				f'between or equal to MIN_RPM "{min_rpm}" or MAX_RPM "{max_rpm}".')
+				info = f'The "DEFAULT_RPM" will be set to {max(min_rpm, min(default_rpm, max_rpm))}.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				setattr(parent, f'spindle_rpm_{i}', max(min_rpm, min(default_rpm, max_rpm)))
 
 		min_override = parent.inifile.find(f'SPINDLE_{i}', 'MIN_OVERRIDE') or False
 		if isinstance(min_override, str):
-			min_override = utilities.to_int(min_override)
+			min_override = utilities.to_int(min_override, 0)
 		else:
 			min_override = 0
 		setattr(parent, f'spindle_{i}_min_override', min_override)
 
 		max_override = parent.inifile.find(f'SPINDLE_{i}', 'MAX_OVERRIDE') or False
 		if isinstance(max_override, str):
-			max_override = utilities.to_int(max_override)
+			max_override = utilities.to_int(max_override, 100)
 			if max_override < 100: # verified
 				title = 'Configuration Error'
 				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to "{max_override}". '
@@ -482,22 +575,6 @@ def read(parent):
 		else:
 			max_override = 100
 		setattr(parent, f'spindle_{i}_max_override', max_override)
-
-		default_rpm = parent.inifile.find(f'SPINDLE_{i}', 'DEFAULT_RPM') or False
-		if isinstance(default_rpm, str):
-			default_rpm = utilities.to_int(default_rpm)
-			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-			if not (min_rpm <= default_rpm <= max_rpm): # verified
-				title = 'Configuration Error'
-				msg = (f'The Default RPM "{default_rpm}" for Spindle {i} is outside the '
-				f'minumum "{min_rpm}" or maximum "{max_rpm}" RPM settings.')
-				info = 'Default RPM will be set to minimum!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				default_rpm = min_rpm
-		else:
-			default_rpm = min_rpm
-		setattr(parent, f'spindle_rpm_{i}', default_rpm)
 
 	# ***** [TRAJ] Section *****
 	# LINEAR_UNITS = the machine units for linear axes. Possible choices are mm or inch.
