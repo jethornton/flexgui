@@ -1729,24 +1729,41 @@ def setup_spindle(parent):
 	multi_spindle_controls = ['spindle_fwd', 'spindle_rev', 'spindle_stop',
 	'spindle_plus', 'spindle_minus', 'spindle_speed']
 
-	# set up single spindle controls
-	for i in range(parent.status.spindles):
+	# set up multiple spindle controls
+	for i in range(8):
 		for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop', 'spindle_plus', 'spindle_minus']:
 			if f'{item}_{i}_pb' in parent.child_names:
-				action = item.split('_')[-1]
-				getattr(parent, f'{item}_{i}_pb').clicked.connect(
-				partial(commands.spindle_control, parent, i, action))
-				parent.spindle_controls.append(f'{item}_{i}_pb')
+				if i <= max_spindle:
+						action = item.split('_')[-1]
+						getattr(parent, f'{item}_{i}_pb').clicked.connect(
+						partial(commands.spindle_control, parent, i, action))
+						parent.spindle_controls.append(f'{item}_{i}_pb')
+				else: # verified
+					title = 'Configuration Error'
+					msg = (f'The spindle control "{item}_{i}_pb" is  more than the '
+					'number of spindles.')
+					info = 'The control will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'{item}_{i}_pb').setText('Error!')
+					getattr(parent, f'{item}_{i}_pb').setEnabled(False)
 
 	# set spindle S word
-	for i in range(parent.status.spindles):
+	for i in range(8):
 		if f'set_speed_{i}_pb' in parent.child_names:
-			action = 'set_s_word'
-			getattr(parent, f'set_speed_{i}_pb').clicked.connect(
-			partial(commands.spindle_control, parent, i, action))
-			parent.mdi_controls.append(f'set_speed_{i}_pb')
+			if i <= max_spindle:
+				action = 'set_s_word'
+				getattr(parent, f'set_speed_{i}_pb').clicked.connect(
+				partial(commands.spindle_control, parent, i, action))
+				parent.mdi_controls.append(f'set_speed_{i}_pb')
+			else: # verified
+				title = 'Configuration Error'
+				msg = (f'The spindle control "set_speed_{i}_pb" is  more than the '
+				'number of spindles.')
+				info = 'The control will be disabled!'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				getattr(parent, f'set_speed_{i}_pb').setText('Error!')
+				getattr(parent, f'set_speed_{i}_pb').setEnabled(False)
 
-	# set up multiple spindle controls FIXME test here for too many
 	for i in range(8):
 		if f'spindle_override_{i}_sl' in parent.child_names:
 			if i <= max_spindle:
@@ -1770,7 +1787,6 @@ def setup_spindle(parent):
 				info = 'The slider will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				getattr(parent, f'spindle_override_{i}_sl').setEnabled(False)
-
 
 	# Spindle Speed Spin Boxes
 	for i in range(8):
