@@ -246,10 +246,10 @@ class flexgui(QMainWindow):
 		if gui_file: # gui is in the ini file
 			gui_path = os.path.join(self.config_dir, gui_file)
 			if not os.path.isfile(gui_path): # gui not found
-				gui_path = os.path.join(self.gui_path, 'flex_default.ui')
+				gui_path = os.path.join(self.lib_path, 'flex_default.ui')
 				gui_file = 'flex_default.ui'
 		else: # no gui specified
-			gui_path = os.path.join(self.gui_path, 'flex_default.ui')
+			gui_path = os.path.join(self.lib_path, 'flex_default.ui')
 			gui_file = 'flex_default.ui'
 
 		loadUi(gui_path, self)
