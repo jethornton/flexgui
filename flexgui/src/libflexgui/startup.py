@@ -678,10 +678,6 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.tool_table_controls.append(item)
 
-	for i in range(100):
-		if f'tool_change_pb_{i}' in parent.child_names:
-			parent.tool_change_controls.append(f'tool_change_pb_{i}')
-
 	# classic ladder
 	for item in ['edit_ladder_pb', 'actionLadder_Editor']:
 		if item in parent.child_names:
@@ -2182,6 +2178,7 @@ def setup_tool_change_buttons(parent): # Tool Change Buttons
 		if item in parent.child_names:
 			if i == 0 or i in tool_list:
 				getattr(parent, item).clicked.connect(partial(commands.tool_change, parent))
+				parent.tool_change_controls.append(f'tool_change_pb_{i}')
 			else:
 				title = 'Configuration Error'
 				msg = (f'The tool "{i}" for the tool change button is not in the Tool '
