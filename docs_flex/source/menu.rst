@@ -37,6 +37,7 @@ create an action name.
 	Open, actionOpen
 	Edit, actionEdit
 	Reload, actionReload
+	Save, actionSave
 	Save As, actionSave_As
 	Edit Tool Table, actionEdit_Tool_Table
 	Reload Tool Table, actionReload_Tool_Table
