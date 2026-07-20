@@ -86,15 +86,6 @@ def read(parent):
 	# check for default file to open
 	parent.open_file = parent.inifile.find('DISPLAY', 'OPEN_FILE') or False
 
-	# minimum jog velocity
-	parent.min_jog_vel = parent.inifile.find("DISPLAY","MIN_LINEAR_VELOCITY") or False
-
-	# default jog velocity
-	parent.default_jog_vel = parent.inifile.find("DISPLAY","DEFAULT_LINEAR_VELOCITY") or False
-
-	# maximum jog velocity
-	parent.max_jog_vel = parent.inifile.find("DISPLAY","MAX_LINEAR_VELOCITY") or False
-
 	# set max feed override if not a number shut down
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
 	if utilities.is_number(mfo):
@@ -193,6 +184,20 @@ def read(parent):
 			'Check the INI section of the Documents for correct INI entries.')
 			dialogs.error_msg_ok(parent, title, msg)
 
+	old_jog_items = [
+	['DISPLAY', 'MIN_LINEAR_VELOCITY'],
+	['DISPLAY', 'DEFAULT_LINEAR_VELOCITY'],
+	['DISPLAY', 'MAX_LINEAR_VELOCITY'],
+	]
+
+	for item in old_jog_items:
+		if parent.inifile.find(item[0], item[1]): # verified
+			title = 'Configuration Error'
+			msg = (f'The jog settings key "{item[1]}" in the [{item[0]}] section was '
+			'depreciated. Check the INI section of the Documents for correct INI entries.')
+			info = 'The Jog Setting will not be used!'
+			dialogs.error_msg_ok(parent, title, msg, info)
+
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100
 	if isinstance(parent.cycle_time, str): # the ini file had a setting
@@ -212,6 +217,49 @@ def read(parent):
 			info = 'The cycle time will be set to 100 ms!'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.cycle_time = 100
+
+	# check for jog velocity settings
+	# minimum jog velocity
+	min_jog_vel = parent.inifile.find('FLEXGUI','MIN_JOG_VELOCITY')
+	if min_jog_vel is None:
+		parent.min_jog_vel = False
+	elif utilities.is_number(min_jog_vel):
+		parent.min_jog_vel = min_jog_vel
+	else:
+		title = 'Configuration Error'
+		msg = (f'The INI entry [FLEXGUI] MIN_JOG_VELOCITY value '
+		f'"{min_jog_vel}" did not evaluate to a number.')
+		info = 'The MIN_JOG_VELOCITY will be set to 0!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.min_jog_vel = 0
+
+	# default jog velocity
+	default_jog_vel = parent.inifile.find('FLEXGUI','DEFAULT_JOG_VELOCITY')
+	if default_jog_vel is None:
+		parent.default_jog_vel = False
+	elif utilities.is_number(default_jog_vel):
+		parent.default_jog_vel = default_jog_vel
+	else:
+		title = 'Configuration Error'
+		msg = (f'The INI entry [FLEXGUI] DEFAULT_JOG_VELOCITY value '
+		f'"{default_jog_vel}" did not evaluate to a number.')
+		info = 'The DEFAULT_JOG_VELOCITY will not be used!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.default_jog_vel = False
+
+	# maximum jog velocity
+	max_jog_vel = parent.inifile.find('FLEXGUI','MAX_JOG_VELOCITY')
+	if max_jog_vel is None:
+		parent.max_jog_vel = False
+	elif utilities.is_number(max_jog_vel):
+		parent.max_jog_vel = max_jog_vel
+	else:
+		title = 'Configuration Error'
+		msg = (f'The INI entry [FLEXGUI] MAX_JOG_VELOCITY value '
+		f'"{max_jog_vel}" did not evaluate to a number.')
+		info = 'The MAX_JOG_VELOCITY will not be used!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		parent.max_jog_vel = False
 
 	# check for FLASH time
 	flash_time = parent.inifile.find('FLEXGUI', 'FLASH_TIME') or '1000'

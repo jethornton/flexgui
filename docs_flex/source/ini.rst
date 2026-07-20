@@ -64,35 +64,6 @@ with its `filename`
 
 	GUI = my-file-name.ui
 
-.. _jog-increments:
-
-Jog Increments
---------------
-
-.. warning:: Jog Increments are being moved to the [FLEXGUI] section
-
-The following settings can be used in the [DISPLAY] section of the ini file to
-preset jog items. While you can mix units usually machine units are used. Units
-can be mm, cm, um, in, inch, mil or left out. A space can be between the
-distance and the units for better readability. Fractions are are in inch units
-and can be a whole number with a space then the fraction.
-
-.. code-block:: text
-
-	INCREMENTS = 1/2, 0.100, 0.010, 0.001
-	or
-	INCREMENTS = 1 1/2, 1 inch, 0.5 in, 1 cm, 1 mm
-	MIN_LINEAR_VELOCITY = 0.1
-	MAX_LINEAR_VELOCITY = 1.0
-	DEFAULT_LINEAR_VELOCITY = 0.2
-
-.. warning:: [DISPLAY] INCREMENTS must be a comma seperated list or it will be
-   ignored.
-
-.. note:: Jog incremnts can have unit labels, the following are valid unit
-   labels cm, mm, um, inch, in or mil. If no unit labels are found the the
-   configuration units are used.
-
 Startup File
 ------------
 
@@ -247,6 +218,55 @@ To use a built in theme with coloring add one of the following to the
    set to North.
 
 .. note:: THEME is checked first then QSS so the first entry found is used.
+
+.. _jog-settings:
+
+Jog Settings
+------------
+
+The following settings can be used in the [FLEXGUI] section of the ini file to
+set up jog items. While you can mix units usually machine units are used. Units
+can be mm, cm, um, in, inch, mil or left out. A space can be between the
+distance and the units for better readability.
+
+Fractions are are in inch units and can be a whole number with a space then the
+fraction.
+
+
+.. code-block:: text
+
+	INCREMENTS = 1/2, 0.100, 0.010, 0.001
+	or
+	INCREMENTS = 1 1/2, 1 inch, 0.5 in, 1 cm, 1 mm
+
+.. warning:: [FLEXGUI] INCREMENTS must be a comma seperated list or it will be
+   ignored.
+
+.. note:: Jog incremnts can have unit labels, the following are valid unit
+   labels cm, mm, um, inch, in or mil. If no unit labels are found the the
+   configuration units are used.
+
+Jog velocity settings are in [TRAJ] LINEAR_UNITS per second. These settings will
+setup the jog velocity slider minimum, maximum and setting at startup.
+
+.. code-block:: text
+
+	MIN_JOG_VELOCITY = 0.1
+	DEFAULT_JOG_VELOCITY = 0.2
+	MAX_JOG_VELOCITY = 1.0
+
+Keyboard Jog
+------------
+
+Using the keyboard arrow and page up/down keys for jogging can be activated by
+adding the following to the INI file in the [FLEXGUI] section.
+
+See :ref:`Keyboard Jog <keyboard-jog>` for more information.
+
+.. code-block:: text
+
+	KEYBOARD_JOG = True
+
 
 Style Sheet
 -----------

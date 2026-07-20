@@ -6,7 +6,7 @@ Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`. If either
 is not found, Jogging will be disabled.
 
 Jogging increments are from the ini entry `INCREMENTS` in the [DISPLAY] section.
-See :ref:`Jog Increments <jog-increments>` for more information.
+See :ref:`Jog Settings <jog-settings>` for more information.
 
 .. csv-table:: **Required Jog Widgets**
    :width: 100%
@@ -27,6 +27,9 @@ Velocity Slider
 
 	**Function**, **Widget**, **Name**
 	Jog Velocity Label, QLabel, jog_vel_lb
+
+.. _keyboard-jog:
+
 
 Keyboard Jogging
 ----------------
