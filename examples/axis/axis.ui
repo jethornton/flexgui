@@ -1249,7 +1249,6 @@
     <addaction name="actionSave_As"/>
     <addaction name="actionEdit_Tool_Table"/>
     <addaction name="actionReload_Tool_Table"/>
-    <addaction name="actionLadder_Editor"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuMachine">
@@ -1373,11 +1372,6 @@
   <action name="actionReload_Tool_Table">
    <property name="text">
     <string>Reload Tool Table</string>
-   </property>
-  </action>
-  <action name="actionLadder_Editor">
-   <property name="text">
-    <string>Ladder Editor</string>
    </property>
   </action>
   <action name="actionQuit">

@@ -1047,6 +1047,9 @@ after 1/2 second</string>
           <property name="function" stdset="0">
            <string>hal_watch_bit</string>
           </property>
+          <property name="pin_name" stdset="0">
+           <string>iocontrol.0.coolant-flood</string>
+          </property>
          </widget>
         </item>
         <item row="1" column="0">
@@ -1070,6 +1073,9 @@ after 1/2 second</string>
           <property name="function" stdset="0">
            <string>hal_watch_int</string>
           </property>
+          <property name="pin_name" stdset="0">
+           <string>iocontrol.0.tool-number</string>
+          </property>
          </widget>
         </item>
         <item row="2" column="0">
@@ -1092,6 +1098,9 @@ after 1/2 second</string>
           </property>
           <property name="function" stdset="0">
            <string>hal_watch_float</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>joint.0.motor-pos-cmd</string>
           </property>
          </widget>
         </item>
