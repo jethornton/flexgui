@@ -34,10 +34,15 @@ def read(parent):
 
 	# set the nc code directory to some valid directory
 	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX')
+	print(f'directory {directory}')
 
 	# get the path to the nc code directory
-	if directory == None: # no directory
-		directory = os.path.expanduser('~/linuxcnc/nc_files')
+	if directory == None: # no ini entry
+		paths = ['~/linuxcnc/nc_files', '~/linuxcnc', '~']
+		for path in paths:
+			if os.path.isdir(os.path.expanduser(path)):
+				parent.nc_code_dir = os.path.expanduser(path)
+				break
 	elif directory.startswith('./'): # in this directory
 		directory = os.path.join(parent.config_path, directory[2:])
 	elif directory.startswith('../'): # up one directory
@@ -45,21 +50,15 @@ def read(parent):
 	elif directory.startswith('~'): # users home directory
 		directory = os.path.expanduser(directory)
 
-	# validate the path
-	if os.path.isdir(directory):
-		parent.nc_code_dir = directory
-	elif os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')): # verified
-		parent.nc_code_dir = os.path.expanduser('~/linuxcnc/nc_files')
-		title = 'Configuration Error'
-		msg = (f'The INI entry [DISPLAY] PROGRAM_PREFIX "{directory}" does not exist.')
-		info = f'{parent.nc_code_dir} will be used.'
-		dialogs.error_msg_ok(parent, title, msg, info)
-	else: # verified
-		parent.nc_code_dir = os.path.expanduser('~/')
-		title = 'Configuration Error'
-		msg = (f'The INI entry [DISPLAY] PROGRAM_PREFIX "{directory}" does not exist.')
-		info = f'{parent.nc_code_dir} will be used.'
-		dialogs.error_msg_ok(parent, title, msg, info)
+	if directory is not None:
+		if os.path.isdir(directory):
+			parent.nc_code_dir = directory
+		else: # verified
+			title = 'Configuration Error'
+			msg = (f'The INI entry [DISPLAY] PROGRAM_PREFIX "{directory}" does not exist.')
+			info = f'{os.path.expanduser("~/")} will be used.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.nc_code_dir = os.path.expanduser('~/')
 
 	parent.editor = parent.inifile.find('DISPLAY', 'EDITOR') or False
 
