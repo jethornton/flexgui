@@ -1420,7 +1420,6 @@ def setup_jog(parent):
 	parent.kb_jog_cb_enabled = False
 	parent.kb_jog_ctrl_enabled = False
 
-	# FIXME check this keyboard jog shit carefully for errors
 	if 'keyboard_jog_cb' in parent.child_names and not parent.ctrl_kb_jogging:
 		parent.keyboard_jog_cb.toggled.connect(partial(utilities.jog_toggled, parent))
 		if parent.keyboard_jog_cb.isChecked():
@@ -1553,7 +1552,7 @@ def setup_jog(parent):
 						info = f'The "{item}" will not be used!'
 						dialogs.error_msg_ok(parent, title, msg, info)
 
-	# keyboard jog increment setting FIXME does this really do anything???
+	# keyboard jog increment check that jog_modes_cb exists
 	if parent.kb_jog_increment:
 		if 'jog_modes_cb' not in parent.child_names:
 			title = 'Configuration Error'
