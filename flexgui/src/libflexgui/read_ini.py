@@ -34,7 +34,6 @@ def read(parent):
 
 	# set the nc code directory to some valid directory
 	directory = parent.inifile.find('DISPLAY', 'PROGRAM_PREFIX')
-	print(f'directory {directory}')
 
 	# get the path to the nc code directory
 	if directory == None: # no ini entry
