@@ -32,7 +32,7 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QCheckBox" name="keyboard_jog_cb1">
+        <widget class="QCheckBox" name="keyboard_jog_cb">
          <property name="text">
           <string>Kb Jog</string>
          </property>
@@ -214,6 +214,7 @@
    </attribute>
    <addaction name="actionE_Stop"/>
    <addaction name="actionPower"/>
+   <addaction name="actionQuit"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
