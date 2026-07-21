@@ -435,8 +435,7 @@ The HAL direction is IN and the hal_type is bit for a HAL LED
 	Int, edge_margin, space between circle and edge of the label
 	String, led_shape, square
 
-Choosing 'rectangular' for LED shape will fill the entire control as one giant
-indicator.
+Choosing 'square' for LED shape will fill the entire label.
 
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
