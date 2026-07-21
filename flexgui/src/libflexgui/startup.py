@@ -2187,12 +2187,6 @@ def setup_tool_change_buttons(parent): # Tool Change Buttons
 				getattr(parent, item).setEnabled(False)
 				getattr(parent, item).setText('Error')
 
-	if 'tool_touchoff_le' in parent.child_names: # FIXME where does this belong
-		parent.tool_touchoff_le.setText('0')
-		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
-			parent.tool_touchoff_le.installEventFilter(parent)
-			parent.number_le.append('tool_touchoff_le')
-
 def setup_manual_tool_change(parent):
 	if parent.manual_tool_change:
 		# verify the hal_manualtoolchange componen is not loaded
@@ -2237,6 +2231,13 @@ def setup_manual_tool_change(parent):
 		hal.new_sig('tool-change',hal.HAL_BIT)
 		hal.connect('iocontrol.0.tool-change','tool-change')
 		hal.connect('tool-change.change','tool-change')
+
+def setup_tool_touchoff(parent):
+	if 'tool_touchoff_le' in parent.child_names:
+		parent.tool_touchoff_le.setText('0')
+		if parent.tool_touchoff_le.property('input') == 'number': # enable the number pad
+			parent.tool_touchoff_le.installEventFilter(parent)
+			parent.number_le.append('tool_touchoff_le')
 
 def setup_tool_touchoff_selected(parent):
 	# Axis style tool touch off

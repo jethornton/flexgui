@@ -345,6 +345,7 @@ class flexgui(QMainWindow):
 		startup.setup_tool_change(self)
 		startup.setup_tool_change_buttons(self)
 		startup.setup_manual_tool_change(self)
+		startup.setup_tool_touchoff(self)
 		startup.setup_tool_touchoff_selected(self)
 		startup.setup_hal(self)
 		startup.setup_hal_io_state(self)
