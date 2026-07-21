@@ -2846,7 +2846,7 @@ def setup_hal(parent):
 				integer_digits = lcd.property('integer_digits')
 				parent.hal_readers[obj_name] = [pin_name, integer_digits]
 
-	##### HAL LABEL ##### FIXME this needs to be reworked
+	##### HAL LABEL #####
 	if len(hal_labels) > 0:
 		valid_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_S32', 'HAL_U32']
 		for label in hal_labels:
@@ -2856,7 +2856,6 @@ def setup_hal(parent):
 			true_text = label.property('true_text')
 			false_text = label.property('false_text')
 			hal_dir = getattr(hal, 'HAL_IN')
-
 
 			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
@@ -2880,7 +2879,6 @@ def setup_hal(parent):
 				continue
 
 			if hal_type not in valid_types: # verified
-				label.setEnabled(False)
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label. '
 				'Valid types are HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32.')
