@@ -70,8 +70,21 @@ checked.
 	Jog Enable, QCheckBox, keyboard_jog_cb
 
 
-Auto Keyboard Jog Focus Handing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Keyboard Jog Increment
+----------------------
+
+To use the keyboard to select the jog increment in the `jog_modes_cb` combobox
+add the following to the [FLEXGUI] section of the INI file. When keyboard
+jogging is enabled you can press and hold the Ctrl key while pressing a number
+key to select jog incrments in the `jog_modes_cb` combobox.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	KB_JOG_INCREMENT = True
+
+Auto Keyboard Jog Focus
+-----------------------
 
 When using the `keybaord_jog_cb` QCheckbox to control jogging, the arrow keys
 may conflict with some controls (eg. edit lines, text boxes, spin boxes, and 

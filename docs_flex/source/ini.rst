@@ -258,14 +258,16 @@ setup the jog velocity slider minimum, maximum and setting at startup.
 Keyboard Jog
 ------------
 
-Using the keyboard arrow and page up/down keys for jogging can be activated by
-adding the following to the INI file in the [FLEXGUI] section.
+Keyboard Jog options can be added by adding the following to the INI file in 
+the [FLEXGUI] section.
 
 See :ref:`Keyboard Jog <keyboard-jog>` for more information.
 
 .. code-block:: text
 
 	KEYBOARD_JOG = True
+	KB_JOG_INCREMENT = True
+	KB_JOG_FOCUS = True
 
 
 Style Sheet
