@@ -5,7 +5,7 @@ Jogging
 Jogging requires a `Jog Velocity Slider` and `Jog Mode Selector`. If either
 is not found, Jogging will be disabled.
 
-Jogging increments are from the ini entry `INCREMENTS` in the [DISPLAY] section.
+Jogging increments are set the ini entry [FLEXGUI] JOG_INCREMENTS section.
 See :ref:`Jog Settings <jog-settings>` for more information.
 
 .. csv-table:: **Required Jog Widgets**
@@ -29,7 +29,6 @@ Velocity Slider
 	Jog Velocity Label, QLabel, jog_vel_lb
 
 .. _keyboard-jog:
-
 
 Keyboard Jogging
 ----------------
@@ -127,8 +126,8 @@ This type of jog controls provides a button for each axis and jog direction.
 .. note:: Jog Plus/Minus buttons use the `Axis Index`_. So `Jog Y Plus` is
    `jog_plus_pb_1`.
 
-.. note:: `Jog Mode Selector` reads the ini entry [DISPLAY] INCREMENTS and if
-   not found, only `Continuous` will be an option.
+.. note:: `Jog Mode Selector` reads the ini entry [FLEXGUI] JOG_INCREMENTS and
+   if not found, only `Continuous` will be an option.
 
 Jog Selected Axis Controls
 --------------------------
