@@ -189,6 +189,17 @@ def setup_hal_leds(parent):
 			led_dict['on_color'] = child.property('on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('off_color') or parent.led_off_color
 			led_shape = child.property('led_shape') # validate shape
+			if led_shape in ['square', 'round']:
+				led_dict['shape'] = led_shape
+			elif led_shape is None:
+				led_dict['shape'] = 'round'
+			elif led_shape is not None and led_shape not in ['square', 'round']:
+				title = 'Configuration Error'
+				msg = (f'The HAL LED Label"{obj_name}" Dynamic Property "led_shape" is '
+				'blank or not one of "square" or "round".')
+				info = f'The LED shape will be round.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+
 			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated

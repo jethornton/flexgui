@@ -1,28 +1,16 @@
 
 from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QSize
-from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter, QBrush
+from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter, QBrush, QColor
 from PyQt6.QtWidgets import QPushButton, QLabel
 
 # gradient functions used by LED
-# FIXME make the linear gradient come from upper right to lower left or similar to radial gradient
 def makeLinearGradient(size, x, y, color):
-	if size.width() > size.height():
-		start_x = x
-		start_y = y + (size.height() / 2.0)
-		end_x = x + size.width()
-		end_y = start_y
-	else:
-		start_x = x + (size.width() / 2.0)
-		start_y = y
-		end_x = start_x
-		end_y = y + size.height()
-
-	gradient = QLinearGradient(start_x, start_y, end_x, end_y)
-
-	gradient.setColorAt(0.0, color)
-	gradient.setColorAt(0.3, color)
-	gradient.setColorAt(0.8, color)
-	gradient.setColorAt(1.0, Qt.GlobalColor.white)
+	# Create gradient from top-left (0,0) to bottom-right (1,1)
+	gradient = QLinearGradient(QPointF(0.0, 0.0), QPointF(1.0, 1.0))
+	gradient.setCoordinateMode(QLinearGradient.CoordinateMode.ObjectMode)
+	gradient.setColorAt(0.0, QColor(color))
+	gradient.setColorAt(0.01, QColor('white'))
+	gradient.setColorAt(1.0, QColor(color))
 	return gradient
 
 def makeRadialGradient(size, x, y, diameter, color):
