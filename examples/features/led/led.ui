@@ -57,14 +57,13 @@
        <item row="0" column="1">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>TextLabel</string>
+          <string>LED Label</string>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>TextLabel</string>
+         <property name="function" stdset="0">
+          <string>hal_led_label</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-label</string>
          </property>
         </widget>
        </item>
@@ -88,6 +87,67 @@
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-square-2</string>
+         </property>
+         <property name="led_shape" stdset="0">
+          <string>square</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_text</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-text-2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>HAL LED
+Label</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_text</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-text</string>
+         </property>
+         <property name="on_text" stdset="0">
+          <string>LED is
+ON</string>
+         </property>
+         <property name="off_text" stdset="0">
+          <string>LED is
+OFF</string>
+         </property>
+         <property name="font_family" stdset="0">
+          <font>
+           <family>FreeMono</family>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="font_bold" stdset="0">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
