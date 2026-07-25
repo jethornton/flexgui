@@ -144,10 +144,35 @@ def set_hal_enables(parent, obj):
 def setup_hal_led_text_labels(parent):
 	parent.hal_led_text_labels = {}
 	for child in parent.findChildren(QLabel):
+		if isdeleted(child):
+			continue
 		if child.property('function') == 'hal_led_text':
 			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
 
-			# FIXME add checks
+			if child.property('pin_name') in [None, '']: # verified
+				title = 'Configuration Error'
+				msg = (f'The HAL Text LED "{obj_name}" is missing the Dynamic '
+				'Property "pin_name" or it is blank.')
+				info = 'The LED will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				# set the function to an empty string to not create a HAL pin
+				child.setProperty('function', '')
+				continue
+
+			if pin_name in dir(parent): # verified
+				title = 'Configuration Error'
+				msg = (f'HAL  TextLED "{obj_name}" pin name "{pin_name}" is already '
+				'used in Flex GUI. The HAL pin can not be created.')
+				info = f'The LED "{obj_name}" label will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				# set the function to an empty string to not create a HAL pin
+				child.setProperty('function', '')
+				continue
 
 			led_dict = {}
 			led_dict['name'] = child.objectName()
@@ -192,6 +217,8 @@ def setup_hal_led_text_labels(parent):
 def setup_hal_leds(parent):
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
+		if isdeleted(child):
+			continue
 		if child.property('function') == 'hal_led':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
@@ -204,6 +231,7 @@ def setup_hal_leds(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setText('Error!')
 				child.setEnabled(False)
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
@@ -215,7 +243,7 @@ def setup_hal_leds(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				child.setText('Error!')
-				# set the function to an empty string to prevent trying to create a HAL pin
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
@@ -279,6 +307,8 @@ def setup_hal_leds(parent):
 def setup_hal_led_labels(parent):
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
+		if isdeleted(child):
+			continue
 		if child.property('function') == 'hal_led_label':
 			pin_name = child.property('pin_name')
 			obj_name = child.objectName()
@@ -291,7 +321,7 @@ def setup_hal_led_labels(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				child.setText('Error!')
-				# set the function to an empty string to prevent trying to create a HAL pin
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
@@ -303,7 +333,7 @@ def setup_hal_led_labels(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				child.setText('Error!')
-				# set the function to an empty string to prevent trying to create a HAL pin
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
@@ -354,6 +384,8 @@ def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
 	# find led buttons and get all properties
 	for child in parent.findChildren(QPushButton):
+		if isdeleted(child):
+			continue
 		if child.property('function') == 'hal_led_button':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
@@ -366,6 +398,7 @@ def setup_hal_led_buttons(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				child.setText('Error!')
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
@@ -377,6 +410,7 @@ def setup_hal_led_buttons(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				child.setText('Error!')
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
@@ -434,6 +468,8 @@ def setup_hal_led_buttons(parent):
 	hal_types = ['hal_pin', 'hal_led_button', 'hal_io', 'hal_avr_f', 'hal_msl',
 	'hal_led', 'hal_led_label']
 	for child in parent.findChildren(QPushButton):
+		if isdeleted(child):
+			continue
 		if child.property('led_indicator'):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
@@ -446,6 +482,10 @@ def setup_hal_led_buttons(parent):
 				'connection will be made.')
 				info = f'The button "{obj_name}" LED will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				# set the function to an empty string to not create a HAL pin
+				child.setProperty('function', '')
 				continue
 
 			if pin_name in dir(parent): # verified
@@ -456,6 +496,7 @@ def setup_hal_led_buttons(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				child.setText('Error!')
+				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
 
