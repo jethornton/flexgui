@@ -184,7 +184,7 @@ def setup_hal_led_text_labels(parent):
 			led_dict['on_text_color'] = child.property('on_text_color') or parent.led_on_text_color
 			led_dict['off_text_color'] = child.property('off_text_color') or parent.led_off_text_color
 			led_dict['font_family'] = child.property('font_family') or QFont('Courier', 16)
-			led_dict['font_bold'] = child.property('font_bold') or True
+			led_dict['font_bold'] = child.property('font_bold') or False
 			led_dict['alignment'] = child.alignment()
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated

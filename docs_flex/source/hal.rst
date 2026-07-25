@@ -474,7 +474,7 @@ Default values for the options are:
 * on_text_color, Black
 * off_text_color, White
 * font_family, Courier 16
-* font_bold, True
+* font_bold, False
 
 
 HAL LED Label
