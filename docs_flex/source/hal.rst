@@ -440,11 +440,12 @@ Choosing 'square' for LED shape will fill the entire label.
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
 
-HAL Text LED Label
+HAL LED Text Label
 ------------------
 
 Similar to the HAL LED except it has a border and the on and off text can be set
-as well as other options.
+as well as other options. In Qt Designer it's recommended to set the Horizontal
+Alignment to `AlignHCenter`.
 
 .. csv-table:: **HAL Text LED**
    :width: 100%
@@ -452,7 +453,7 @@ as well as other options.
    :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_led
+	String, function, hal_led_label
 	String, pin_name, any unique name
 	Optional
 	String, on_text, text to display when HAL pin is True
