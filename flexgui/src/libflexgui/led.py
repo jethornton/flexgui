@@ -1,6 +1,7 @@
 
-from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QSize
-from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter, QBrush, QColor
+from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QSize, QRectF
+from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter
+from PyQt6.QtGui import QBrush, QColor, QPen, QPalette, QFont
 from PyQt6.QtWidgets import QPushButton, QLabel
 
 # gradient functions used by LED
@@ -10,6 +11,7 @@ def makeLinearGradient(size, x, y, color):
 	gradient.setCoordinateMode(QLinearGradient.CoordinateMode.ObjectMode)
 	gradient.setColorAt(0.0, QColor(color))
 	gradient.setColorAt(0.01, QColor('white'))
+	gradient.setColorAt(0.1, QColor('white'))
 	gradient.setColorAt(1.0, QColor(color))
 	return gradient
 
@@ -19,6 +21,121 @@ def makeRadialGradient(size, x, y, diameter, color):
 	gradient.setColorAt(0, Qt.GlobalColor.white)
 	gradient.setColorAt(1, color)
 	return gradient
+
+def radial_gradient(size, x, y, color):
+	# Define the center and focal point of the gradient
+	# Offset from the upper-left edge (e.g., 50 pixels down and right)
+	cx, cy = 8.0, 8.0
+	radius = max(self.width(), self.height())
+
+	# Create the radial gradient
+	gradient = QRadialGradient(QPointF(cx, cy), radius)
+
+	# Set colors: Starts white at the center, transitions to blue at the edge
+	gradient.setColorAt(0.0, QColor(230, 230, 230, 255))
+	gradient.setColorAt(0.08, QColor(color))
+	#gradient.setColorAt(1.0, QColor(color))
+	return gradient
+
+# A QLabel with LED background, custom text and a border
+class LEDTextLabel(QLabel):
+	# On Off state
+	_state = False
+
+	def __init__(self, **kwargs):
+		super().__init__()
+		self._on_bg_color = kwargs['on_bg_color']
+		self._off_bg_color = kwargs['off_bg_color']
+		self._on_text_color = kwargs['on_text_color']
+		self._off_text_color = kwargs['off_text_color']
+		self._on_text = kwargs['on_text']
+		self._off_text = kwargs['off_text']
+		#self._alignment = kwargs['alignment']
+
+		self.setAlignment(kwargs['alignment'])
+		custom_font = kwargs['font_family']
+		custom_font.setBold(kwargs['font_bold'])
+		self.setFont(custom_font)
+
+		# NEW: Font Configuration Extracted from kwargs
+		#font_family = kwargs.get('font_family', 'Courier')
+		#font_size = kwargs.get('font_size', 16)
+
+
+		# Create and configure the QFont object
+		#custom_font = QFont(font_family, font_size)
+
+		# Optional: Make the text bold so it stands out better over the background fill
+		#if kwargs.get('bold', True):
+		#	custom_font.setBold(True)
+
+		#self.setFont(custom_font)
+
+	def _sync_label_properties(self):
+		# Synchronizes label text matching the active component state.
+		if self._state:
+			self.setText(self._on_text)
+		else:
+			self.setText(self._off_text)
+
+		# 2. Update text color via QPalette
+		color = self._on_text_color if self._state else self._off_text_color
+		palette = self.palette()
+		palette.setColor(QPalette.ColorRole.WindowText, color)
+		self.setPalette(palette)
+
+	def paintEvent(self, event):
+		super().paintEvent(event)
+		painter = QPainter(self)
+		painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+		color = self._on_bg_color if self._state else self._off_bg_color
+
+		# background fill
+		#gradient = radial_gradient(led_size, x, y, color)
+
+		# Define the center and focal point of the gradient
+		# Offset from the upper-left edge (e.g., 50 pixels down and right)
+		cx, cy = 8.0, 8.0
+		radius = max(self.width(), self.height())
+
+		# Create the radial gradient
+		gradient = QRadialGradient(QPointF(cx, cy), radius)
+
+		# Set colors: Starts white at the center, transitions to color
+		gradient.setColorAt(0.0, QColor(255, 255, 255, 255))
+		gradient.setColorAt(0.1, QColor(color))
+
+		painter.setBrush(QBrush(gradient))
+		#painter.setBrush(QBrush(color))
+
+		# Black border pen (width 4)
+		pen = QPen(QColor("black"), 2)
+		painter.setPen(pen)
+
+		# Offset bounds by half the pen width (2px) to prevent border clipping
+		rect = QRectF(self.rect()).adjusted(2, 2, -2, -2)
+
+		# Draw the rounded rectangle shape (8px radius)
+		painter.drawRoundedRect(rect, 8.0, 8.0)
+
+		# Close painter before calling super
+		painter.end()
+
+		# Draw text on top
+		super().paintEvent(event)
+
+	def setLed(self, val):
+		self._state = val
+		self._sync_label_properties() # Update string resource
+		self.update()
+
+	def getLed(self):
+		self.update()
+		return self._state
+
+	state = pyqtProperty(bool, getLed, setLed)
+
 
 # A QPushButton with a LED in the upper right corner
 class LEDButton(QPushButton):
@@ -55,7 +172,7 @@ class LEDButton(QPushButton):
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
-		
+
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 
@@ -152,7 +269,7 @@ class IndicatorLabel(QLabel):
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
 			gradient = makeLinearGradient(led_size, x, y, color)
-		
+
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 
@@ -177,6 +294,7 @@ class Indicator(QLabel):
 
 	def __init__(self, **kwargs):
 		super().__init__()
+
 		self._diameter = kwargs['diameter']
 		self._margin = kwargs['margin']
 		self._on_color = kwargs['on_color']
@@ -201,7 +319,7 @@ class Indicator(QLabel):
 			gradient = makeRadialGradient(size, x, y, dia, color)
 		else:
 			gradient = makeLinearGradient(size, 0, 0, color)
-		
+
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
 

@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
 from PyQt6.QtWidgets import QAbstractSpinBox, QDoubleSpinBox, QSpinBox
 from PyQt6.QtWidgets import QProgressBar, QButtonGroup
 from PyQt6.QtWidgets import QTabWidget, QVBoxLayout
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QFont
 from PyQt6.sip import isdeleted  # Import the sip module
 
 import linuxcnc as emc
@@ -20,6 +20,7 @@ import traceback
 
 #from libflexgui import led
 from libflexgui.led import Indicator
+from libflexgui.led import LEDTextLabel
 from libflexgui.led import IndicatorLabel
 from libflexgui.led import IndicatorButton
 from libflexgui.led import LEDButton
@@ -140,6 +141,54 @@ def set_hal_enables(parent, obj):
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.hal_controls.append(obj_name)
 
+def setup_hal_led_text_labels(parent):
+	parent.hal_led_text_labels = {}
+	for child in parent.findChildren(QLabel):
+		if child.property('function') == 'hal_led_text':
+			obj_name = child.objectName()
+
+			# FIXME add checks
+
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['pin_name'] = child.property('pin_name')
+			led_dict['on_text'] = child.property('on_text') or 'True'
+			led_dict['off_text'] = child.property('off_text') or 'False'
+			led_dict['on_bg_color'] = child.property('on_bg_color') or parent.led_on_bg_color
+			led_dict['off_bg_color'] = child.property('off_bg_color') or parent.led_off_bg_color
+			led_dict['on_text_color'] = child.property('on_text_color') or parent.led_on_text_color
+			led_dict['off_text_color'] = child.property('off_text_color') or parent.led_off_text_color
+			led_dict['font_family'] = child.property('font_family') or QFont('Courier', 16)
+			led_dict['font_bold'] = child.property('font_bold') or True
+			led_dict['alignment'] = child.alignment()
+			led_dict['function'] = child.property('function')
+			# set old object function to none so the hal pin is not duplicated
+			child.setProperty('function', 'None')
+
+			new_led = LEDTextLabel(**led_dict)
+			new_led.setProperty('function', led_dict['function'])
+			new_led.setProperty('pin_name', led_dict['pin_name'])
+
+			#for key, value in led_dict.items():
+			#	print(key, value)
+
+			layout = child.parent().layout()
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_led)
+			else: # widget is not in a layout
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_led.setParent(child_parent)
+				new_led.setGeometry(geometry)
+
+			child.deleteLater()
+			gc.collect()
+			new_led.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_led) # give the new label the old name
+			parent.hal_led_text_labels[led_dict['name']] = led_dict['pin_name']
+
 def setup_hal_leds(parent):
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
@@ -224,7 +273,7 @@ def setup_hal_leds(parent):
 			child.deleteLater()
 			gc.collect()
 			new_led.setObjectName(led_dict['name'])
-			setattr(parent, led_dict['name'], new_led) # give the new button the old name
+			setattr(parent, led_dict['name'], new_led) # give the new label the old name
 			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
 
 def setup_hal_led_labels(parent):
@@ -2479,6 +2528,16 @@ def setup_hal(parent):
 			pin_name = label.property('pin_name')
 			hal_type = getattr(hal, 'HAL_BIT')
 			hal_dir = getattr(hal, f'HAL_IN')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+
+	##### HAL_LED_TEXT_LABELS #####
+	# These are not QLabel but LEDTextLabel
+	# All validity checks are done when the LEDTextLabel is created
+	for label in parent.findChildren(LEDTextLabel):
+		if label.property('function') == 'hal_led_text':
+			pin_name = label.property('pin_name')
+			hal_type = getattr(hal, 'HAL_BIT')
+			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	##### HAL_LED_LABELS #####

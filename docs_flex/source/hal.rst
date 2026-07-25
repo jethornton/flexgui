@@ -440,6 +440,42 @@ Choosing 'square' for LED shape will fill the entire label.
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
 
+HAL Text LED Label
+------------------
+
+Similar to the HAL LED except it has a border and the on and off text can be set
+as well as other options.
+
+.. csv-table:: **HAL Text LED**
+   :width: 100%
+   :align: center
+   :widths: 25 25 50
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_led
+	String, pin_name, any unique name
+	Optional
+	String, on_text, text to display when HAL pin is True
+	String, off_text, text to display when HAL pin is False
+	Color, on_bg_color, color of background when HAL pin is True
+	Color, off_bg_color, color of background when HAL pin is False
+	Color, on_text_color, color of text when HAL pin is True
+	Color, off_text_color, color of text when HAL pin is False
+	Font, font_family, Font and size of text to use
+	Bool, font_bold, True for bold font
+
+Default values for the options are:
+
+* on_text, True
+* off_text, False
+* on_bg_color, Green
+* off_bg_color, Red
+* on_text_color, Black
+* off_text_color, White
+* font_family, Courier 16
+* font_bold, True
+
+
 HAL LED Label
 -------------
 

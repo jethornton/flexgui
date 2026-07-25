@@ -349,6 +349,12 @@ def read(parent):
 	else:
 		parent.led_top_offset =  int(led_top_offset)
 
+	# FIXME check the ini file for these new colors
+	parent.led_on_bg_color = QColor(0, 255, 0, 255)
+	parent.led_off_bg_color = QColor(255, 0, 0, 255)
+	parent.led_on_text_color = QColor(0, 0, 0)
+	parent.led_off_text_color = QColor(255, 255, 255, 255)
+
 	led_on = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR')
 	if led_on is not None:
 		led_on_color = utilities.is_valid_qcolor(led_on)
@@ -356,7 +362,7 @@ def read(parent):
 			parent.led_on_color = led_on_color
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry [FLEXGUI] LED_ON_COLO" value "{led_on}" is not a '
+			msg = (f'The INI entry [FLEXGUI] LED_ON_COLOR" value "{led_on}" is not a '
 			'valid RGB or HEX color string.')
 			info = 'The default color will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
