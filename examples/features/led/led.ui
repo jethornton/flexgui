@@ -91,6 +91,9 @@
          <property name="function" stdset="0">
           <string>hal_led_label</string>
          </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-lb</string>
+         </property>
         </widget>
        </item>
        <item row="1" column="2">
