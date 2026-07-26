@@ -436,7 +436,7 @@ The Diameter and Offset values are whole numbers only.
 
 For more information see :ref:`LED Buttons <led_buttons>`
 
-.. admonition:: NEW 2.1
+.. admonition:: NEW 2.0
  
    HAL LED Text labels can have background and text colors
    based on the state of the HAL pin.
