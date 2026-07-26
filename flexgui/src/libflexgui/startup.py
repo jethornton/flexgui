@@ -57,6 +57,7 @@ def setup_vars(parent):
 	parent.nccode_le = []
 	parent.keyboard_le = []
 	parent.nc_viewer = []
+	parent.led_pin_names = []
 
 	# put any variables in here that might be called during startup
 	parent.selected_style = '''
@@ -146,11 +147,12 @@ def setup_hal_led_text_labels(parent):
 	for child in parent.findChildren(QLabel):
 		if isdeleted(child):
 			continue
+
 		if child.property('function') == 'hal_led_text':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if child.property('pin_name') in [None, '']: # verified
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL Text LED "{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -162,7 +164,7 @@ def setup_hal_led_text_labels(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL  TextLED "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -194,9 +196,6 @@ def setup_hal_led_text_labels(parent):
 			new_led.setProperty('function', led_dict['function'])
 			new_led.setProperty('pin_name', led_dict['pin_name'])
 
-			#for key, value in led_dict.items():
-			#	print(key, value)
-
 			layout = child.parent().layout()
 			if layout is not None:
 				child_layout = find_widget_layout(layout, child)
@@ -212,7 +211,8 @@ def setup_hal_led_text_labels(parent):
 			gc.collect()
 			new_led.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_led) # give the new label the old name
-			parent.hal_led_text_labels[led_dict['name']] = led_dict['pin_name']
+			parent.hal_led_text_labels[led_dict['name']] = pin_name
+			parent.led_pin_names.append(pin_name)
 
 def setup_hal_leds(parent):
 	parent.hal_leds = {}
@@ -223,7 +223,7 @@ def setup_hal_leds(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if child.property('pin_name') in [None, '']: # verified
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The HAL LED "{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -235,7 +235,7 @@ def setup_hal_leds(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" is already used in '
 				'Flex GUI. The HAL pin can not be created.')
@@ -303,12 +303,14 @@ def setup_hal_leds(parent):
 			new_led.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_led) # give the new label the old name
 			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
+			parent.led_pin_names.append(pin_name)
 
 def setup_hal_led_labels(parent):
 	parent.hal_led_labels = {}
 	for child in parent.findChildren(QLabel):
 		if isdeleted(child):
 			continue
+
 		if child.property('function') == 'hal_led_label':
 			pin_name = child.property('pin_name')
 			obj_name = child.objectName()
@@ -325,7 +327,7 @@ def setup_hal_led_labels(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL LED Label "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -379,6 +381,7 @@ def setup_hal_led_labels(parent):
 			new_label.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_label) # give the new label the old name
 			parent.hal_led_labels[led_dict['name']] = led_dict['pin_name']
+			parent.led_pin_names.append(pin_name)
 
 def setup_hal_led_buttons(parent):
 	##### HAL LED QPushButtons #####
@@ -402,7 +405,7 @@ def setup_hal_led_buttons(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL LED Button "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI The HAL pin can not be created.')
@@ -463,6 +466,7 @@ def setup_hal_led_buttons(parent):
 			gc.collect()
 			new_button.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
+			parent.led_pin_names.append(pin_name)
 
 	##### LED Indicator QPushButton #####
 	hal_types = ['hal_pin', 'hal_led_button', 'hal_io', 'hal_avr_f', 'hal_msl',
@@ -470,12 +474,13 @@ def setup_hal_led_buttons(parent):
 	for child in parent.findChildren(QPushButton):
 		if isdeleted(child):
 			continue
+
 		if child.property('led_indicator'):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			btn_text = child.text()
 
-			if child.property('function') in hal_types: # verified
+			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The button "{obj_name}" and with the text of "{btn_text}" can not '
 				'be a LED Indicator and a HAL pin. If it is a valid HAL pin the HAL '
@@ -488,7 +493,7 @@ def setup_hal_led_buttons(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
 				title = 'Configuration Error'
 				msg = (f'HAL LED Button "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI The HAL pin can not be created.')
@@ -549,6 +554,7 @@ def setup_hal_led_buttons(parent):
 			gc.collect()
 			new_button.setObjectName(btn_dict['name'])
 			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
+			parent.led_pin_names.append(pin_name)
 
 '''
 from this point on use parent.child_names to get the widgets because the LED
