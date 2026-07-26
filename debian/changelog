@@ -1,3 +1,9 @@
+flexgui (2.0.1) unstable; urgency=medium
+
+  * New HAL LED text labels
+
+ -- John Thornton <dev@gnipsel.com>  Sun, 26 Jul 2026 12:58:38 -0500
+
 flexgui (2.0.0) unstable; urgency=medium
 
   * New release with improved error messages
