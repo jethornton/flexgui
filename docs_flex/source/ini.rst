@@ -436,6 +436,22 @@ The Diameter and Offset values are whole numbers only.
 
 For more information see :ref:`LED Buttons <led_buttons>`
 
+.. admonition:: NEW 2.1
+ 
+   HAL LED Text labels can have background and text colors
+   based on the state of the HAL pin.
+
+HAL LED Text Labels can have default colors for the background and text set in
+the INI file. As above the colors can be HEX, RGB or RGBA.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	LED_ON_BG_COLOR = 0, 255, 0
+	LED_OFF_BG_COLOR= 125, 0, 0, 255
+	LED_ON_TEXT_COLOR = 0, 255, 0
+	LED_OFF_TEXT_COLOR= #000000
+
 .. _touch_ini:
 
 Touch Screens

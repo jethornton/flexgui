@@ -349,12 +349,6 @@ def read(parent):
 	else:
 		parent.led_top_offset =  int(led_top_offset)
 
-	# FIXME check the ini file for these new colors
-	parent.led_on_bg_color = QColor(0, 255, 0, 255)
-	parent.led_off_bg_color = QColor(255, 0, 0, 255)
-	parent.led_on_text_color = QColor(0, 0, 0)
-	parent.led_off_text_color = QColor(255, 255, 255, 255)
-
 	led_on = parent.inifile.find('FLEXGUI', 'LED_ON_COLOR')
 	if led_on is not None:
 		led_on_color = utilities.is_valid_qcolor(led_on)
@@ -362,8 +356,8 @@ def read(parent):
 			parent.led_on_color = led_on_color
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry [FLEXGUI] LED_ON_COLOR" value "{led_on}" is not a '
-			'valid RGB or HEX color string.')
+			msg = (f'The INI entry [FLEXGUI] LED_ON_COLOR" value '
+			'"{led_on}" is not a valid RGB or HEX color string.')
 			info = 'The default color will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.led_on_color = QColor(0, 255, 0, 255)
@@ -377,13 +371,83 @@ def read(parent):
 			parent.led_off_color = led_off_color
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry [FLEXGUI] LED_OFF_COLOR value "{led_off}" is not a '
-			'valid RGB or HEX color string.')
+			msg = (f'The INI entry [FLEXGUI] LED_OFF_COLOR value '
+			'"{led_off}" is not a valid RGB or HEX color string.')
 			info = 'The default color will be used.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.led_off_color = QColor(255, 0, 0, 255)
 	else:
 		parent.led_off_color = QColor(255, 0, 0, 255)
+
+	#### New LED Color Settings ####
+
+	led_on_bg = parent.inifile.find('FLEXGUI', 'LED_ON_BG_COLOR')
+	if led_on_bg is not None:
+		led_on_bg_color = utilities.is_valid_qcolor(led_on_bg)
+		if led_on_bg_color:
+			parent.led_on_bg_color = led_on_bg_color
+		else: # verified
+			title = 'Configuration Error'
+			msg = (f'The INI entry [FLEXGUI] LED_ON_BG_COLOR" value '
+			'"{led_on_bg}" is not a valid RGB or HEX color string.')
+			info = 'Green will be the default.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.led_on_bg_color = QColor(0, 255, 0, 255)
+	else:
+		parent.led_on_bg_color = QColor(0, 255, 0, 255)
+
+	led_off_bg = parent.inifile.find('FLEXGUI', 'LED_OFF_BG_COLOR')
+	if led_off_bg is not None:
+		led_off_bg_color = utilities.is_valid_qcolor(led_off_bg)
+		if led_off_bg_color:
+			parent.led_off_bg_color = led_off_bg_color
+		else: # verified
+			title = 'Configuration Error'
+			msg = (f'The INI entry [FLEXGUI] LED_OFF_BG_COLOR value '
+			'"{led_off_bg}" is not a valid RGB or HEX color string.')
+			info = 'Red will be the default.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.led_off_bg_color = QColor(255, 0, 0, 255)
+	else:
+		parent.led_off_bg_color = QColor(255, 0, 0, 255)
+
+	led_on_text = parent.inifile.find('FLEXGUI', 'LED_ON_TEXT_COLOR')
+	if led_on_text is not None:
+		led_on_text_color = utilities.is_valid_qcolor(led_on_text)
+		if led_on_text_color:
+			parent.led_on_text_color = led_on_text_color
+		else: # verified
+			title = 'Configuration Error'
+			msg = (f'The INI entry [FLEXGUI] LED_ON_TEXT_COLOR" value '
+			'"{led_on_text}" is not a valid RGB or HEX color string.')
+			info = 'White will be the default.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.led_on_text_color = QColor(0, 0, 0, 255)
+	else:
+		parent.led_on_text_color = QColor(0, 0, 0, 255)
+
+	led_off_text = parent.inifile.find('FLEXGUI', 'LED_OFF_TEXT_COLOR')
+	if led_off_text is not None:
+		led_off_text_color = utilities.is_valid_qcolor(led_off_text)
+		if led_off_text_color:
+			parent.led_off_text_color = led_off_text_color
+		else: # verified
+			title = 'Configuration Error'
+			msg = (f'The INI entry [FLEXGUI] LED_OFF_TEXT_COLOR value "{led_off_text}" '
+			'is not a valid RGB or HEX color string.')
+			info = 'Black will be the default.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.led_off_text_color = QColor(255, 255, 255, 255)
+	else:
+		parent.led_off_text_color = QColor(255, 255, 255, 255)
+
+	# FIXME check the ini file for these new colors
+	parent.led_on_bg_color = QColor(0, 255, 0, 255)
+	parent.led_off_bg_color = QColor(255, 0, 0, 255)
+	parent.led_on_text_color = QColor(0, 0, 0, 255)
+	parent.led_off_text_color = QColor(255, 255, 255, 255)
+
+
 
 	#### Plotter Settings ####
 	plotter = parent.findChild(QWidget, 'plot_widget')

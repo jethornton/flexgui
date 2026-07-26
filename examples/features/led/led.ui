@@ -56,6 +56,9 @@
        </item>
        <item row="0" column="1">
         <widget class="QLabel" name="label_4">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
          <property name="text">
           <string>LED Label</string>
          </property>
@@ -85,8 +88,11 @@
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="label_3">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>HAL LED Label</string>
          </property>
          <property name="function" stdset="0">
           <string>hal_led_label</string>
@@ -145,6 +151,34 @@ OFF</string>
          </property>
          <property name="font_bold" stdset="0">
           <bool>true</bool>
+         </property>
+         <property name="on_bg_color" stdset="0">
+          <color>
+           <red>255</red>
+           <green>255</green>
+           <blue>0</blue>
+          </color>
+         </property>
+         <property name="off_bg_color" stdset="0">
+          <color>
+           <red>0</red>
+           <green>255</green>
+           <blue>0</blue>
+          </color>
+         </property>
+         <property name="on_text_color" stdset="0">
+          <color>
+           <red>97</red>
+           <green>53</green>
+           <blue>131</blue>
+          </color>
+         </property>
+         <property name="off_text_color" stdset="0">
+          <color>
+           <red>99</red>
+           <green>69</green>
+           <blue>44</blue>
+          </color>
          </property>
         </widget>
        </item>
