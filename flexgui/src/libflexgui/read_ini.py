@@ -433,21 +433,13 @@ def read(parent):
 			parent.led_off_text_color = led_off_text_color
 		else: # verified
 			title = 'Configuration Error'
-			msg = (f'The INI entry [FLEXGUI] LED_OFF_TEXT_COLOR value "{led_off_text}" '
-			'is not a valid RGB or HEX color string.')
+			msg = (f'The INI entry [FLEXGUI] LED_OFF_TEXT_COLOR value '
+			'"{led_off_text}" is not a valid RGB or HEX color string.')
 			info = 'Black will be the default.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.led_off_text_color = QColor(255, 255, 255, 255)
 	else:
 		parent.led_off_text_color = QColor(255, 255, 255, 255)
-
-	# FIXME check the ini file for these new colors
-	parent.led_on_bg_color = QColor(0, 255, 0, 255)
-	parent.led_off_bg_color = QColor(255, 0, 0, 255)
-	parent.led_on_text_color = QColor(0, 0, 0, 255)
-	parent.led_off_text_color = QColor(255, 255, 255, 255)
-
-
 
 	#### Plotter Settings ####
 	plotter = parent.findChild(QWidget, 'plot_widget')
