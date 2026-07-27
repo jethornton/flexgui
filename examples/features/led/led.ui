@@ -41,83 +41,6 @@
        <string>HAL LED's</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_led</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-led</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_4">
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string>LED Label</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_led_label</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-led-label</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_led</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-led-square</string>
-         </property>
-         <property name="led_shape" stdset="0">
-          <string>square</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_3">
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="text">
-          <string>HAL LED Label</string>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_led_label</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-led-lb</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="function" stdset="0">
-          <string>hal_led_text</string>
-         </property>
-         <property name="pin_name" stdset="0">
-          <string>hal-led-text-2</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="2">
         <widget class="QLabel" name="label_6">
          <property name="text">
@@ -179,6 +102,83 @@ OFF</string>
            <green>69</green>
            <blue>44</blue>
           </color>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_4">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string>LED Label</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_label</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-label</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_text</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-text-2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-square</string>
+         </property>
+         <property name="led_shape" stdset="0">
+          <string>square</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_3">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string>HAL LED Label</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_label</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-lb</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-round</string>
          </property>
         </widget>
        </item>
