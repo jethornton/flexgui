@@ -37,6 +37,79 @@ def radial_gradient(size, x, y, color):
 	#gradient.setColorAt(1.0, QColor(color))
 	return gradient
 
+# A blank QLabel with a LED in the center
+class Indicator(QLabel):
+	_state = False
+
+	def __init__(self, **kwargs):
+		super().__init__()
+
+		self._diameter = kwargs['diameter']
+		self._margin = kwargs['margin']
+		self._on_color = kwargs['on_color']
+		self._off_color = kwargs['off_color']
+		self._shape = kwargs['shape']
+
+	def paintEvent(self, event):
+		#super().paintEvent(event) # new
+		painter = QPainter(self)
+		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True) # new
+		size = self.rect()
+		is_round = self._shape == 'round' or size.width() == size.height()
+		
+		# --- 1. SETUP LED GEOMETRY & GRADIENT ---
+		# Shrink usable diameter slightly to sit cleanly inside the outer border
+		dia = min(size.width(), size.height()) - self._margin - 4
+		x_center = size.width() / 2
+		y_center = size.height() / 2
+		x = x_center - (dia / 2)
+		y = y_center - (dia / 2)
+
+		color = self._on_color if self._state else self._off_color
+		if is_round:
+			gradient = makeRadialGradient(size, x, y, dia, color)
+		else:
+			gradient = makeLinearGradient(size, 0, 0, color)
+
+		# --- 2. DRAW THE LED FILL ---
+		painter.setBrush(QBrush(gradient))
+		painter.setPen(Qt.PenStyle.NoPen) # Remove pen to prevent sharp color bleed
+
+		if is_round:
+			painter.drawEllipse(QPointF(x_center, y_center), dia / 2, dia / 2)
+		else:
+			# Shrunk by 2px on all sides to fit cleanly inside the border
+			# Uses 5px corner radius for the inner fill
+			painter.drawRoundedRect(2, 2, size.width() - 4, size.height() - 4, 5, 5)
+
+		# --- 3. DRAW THE MATCHING BLACK BORDER ---
+		border_pen = QPen(QColor("black"))
+		border_pen.setWidth(2)
+		painter.setPen(border_pen)
+		painter.setBrush(Qt.BrushStyle.NoBrush)
+		
+		if is_round:
+			# Match the exact circular shape of the LED, positioned at the outer limit
+			border_dia = min(size.width(), size.height()) - 2
+			bx = x_center - (border_dia / 2)
+			by = y_center - (border_dia / 2)
+			painter.drawEllipse(QRectF(bx, by, border_dia, border_dia))
+		else:
+			# 2px border offset by 1px to stay inside widget boundaries
+			# Uses 7px corner radius so it curves smoothly with the inner fill
+			painter.drawRoundedRect(1, 1, size.width() - 2, size.height() - 2, 7, 7)
+
+	def setLed(self, val):
+		self._state = val
+		self.update()
+
+	def getLed(self):
+		self.update()
+		return self._state
+
+	state = pyqtProperty(bool, getLed, setLed)
+
+
 # A QLabel with LED background, custom text and a border
 class LEDTextLabel(QLabel):
 	# On Off state
@@ -50,26 +123,12 @@ class LEDTextLabel(QLabel):
 		self._off_text_color = kwargs['off_text_color']
 		self._on_text = kwargs['on_text']
 		self._off_text = kwargs['off_text']
-		#self._alignment = kwargs['alignment']
 
 		self.setAlignment(kwargs['alignment'])
+
 		custom_font = kwargs['font_family']
 		custom_font.setBold(kwargs['font_bold'])
 		self.setFont(custom_font)
-
-		# NEW: Font Configuration Extracted from kwargs
-		#font_family = kwargs.get('font_family', 'Courier')
-		#font_size = kwargs.get('font_size', 16)
-
-
-		# Create and configure the QFont object
-		#custom_font = QFont(font_family, font_size)
-
-		# Optional: Make the text bold so it stands out better over the background fill
-		#if kwargs.get('bold', True):
-		#	custom_font.setBold(True)
-
-		#self.setFont(custom_font)
 
 	def _sync_label_properties(self):
 		# Synchronizes label text matching the active component state.
@@ -78,7 +137,7 @@ class LEDTextLabel(QLabel):
 		else:
 			self.setText(self._off_text)
 
-		# 2. Update text color via QPalette
+		# Update text color via QPalette
 		color = self._on_text_color if self._state else self._off_text_color
 		palette = self.palette()
 		palette.setColor(QPalette.ColorRole.WindowText, color)
@@ -91,11 +150,8 @@ class LEDTextLabel(QLabel):
 
 		color = self._on_bg_color if self._state else self._off_bg_color
 
-		# background fill
-		#gradient = radial_gradient(led_size, x, y, color)
-
 		# Define the center and focal point of the gradient
-		# Offset from the upper-left edge (e.g., 50 pixels down and right)
+		# Offset from the upper-left edge (e.g., 8 pixels down and right)
 		cx, cy = 8.0, 8.0
 		radius = max(self.width(), self.height())
 
@@ -107,10 +163,9 @@ class LEDTextLabel(QLabel):
 		gradient.setColorAt(0.1, QColor(color))
 
 		painter.setBrush(QBrush(gradient))
-		#painter.setBrush(QBrush(color))
 
-		# Black border pen (width 4)
-		pen = QPen(QColor("black"), 2)
+		# Black border pen (width 2)
+		pen = QPen(QColor('black'), 2)
 		painter.setPen(pen)
 
 		# Offset bounds by half the pen width (2px) to prevent border clipping
@@ -277,56 +332,6 @@ class IndicatorLabel(QLabel):
 			painter.drawRect(int(x_center - (self._diameter / 2)), int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
 		else:
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
-
-	def setLed(self, val):
-		self._led = val
-		self.update()
-
-	def getLed(self):
-		self.update()
-		return self._led
-
-	led = pyqtProperty(bool, getLed, setLed)
-
-# A blank QLabel with a LED in the center
-class Indicator(QLabel):
-	_led = False
-
-	def __init__(self, **kwargs):
-		super().__init__()
-
-		self._diameter = kwargs['diameter']
-		self._margin = kwargs['margin']
-		self._on_color = kwargs['on_color']
-		self._off_color = kwargs['off_color']
-		self._shape = kwargs['shape']
-
-	def paintEvent(self, event):
-		super().paintEvent(event)
-		painter = QPainter(self)
-		size = self.rect()
-		# get the diameter that will make a full circle
-		dia = min(size.width(), size.height()) - self._margin
-		# get the center of the label
-		x_center = size.width() / 2
-		y_center = size.height() / 2
-		x = x_center - (dia / 2)
-		y = y_center - (dia / 2)
-		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-
-		color = self._on_color if self._led else self._off_color
-		if self._shape == 'round' or size.width() == size.height():
-			gradient = makeRadialGradient(size, x, y, dia, color)
-		else:
-			gradient = makeLinearGradient(size, 0, 0, color)
-
-		painter.setBrush(QBrush(gradient))
-		painter.setPen(color)
-
-		if self._shape == 'square':
-			painter.drawRect(0,0,size.width(), size.height())
-		else:
-			painter.drawEllipse(QPointF(x_center, y_center), dia / 2, dia / 2)
 
 	def setLed(self, val):
 		self._led = val
