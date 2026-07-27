@@ -51,7 +51,6 @@ class Indicator(QLabel):
 		self._shape = kwargs['shape']
 
 	def paintEvent(self, event):
-		#super().paintEvent(event) # new
 		painter = QPainter(self)
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True) # new
 		size = self.rect()
