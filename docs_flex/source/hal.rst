@@ -453,7 +453,7 @@ Alignment to `AlignHCenter`.
    :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_led_label
+	String, function, hal_led_text
 	String, pin_name, any unique name
 	Optional
 	String, on_text, text to display when HAL pin is True
