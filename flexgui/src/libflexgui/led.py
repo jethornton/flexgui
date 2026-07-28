@@ -160,6 +160,7 @@ class LEDTextLabel(QLabel):
 		custom_font = kwargs['font_family']
 		custom_font.setBold(kwargs['font_bold'])
 		self.setFont(custom_font)
+		self._sync_label_properties() # Update string resource
 
 	def _sync_label_properties(self):
 		# Synchronizes label text matching the active component state.
@@ -333,7 +334,6 @@ class IndicatorButton(QPushButton):
 
 	# Expose property to QML / Qt animation frameworks safely
 	state = pyqtProperty(bool, getLed, setLed)
-
 
 '''
 class IndicatorButton(QPushButton):
