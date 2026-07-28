@@ -111,6 +111,8 @@ other properties are optional.
 	Mist, mist_pb, Turns on the mist coolant
 	Probe Enable, probing_enable_pb, Enables Probing and disables other controls
 	Home All, home_all_pb, Homes all the joints
+	Save, save_pb, Saves the NC Code to the same file
+	Save As, save_as_pb, Saves the NC Code to a new file
 
 Adding the Bool type Dynamic Property `led_indicator` to the above control
 buttons will add the default LED to that button. Each control button can have
