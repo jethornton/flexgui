@@ -23,7 +23,7 @@ def linear_gradient(x, y, diameter, color):
 	gradient.setColorAt(1.0, QColor(color).darker(150))
 	return gradient
 
-def radial_gradient(x, y, diameter, color):
+def radial_gtradient(x, y, diameter, color):
 	# Fixed coordinates based on the LED bounding box for consistent look
 	radius = diameter / 2
 	cx = x + radius
@@ -160,7 +160,7 @@ class LEDTextLabel(QLabel):
 		custom_font = kwargs['font_family']
 		custom_font.setBold(kwargs['font_bold'])
 		self.setFont(custom_font)
-		self._sync_label_properties() # Update string resource
+		self.setText(self._off_text)
 
 	def _sync_label_properties(self):
 		# Synchronizes label text matching the active component state.
@@ -276,67 +276,6 @@ class LEDButton(QPushButton):
 
 # Control Button with a LED in the upper right corner, Bool=led_indicator
 class IndicatorButton(QPushButton):
-	def __init__(self, **kwargs):
-		super().__init__()
-		# Fallback values to prevent KeyError crashes
-		self.setText(kwargs.get('text', ''))
-		self._diameter = kwargs.get('diameter', 16)
-		self._top_offset = kwargs.get('top_offset', 8)
-		self._right_offset = kwargs.get('right_offset', 8)
-		self._on_color = QColor(kwargs.get('on_color', 'green'))
-		self._off_color = QColor(kwargs.get('off_color', 'gray'))
-		self._shape = kwargs.get('shape', 'round')
-		self._state = False
-
-		# Apply CSS padding to prevent text from overlapping the LED
-		self.update_text_padding()
-
-	def update_text_padding(self):
-		# Dynamically push the text left to make room for the LED on the right
-		padding_right = self._diameter + self._right_offset + 8
-		self.setStyleSheet(f"QPushButton {{ padding-right: {padding_right}px; }}")
-
-	def paintEvent(self, event):
-		# 1. Let the base class draw the standard button layout and text first
-		super().paintEvent(event)
-		
-		# 2. Initialize the painter on the widget
-		painter = QPainter(self)
-		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-
-		# 3. Calculate exact coordinates
-		size = self.rect()
-		x = size.width() - self._diameter - self._right_offset
-		y = self._top_offset
-
-		color = self._on_color if self._state else self._off_color
-
-		# 4. Generate the correct gradient
-		if self._shape == 'round':
-			gradient = radial_gradient(x, y, self._diameter, color)
-			painter.setBrush(QBrush(gradient))
-			# Subtle dark border for realism
-			painter.setPen(QPen(color.darker(150), 1)) 
-			painter.drawEllipse(QRectF(x, y, self._diameter, self._diameter))
-		else:
-			gradient = linear_gradient(x, y, self._diameter, color)
-			painter.setBrush(QBrush(gradient))
-			painter.setPen(QPen(color.darker(150), 1))
-			painter.drawRect(QRectF(x, y, self._diameter, self._diameter))
-
-	def setLed(self, val):
-		if self._state != val:
-			self._state = bool(val)
-			self.update() # Forces standard repaint event safely
-
-	def getLed(self):
-		return self._state
-
-	# Expose property to QML / Qt animation frameworks safely
-	state = pyqtProperty(bool, getLed, setLed)
-
-'''
-class IndicatorButton(QPushButton):
 	_state = False
 
 	def __init__(self, **kwargs):
@@ -347,8 +286,6 @@ class IndicatorButton(QPushButton):
 		self._right_offset = kwargs['right_offset']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
-		self._shape = kwargs['shape']
-		#self.setSizePolicy(kwargs['size_policy']) FIXME move to startup
 
 	def paintEvent(self, event):
 		super().paintEvent(event)
@@ -362,30 +299,23 @@ class IndicatorButton(QPushButton):
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
 		color = self._on_color if self._state else self._off_color
-		if self._shape == 'round':
-			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
-		else:
-			gradient = makeLinearGradient(led_size, x, y, color)
+		gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
-
-		if self._shape == 'square':
-			painter.drawRect(int(x_center - (self._diameter / 2)), int(y_center - (self._diameter / 2)), self._diameter, self._diameter)
-		else:
-			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
+		painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
 
 	def setLed(self, val):
 		if self._state != val:
 			self._state = val
-			self.update() # Triggers paintEvent safely
+			self.update() # only triggers paintEvent when the state changes
 
 	def getLed(self):
 		return self._state
 
 	# expose property
 	state = pyqtProperty(bool, getLed, setLed)
-'''
+
 # A QLabel with a LED in the upper right corner
 class IndicatorLabel(QLabel):
 	_state = False

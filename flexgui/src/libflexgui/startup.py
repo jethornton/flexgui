@@ -143,6 +143,8 @@ def set_hal_enables(parent, obj):
 			parent.hal_controls.append(obj_name)
 
 def setup_hal_leds(parent):
+	# Label LED as background no text, String function=hal_led, Indicator
+	# shape can be either round centered in the label or square filling the label
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
 		if isdeleted(child):
@@ -469,9 +471,8 @@ def setup_hal_led_buttons(parent):
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 			parent.led_pin_names.append(pin_name)
 
-	##### LED Indicator QPushButton ##### FIXME this is only for E Stop Power etc
-	hal_types = ['hal_pin', 'hal_led_button', 'hal_io', 'hal_avr_f', 'hal_msl',
-	'hal_led', 'hal_led_label']
+	##### LED Indicator QPushButton #####
+	# Control Button with a LED in the upper right corner, Bool=led_indicator
 	for child in parent.findChildren(QPushButton):
 		if isdeleted(child):
 			continue
@@ -480,33 +481,6 @@ def setup_hal_led_buttons(parent):
 			obj_name = child.objectName()
 			#pin_name = child.property('pin_name')
 			btn_text = child.text()
-
-			'''
-			if pin_name in [None, '']: # verified
-				title = 'Configuration Error'
-				msg = (f'The button "{obj_name}" and with the text of "{btn_text}" can not '
-				'be a LED Indicator and a HAL pin. If it is a valid HAL pin the HAL '
-				'connection will be made.')
-				info = f'The button "{obj_name}" LED will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to not create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
-				title = 'Configuration Error'
-				msg = (f'HAL LED Button "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI The HAL pin can not be created.')
-				info = f'The button "{obj_name}" will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to not create a HAL pin
-				child.setProperty('function', '')
-				continue
-			'''
 
 			btn_dict = {}
 			btn_dict['name'] = child.objectName()
@@ -523,8 +497,6 @@ def setup_hal_led_buttons(parent):
 			btn_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
 			btn_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			btn_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-			led_shape = child.property('led_shape') # validate shape
-			btn_dict['shape'] = led_shape if led_shape == 'square' else 'round'
 			new_button = IndicatorButton(**btn_dict)
 
 			layout = child.parent().layout()
