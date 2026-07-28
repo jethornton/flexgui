@@ -88,13 +88,16 @@ def load_file(parent, nc_code_file=None):
 						a = parent.menuRecent.addAction(name)
 						a.triggered.connect(partial(load_file, parent, path))
 
-		if 'save_pb' in parent.child_names:
-			if hasattr(parent.save_pb, 'led'):
-				parent.save_pb.led = False
+		if 'save_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.save_pb, 'state'):
+				parent.save_pb.state = False
+		if 'save_as_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.save_as_pb, 'state'):
+				parent.save_as_pb.state = False
 
-		if 'reload_pb' in parent.child_names:
-			if hasattr(parent.reload_pb, 'led'):
-				parent.reload_pb.led = False
+		if 'reload_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.reload_pb, 'state'):
+				parent.reload_pb.state = False
 
 	else: # verified
 		title = 'File Missing'
@@ -144,12 +147,15 @@ def action_reload(parent): # actionReload
 		if 'gcode_pte' in parent.child_names:
 			with open(nc_code_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
-		if 'save_pb' in parent.child_names:
-			if hasattr(parent.save_pb, 'led'):
-				parent.save_pb.led = False
-		if 'reload_pb' in parent.child_names:
-			if hasattr(parent.reload_pb, 'led'):
-				parent.reload_pb.led = False
+		if 'save_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.save_pb, 'state'):
+				parent.save_pb.state = False
+		if 'save_as_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.save_as_pb, 'state'):
+				parent.save_as_pb.state = False
+		if 'reload_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.reload_pb, 'state'):
+				parent.reload_pb.state = False
 
 def action_save(parent): # actionSave
 	current_nccode_file = parent.status.file
@@ -157,12 +163,15 @@ def action_save(parent): # actionSave
 	nc_code = text.splitlines()
 	with open(current_nccode_file, 'w') as f:
 		f.writelines(line + "\n" for line in nc_code)
-	if 'save_pb' in parent.child_names:
-		if hasattr(parent.save_pb, 'led'):
-			parent.save_pb.led = False
-	if 'reload_pb' in parent.child_names:
-		if hasattr(parent.reload_pb, 'led'):
-			parent.reload_pb.led = True
+	if 'save_pb' in parent.child_names: # FIXME should this have an LED
+		if hasattr(parent.save_pb, 'state'):
+			parent.save_pb.state = False
+		if 'save_as_pb' in parent.child_names: # FIXME should this have an LED
+			if hasattr(parent.save_as_pb, 'state'):
+				parent.save_as_pb.state = False
+	if 'reload_pb' in parent.child_names: # FIXME should this have an LED
+		if hasattr(parent.reload_pb, 'state'):
+			parent.reload_pb.state = True
 
 def action_save_as(parent): # actionSave_As
 	current_nc_code_file = parent.status.file

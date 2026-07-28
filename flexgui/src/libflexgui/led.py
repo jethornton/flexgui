@@ -4,7 +4,37 @@ from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter
 from PyQt6.QtGui import QBrush, QColor, QPen, QPalette, QFont
 from PyQt6.QtWidgets import QPushButton, QLabel
 
-# gradient functions used by LED
+'''
+LED Types
+Label LED as background no text, String function=hal_led, Indicator
+Label LED as background with text, String function=hal_led_text, LEDTextLabel
+Label LED in upper right corner, String function=hal_led_label, IndicatorLabel
+Button LED in upper right corner, String function=hal_led_button, LEDButton
+Control Button LED, Bool=led_indicator, IndicatorButton
+'''
+
+# NEW Helper gradient functions
+def linear_gradient(x, y, diameter, color):
+	# Using relative ObjectMode ensures it stretches properly with the shape
+	gradient = QLinearGradient(QPointF(0.0, 0.0), QPointF(1.0, 1.0))
+	gradient.setCoordinateMode(QLinearGradient.CoordinateMode.ObjectMode)
+	gradient.setColorAt(0.0, QColor('white'))
+	gradient.setColorAt(0.2, QColor(color))
+	gradient.setColorAt(1.0, QColor(color).darker(150))
+	return gradient
+
+def radial_gradient(x, y, diameter, color):
+	# Fixed coordinates based on the LED bounding box for consistent look
+	radius = diameter / 2
+	cx = x + radius
+	cy = y + radius
+	gradient = QRadialGradient(QPointF(cx, cy), radius, QPointF(cx - radius * 0.3, cy - radius * 0.3))
+	gradient.setColorAt(0.0, QColor('white'))
+	gradient.setColorAt(0.3, QColor(color))
+	gradient.setColorAt(1.0, QColor(color).darker(200))
+	return gradient
+
+# gradient functions used by LED objects
 def makeLinearGradient(size, x, y, color):
 	# Create gradient from top-left (0,0) to bottom-right (1,1)
 	gradient = QLinearGradient(QPointF(0.0, 0.0), QPointF(1.0, 1.0))
@@ -22,7 +52,8 @@ def makeRadialGradient(size, x, y, diameter, color):
 	gradient.setColorAt(1, color)
 	return gradient
 
-def radial_gradient(size, x, y, color):
+'''
+def radial_gradient(size, x, y, color): # FIXME not used anywhere
 	# Define the center and focal point of the gradient
 	# Offset from the upper-left edge (e.g., 50 pixels down and right)
 	cx, cy = 8.0, 8.0
@@ -36,6 +67,7 @@ def radial_gradient(size, x, y, color):
 	gradient.setColorAt(0.08, QColor(color))
 	#gradient.setColorAt(1.0, QColor(color))
 	return gradient
+'''
 
 # A blank QLabel with a LED in the center
 class Indicator(QLabel):
@@ -99,15 +131,15 @@ class Indicator(QLabel):
 			painter.drawRoundedRect(1, 1, size.width() - 2, size.height() - 2, 7, 7)
 
 	def setLed(self, val):
-		self._state = val
-		self.update()
+		if self._state != val:
+			self._state = val
+			self.update() # Triggers paintEvent safely
 
 	def getLed(self):
-		self.update()
 		return self._state
 
+	# expose property
 	state = pyqtProperty(bool, getLed, setLed)
-
 
 # A QLabel with LED background, custom text and a border
 class LEDTextLabel(QLabel):
@@ -180,16 +212,16 @@ class LEDTextLabel(QLabel):
 		super().paintEvent(event)
 
 	def setLed(self, val):
-		self._state = val
-		self._sync_label_properties() # Update string resource
-		self.update()
+		if self._state != val:
+			self._state = val
+			self._sync_label_properties() # Update string resource
+			self.update() # Triggers paintEvent safely
 
 	def getLed(self):
-		self.update()
 		return self._state
 
+	# expose property
 	state = pyqtProperty(bool, getLed, setLed)
-
 
 # A QPushButton with a LED in the upper right corner
 class LEDButton(QPushButton):
@@ -241,9 +273,71 @@ class LEDButton(QPushButton):
 		self._led = val
 		self.update()
 
-# A QPushButton with a LED in the upper right corner
+# Control Button with a LED in the upper right corner, Bool=led_indicator
 class IndicatorButton(QPushButton):
-	_led = False
+	def __init__(self, **kwargs):
+		super().__init__()
+		# Fallback values to prevent KeyError crashes
+		self.setText(kwargs.get('text', ''))
+		self._diameter = kwargs.get('diameter', 16)
+		self._top_offset = kwargs.get('top_offset', 8)
+		self._right_offset = kwargs.get('right_offset', 8)
+		self._on_color = QColor(kwargs.get('on_color', 'green'))
+		self._off_color = QColor(kwargs.get('off_color', 'gray'))
+		self._shape = kwargs.get('shape', 'round')
+		self._state = False
+
+		# Apply CSS padding to prevent text from overlapping the LED
+		self.update_text_padding()
+
+	def update_text_padding(self):
+		# Dynamically push the text left to make room for the LED on the right
+		padding_right = self._diameter + self._right_offset + 8
+		self.setStyleSheet(f"QPushButton {{ padding-right: {padding_right}px; }}")
+
+	def paintEvent(self, event):
+		# 1. Let the base class draw the standard button layout and text first
+		super().paintEvent(event)
+		
+		# 2. Initialize the painter on the widget
+		painter = QPainter(self)
+		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+
+		# 3. Calculate exact coordinates
+		size = self.rect()
+		x = size.width() - self._diameter - self._right_offset
+		y = self._top_offset
+
+		color = self._on_color if self._state else self._off_color
+
+		# 4. Generate the correct gradient
+		if self._shape == 'round':
+			gradient = radial_gradient(x, y, self._diameter, color)
+			painter.setBrush(QBrush(gradient))
+			# Subtle dark border for realism
+			painter.setPen(QPen(color.darker(150), 1)) 
+			painter.drawEllipse(QRectF(x, y, self._diameter, self._diameter))
+		else:
+			gradient = linear_gradient(x, y, self._diameter, color)
+			painter.setBrush(QBrush(gradient))
+			painter.setPen(QPen(color.darker(150), 1))
+			painter.drawRect(QRectF(x, y, self._diameter, self._diameter))
+
+	def setLed(self, val):
+		if self._state != val:
+			self._state = bool(val)
+			self.update() # Forces standard repaint event safely
+
+	def getLed(self):
+		return self._state
+
+	# Expose property to QML / Qt animation frameworks safely
+	state = pyqtProperty(bool, getLed, setLed)
+
+
+'''
+class IndicatorButton(QPushButton):
+	_state = False
 
 	def __init__(self, **kwargs):
 		super().__init__()
@@ -267,7 +361,7 @@ class IndicatorButton(QPushButton):
 		led_size = QSize(self._diameter, self._diameter)
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-		color = self._on_color if self._led else self._off_color
+		color = self._on_color if self._state else self._off_color
 		if self._shape == 'round':
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
@@ -282,18 +376,19 @@ class IndicatorButton(QPushButton):
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
 
 	def setLed(self, val):
-		self._led = val
-		self.update()
+		if self._state != val:
+			self._state = val
+			self.update() # Triggers paintEvent safely
 
 	def getLed(self):
-		self.update()
-		return self._led
+		return self._state
 
-	led = pyqtProperty(bool, getLed, setLed)
-
+	# expose property
+	state = pyqtProperty(bool, getLed, setLed)
+'''
 # A QLabel with a LED in the upper right corner
 class IndicatorLabel(QLabel):
-	_led = False
+	_state = False
 
 	def __init__(self, **kwargs):
 		super().__init__()
@@ -318,7 +413,7 @@ class IndicatorLabel(QLabel):
 
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-		color = self._on_color if self._led else self._off_color
+		color = self._on_color if self._state else self._off_color
 		if self._shape == 'round' or led_size.width() == led_size.height():
 			gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 		else:
@@ -333,12 +428,13 @@ class IndicatorLabel(QLabel):
 			painter.drawEllipse(QPointF(x_center, y_center), self._diameter / 2, self._diameter / 2)
 
 	def setLed(self, val):
-		self._led = val
-		self.update()
+		if self._state != val:
+			self._state = val
+			self.update() # Triggers paintEvent safely
 
 	def getLed(self):
-		self.update()
-		return self._led
+		return self._state
 
-	led = pyqtProperty(bool, getLed, setLed)
+	# expose property
+	state = pyqtProperty(bool, getLed, setLed)
 

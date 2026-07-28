@@ -142,78 +142,6 @@ def set_hal_enables(parent, obj):
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.hal_controls.append(obj_name)
 
-def setup_hal_led_text_labels(parent):
-	parent.hal_led_text_labels = {}
-	for child in parent.findChildren(QLabel):
-		if isdeleted(child):
-			continue
-
-		if child.property('function') == 'hal_led_text':
-			obj_name = child.objectName()
-			pin_name = child.property('pin_name')
-
-			if pin_name in [None, '']: # verified
-				title = 'Configuration Error'
-				msg = (f'The HAL Text LED "{obj_name}" is missing the Dynamic '
-				'Property "pin_name" or it is blank.')
-				info = 'The LED will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setText('Error!')
-				child.setEnabled(False)
-				# set the function to an empty string to not create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
-				title = 'Configuration Error'
-				msg = (f'HAL  TextLED "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI. The HAL pin can not be created.')
-				info = f'The LED "{obj_name}" label will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to not create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			led_dict = {}
-			led_dict['name'] = child.objectName()
-			led_dict['pin_name'] = child.property('pin_name')
-			led_dict['on_text'] = child.property('on_text') or 'True'
-			led_dict['off_text'] = child.property('off_text') or 'False'
-			led_dict['on_bg_color'] = child.property('on_bg_color') or parent.led_on_bg_color
-			led_dict['off_bg_color'] = child.property('off_bg_color') or parent.led_off_bg_color
-			led_dict['on_text_color'] = child.property('on_text_color') or parent.led_on_text_color
-			led_dict['off_text_color'] = child.property('off_text_color') or parent.led_off_text_color
-			led_dict['font_family'] = child.property('font_family') or QFont('Courier', 16)
-			led_dict['font_bold'] = child.property('font_bold') or False
-			led_dict['alignment'] = child.alignment()
-			led_dict['function'] = child.property('function')
-			# set old object function to none so the hal pin is not duplicated
-			child.setProperty('function', 'None')
-
-			new_led = LEDTextLabel(**led_dict)
-			new_led.setProperty('function', led_dict['function'])
-			new_led.setProperty('pin_name', led_dict['pin_name'])
-
-			layout = child.parent().layout()
-			if layout is not None:
-				child_layout = find_widget_layout(layout, child)
-				if child_layout is not None:
-					child_layout.replaceWidget(child, new_led)
-			else: # widget is not in a layout
-				geometry = child.geometry()
-				child_parent = child.parent()
-				new_led.setParent(child_parent)
-				new_led.setGeometry(geometry)
-
-			child.deleteLater()
-			gc.collect()
-			new_led.setObjectName(led_dict['name'])
-			setattr(parent, led_dict['name'], new_led) # give the new label the old name
-			parent.hal_led_text_labels[led_dict['name']] = pin_name
-			parent.led_pin_names.append(pin_name)
-
 def setup_hal_leds(parent):
 	parent.hal_leds = {}
 	for child in parent.findChildren(QLabel):
@@ -303,6 +231,79 @@ def setup_hal_leds(parent):
 			new_led.setObjectName(led_dict['name'])
 			setattr(parent, led_dict['name'], new_led) # give the new label the old name
 			parent.hal_leds[led_dict['name']] = led_dict['pin_name']
+			parent.led_pin_names.append(pin_name)
+
+
+def setup_hal_led_text_labels(parent):
+	parent.hal_led_text_labels = {}
+	for child in parent.findChildren(QLabel):
+		if isdeleted(child):
+			continue
+
+		if child.property('function') == 'hal_led_text':
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+
+			if pin_name in [None, '']: # verified
+				title = 'Configuration Error'
+				msg = (f'The HAL Text LED "{obj_name}" is missing the Dynamic '
+				'Property "pin_name" or it is blank.')
+				info = 'The LED will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setText('Error!')
+				child.setEnabled(False)
+				# set the function to an empty string to not create a HAL pin
+				child.setProperty('function', '')
+				continue
+
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
+				title = 'Configuration Error'
+				msg = (f'HAL  TextLED "{obj_name}" pin name "{pin_name}" is already '
+				'used in Flex GUI. The HAL pin can not be created.')
+				info = f'The LED "{obj_name}" label will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				child.setEnabled(False)
+				child.setText('Error!')
+				# set the function to an empty string to not create a HAL pin
+				child.setProperty('function', '')
+				continue
+
+			led_dict = {}
+			led_dict['name'] = child.objectName()
+			led_dict['pin_name'] = child.property('pin_name')
+			led_dict['on_text'] = child.property('on_text') or 'True'
+			led_dict['off_text'] = child.property('off_text') or 'False'
+			led_dict['on_bg_color'] = child.property('on_bg_color') or parent.led_on_bg_color
+			led_dict['off_bg_color'] = child.property('off_bg_color') or parent.led_off_bg_color
+			led_dict['on_text_color'] = child.property('on_text_color') or parent.led_on_text_color
+			led_dict['off_text_color'] = child.property('off_text_color') or parent.led_off_text_color
+			led_dict['font_family'] = child.property('font_family') or QFont('Courier', 16)
+			led_dict['font_bold'] = child.property('font_bold') or False
+			led_dict['alignment'] = child.alignment()
+			led_dict['function'] = child.property('function')
+			# set old object function to none so the hal pin is not duplicated
+			child.setProperty('function', 'None')
+
+			new_led = LEDTextLabel(**led_dict)
+			new_led.setProperty('function', led_dict['function'])
+			new_led.setProperty('pin_name', led_dict['pin_name'])
+
+			layout = child.parent().layout()
+			if layout is not None:
+				child_layout = find_widget_layout(layout, child)
+				if child_layout is not None:
+					child_layout.replaceWidget(child, new_led)
+			else: # widget is not in a layout
+				geometry = child.geometry()
+				child_parent = child.parent()
+				new_led.setParent(child_parent)
+				new_led.setGeometry(geometry)
+
+			child.deleteLater()
+			gc.collect()
+			new_led.setObjectName(led_dict['name'])
+			setattr(parent, led_dict['name'], new_led) # give the new label the old name
+			parent.hal_led_text_labels[led_dict['name']] = pin_name
 			parent.led_pin_names.append(pin_name)
 
 def setup_hal_led_labels(parent):
@@ -468,7 +469,7 @@ def setup_hal_led_buttons(parent):
 			setattr(parent, led_dict['name'], new_button) # give the new button the old name
 			parent.led_pin_names.append(pin_name)
 
-	##### LED Indicator QPushButton #####
+	##### LED Indicator QPushButton ##### FIXME this is only for E Stop Power etc
 	hal_types = ['hal_pin', 'hal_led_button', 'hal_io', 'hal_avr_f', 'hal_msl',
 	'hal_led', 'hal_led_label']
 	for child in parent.findChildren(QPushButton):
@@ -477,9 +478,10 @@ def setup_hal_led_buttons(parent):
 
 		if child.property('led_indicator'):
 			obj_name = child.objectName()
-			pin_name = child.property('pin_name')
+			#pin_name = child.property('pin_name')
 			btn_text = child.text()
 
+			'''
 			if pin_name in [None, '']: # verified
 				title = 'Configuration Error'
 				msg = (f'The button "{obj_name}" and with the text of "{btn_text}" can not '
@@ -504,6 +506,7 @@ def setup_hal_led_buttons(parent):
 				# set the function to an empty string to not create a HAL pin
 				child.setProperty('function', '')
 				continue
+			'''
 
 			btn_dict = {}
 			btn_dict['name'] = child.objectName()
@@ -554,7 +557,7 @@ def setup_hal_led_buttons(parent):
 			gc.collect()
 			new_button.setObjectName(btn_dict['name'])
 			setattr(parent, btn_dict['name'], new_button) # give the new button the old name
-			parent.led_pin_names.append(pin_name)
+			#parent.led_pin_names.append(pin_name)
 
 '''
 from this point on use parent.child_names to get the widgets because the LED

@@ -177,23 +177,23 @@ def update(parent):
 			#print('status update STATE_ESTOP')
 			for key, value in parent.state_estop_names.items():
 				getattr(parent, key).setText(value)
-			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
-				parent.estop_pb.led = False
+			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
+				parent.estop_pb.state = False
 			if 'power_pb' in parent.child_names:
 				parent.power_pb.setChecked(False)
-				if hasattr(parent.power_pb, 'led'):
-					parent.power_pb.led = False
+				if hasattr(parent.power_pb, 'state'):
+					parent.power_pb.state = False
 
 		# estop closed power off
 		if parent.status.task_state == emc.STATE_ESTOP_RESET:
 			#print('status update STATE_ESTOP_RESET')
-			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'led'):
-				parent.estop_pb.led = True
+			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
+				parent.estop_pb.state = True
 
 			if 'power_pb' in parent.child_names:
 				parent.power_pb.setChecked(False)
-				if hasattr(parent.power_pb, 'led'):
-					parent.power_pb.led = False
+				if hasattr(parent.power_pb, 'state'):
+					parent.power_pb.state = False
 			if 'probing_enable_pb' in parent.child_names:
 				parent.probing_enable_pb.setChecked(False)
 			for key, value in parent.state_estop_reset_names.items():
@@ -204,8 +204,8 @@ def update(parent):
 			#print('status update STATE_ON')
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
-			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'led'):
-					parent.power_pb.led = True
+			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'state'):
+					parent.power_pb.state = True
 
 		utilities.update_home_controls(parent)
 		utilities.update_controls(parent)
@@ -307,12 +307,12 @@ def update(parent):
 		if 'flood_pb' in parent.child_names:
 			if parent.status.flood == emc.FLOOD_OFF:
 				parent.flood_pb.setChecked(False)
-				if hasattr(parent.flood_pb, 'led'):
-					parent.flood_pb.led = False
+				if hasattr(parent.flood_pb, 'state'):
+					parent.flood_pb.state = False
 			elif parent.status.flood == emc.FLOOD_ON:
 				parent.flood_pb.setChecked(True)
-				if hasattr(parent.flood_pb, 'led'):
-					parent.flood_pb.led = True
+				if hasattr(parent.flood_pb, 'state'):
+					parent.flood_pb.state = True
 
 		parent.flood_state = parent.status.flood
 
@@ -321,12 +321,12 @@ def update(parent):
 		if 'mist_pb' in parent.child_names: 
 			if parent.status.mist == emc.MIST_OFF:
 				parent.mist_pb.setChecked(False)
-				if hasattr(parent.mist_pb, 'led'):
-					parent.mist_pb.led = False
+				if hasattr(parent.mist_pb, 'state'):
+					parent.mist_pb.state = False
 			elif parent.status.mist == emc.MIST_ON:
 				parent.mist_pb.setChecked(True)
-				if hasattr(parent.mist_pb, 'led'):
-					parent.mist_pb.led = True
+				if hasattr(parent.mist_pb, 'state'):
+					parent.mist_pb.state = True
 
 		parent.mist_state = parent.status.mist
 
@@ -473,7 +473,7 @@ def update(parent):
 
 	# update hal led labels
 	for key, value in parent.hal_led_labels.items():
-		getattr(parent, key).led = hal.get_value(f'flexhal.{value}')
+		getattr(parent, key).state = hal.get_value(f'flexhal.{value}')
 
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
