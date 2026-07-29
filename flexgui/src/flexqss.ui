@@ -21,7 +21,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <property name="contrast_label" stdset="0">
        <string/>
@@ -1098,9 +1098,6 @@ click on Launch Sample GUI</string>
             </item>
             <item row="2" column="3">
              <widget class="QCheckBox" name="le_read_only">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>Read Only</string>
               </property>
@@ -1117,7 +1114,7 @@ click on Launch Sample GUI</string>
                </attribute>
                <layout class="QVBoxLayout" name="verticalLayout_38">
                 <item>
-                 <widget class="QPlainTextEdit" name="lb_stylesheet_2">
+                 <widget class="QPlainTextEdit" name="le_stylesheet">
                   <property name="minimumSize">
                    <size>
                     <width>350</width>
@@ -1185,7 +1182,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_106">
                    <item row="0" column="0">
-                    <widget class="QPushButton" name="lb_font_picker_2">
+                    <widget class="QPushButton" name="le_font_picker">
                      <property name="text">
                       <string>Font Picker</string>
                      </property>
@@ -1195,7 +1192,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QRadioButton" name="lb_all_fonts_2">
+                    <widget class="QRadioButton" name="le_all_fonts">
                      <property name="text">
                       <string>All Fonts</string>
                      </property>
@@ -1205,28 +1202,28 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QRadioButton" name="lb_scaleable_fonts_2">
+                    <widget class="QRadioButton" name="le_scaleable_fonts">
                      <property name="text">
                       <string>Scalable Fonts</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QRadioButton" name="lb_non_scaleable_fonts_2">
+                    <widget class="QRadioButton" name="le_non_scaleable_fonts">
                      <property name="text">
                       <string>Non Scalable Fonts</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QRadioButton" name="lb_monospaced_fonts_2">
+                    <widget class="QRadioButton" name="le_monospaced_fonts">
                      <property name="text">
                       <string>Monospaced Fonts</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QRadioButton" name="lb_proportional_fonts_2">
+                    <widget class="QRadioButton" name="le_proportional_fonts">
                      <property name="text">
                       <string>Proportional Fonts</string>
                      </property>
@@ -1241,7 +1238,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                    <bool>false</bool>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="tab_69">
                    <attribute name="title">
@@ -1269,7 +1266,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="4" column="1">
-                     <widget class="QSpinBox" name="lb_padding_bottom_normal_2">
+                     <widget class="QSpinBox" name="le_padding_bottom_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1286,7 +1283,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="3" column="1">
-                     <widget class="QSpinBox" name="lb_padding_top_normal_2">
+                     <widget class="QSpinBox" name="le_padding_top_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1303,21 +1300,21 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="2" column="1">
-                     <widget class="QSpinBox" name="lb_padding_right_normal_2">
+                     <widget class="QSpinBox" name="le_padding_right_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
                      </widget>
                     </item>
                     <item row="1" column="1">
-                     <widget class="QSpinBox" name="lb_padding_left_normal_2">
+                     <widget class="QSpinBox" name="le_padding_left_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
                      </widget>
                     </item>
                     <item row="0" column="1">
-                     <widget class="QSpinBox" name="lb_padding_normal_2">
+                     <widget class="QSpinBox" name="le_padding_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1351,7 +1348,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="0" column="1">
-                     <widget class="QSpinBox" name="lb_margin_normal_2">
+                     <widget class="QSpinBox" name="le_margin_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1368,7 +1365,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="1" column="1">
-                     <widget class="QSpinBox" name="lb_margin_left_normal_2">
+                     <widget class="QSpinBox" name="le_margin_left_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1385,7 +1382,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="2" column="1">
-                     <widget class="QSpinBox" name="lb_margin_right_normal_2">
+                     <widget class="QSpinBox" name="le_margin_right_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1402,7 +1399,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="3" column="1">
-                     <widget class="QSpinBox" name="lb_margin_top_normal_2">
+                     <widget class="QSpinBox" name="le_margin_top_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1419,7 +1416,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                      </widget>
                     </item>
                     <item row="4" column="1">
-                     <widget class="QSpinBox" name="lb_margin_bottom_normal_2">
+                     <widget class="QSpinBox" name="le_margin_bottom_normal">
                       <property name="maximum">
                        <number>500</number>
                       </property>
@@ -1472,7 +1469,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QSpinBox" name="lb_border_width_normal_2">
+                    <widget class="QSpinBox" name="le_border_width_normal">
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -1498,7 +1495,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QSpinBox" name="lb_border_radius_normal_2">
+                    <widget class="QSpinBox" name="le_border_radius_normal">
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -1568,7 +1565,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QSpinBox" name="lb_min_width_normal_2">
+                    <widget class="QSpinBox" name="le_min_width_normal">
                      <property name="maximum">
                       <number>500</number>
                      </property>
@@ -1585,7 +1582,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QSpinBox" name="lb_min_height_normal_2">
+                    <widget class="QSpinBox" name="le_min_height_normal">
                      <property name="maximum">
                       <number>500</number>
                      </property>
@@ -1602,7 +1599,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QSpinBox" name="lb_max_width_normal_2">
+                    <widget class="QSpinBox" name="le_max_width_normal">
                      <property name="maximum">
                       <number>500</number>
                      </property>
@@ -1619,7 +1616,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QSpinBox" name="lb_max_height_normal_2">
+                    <widget class="QSpinBox" name="le_max_height_normal">
                      <property name="maximum">
                       <number>500</number>
                      </property>
@@ -1819,7 +1816,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QSpinBox" name="lb_border_radius_hover_2">
+                    <widget class="QSpinBox" name="le_border_radius_hover">
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -1883,7 +1880,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QSpinBox" name="lb_border_width_hover_2">
+                    <widget class="QSpinBox" name="le_border_width_hover">
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -1984,7 +1981,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QSpinBox" name="lb_border_width_disabled_2">
+                    <widget class="QSpinBox" name="le_border_width_disabled">
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -2010,7 +2007,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QSpinBox" name="lb_border_radius_disabled_2">
+                    <widget class="QSpinBox" name="le_border_radius_disabled">
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -2186,7 +2183,11 @@ Standard 4.5:1 text contrast ratio for active controls</string>
              </widget>
             </item>
             <item row="0" column="1" colspan="4">
-             <widget class="QLineEdit" name="lineEdit"/>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="text">
+               <string>Some Text Here</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -2543,7 +2544,7 @@ Standard 4.5:1 text contrast ratio for active controls</string>
         <item row="1" column="2" colspan="4">
          <widget class="QTabWidget" name="tabWidget_4">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tabWidget_4Page1">
            <attribute name="title">

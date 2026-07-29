@@ -7,8 +7,8 @@ def startup(parent):
 
 	parent.le_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.le_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+	parent.le_read_only.clicked.connect(partial(parent.disable, 'lineEdit'))
 
-	#parent.le_read_only.clicked.connect(partial(parent.disable, 'lineEdit')) FIXME
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'disabled']
@@ -33,6 +33,8 @@ def startup(parent):
 	parent.le_font_weight = False
 	parent.le_font_style = False
 	parent.le_font_italic = False
+
+	parent.le_font_picker.clicked.connect(parent.font_dialog)
 
 ######### QLineEdit Stylesheet #########
 

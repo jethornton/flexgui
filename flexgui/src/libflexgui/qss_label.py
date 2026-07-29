@@ -7,7 +7,6 @@ def startup(parent):
 
 	parent.lb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 	parent.lb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
-
 	parent.lb_disable.clicked.connect(partial(parent.disable, 'label'))
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
