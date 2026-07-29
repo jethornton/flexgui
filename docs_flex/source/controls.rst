@@ -115,9 +115,9 @@ other properties are optional.
 	Save As, save_as_pb, Saves the NC Code to a new file
 
 Adding the Bool type Dynamic Property `led_indicator` to the above control
-buttons will add the default LED to that button. Each control button can have
-different options. The default colors are Red when Off and Green when On. The
-default shape is round.
+buttons will add the default round LED to the upper right corner of the button.
+Each control button can have different options. The default colors are Red when
+Off and Green when On.
 
 .. csv-table:: **LED Button Dynamic Properties**
    :width: 100%
@@ -132,7 +132,6 @@ default shape is round.
 	Int, led_top_offset, Sets the offset from the top edge in pixels
 	Color, led_on_color, Sets the color of the LED when on
 	Color, led_off_color, Sets the color of the LED when off
-	String, led_shape, square
 
 To change the LED default options they can be set in the INI file.
 

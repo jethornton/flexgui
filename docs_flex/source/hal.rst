@@ -99,7 +99,8 @@ HAL LED Button
 A QPushButton can be a HAL LED button by adding two dynamic properties. The
 `pin_name` property will be the HAL pin name you use to connect the button state
 in the postgui.hal file. The button can be momentary or checkable. The default
-colors are Red when Off and Green when On. The default shape is round.
+colors are Red when Off and Green when On. The round LED will be in the upper
+right corner.
 
 The HAL direction is OUT and the HAL type is bit for a HAL LED QPushButton.
 
@@ -121,7 +122,6 @@ The option all_homed will disable the HAL LED Button until all joints are homed.
 	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
-	String, led_shape, square
 
 .. _hal_spin_box:
 
