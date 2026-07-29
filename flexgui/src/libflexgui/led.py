@@ -1,7 +1,7 @@
 
-from PyQt6.QtCore import Qt, pyqtProperty, pyqtSignal, QPointF, QSize, QRectF
+from PyQt6.QtCore import Qt, pyqtProperty, QPointF, QSize, QRectF
 from PyQt6.QtGui import QRadialGradient, QLinearGradient, QPainter
-from PyQt6.QtGui import QBrush, QColor, QPen, QPalette, QFont
+from PyQt6.QtGui import QBrush, QColor, QPen, QPalette
 from PyQt6.QtWidgets import QPushButton, QLabel
 
 '''
