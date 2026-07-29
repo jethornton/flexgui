@@ -14,8 +14,8 @@ def startup(parent):
 	# All
 	parent.all_normal = False
 
-	parent.all_apply_style.clicked.connect(partial(all_create_stylesheet, parent))
-	parent.all_apply_empty.clicked.connect(partial(all_create_stylesheet, parent))
+	parent.all_apply_style.clicked.connect(partial(all_create_stylesheet, parent, 'all'))
+	parent.all_apply_empty.clicked.connect(partial(all_create_stylesheet, parent, 'empty'))
 	parent.all_clear_style.clicked.connect(partial(clear_stylesheet, parent))
 
 	parent.all_fg_color_normal.clicked.connect(parent.color_dialog)
@@ -42,57 +42,58 @@ def startup(parent):
 	parent.all_fg_color_sel_disabled = False
 	parent.all_bg_color_sel_disabled = False
 
-def all_create_stylesheet(parent):
+def all_create_stylesheet(parent, what):
+	print(f'what {what}')
 	style = False
-	# FIXME add option to over write all styles
+
 	# Foreground Color Normal
 	if parent.all_fg_color_sel_normal:
 		color = parent.all_fg_color_sel_normal
 
 		# QPushButton
-		if not parent.pb_fg_color_sel_normal:
+		if not parent.pb_fg_color_sel_normal or what == 'all':
 			parent.pb_normal = True
 			label = parent.pb_fg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_fg_color_sel_normal = color
 
 		# QCheckBox
-		if not parent.cb_fg_color_sel_normal:
+		if not parent.cb_fg_color_sel_normal or what == 'all':
 			parent.cb_normal = True
 			label = parent.cb_fg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_fg_color_sel_normal = color
 
 		# QRadioButton
-		if not parent.rb_fg_color_sel_normal:
+		if not parent.rb_fg_color_sel_normal or what == 'all':
 			parent.rb_normal = True
 			label = parent.rb_fg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_fg_color_sel_normal = color
 
 		# QToolBar
-		if not parent.toolbar_bg_sel_color:
+		if not parent.toolbar_bg_sel_color or what == 'all':
 			parent.tbar_normal = True
 			label = parent.tbar_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tbar_bg_sel_color = color
 
 		# QToolButton
-		if not parent.tb_fg_color_sel_normal:
+		if not parent.tb_fg_color_sel_normal or what == 'all':
 			parent.tb_normal = True
 			label = parent.tb_fg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tb_fg_color_sel_normal = color
 
 		# QSpinBox
-		if not parent.sb_fg_color_sel_normal:
+		if not parent.sb_fg_color_sel_normal or what == 'all':
 			parent.sb_normal = True
 			label = parent.sb_fg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.sb_fg_color_sel_normal = color
 
 		# QLabel
-		if not parent.lb_fg_color_sel_normal:
+		if not parent.lb_fg_color_sel_normal or what == 'all':
 			parent.lb_normal = True
 			label = parent.lb_fg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -103,42 +104,42 @@ def all_create_stylesheet(parent):
 		color = parent.all_bg_color_sel_normal
 
 		# QPushButton
-		if not parent.pb_bg_color_sel_normal:
+		if not parent.pb_bg_color_sel_normal or what == 'all':
 			parent.pb_normal = True
 			label = parent.pb_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_bg_color_sel_normal = color
 
 		# QCheckBox
-		if not parent.cb_bg_color_sel_normal:
+		if not parent.cb_bg_color_sel_normal or what == 'all':
 			parent.cb_normal = True
 			label = parent.cb_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_bg_color_sel_normal = color
 
 		# QRadioButton
-		if not parent.rb_bg_color_sel_normal:
+		if not parent.rb_bg_color_sel_normal or what == 'all':
 			parent.rb_normal = True
 			label = parent.rb_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_bg_color_sel_normal = color
 
 		# QToolButton
-		if not parent.tb_bg_color_sel_normal:
+		if not parent.tb_bg_color_sel_normal or what == 'all':
 			parent.tb_normal = True
 			label = parent.tb_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tb_bg_color_sel_normal = color
 
 		# QSpinBox
-		if not parent.sb_bg_color_sel_normal:
+		if not parent.sb_bg_color_sel_normal or what == 'all':
 			parent.sb_normal = True
 			label = parent.sb_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.sb_bg_color_sel_normal = color
 
 		# QLabel
-		if not parent.lb_bg_color_sel_normal:
+		if not parent.lb_bg_color_sel_normal or what == 'all':
 			parent.lb_normal = True
 			label = parent.lb_bg_color_normal.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -149,42 +150,42 @@ def all_create_stylesheet(parent):
 		color = parent.all_fg_color_sel_hover
 
 		# QPushButton
-		if not parent.pb_fg_color_sel_hover:
+		if not parent.pb_fg_color_sel_hover or what == 'all':
 			parent.pb_hover = True
 			label = parent.pb_fg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_fg_color_sel_hover = color
 
 		# QCheckBox
-		if not parent.cb_fg_color_sel_hover:
+		if not parent.cb_fg_color_sel_hover or what == 'all':
 			parent.cb_hover = True
 			label = parent.cb_fg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_fg_color_sel_hover = color
 
 		# QRadioButton
-		if not parent.rb_fg_color_sel_hover:
+		if not parent.rb_fg_color_sel_hover or what == 'all':
 			parent.rb_hover = True
 			label = parent.rb_fg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_fg_color_sel_hover = color
 
 		# QToolButton
-		if not parent.tb_fg_color_sel_hover:
+		if not parent.tb_fg_color_sel_hover or what == 'all':
 			parent.tb_hover = True
 			label = parent.tb_fg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tb_fg_color_sel_hover = color
 
 		# QSpinBox
-		if not parent.sb_fg_color_sel_hover:
+		if not parent.sb_fg_color_sel_hover or what == 'all':
 			parent.sb_hover = True
 			label = parent.sb_fg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.sb_fg_color_sel_hover = color
 
 		# QLabel
-		if not parent.lb_fg_color_sel_hover:
+		if not parent.lb_fg_color_sel_hover or what == 'all':
 			parent.lb_hover = True
 			label = parent.lb_fg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -195,42 +196,42 @@ def all_create_stylesheet(parent):
 		color = parent.all_bg_color_sel_hover
 
 		# QPushButton
-		if not parent.pb_bg_color_sel_hover:
+		if not parent.pb_bg_color_sel_hover or what == 'all':
 			parent.pb_hover = True
 			label = parent.pb_bg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_bg_color_sel_hover = color
 
 		# QCheckBox
-		if not parent.cb_bg_color_sel_hover:
+		if not parent.cb_bg_color_sel_hover or what == 'all':
 			parent.cb_hover = True
 			label = parent.cb_bg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_bg_color_sel_hover = color
 
 		# QRadioButton
-		if not parent.rb_bg_color_sel_hover:
+		if not parent.rb_bg_color_sel_hover or what == 'all':
 			parent.rb_hover = True
 			label = parent.rb_bg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_bg_color_sel_hover = color
 
 		# QToolButton
-		if not parent.tb_bg_color_sel_hover:
+		if not parent.tb_bg_color_sel_hover or what == 'all':
 			parent.tb_hover = True
 			label = parent.tb_bg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tb_bg_color_sel_hover = color
 
 		# QSpinBox
-		if not parent.sb_bg_color_sel_hover:
+		if not parent.sb_bg_color_sel_hover or what == 'all':
 			parent.sb_hover = True
 			label = parent.sb_bg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.sb_bg_color_sel_hover = color
 
 		# QLabel
-		if not parent.lb_bg_color_sel_hover:
+		if not parent.lb_bg_color_sel_hover or what == 'all':
 			parent.lb_hover = True
 			label = parent.lb_bg_color_hover.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -241,28 +242,28 @@ def all_create_stylesheet(parent):
 		color = parent.all_fg_color_sel_checked
 
 		# QPushButton
-		if not parent.pb_fg_color_sel_checked:
+		if not parent.pb_fg_color_sel_checked or what == 'all':
 			parent.pb_checked = True
 			label = parent.pb_fg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_fg_color_sel_checked = color
 
 		# QCheckBox
-		if not parent.cb_fg_color_sel_checked:
+		if not parent.cb_fg_color_sel_checked or what == 'all':
 			parent.cb_checked = True
 			label = parent.cb_fg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_fg_color_sel_checked = color
 
 		# QRadioButton
-		if not parent.rb_fg_color_sel_checked:
+		if not parent.rb_fg_color_sel_checked or what == 'all':
 			parent.rb_checked = True
 			label = parent.rb_fg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_fg_color_sel_checked = color
 
 		# QToolButton
-		if not parent.tb_fg_color_sel_checked:
+		if not parent.tb_fg_color_sel_checked or what == 'all':
 			parent.tb_checked = True
 			label = parent.tb_fg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -273,28 +274,28 @@ def all_create_stylesheet(parent):
 		color = parent.all_bg_color_sel_checked
 
 		# QPushButton
-		if not parent.pb_bg_color_sel_checked:
+		if not parent.pb_bg_color_sel_checked or what == 'all':
 			parent.pb_checked = True
 			label = parent.pb_bg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_bg_color_sel_checked = color
 
 		# QCheckBox
-		if not parent.cb_bg_color_sel_checked:
+		if not parent.cb_bg_color_sel_checked or what == 'all':
 			parent.cb_checked = True
 			label = parent.cb_bg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_bg_color_sel_checked = color
 
 		# QRadioButton
-		if not parent.rb_bg_color_sel_checked:
+		if not parent.rb_bg_color_sel_checked or what == 'all':
 			parent.rb_checked = True
 			label = parent.rb_bg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_bg_color_sel_checked = color
 
 		# QToolButton
-		if not parent.tb_bg_color_sel_checked:
+		if not parent.tb_bg_color_sel_checked or what == 'all':
 			parent.tb_checked = True
 			label = parent.tb_bg_color_checked.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -305,42 +306,42 @@ def all_create_stylesheet(parent):
 		color = parent.all_fg_color_sel_disabled
 
 		# QPushButton
-		if not parent.pb_fg_color_sel_disabled:
+		if not parent.pb_fg_color_sel_disabled or what == 'all':
 			parent.pb_disabled = True
 			label = parent.pb_fg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_fg_color_sel_disabled = color
 
 		# QCheckBox
-		if not parent.cb_fg_color_sel_disabled:
+		if not parent.cb_fg_color_sel_disabled or what == 'all':
 			parent.cb_disabled = True
 			label = parent.cb_fg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_fg_color_sel_disabled = color
 
 		# QRadioButton
-		if not parent.rb_fg_color_sel_disabled:
+		if not parent.rb_fg_color_sel_disabled or what == 'all':
 			parent.rb_disabled = True
 			label = parent.rb_fg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_fg_color_sel_disabled = color
 
 		# QToolButton
-		if not parent.tb_fg_color_sel_disabled:
+		if not parent.tb_fg_color_sel_disabled or what == 'all':
 			parent.tb_disabled = True
 			label = parent.tb_fg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tb_fg_color_sel_disabled = color
 
 		# QSpinBox
-		if not parent.sb_fg_color_sel_disabled:
+		if not parent.sb_fg_color_sel_disabled or what == 'all':
 			parent.sb_disabled = True
 			label = parent.sb_fg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.sb_fg_color_sel_disabled = color
 
 		# QLabel
-		if not parent.lb_fg_color_sel_disabled:
+		if not parent.lb_fg_color_sel_disabled or what == 'all':
 			parent.lb_disabled = True
 			label = parent.lb_fg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
@@ -351,42 +352,42 @@ def all_create_stylesheet(parent):
 		color = parent.all_bg_color_sel_disabled
 
 		# QPushButton
-		if not parent.pb_bg_color_sel_disabled:
+		if not parent.pb_bg_color_sel_disabled or what == 'all':
 			parent.pb_disabled = True
 			label = parent.pb_bg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.pb_bg_color_sel_disabled = color
 
 		# QCheckBox
-		if not parent.cb_bg_color_sel_disabled:
+		if not parent.cb_bg_color_sel_disabled or what == 'all':
 			parent.cb_disabled = True
 			label = parent.cb_bg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.cb_bg_color_sel_disabled = color
 
 		# QRadioButton
-		if not parent.rb_bg_color_sel_disabled:
+		if not parent.rb_bg_color_sel_disabled or what == 'all':
 			parent.rb_disabled = True
 			label = parent.rb_bg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.rb_bg_color_sel_disabled = color
 
 		# QToolButton
-		if not parent.tb_bg_color_sel_disabled:
+		if not parent.tb_bg_color_sel_disabled or what == 'all':
 			parent.tb_disabled = True
 			label = parent.tb_bg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.tb_bg_color_sel_disabled = color
 
 		# QSpinBox
-		if not parent.sb_bg_color_sel_disabled:
+		if not parent.sb_bg_color_sel_disabled or what == 'all':
 			parent.sb_disabled = True
 			label = parent.sb_bg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.sb_bg_color_sel_disabled = color
 
 		# QLabel
-		if not parent.lb_bg_color_sel_disabled:
+		if not parent.lb_bg_color_sel_disabled or what == 'all':
 			parent.lb_disabled = True
 			label = parent.lb_bg_color_disabled.property('label')
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
