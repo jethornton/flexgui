@@ -300,7 +300,6 @@ class IndicatorLabel(QLabel):
 
 		color = self._on_color if self._state else self._off_color
 		gradient = radial_gradient(x, y, self._diameter, color)
-		gradient = makeRadialGradient(led_size, x, y, self._diameter, color)
 
 		painter.setBrush(QBrush(gradient))
 		painter.setPen(color)
