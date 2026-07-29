@@ -116,7 +116,6 @@ def manual_tool_change(parent):
 	dialog = tool_change.app(parent)
 	def dia_acc(pin):
 		current_value = pin.get()
-		#print(current_value)
 		if current_value:
 			dialog.accept()
 
@@ -288,15 +287,12 @@ def select_editor(parent, nc_file):
 
 		# Guard clause: Check if the user left it on the default 'Select' option
 		if editor is False:
-			print("User clicked OK but did not choose a valid editor.")
 			return None
 
-		print(f"User accepted. Selected command: {editor}")
 		if shutil.which(editor) is not None:
 			subprocess.Popen([editor, nc_file])
 
 	else:
-		print('User cancelled the dialog.')
 		return None
 
 def status_warning(parent, msg):
@@ -334,7 +330,6 @@ def error_msg_ok(parent, title, msg, info=None): # messagebox.qss added
 
 def warn_msg_yes_no(parent, title, msg, info=None): # messagebox.qss added
 	# dialogs.warn_msg_yes_no(parent, title, msg, info)
-	#print('warn_msg_yes_no')
 	msg_box = QMessageBox(parent)
 	msg_box.setIcon(QMessageBox.Icon.Warning)
 	msg_box.setWindowTitle(title)

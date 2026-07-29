@@ -84,10 +84,10 @@ class tpc_calc(QWidget):
 			# Print the specific error message
 			print("Error Message:", e)
 
-	def move_to_center(self):
+	def move_to_center(self): # FIXME or delete me
 		print('move_to_center')
 
-	def set_to_x0y0(self):
+	def set_to_x0y0(self): # FIXME or delete me
 		print('set_to_x0y0')
 
 

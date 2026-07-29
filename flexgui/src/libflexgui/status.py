@@ -152,6 +152,12 @@ def update(parent):
 		if 'task_mode_lb' in parent.child_names: # update the label
 			parent.task_mode_lb.setText(TASK_MODES[parent.status.task_mode])
 
+		if 'run_pb' in parent.child_names and hasattr(parent.run_pb, 'state'):
+			if parent.task_mode == 'MODE_AUTO' or parent.task_mode == 'MODE_MDI':
+				parent.run_pb.state = True
+			elif parent.task_mode == 'MODE_MANUAL':
+				parent.run_pb.state = False
+
 		# this is needed for MDI commands that do not use motion
 		if (parent.status.interp_state == emc.INTERP_IDLE
 			and parent.status.task_mode == emc.MODE_MDI):
@@ -205,7 +211,7 @@ def update(parent):
 			for key, value in parent.state_on_names.items():
 				getattr(parent, key).setText(value)
 			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'state'):
-					parent.power_pb.state = True
+				parent.power_pb.state = True
 
 		utilities.update_home_controls(parent)
 		utilities.update_controls(parent)

@@ -6,17 +6,14 @@ from libflexgui import dialogs
 from libflexgui import utilities
 
 def home(parent):
-	#print('home')
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 0: # joint not homed
 		parent.command.home(joint)
 
 def home_all(parent):
-	#print('home_all')
 	parent.command.home(-1)
 
 def unhome(parent):
-	#print('unhome')
 	joint = int(parent.sender().objectName()[-1])
 	if parent.status.homed[joint] == 1: # joint is homed
 		if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
@@ -25,7 +22,6 @@ def unhome(parent):
 		parent.command.unhome(joint)
 
 def unhome_all(parent):
-	#print('unhome_all')
 	if parent.status.motion_mode != emc.TRAJ_MODE_FREE:
 		parent.command.teleop_enable(False)
 		parent.command.wait_complete()
@@ -184,7 +180,6 @@ def tool_change(parent):
 		dialogs.error_msg_ok(parent, title, msg, info)
 
 def touchoff(parent):
-	#print('touchoff')
 	if 'touchoff_system_cb' in parent.child_names:
 		coordinate_system = parent.touchoff_system_cb.currentData()
 	else:
@@ -224,7 +219,6 @@ def tool_touchoff(parent):
 		run_mdi(parent, cmd)
 
 def spindle_control(parent, spindle, action, value=None):
-	#print(f'spindle {spindle} action {action} value {value}')
 	rpm = getattr(parent, f'spindle_rpm_{spindle}')
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
@@ -242,7 +236,6 @@ def spindle_control(parent, spindle, action, value=None):
 				dialogs.status_warning(parent, msg)
 
 		case 'rev':
-			#print(f'Spindle:{spindle} Action:{action}')
 			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
@@ -252,11 +245,9 @@ def spindle_control(parent, spindle, action, value=None):
 				dialogs.status_warning(parent, msg)
 
 		case 'stop':
-			#print(f'Spindle:{spindle} Action:{action}')
 			parent.command.spindle(emc.SPINDLE_OFF, spindle)
 
 		case 'plus':
-			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = rpm + increment
 			rpm_override = rpm * override
 
@@ -274,7 +265,6 @@ def spindle_control(parent, spindle, action, value=None):
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
 
 		case 'minus':
-			#print(f'Spindle:{spindle} Action:{action}')
 			rpm = rpm - increment
 			rpm_override = rpm * override
 
@@ -293,7 +283,6 @@ def spindle_control(parent, spindle, action, value=None):
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
 
 		case 'speed': # called by spindle spinboxes and slider
-			#print(f'Spindle:{spindle} Action:{action}')
 			sender = parent.sender()
 			rpm = sender.value()
 			object_type = sender.objectName().split('_')[-1]
@@ -314,7 +303,6 @@ def spindle_control(parent, spindle, action, value=None):
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
 
 		case 'preset':
-			#print(f'Spindle:{spindle} Action:{action} Value:{value}')
 			rpm = value
 			rpm_override = rpm * override
 
@@ -333,9 +321,6 @@ def spindle_control(parent, spindle, action, value=None):
 
 		case 'set_s_word': # use MDI to set the S word
 			run_mdi(parent, f'S{rpm} ${spindle}')
-
-		case _:
-			print('Unknown Action')
 
 	# if spindle speed slider or spinbox value is not == to rpm change it.
 	if ('spindle_speed_sb' in parent.child_names
@@ -388,7 +373,6 @@ def spindle_override(parent, spindle=0, value=0):
 		dialogs.status_warning(parent, msg)
 
 def spindle_override_preset(parent, spindle, value):
-	#value = int(parent.sender().objectName().split('_')[-1])
 	# spindleoverride(float [, int])
 	# Set spindle override factor. Defaults to spindle 0.
 

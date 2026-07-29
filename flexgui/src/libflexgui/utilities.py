@@ -128,7 +128,6 @@ def is_valid_qcolor(color_str):
 	if color_str.startswith("#"):
 		color = QColor(color_str)
 		if color.isValid():
-			print('valid hex color')
 			return color
 
 	# Check if comma-separated (RGB / RGBA)
@@ -435,7 +434,6 @@ def io_watch(parent):
 
 def update_home_controls(parent):
 	parent.status.poll()
-	# print('update_home_controls')
 	if parent.probing:
 		for item in parent.unhome_controls:
 			getattr(parent, item).setEnabled(False)
@@ -526,14 +524,12 @@ def update_home_controls(parent):
 					parent.actionUnhome_All.setEnabled(True)
 
 		else: # mode not manual
-			# print('mode not manual')
 			for item in parent.home_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.unhome_controls:
 				getattr(parent, item).setEnabled(False)
 
 	else: # state is not on
-		# print('state is not on')
 		for item in parent.home_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.unhome_controls:
@@ -541,7 +537,6 @@ def update_home_controls(parent):
 
 def update_controls(parent):
 	parent.status.poll()
-	#print('update_controls')
 	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
 	file_loaded = len(parent.status.file) > 0 # currently loaded g code file
 	tool_loaded = parent.status.tool_in_spindle
@@ -567,7 +562,6 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP:
-		#print('update run controls STATE_ESTOP')
 		for item in parent.power_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.run_controls:
@@ -608,7 +602,6 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ESTOP_RESET:
-		#print('update run controls STATE_ESTOP_RESET')
 		for item in parent.power_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.run_controls:
@@ -649,7 +642,6 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ON:
-		#print('update run controls STATE_ON')
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.on_controls:
@@ -659,7 +651,6 @@ def update_controls(parent):
 				getattr(parent, item).setEnabled(True)
 
 		if task_mode == emc.MODE_AUTO: # program running
-			#print('update run controls MODE_AUTO')
 			for item in parent.file_open_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.jog_controls:
@@ -696,7 +687,6 @@ def update_controls(parent):
 					getattr(parent, item).setEnabled(False)
 
 			if state == emc.RCS_EXEC and interp_state == emc.INTERP_PAUSED:
-				#print('paused')
 				for item in parent.pause_controls:
 					getattr(parent, item).setEnabled(False)
 				if parent.step:
@@ -706,14 +696,12 @@ def update_controls(parent):
 					for item in parent.resume_controls:
 						getattr(parent, item).setEnabled(True)
 			if state == emc.RCS_EXEC and motion_type == 0: # MOTION_TYPE_NONE
-				#print('motion none')
 				if parent.step:
 					for item in parent.step_controls:
 						getattr(parent, item).setEnabled(True)
 
 			if state == emc.RCS_EXEC and motion_type != 0: # NOT MOTION_TYPE_NONE
 				if interp_state != emc.INTERP_PAUSED:
-					#print('in motion')
 					if parent.step:
 						for item in parent.step_controls:
 							getattr(parent, item).setEnabled(False)
@@ -724,7 +712,6 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(False)
 
 		elif task_mode == emc.MODE_MANUAL:
-			#print('update run controls MODE_MANUAL')
 			if all_homed:
 				for item in parent.probe_enable:
 					getattr(parent, item).setEnabled(True)
@@ -802,7 +789,6 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(True)
 
 		elif task_mode == emc.MODE_MDI: # mdi running
-			#print('update run controls MODE_MDI')
 			for item in parent.file_open_controls:
 				getattr(parent, item).setEnabled(False)
 			for item in parent.run_controls:

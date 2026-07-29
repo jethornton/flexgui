@@ -36,7 +36,6 @@ def load_file(parent, nc_code_file=None):
 			parent.plotter.clear_live_plotter()
 
 		if 'gcode_pte' in parent.child_names:
-			print('gcode pte')
 			text = open(nc_code_file).read()
 			parent.gcode_pte.setPlainText(text)
 
