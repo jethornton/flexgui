@@ -350,8 +350,9 @@ def setup_hal_led_labels(parent):
 			led_dict['right_offset'] = child.property('led_right_offset') or parent.led_right_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-			led_shape = child.property('led_shape') # validate shape
-			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
+			# FIXME shape is only round
+			#led_shape = child.property('led_shape') # validate shape
+			#led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
 			led_dict['function'] = child.property('function')
 			# set old object function to none so the hal pin is not duplicated
 			child.setProperty('function', 'none')
@@ -435,8 +436,6 @@ def setup_hal_led_buttons(parent):
 			led_dict['top_offset'] = child.property('led_top_offset') or parent.led_top_offset
 			led_dict['on_color'] = child.property('led_on_color') or parent.led_on_color
 			led_dict['off_color'] = child.property('led_off_color') or parent.led_off_color
-			led_shape = child.property('led_shape') # validate shape
-			led_dict['shape'] = led_shape if led_shape == 'square' else 'round'
 			new_button = LEDButton(**led_dict)
 
 			# copy style from old button to new button
@@ -2585,6 +2584,8 @@ def setup_hal(parent):
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			pin = getattr(parent, f'{pin_name}')
 
+			# FIXME this doesn't seem to do anything at all it's all done in the init
+			'''
 			if button.isCheckable():
 				button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
 				# set the hal pin default
@@ -2592,6 +2593,7 @@ def setup_hal(parent):
 			else:
 				button.pressed.connect(lambda pin=pin: (pin.set(True)))
 				button.released.connect(lambda pin=pin: (pin.set(False)))
+			'''
 
 			set_hal_enables(parent, button)
 
