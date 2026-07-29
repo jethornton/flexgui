@@ -43,8 +43,6 @@ def startup(parent):
 	parent.all_bg_color_sel_disabled = False
 
 def all_create_stylesheet(parent, what):
-	print(f'what {what}')
-	style = False
 
 	# Foreground Color Normal
 	if parent.all_fg_color_sel_normal:
