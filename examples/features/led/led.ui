@@ -159,7 +159,8 @@ OFF</string>
           <enum>QFrame::Box</enum>
          </property>
          <property name="text">
-          <string>HAL LED Label</string>
+          <string>HAL LED
+Label</string>
          </property>
          <property name="function" stdset="0">
           <string>hal_led_label</string>
@@ -179,6 +180,43 @@ OFF</string>
          </property>
          <property name="pin_name" stdset="0">
           <string>hal-led-round</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>HAL LED
+Button</string>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_button</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-button</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>HAL LED
+Checkable</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="function" stdset="0">
+          <string>hal_led_button</string>
+         </property>
+         <property name="pin_name" stdset="0">
+          <string>hal-led-checkable</string>
          </property>
         </widget>
        </item>
@@ -204,6 +242,9 @@ OFF</string>
          </property>
          <property name="led_indicator" stdset="0">
           <bool>true</bool>
+         </property>
+         <property name="led_diameter" stdset="0">
+          <number>20</number>
          </property>
         </widget>
        </item>
