@@ -14,7 +14,7 @@ Control Button LED, Bool=led_indicator, IndicatorButton
 '''
 
 # Linear Gradient function
-def linear_gradient(color): # FIXME diameter is not used
+def linear_gradient(color):
 	# Using relative ObjectMode ensures it stretches properly with the shape
 	gradient = QLinearGradient(QPointF(0.0, 0.0), QPointF(1.0, 1.0))
 	gradient.setCoordinateMode(QLinearGradient.CoordinateMode.ObjectMode)
@@ -34,41 +34,6 @@ def radial_gradient(x, y, diameter, color):
 	gradient.setColorAt(1.0, QColor(color).darker(150))
 	return gradient
 
-# gradient functions used by LED objects
-def makeLinearGradient(size, x, y, color):
-	# Create gradient from top-left (0,0) to bottom-right (1,1)
-	gradient = QLinearGradient(QPointF(0.0, 0.0), QPointF(1.0, 1.0))
-	gradient.setCoordinateMode(QLinearGradient.CoordinateMode.ObjectMode)
-	gradient.setColorAt(0.0, QColor(color))
-	gradient.setColorAt(0.01, QColor('white'))
-	gradient.setColorAt(0.1, QColor('white'))
-	gradient.setColorAt(1.0, QColor(color))
-	return gradient
-
-def makeRadialGradient(size, x, y, diameter, color):
-	gradient = QRadialGradient(x + diameter / 2, y + diameter / 2,
-		diameter * 0.5, diameter * 0.9, diameter * 0.2)
-	gradient.setColorAt(0, Qt.GlobalColor.white)
-	gradient.setColorAt(1, color)
-	return gradient
-
-'''
-def radial_gradient(size, x, y, color): # FIXME not used anywhere
-	# Define the center and focal point of the gradient
-	# Offset from the upper-left edge (e.g., 50 pixels down and right)
-	cx, cy = 8.0, 8.0
-	radius = max(self.width(), self.height())
-
-	# Create the radial gradient
-	gradient = QRadialGradient(QPointF(cx, cy), radius)
-
-	# Set colors: Starts white at the center, transitions to blue at the edge
-	gradient.setColorAt(0.0, QColor(230, 230, 230, 255))
-	gradient.setColorAt(0.08, QColor(color))
-	#gradient.setColorAt(1.0, QColor(color))
-	return gradient
-'''
-
 # A blank QLabel with a LED in the center
 class Indicator(QLabel):
 	_state = False
@@ -84,7 +49,7 @@ class Indicator(QLabel):
 
 	def paintEvent(self, event):
 		painter = QPainter(self)
-		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True) # new
+		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 		size = self.rect()
 		is_round = self._shape == 'round' or size.width() == size.height()
 		
@@ -98,9 +63,8 @@ class Indicator(QLabel):
 
 		color = self._on_color if self._state else self._off_color
 		if is_round:
-			gradient = makeRadialGradient(size, x, y, dia, color)
+			gradient = radial_gradient(x, y, dia, color)
 		else:
-			#gradient = makeLinearGradient(size, 0, 0, color)
 			gradient = linear_gradient(color)
 
 		# --- 2. DRAW THE LED FILL ---
@@ -134,7 +98,7 @@ class Indicator(QLabel):
 	def setLed(self, val):
 		if self._state != val:
 			self._state = val
-			self.update() # Triggers paintEvent safely
+			self.update() # only trigger paintEvent when state changes
 
 	def getLed(self):
 		return self._state
@@ -227,7 +191,6 @@ class LEDTextLabel(QLabel):
 
 # A QPushButton with a LED in the upper right corner
 # QPushButton HAL LED in upper right corner, String function=hal_led_button
-# FIXME figure out what triggers the led to change states
 class LEDButton(QPushButton):
 	_state = False
 
@@ -239,7 +202,7 @@ class LEDButton(QPushButton):
 		self._right_offset = kwargs['right_offset']
 		self._on_color = kwargs['on_color']
 		self._off_color = kwargs['off_color']
-		# set connects to set_led
+		# triggers to execute set_led()
 		self.clicked.connect(lambda checked: self.set_led(checked))
 		self.pressed.connect(lambda: self.set_led(True))
 		self.released.connect(lambda: self.set_led(False))
@@ -253,7 +216,7 @@ class LEDButton(QPushButton):
 		x = size.width() - self._diameter - self._right_offset
 		y = self._top_offset
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-		#led_size = QSize(self._diameter, self._diameter)
+
 
 		color = self._on_color if self._state else self._off_color
 		gradient = radial_gradient(x, y, self._diameter, color)
@@ -268,8 +231,6 @@ class LEDButton(QPushButton):
 		if self._state != val: # only update when state changes
 			self._state = val
 			self.update()
-
-	#value_changed = pyqtSignal(bool) FIXME this doesn't seem to do anything
 
 # Control Button with a LED in the upper right corner, Bool=led_indicator
 class IndicatorButton(QPushButton):
@@ -292,7 +253,6 @@ class IndicatorButton(QPushButton):
 		y_center = (self._diameter / 2) + self._top_offset
 		x = size.width() - self._diameter - self._right_offset
 		y = self._top_offset
-		#led_size = QSize(self._diameter, self._diameter)
 		painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
 		color = self._on_color if self._state else self._off_color
@@ -305,7 +265,7 @@ class IndicatorButton(QPushButton):
 	def setLed(self, val):
 		if self._state != val:
 			self._state = val
-			self.update() # only triggers paintEvent when the state changes
+			self.update() # only trigger paintEvent when the state changes
 
 	def getLed(self):
 		return self._state
@@ -349,7 +309,7 @@ class IndicatorLabel(QLabel):
 	def setLed(self, val):
 		if self._state != val:
 			self._state = val
-			self.update() # only triggers paintEvent when state changes
+			self.update() # only trigger paintEvent when state changes
 
 	def getLed(self):
 		return self._state
