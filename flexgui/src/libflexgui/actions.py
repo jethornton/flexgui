@@ -156,7 +156,7 @@ def action_reload(parent): # actionReload
 			if hasattr(parent.reload_pb, 'state'):
 				parent.reload_pb.state = False
 
-def action_save(parent): # actionSave
+def action_save(parent): # actionSave requires the QPlainTextEdit gcode_pte
 	current_nccode_file = parent.status.file
 	text = parent.gcode_pte.toPlainText()
 	nc_code = text.splitlines()
@@ -172,7 +172,7 @@ def action_save(parent): # actionSave
 		if hasattr(parent.reload_pb, 'state'):
 			parent.reload_pb.state = True
 
-def action_save_as(parent): # actionSave_As
+def action_save_as(parent): # actionSave_As requires the QPlainTextEdit gcode_pte
 	current_nc_code_file = parent.status.file
 	if os.path.isdir(os.path.expanduser('~/linuxcnc/nc_files')):
 		gcode_dir = os.path.expanduser('~/linuxcnc/nc_files')
@@ -182,10 +182,9 @@ def action_save_as(parent): # actionSave_As
 	caption="Save As", directory=gcode_dir,
 	filter='G code Files (*.ngc *.NGC);;All Files (*)', options=QFileDialog.Option.DontUseNativeDialog,)
 	if new_nc_code_file:
-		with open(current_nc_code_file, 'r') as cf:
-			gcode = cf.read()
-		with open(new_nc_code_file, 'w') as f:
-			f.write(gcode)
+		nc_code = parent.gcode_pte.toPlainText()
+		with open(new_nc_code_file, 'w', encoding='utf-8') as f:
+			f.write(nc_code)
 		load_file(parent, new_nc_code_file)
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
