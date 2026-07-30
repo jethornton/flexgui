@@ -29,6 +29,9 @@
          <property name="text">
           <string>Run</string>
          </property>
+         <property name="led_indicator" stdset="0">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item row="0" column="3">
@@ -859,7 +862,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1098,31 +1101,7 @@
         <string>File</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="1">
-         <widget class="QPushButton" name="edit_pb">
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="open_pb">
-          <property name="text">
-           <string>Open</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QLabel" name="label_46">
-          <property name="text">
-           <string>RFL &gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="7">
+        <item row="1" column="0" colspan="8">
          <widget class="QPlainTextEdit" name="gcode_pte">
           <property name="font">
            <font>
@@ -1134,10 +1113,33 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="save_as_pb">
+        <item row="0" column="7">
+         <widget class="QLabel" name="start_line_lb">
           <property name="text">
-           <string>Save As</string>
+           <string>N/A</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QPushButton" name="pushButton_9">
+          <property name="text">
+           <string>Load File</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>load_file</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string>/home/john/linuxcnc/nc_files/square.ngc</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="edit_pb">
+          <property name="text">
+           <string>Edit</string>
           </property>
          </widget>
         </item>
@@ -1149,9 +1151,9 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="QLabel" name="start_line_lb">
+         <widget class="QLabel" name="label_46">
           <property name="text">
-           <string>N/A</string>
+           <string>RFL &gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1159,15 +1161,29 @@
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="QPushButton" name="pushButton_9">
+         <widget class="QPushButton" name="save_as_pb">
           <property name="text">
-           <string>Load File</string>
+           <string>Save As</string>
           </property>
-          <property name="function" stdset="0">
-           <string>load_file</string>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
           </property>
-          <property name="filename" stdset="0">
-           <string>/home/john/linuxcnc/nc_files/square.ngc</string>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="open_pb">
+          <property name="text">
+           <string>Open</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="save_pb">
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
