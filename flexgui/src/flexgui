@@ -19,14 +19,14 @@ from PyQt6.QtGui import QColor
 import linuxcnc as emc
 import hal
 
+from libflexgui import actions
+from libflexgui import commands
+from libflexgui import dialogs
 from libflexgui import read_ini
+from libflexgui import shutdown
 from libflexgui import startup
 from libflexgui import status
-from libflexgui import dialogs
-from libflexgui import commands
 from libflexgui import utilities
-from libflexgui import actions
-from libflexgui import shutdown
 
 class KeyboardJog(QObject):
 	# These widget types use the keyboard arrows for naviation

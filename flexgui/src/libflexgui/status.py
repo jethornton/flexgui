@@ -1,7 +1,7 @@
 import math, statistics
 
-from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QAction
-from PyQt6.QtWidgets import QLCDNumber, QAbstractSpinBox, QCheckBox, QSlider
+from PyQt6.QtGui import QTextCursor
+from PyQt6.QtWidgets import QLCDNumber
 
 import linuxcnc as emc
 import hal

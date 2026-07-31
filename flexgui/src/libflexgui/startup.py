@@ -1,4 +1,4 @@
-import os, sys, shutil, re, importlib, gc
+import os, sys, importlib, gc
 from functools import partial
 from collections import deque
 
@@ -24,11 +24,12 @@ from libflexgui.led import LEDTextLabel
 from libflexgui.led import IndicatorLabel
 from libflexgui.led import IndicatorButton
 from libflexgui.led import LEDButton
+
 from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
-from libflexgui import flexplot
+#from libflexgui import flexplot FIXME duplicate import
 from libflexgui import probe
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']

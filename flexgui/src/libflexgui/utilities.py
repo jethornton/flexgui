@@ -4,10 +4,10 @@ from fractions import Fraction
 from functools import partial
 
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QTextCursor, QTextBlockFormat, QColor, QPalette
+from PyQt6.QtGui import QTextCursor, QColor, QPalette
 from PyQt6.QtGui import QAction, QTextFormat
 from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
-from PyQt6.QtWidgets import QRadioButton, QGroupBox
+from PyQt6.QtWidgets import QRadioButton
 
 import linuxcnc as emc
 
