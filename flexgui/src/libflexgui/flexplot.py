@@ -719,9 +719,8 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		except Exception as e:
 			return
-			GL.glCallList(self.object)
+			# GL.glCallList(self.object) FIXME libflexgui/flexplot.py:722: unreachable code after 'return' (100% confidence
 
-	
 	# replaces glcanoon function
 	def redraw_perspective(self):
 
