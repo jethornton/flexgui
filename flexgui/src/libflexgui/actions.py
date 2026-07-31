@@ -4,11 +4,9 @@ from functools import partial
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMenu
 
 import linuxcnc as emc
-import hal
 
 from libflexgui import dialogs
 from libflexgui import utilities
-from libflexgui import select
 
 def load_file(parent, nc_code_file=None):
 	# File load buttons don't pass a file name it has to be read from the property
