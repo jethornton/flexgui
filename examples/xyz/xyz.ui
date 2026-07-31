@@ -1028,7 +1028,7 @@
            <string/>
           </property>
           <property name="off_text" stdset="0">
-           <string>E Open</string>
+           <string>E Stop Open</string>
           </property>
           <property name="on_text" stdset="0">
            <string>Danger</string>
@@ -1218,7 +1218,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_18">
            <attribute name="title">
