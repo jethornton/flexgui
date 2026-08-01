@@ -133,7 +133,6 @@ class fs_calc(QWidget):
 			feed = cl * (rpm * flutes)
 			self.fsc_feed_lb.setText(f'{feed:.2f} IPM')
 		elif self.fsc_units_pb.text() == 'Metric':
-			# pi * diam * rpm / 1000
 			feed = (cl * (rpm * flutes)) / 1000
 			self.fsc_feed_lb.setText(f'{feed:.2f} MPM')
 
@@ -149,7 +148,6 @@ class fs_calc(QWidget):
 			sfm = (rpm * dia)/3.82
 			self.fsc_sfm_lb.setText(f'{sfm:.2f} SFM')
 		elif self.fsc_units_pb.text() == 'Metric':
-			# pi * diam * rpm / 1000
 			smm = (pi * dia * rpm) /1000
 			self.fsc_sfm_lb.setText(f'{smm:.2f} MPM')
 
