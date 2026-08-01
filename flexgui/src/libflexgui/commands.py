@@ -1,9 +1,7 @@
-import threading
 
 import linuxcnc as emc
 
 from libflexgui import dialogs
-from libflexgui import utilities
 
 def home(parent):
 	joint = int(parent.sender().objectName()[-1])
