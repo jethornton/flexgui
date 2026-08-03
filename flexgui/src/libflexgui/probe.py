@@ -1,4 +1,3 @@
-import linuxcnc as emc
 
 from libflexgui import utilities
 from libflexgui import dialogs
