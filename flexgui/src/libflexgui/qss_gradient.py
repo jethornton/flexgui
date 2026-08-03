@@ -20,7 +20,6 @@ def startup(parent):
 	for text, data in directions:
 		parent.gradiant_direction.addItem(text, userData=data)
 
-	#parent.gradiant_direction.currentIndexChanged.connect(partial(index_changed, parent))
 	parent.gr_first_color.clicked.connect(parent.color_dialog)
 	parent.gr_second_color.clicked.connect(parent.color_dialog)
 	parent.gr_third_color.clicked.connect(parent.color_dialog)
