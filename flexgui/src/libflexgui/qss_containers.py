@@ -1,7 +1,5 @@
 from functools import partial
 
-from PyQt6.QtWidgets import QVBoxLayout, QMenuBar, QStatusBar
-
 def startup(parent):
 
 	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
