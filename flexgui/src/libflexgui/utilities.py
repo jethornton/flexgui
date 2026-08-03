@@ -1,18 +1,14 @@
-import os, shutil, re, sys
-from string import digits
+import os, re
+#from string import digits
 from fractions import Fraction
-from functools import partial
 
-from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QTextCursor, QColor, QPalette
-from PyQt6.QtGui import QAction, QTextFormat
+from PyQt6.QtCore import QTimer
+from PyQt6.QtGui import QAction, QTextFormat, QColor
 from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
-from PyQt6.QtWidgets import QRadioButton
 
 import linuxcnc as emc
 
 from libflexgui import dialogs
-from libflexgui import commands
 
 def to_int(string, default=0):
 	try:
