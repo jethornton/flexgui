@@ -1,16 +1,12 @@
 # Three Point Center Calculator
 
 import os, sys
-from math import pi
 
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPixmap
 from PyQt6.uic import loadUi
 
 import linuxcnc as emc
-
-#from libflexgui import utilities
-#from libflexgui import dialogs
 
 class tpc_calc(QWidget):
 	def __init__(self, parent):
