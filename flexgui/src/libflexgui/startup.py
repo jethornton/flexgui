@@ -12,7 +12,6 @@ from PyQt6.QtWidgets import QTabWidget, QVBoxLayout
 from PyQt6.QtGui import QAction, QFont
 from PyQt6.sip import isdeleted  # Import the sip module
 
-import linuxcnc as emc
 import hal
 import hal_glib
 
@@ -29,7 +28,6 @@ from libflexgui import actions
 from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
-#from libflexgui import flexplot FIXME duplicate import
 from libflexgui import probe
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
