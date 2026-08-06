@@ -219,33 +219,6 @@ To use a built in theme with coloring add one of the following to the
 
 .. note:: THEME is checked first then QSS so the first entry found is used.
 
-.. _jog-settings:
-
-Jog Settings
-------------
-
-The following settings can be used in the [FLEXGUI] section of the ini file to
-set up jog items. While you can mix units usually machine units are used. Units
-can be mm, cm, um, in, inch, mil or left out. A space can be between the
-distance and the units for better readability.
-
-Fractions are are in inch units and can be a whole number with a space then the
-fraction.
-
-
-.. code-block:: text
-
-	INCREMENTS = 1/2, 0.100, 0.010, 0.001
-	or
-	INCREMENTS = 1 1/2, 1 inch, 0.5 in, 1 cm, 1 mm
-
-.. warning:: [FLEXGUI] INCREMENTS must be a comma seperated list or it will be
-   ignored.
-
-.. note:: Jog incremnts can have unit labels, the following are valid unit
-   labels cm, mm, um, inch, in or mil. If no unit labels are found the the
-   configuration units are used.
-
 Jog velocity settings are in [TRAJ] LINEAR_UNITS per second. These settings will
 setup the jog velocity slider minimum, maximum and setting at startup.
 
@@ -380,6 +353,8 @@ To set the DRO labels to follow the program units add the following
 
 	[FLEXGUI]
 	DRO_UNITS = True
+
+.. _jog-settings:
 
 Jog Increments
 --------------
