@@ -415,10 +415,52 @@ class flexgui(QMainWindow):
 				self.show()
 
 	def closeEvent(self, event):
-		shutdown.save_settings(self)
+		# 1. Stop all user-defined timers immediately
+		self.user_timer.stop()
+		self.update_timer.stop()
+		self.var_watch_timer.stop()
+		self.io_watch_timer.stop()
+		self.button_flash_timer.stop()
+
+		# 2. Safely close any loose child dialogs
 		if self.help_dialog is not None:
 			self.help_dialog.close()
 
+
+		# 4. Explicitly disconnect and delete LinuxCNC backend references
+		# This prevents the C-extension from tracking a dead GUI object
+		if hasattr(self, 'error') and self.error:
+			try:
+				self.error.poll()  # Clear out any residual messages
+			except Exception:
+				pass
+			del self.error
+
+		if hasattr(self, 'status'):
+			del self.status
+
+		if hasattr(self, 'command'):
+			del self.command
+
+		# 4. Save settings *after* timers are dead but *before* objects dissolve
+		shutdown.save_settings(self)
+
+		# 5. Explicitly tell Qt that it is allowed to close the window
+		event.accept()
+		os._exit(0)  # Forces Linux to reclaim the memory without running broken C++ cleanups
+
+	''' /usr/bin/linuxcnc: line 974: 1521671 Segmentation fault      $EMCDISPLAY -ini "$INIFILE" $EMCDISPLAYARGS $EXTRA_ARGS
+
+	def closeEvent(self, event):
+		shutdown.save_settings(self)
+		self.user_timer.stop()
+		self.update_timer.stop()
+		self.var_watch_timer.stop()
+		self.io_watch_timer.stop()
+		self.button_flash_timer.stop()
+		if self.help_dialog is not None:
+			self.help_dialog.close()
+	'''
 app = QApplication(sys.argv)
 window = flexgui()
 sys.exit(app.exec())
