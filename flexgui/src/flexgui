@@ -29,128 +29,131 @@ from libflexgui import status
 from libflexgui import utilities
 
 class KeyboardJog(QObject):
-	# These widget types use the keyboard arrows for naviation
-	JOG_DISABLE_TYPES = (QLineEdit, QPlainTextEdit, QListWidget,
-		QRadioButton, QListView, QComboBox, QSpinBox, QDoubleSpinBox)
+	# LinuxCNC keyboard jogging class
+
+	# Widget types that use arrow keys for native navigation
+	JOG_DISABLE_TYPES = (
+		QLineEdit, QPlainTextEdit, QListWidget, QRadioButton, 
+		QListView, QComboBox, QSpinBox, QDoubleSpinBox
+	)
+
+	# Map keys to (axis_id, direction)
+	KEY_JOG_MAP = {
+		Qt.Key.Key_Left: (0, 'neg'),
+		Qt.Key.Key_Right: (0, 'pos'),
+		Qt.Key.Key_Up: (1, 'pos'),
+		Qt.Key.Key_Down: (1, 'neg'),
+		Qt.Key.Key_PageUp: (2, 'pos'),
+		Qt.Key.Key_PageDown: (2, 'neg')
+	}
 
 	def __init__(self, window):
-		self._keyboard_jog_state = window.kb_jog_cb_enabled
 		super().__init__()
+		self.window = window
+		self._keyboard_jog_state = window.kb_jog_cb_enabled
 
 	def eventFilter(self, source, event):
-		# If we are entering a text box, temporarily disable keyboard jogging
-		if event.type() == QEvent.Type.FocusIn and window.kb_jog_focus:
-			if isinstance(source, self.JOG_DISABLE_TYPES):
-				self._keyboard_jog_state = window.kb_jog_cb_enabled # Save for later
-				if 'keyboard_jog_cb' in window.child_names:
-					getattr(window, 'keyboard_jog_cb').setChecked(False)
-				else:
-					window.kb_jog_cb_enabled = False
+		event_type = event.type()
 
-		# If we are leaving a text box, re-enable keyboard jogging if necessary
-		if event.type() == QEvent.Type.FocusOut and window.kb_jog_focus:
-			if isinstance(source, self.JOG_DISABLE_TYPES):
-				if 'keyboard_jog_cb' in window.child_names:
-					getattr(window, 'keyboard_jog_cb').setChecked(self._keyboard_jog_state) # Restore
-				else:
-					window.kb_jog_cb_enabled = self._keyboard_jog_state
+		if event_type == QEvent.Type.FocusIn:
+			self._handle_focus_in(source)
+		elif event_type == QEvent.Type.FocusOut:
+			self._handle_focus_out(source)
+		elif event_type == QEvent.Type.KeyPress:
+			if self._handle_key_press(event):
+				return True
+		elif event_type == QEvent.Type.KeyRelease:
+			if self._handle_key_release(event):
+				return True
+		elif event_type == QEvent.Type.MouseButtonRelease:
+			self._handle_mouse_release(source)
+		elif event_type == QEvent.Type.MouseButtonPress:
+			self._handle_mouse_press(source)
 
-		if event.type() == QEvent.Type.KeyPress:
-			if window.probing:
-				return super().eventFilter(source, event) # pass the event on if not used
-			# keyboard jog increment
-			if window.kb_jog_increment and window.status.state != emc.RCS_EXEC:
-				# Check if the Ctrl modifier key is pressed
-				if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-					# Check if the pressed key is a number key (0-9)
-					if event.key() >= Qt.Key.Key_0 and event.key() <= Qt.Key.Key_9:
-						# Convert the key code to a string representation
-						# The numeric keys have key codes that correspond to their ASCII values
-						number = chr(event.key()) 
-						utilities.set_jog_increment(window, int(number))
-						return True  # Consume the event
+		return super().eventFilter(source, event)
 
-			if window.status.task_state == emc.STATE_ON and window.status.task_mode == emc.MODE_MANUAL:
-				jog = False
-				if window.kb_jog_ctrl_enabled and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-					jog = True
-				elif window.kb_jog_cb_enabled:
-					jog = True
+	def _set_ui_jog_enabled(self, enabled):
+		"""Helper to safely toggle UI checkbox or window variable state."""
+		if 'keyboard_jog_cb' in self.window.child_names:
+			getattr(self.window, 'keyboard_jog_cb').setChecked(enabled)
+		else:
+			self.window.kb_jog_cb_enabled = enabled
 
-				if jog:
-					if event.key() == Qt.Key.Key_Left:
-						if event.isAutoRepeat():
-							return True  # Consume the event
-						commands.keyboard_jog(window, True, 0, 'neg')
-						return True  # Consume the event
-					elif event.key() == Qt.Key.Key_Right:
-						if event.isAutoRepeat():
-							return True  # Consume the event
-						commands.keyboard_jog(window, True, 0, 'pos')
-						return True  # Consume the event
-					elif event.key() == Qt.Key.Key_Up:
-						if event.isAutoRepeat():
-							return True  # Consume the event
-						commands.keyboard_jog(window, True, 1, 'pos')
-						return True  # Consume the event
-					elif event.key() == Qt.Key.Key_Down:
-						if event.isAutoRepeat():
-							return True  # Consume the event
-						commands.keyboard_jog(window, True, 1, 'neg')
-						return True  # Consume the event
-					elif event.key() == Qt.Key.Key_PageUp:
-						if event.isAutoRepeat():
-							return True  # Consume the event
-						commands.keyboard_jog(window, True, 2, 'pos')
-						return True  # Consume the event
-					elif event.key() == Qt.Key.Key_PageDown:
-						if event.isAutoRepeat():
-							return True  # Consume the event
-						commands.keyboard_jog(window, True, 2, 'neg')
-						return True  # Consume the event
-				else:
-					return super().eventFilter(source, event) # pass the event on if not used
-			else:
-				return super().eventFilter(source, event) # pass the event on if not used
+	def _handle_focus_in(self, source):
+		if self.window.kb_jog_focus and isinstance(source, self.JOG_DISABLE_TYPES):
+			self._keyboard_jog_state = self.window.kb_jog_cb_enabled
+			self._set_ui_jog_enabled(False)
 
-		elif event.type() == QEvent.Type.KeyRelease:
-			if window.kb_jog_cb_enabled or window.kb_jog_ctrl_enabled:
-				# RCS_EXEC while jogging and RCS_DONE when finished
-				if window.status.task_state == emc.STATE_ON:
-					if not event.isAutoRepeat():
-						match event.key():
-							case Qt.Key.Key_Left | Qt.Key.Key_Right:
-								commands.keyboard_jog(window, False, 0)
-							case Qt.Key.Key_Up | Qt.Key.Key_Down:
-								commands.keyboard_jog(window, False, 1)
-							case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
-								commands.keyboard_jog(window, False, 2)
-							case Qt.Key.Key_Control:
-								commands.keyboard_jog(window, False)
-						return True  # Consume the event
+	def _handle_focus_out(self, source):
+		if self.window.kb_jog_focus and isinstance(source, self.JOG_DISABLE_TYPES):
+			self._set_ui_jog_enabled(self._keyboard_jog_state)
 
-		if event.type() == QEvent.Type.MouseButtonRelease:
-			if source.objectName() in window.number_le:
-				dialogs.numbers(window, source)
-			elif source.objectName() in window.nccode_le:
-				dialogs.gcode(window, source)
-			elif source.objectName() in window.keyboard_le:
-				dialogs.keyboard(window, source)
-			elif source.objectName() in window.touch_sb:
-				dialogs.spinbox_numbers(window, source.parent())
-			elif source.objectName() in window.nc_viewer:
-				utilities.update_start_line(window)
+	def _handle_key_press(self, event):
+		if self.window.probing:
+			return False
 
-		# When we click the window, clear the focus
-		if event.type() == QEvent.Type.MouseButtonPress and window.kb_jog_focus:
-			# QListWidgets take focus in a child. hence the .parent() check
-			if (not isinstance(source, self.JOG_DISABLE_TYPES) and 
-				not isinstance(source.parent(), self.JOG_DISABLE_TYPES)):
+		# Handle numeric jog increment changes (Ctrl + 0-9)
+		if (self.window.kb_jog_increment and 
+			self.window.status.state != emc.RCS_EXEC and 
+			event.modifiers() & Qt.KeyboardModifier.ControlModifier and 
+			Qt.Key.Key_0 <= event.key() <= Qt.Key.Key_9):
+
+				number = chr(event.key())
+				utilities.set_jog_increment(self.window, int(number))
+				return True
+
+		# Handle motion jogging
+		if self.window.status.task_state == emc.STATE_ON and self.window.status.task_mode == emc.MODE_MANUAL:
+			ctrl_pressed = event.modifiers() & Qt.KeyboardModifier.ControlModifier
+			if (self.window.kb_jog_ctrl_enabled and ctrl_pressed) or self.window.kb_jog_cb_enabled:
+				if event.key() in self.KEY_JOG_MAP:
+					if event.isAutoRepeat():
+						return True
+					axis, direction = self.KEY_JOG_MAP[event.key()]
+					commands.keyboard_jog(self.window, True, axis, direction)
+					return True
+		return False
+
+	def _handle_key_release(self, event):
+		if not (self.window.kb_jog_cb_enabled or self.window.kb_jog_ctrl_enabled):
+			return False
+		if self.window.status.task_state != emc.STATE_ON or event.isAutoRepeat():
+			return False
+
+		match event.key():
+			case Qt.Key.Key_Left | Qt.Key.Key_Right:
+				commands.keyboard_jog(self.window, False, 0)
+				return True
+			case Qt.Key.Key_Up | Qt.Key.Key_Down:
+				commands.keyboard_jog(self.window, False, 1)
+				return True
+			case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
+				commands.keyboard_jog(self.window, False, 2)
+				return True
+			case Qt.Key.Key_Control:
+				commands.keyboard_jog(self.window, False)
+				return True
+		return False
+
+	def _handle_mouse_release(self, source):
+		name = source.objectName()
+		if name in self.window.number_le:
+			dialogs.numbers(self.window, source)
+		elif name in self.window.nccode_le:
+			dialogs.gcode(self.window, source)
+		elif name in self.window.keyboard_le:
+			dialogs.keyboard(self.window, source)
+		elif name in self.window.touch_sb:
+			dialogs.spinbox_numbers(self.window, source.parent())
+		elif name in self.window.nc_viewer:
+			utilities.update_start_line(self.window)
+
+	def _handle_mouse_press(self, source):
+		if self.window.kb_jog_focus:
+			if not isinstance(source, self.JOG_DISABLE_TYPES) and not isinstance(source.parent(), self.JOG_DISABLE_TYPES):
 				focused = QApplication.focusWidget()
 				if isinstance(focused, self.JOG_DISABLE_TYPES):
 					focused.clearFocus()
-
-		return super().eventFilter(source, event) # pass the event on if not used
 
 class flexgui(QMainWindow):
 	def __init__(self):
