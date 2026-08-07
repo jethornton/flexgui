@@ -32,7 +32,7 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QCheckBox" name="keyboard_jog_cb">
+        <widget class="QCheckBox" name="keyboard_jog_cbf">
          <property name="text">
           <string>Kb Jog</string>
          </property>
@@ -125,6 +125,16 @@
      <widget class="QPlainTextEdit" name="gcode_pte">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
