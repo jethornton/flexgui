@@ -127,6 +127,7 @@ def read(parent):
 	['DISPLAY', 'VIEW'],
 	['DISPLAY', 'THEME'],
 	['DISPLAY', 'QSS'],
+	['DISPLAY', 'INCREMENTS'],
 	['DISPLAY', 'DRO_FONT_SIZE'],
 	['FLEX', 'PLOT_BACKGROUND_COLOR'],
 	['FLEX', 'TOUCH_FILE_WIDTH'],

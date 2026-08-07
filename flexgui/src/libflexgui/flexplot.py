@@ -222,7 +222,7 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 		# base units of config. updated by subclass (gcode_graphics)
 		self.mach_units = 'Metric'
-	
+
 	# add a 100ms timer to poll linuxcnc stats
 	# this may be overridden in sub widgets
 	def addTimer(self):
