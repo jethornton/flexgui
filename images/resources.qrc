@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="/">
-    <file>boxmodel.png</file>
+    <file>arrow-down-512.png</file>
+    <file>arrow-left-512.png</file>
+    <file>arrow-right-512.png</file>
+    <file>arrow-up-512.png</file>
   </qresource>
 </RCC>
