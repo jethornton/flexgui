@@ -37,6 +37,8 @@ class KeyboardJog(QObject):
 		QListView, QComboBox, QSpinBox, QDoubleSpinBox
 	)
 
+	# Key mapping scaled for 4 and 5-axis configurations
+	# Axis ID layout: 0=X, 1=Y, 2=Z, 3=A, 4=B, 5=C
 	# Map keys to (axis_id, direction)
 	KEY_JOG_MAP = {
 		Qt.Key.Key_Left: (0, 'neg'),
@@ -44,7 +46,15 @@ class KeyboardJog(QObject):
 		Qt.Key.Key_Up: (1, 'pos'),
 		Qt.Key.Key_Down: (1, 'neg'),
 		Qt.Key.Key_PageUp: (2, 'pos'),
-		Qt.Key.Key_PageDown: (2, 'neg')
+		Qt.Key.Key_PageDown: (2, 'neg'),
+
+		# 4th Axis Extensions (Typically A-axis rotary)
+		Qt.Key.Key_Insert: (3, 'pos'),
+		Qt.Key.Key_Delete: (3, 'neg'),
+
+		# 5th Axis Extensions (Typically B or C-axis rotary)
+		Qt.Key.Key_Home: (4, 'pos'),
+		Qt.Key.Key_End: (4, 'neg'),
 	}
 
 	def __init__(self, window):
@@ -120,19 +130,18 @@ class KeyboardJog(QObject):
 		if self.window.status.task_state != emc.STATE_ON or event.isAutoRepeat():
 			return False
 
-		match event.key():
-			case Qt.Key.Key_Left | Qt.Key.Key_Right:
-				commands.keyboard_jog(self.window, False, 0)
-				return True
-			case Qt.Key.Key_Up | Qt.Key.Key_Down:
-				commands.keyboard_jog(self.window, False, 1)
-				return True
-			case Qt.Key.Key_PageUp | Qt.Key.Key_PageDown:
-				commands.keyboard_jog(self.window, False, 2)
-				return True
-			case Qt.Key.Key_Control:
-				commands.keyboard_jog(self.window, False)
-				return True
+		released_key = event.key()
+
+		# Dynamic Multi-axis key release handling
+		if released_key in self.KEY_JOG_MAP:
+			axis, _ = self.KEY_JOG_MAP[released_key]
+			commands.keyboard_jog(self.window, False, axis)
+			return True
+
+		if released_key == Qt.Key.Key_Control:
+			commands.keyboard_jog(self.window, False)
+			return True
+
 		return False
 
 	def _handle_mouse_release(self, source):
