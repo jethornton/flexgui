@@ -14,10 +14,15 @@ def read(parent):
 	# ***** [EMC] Section *****
 	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 
-	if machine_name:
-		parent.settings = QSettings('Flex', machine_name)
-	else:
-		parent.settings = QSettings('Flex', 'unknown')
+	# 1. Determine the machine name
+	name = machine_name if machine_name else 'unknown'
+
+	# 2. Initialize settings (automatically becomes an INI/conf file on Linux)
+	parent.settings = QSettings('Flex', name)
+
+	# 3. Write a tiny meta-variable to trick Qt into flushing to disk if no file exists
+	parent.settings.setValue('startup/initialized', True)
+	parent.settings.sync()
 
 	# ***** [DISPLAY] Section *****
 	# get file extensions
@@ -246,7 +251,7 @@ def read(parent):
 		dialogs.error_msg_ok(parent, title, msg, info)
 		parent.default_jog_vel = False
 
-	# maximum jog velocity
+	# maximum jog velocity FIXME must be set to at least the slowest axis velocicy
 	max_jog_vel = parent.inifile.find('FLEXGUI','MAX_JOG_VELOCITY')
 	if max_jog_vel is None:
 		parent.max_jog_vel = False

@@ -33,10 +33,10 @@ from libflexgui import probe
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
 def set_screen(parent):
-	if parent.settings.contains('GUI/window_size'):
-		parent.resize(parent.settings.value('GUI/window_size'))
-	if parent.settings.contains('GUI/window_position'):
-		parent.move(parent.settings.value('GUI/window_position'))
+	# Restores window size, position, and maximization state.
+	geometry = parent.settings.value('gui/geometry')
+	if geometry:
+		parent.restoreGeometry(geometry)
 	else:
 		parent.move(0, 0) # if no settings move window to upper left corner
 
