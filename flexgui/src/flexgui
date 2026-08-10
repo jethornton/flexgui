@@ -30,6 +30,10 @@ from libflexgui import utilities
 
 class KeyboardJog(QObject):
 	# LinuxCNC keyboard jogging class
+	'''
+	how to use the shift key to jog at the rate set by self.window.max_jog_vel?
+	how to enable the shift key modifier via an ini setting?
+	'''
 
 	# Widget types that use arrow keys for native navigation
 	JOG_DISABLE_TYPES = (
@@ -61,6 +65,27 @@ class KeyboardJog(QObject):
 		super().__init__()
 		self.window = window
 		self._keyboard_jog_state = window.kb_jog_cb_enabled
+		# Read INI setting: [DISPLAY] KEYBOARD_SHIFT_MAX_VEL = True or False
+		# FIXME should this be the max velocity for shift jogging? sure would be easier
+		shift_max_val = self.window.inifile.find("FLEXGUI", "KEYBOARD_SHIFT_VEL")
+		# Convert "True" or "true" to True, default to False if missing or otherwise named
+		match shift_max_val:
+			case None:
+				print("Handling None value...")
+				self.shift_max_val = False
+				self.shift_max_vel_enabled = False
+			case str():
+				print(f"Handling string value: {shift_max_val}")
+				self.shift_max_val = float(shift_max_val)
+				self.shift_max_vel_enabled = True
+			case _:
+				print("Variable is something else")
+				self.shift_max_val = False
+				self.shift_max_vel_enabled = False
+
+		print(f'shift_max_val {self.shift_max_val} type {type(self.shift_max_val)}')
+		print(f'self.shift_max_vel_enabled {self.shift_max_vel_enabled}')
+		#self.shift_max_vel_enabled = ini_val.strip().lower() == "true" if ini_val else False
 
 	def eventFilter(self, source, event):
 		event_type = event.type()
@@ -115,12 +140,20 @@ class KeyboardJog(QObject):
 		# Handle motion jogging
 		if self.window.status.task_state == emc.STATE_ON and self.window.status.task_mode == emc.MODE_MANUAL:
 			ctrl_pressed = event.modifiers() & Qt.KeyboardModifier.ControlModifier
+			shift_pressed = event.modifiers() & Qt.KeyboardModifier.ShiftModifier
+
 			if (self.window.kb_jog_ctrl_enabled and ctrl_pressed) or self.window.kb_jog_cb_enabled:
 				if event.key() in self.KEY_JOG_MAP:
 					if event.isAutoRepeat():
 						return True
 					axis, direction = self.KEY_JOG_MAP[event.key()]
-					commands.keyboard_jog(self.window, True, axis, direction)
+
+					if self.shift_max_val and shift_pressed:
+						commands.keyboard_jog(self.window, True, axis, direction, velocity=self.shift_max_val)
+					else:
+						commands.keyboard_jog(self.window, True, axis, direction)
+
+					#commands.keyboard_jog(self.window, True, axis, direction)
 					return True
 		return False
 
@@ -138,9 +171,12 @@ class KeyboardJog(QObject):
 			commands.keyboard_jog(self.window, False, axis)
 			return True
 
-		if released_key == Qt.Key.Key_Control:
+		if released_key == Qt.Key.Key_Control or (self.shift_max_val and released_key == Qt.Key.Key_Shift):
 			commands.keyboard_jog(self.window, False)
 			return True
+
+		#if released_key == Qt.Key.Key_Control:
+		#	commands.keyboard_jog(self.window, False)
 
 		return False
 
@@ -426,7 +462,16 @@ class flexgui(QMainWindow):
 			case _:
 				self.show()
 
-	def closeEvent(self, event):
+	def closeEvent(self, event): # Flex GUI close event
+		"""Automatically saves window state right before closing."""
+		shutdown.save_settings(self)
+		# Save geometry (position, size, and maximized state)
+		#self.settings.setValue("geometry", self.saveGeometry())
+
+		#self.settings.setValue('GUI/window_size', self.size())
+		#self.settings.setValue('GUI/window_position', self.pos())
+		#print('here')
+
 		# 1. Stop all user-defined timers immediately
 		self.user_timer.stop()
 		self.update_timer.stop()
@@ -438,41 +483,33 @@ class flexgui(QMainWindow):
 		if self.help_dialog is not None:
 			self.help_dialog.close()
 
+		# 3. Save settings BEFORE dissolving backend references
+		# This ensures "self" is fully intact and readable
+		'''
+		try:
+			shutdown.save_settings(self)
+		except Exception as e:
+			print(f"Error saving settings: {e}")
+		'''
 
-		# 4. Explicitly disconnect and delete LinuxCNC backend references
-		# This prevents the C-extension from tracking a dead GUI object
+		# 4. Clear residual messages safely
 		if hasattr(self, 'error') and self.error:
 			try:
 				self.error.poll()  # Clear out any residual messages
 			except Exception:
 				pass
-			del self.error
 
-		if hasattr(self, 'status'):
-			del self.status
+		# 5. Break references instead of deleting (Safer for LinuxCNC C-extensions)
+		self.error = None
+		self.status = None
+		self.command = None
 
-		if hasattr(self, 'command'):
-			del self.command
-
-		# 4. Save settings *after* timers are dead but *before* objects dissolve
-		shutdown.save_settings(self)
-
-		# 5. Explicitly tell Qt that it is allowed to close the window
+		# 6. Explicitly tell Qt that it is allowed to close the window
 		event.accept()
+
+		# 7. Force Linux to reclaim memory
 		os._exit(0)  # Forces Linux to reclaim the memory without running broken C++ cleanups
 
-	''' /usr/bin/linuxcnc: line 974: 1521671 Segmentation fault      $EMCDISPLAY -ini "$INIFILE" $EMCDISPLAYARGS $EXTRA_ARGS
-
-	def closeEvent(self, event):
-		shutdown.save_settings(self)
-		self.user_timer.stop()
-		self.update_timer.stop()
-		self.var_watch_timer.stop()
-		self.io_watch_timer.stop()
-		self.button_flash_timer.stop()
-		if self.help_dialog is not None:
-			self.help_dialog.close()
-	'''
 app = QApplication(sys.argv)
 window = flexgui()
 sys.exit(app.exec())

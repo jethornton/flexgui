@@ -102,19 +102,20 @@ def jog_selected(parent):
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
 
-def keyboard_jog(parent, action, axis=None, direction=None):
-	vel = parent.jog_vel_sl.value() / 60
+def keyboard_jog(parent, action, axis=None, direction=None, velocity=None):
+	if velocity is None:
+		velocity = parent.jog_vel_sl.value() / 60
 	increment = parent.jog_modes_cb.currentData()
 	if direction == 'neg':
-		vel = -vel
+		velocity = -velocity
 	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 
 	if parent.status.task_mode == emc.MODE_MANUAL and action:
 		if jog_check(parent):
 			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis, vel, increment)
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis, velocity, increment)
 			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, axis, vel)
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, axis, velocity)
 	elif axis == None: # stop all jogging
 		for i in range(parent.status.joints):
 			parent.command.jog(emc.JOG_STOP, joint_jog_mode, i)

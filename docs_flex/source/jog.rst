@@ -72,6 +72,20 @@ checked.
 	**Function**, **Widget**, **Name**
 	Jog Enable, QCheckBox, keyboard_jog_cb
 
+Keyboard Turbo Jog
+------------------
+
+The `Shift` key can be used to jog at turbo speed. The turbo speed is set in the
+INI file in Section FLEXGUI. The speed is in user units per second and it
+applies to all axes. If your configuration is in inches a value of 1.0 would be
+60 inches per minute.
+
+Releasing `Shift` key while jogging in Turbo mode will stop the jog.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	KEYBOARD_SHIFT_VEL = 1.0
 
 Keyboard Jog Increment
 ----------------------

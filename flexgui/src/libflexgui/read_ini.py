@@ -549,9 +549,7 @@ def read(parent):
 
 	# ***** [KINS] Section *****
 	# this ini file items will cause EMC to fail to load if missing
-	parent.joints = parent.inifile.find('KINS', 'JOINTS') or False
-	if parent.joints: # convert string to int
-		parent.joints = int(parent.joints)
+	parent.joints = int(parent.inifile.find('KINS', 'JOINTS'))
 
 	# ***** [SPINDLE_n] Sections ***** 
 	if parent.status.spindles == 0:
@@ -709,4 +707,13 @@ def read(parent):
 	# The maximum velocity for any axis or coordinated move, in machine units per second.
 	parent.max_linear_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
 
+	# ***** [JOINT_n] Section ***** FIXME maybe we don't need this after all
+	parent.joint_max_vel = {}
+	for i in range(parent.joints):
+		vel = parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY')
+		parent.joint_max_vel[f'joint_{i}'] = vel
+		#print(f'joint {i} velocity {vel}')
+
+	#for key, value in parent.joint_max_vel.items():
+	#	print(key, value)
 
