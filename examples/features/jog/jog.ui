@@ -32,7 +32,7 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QCheckBox" name="keyboard_jog_cbf">
+        <widget class="QCheckBox" name="keyboard_jog_cb">
          <property name="text">
           <string>Kb Jog</string>
          </property>
