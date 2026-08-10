@@ -51,8 +51,8 @@ def mdi_button(parent):
 	cmd = parent.sender().property('command')
 	run_mdi(parent, cmd)
 
-def jog_check(parent):
-	if parent.jog_vel_sl.value() > 0.0:
+def jog_check(parent, velocity):
+	if velocity != 0.0:
 		return True
 	else: # verified
 		title = 'Operator Error'
@@ -70,15 +70,15 @@ def jog(parent): # only do jog check if button is down
 	joint = int(jog_command[-1])
 	increment = parent.jog_modes_cb.currentData()
 	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
-	vel = parent.jog_vel_sl.value() / 60
+	velocity = parent.jog_vel_sl.value() / 60
 	if 'minus' in jog_command:
-		vel = -vel
+		velocity = -velocity
 	if parent.sender().isDown():
-		if jog_check(parent):
+		if jog_check(parent, velocity):
 			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, vel, increment)
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, velocity, increment)
 			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, vel)
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, velocity)
 	else:
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
@@ -86,18 +86,18 @@ def jog(parent): # only do jog check if button is down
 def jog_selected(parent):
 	joint = int(parent.axes_group.checkedButton().objectName().split('_')[-1])
 	direction = parent.sender().objectName().split('_')[-1]
-	vel = parent.jog_vel_sl.value() / 60
+	velocity = parent.jog_vel_sl.value() / 60
 	if direction == 'minus':
-		vel = -vel
+		velocity = -velocity
 	increment = parent.jog_modes_cb.currentData()
 	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 
 	if parent.sender().isDown():
-		if jog_check(parent):
+		if jog_check(parent, velocity):
 			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, vel, increment)
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, velocity, increment)
 			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, vel)
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, velocity)
 	else:
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
@@ -111,7 +111,7 @@ def keyboard_jog(parent, action, axis=None, direction=None, velocity=None):
 	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 
 	if parent.status.task_mode == emc.MODE_MANUAL and action:
-		if jog_check(parent):
+		if jog_check(parent, velocity):
 			if increment:
 				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis, velocity, increment)
 			else:
