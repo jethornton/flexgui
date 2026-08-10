@@ -251,7 +251,6 @@ def read(parent):
 		dialogs.error_msg_ok(parent, title, msg, info)
 		parent.default_jog_vel = False
 
-	# maximum jog velocity FIXME must be set to at least the slowest axis velocicy
 	max_jog_vel = parent.inifile.find('FLEXGUI','MAX_JOG_VELOCITY')
 	if max_jog_vel is None:
 		parent.max_jog_vel = False
@@ -706,14 +705,4 @@ def read(parent):
 
 	# The maximum velocity for any axis or coordinated move, in machine units per second.
 	parent.max_linear_vel = parent.inifile.find('TRAJ', 'MAX_LINEAR_VELOCITY') or False
-
-	# ***** [JOINT_n] Section ***** FIXME maybe we don't need this after all
-	parent.joint_max_vel = {}
-	for i in range(parent.joints):
-		vel = parent.inifile.find(f'JOINT_{i}', 'MAX_VELOCITY')
-		parent.joint_max_vel[f'joint_{i}'] = vel
-		#print(f'joint {i} velocity {vel}')
-
-	#for key, value in parent.joint_max_vel.items():
-	#	print(key, value)
 

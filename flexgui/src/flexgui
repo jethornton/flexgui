@@ -65,27 +65,20 @@ class KeyboardJog(QObject):
 		super().__init__()
 		self.window = window
 		self._keyboard_jog_state = window.kb_jog_cb_enabled
-		# Read INI setting: [DISPLAY] KEYBOARD_SHIFT_MAX_VEL = True or False
-		# FIXME should this be the max velocity for shift jogging? sure would be easier
 		shift_max_val = self.window.inifile.find("FLEXGUI", "KEYBOARD_SHIFT_VEL")
-		# Convert "True" or "true" to True, default to False if missing or otherwise named
 		match shift_max_val:
 			case None:
-				print("Handling None value...")
+				#print("Handling None value...")
 				self.shift_max_val = False
 				self.shift_max_vel_enabled = False
 			case str():
-				print(f"Handling string value: {shift_max_val}")
+				#print(f"Handling string value: {shift_max_val}")
 				self.shift_max_val = float(shift_max_val)
 				self.shift_max_vel_enabled = True
 			case _:
-				print("Variable is something else")
+				#print("Variable is something else")
 				self.shift_max_val = False
 				self.shift_max_vel_enabled = False
-
-		print(f'shift_max_val {self.shift_max_val} type {type(self.shift_max_val)}')
-		print(f'self.shift_max_vel_enabled {self.shift_max_vel_enabled}')
-		#self.shift_max_vel_enabled = ini_val.strip().lower() == "true" if ini_val else False
 
 	def eventFilter(self, source, event):
 		event_type = event.type()
