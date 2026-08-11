@@ -530,26 +530,36 @@ from this point on use parent.child_names to get the widgets because the LED
 widgets are no longer QPushButton but led.LEDButton for example
 '''
 def find_children(parent): # get the object names of all widgets
+	# Initialize child names list
 	parent.child_names = []
-	children = parent.findChildren(QWidget)
-	for child in children:
+
+	# 1. Collect named QWidgets
+	for child in parent.findChildren(QWidget):
 		if child.objectName():
 			parent.child_names.append(child.objectName())
-	parent.actions = parent.findChildren(QAction)
-	for action in parent.actions:
-		if action.objectName():
-			parent.child_names.append(action.objectName())
-			if 'toolBar' in parent.child_names:
-				widget_name = f'flex_{action.objectName()[6:].replace(" ", "_")}'
-				# make sure the action is in the tool bar
-				if parent.toolBar.widgetForAction(action) is not None:
-					parent.toolBar.widgetForAction(action).setObjectName(widget_name)
-					setattr(parent, widget_name, parent.toolBar.widgetForAction(action))
-					parent.child_names.append(widget_name)
-	menus = parent.findChildren(QMenu)
-	for menu in menus:
+
+	# 2. Collect named QMenus
+	for menu in parent.findChildren(QMenu):
 		if menu.objectName():
 			parent.child_names.append(menu.objectName())
+
+	# 3. Handle QActions and Toolbar dynamic assignment
+	for action in parent.findChildren(QAction):
+		if action.objectName():
+			parent.child_names.append(action.objectName())
+
+		# Process toolbar widgets associated with actions
+		if 'toolBar' in parent.child_names:
+			widget = parent.toolBar.widgetForAction(action)
+			if widget is not None:
+				# Generate dynamic name (e.g., stripping 'action' prefix)
+				clean_name = action_name[6:].replace(" ", "_") if len(action_name) > 6 else action_name
+				widget_name = f'flex_{clean_name}'
+
+				# Assign object name and class attribute
+				widget.setObjectName(widget_name)
+				setattr(parent, widget_name, widget)
+				parent.child_names.append(widget_name)
 
 def setup_menus(parent):
 	menus = parent.findChildren(QMenu)
