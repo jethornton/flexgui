@@ -4,7 +4,7 @@ Build-Depends: debhelper (>= 11.0.0)
 Standards-Version: 4.5.1
 Section: utils
 Priority: optional
-Changelogs: https://gnipsel.com/flexgui/changelog
+Changelog: https://gnipsel.com/flexgui/changelog
 
 Package: flexgui
 Priority: optional
