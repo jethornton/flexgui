@@ -1,2 +1,0 @@
-qss and position touchoff_selected
-qss and position tool_touchoff_selected
