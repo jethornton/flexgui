@@ -545,7 +545,8 @@ def find_children(parent): # get the object names of all widgets
 
 	# 3. Handle QActions and Toolbar dynamic assignment
 	for action in parent.findChildren(QAction):
-		if action.objectName():
+		action_name = action.objectName()
+		if action_name:
 			parent.child_names.append(action.objectName())
 
 		# Process toolbar widgets associated with actions
