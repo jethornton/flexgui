@@ -2470,13 +2470,6 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="0">
-            <widget class="QSlider" name="jog_vel_sl">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="3">
             <widget class="QComboBox" name="jog_modes_cb"/>
            </item>
@@ -2490,10 +2483,10 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QCheckBox" name="keyboard_jog_cb">
-             <property name="text">
-              <string>CheckBox</string>
+           <item row="0" column="0">
+            <widget class="QSlider" name="jog_vel_sl">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
@@ -3279,6 +3272,23 @@
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
              <widget class="QFrame" name="dsf_container">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_20">
+           <attribute name="title">
+            <string>TPC</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QFrame" name="tpc_container">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
