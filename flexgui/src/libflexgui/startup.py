@@ -547,7 +547,7 @@ def find_children(parent): # get the object names of all widgets
 	for action in parent.findChildren(QAction):
 		action_name = action.objectName()
 		if action_name:
-			parent.child_names.append(action.objectName())
+			parent.child_names.append(action_name)
 
 		# Process toolbar widgets associated with actions
 		if 'toolBar' in parent.child_names:
@@ -3659,11 +3659,14 @@ def setup_tpc(parent): # three point center calculator
 		layout.addWidget(parent.tpc_calc)
 
 def setup_import(parent):
+	# Dynamically loads Python modules specified in the INI file
 	modules = parent.inifile.findall('FLEXGUI', 'IMPORT_PYTHON') or False
+
 	if modules:
 		for module_name in modules:
 			_, ext = os.path.splitext(module_name)
-			if bool(ext): # verified
+
+			if bool(ext):
 				title = 'Configuration Error'
 				msg = (f'The INI entry for "IMPORT_PYTHON" "{module_name}" has an '
 				'extension. The INI entry is the name only of the python file.')
@@ -3677,7 +3680,7 @@ def setup_import(parent):
 					sys.path.append(parent.config_path)
 					module = importlib.import_module(module_name)
 					module.startup(parent)
-				except Exception as e: # verified
+				except Exception:
 					print(traceback.format_exc())
 					title = 'Import Failed'
 					msg = (f'The python file {module_path} has an error in the module '
@@ -3685,13 +3688,17 @@ def setup_import(parent):
 					f'{traceback.format_exc()}')
 					info = 'The python module will not be loaded!'
 					dialogs.error_msg_ok(parent, title, msg, info)
-			else: # verified
+			else:
 				title = 'Import Failed'
 				msg = (f'The python file "{module_path}" was not found.\n')
 				info = 'The python module will not be loaded!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 
-def setup_help(parent):
+		# Always remove path from sys.path to prevent namespace pollution
+		if parent.config_path in sys.path:
+			sys.path.remove(parent.config_path)
+
+def setup_help(parent): # Flex GUI custom help
 	children = parent.findChildren(QPushButton)
 	for child in children:
 		if child.property('function') == 'help':
