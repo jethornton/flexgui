@@ -15,33 +15,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="3">
-     <widget class="QPushButton" name="get_names_p_pb">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="estop_pb">
       <property name="text">
-       <string>Print Object Names that start with j</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLabel" name="label">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Run this example in a terminal to see the output of the buttons</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QPushButton" name="another_test_pb">
-      <property name="text">
-       <string>Another Test Button</string>
+       <string>E Stop</string>
       </property>
      </widget>
     </item>
@@ -51,64 +28,6 @@
        <string>Run</string>
       </property>
      </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="open_pb">
-      <property name="text">
-       <string>Open</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QPushButton" name="my_test_pb">
-      <property name="text">
-       <string>Test Button</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="estop_pb">
-      <property name="text">
-       <string>E Stop</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="home_all_pb">
-      <property name="text">
-       <string>Home All</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="power_pb">
-      <property name="text">
-       <string>Power</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="2" column="3">
-     <widget class="QPushButton" name="get_names_pb">
-      <property name="text">
-       <string>Print All Object Names</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0" colspan="4">
-     <widget class="QWidget" name="plot_widget" native="true"/>
     </item>
     <item row="0" column="1">
      <spacer name="horizontalSpacer_2">
@@ -123,6 +42,16 @@
       </property>
      </spacer>
     </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="open_pb">
+      <property name="text">
+       <string>Open</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="4">
+     <widget class="QWidget" name="plot_widget" native="true"/>
+    </item>
     <item row="5" column="0" colspan="2">
      <widget class="QLabel" name="label_2">
       <property name="sizePolicy">
@@ -133,6 +62,71 @@
       </property>
       <property name="text">
        <string>Any Python code can be in the imported python file and use parent. to access variables</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="power_pb">
+      <property name="text">
+       <string>Power</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="home_all_pb">
+      <property name="text">
+       <string>Home All</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QPushButton" name="quit_pb">
+      <property name="text">
+       <string>Quit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" colspan="2">
+     <widget class="QPushButton" name="my_test_pb">
+      <property name="text">
+       <string>Test Button</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2" colspan="2">
+     <widget class="QPushButton" name="get_names_p_pb">
+      <property name="text">
+       <string>Print Object Names that start with j</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2" colspan="2">
+     <widget class="QPushButton" name="get_names_pb">
+      <property name="text">
+       <string>Print All Object Names</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2" colspan="2">
+     <widget class="QPushButton" name="another_test_pb">
+      <property name="text">
+       <string>Another Test Button</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2" colspan="2">
+     <widget class="QLabel" name="label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Run this example in a terminal to see the output of the buttons</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
