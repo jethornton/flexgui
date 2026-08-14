@@ -1,0 +1,5 @@
+net hm-timer-start time.0.start <= flexhal.start-hm-timer
+net hm-timer-pause time.0.pause <= flexhal.pause-hm-timer
+net hms-timer-start time.1.start <= flexhal.start-hms-timer
+net hms-timer-pause time.1.pause <= flexhal.pause-hms-timer
+

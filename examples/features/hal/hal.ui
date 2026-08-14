@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="seconds" stdset="0">
+   <string>time.1.seconds</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_5">
     <item row="1" column="2" colspan="3">
@@ -211,6 +214,15 @@ change in the GUI</string>
       </property>
       <property name="currentIndex">
        <number>6</number>
+      </property>
+      <property name="function" stdset="0">
+       <string>hal_watch_time_hm</string>
+      </property>
+      <property name="hours" stdset="0">
+       <string>time.0.hours</string>
+      </property>
+      <property name="minutes" stdset="0">
+       <string>time.0.minutes</string>
       </property>
       <widget class="QWidget" name="tabWidget_3Page1">
        <attribute name="title">
@@ -650,7 +662,7 @@ you can also force that home is required</string>
            <string>HAL_IN</string>
           </property>
           <property name="led_shape" stdset="0">
-           <string>squared</string>
+           <string>square</string>
           </property>
          </widget>
         </item>
@@ -1026,7 +1038,33 @@ after 1/2 second</string>
         <string>Watch</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_12">
-        <item row="0" column="0">
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>Watch Time H:M</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="text">
+           <string>Start</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>start-hms-timer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
          <widget class="QLabel" name="label_7">
           <property name="text">
            <string>Watch Bit</string>
@@ -1036,7 +1074,36 @@ after 1/2 second</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="2" column="2">
+         <widget class="QLabel" name="label_45">
+          <property name="text">
+           <string>Watch Float</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="QLabel" name="label_50">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_time_hm</string>
+          </property>
+          <property name="hours" stdset="0">
+           <string>time.0.hours</string>
+          </property>
+          <property name="minutes" stdset="0">
+           <string>time.0.minutes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
          <widget class="QLabel" name="label_47">
           <property name="text">
            <string>TextLabel</string>
@@ -1052,43 +1119,7 @@ after 1/2 second</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_36">
-          <property name="text">
-           <string>Watch Integer</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_48">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_watch_int</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>iocontrol.0.tool-number</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_45">
-          <property name="text">
-           <string>Wath Float</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
+        <item row="2" column="3">
          <widget class="QLabel" name="label_49">
           <property name="text">
            <string>TextLabel</string>
@@ -1104,23 +1135,109 @@ after 1/2 second</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_46">
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>TextLabel</string>
+           <string>Watch Integer</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_50">
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_48">
           <property name="text">
            <string>TextLabel</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_int</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>iocontrol.0.tool-number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Start</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>start-hm-timer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="label_52">
+          <property name="text">
+           <string>Watch Time H:M:S</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="QLabel" name="label_51">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_watch_time_hms</string>
+          </property>
+          <property name="hours" stdset="0">
+           <string>time.1.hours</string>
+          </property>
+          <property name="minutes" stdset="0">
+           <string>time.1.minutes</string>
+          </property>
+          <property name="seconds" stdset="0">
+           <string>time.1.seconds</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="text">
+           <string>Pause</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>pause-hm-timer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="text">
+           <string>Pause</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>pause-hms-timer</string>
           </property>
          </widget>
         </item>
