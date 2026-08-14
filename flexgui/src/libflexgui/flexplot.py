@@ -54,13 +54,6 @@ class Progress:
 	def done(self):
 		self.emit_percent(-1)
 
-	# not sure if this is used - copied from AXIS code
-	def set_text(self, text):
-		if self.text is None:
-			self.text = ".info.progress"
-		else:
-			print(".info.progress", text)
-
 class StatCanon(glcanon.GLCanon, interpret.StatMixin):
 	def __init__(self, colors, geometry, is_foam, lathe_view_option, stat, random, text, linecount, progress, arcdivision):
 		glcanon.GLCanon.__init__(self, colors, geometry, is_foam)
