@@ -3204,6 +3204,26 @@ def setup_hal(parent):
 		parent.hal_comp_name_lb.setText(f'{parent.halcomp}')
 
 def setup_hal_io_state(parent):
+	# Mapping of dictionary names to their respective UI setter methods
+	io_mappings = [
+		(parent.hal_io_check, "setChecked"),
+		(parent.hal_io_int, "setValue"),
+		(parent.hal_io_float, "setValue")
+	]
+
+	for io_dict, setter_method in io_mappings:
+		for ui_key, hal_pin in io_dict.items():
+			# 1. Get the current state from the HAL pin
+			hal_value = getattr(parent.halcomp, hal_pin)
+
+			# 2. Find the target UI widget
+			ui_element = getattr(parent, ui_key)
+
+			# 3. Apply the HAL state directly to the UI widget
+			getattr(ui_element, setter_method)(hal_value)
+
+
+	'''
 	# key is the object name value is the hal pin name
 	for key, value in parent.hal_io_check.items():
 		checked_state = getattr(parent, key).isChecked()
@@ -3222,14 +3242,70 @@ def setup_hal_io_state(parent):
 		hal_value = getattr(parent.halcomp, value)
 		if obj_value != hal_value:
 			setattr(parent.halcomp, value, obj_value)
-
+	'''
 def setup_hal_watch(parent):
+	# Initialize HAL watch storage dictionaries
 	parent.hal_watch_bit = {}
 	parent.hal_watch_int = {}
 	parent.hal_watch_float = {}
 	parent.hal_watch_time_hm = {}
 	parent.hal_watch_time_hms = {}
 
+	def report_error(label, obj_name, pin_name):
+		"""Displays error dialog and disables the faulty label."""
+		title = 'Configuration Error'
+		msg = f'The HAL Watch Label "{obj_name}" HAL pin "{pin_name}" was not found.'
+		info = 'The Label will be disabled!'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		label.setText('Error!')
+		label.setEnabled(False)
+
+	def validate_pins(label, obj_name, pins):
+		"""Returns True if all pins exist, False otherwise."""
+		for pin in pins:
+			try:
+				hal.get_value(pin)
+			except Exception:
+				report_error(label, obj_name, pin)
+				return False
+		return True
+
+	for label in parent.findChildren(QLabel):
+		func = label.property('function')
+		if not func:
+			continue
+
+		obj_name = label.objectName()
+
+		# Handle Bit and Integer types
+		if func in ['hal_watch_bit', 'hal_watch_int']:
+			pin = label.property('pin_name')
+			if validate_pins(label, obj_name, [pin]):
+				target_dict = parent.hal_watch_bit if func == 'hal_watch_bit' else parent.hal_watch_int
+				target_dict[obj_name] = pin
+
+		# Handle Float type
+		elif func == 'hal_watch_float':
+			pin = label.property('pin_name')
+			if validate_pins(label, obj_name, [pin]):
+				p = label.property('precision')
+				precision = p if p is not None else parent.default_precision
+				parent.hal_watch_float[obj_name] = [pin, precision]
+
+		# Handle Hours/Minutes type
+		elif func == 'hal_watch_time_hm':
+			pins = [label.property('hours'), label.property('minutes')]
+			if validate_pins(label, obj_name, pins):
+				parent.hal_watch_time_hm[obj_name] = pins
+
+		# Handle Hours/Minutes/Seconds type
+		elif func == 'hal_watch_time_hms':
+			pins = [label.property('hours'), label.property('minutes'), label.property('seconds')]
+			if validate_pins(label, obj_name, pins):
+				parent.hal_watch_time_hms[obj_name] = pins
+
+
+	'''
 	for label in parent.findChildren(QLabel):
 		if label.property('function') == 'hal_watch_bit':
 			obj_name = label.objectName()
@@ -3324,7 +3400,7 @@ def setup_hal_watch(parent):
 
 			if test:
 				parent.hal_watch_time_hms[obj_name] = [hr_pin, min_pin, sec_pin]
-
+	'''
 def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
