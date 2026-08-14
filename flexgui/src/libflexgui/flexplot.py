@@ -272,7 +272,9 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		elif not filename and not s.file:
 			return
 
-		lines = open(filename).readlines()
+		with open(filename) as f:
+			lines = f.readlines()
+
 		progress = Progress(2, len(lines))
 		# monkey patch function to call ours
 		progress.emit_percent = self.emit_percent
@@ -378,7 +380,10 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 				props['name'] = name
 
 			size = os.stat(loaded_file).st_size
-			lines = sum(1 for line in open(loaded_file))
+
+			with open(loaded_file) as f:
+				lines = sum(1 for line in f)
+
 			props['size'] = "%(size)s bytes\n%(lines)s gcode lines" % {'size': size, 'lines': lines}
 
 			# report props in gcode's units
