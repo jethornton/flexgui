@@ -401,6 +401,7 @@ class flexgui(QMainWindow):
 		startup.setup_fsc(self)
 		startup.setup_dsf(self)
 		startup.setup_tpc(self)
+		startup.setup_bcc(self) # bolt circle g code generator
 		startup.setup_help(self)
 		startup.setup_tabs(self)
 
