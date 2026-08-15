@@ -3724,12 +3724,12 @@ def setup_tpc(parent): # three point center calculator
 		from libflexgui import tpc
 		parent.tpc_calc = tpc.tpc_calc(parent)
 
-	# Ensure the target container (bc_calc placeholder) has a layout to hold the widget
-	if parent.tpc_container.layout() is None:
-		layout = QVBoxLayout(parent.tpc_container)
-		layout.setContentsMargins(0, 0, 0, 0)
-	else:
-		layout = parent.tpc_container.layout()
+		# Ensure the target container (bc_calc placeholder) has a layout to hold the widget
+		if parent.tpc_container.layout() is None:
+			layout = QVBoxLayout(parent.tpc_container)
+			layout.setContentsMargins(0, 0, 0, 0)
+		else:
+			layout = parent.tpc_container.layout()
 
 		layout.addWidget(parent.tpc_calc)
 
