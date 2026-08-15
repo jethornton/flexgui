@@ -310,12 +310,16 @@ def update_start_line(parent):
 		parent.start_line_lb.setText(f'{selected_block}')
 
 def nc_code_changed(parent):
+	parent.file_changed = True
+	update_controls(parent)
+	'''
 	if 'save_pb' in parent.child_names:
 		if hasattr(parent.save_pb, 'state'):
 			parent.save_pb.state = True
 	if 'save_as_pb' in parent.child_names:
 		if hasattr(parent.save_as_pb, 'state'):
 			parent.save_as_pb.state = True
+	'''
 
 def read_dir(parent): # touch screen file navigator
 	if os.path.isdir(parent.nc_code_dir):
@@ -534,7 +538,7 @@ def update_home_controls(parent):
 def update_controls(parent):
 	parent.status.poll()
 	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
-	file_loaded = len(parent.status.file) > 0 # currently loaded g code file
+	file_loaded = len(parent.status.file) > 0 # currently loaded g code file FIXME this does not trigger when g code is added
 	tool_loaded = parent.status.tool_in_spindle
 	interp_state = parent.status.interp_state
 	# INTERP_IDLE INTERP_READING INTERP_PAUSED INTERP_WAITING
@@ -551,7 +555,12 @@ def update_controls(parent):
 	# parent.on_controls = [] # enabled when power on
 	# parent.homed_controls = [] # enabled when power on, homed
 
-	if not file_loaded:
+	if parent.file_changed:
+		for item in parent.file_save_controls:
+			getattr(parent, item).setEnabled(True)
+		for item in parent.file_edit_controls:
+			getattr(parent, item).setEnabled(True)
+	elif not parent.file_changed or state == emc.RCS_EXEC:
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.file_edit_controls:
@@ -677,10 +686,6 @@ def update_controls(parent):
 					getattr(parent, item).setEnabled(False)
 				for item in parent.spindle_controls:
 					getattr(parent, item).setEnabled(False)
-				for item in parent.file_edit_controls:
-					getattr(parent, item).setEnabled(False)
-				for item in parent.file_save_controls:
-					getattr(parent, item).setEnabled(False)
 
 			if state == emc.RCS_EXEC and interp_state == emc.INTERP_PAUSED:
 				for item in parent.pause_controls:
@@ -777,12 +782,6 @@ def update_controls(parent):
 						getattr(parent, item).setEnabled(False)
 					parent.stop = False
 					parent.step = False
-
-				if file_loaded:
-					for item in parent.file_edit_controls:
-						getattr(parent, item).setEnabled(True)
-					for item in parent.file_save_controls:
-						getattr(parent, item).setEnabled(True)
 
 		elif task_mode == emc.MODE_MDI: # mdi running
 			for item in parent.file_open_controls:

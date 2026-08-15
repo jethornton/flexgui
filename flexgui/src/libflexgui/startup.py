@@ -69,6 +69,8 @@ def setup_vars(parent):
 	parent.program_units = False
 	parent.plot_units = False
 
+	parent.file_changed = False
+
 	parent.state_estop_names = {}
 	parent.state_estop_reset_names = {}
 	parent.state_on_names = {}
@@ -99,6 +101,7 @@ def setup_vars(parent):
 	parent.home_controls = [] # disable when power is off
 	parent.unhome_controls = [] # disable when power is off
 
+'''
 def find_widget_index(layout, target_widget):
 	for i in range(layout.count()):
 		item = layout.itemAt(i)
@@ -110,6 +113,7 @@ def find_widget_index(layout, target_widget):
 			if nested_index is not None:
 				return f"{layout} layout at index {i}, widget at index {nested_index}"
 	return None
+'''
 
 def find_widget_layout(layout, target_widget):
 	for i in range(layout.count()):
@@ -152,7 +156,7 @@ def setup_hal_leds(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL LED "{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -164,7 +168,7 @@ def setup_hal_leds(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names:
 				title = 'Configuration Error'
 				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" is already used in '
 				'Flex GUI. The HAL pin can not be created.')
@@ -244,7 +248,7 @@ def setup_hal_led_text_labels(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL Text LED "{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -256,7 +260,7 @@ def setup_hal_led_text_labels(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names:
 				title = 'Configuration Error'
 				msg = (f'HAL  TextLED "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -316,7 +320,7 @@ def setup_hal_led_labels(parent):
 			pin_name = child.property('pin_name')
 			obj_name = child.objectName()
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL LED Label"{obj_name}" is missing the Dynamic '
 				'Property "pin_name" or it is blank.')
@@ -328,7 +332,7 @@ def setup_hal_led_labels(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names:
 				title = 'Configuration Error'
 				msg = (f'HAL LED Label "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -392,7 +396,7 @@ def setup_hal_led_buttons(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL LED Button "{obj_name}" with this text "{child.text()}" '
 				'is missing the Dynamic Property pin_name or it is blank.')
@@ -404,7 +408,7 @@ def setup_hal_led_buttons(parent):
 				child.setProperty('function', '')
 				continue
 
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names: # verified
+			if pin_name in dir(parent) or pin_name in parent.led_pin_names:
 				title = 'Configuration Error'
 				msg = (f'HAL LED Button "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI The HAL pin can not be created.')
@@ -670,7 +674,7 @@ def setup_actions(parent): # setup menu actions
 		if key in parent.child_names:
 			if 'gcode_pte' in parent.child_names:
 				getattr(parent, key).triggered.connect(partial(getattr(actions, value), parent))
-			else: # verified
+			else:
 				getattr(parent, key).setEnabled(False)
 				title = 'Configuration Error'
 				msg = ('File Save controls require the "gcode_pte" Plain Text Edit.')
@@ -685,7 +689,7 @@ def setup_actions(parent): # setup menu actions
 			parent.actionCopy_MDI_History.setEnabled(False)
 
 def update_check(parent):
-	if 'feedrate_lb' in parent.child_names: # verified
+	if 'feedrate_lb' in parent.child_names:
 		title = 'Object Name Changed'
 		msg = ('The Feed Override Percent Label object name "feedrate_lb" has been '
 		'changed to "feed_override_lb". Change the object name in the ui file.')
@@ -842,7 +846,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if off_text is not None:
 			parent.state_estop_reset_names['power_pb'] = off_text
 
-	if 'manual_mode_pb' in parent.child_names: # verified
+	if 'manual_mode_pb' in parent.child_names:
 		title = 'Depreciated Control'
 		msg = ('The manual_mode_pb is no longer used. This was only used for '
 		'testing in the early days.')
@@ -892,7 +896,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.child_names:
 			if 'gcode_pte' in parent.child_names:
 				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-			else: # verified
+			else:
 				getattr(parent, key).setEnabled(False)
 				title = 'Configuration Error'
 				msg = ('File Save controls require the "gcode_pte" Plain Text Edit.')
@@ -909,7 +913,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if key in parent.child_names:
 			if 'mdi_history_lw' in parent.child_names:
 				getattr(parent, key).clicked.connect(partial(getattr(actions, value), parent))
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The "{key}" button was found but the "mdi_history_lw" was not '
 				'found.')
@@ -981,7 +985,7 @@ def setup_buttons(parent): # connect buttons to functions
 			value = item.split('_')[-1]
 			if utilities.is_int(value):
 				button.clicked.connect(partial(commands.feed_override_preset, parent))
-			else: # verified
+			else:
 				title = 'Object Name Error'
 				msg = (f'The button named "{item}" with the button text of '
 				f'"{button.text()}" the value "{value}" did not evaluate to an integer')
@@ -996,7 +1000,7 @@ def setup_buttons(parent): # connect buttons to functions
 			if utilities.is_int(value):
 				if int(value) <= 100:
 					button.clicked.connect(partial(commands.rapid_override_preset, parent))
-				else: # verified
+				else:
 					title = 'Object Name Error'
 					msg = (f'The button named "{item}" with the button text of '
 					f'"{button.text()}". The value "{value}" is higher than the maximum '
@@ -1005,7 +1009,7 @@ def setup_buttons(parent): # connect buttons to functions
 					dialogs.error_msg_ok(parent, title, msg, info)
 					button.setText('Error!')
 					getattr(parent, item).setEnabled(False)
-			else: # verified
+			else:
 				title = 'Object Name Error'
 				msg = (f'The button named "{item}" with the button text of '
 				f'"{button.text()}" the value "{value}" did not evaluate to an integer')
@@ -1026,7 +1030,7 @@ def setup_buttons(parent): # connect buttons to functions
 		if child.property('flash_state') in ['checked', 'unchecked']:
 			if child.isCheckable():
 				parent.flashing_buttons.append(child.objectName())
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The flashing button named "{child.objectName()}" with the text '
 				f'of "{child.text()}" is not set to checkable.')
@@ -1186,7 +1190,7 @@ def setup_status_labels(parent):
 				parent.status_axes[label] = [i, item, p] # axis, status item, precision
 
 	# two joint velocity
-	if 'two_vel_lb' in parent.child_names: # verified
+	if 'two_vel_lb' in parent.child_names:
 		title = 'Configuration Error'
 		msg = ('The "two_vel_lb" label is depreciated. See the  Velocity Labels '
 		'section of the Labels Documents for correct configuration.')
@@ -1203,7 +1207,7 @@ def setup_status_labels(parent):
 			joint_0 = child.property('joint_0')
 			joint_1 = child.property('joint_1')
 
-			if not isinstance(joint_0, int): # verified
+			if not isinstance(joint_0, int):
 				title = 'Configuration Error'
 				msg = (f'The two joint velocity label {obj_name} "joint_0" property '
 				'is missing or not an integer type. See the Velocity Labels section of '
@@ -1214,7 +1218,7 @@ def setup_status_labels(parent):
 				child.setEnabled(False)
 				continue
 
-			if not isinstance(joint_1, int): # verified
+			if not isinstance(joint_1, int):
 				title = 'Configuration Error'
 				msg = (f'The two joint velocity label {obj_name} "joint_1" property '
 				'is missing or not an integer type. See the Velocity Labels section of '
@@ -1225,7 +1229,7 @@ def setup_status_labels(parent):
 				child.setEnabled(False)
 				continue
 
-			if len(set([joint_0, joint_1])) != 2: # verified
+			if len(set([joint_0, joint_1])) != 2:
 				title = 'Configuration Error'
 				msg = (f'The two joint velocity label {obj_name} the joints are not '
 				'unique. See the Velocity Labels section of the Labels Documents for '
@@ -1241,7 +1245,7 @@ def setup_status_labels(parent):
 			parent.two_vel[obj_name] = [joint_0, joint_1, p]
 
 	# three joint velocity
-	if 'three_vel_lb' in parent.child_names: # verified
+	if 'three_vel_lb' in parent.child_names:
 		title = 'Configuration Error'
 		msg = ('The "three_vel_lb" label is depreciated. See the  Velocity Labels '
 		'section of the Labels Documents for correct configuration.')
@@ -1259,7 +1263,7 @@ def setup_status_labels(parent):
 			joint_1 = child.property('joint_1')
 			joint_2 = child.property('joint_2')
 
-			if not isinstance(joint_0, int): # verified
+			if not isinstance(joint_0, int):
 				title = 'Configuration Error'
 				msg = (f'The three joint velocity label {obj_name} "joint_0" property '
 				'is missing or not an integer type. See the Velocity Labels section of '
@@ -1270,7 +1274,7 @@ def setup_status_labels(parent):
 				child.setEnabled(False)
 				continue
 
-			if not isinstance(joint_1, int): # verified
+			if not isinstance(joint_1, int):
 				title = 'Configuration Error'
 				msg = (f'The three joint velocity label {obj_name} "joint_1" property '
 				'is missing or not an integer type. See the Velocity Labels section of '
@@ -1281,7 +1285,7 @@ def setup_status_labels(parent):
 				child.setEnabled(False)
 				continue
 
-			if not isinstance(joint_2, int): # verified
+			if not isinstance(joint_2, int):
 				title = 'Configuration Error'
 				msg = (f'The three joint velocity label {obj_name} "joint_2" property '
 				'is missing or not an integer type. See the Velocity Labels section of '
@@ -1292,7 +1296,7 @@ def setup_status_labels(parent):
 				child.setEnabled(False)
 				continue
 
-			if len(set([joint_0, joint_1, joint_2])) != 3: # verified
+			if len(set([joint_0, joint_1, joint_2])) != 3:
 				title = 'Configuration Error'
 				msg = (f'The three joint velocity label "{obj_name}" the joints are '
 				'not unique. See the Velocity Labels section of the Labels Documents '
@@ -1457,7 +1461,7 @@ def load_postgui(parent): # load post gui hal and tcl files if found
 				else:
 					res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i", parent.ini_path, "-f", f])
 				if res: raise SystemExit(res)
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The POSTGUI_HALFILE "{f}" was not found in the configuration '
 				'directory.')
@@ -1493,7 +1497,7 @@ def setup_mdi_buttons(parent):
 				child.clicked.connect(partial(commands.mdi_button, parent))
 				if not obj_name.startswith('probe_'):
 					parent.mdi_controls.append(obj_name)
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The MDI Button "{child.text()}" does not have the Dynamic '
 				'Property "command" with a MDI command')
@@ -1682,7 +1686,7 @@ def setup_spindle(parent):
 	parent.status_spindle = ()
 
 	##### Check for old object names
-	if 'spindle_actual_speed_lb' in parent.child_names: # verified
+	if 'spindle_actual_speed_lb' in parent.child_names:
 		title = 'Configuration Error'
 		msg = ('The spindle speed label "spindle_actual_speed_lb" name has '
 		'been changed to "spindle_speed_0_lb" to limit confustion about what the '
@@ -1715,7 +1719,7 @@ def setup_spindle(parent):
 			if f'{key}_{i}_lb' in parent.child_names:
 				if i <= max_spindle:
 					parent.spindle_int[f'{key}_{i}_lb'] = [i, value]
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The spindle status label "{key}_{i}_lb" is more than the '
 					f'number of spindles')
@@ -1729,7 +1733,7 @@ def setup_spindle(parent):
 		if f'spindle_override_enabled_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_bool[f'spindle_override_enabled_{i}_lb'] = [i, 'override_enabled']
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_override_enabled_{i}_lb" is '
 				'more than the number of spindles')
@@ -1743,7 +1747,7 @@ def setup_spindle(parent):
 		if f'spindle_direction_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_dir[f'spindle_direction_{i}_lb'] = [i, 'direction']
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_direction_{i}_lb" is '
 				'more than the number of spindles')
@@ -1757,7 +1761,7 @@ def setup_spindle(parent):
 		if f'spindle_speed_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_speed[f'spindle_speed_{i}_lb'] = [i, 'speed']
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_speed_{i}_lb" is '
 				'more than the number of spindles')
@@ -1771,7 +1775,7 @@ def setup_spindle(parent):
 		if f'spindle_speed_{i}_lcd' in parent.child_names:
 			if i <= max_spindle:
 				parent.status_spindle_lcd[f'spindle_speed_{i}_lcd'] = [i, 'speed']
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_speed_{i}_lcd" is '
 				'more than the number of spindles')
@@ -1784,7 +1788,7 @@ def setup_spindle(parent):
 		if f'spindle_override_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_override[f'spindle_override_{i}_lb'] = [i, 'override']
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_override_{i}_lb" is '
 				'more than the number of spindles')
@@ -1798,7 +1802,7 @@ def setup_spindle(parent):
 		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle status label "spindle_cmd_speed_{i}_lb" is '
 				'more than the number of spindles')
@@ -1820,7 +1824,7 @@ def setup_spindle(parent):
 						getattr(parent, f'{item}_{i}_pb').clicked.connect(
 						partial(commands.spindle_control, parent, i, action))
 						parent.spindle_controls.append(f'{item}_{i}_pb')
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The spindle control "{item}_{i}_pb" is  more than the '
 					'number of spindles.')
@@ -1837,7 +1841,7 @@ def setup_spindle(parent):
 				getattr(parent, f'set_speed_{i}_pb').clicked.connect(
 				partial(commands.spindle_control, parent, i, action))
 				parent.mdi_controls.append(f'set_speed_{i}_pb')
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle control "set_speed_{i}_pb" is  more than the '
 				'number of spindles.')
@@ -1862,7 +1866,7 @@ def setup_spindle(parent):
 
 				getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
 				partial(commands.spindle_override, parent, i))
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle control spindle_override_{i}_sl is '
 				'more than the number of spindles')
@@ -1888,7 +1892,7 @@ def setup_spindle(parent):
 				getattr(parent, f'spindle_speed_{i}_sb').valueChanged.connect(
 				partial(commands.spindle_control, parent, i, 'speed'))
 				parent.spindle_controls.append(f'spindle_speed_{i}_sb')
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle control spindle_speed_{i}_sb is '
 				'more than the number of spindles')
@@ -1909,7 +1913,7 @@ def setup_spindle(parent):
 				getattr(parent, f'spindle_speed_{i}_sl').blockSignals(False)
 				getattr(parent, f'spindle_speed_{i}_sl').valueChanged.connect(partial(
 				commands.spindle_control, parent, i, 'speed'))
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The spindle control spindle_speed_{i}_sl is '
 				'more than the number of spindles')
@@ -1930,7 +1934,7 @@ def setup_spindle(parent):
 						rpm = int(value)
 						if min_rpm <= rpm <= max_rpm:
 							button.clicked.connect(partial(commands.spindle_control, parent, i, 'preset', rpm))
-						else: # verified
+						else:
 							title = 'Configuration Error'
 							msg = (f'The RPM "{rpm}" of "{button.objectName()}" exceeds either '
 							f'the spindle "{i}" Minimum Limit "{min_rpm}" RPM or the Maximum '
@@ -1939,7 +1943,7 @@ def setup_spindle(parent):
 							dialogs.error_msg_ok(parent, title, msg, info)
 							button.setEnabled(False)
 							button.setText('Error!')
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The spindle preset "{item}" is '
 					'more than the number of spindles')
@@ -1957,7 +1961,7 @@ def setup_spindle(parent):
 					value = item.split('_')[-1]
 					if utilities.is_int(value):
 						button.clicked.connect(partial(commands.spindle_override_preset, parent, i, int(value)))
-					else: # verified
+					else:
 						title = 'Configuration Error'
 						msg = (f'The spindle override preset button named "{item}" with the '
 						f'button text of "{button.text()}" "{value}" did not evaluate to an '
@@ -1966,7 +1970,7 @@ def setup_spindle(parent):
 						dialogs.error_msg_ok(parent, title, msg, info)
 						button.setText('Error!')
 						getattr(parent, item).setEnabled(False)
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The spindle override preset "{item}" is '
 					'more than the number of spindles')
@@ -1979,7 +1983,7 @@ def setup_spindle(parent):
 	##### Old Style Spindle Controls #####
 	# test if new style and old style exist
 
-	if 'spindle_speed_sl' in parent.child_names: # verified
+	if 'spindle_speed_sl' in parent.child_names:
 		if 'spindle_speed_0_sl' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_speed_sl" was found and the new style '
@@ -1997,7 +2001,7 @@ def setup_spindle(parent):
 			parent.spindle_speed_sl.valueChanged.connect(partial(
 			commands.spindle_control, parent, 0, 'speed'))
 
-	if 'spindle_fwd_pb' in parent.child_names: # verified
+	if 'spindle_fwd_pb' in parent.child_names:
 		if 'spindle_fwd_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_fwd_pb" was found and the new style '
@@ -2009,7 +2013,7 @@ def setup_spindle(parent):
 			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
 			parent.spindle_controls.append('spindle_fwd_pb')
 
-	if 'spindle_rev_pb' in parent.child_names: # verified
+	if 'spindle_rev_pb' in parent.child_names:
 		if 'spindle_rev_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_rev_pb" was found and the new style '
@@ -2021,7 +2025,7 @@ def setup_spindle(parent):
 			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
 			parent.spindle_controls.append('spindle_rev_pb')
 
-	if 'spindle_stop_pb' in parent.child_names: # verified
+	if 'spindle_stop_pb' in parent.child_names:
 		if 'spindle_stop_0_pb' in parent.child_names:
 			parent.spindle_stop_pb.setEnabled(False)
 			title = 'Configuration Error'
@@ -2033,7 +2037,7 @@ def setup_spindle(parent):
 			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'stop'))
 			parent.spindle_controls.append('spindle_stop_pb')
 
-	if 'spindle_plus_pb' in parent.child_names: # verified
+	if 'spindle_plus_pb' in parent.child_names:
 		if 'spindle_plus_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_plus_pb" was found and the new style '
@@ -2045,7 +2049,7 @@ def setup_spindle(parent):
 			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'plus'))
 			parent.spindle_controls.append('spindle_plus_pb')
 
-	if 'spindle_minus_pb' in parent.child_names: # verified
+	if 'spindle_minus_pb' in parent.child_names:
 		if 'spindle_minus_0_pb' in parent.child_names:
 			title = 'Configuration Error'
 			msg = ('The old style "spindle_minus_pb" was found and the new style '
@@ -2057,7 +2061,7 @@ def setup_spindle(parent):
 			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'minus'))
 			parent.spindle_controls.append('spindle_minus_pb')
 
-	if 'spindle_override_sl' in parent.child_names: # verified
+	if 'spindle_override_sl' in parent.child_names:
 		if 'spindle_override_0_sl' in parent.child_names:
 			parent.spindle_override_sl.setEnabled(False)
 			title = 'Configuration Error'
@@ -2074,7 +2078,7 @@ def setup_spindle(parent):
 			parent.spindle_override_sl.setValue(100)
 			parent.spindle_override_sl.blockSignals(False)
 
-	if 'spindle_speed_sb' in parent.child_names: # verified
+	if 'spindle_speed_sb' in parent.child_names:
 		if 'spindle_speed_0_sb' in parent.child_names:
 			parent.spindle_speed_sb.setEnabled(False)
 			title = 'Configuration Error'
@@ -2098,7 +2102,7 @@ def setup_spindle(parent):
 			value = item.split('_')[-1]
 			if utilities.is_int(value):
 				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The button named "{item}" with the button text of '
 				f'{button.text()}" "{value}" did not evaluate to an integer.')
@@ -2140,7 +2144,7 @@ def setup_touchoff(parent): # touchoff an axis
 				if 'touchoff_le' in parent.child_names: # check for touchoff_le
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					parent.axis_touchoff_controls.append(item)
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = ('The Touchoff Axis button requires a QLineEdit named '
 					'touchoff_le or a Dynamic Property named source that '
@@ -2154,7 +2158,7 @@ def setup_touchoff(parent): # touchoff an axis
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
 					parent.axis_touchoff_controls.append(item)
 					getattr(parent, source).setText('0')
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The Tool Touchoff button source object name "{source}" for '
 					f'button "{item}" was not found.')
@@ -2179,7 +2183,7 @@ def setup_tool_change(parent):
 			for tool in parent.status.tool_table[1:]:
 				if tool.id > 0:
 					break
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'Tool Change controls were found but no tools were found in the '
 				f'tool table "{parent.tool_table}". Tool change controls are disabled '
@@ -2336,7 +2340,7 @@ def setup_tool_touchoff_selected(parent):
 				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
 				parent.tool_touchoff_controls.append(item)
 				break
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = ('The "tool_touchoff_selected_pb" was found '
 			'but no axis_select radio buttons were found.')
@@ -2352,7 +2356,7 @@ def setup_touchoff_selected(parent):
 				parent.touchoff_selected_pb.clicked.connect(partial(dialogs.touchoff_selected, parent))
 				parent.axis_touchoff_controls.append('touchoff_selected_pb')
 				break
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = ('The "touchoff_selected_pb" was found '
 			'but no axis_select radio buttons were found.')
@@ -2368,7 +2372,7 @@ def setup_touchoff_selected(parent):
 				if 'tool_touchoff_le' in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.tool_touchoff_controls.append(item)
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = ('The Tool Touchoff Button requires the Tool Offset Line Edit '
 					'"tool_touchoff_le" or a Dynamic Property named "source" that '
@@ -2381,7 +2385,7 @@ def setup_touchoff_selected(parent):
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.tool_touchoff_controls.append(item)
-				else: # the source was not found # verified
+				else: # the source was not found
 					title = 'Configuration Error'
 					msg = (f'The Tool Touch Off line edit "{source}" for "{item}" was not found.')
 					info = f'The push button "{item}" will be disabled.'
@@ -2412,7 +2416,7 @@ def setup_sliders(parent):
 			parent.max_vel_sl.setMaximum(max_units_min)
 			parent.max_vel_sl.setValue(max_units_min)
 			parent.max_vel_sl.blockSignals(False)
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = ('The [TRAJ] section key MAX_LINEAR_VELOCITY was not found.')
 			info = 'The max_linear_vel slider will be disabled\n'
@@ -2441,7 +2445,7 @@ def setup_probing(parent):
 				getattr(parent, child).setEnabled(False)
 				if 'probing_enable_pb' in parent.child_names:
 					parent.probe_controls.append(child)
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The Probe Control "{child}" was found but the Probing Enable '
 					'Push Button "probing_enable_pb" was not found. Probe controls '
@@ -2484,7 +2488,7 @@ def setup_set_var(parent):
 						parent.set_var[obj_name] = var
 						parent.homed_controls.append(obj_name)
 						break
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The set parameter Dynamic Property "variable" "{var}" for '
 					f'"{obj_name}" was not found in the parameters file '
@@ -2492,7 +2496,7 @@ def setup_set_var(parent):
 					info = f'The "{obj_name}"" will be disabled'
 					dialogs.error_msg_ok(parent, title, msg, info)
 					child.setEnabled(False)
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The set parameter Dynamic Property "variable" for '
 				f'"{obj_name}" was not found or it is blank.')
@@ -2520,6 +2524,8 @@ def setup_watch_var(parent):
 					getattr(parent, key).setText(f'{float(line.split()[1]):.{value[1]}f}')
 
 def setup_hal(parent):
+	# LinuxCNC all imports are handled above, is there any way to improve this code?
+	# this creates all the HAL pins for HAL widgets
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
 	hal_avr_i_labels = [] # average int labels
@@ -2600,7 +2606,7 @@ def setup_hal(parent):
 				obj_name = child.objectName()
 				pin_name = child.property('pin_name')
 
-				if pin_name in [None, '']: # verified
+				if pin_name in [None, '']:
 					title = 'Configuration Error'
 					msg = (f'The HAL I/O "{obj_name}" pin name is blank or missing '
 					'The HAL pin can not be created.')
@@ -2609,7 +2615,7 @@ def setup_hal(parent):
 					child.setEnabled(False)
 					continue
 
-				if pin_name in dir(parent): # verified
+				if pin_name in dir(parent):
 					title = 'Configuration Error'
 					msg = (f'HAL I/O "{obj_name}" pin name "{pin_name}" is already used '
 					'in Flex GUI. The HAL pin can not be created.')
@@ -2628,7 +2634,7 @@ def setup_hal(parent):
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
 						child.toggled.connect(partial(utilities.update_hal_io, parent))
 						parent.hal_io_check[obj_name] = pin_name
-					else: # verified
+					else:
 						title = 'Configuration Error'
 						msg = (f'The push button "{obj_name}" must be '
 						'set to checkable to be a I/O button.')
@@ -2654,7 +2660,7 @@ def setup_hal(parent):
 						child.setEnabled(False)
 						if isinstance(child, QSpinBox):
 							obj_type = 'QSpinBox'
-						else: # verified
+						else:
 							obj_type = 'QSlider'
 						title = 'Configuration Error'
 						msg = (f'The "{obj_type}" "{obj_name}" hal_type must be HAL_S32 or '
@@ -2723,14 +2729,14 @@ def setup_hal(parent):
 				controls.append(f'unhome_pb_{i}')
 			for axis in AXES:
 				controls.append(f'clear_{axis}_pb')
-			if obj_name in controls: # verified
+			if obj_name in controls:
 				title = 'Configuration Error'
 				msg = (f'The control "{obj_name}" can not be a HAL pin.')
 				info = 'The HAL pin will not be created!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL Button "{obj_name}" with the text "{button.text()}" '
 				f'pin name is blank or missing The HAL pin can not be created.')
@@ -2740,7 +2746,7 @@ def setup_hal(parent):
 				button.setText('Error !')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'The HAL button "{obj_name}" with the pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -2775,7 +2781,7 @@ def setup_hal(parent):
 			pin_name = spinbox.property('pin_name')
 			hal_type = spinbox.property('hal_type')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'HAL Spinbox "{obj_name}" pin name is blank or missing '
 				'The HAL pin can not be created.')
@@ -2784,7 +2790,7 @@ def setup_hal(parent):
 				spinbox.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Spinbox "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI The HAL pin can not be created.')
@@ -2793,7 +2799,7 @@ def setup_hal(parent):
 				spinbox.setEnabled(False)
 				continue
 
-			if hal_type not in valid_types: # verified
+			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL type "{hal_type}" is not valid for a HAL spinbox, '
 				'only HAL_S32 or HAL_U32 are valid for a HAL Spinbox')
@@ -2817,7 +2823,7 @@ def setup_hal(parent):
 			obj_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				spinbox.setEnabled(False)
 				title = 'Configuration Error'
 				msg = (f'The HAL Double Spinbox "{obj_name}" pin name is blank or '
@@ -2826,7 +2832,7 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				spinbox.setEnabled(False)
 				title = 'Configuration Error'
 				msg = (f'The HAL Double Spinbox "{obj_name}" pin name "{pin_name}" is '
@@ -2851,7 +2857,7 @@ def setup_hal(parent):
 			obj_name = slider.objectName()
 			pin_name = slider.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'HAL SLIDER "{obj_name}" pin name is blank or missing.'
 				'The HAL pin can not be created.')
@@ -2860,7 +2866,7 @@ def setup_hal(parent):
 				slider.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Slider "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -2870,7 +2876,7 @@ def setup_hal(parent):
 				continue
 
 			hal_type = slider.property('hal_type')
-			if hal_type not in valid_types: # verified
+			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL slider, only '
 				'HAL_S32 or HAL_U32 are valid HAL Types for a slider')
@@ -2896,7 +2902,7 @@ def setup_hal(parent):
 			pin_name = lcd.property('pin_name')
 			hal_type = lcd.property('hal_type')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL LCD "{obj_name}" pin name is blank or missing.'
 				'The HAL pin can not be created.')
@@ -2905,7 +2911,7 @@ def setup_hal(parent):
 				lcd.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL LCD "{obj_name}" pin name "{pin_name}" is already used '
 				'in Flex GUI. The HAL pin can not be created.')
@@ -2914,7 +2920,7 @@ def setup_hal(parent):
 				lcd.setEnabled(False)
 				continue
 
-			if hal_type not in valid_types: # verified
+			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not a valid type for a HAL LCD, '
 				'only HAL_FLOAT or HAL_S32 or HAL_U32 can be used.')
@@ -2946,7 +2952,7 @@ def setup_hal(parent):
 			false_text = label.property('false_text')
 			hal_dir = getattr(hal, 'HAL_IN')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'The HAL LABEL "{obj_name}" pin name is blank or missing '
 				'The HAL pin can not be created.')
@@ -2957,7 +2963,7 @@ def setup_hal(parent):
 				continue
 
 			# the pin_name can not be the same as a built in variable or object name
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Label "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -2967,7 +2973,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if hal_type not in valid_types: # verified
+			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label. '
 				'Valid types are HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32.')
@@ -2990,7 +2996,7 @@ def setup_hal(parent):
 
 			##### HAL S32/U32 Label #####
 			if hal_type in ['HAL_S32', 'HAL_U32']:
-				if label.property('integer_digits'): # verified
+				if label.property('integer_digits'):
 					title = 'Configuration Error'
 					msg = ('The Dynamic Property "integer_digits" has been replaced with '
 					'"zero_padding" which better describes what the property is for.')
@@ -3022,7 +3028,7 @@ def setup_hal(parent):
 			if r > 0:
 				r = -r
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'HAL Average Float Label "{obj_name}" pin name is blank or '
 				'missing. The HAL pin can not be created.')
@@ -3032,7 +3038,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Average Float Label "{obj_name}" pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -3059,7 +3065,7 @@ def setup_hal(parent):
 			pin_name = label.property('pin_name')
 			s = label.property('samples') or 10
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'HAL Average Integer Label "{obj_name}" pin name is blank or '
 				'missing The HAL pin can not be created.')
@@ -3069,7 +3075,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Average Integer Label "{obj_name}" pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -3080,7 +3086,7 @@ def setup_hal(parent):
 				continue
 
 			hal_type = label.property('hal_type')
-			if hal_type not in valid_types: # verified
+			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL Average '
 				'Integer Label, only HAL_S32 or HAL_U32 can be used.')
@@ -3101,7 +3107,7 @@ def setup_hal(parent):
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'HAL Multi State Label "{obj_name}" pin name is blank or '
 				'missing. The HAL pin can not be created.')
@@ -3111,7 +3117,7 @@ def setup_hal(parent):
 				label.setText('Error!')
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL Multi-State Label "{obj_name}" pin name "{pin_name}" '
 				'is already used in Flex GUI. The HAL pin can not be created.')
@@ -3151,7 +3157,7 @@ def setup_hal(parent):
 					num = key.split('_')[-1]
 					if utilities.is_int(num):
 						text_dict[int(num)] = value
-					else: # verified
+					else:
 						title = 'Configuration Error'
 						msg = (f'HAL Multi State Label "{obj_name}" Dynamic Property '
 						f'"{key}" suffix "{num}" did not evaluate to an integer. The HAL '
@@ -3170,7 +3176,7 @@ def setup_hal(parent):
 			obj_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
 
-			if pin_name in [None, '']: # verified
+			if pin_name in [None, '']:
 				title = 'Configuration Error'
 				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name is blank or missing. '
 				'The HAL pin can not be created.')
@@ -3179,7 +3185,7 @@ def setup_hal(parent):
 				progressbar.setEnabled(False)
 				continue
 
-			if pin_name in dir(parent): # verified
+			if pin_name in dir(parent):
 				title = 'Configuration Error'
 				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name "{pin_name}" is already '
 				'used in Flex GUI. The HAL pin can not be created.')
@@ -3222,27 +3228,6 @@ def setup_hal_io_state(parent):
 			# 3. Apply the HAL state directly to the UI widget
 			getattr(ui_element, setter_method)(hal_value)
 
-
-	'''
-	# key is the object name value is the hal pin name
-	for key, value in parent.hal_io_check.items():
-		checked_state = getattr(parent, key).isChecked()
-		hal_state = getattr(parent.halcomp, value)
-		if checked_state != hal_state:
-			setattr(parent.halcomp, value, checked_state)
-
-	for key, value in parent.hal_io_int.items():
-		obj_value = getattr(parent, key).value()
-		hal_value = getattr(parent.halcomp, value)
-		if obj_value != hal_value:
-			setattr(parent.halcomp, value, obj_value)
-
-	for key, value in parent.hal_io_float.items():
-		obj_value = getattr(parent, key).value()
-		hal_value = getattr(parent.halcomp, value)
-		if obj_value != hal_value:
-			setattr(parent.halcomp, value, obj_value)
-	'''
 def setup_hal_watch(parent):
 	# Initialize HAL watch storage dictionaries
 	parent.hal_watch_bit = {}
@@ -3313,7 +3298,7 @@ def setup_hal_watch(parent):
 			try:
 				hal.get_value(pin)
 				parent.hal_watch_bit[obj_name] = pin
-			except Exception: # verified
+			except Exception:
 				title = 'Configuration Error'
 				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
 				'found.')
@@ -3328,7 +3313,7 @@ def setup_hal_watch(parent):
 			try:
 				hal.get_value(pin)
 				parent.hal_watch_int[obj_name] = pin
-			except Exception: # verified
+			except Exception:
 				title = 'Configuration Error'
 				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
 				'found.')
@@ -3345,7 +3330,7 @@ def setup_hal_watch(parent):
 			try:
 				hal.get_value(pin)
 				parent.hal_watch_float[obj_name] = [pin, p]
-			except Exception: # verified
+			except Exception:
 				title = 'Configuration Error'
 				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
 				'found.')
@@ -3363,7 +3348,7 @@ def setup_hal_watch(parent):
 				try:
 					hal.get_value(pin)
 					test = True
-				except Exception: # verified
+				except Exception:
 					title = 'Configuration Error'
 					msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was '
 					'not found.')
@@ -3387,7 +3372,7 @@ def setup_hal_watch(parent):
 				try:
 					hal.get_value(pin)
 					test = True
-				except Exception: # verified
+				except Exception:
 					title = 'Configuration Error'
 					msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was '
 					'not found.')
@@ -3529,7 +3514,7 @@ def setup_plot(parent):
 				setattr(parent.plotter, value[1], state)
 
 		if parent.auto_plot_units: # disable metric units
-			if 'view_metric_units_cb' in parent.child_names: # verified
+			if 'view_metric_units_cb' in parent.child_names:
 				title = 'Configuration Error'
 				msg = ('The INI entry PLOT_UNITS = True in the [FLEXGUI] section '
 				'disables any metric unit plotter controls.')
@@ -3538,7 +3523,7 @@ def setup_plot(parent):
 				parent.view_metric_units_cb.setEnabled(False)
 
 				bitch = True
-			if 'view_metric_units_pb' in parent.child_names: # verified
+			if 'view_metric_units_pb' in parent.child_names:
 				parent.view_metric_units_pb.setEnabled(False)
 				title = 'Configuration Error'
 				msg = ('The INI entry PLOT_UNITS = True in the [FLEXGUI] section '
@@ -3547,7 +3532,7 @@ def setup_plot(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.view_metric_units_pb.setEnabled(False)
 
-			if 'actionMetric_Units' in parent.child_names: # verified
+			if 'actionMetric_Units' in parent.child_names:
 				title = 'Configuration Error'
 				msg = ('The INI entry PLOT_UNITS = True in the [FLEXGUI] section '
 				'disables any metric unit plotter controls.')
@@ -3643,7 +3628,7 @@ def setup_plot(parent):
 
 		# Handle both a QMenu and QAction submenus
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-		if parent.grids and not menu: # verified
+		if parent.grids and not menu:
 			# If an INI setting and no GRIDS menu, show an error
 			title = 'Configuration Error'
 			msg = (f'The Plottter GRIDS configuration was found in the INI file. '
@@ -3668,7 +3653,7 @@ def setup_plot(parent):
 				text, data, suffix = utilities.is_valid_increment(parent, item)
 				if data:
 					grid_size = conv_units(data, suffix.lower(), parent.units)
-				else: # verified
+				else:
 					title = 'Configuration Error'
 					msg = (f'The FLEXGUI PLOT_GRID entry "{item}" is not a '
 					'valid unit and will not be used.')
@@ -3719,8 +3704,15 @@ def setup_dsf(parent): # drill speed and feed calculator
 	if 'dsf_container' in parent.child_names:
 		from libflexgui import dsf
 		parent.dsf_calc = dsf.dsf_calc(parent)
+	if parent.dsf_container.layout() is None:
 		layout = QVBoxLayout(parent.dsf_container)
+		layout.setContentsMargins(0, 0, 0, 0)
+	else:
+		layout = parent.dsf_container.layout()
+
 		layout.addWidget(parent.dsf_calc)
+
+		# touch screen popups
 		if parent.dsf_container.property('input') == 'number':
 			dsf_items = ['dfs_diameter_le', 'dfs_surface_speed_le']
 			for item in dsf_items:
@@ -3731,8 +3723,32 @@ def setup_tpc(parent): # three point center calculator
 	if 'tpc_container' in parent.child_names:
 		from libflexgui import tpc
 		parent.tpc_calc = tpc.tpc_calc(parent)
+
+	# Ensure the target container (bc_calc placeholder) has a layout to hold the widget
+	if parent.tpc_container.layout() is None:
 		layout = QVBoxLayout(parent.tpc_container)
+		layout.setContentsMargins(0, 0, 0, 0)
+	else:
+		layout = parent.tpc_container.layout()
+
 		layout.addWidget(parent.tpc_calc)
+
+def setup_bcc(parent): # bolt circle g code generator
+	if 'bc_gen' in parent.child_names:
+		from libflexgui import bcc # bcc.py has all the logic and widgets
+
+		# Instantiate the calculator object/widget passing the parent window reference
+		parent.bc_gen_widget = bcc.bc_gen(parent)
+
+		# Ensure the target container has a layout to hold the widget
+		if parent.bc_gen.layout() is None:
+			layout = QVBoxLayout(parent.bc_gen)
+			layout.setContentsMargins(0, 0, 0, 0)
+		else:
+			layout = parent.bc_gen.layout()
+
+		# Add the generated calculator widget to the container's layout
+		layout.addWidget(parent.bc_gen_widget)
 
 def setup_import(parent):
 	# Dynamically loads Python modules specified in the INI file

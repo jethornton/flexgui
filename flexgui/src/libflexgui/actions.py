@@ -144,6 +144,9 @@ def action_reload(parent): # actionReload
 		if 'gcode_pte' in parent.child_names:
 			with open(nc_code_file) as f:
 				parent.gcode_pte.setPlainText(f.read())
+				parent.file_changed = False
+
+		# This updates the LED
 		if 'save_pb' in parent.child_names:
 			if hasattr(parent.save_pb, 'state'):
 				parent.save_pb.state = False
@@ -154,12 +157,26 @@ def action_reload(parent): # actionReload
 			if hasattr(parent.reload_pb, 'state'):
 				parent.reload_pb.state = False
 
+	elif not parent.gcode_pte.document().isEmpty():
+		action_save_as(parent)
+
 def action_save(parent): # actionSave requires the QPlainTextEdit gcode_pte
-	current_nccode_file = parent.status.file
+	nc_code_file = parent.status.file or False
 	text = parent.gcode_pte.toPlainText()
 	nc_code = text.splitlines()
-	with open(current_nccode_file, 'w') as f:
-		f.writelines(line + "\n" for line in nc_code)
+	if nc_code_file:
+		with open(nc_code_file, 'w') as f:
+			f.writelines(line + "\n" for line in nc_code)
+			parent.file_changed = False
+	else:
+		action_save_as(parent)
+
+	if 'plot_widget' in parent.child_names:
+		parent.plotter.clear_live_plotter()
+		parent.plotter.update()
+		parent.plotter.load(nc_code_file)
+
+		# This updates the LED
 	if 'save_pb' in parent.child_names:
 		if hasattr(parent.save_pb, 'state'):
 			parent.save_pb.state = False
@@ -184,6 +201,7 @@ def action_save_as(parent): # actionSave_As requires the QPlainTextEdit gcode_pt
 		with open(new_nc_code_file, 'w', encoding='utf-8') as f:
 			f.write(nc_code)
 		load_file(parent, new_nc_code_file)
+		parent.file_changed = False
 
 def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	tool_table_file = os.path.join(parent.config_path, parent.tool_table)
