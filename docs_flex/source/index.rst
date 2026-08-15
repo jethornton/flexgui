@@ -1,10 +1,11 @@
 Flex GUI
 ========
 .. toctree::
-   :maxdepth: 2
+   :titlesonly:
    :caption: Contents:
 
    description
+   start
    install
    designer
    build
@@ -22,6 +23,7 @@ Flex GUI
    probe
    tools
    coordinates
+   generators
    misc
    hal
    touch
