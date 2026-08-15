@@ -1,8 +1,11 @@
-====================
-Flex GUI Description
-====================
+========
+Flex GUI
+========
 
 Flex GUI is a flexible GUI that can be customized to suit your needs.
+
+Description
+===========
 
 Creating a GUI with Flex requires NO programming or coding experience. All you
 need to do is drag and drop widgets into a Qt Main Window and change the object
@@ -18,6 +21,7 @@ name to match the function. It's just that simple.
 * Flex GUI remembers the size and position of your GUI
 * Flex GUI has built in Touch Screen support for all data entry widgets
 * Flex GUI works on both PC and Raspberry Pi
+* Flex GUI includes NC Code Generators and Calculators
 
 For more information about Dynamic Properties see :doc:`property`
 
