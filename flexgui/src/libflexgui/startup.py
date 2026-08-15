@@ -3704,11 +3704,11 @@ def setup_dsf(parent): # drill speed and feed calculator
 	if 'dsf_container' in parent.child_names:
 		from libflexgui import dsf
 		parent.dsf_calc = dsf.dsf_calc(parent)
-	if parent.dsf_container.layout() is None:
-		layout = QVBoxLayout(parent.dsf_container)
-		layout.setContentsMargins(0, 0, 0, 0)
-	else:
-		layout = parent.dsf_container.layout()
+		if parent.dsf_container.layout() is None:
+			layout = QVBoxLayout(parent.dsf_container)
+			layout.setContentsMargins(0, 0, 0, 0)
+		else:
+			layout = parent.dsf_container.layout()
 
 		layout.addWidget(parent.dsf_calc)
 
