@@ -1094,6 +1094,19 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="4">
+         <widget class="QPushButton" name="pushButton_15">
+          <property name="text">
+           <string>Go To X0 Y0 Z0</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G0 X0 Y0 Z0</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab">
@@ -1264,6 +1277,13 @@
              <widget class="QPushButton" name="view_z2_pb">
               <property name="text">
                <string>View Z2</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="view_clear_pb">
+              <property name="text">
+               <string>Clear Live Plot</string>
               </property>
              </widget>
             </item>
@@ -3246,7 +3266,7 @@
            <enum>QTabWidget::North</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="tab_15">
            <attribute name="title">
@@ -3289,6 +3309,23 @@
            <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
              <widget class="QFrame" name="tpc_container">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_21">
+           <attribute name="title">
+            <string>BCC</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QFrame" name="bc_gen">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
