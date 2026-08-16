@@ -3,7 +3,7 @@ from functools import partial
 from collections import deque
 
 from PyQt6.QtCore import QTimer
-from PyQt6.QtWidgets import QWidget, QLineEdit
+from PyQt6.QtWidgets import QWidget, QFrame, QLineEdit
 from PyQt6.QtWidgets import QSlider, QMenu, QRadioButton
 from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox
 from PyQt6.QtWidgets import QLabel, QLCDNumber, QListView
