@@ -2,6 +2,7 @@ import os, sys, importlib, gc
 from functools import partial
 from collections import deque
 
+from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QWidget, QLineEdit
 from PyQt6.QtWidgets import QSlider, QMenu, QRadioButton
 from PyQt6.QtWidgets import QAbstractButton, QPushButton, QCheckBox
@@ -29,6 +30,7 @@ from libflexgui import commands
 from libflexgui import dialogs
 from libflexgui import utilities
 from libflexgui import probe
+from libflexgui import NineAxisPlotterWidget
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
@@ -3389,6 +3391,41 @@ def setup_hal_watch(parent):
 def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
+
+def bind_flex_plotter(parent):
+	"""
+	Looks for the auto-discovered 'plotter' QWidget/QFrame container 
+	in Flex GUI and embeds the 9-axis OpenGL widget into it.
+	"""
+	# Flex GUI convention: discover widget by object name 'plotter'
+	# Checking both QWidget and QFrame namespaces for robustness
+	container = parent.findChild(QWidget, "plotter") or parent.findChild(QFrame, "plotter")
+
+	if container:
+		layout = container.layout()
+		if not layout:
+			layout = QVBoxLayout(container)
+			layout.setContentsMargins(0, 0, 0, 0)
+
+		# Clear out any default placeholder items if present
+		while layout.count():
+			child = layout.takeAt(0)
+			if child.widget():
+				child.widget().deleteLater()
+
+		# Insert the 9-Axis OpenGL plotter engine 
+		# (Assuming file is NineAxisPlotterWidget.py containing class NineAxisPlotterWidget)
+		nine_axis_widget = NineAxisPlotterWidget.NineAxisPlotterWidget(container)
+		layout.addWidget(nine_axis_widget)
+		
+		# Bind reference to parent instance so it doesn't get garbage collected
+		parent.custom_9axis_plotter = nine_axis_widget
+
+		# CRITICAL FOR FLEX GUI: Initialize a rendering paint loop if one isn't 
+		# globally ticking, otherwise your 3D plot won't update when the machine moves.
+		parent.plotter_timer = QTimer(parent)
+		parent.plotter_timer.timeout.connect(nine_axis_widget.update)
+		parent.plotter_timer.start(33)  # Roughly ~30 Frames Per Second updates
 
 def setup_plot(parent):
 	if 'plot_widget' in parent.child_names:

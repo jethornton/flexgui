@@ -78,7 +78,6 @@ class bc_gen(QWidget):
 		input_layout.setColumnStretch(1, 1)
 		input_layout.setColumnStretch(3, 1)
 
-
 		input_layout.addWidget(QLabel('Units:'), 0, 0, Qt.AlignmentFlag.AlignRight)
 		input_layout.addWidget(self.combo_units, 0, 1)
 		input_layout.addWidget(QLabel('Cycle:'), 0, 2, Qt.AlignmentFlag.AlignRight)
@@ -108,7 +107,6 @@ class bc_gen(QWidget):
 		input_layout.addWidget(self.comment, 5, 1)
 		input_layout.addWidget(QLabel('Hole Count:'), 5, 2, Qt.AlignmentFlag.AlignRight)
 		input_layout.addWidget(self.spin_holes, 5, 3)
-
 
 		form.addRow(input_frame)
 

@@ -368,6 +368,7 @@ class flexgui(QMainWindow):
 		startup.setup_actions(self) # setup actions adds to child names
 		startup.setup_enables(self) # menus must run before setup enables
 		startup.update_check(self)
+		startup.bind_flex_plotter(self)
 		startup.setup_plot(self)
 		startup.setup_buttons(self)
 		startup.setup_status_labels(self)

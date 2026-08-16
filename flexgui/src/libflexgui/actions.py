@@ -7,6 +7,8 @@ import linuxcnc as emc
 
 from libflexgui import dialogs
 from libflexgui import utilities
+from libflexgui import NineAxisPlotterWidget
+
 
 def load_file(parent, nc_code_file=None):
 	# File load buttons don't pass a file name it has to be read from the property
@@ -30,8 +32,9 @@ def load_file(parent, nc_code_file=None):
 		parent.command.program_open(nc_code_file)
 		parent.command.wait_complete()
 
-		if 'plot_widget' in parent.child_names:
-			parent.plotter.clear_live_plotter()
+	if 'plotter' in parent.child_names and hasattr(parent, 'custom_9axis_plotter'):
+		# Call the method directly on the instantiated engine object
+		parent.custom_9axis_plotter.load_gcode_path(nc_code_file)
 
 		if 'gcode_pte' in parent.child_names:
 			text = open(nc_code_file).read()
