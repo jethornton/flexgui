@@ -291,12 +291,9 @@ def max_velocity(parent,value):
 	if 'max_vel_lb' in parent.child_names:
 		parent.max_vel_lb.setText(f'{value} {parent.units}/min')
 
-def update_qcode_pte(parent):
+def update_qcode_pte(parent): # updates cursor highlight
 	extraSelections = []
 	selection = QTextEdit.ExtraSelection()
-	#line_color = QColor('yellow').lighter(160)
-	#line_color = QColor('blue').lighter(200)
-	#line_color = QColor('lightblue').lighter(160)
 	line_color = parent.palette().color(parent.palette().ColorGroup.Active, parent.palette().ColorRole.Highlight).lighter(160)
 	selection.format.setBackground(line_color)
 	selection.format.setForeground(QColor('black'))
@@ -557,7 +554,6 @@ def update_controls(parent):
 	# parent.homed_controls = [] # enabled when power on, homed
 
 	if parent.file_changed:
-		print('here')
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.file_edit_controls:
@@ -763,6 +759,10 @@ def update_controls(parent):
 
 			if not parent.probing: # not probing
 				for item in parent.file_open_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.file_save_controls:
+					getattr(parent, item).setEnabled(True)
+				for item in parent.file_edit_controls:
 					getattr(parent, item).setEnabled(True)
 				for item in parent.tool_table_controls:
 					getattr(parent, item).setEnabled(True)
