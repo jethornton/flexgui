@@ -486,7 +486,6 @@ class flexgui(QMainWindow):
 
 		#self.settings.setValue('GUI/window_size', self.size())
 		#self.settings.setValue('GUI/window_position', self.pos())
-		#print('here')
 
 		# 1. Stop all user-defined timers immediately
 		self.user_timer.stop()
