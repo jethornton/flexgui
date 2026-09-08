@@ -1114,7 +1114,7 @@
         <string>File</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="1" column="0" colspan="8">
+        <item row="1" column="0" colspan="7">
          <widget class="QPlainTextEdit" name="gcode_pte">
           <property name="font">
            <font>
@@ -1126,47 +1126,10 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="7">
+        <item row="0" column="6">
          <widget class="QLabel" name="start_line_lb">
           <property name="text">
            <string>N/A</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QPushButton" name="pushButton_9">
-          <property name="text">
-           <string>Load File</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>load_file</string>
-          </property>
-          <property name="filename" stdset="0">
-           <string>/home/john/linuxcnc/nc_files/square.ngc</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="edit_pb">
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="reload_pb">
-          <property name="text">
-           <string>Reload</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="label_46">
-          <property name="text">
-           <string>RFL &gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1190,6 +1153,23 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="5">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>RFL &gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="reload_pb">
+          <property name="text">
+           <string>Reload</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="3">
          <widget class="QPushButton" name="save_pb">
           <property name="text">
@@ -1197,6 +1177,13 @@
           </property>
           <property name="led_indicator" stdset="0">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="edit_pb">
+          <property name="text">
+           <string>Edit</string>
           </property>
          </widget>
         </item>
