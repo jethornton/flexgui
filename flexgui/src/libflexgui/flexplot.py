@@ -113,8 +113,8 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			fmt = QSurfaceFormat()
 			fmt.setDepthBufferSize(24)
 			fmt.setVersion(3, 3)
-			fmt.setProfile(QSurfaceFormat.CoreProfile)
-			fmt.setOption(QSurfaceFormat.DeprecatedFunctions)
+			fmt.setProfile(QSurfaceFormat.OpenGLContextProfile.CoreProfile)
+			fmt.setOption(QSurfaceFormat.FormatOption.DeprecatedFunctions)
 			self.setFormat(fmt)
 		glnav.GlNavBase.__init__(self)
 
@@ -984,6 +984,15 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		if side < 0:
 			return
 		GL.glViewport((width - side) // 2, (height - side) // 2, side, side)
+
+		if GL3_RENDERER:
+			# no fixed-function matrix stack to touch under a core-profile
+			# context (this is what raised the invalid-operation GLError);
+			# redraw_perspective()/redraw_ortho() already recompute
+			# self._projection from the window size on every paint, so
+			# there's nothing else to do here
+			return
+
 		GL.glMatrixMode(GL.GL_PROJECTION) # To operate on projection-view matrix
 		GL.glLoadIdentity() # reset the model-view matrix
 		GL.glOrtho(-0.5, +0.5, +0.5, -0.5, 4.0, 15.0)
