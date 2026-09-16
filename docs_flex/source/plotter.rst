@@ -163,5 +163,17 @@ To configure the size options of the grid see the
 DRO
 ---
 
-The font size can be set in the ini file by adding in the [FLEXGUI] section 
+The font size can be set in the ini file by adding in the [FLEXGUI] section
 DRO_FONT_SIZE = n where n is an integer. The default size is 12.
+
+LinuxCNC Compatibility
+-----------------------
+
+The plotter automatically detects which OpenGL preview renderer the
+installed LinuxCNC provides and uses the matching drawing path -- no
+configuration is required. This matters because LinuxCNC rewrote its
+preview renderer to target an OpenGL 3.3 core profile (see
+`LinuxCNC PR #4293 <https://github.com/LinuxCNC/linuxcnc/pull/4293>`_);
+LinuxCNC releases through 2.9.10 still use the older renderer, while
+versions built from master after 2026-08-12 use the new one. Both are
+supported by Flex GUI's plotter.

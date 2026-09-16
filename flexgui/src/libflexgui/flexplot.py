@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from PyQt6.QtCore import pyqtSignal, QSize, Qt, QTimer
-from PyQt6.QtGui import QColor
+from PyQt6.QtGui import QColor, QSurfaceFormat
 from PyQt6.QtOpenGLWidgets import QOpenGLWidget
 from OpenGL import GL
 from OpenGL.GL import glColor4f
@@ -19,6 +19,18 @@ import re
 import tempfile
 import shutil
 import os
+
+# LinuxCNC/linuxcnc#4293 (merged 2026-08-12, not in any release as of 2.9.10)
+# rewrote the preview renderer for an OpenGL 3.3 core profile, replacing the
+# old immediate-mode drawing this module used to do directly. Upstream
+# declined to add a version flag for third-party GUIs (see PR discussion),
+# so detect it by probing for a method that exists only on the new
+# GlCanonDraw, and keep both code paths until the old renderer is no longer
+# supported.
+GL3_RENDERER = hasattr(glcanon.GlCanonDraw, '_ensure_renderer')
+
+if GL3_RENDERER:
+	import numpy as np
 
 #################
 # Helper class
@@ -95,6 +107,15 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 
 	def __init__(self, parent=None):
 		super(emc_plot,self).__init__(parent)
+		if GL3_RENDERER:
+			# a core profile context is required by the new shader-based
+			# renderer, and rejects the legacy immediate-mode calls below
+			fmt = QSurfaceFormat()
+			fmt.setDepthBufferSize(24)
+			fmt.setVersion(3, 3)
+			fmt.setProfile(QSurfaceFormat.OpenGLContextProfile.CoreProfile)
+			fmt.setOption(QSurfaceFormat.FormatOption.DeprecatedFunctions)
+			self.setFormat(fmt)
 		glnav.GlNavBase.__init__(self)
 
 		def C(s):
@@ -721,6 +742,40 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		w = self.winfo_width()
 		h = self.winfo_height()
 		GL.glViewport(0, 0, w, h) # left corner in pixels
+
+		if GL3_RENDERER:
+			# --- LinuxCNC >= the glcanon OpenGL 3.3 core-profile rewrite ---
+			# every fixed-function call below this branch (glMatrixMode,
+			# glLoadIdentity, GLU.gluPerspective/gluLookAt, glPushMatrix/
+			# glPopMatrix) is gone from a core-profile GL context, so this
+			# branch talks to the new renderer through the small set of
+			# helper methods it provides instead of the old GL matrix stack
+
+			# clear the background; draws the gradient (if enabled) through
+			# the shader-based renderer instead of the old glBegin/glEnd quad
+			self._clear_background()
+
+			# GlNavBase (glnav.py) already computes the projection/modelview
+			# matrices from self.fovy/near/far/distance/perspective; hand
+			# them to GlCanonDraw's own matrix stack object (self.mv) via
+			# these two small setter methods
+			self._projection = self.get_projection_matrix(w, h)
+			self._mv_reset(self.get_modelview_matrix())
+
+			try:
+				# self.redraw() is inherited from glcanon.GlCanonDraw and
+				# already knows how to draw itself correctly for whichever
+				# LinuxCNC is installed -- nothing else to branch on here
+				self.redraw()
+			finally:
+				GL.glFlush() # Tidy up
+			return
+
+		# --- legacy path: LinuxCNC before the OpenGL 3.3 core-profile
+		# rewrite, still speaking the old immediate-mode / fixed-function
+		# API below. Left exactly as it always was: this is today's known
+		# working code, and it must not change just because the GL3_RENDERER
+		# branch above was added.
 		if self.use_gradient_background:
 				GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
 				GL.glMatrixMode(GL.GL_PROJECTION)
@@ -779,6 +834,31 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		w = self.winfo_width()
 		h = self.winfo_height()
 		GL.glViewport(0, 0, w, h)
+
+		if GL3_RENDERER:
+			# --- LinuxCNC >= the glcanon OpenGL 3.3 core-profile rewrite ---
+			# same reasoning as the top of redraw_perspective(): the matrix
+			# stack and immediate-mode calls in the legacy branch below
+			# don't exist in a core-profile context, so route through the
+			# new renderer's helper methods instead
+			self._clear_background()
+
+			# GlNavBase.get_projection_matrix() branches on self.perspective
+			# itself and returns an orthographic matrix here since we were
+			# called from redraw_ortho()
+			self._projection = self.get_projection_matrix(w, h)
+			self._mv_reset(self.get_modelview_matrix())
+
+			try:
+				# inherited from glcanon.GlCanonDraw; version-correct already
+				self.redraw()
+			finally:
+				GL.glFlush() # Tidy up
+			return
+
+		# --- legacy path: LinuxCNC before the OpenGL 3.3 core-profile
+		# rewrite. Left exactly as it always was -- this is today's known
+		# working code.
 		if self.use_gradient_background:
 			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
 			GL.glMatrixMode(GL.GL_PROJECTION)
@@ -829,6 +909,14 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 			GL.glPopMatrix()				   # Restore the matrix
 
 	# override glcanon function
+	#
+	# NOTE: this is a legacy-only hook. It's a fixed-function-lighting
+	# callback that the *old* glcanon.GlCanonDraw.redraw() invokes as part
+	# of its drawing sequence; the new OpenGL 3.3 core-profile redraw()
+	# resolves per-primitive color/lighting inside its own shaders
+	# (rs274.glcanon_bake) and never calls this method at all. No
+	# GL3_RENDERER branch is needed here -- under the new renderer this
+	# function is simply dead code that nothing ever invokes.
 	def basic_lighting(self):
 		GL.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, (1, -1, 1, 0))
 		GL.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, self.colors['tool_ambient'] + (0,))
@@ -842,12 +930,69 @@ class emc_plot(QOpenGLWidget, glcanon.GlCanonDraw, glnav.GlNavBase):
 		GL.glMatrixMode(GL.GL_MODELVIEW)
 		GL.glLoadIdentity()
 
+	# --- GL3_RENDERER-only helpers ---
+	# These are only ever called from the GL3_RENDERER branches of
+	# redraw_perspective()/redraw_ortho() above, so they don't need an
+	# internal GL3_RENDERER check of their own -- under the legacy renderer
+	# they're simply never invoked.
+
+	# clears the background for one frame: either a flat color (the old
+	# GL.glClearColor path still works fine in a core profile) or, if the
+	# user has a gradient background configured, hands off to the shader
+	# based gradient drawn by _draw_gradient_background() below
+	def _clear_background(self):
+		if self.use_gradient_background:
+			self._draw_gradient_background()
+		else:
+			GL.glClearColor(*(self.background_color + (0,)))
+			GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
+
+	# draws a full-screen vertical gradient (gradient_color1 at the bottom
+	# fading to gradient_color2 at the top) through the renderer's flat
+	# shader. This replaces the old glBegin(GL_QUADS)/glVertex2f/glEnd
+	# immediate-mode quad, which a core-profile context can no longer run.
+	def _draw_gradient_background(self):
+		GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
+		c1 = self.gradient_color1
+		c2 = self.gradient_color2
+
+		# one vertex = (x, y, z, r, g, b, a, 0.0); the trailing 0.0 is an
+		# unused texture-coordinate slot shared with the renderer's other
+		# (textured) draw calls -- see rs274.glcanon_gl's vertex layout
+		def v(x, y, c):
+			return (x, y, 0.0, c[0], c[1], c[2], 1.0, 0.0)
+
+		# two triangles covering the full [-1, 1] clip-space quad, bottom
+		# corners colored c1, top corners colored c2
+		verts = np.array([
+			v(-1, -1, c1), v(1, -1, c1), v(1, 1, c2),
+			v(-1, -1, c1), v(1, 1, c2), v(-1, 1, c2),
+		], dtype=np.float32)
+
+		# draw without depth testing so the gradient always sits behind
+		# everything else in the scene, then restore state for the caller
+		GL.glDisable(GL.GL_DEPTH_TEST)
+		self._ensure_renderer().draw_flat_array(
+			glnav.identity_matrix(), verts, mode=GL.GL_TRIANGLES)
+		GL.glUseProgram(0)
+		GL.glBindVertexArray(0)
+		GL.glEnable(GL.GL_DEPTH_TEST)
+
 	# resizes the view to fit the window
 	def resizeGL(self, width, height):
 		side = min(width, height)
 		if side < 0:
 			return
 		GL.glViewport((width - side) // 2, (height - side) // 2, side, side)
+
+		if GL3_RENDERER:
+			# no fixed-function matrix stack to touch under a core-profile
+			# context (this is what raised the invalid-operation GLError);
+			# redraw_perspective()/redraw_ortho() already recompute
+			# self._projection from the window size on every paint, so
+			# there's nothing else to do here
+			return
+
 		GL.glMatrixMode(GL.GL_PROJECTION) # To operate on projection-view matrix
 		GL.glLoadIdentity() # reset the model-view matrix
 		GL.glOrtho(-0.5, +0.5, +0.5, -0.5, 4.0, 15.0)
