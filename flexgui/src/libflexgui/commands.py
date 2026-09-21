@@ -38,7 +38,6 @@ def run_mdi(parent, cmd=''):
 				parent.command.mode(emc.MODE_MDI)
 				parent.command.wait_complete()
 				parent.command.mdi(mdi_command)
-				parent.plotter.update()
 	else:
 		title = 'Operator Error'
 		msg = 'No MDI command was found!'
@@ -306,7 +305,7 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = int(rpm * override)
 
 			# make sure override does not violate limits
-			if rpm_override < min_rpm or rpm_override:
+			if rpm_override < min_rpm or rpm_override > max_rpm:
 				#rpm = int(max_rpm / override)
 				rpm = max(min_rpm, min(rpm, max_rpm))
 				print(f'corrected rpm {rpm}')
