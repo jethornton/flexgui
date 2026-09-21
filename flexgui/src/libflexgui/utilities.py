@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import QApplication, QTextEdit, QFileDialog, QMenu
 import linuxcnc as emc
 
 from libflexgui import dialogs
+from libflexgui import actions
 
 def to_int(string, default=0):
 	try:
@@ -278,8 +279,7 @@ def update_mdi(parent):
 	parent.command.mode(emc.MODE_MANUAL)
 	parent.command.wait_complete()
 	parent.mdi_command = ''
-	if parent.plotter:
-		parent.plotter.update()
+	actions.action_reload(parent)
 
 def feed_override(parent, value):
 	parent.command.feedrate(float(value / 100))
