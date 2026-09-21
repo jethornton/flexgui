@@ -1,3 +1,9 @@
+flexgui (2.1.0) unstable; urgency=medium
+
+  * Add OpenGL 3.3 support
+
+ -- John Thornton <dev@gnipsel.com>  Wed, 16 Sep 2026 06:36:16 -0500
+
 flexgui (2.0.1) unstable; urgency=medium
 
   * New HAL LED text labels
