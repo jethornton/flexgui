@@ -192,7 +192,7 @@ def hal_confirm(parent):
 	sender = parent.sender()
 	text = sender.text()
 	checked_state = sender.isChecked()
-	pin = sender.property('pin_name') # verified
+	pin = sender.property('pin_name')
 	title = 'Confirm Change'
 	msg = (f'The HAL object "{text}" requests confirmation before changing the '
 	f'HAL state of the {pin} pin.')
@@ -228,7 +228,7 @@ def set_jog_increment(parent, position):
 	max_index = len(parent.jog_modes_cb) - 1
 	if position <= max_index:
 		parent.jog_modes_cb.setCurrentIndex(position)
-	else: # verified
+	else:
 		title = 'Operator Error'
 		msg = (f'The key "{position}" exceeds the maximum number of items in the '
 		'Jog Modes Combobox.')
