@@ -2338,7 +2338,7 @@ def setup_tool_touchoff_selected(parent):
 			item = f'axis_select_{joint}'
 			if item in parent.child_names:
 				parent.tool_touchoff_selected_pb.clicked.connect(partial(dialogs.tool_touchoff_selected, parent))
-				parent.tool_touchoff_controls.append(item)
+				parent.tool_touchoff_controls.append('tool_touchoff_selected_pb')
 				break
 		else:
 			title = 'Configuration Error'
