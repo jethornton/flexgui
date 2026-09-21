@@ -3688,6 +3688,8 @@ def setup_plotter(parent):
 					parent.plotter.grid_size = grid_size
 					parent.plotter.update()
 					new_action.setChecked(True)
+	else: # not plot widget
+		parent.plotter = False
 
 def setup_fsc(parent): # mill feed and speed calculator
 	if 'fsc_container' in parent.child_names:

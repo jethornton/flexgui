@@ -278,6 +278,8 @@ def update_mdi(parent):
 	parent.command.mode(emc.MODE_MANUAL)
 	parent.command.wait_complete()
 	parent.mdi_command = ''
+	if parent.plotter:
+		parent.plotter.update()
 
 def feed_override(parent, value):
 	parent.command.feedrate(float(value / 100))
