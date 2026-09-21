@@ -3452,6 +3452,7 @@ def setup_plotter(parent):
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
+		# FIXME add view_grid_cb
 		view_checkboxes = {
 			'view_dro_cb': ['action_toggle_dro', 'enable_dro'],
 			'view_limits_cb': ['action_toggle_limits', 'show_limits'],
