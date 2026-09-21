@@ -437,8 +437,8 @@ def action_toggle_live_plot(parent):
 		utilities.sync_checkboxes(parent, 'view_live_plot_pb', 'actionLive_Plot')
 		utilities.sync_checkboxes(parent, 'view_live_plot_pb', 'view_live_plot_cb')
 	elif name == 'actionLive_Plot':
-		utilities.sync_checkboxes(parent, 'actionExtents_Option', 'view_live_plot_cb')
-		utilities.sync_checkboxes(parent, 'actionExtents_Option', 'view_live_plot_pb')
+		utilities.sync_checkboxes(parent, 'actionLive_Plot', 'view_live_plot_cb')
+		utilities.sync_checkboxes(parent, 'actionLive_Plot', 'view_live_plot_pb')
 
 def action_toggle_velocity(parent):
 	if parent.sender().isChecked():
@@ -587,9 +587,9 @@ def action_toggle_offsets(parent):
 
 def action_toggle_overlay(parent):
 	if parent.sender().isChecked():
-		parent.plotter.show_overlay = False
-	else:
 		parent.plotter.show_overlay = True
+	else:
+		parent.plotter.show_overlay = False
 	parent.plotter.update()
 
 	name = parent.sender().objectName()
