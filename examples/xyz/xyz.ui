@@ -1278,7 +1278,7 @@
           </widget>
           <widget class="QWidget" name="tabWidget_6Page1">
            <attribute name="title">
-            <string>Limits</string>
+            <string>Options</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
