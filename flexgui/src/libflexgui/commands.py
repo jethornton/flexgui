@@ -39,7 +39,7 @@ def run_mdi(parent, cmd=''):
 				parent.command.wait_complete()
 				parent.command.mdi(mdi_command)
 				parent.plotter.update()
-	else: # verified
+	else:
 		title = 'Operator Error'
 		msg = 'No MDI command was found!'
 		dialogs.error_msg_ok(parent, title, msg)
@@ -54,7 +54,7 @@ def mdi_button(parent):
 def jog_check(parent, velocity):
 	if velocity != 0.0:
 		return True
-	else: # verified
+	else:
 		title = 'Operator Error'
 		msg = ('Can not jog at Zero Velocity!')
 		dialogs.error_msg_ok(parent, title, msg)
@@ -161,7 +161,7 @@ def tool_change(parent):
 				parent.tool_change_cb.setCurrentIndex(parent.tool_change_cb.findData(parent.new_tool_number))
 	else: # using tool change cb
 		parent.new_tool_number = parent.tool_change_cb.currentData()
-	if parent.new_tool_number not in tools: # verified
+	if parent.new_tool_number not in tools:
 		title = 'Tool Change Aborted'
 		msg = (f'Tool {parent.new_tool_number} is not in the Tool Table.')
 		info = 'Tool Change Aborted!'
@@ -172,7 +172,7 @@ def tool_change(parent):
 		cmd = f'M6 T{parent.new_tool_number}'
 		run_mdi(parent, cmd)
 
-	else: # verified
+	else:
 		title = 'Tool Change Aborted'
 		msg = (f'Tool "{parent.new_tool_number}" is already in the Spindle.')
 		info = 'Tool Change Aborted!'
@@ -207,7 +207,7 @@ def tool_touchoff(parent):
 	elif 'tool_touchoff_le' in parent.child_names:
 		offset = parent.tool_touchoff_le.text()
 
-	if offset == '': # verified
+	if offset == '':
 		title = 'Error'
 		msg = ('The Tool Touchoff Offset can not be blank!')
 		dialogs.error_msg_ok(parent, title, msg)
@@ -229,7 +229,7 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_FORWARD, float(rpm), spindle)
-			else: # verified
+			else:
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
 				f'{min_rpm}-{max_rpm}. Spindle will not start!')
 				dialogs.status_warning(parent, msg)
@@ -238,7 +238,7 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = rpm * override
 			if min_rpm <= rpm_override <= max_rpm:
 				parent.command.spindle(emc.SPINDLE_REVERSE, float(rpm), spindle)
-			else: # verified
+			else:
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
 				f'{min_rpm}-{max_rpm}. Spindle will not start!')
 				dialogs.status_warning(parent, msg)
@@ -250,7 +250,7 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm = rpm + increment
 			rpm_override = rpm * override
 
-			if min_rpm <= rpm_override >= max_rpm: # verified
+			if min_rpm <= rpm_override >= max_rpm:
 				if rpm * override > max_rpm:
 					rpm = int(max_rpm / override)
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
@@ -269,7 +269,7 @@ def spindle_control(parent, spindle, action, value=None):
 
 			if min_rpm <= rpm_override <= max_rpm:
 				setattr(parent, f'spindle_rpm_{spindle}', rpm)
-			else: # verified
+			else:
 				if rpm * override <= min_rpm:
 					rpm = int(min_rpm / override)
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
@@ -288,7 +288,7 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm_override = rpm * override
 
 			# make sure the rpm is within limits
-			if min_rpm < rpm_override > max_rpm: # verified
+			if min_rpm < rpm_override > max_rpm:
 				rpm = int(max_rpm / override)
 				sender.setValue(rpm)
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
@@ -305,7 +305,7 @@ def spindle_control(parent, spindle, action, value=None):
 			rpm = value
 			rpm_override = rpm * override
 
-			if min_rpm < rpm_override > max_rpm: # verified
+			if min_rpm < rpm_override > max_rpm:
 				rpm = int(max_rpm / override)
 				sender.setValue(rpm)
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
@@ -358,7 +358,7 @@ def spindle_override(parent, spindle=0, value=0):
 	override_rpm = int(rpm * override)
 	if min_rpm <= override_rpm <= max_rpm or rpm == 0:
 		parent.command.spindleoverride(float(value / 100), spindle)
-	else: # verified
+	else:
 		if override_rpm < min_rpm:
 			min_override = int((min_rpm / rpm) * 100)
 			if min_override >= sender.minimum():

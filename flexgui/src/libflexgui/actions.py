@@ -15,7 +15,7 @@ def load_file(parent, nc_code_file=None):
 		if parent.sender() is not None:
 			if parent.sender().property('function') == 'load_file':
 				nc_code_file = parent.sender().property('filename')
-				if nc_code_file in ['', None]: # verified
+				if nc_code_file in ['', None]:
 					title = 'Configuration Error'
 					msg = ('The property "filename" was not found or it was blank.')
 					info = 'Loading aborted!'
@@ -93,7 +93,7 @@ def load_file(parent, nc_code_file=None):
 			if hasattr(parent.reload_pb, 'state'):
 				parent.reload_pb.state = False
 
-	else: # verified
+	else:
 		title = 'File Missing'
 		msg = (f'The file {nc_code_file} was not found.')
 		info = 'Loading aborted!'
@@ -204,7 +204,7 @@ def action_edit_tool_table(parent): # actionEdit_Tool_Table
 	tool_table_file = os.path.join(parent.config_path, parent.tool_table)
 	if os.path.isfile(tool_table_file):
 		file_size = os.path.getsize(tool_table_file)
-		if file_size == 0: # verified
+		if file_size == 0:
 			title = 'Empty Tool Table!'
 			msg = ('Can not edit an empty tool file. The tool file must have at '
 			'least one entry with a Tool number and a Pocket number.')
@@ -346,7 +346,7 @@ def action_copy_mdi(parent): # actionCopy_MDI
 			mdi_list.append(item.text())
 		qclip = QApplication.clipboard()
 		qclip.setText('\n'.join(mdi_list))
-	else: # verified
+	else:
 		title = 'No History'
 		msg = ('There is no MDI history to copy.')
 		dialogs.error_msg_ok(parent, title, msg)
@@ -363,7 +363,7 @@ def action_save_mdi(parent): # actionSave_MDI
 
 		with open(mdi_history_file, 'w') as file:
 			file.writelines(history)
-	else: # verified
+	else:
 		title = 'No History'
 		msg = ('There is no MDI history to save.')
 		dialogs.error_msg_ok(parent, title, msg)

@@ -242,7 +242,7 @@ class flexgui(QMainWindow):
 				# the ini file object
 				self.inifile = emc.ini(sys.argv[i])
 				break
-		else: # verified
+		else:
 			title = 'Error'
 			msg = ('Flex GUI must be called from the LinuxCNC ini file.')
 			dialogs.error_msg_ok(self, title, msg)
@@ -296,7 +296,7 @@ class flexgui(QMainWindow):
 					splash.showMessage(msg, Qt.AlignmentFlag.AlignBottom |
 						Qt.AlignmentFlag.AlignCenter, QColor(splash_font_color))
 					app.processEvents()
-			else: # verified
+			else:
 				title = 'Configuration Error'
 				msg = (f'The Splash Image "{splash_image}" was not found in the '
 				'configuration directory.')
@@ -340,7 +340,7 @@ class flexgui(QMainWindow):
 			try:
 				sys.path.append(self.config_path)
 				import resources
-			except: # verified
+			except:
 				title = 'Import Failed'
 				msg = (f'The resources file "{self.resources_file}" was not found or it '
 				'contained errors. The file name must be "resources.py" to be imported. '
@@ -360,7 +360,7 @@ class flexgui(QMainWindow):
 			if os.path.isfile(stylesheet):
 				with open(stylesheet, 'r') as f:
 					self.setStyleSheet(f.read())
-			else: # verified
+			else:
 				title = 'INI Error!'
 				msg = (f'The Stylesheet "{stylesheet}" was not found.')
 				dialogs.error_msg_ok(parent, title, msg)

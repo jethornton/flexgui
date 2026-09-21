@@ -57,7 +57,7 @@ def read(parent):
 	if directory is not None:
 		if os.path.isdir(directory):
 			parent.nc_code_dir = directory
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [DISPLAY] PROGRAM_PREFIX "{directory}" does not exist.')
 			info = f'{os.path.expanduser("~/")} will be used.'
@@ -77,7 +77,7 @@ def read(parent):
 
 	# the check for valid increments is done in startup.py
 	if (parent.inifile.find('FLEXGUI', 'JOG_INCREMENTS') and
-		parent.inifile.find('DISPLAY', 'INCREMENTS')): # verified
+		parent.inifile.find('DISPLAY', 'INCREMENTS')):
 		title = 'Configuration Error'
 		msg = ('Both DISPLAY INCREMENTS and FLEXGUI JOG_INCREMENTS were found.')
 		info = 'FLEXGUI JOG_INCREMENTS will be used.'
@@ -93,7 +93,7 @@ def read(parent):
 	mfo = parent.inifile.find('DISPLAY', 'MAX_FEED_OVERRIDE') or '1.0'
 	if utilities.is_number(mfo):
 		parent.max_feed_override = float(mfo)
-	else: # verified
+	else:
 		title = 'Critical Error!'
 		msg = (f'The INI entry [DISPLAY] MAX_FEED_OVERRIDE "{mfo}" '
 		'did not evaluate to a number.')
@@ -106,7 +106,7 @@ def read(parent):
 	# check for POPUP_QSS file, this must be checked first before any dialogs
 	parent.popup_qss = parent.inifile.find('FLEXGUI', 'POPUP_QSS') or False
 	if parent.popup_qss:
-		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)): # verified
+		if not os.path.exists(os.path.join(parent.config_path, parent.popup_qss)):
 			title = 'INI Error!'
 			msg = (f'The INI entry [FLEXGUI] POPUP_QSS file "{parent.popup_qss}" Was '
 			'not found.')
@@ -141,7 +141,7 @@ def read(parent):
 
 	]
 	for item in old_ini_items:
-		if parent.inifile.find(item[0], item[1]): # verified
+		if parent.inifile.find(item[0], item[1]):
 			title = 'Configuration Error'
 			msg = (f'The key "{item[1]}" has been moved from the [{item[0]}] section '
 			'or is no longer used by FlexGUI or the name has been changed. Check the '
@@ -155,7 +155,7 @@ def read(parent):
 	]
 
 	for item in old_display_spindle_items:
-		if parent.inifile.find(item[0], item[1]): # verified
+		if parent.inifile.find(item[0], item[1]):
 			title = 'Configuration Error'
 			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated '
 			'with multiple spindles addition. The Spindle keys are now in [SPINDLE_0] '
@@ -168,7 +168,7 @@ def read(parent):
 	]
 
 	for item in old_probe_items:
-		if parent.inifile.find(item[0], item[1]): # verified
+		if parent.inifile.find(item[0], item[1]):
 			title = 'Configuration Error'
 			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated. '
 			'Use the stylesheet to set the On and Off colors. See the probing '
@@ -182,7 +182,7 @@ def read(parent):
 		for i in range(9):
 			old_spindle_items.append([f'SPINDLE_{i}', item])
 	for item in old_spindle_items:
-		if parent.inifile.find(item[0], item[1]): # verified
+		if parent.inifile.find(item[0], item[1]):
 			title = 'Configuration Error'
 			msg = (f'The key "{item[1]}" in the [{item[0]}] section was depreciated. '
 			'Check the INI section of the Documents for correct INI entries.')
@@ -195,7 +195,7 @@ def read(parent):
 	]
 
 	for item in old_jog_items:
-		if parent.inifile.find(item[0], item[1]): # verified
+		if parent.inifile.find(item[0], item[1]):
 			title = 'Configuration Error'
 			msg = (f'The jog settings key "{item[1]}" in the [{item[0]}] section was '
 			'depreciated. Check the INI section of the Documents for correct INI entries.')
@@ -207,14 +207,14 @@ def read(parent):
 	if isinstance(parent.cycle_time, str): # the ini file had a setting
 		if utilities.is_int(parent.cycle_time):
 			parent.cycle_time = int(parent.cycle_time)
-			if not 50 <= parent.cycle_time <= 200: # verified
+			if not 50 <= parent.cycle_time <= 200:
 				title = 'Configuration Error'
 				msg = (f'The INI entry [FLEXGUI] CYCLE_TIME value '
 				'"{parent.cycle_time}" is not in the range of 50-200.')
 				info = 'The cycle time will be set to 100 ms!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.cycle_time = 100
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] CYCLE_TIME value '
 			'"{parent.cycle_time}" did not evaluate to a number.')
@@ -268,7 +268,7 @@ def read(parent):
 	flash_time = parent.inifile.find('FLEXGUI', 'FLASH_TIME') or '1000'
 	if utilities.is_int(flash_time):
 		parent.flash_time = int(flash_time)
-	else: # verified
+	else:
 		parent.flash_time = 1000
 		title = 'INI Error!'
 		msg = (f'The INI entry [FLEXGUI] FLASH_TIME value "{flash_time}" '
@@ -279,7 +279,7 @@ def read(parent):
 	# check for a RESOURCES file
 	parent.resources_file = parent.inifile.find('FLEXGUI', 'RESOURCES') or False
 	if parent.resources_file:
-		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)): # verified
+		if not os.path.exists(os.path.join(parent.config_path, parent.resources_file)):
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] RESOURCES file "{parent.resources_file}" '
 			'was not found.')
@@ -290,7 +290,7 @@ def read(parent):
 	# check for QSS file
 	parent.qss_file = parent.inifile.find('FLEXGUI', 'QSS') or False
 	if parent.qss_file:
-		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)): # verified
+		if not os.path.exists(os.path.join(parent.config_path, parent.qss_file)):
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] QSS file "{parent.qss_file}" was not found.')
 			info = 'The Style Sheet can not be applied!'
@@ -298,7 +298,7 @@ def read(parent):
 			parent.qss_file = False
 
 	# test for both THEME and QSS
-	if parent.theme and parent.qss_file: # verified
+	if parent.theme and parent.qss_file:
 		title = 'Configuration Error'
 		msg = (f'The INI entry [FLEXGUI] THEME "{parent.theme}" and QSS '
 		f'"{parent.qss_file}" were both found in the ini file. The QSS '
@@ -318,7 +318,7 @@ def read(parent):
 	led_diameter = parent.inifile.find('FLEXGUI', 'LED_DIAMETER') or False
 	if not led_diameter: # no value found
 		parent.led_diameter = 15
-	elif not utilities.is_int(led_diameter): # verified
+	elif not utilities.is_int(led_diameter):
 		title = 'Configuration Error'
 		msg = (f'The INI entry [FLEXGUI] LED_DIAMETER "{led_diameter}" did not '
 		'evaluate to an integer value.')
@@ -331,7 +331,7 @@ def read(parent):
 	led_right_offset = parent.inifile.find('FLEXGUI', 'LED_RIGHT_OFFSET')
 	if led_right_offset is None:
 		parent.led_right_offset = 5
-	elif not utilities.is_int(led_right_offset): # verified
+	elif not utilities.is_int(led_right_offset):
 		title = 'Configuration Error'
 		msg = (f'The INI entry [FLEXGUI] LED_RIGHT_OFFSET "{led_right_offset}" did '
 		'not evaluate to an integer value.')
@@ -344,7 +344,7 @@ def read(parent):
 	led_top_offset = parent.inifile.find('FLEXGUI', 'LED_TOP_OFFSET')
 	if led_top_offset is None:
 		parent.led_top_offset = 5
-	elif not utilities.is_int(led_top_offset): # verified
+	elif not utilities.is_int(led_top_offset):
 		title = 'Configuration Error'
 		msg = (f'The INI entry [FLEXGUI] LED_TOP_OFFSET "{led_top_offset}" did not '
 		'evaluate to an integer value.')
@@ -359,7 +359,7 @@ def read(parent):
 		led_on_color = utilities.is_valid_qcolor(led_on)
 		if led_on_color:
 			parent.led_on_color = led_on_color
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] LED_ON_COLOR" value '
 			'"{led_on}" is not a valid RGB or HEX color string.')
@@ -374,7 +374,7 @@ def read(parent):
 		led_off_color = utilities.is_valid_qcolor(led_off)
 		if led_off_color:
 			parent.led_off_color = led_off_color
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] LED_OFF_COLOR value '
 			'"{led_off}" is not a valid RGB or HEX color string.')
@@ -391,7 +391,7 @@ def read(parent):
 		led_on_bg_color = utilities.is_valid_qcolor(led_on_bg)
 		if led_on_bg_color:
 			parent.led_on_bg_color = led_on_bg_color
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] LED_ON_BG_COLOR" value '
 			'"{led_on_bg}" is not a valid RGB or HEX color string.')
@@ -406,7 +406,7 @@ def read(parent):
 		led_off_bg_color = utilities.is_valid_qcolor(led_off_bg)
 		if led_off_bg_color:
 			parent.led_off_bg_color = led_off_bg_color
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] LED_OFF_BG_COLOR value '
 			'"{led_off_bg}" is not a valid RGB or HEX color string.')
@@ -421,7 +421,7 @@ def read(parent):
 		led_on_text_color = utilities.is_valid_qcolor(led_on_text)
 		if led_on_text_color:
 			parent.led_on_text_color = led_on_text_color
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] LED_ON_TEXT_COLOR" value '
 			'"{led_on_text}" is not a valid RGB or HEX color string.')
@@ -436,7 +436,7 @@ def read(parent):
 		led_off_text_color = utilities.is_valid_qcolor(led_off_text)
 		if led_off_text_color:
 			parent.led_off_text_color = led_off_text_color
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = (f'The INI entry [FLEXGUI] LED_OFF_TEXT_COLOR value '
 			'"{led_off_text}" is not a valid RGB or HEX color string.')
@@ -459,7 +459,7 @@ def read(parent):
 						value = float(comp)
 					except ValueError:
 						value = False
-					if not (0.0 <= value <= 1.0) or value is False: # verified
+					if not (0.0 <= value <= 1.0) or value is False:
 						parent.plot_background_color = False
 						title = 'INI Configuration Error!'
 						msg = (f'The INI entry [FLEXGUI] PLOT_BACKGROUND_COLOR '
@@ -510,7 +510,7 @@ def read(parent):
 	dro_font_size = parent.inifile.find('FLEXGUI', 'DRO_FONT_SIZE') or '12'
 	if not dro_font_size: # no value found
 		parent.dro_font_size = 12
-	elif not utilities.is_int(dro_font_size): # verified
+	elif not utilities.is_int(dro_font_size):
 		title = 'Configuration Error'
 		msg = (f'The INI entry [FLEXGUI] DRO_FONT_SIZE "{dro_font_size}" did not '
 		'evaluate to an integer value.')
@@ -652,7 +652,7 @@ def read(parent):
 			info = 'The "DEFAULT_RPM" will be set to 100.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			setattr(parent, f'spindle_rpm_{i}', 100)
-		else: # verified
+		else:
 			default_rpm = utilities.to_int(default_rpm, 100)
 			min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
 			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
@@ -676,7 +676,7 @@ def read(parent):
 		max_override = parent.inifile.find(f'SPINDLE_{i}', 'MAX_OVERRIDE') or False
 		if isinstance(max_override, str):
 			max_override = utilities.to_int(max_override, 100)
-			if max_override < 100: # verified
+			if max_override < 100:
 				title = 'Configuration Error'
 				msg = (f'SPINDLE_{i} MAX_OVERRIDE is set to "{max_override}". '
 				'The minimum for MAX_OVERRIDE is 100.')

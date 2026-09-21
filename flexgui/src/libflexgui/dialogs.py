@@ -175,7 +175,7 @@ def touchoff_selected(parent):
 
 	if result == QDialog.DialogCode.Accepted:
 		offset = dialog.coordinate_le.text()
-		if not utilities.is_number(offset): # verified
+		if not utilities.is_number(offset):
 			title = 'Operator Error!'
 			msg = (f'{offset} is not a number.')
 			error_msg_ok(parent, title, msg)
@@ -216,7 +216,7 @@ def tool_touchoff_selected(parent):
 	result = dialog.exec()
 	if result == QDialog.DialogCode.Accepted:
 		offset = dialog.offset_le.text()
-		if not utilities.is_number(offset): # verified
+		if not utilities.is_number(offset):
 			title = 'Operator Error!'
 			msg = (f'{offset} is not a number.')
 			error_msg_ok(parent, title, msg)
@@ -464,7 +464,7 @@ def help_dialog(parent):
 		file_name = btn.property('file')
 		if file_name is not None:
 			help_file = os.path.join(parent.config_path, file_name)
-		else: # verified
+		else:
 			title = 'Configuration Error'
 			msg = ('The property "file" is blank or missing.')
 			info = 'The Help Dialog can not be launched!'
@@ -518,7 +518,7 @@ def help_dialog(parent):
 			text_edit.setTextCursor(cursor)
 
 			parent.help_dialog.show()
-		else: # verified
+		else:
 			title = 'Missing File'
 			msg = (f'The help file {file_name} was not found in the configuration '
 			f'directory {parent.config_path}')
