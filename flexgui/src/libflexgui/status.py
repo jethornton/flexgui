@@ -483,7 +483,15 @@ def update(parent):
 	# axis position no offsets
 	for key, value in parent.status_position.items(): # key is label value precision
 		machine_position = getattr(parent, "status").position[value[0]]
-		getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
+		# metric linear units with inch program units
+		if parent.status.linear_units == 1 and parent.program_units == 'IN' and parent.auto_dro_units:
+			getattr(parent, f'{key}').setText(f'{machine_position * 0.03937007874015748:.4f}')
+		# inch linear units with metric program units
+		elif parent.status.linear_units != 1 and parent.program_units == 'MM' and parent.auto_dro_units:
+			getattr(parent, f'{key}').setText(f'{machine_position * 25.4:.3f}')
+		# linear units and program units are the same
+		else:
+			getattr(parent, f'{key}').setText(f'{machine_position:.{value[1]}f}')
 
 	positions = parent.status.position
 	positions = [(i-j) for i, j in zip(positions, parent.status.tool_offset)]
@@ -496,12 +504,12 @@ def update(parent):
 	positions[Y] = _x * math.sin(t) + _y * math.cos(t)
 	positions = [(i-j) for i, j in zip(positions, parent.status.g92_offset)]
 
-	# label, tuple position & precision
+	# label, tuple position & precision FIXME the units doesn't change precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
 		position = positions[value[0]]
 
 		# metric linear units with inch program units
-		if parent.status.linear_units == 1 and parent.program_units == 'INCH' and parent.auto_dro_units:
+		if parent.status.linear_units == 1 and parent.program_units == 'IN' and parent.auto_dro_units:
 			getattr(parent, f'{key}').setText(f'{position * 0.03937007874015748:.4f}')
 		# inch linear units with metric program units
 		elif parent.status.linear_units != 1 and parent.program_units == 'MM' and parent.auto_dro_units:
