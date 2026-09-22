@@ -88,7 +88,6 @@ def load_file(parent, nc_code_file=None):
 		if 'save_as_pb' in parent.child_names:
 			if hasattr(parent.save_as_pb, 'state'):
 				parent.save_as_pb.state = False
-
 		if 'reload_pb' in parent.child_names:
 			if hasattr(parent.reload_pb, 'state'):
 				parent.reload_pb.state = False
@@ -177,9 +176,9 @@ def action_save(parent): # actionSave requires the QPlainTextEdit gcode_pte
 	if 'save_pb' in parent.child_names:
 		if hasattr(parent.save_pb, 'state'):
 			parent.save_pb.state = False
-		if 'save_as_pb' in parent.child_names:
-			if hasattr(parent.save_as_pb, 'state'):
-				parent.save_as_pb.state = False
+	if 'save_as_pb' in parent.child_names:
+		if hasattr(parent.save_as_pb, 'state'):
+			parent.save_as_pb.state = False
 	if 'reload_pb' in parent.child_names:
 		if hasattr(parent.reload_pb, 'state'):
 			parent.reload_pb.state = True
