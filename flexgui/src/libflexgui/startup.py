@@ -857,10 +857,11 @@ def setup_buttons(parent): # connect buttons to functions
 		parent.manual_mode_pb.setText('Error!')
 
 	command_buttons = {
-	'abort_pb': 'abort', 'home_all_pb': 'home_all', 'home_pb_0': 'home',
-	'home_pb_1': 'home', 'home_pb_2': 'home', 	'unhome_all_pb': 'unhome_all',
-	'unhome_pb_0': 'unhome', 'unhome_pb_1': 'unhome', 'unhome_pb_2': 'unhome'
+	'abort_pb': 'abort', 'home_all_pb': 'home_all', 'unhome_all_pb': 'unhome_all'
 	}
+	for i in range(9):
+		command_buttons[f'home_pb_{i}'] = 'home'
+		command_buttons[f'unhome_pb_{i}'] = 'unhome'
 
 	for key, value in command_buttons.items():
 		if key in parent.child_names:
