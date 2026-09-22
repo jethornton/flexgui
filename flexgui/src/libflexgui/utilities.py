@@ -894,17 +894,20 @@ def flash_buttons(parent):
 			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
 
 def update_grid_size(parent, grid_size):
-	if 'plot_widget' in parent.child_names:
-		parent.plotter.grid_size = grid_size
-		parent.plotter.update()
+	parent.settings.setValue('PLOT/grid_size', grid_size)
+	parent.plotter.grid_size = grid_size
+	parent.plotter.update()
 
-		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-		# Handle both top-level QMenu and QAction submenus.
-		if isinstance(menu, QAction):
-			menu = menu.menu()
-		if menu:
-			for action in menu.actions():
-				if action.data() == grid_size:
-					action.setChecked(True)
-				else:
-					action.setChecked(False)
+	menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+	# Handle both top-level QMenu and QAction submenus.
+	if isinstance(menu, QAction):
+		menu = menu.menu()
+	if menu:
+		for action in menu.actions():
+			if action.data() == grid_size:
+				action.setChecked(True)
+			else:
+				action.setChecked(False)
+
+
+

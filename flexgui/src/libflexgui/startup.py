@@ -3390,7 +3390,7 @@ def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
 
-def setup_plotter(parent):
+def setup_plotter(parent): # FIXME remember the grid choice
 	if 'plot_widget' in parent.child_names:
 		# add the plotter to the container
 		from libflexgui import flexplot
@@ -3624,8 +3624,9 @@ def setup_plotter(parent):
 
 		# Setup GRIDS submenu
 		# Set defaults if no INI
+		default_grid_size = 0.0
 		default_grids = "0.5 in, 1 in, 2 in, 3 in, 4 in"\
-			if parent.units == "INCH" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
+			if parent.units == "IN" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
 
 		# Handle both a QMenu and QAction submenus
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
@@ -3647,7 +3648,6 @@ def setup_plotter(parent):
 					menu.setMenu(new_menu)
 					menu = new_menu
 
-			default_has_been_set = False 
 			grid_settings = (parent.grids or default_grids).split(',')
 			for index, item in enumerate(grid_settings):
 				item = item.strip()
@@ -3661,10 +3661,6 @@ def setup_plotter(parent):
 					dialogs.error_msg_ok(parent, title, msg)
 					continue
 
-				# If no default has been set by the end, it means the first
-				# item in the list is 0.0 or it's not a valid entry and the 'None'
-				# option is the default.
-
 				if grid_size: # If we have a valid grid_size and it is not 0.0
 					new_action = QAction(text, parent)
 					new_action.setData(grid_size)
@@ -3672,10 +3668,7 @@ def setup_plotter(parent):
 					new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
 					menu.addAction(new_action)
 					if index == 0:
-						new_action.setChecked(True)
-						parent.plotter.grid_size = grid_size
-						parent.plotter.update()
-						default_has_been_set = True
+						default_grid_size = grid_size
 
 			current_actions = menu.actions()
 			if len(current_actions) > 0:
@@ -3684,11 +3677,11 @@ def setup_plotter(parent):
 				new_action.setCheckable(True)
 				new_action.triggered.connect(partial(utilities.update_grid_size, parent, 0.0))
 				menu.insertAction(current_actions[0], new_action)
-				if not default_has_been_set:
-					parent.plotter.grid_size = grid_size
-					parent.plotter.update()
-					new_action.setChecked(True)
-	else: # not plot widget
+
+		set_grid_size = parent.settings.value('PLOT/grid_size', default_grid_size, type=float)
+		utilities.update_grid_size(parent, set_grid_size)
+
+	else: # no plot widget
 		parent.plotter = False
 
 def setup_fsc(parent): # mill feed and speed calculator
