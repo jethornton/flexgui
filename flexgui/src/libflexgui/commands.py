@@ -25,11 +25,17 @@ def unhome_all(parent):
 		parent.command.wait_complete()
 	parent.command.unhome(-1)
 
-def run_mdi(parent, cmd=''): # FIXME
-	if cmd:
+def run_mdi(parent, cmd=''):
+	mdi_command = ''
+	if cmd: # a command was passed
 		mdi_command = cmd
-	elif parent.sender().objectName() == 'mdi_command_le': # no command was passed
-		mdi_command = parent.mdi_command_le.text()
+	elif parent.sender() and parent.sender().objectName() == 'mdi_command_le':
+		# no command was passed so check mdi_command_le for a command
+		raw_text = parent.mdi_command_le.text()
+		mdi_command = raw_text.strip()
+		if raw_text and not mdi_command:
+			# The text was just whitespace
+			parent.mdi_command_le.clear()
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
