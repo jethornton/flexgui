@@ -25,12 +25,11 @@ def unhome_all(parent):
 		parent.command.wait_complete()
 	parent.command.unhome(-1)
 
-def run_mdi(parent, cmd=''):
+def run_mdi(parent, cmd=''): # FIXME
 	if cmd:
 		mdi_command = cmd
-	else:
-		if 'mdi_command_le' in parent.child_names:
-			mdi_command = parent.mdi_command_le.text()
+	elif parent.sender().objectName() == 'mdi_command_le': # no command was passed
+		mdi_command = parent.mdi_command_le.text()
 	if mdi_command:
 		parent.mdi_command = mdi_command
 		if parent.status.task_state == emc.STATE_ON:
