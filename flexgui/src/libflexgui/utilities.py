@@ -43,13 +43,6 @@ def is_number(string):
 		except ValueError:
 			return False
 
-def is_fraction(item):
-	try:
-		Fraction(s)
-		return True
-	except ValueError:
-		return False
-
 def convert_fraction(item):
 	# strip trailing non digits
 	for i in range(len(item) - 1, -1, -1):
