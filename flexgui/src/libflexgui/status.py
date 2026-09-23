@@ -504,7 +504,7 @@ def update(parent):
 	positions[Y] = _x * math.sin(t) + _y * math.cos(t)
 	positions = [(i-j) for i, j in zip(positions, parent.status.g92_offset)]
 
-	# label, tuple position & precision FIXME the units doesn't change precision
+	# label, tuple position & precision
 	for key, value in parent.status_dro.items(): # key is label value list position & precision
 		position = positions[value[0]]
 
