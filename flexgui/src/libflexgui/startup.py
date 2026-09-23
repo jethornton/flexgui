@@ -1476,9 +1476,18 @@ def setup_mdi(parent):
 
 	if 'mdi_command_le' in parent.child_names:
 		parent.mdi_command_le.returnPressed.connect(partial(commands.run_mdi, parent))
+
 	if 'run_mdi_pb' in parent.child_names:
-		parent.run_mdi_pb.clicked.connect(partial(commands.run_mdi, parent))
-		parent.mdi_controls.append('run_mdi_pb')
+		if 'mdi_command_le' in parent.child_names:
+			parent.run_mdi_pb.clicked.connect(partial(commands.run_mdi, parent))
+			parent.mdi_controls.append('run_mdi_pb')
+		else:
+			parent.run_mdi_pb.setEnabled(False)
+			title = 'Configuration Error'
+			msg = (f'The run_mdi_pb QPushButton was found in the configuration '
+			'but the mdi_command_le QLineEdit was not found.')
+			info = 'The run_mdi_pb will be disabled!'
+			dialogs.error_msg_ok(parent, title, msg, info)
 
 	if 'mdi_history_lw' in parent.child_names:
 		path = os.path.dirname(parent.status.ini_filename)
