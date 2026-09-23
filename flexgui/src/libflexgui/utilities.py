@@ -258,14 +258,14 @@ def add_mdi(parent): # when you click on the mdi history list widget
 def update_mdi(parent):
 	if parent.status.state == emc.RCS_ERROR:
 		if 'mdi_command_le' in parent.child_names:
-			parent.mdi_command_le.setText('')
+			parent.mdi_command_le.clear()
+
 	elif 'mdi_history_lw' in parent.child_names:
 		rows = parent.mdi_history_lw.count()
-		if rows > 0:
-			last_item = parent.mdi_history_lw.item(rows - 1).text().strip()
-		else:
-			last_item = ''
-		if last_item != parent.mdi_command:
+		last_item = parent.mdi_history_lw.item(rows - 1).text().strip() if rows > 0 else ''
+
+		# Only add to history if it's a new command and not empty
+		if parent.mdi_command and last_item != parent.mdi_command:
 			parent.mdi_history_lw.addItem(parent.mdi_command)
 			path = os.path.dirname(parent.status.ini_filename)
 			mdi_file = os.path.join(path, 'mdi_history.txt')
@@ -274,10 +274,9 @@ def update_mdi(parent):
 				mdi_codes.append(parent.mdi_history_lw.item(index).text())
 			with open(mdi_file, 'w') as f:
 				f.write('\n'.join(mdi_codes))
+
 		if 'mdi_command_le' in parent.child_names:
 			parent.mdi_command_le.setText('')
-	parent.command.mode(emc.MODE_MANUAL)
-	parent.command.wait_complete()
 	parent.mdi_command = ''
 	actions.action_reload(parent)
 

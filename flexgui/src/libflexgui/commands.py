@@ -29,8 +29,8 @@ def run_mdi(parent, cmd=''):
 	mdi_command = ''
 	if cmd: # a command was passed
 		mdi_command = cmd
-	elif parent.sender() and parent.sender().objectName() == 'mdi_command_le':
-		# no command was passed so check mdi_command_le for a command
+	elif parent.mdi_command_le.text():
+		# enter key was pressed while in mdi_command_le so check for a command
 		raw_text = parent.mdi_command_le.text()
 		mdi_command = raw_text.strip()
 		if raw_text and not mdi_command:
