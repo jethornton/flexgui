@@ -3400,7 +3400,7 @@ def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
 
-def setup_plotter(parent): # FIXME remember the grid choice
+def setup_plotter(parent):
 	if 'plot_widget' in parent.child_names:
 		# add the plotter to the container
 		from libflexgui import flexplot
