@@ -493,36 +493,28 @@ class flexgui(QMainWindow):
 		self.var_watch_timer.stop()
 		self.io_watch_timer.stop()
 		self.button_flash_timer.stop()
+		self.plotter.timer.stop()
 
 		# 2. Safely close any loose child dialogs
 		if self.help_dialog is not None:
 			self.help_dialog.close()
 
-		# 3. Save settings BEFORE dissolving backend references
-		# This ensures "self" is fully intact and readable
-		'''
-		try:
-			shutdown.save_settings(self)
-		except Exception as e:
-			print(f"Error saving settings: {e}")
-		'''
-
-		# 4. Clear residual messages safely
+		# 3. Clear residual messages safely
 		if hasattr(self, 'error') and self.error:
 			try:
 				self.error.poll()  # Clear out any residual messages
 			except Exception:
 				pass
 
-		# 5. Break references instead of deleting (Safer for LinuxCNC C-extensions)
+		# 4. Break references instead of deleting (Safer for LinuxCNC C-extensions)
 		self.error = None
 		self.status = None
 		self.command = None
 
-		# 6. Explicitly tell Qt that it is allowed to close the window
+		# 5. Explicitly tell Qt that it is allowed to close the window
 		event.accept()
 
-		# 7. Force Linux to reclaim memory
+		# 6. Force Linux to reclaim memory
 		os._exit(0)  # Forces Linux to reclaim the memory without running broken C++ cleanups
 
 app = QApplication(sys.argv)
