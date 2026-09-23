@@ -70,6 +70,7 @@ def set_jog_override(parent):
 		parent.override_limits_cb.setEnabled(False)
 
 def jog(parent): # only do jog check if button is down
+	# jog buttons are disabled when jogging is not allowed
 	jog_command = parent.sender().objectName().split('_')
 	joint = int(jog_command[-1])
 	increment = parent.jog_modes_cb.currentData()
@@ -228,6 +229,7 @@ def tool_touchoff(parent):
 		run_mdi(parent, cmd)
 
 def spindle_control(parent, spindle, action, value=None):
+	# spindle controls are disabled unless parent.status.task_state == emc.STATE_ON:
 	rpm = getattr(parent, f'spindle_rpm_{spindle}')
 	min_rpm =  getattr(parent, f'spindle_{spindle}_min_fwd_rpm')
 	max_rpm =  getattr(parent, f'spindle_{spindle}_max_fwd_rpm')
