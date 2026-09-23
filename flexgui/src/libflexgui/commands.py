@@ -196,6 +196,12 @@ def touchoff(parent):
 	elif 'touchoff_le' in parent.child_names:
 		offset = parent.touchoff_le.text()
 
+	if offset == '':
+		title = 'Error'
+		msg = ('The Touchoff Offset can not be blank!')
+		dialogs.error_msg_ok(parent, title, msg)
+		return
+
 	cmd = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	run_mdi(parent, cmd)
 
