@@ -319,7 +319,7 @@ def clear_stylesheet(parent):
 	parent.cb_padding_left_normal.setValue(0)
 	parent.cb_padding_right_normal.setValue(0)
 	parent.cb_padding_top_normal.setValue(0)
-	parent.cb_padding_top_normal.setValue(0)
+	parent.cb_padding_bottom_normal.setValue(0)
 	parent.cb_margin_normal.setValue(0)
 	parent.cb_margin_left_normal.setValue(0)
 	parent.cb_margin_right_normal.setValue(0)

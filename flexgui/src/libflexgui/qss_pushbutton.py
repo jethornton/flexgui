@@ -278,7 +278,7 @@ def clear_stylesheet(parent):
 	parent.pb_padding_left_normal.setValue(0)
 	parent.pb_padding_right_normal.setValue(0)
 	parent.pb_padding_top_normal.setValue(0)
-	parent.pb_padding_top_normal.setValue(0)
+	parent.pb_padding_bottom_normal.setValue(0)
 	parent.pb_margin_normal.setValue(0)
 	parent.pb_margin_left_normal.setValue(0)
 	parent.pb_margin_right_normal.setValue(0)

@@ -296,7 +296,7 @@ def clear_stylesheet(parent):
 	parent.rb_padding_left_normal.setValue(0)
 	parent.rb_padding_right_normal.setValue(0)
 	parent.rb_padding_top_normal.setValue(0)
-	parent.rb_padding_top_normal.setValue(0)
+	parent.rb_padding_bottom_normal.setValue(0)
 	parent.rb_margin_normal.setValue(0)
 	parent.rb_margin_left_normal.setValue(0)
 	parent.rb_margin_right_normal.setValue(0)
