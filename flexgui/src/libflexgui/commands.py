@@ -108,6 +108,7 @@ def jog_selected(parent):
 		set_jog_override(parent)
 
 def keyboard_jog(parent, action, axis=None, direction=None, velocity=None):
+	# called by KeyboardJog class
 	if velocity is None:
 		velocity = parent.jog_vel_sl.value() / 60
 	increment = parent.jog_modes_cb.currentData()
@@ -420,18 +421,21 @@ def mist_toggle(parent):
 			parent.command.mist(emc.MIST_OFF)
 
 def optional_stop_toggle(parent):
+	# this can be toggled at any time
 	if parent.optional_stop_pb.isChecked():
 		parent.command.set_optional_stop(True)
 	else:
 		parent.command.set_optional_stop(False)
 
 def block_delete_toggle(parent):
+	# this can be toggled at any time
 	if parent.block_delete_pb.isChecked():
 		parent.command.set_block_delete(True)
 	else:
 		parent.command.set_block_delete(False)
 
 def feed_override_toggle(parent):
+	# this can be toggled at any time
 	if parent.feed_override_pb.isChecked():
 		parent.command.set_feed_override(True)
 	else:
