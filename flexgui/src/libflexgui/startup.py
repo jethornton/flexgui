@@ -2396,6 +2396,7 @@ def setup_touchoff_selected(parent):
 				if source in parent.child_names:
 					getattr(parent, item).clicked.connect(partial(getattr(commands, 'tool_touchoff'), parent))
 					parent.tool_touchoff_controls.append(item)
+					getattr(parent, source).setText('0')
 				else: # the source was not found
 					title = 'Configuration Error'
 					msg = (f'The Tool Touch Off line edit "{source}" for "{item}" was not found.')
