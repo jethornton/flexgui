@@ -962,7 +962,8 @@ def setup_buttons(parent): # connect buttons to functions
 		'optional_stop_pb': 'optional_stop_toggle',
 		'block_delete_pb': 'block_delete_toggle',
 		'feed_override_pb': 'feed_override_toggle',
-}
+	}
+
 	for key, value in checkable_buttons.items():
 		if key in parent.child_names: # make sure checkable is set to true
 			if not getattr(parent, key).isCheckable():
