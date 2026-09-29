@@ -1,12 +1,17 @@
 from functools import partial
 
+from libflexgui import qss_utilities
+
 def startup(parent):
 
 	# QRadioButton
 	parent.rb_normal = False
 
 	parent.rb_apply_style.clicked.connect(partial(create_stylesheet, parent))
-	parent.rb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+	#parent.rb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
+	#parent.rb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QRadioButton', 'rb'))
+	parent.rb_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QRadioButton', 'radioButton', 'rb'))
 
 	parent.rb_disable.clicked.connect(partial(parent.disable, 'radioButton_0'))
 
@@ -254,6 +259,7 @@ def create_stylesheet(parent):
 		parent.radioButton_0.setStyleSheet(style)
 		parent.radioButton_1.setStyleSheet(style)
 
+'''
 def clear_stylesheet(parent):
 	parent.rb_normal = False
 
@@ -306,4 +312,4 @@ def clear_stylesheet(parent):
 	parent.rb_stylesheet.clear()
 	parent.radioButton_0.setStyleSheet('')
 	parent.radioButton_1.setStyleSheet('')
-
+'''

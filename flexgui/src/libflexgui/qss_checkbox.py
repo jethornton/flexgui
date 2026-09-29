@@ -1,12 +1,16 @@
 from functools import partial
 
+from libflexgui import qss_utilities
+
 def startup(parent):
 
 	# QCheckBox
 	parent.cb_normal = False
 
 	parent.cb_apply_style.clicked.connect(partial(create_stylesheet, parent))
-	parent.cb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
+
+	#parent.cb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QCheckBox', 'cb'))
+	parent.cb_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QCheckBox', 'checkBox', 'cb'))
 
 	parent.cb_disable.clicked.connect(partial(parent.disable, 'checkBox'))
 
@@ -277,6 +281,7 @@ def create_stylesheet(parent):
 
 		parent.checkBox.setStyleSheet(style)
 
+'''
 def clear_stylesheet(parent):
 	parent.cb_normal = False
 
@@ -328,4 +333,4 @@ def clear_stylesheet(parent):
 
 	parent.cb_stylesheet.clear()
 	parent.checkBox.setStyleSheet('')
-
+'''
