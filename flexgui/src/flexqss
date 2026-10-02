@@ -126,7 +126,7 @@ class main(QMainWindow):
 			self.user_gui.show()
 
 	def color_dialog(self):
-		obj = self.sender().objectName().split('_')[0]
+		prefix = self.sender().objectName().split('_')[0]
 		state = self.sender().objectName().split('_')[-1]
 		variable = self.sender().property('var')
 		contrast_variable = self.sender().property('contrast_var')
@@ -145,7 +145,7 @@ class main(QMainWindow):
 			if color.isValid():
 				setattr(self, variable, color.name())
 				getattr(self, label).setStyleSheet(f'background-color: {color.name()};')
-				setattr(self, f'{obj}_{state}', True)
+				setattr(self, f'{prefix}_{state}', True)
 				if contrast_variable:
 					contrast_color = getattr(self, contrast_variable)
 					if contrast_color:
@@ -157,63 +157,60 @@ class main(QMainWindow):
 			getattr(self, label).setStyleSheet(f'background-color: none;')
 
 	def size(self):
-		obj = self.sender().objectName().split('_')[0]
-		setattr(self, f'{obj}_normal', True)
+		prefix = self.sender().objectName().split('_')[0]
+		setattr(self, f'{prefix}_normal', True)
 
 	def border(self): # can be set in all states
 		text = self.sender().currentText()
-		print(f'object name {self.sender().objectName().split('_')}')
+		prefix = self.sender().objectName().split('_')[0]
+		state = self.sender().objectName().split('_')[-1]
 		if text != 'Select':
-			obj = self.sender().objectName().split('_')[0]
-			state = self.sender().objectName().split('_')[-1]
-			setattr(self, f'{obj}_{state}', True)
+			setattr(self, f'{prefix}_{state}', True)
 		if text == 'Select':
-			obj = self.sender().objectName().split('_')[0]
-			state = self.sender().objectName().split('_')[-1]
-			setattr(self, f'{obj}_{state}', False)
+			setattr(self, f'{prefix}_{state}', False)
 
 	def font_dialog(self):
-		obj = self.sender().objectName().split('_')[0]
+		prefix = self.sender().objectName().split('_')[0]
 		options = QFontDialog.FontDialogOption.DontUseNativeDialog
 
-		if getattr(self, f'{obj}_scaleable_fonts').isChecked():
+		if getattr(self, f'{prefix}_scaleable_fonts').isChecked():
 			options |= QFontDialog.FontDialogOption.ScalableFonts
-		elif getattr(self, f'{obj}_non_scaleable_fonts').isChecked():
+		elif getattr(self, f'{prefix}_non_scaleable_fonts').isChecked():
 			options |= QFontDialog.FontDialogOption.NonScalableFonts
-		elif getattr(self, f'{obj}_monospaced_fonts').isChecked():
+		elif getattr(self, f'{prefix}_monospaced_fonts').isChecked():
 			options |= QFontDialog.FontDialogOption.MonospacedFonts
-		elif getattr(self, f'{obj}_proportional_fonts').isChecked():
+		elif getattr(self, f'{prefix}_proportional_fonts').isChecked():
 			options |= QFontDialog.FontDialogOption.ProportionalFonts
 
-		if getattr(self, f'{obj}_font_family'):
-			current_font = QFont(getattr(self, f'{obj}_font_family'),
-				getattr(self, f'{obj}_font_size'),
-				getattr(self, f'{obj}_font_weight'),
-				getattr(self, f'{obj}_font_italic'))
+		if getattr(self, f'{prefix}_font_family'):
+			current_font = QFont(getattr(self, f'{prefix}_font_family'),
+				getattr(self, f'{prefix}_font_size'),
+				getattr(self, f'{prefix}_font_weight'),
+				getattr(self, f'{prefix}_font_italic'))
 		else:
 			current_font = self.font()
 
 		font, ok = QFontDialog.getFont(current_font, self, "Choose a Font", options)
 		if ok:
 			fontinfo = QFontInfo(font)
-			setattr(self, f'{obj}_font_family', fontinfo.family())
-			setattr(self, f'{obj}_font_size', font.pointSize())
-			setattr(self, f'{obj}_font_style', fontinfo.styleName())
-			setattr(self, f'{obj}_font_weight', fontinfo.weight())
-			setattr(self, f'{obj}_font_italic', fontinfo.italic())
-			setattr(self, f'{obj}_normal', True)
+			setattr(self, f'{prefix}_font_family', fontinfo.family())
+			setattr(self, f'{prefix}_font_size', font.pointSize())
+			setattr(self, f'{prefix}_font_style', fontinfo.styleName())
+			setattr(self, f'{prefix}_font_weight', fontinfo.weight())
+			setattr(self, f'{prefix}_font_italic', fontinfo.italic())
+			setattr(self, f'{prefix}_normal', True)
 		else:
-			setattr(self, f'{obj}_font_family', False)
-			setattr(self, f'{obj}_font_size', False)
-			setattr(self, f'{obj}_font_weight', False)
-			setattr(self, f'{obj}_font_weight', False)
-			setattr(self, f'{obj}_font_italic', False)
+			setattr(self, f'{prefix}_font_family', False)
+			setattr(self, f'{prefix}_font_size', False)
+			setattr(self, f'{prefix}_font_weight', False)
+			setattr(self, f'{prefix}_font_weight', False)
+			setattr(self, f'{prefix}_font_italic', False)
 
 	def padding(self):
-		obj = self.sender().objectName().split('_')[0]
+		prefix = self.sender().objectName().split('_')[0]
 		sender_name = self.sender().objectName().split('_')
 		if self.sender().value() > 0:
-			setattr(self, f'{obj}_normal', True)
+			setattr(self, f'{prefix}_normal', True)
 			side = False
 			sides = ['left', 'right', 'top', 'bottom']
 			for item in sides:
@@ -221,23 +218,23 @@ class main(QMainWindow):
 					side = True
 
 			if side:
-				with QSignalBlocker(getattr(self, f'{obj}_padding_normal')):
-					getattr(self, f'{obj}_padding_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_padding_normal')):
+					getattr(self, f'{prefix}_padding_normal').setValue(0)
 			else:
-				with QSignalBlocker(getattr(self, f'{obj}_padding_left_normal')):
-					getattr(self, f'{obj}_padding_left_normal').setValue(0)
-				with QSignalBlocker(getattr(self, f'{obj}_padding_right_normal')):
-					getattr(self, f'{obj}_padding_right_normal').setValue(0)
-				with QSignalBlocker(getattr(self, f'{obj}_padding_top_normal')):
-					getattr(self, f'{obj}_padding_top_normal').setValue(0)
-				with QSignalBlocker(getattr(self, f'{obj}_padding_bottom_normal')):
-					getattr(self, f'{obj}_padding_bottom_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_padding_left_normal')):
+					getattr(self, f'{prefix}_padding_left_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_padding_right_normal')):
+					getattr(self, f'{prefix}_padding_right_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_padding_top_normal')):
+					getattr(self, f'{prefix}_padding_top_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_padding_bottom_normal')):
+					getattr(self, f'{prefix}_padding_bottom_normal').setValue(0)
 
 	def margin(self):
-		obj = self.sender().objectName().split('_')[0]
+		prefix = self.sender().objectName().split('_')[0]
 		sender_name = self.sender().objectName().split('_')
 		if self.sender().value() > 0:
-			setattr(self, f'{obj}_normal', True)
+			setattr(self, f'{prefix}_normal', True)
 			side = False
 			sides = ['left', 'right', 'top', 'bottom']
 			for item in sides:
@@ -245,28 +242,28 @@ class main(QMainWindow):
 					side = True
 
 			if side:
-				with QSignalBlocker(getattr(self, f'{obj}_margin_normal')):
-					getattr(self, f'{obj}_margin_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_margin_normal')):
+					getattr(self, f'{prefix}_margin_normal').setValue(0)
 			else:
-				with QSignalBlocker(getattr(self, f'{obj}_margin_left_normal')):
-					getattr(self, f'{obj}_margin_left_normal').setValue(0)
-				with QSignalBlocker(getattr(self, f'{obj}_margin_right_normal')):
-					getattr(self, f'{obj}_margin_right_normal').setValue(0)
-				with QSignalBlocker(getattr(self, f'{obj}_margin_top_normal')):
-					getattr(self, f'{obj}_margin_top_normal').setValue(0)
-				with QSignalBlocker(getattr(self, f'{obj}_margin_bottom_normal')):
-					getattr(self, f'{obj}_margin_bottom_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_margin_left_normal')):
+					getattr(self, f'{prefix}_margin_left_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_margin_right_normal')):
+					getattr(self, f'{prefix}_margin_right_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_margin_top_normal')):
+					getattr(self, f'{prefix}_margin_top_normal').setValue(0)
+				with QSignalBlocker(getattr(self, f'{prefix}_margin_bottom_normal')):
+					getattr(self, f'{prefix}_margin_bottom_normal').setValue(0)
 
 	def indicator(self):
 		sender = self.sender()
 		name = self.sender().objectName().split('_')
 		var = f'{name[0]}_{name[1]}_{name[-1]}'
-		obj = self.sender().objectName().split('_')[0]
+		prefix = self.sender().objectName().split('_')[0]
 		if isinstance(sender, QSpinBox):
 			if sender.value() > 0:
-				setattr(self, f'{obj}_indicator', True)
+				setattr(self, f'{prefix}_indicator', True)
 			else:
-				setattr(self, f'{obj}_indicator', False)
+				setattr(self, f'{prefix}_indicator', False)
 		elif isinstance(sender, QLineEdit): # checked/unchecked icon
 			if sender.text() != '':
 				setattr(self, f'{var}', True)
@@ -280,13 +277,13 @@ class main(QMainWindow):
 		else:
 			self.pushButton.setCheckable(False)
 
-	def disable(self, obj):
+	def disable(self, prefix):
 		if self.sender().isChecked():
 			self.sender().setText('Enable')
-			getattr(self, obj).setEnabled(False)
+			getattr(self, prefix).setEnabled(False)
 		else:
 			self.sender().setText('Disable')
-			getattr(self, obj).setEnabled(True)
+			getattr(self, prefix).setEnabled(True)
 
 	def launch_sample(self):
 		self.build_stylesheet()

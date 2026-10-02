@@ -55,22 +55,28 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if max_height > 0:
 			style += f'\tmax-height: {max_height}px;\n'
 
-		# border
+		# border width must be bigger than 0
 		border_type = getattr(parent, f'{prefix}_border_type_normal').currentText()
 		if border_type != 'Select':
 			style += f'\tborder-style: {border_type};\n'
 
-		border_width = getattr(parent, f'{prefix}_border_width_normal').value()
-		if border_width > 0:
-			style += f'\tborder-width: {border_width}px;\n'
+			border_width = getattr(parent, f'{prefix}_border_width_normal').value()
+			if border_width > 0:
+				style += f'\tborder-width: {border_width}px;\n'
+			else:
+				getattr(parent, f'{prefix}_border_width_normal').setValue(1)
+				style += '\tborder-width: 1px;\n'
 
-		border_radius = getattr(parent, f'{prefix}_border_radius_normal').value()
-		if border_radius > 0:
+			border_radius = getattr(parent, f'{prefix}_border_radius_normal').value()
 			style += f'\tborder-radius: {border_radius}px;\n'
 
-		border_color = getattr(parent, f'{prefix}_border_color_sel_normal')
-		if border_color:
-			style += f'\tborder-color: {border_color};\n'
+			border_color = getattr(parent, f'{prefix}_border_color_sel_normal')
+			if border_color:
+				style += f'\tborder-color: {border_color};\n'
+			else:
+				#cb_border_color_normal_lb
+				getattr(parent, f'{prefix}_border_color_normal_lb').setStyleSheet(f'background-color: black;')
+				style += '\tborder-color: black;\n'
 
 		# padding
 		padding = getattr(parent, f'{prefix}_padding_normal').value()
@@ -129,7 +135,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_checked:
 			style += f'\tbackground-color: {bg_color_checked};\n'
 
-		# border
+		# border FIXME like normal
 		border_type_checked = getattr(parent, f'{prefix}_border_type_checked').currentText()
 		if border_type_checked != 'Select':
 			style += f'\tborder-style: {border_type_checked};\n'
@@ -161,7 +167,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_pressed:
 			style += f'\tbackground-color: {bg_color_pressed};\n'
 
-		# border
+		# border FIXME like normal
 		border_type_pressed = getattr(parent, f'{prefix}_border_type_pressed').currentText()
 		if border_type_pressed != 'Select':
 			style += f'\tborder-style: {border_type_pressed};\n'
@@ -193,7 +199,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_hover:
 			style += f'\tbackground-color: {bg_color_hover};\n'
 
-		# border
+		# border FIXME like normal
 		border_type_hover = getattr(parent, f'{prefix}_border_type_hover').currentText()
 		if border_type_hover != 'Select':
 			style += f'\tborder-style: {border_type_hover};\n'
@@ -225,7 +231,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_disabled:
 			style += f'\tbackground-color: {bg_color_disabled};\n'
 
-		# border
+		# border FIXME like normal
 		border_type_disabled = getattr(parent, f'{prefix}_border_type_disabled').currentText()
 		if border_type_disabled != 'Select':
 			style += f'\tborder-style: {border_type_disabled};\n'
