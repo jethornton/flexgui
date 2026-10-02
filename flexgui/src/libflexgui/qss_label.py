@@ -7,10 +7,7 @@ def startup(parent):
 	# QLabel
 	parent.lb_normal = False
 
-	parent.lb_apply_style.clicked.connect(partial(create_stylesheet, parent))
-	#parent.lb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
-
-	#parent.lb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QLabel', 'lb'))
+	parent.lb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QLabel', 'label', 'lb'))
 	parent.lb_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QLabel', 'label', 'lb'))
 
 	parent.lb_disable.clicked.connect(partial(parent.disable, 'label'))
@@ -59,6 +56,7 @@ def startup(parent):
 
 	parent.lb_font_picker.clicked.connect(parent.font_dialog)
 
+'''
 ######### QLabel Stylesheet #########
 
 def create_stylesheet(parent):
@@ -190,7 +188,7 @@ def create_stylesheet(parent):
 			parent.lb_stylesheet.appendPlainText(line)
 		parent.label.setStyleSheet(style)
 
-'''
+
 def clear_stylesheet(parent):
 	parent.lb_normal = False
 

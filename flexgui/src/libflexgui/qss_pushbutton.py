@@ -7,10 +7,7 @@ def startup(parent):
 	# QPushButton
 	parent.pb_normal = False
 
-	parent.pb_apply_style.clicked.connect(partial(create_stylesheet, parent))
-	#parent.pb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
-
-	#parent.pb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QPushButton', 'pb'))
+	parent.pb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QPushButton', 'pushButton', 'pb'))
 	parent.pb_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QPushButton', 'pushButton', 'pb'))
 
 	parent.pb_set_checkable.released.connect(parent.set_checkable)

@@ -7,10 +7,7 @@ def startup(parent):
 	# QLineEdit
 	parent.le_normal = False
 
-	parent.le_apply_style.clicked.connect(partial(create_stylesheet, parent))
-	#parent.le_clear_style.clicked.connect(partial(clear_stylesheet, parent))
-
-	#parent.le_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QLineEdit', 'le'))
+	parent.le_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QLineEdit', 'lineEdit', 'le'))
 	parent.le_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QLineEdit', 'lineEdit', 'le'))
 
 	parent.le_read_only.clicked.connect(partial(parent.disable, 'lineEdit'))

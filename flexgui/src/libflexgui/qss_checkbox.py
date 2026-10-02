@@ -7,9 +7,9 @@ def startup(parent):
 	# QCheckBox
 	parent.cb_normal = False
 
-	parent.cb_apply_style.clicked.connect(partial(create_stylesheet, parent))
+	#parent.cb_apply_style.clicked.connect(partial(create_stylesheet, parent))
 
-	#parent.cb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QCheckBox', 'cb'))
+	parent.cb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QCheckBox', 'checkBox', 'cb'))
 	parent.cb_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QCheckBox', 'checkBox', 'cb'))
 
 	parent.cb_disable.clicked.connect(partial(parent.disable, 'checkBox'))
@@ -68,6 +68,7 @@ def startup(parent):
 	parent.cb_indicator_icon_checked.editingFinished.connect(parent.indicator)
 	parent.cb_indicator_icon_unchecked.editingFinished.connect(parent.indicator)
 
+'''
 ######### QCheckBox Stylesheet #########
 
 def create_stylesheet(parent):
@@ -280,7 +281,7 @@ def create_stylesheet(parent):
 			parent.cb_stylesheet.appendPlainText(line)
 
 		parent.checkBox.setStyleSheet(style)
-
+'''
 '''
 def clear_stylesheet(parent):
 	parent.cb_normal = False

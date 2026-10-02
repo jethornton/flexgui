@@ -7,10 +7,7 @@ def startup(parent):
 	# QSpinBox
 	parent.sb_normal = False
 
-	parent.sb_apply_style.clicked.connect(partial(create_stylesheet, parent))
-	#parent.sb_clear_style.clicked.connect(partial(clear_stylesheet, parent))
-
-	#parent.sb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QSpinBox', 'sb'))
+	parent.sb_apply_style.clicked.connect(partial(qss_utilities.create_stylesheet, parent, 'QSpinBox', 'spinBox', 'sb'))
 	parent.sb_clear_style.clicked.connect(partial(qss_utilities.clear_stylesheet, parent, 'QSpinBox', 'spinBox', 'sb'))
 
 	parent.sb_disable.clicked.connect(partial(parent.disable, 'spinBox'))
