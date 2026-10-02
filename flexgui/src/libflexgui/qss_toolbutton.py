@@ -15,7 +15,7 @@ def startup(parent):
 	parent.tb_max_width_normal.valueChanged.connect(parent.size)
 	parent.tb_max_height_normal.valueChanged.connect(parent.size)
 
-	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+	border_types = ['Select', 'none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 

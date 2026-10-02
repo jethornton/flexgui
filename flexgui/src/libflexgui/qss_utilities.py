@@ -57,7 +57,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 
 		# border
 		border_type = getattr(parent, f'{prefix}_border_type_normal').currentText()
-		if border_type != 'none':
+		if border_type != 'Select':
 			style += f'\tborder-style: {border_type};\n'
 
 		border_width = getattr(parent, f'{prefix}_border_width_normal').value()
@@ -131,7 +131,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 
 		# border
 		border_type_checked = getattr(parent, f'{prefix}_border_type_checked').currentText()
-		if border_type_checked != 'none':
+		if border_type_checked != 'Select':
 			style += f'\tborder-style: {border_type_checked};\n'
 
 		border_width_checked = getattr(parent, f'{prefix}_border_width_checked').value()
@@ -163,7 +163,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 
 		# border
 		border_type_pressed = getattr(parent, f'{prefix}_border_type_pressed').currentText()
-		if border_type_pressed != 'none':
+		if border_type_pressed != 'Select':
 			style += f'\tborder-style: {border_type_pressed};\n'
 
 		border_width_pressed = getattr(parent, f'{prefix}_border_width_pressed').value()
@@ -195,7 +195,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 
 		# border
 		border_type_hover = getattr(parent, f'{prefix}_border_type_hover').currentText()
-		if border_type_hover != 'none':
+		if border_type_hover != 'Select':
 			style += f'\tborder-style: {border_type_hover};\n'
 
 		border_width_hover = getattr(parent, f'{prefix}_border_width_hover').value()
@@ -227,7 +227,7 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 
 		# border
 		border_type_disabled = getattr(parent, f'{prefix}_border_type_disabled').currentText()
-		if border_type_disabled != 'none':
+		if border_type_disabled != 'Select':
 			style += f'\tborder-style: {border_type_disabled};\n'
 
 		border_width_disabled = getattr(parent, f'{prefix}_border_width_disabled').value()

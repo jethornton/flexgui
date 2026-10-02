@@ -19,18 +19,20 @@ def startup(parent):
 	parent.cb_max_width_normal.valueChanged.connect(parent.size)
 	parent.cb_max_height_normal.valueChanged.connect(parent.size)
 
-	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+	border_types = ['Select', 'none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
 	for item in pseudo_states:
-		# populate border combo boxes
-		getattr(parent, f'cb_border_type_{item}').addItems(border_types)
 		# setup variables
 		setattr(parent, f'cb_{item}', False) # build section flag
 		setattr(parent, f'cb_fg_color_sel_{item}', False)
 		setattr(parent, f'cb_bg_color_sel_{item}', False)
 		setattr(parent, f'cb_border_color_sel_{item}', False)
+		# populate border combo boxes
+		getattr(parent, f'cb_border_type_{item}').addItems(border_types)
+		# connect border items
+		getattr(parent, f'cb_border_type_{item}').currentIndexChanged.connect(parent.border)
 
 	for state in pseudo_states: # color dialog connections
 		getattr(parent, f'cb_fg_color_{state}').clicked.connect(parent.color_dialog)

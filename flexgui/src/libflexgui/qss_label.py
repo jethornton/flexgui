@@ -12,7 +12,7 @@ def startup(parent):
 
 	parent.lb_disable.clicked.connect(partial(parent.disable, 'label'))
 
-	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+	border_types = ['Select', 'none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'disabled']
 

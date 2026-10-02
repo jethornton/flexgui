@@ -12,7 +12,7 @@ def startup(parent):
 
 	parent.le_read_only.clicked.connect(partial(parent.disable, 'lineEdit'))
 
-	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+	border_types = ['Select', 'none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'disabled']
 

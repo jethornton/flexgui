@@ -162,10 +162,15 @@ class main(QMainWindow):
 
 	def border(self): # can be set in all states
 		text = self.sender().currentText()
-		if text != 'none':
+		print(f'object name {self.sender().objectName().split('_')}')
+		if text != 'Select':
 			obj = self.sender().objectName().split('_')[0]
 			state = self.sender().objectName().split('_')[-1]
 			setattr(self, f'{obj}_{state}', True)
+		if text == 'Select':
+			obj = self.sender().objectName().split('_')[0]
+			state = self.sender().objectName().split('_')[-1]
+			setattr(self, f'{obj}_{state}', False)
 
 	def font_dialog(self):
 		obj = self.sender().objectName().split('_')[0]
