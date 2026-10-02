@@ -252,7 +252,11 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		for line in lines:
 			getattr(parent,f'{prefix}_stylesheet').appendPlainText(line)
 
-		getattr(parent, widget_name).setStyleSheet(style)
+		if widget_type != 'QRadioButton':
+			getattr(parent, widget_name).setStyleSheet(style)
+		elif widget_type == 'QRadioButton':
+			parent.radioButton_0.setStyleSheet(style)
+			parent.radioButton_1.setStyleSheet(style)
 
 		return
 		'''
