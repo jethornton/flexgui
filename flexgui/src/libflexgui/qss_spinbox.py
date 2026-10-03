@@ -10,7 +10,7 @@ def startup(parent):
 
 	parent.sb_disable.clicked.connect(partial(parent.disable, 'spinBox'))
 
-	border_types = ['none', 'solid', 'dashed', 'dotted', 'double', 'groove',
+	border_types = ['Select', 'none', 'solid', 'dashed', 'dotted', 'double', 'groove',
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'pressed', 'disabled']
 
@@ -73,6 +73,24 @@ def startup(parent):
 	parent.sb_down_origin.currentIndexChanged.connect(partial(sub_controls, parent))
 	parent.sb_down_position.currentIndexChanged.connect(partial(sub_controls, parent))
 	parent.sb_down_hide.toggled.connect(partial(sub_controls, parent))
+
+def sub_controls(parent):
+	up_origin = False if parent.sb_up_origin.currentText() == 'none' else True
+	up_position = False if parent.sb_up_position.currentText() == 'none' else True
+	up_hide = True if parent.sb_up_hide.isChecked() else False
+	up_padding = True if parent.sb_up_padding.value() > 0 else False
+	if up_origin or up_position or up_hide or up_padding:
+		parent.sb_up = True
+	else:
+		parent.sb_up = False
+
+	down_origin = False if parent.sb_down_origin.currentText() == 'none' else True
+	down_position = False if parent.sb_down_position.currentText() == 'none' else True
+	down_hide = True if parent.sb_down_hide.isChecked() else False
+	if down_origin or down_position or down_hide:
+		parent.sb_down = True
+	else:
+		parent.sb_down = False
 
 ######### QSpinBox Stylesheet #########
 
@@ -249,24 +267,6 @@ def create_stylesheet(parent):
 		for line in lines:
 			parent.sb_stylesheet.appendPlainText(line)
 		parent.spinBox.setStyleSheet(style)
-
-def sub_controls(parent):
-	up_origin = False if parent.sb_up_origin.currentText() == 'none' else True
-	up_position = False if parent.sb_up_position.currentText() == 'none' else True
-	up_hide = True if parent.sb_up_hide.isChecked() else False
-	up_padding = True if parent.sb_up_padding.value() > 0 else False
-	if up_origin or up_position or up_hide or up_padding:
-		parent.sb_up = True
-	else:
-		parent.sb_up = False
-
-	down_origin = False if parent.sb_down_origin.currentText() == 'none' else True
-	down_position = False if parent.sb_down_position.currentText() == 'none' else True
-	down_hide = True if parent.sb_down_hide.isChecked() else False
-	if down_origin or down_position or down_hide:
-		parent.sb_down = True
-	else:
-		parent.sb_down = False
 
 def clear_stylesheet(parent):
 	parent.sb_normal = False
