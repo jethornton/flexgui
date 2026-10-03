@@ -2590,7 +2590,10 @@ Standard 4.5:1 text contrast ratio for active controls</string>
               <property name="plainText">
                <string>To delete a color open the color dialog and Cancel
 
-Border needs both width and color to show up</string>
+Border needs both width and color to show up
+
+If no margin, border or padding is set then they are all the same as content. See the Box Model.
+</string>
               </property>
              </widget>
             </item>
@@ -4085,9 +4088,10 @@ Border needs both width and color to show up</string>
 
 Border needs both width and color to show up
 
-Checked and Unchecked Indicator icons must
-be in the same directory as the stylesheet and
-will not show up in the preview</string>
+Checked and Unchecked Indicator icons must be in the same directory as the stylesheet and will not show up in the preview if not found.
+
+If no margin, border or padding is set then they are all the same as content. See the Box Model.
+</string>
               </property>
              </widget>
             </item>
@@ -6997,7 +7001,10 @@ will not show up in the preview</string>
               <property name="plainText">
                <string>To delete a color open the color dialog and Cancel
 
-Border needs both width and color to show up</string>
+Border needs both width and color to show up
+
+If no margin, border or padding is set then they are all the same as content. See the Box Model.
+</string>
               </property>
              </widget>
             </item>
@@ -7111,7 +7118,11 @@ Border needs both width and color to show up</string>
               <property name="plainText">
                <string>To delete a color open the color dialog and Cancel
 
-Border needs both width and color to show up</string>
+Border needs both width and color to show up
+
+If no margin, border or padding is set then they are all the same as content. See the Box Model.
+
+Setting the position of the up and down arrows to margin or padding needs some margin or padding set otherwise it will be in the same position as content.</string>
               </property>
              </widget>
             </item>
@@ -9453,7 +9464,9 @@ Border needs both width and color to show up</string>
 
 Border needs both width and color to show up
 
-Standard 4.5:1 text contrast ratio for active controls</string>
+Standard 4.5:1 text contrast ratio for active controls
+
+If no margin, border or padding is set then they are all the same as content. See the Box Model.</string>
               </property>
              </widget>
             </item>
