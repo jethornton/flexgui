@@ -8,6 +8,7 @@ from libflexgui import qss_toolbar
 from libflexgui import qss_toolbutton
 from libflexgui import qss_spinbox
 from libflexgui import qss_label
+from libflexgui import qss_utilities
 
 def startup(parent):
 
@@ -391,12 +392,21 @@ def all_create_stylesheet(parent, what):
 			getattr(parent, label).setStyleSheet(f'background-color: {color};')
 			parent.lb_bg_color_sel_disabled = color
 
+	qss_utilities.create_stylesheet(parent, 'QCheckBox', 'checkBox', 'cb')
+	qss_utilities.create_stylesheet(parent, 'QLabel', 'label', 'lb')
+	qss_utilities.create_stylesheet(parent, 'QLineEdit', 'lineEdit', 'le')
+	qss_utilities.create_stylesheet(parent, 'QPushButton', 'pushButton', 'pb')
+	qss_utilities.create_stylesheet(parent, 'QRadioButton', 'radioButton', 'rb')
+	qss_utilities.create_stylesheet(parent, 'QSpinBox', 'spinBox', 'sb')
+	qss_toolbutton.create_stylesheet(parent)
+
+	'''
 	qss_pushbutton.create_stylesheet(parent)
 	qss_checkbox.create_stylesheet(parent)
 	qss_radiobutton.create_stylesheet(parent)
-	qss_toolbutton.create_stylesheet(parent)
 	qss_spinbox.create_stylesheet(parent)
 	qss_label.create_stylesheet(parent)
+	'''
 
 def clear_stylesheet(parent):
 	qss_containers.clear_stylesheet(parent)
