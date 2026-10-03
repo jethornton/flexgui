@@ -869,35 +869,14 @@
         <string>Home</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="4" column="1">
-         <widget class="QPushButton" name="home_pb_0">
+        <item row="6" column="0">
+         <widget class="QPushButton" name="unhome_all_pb">
           <property name="text">
-           <string>Home J0</string>
+           <string>UnHome All</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="3">
-         <widget class="QPushButton" name="unhome_pb_2">
-          <property name="text">
-           <string>UnHome J2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QPushButton" name="unhome_pb_1">
-          <property name="text">
-           <string>UnHome J1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QPushButton" name="home_pb_1">
-          <property name="text">
-           <string>Home J1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLCDNumber" name="lcdNumber">
           <property name="function" stdset="0">
            <string>hal_pin</string>
@@ -910,7 +889,14 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="5" column="3">
+         <widget class="QPushButton" name="home_pb_2">
+          <property name="text">
+           <string>Home J2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
          <widget class="QPushButton" name="home_all_pb">
           <property name="text">
            <string>Home All</string>
@@ -920,7 +906,34 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="3">
+        <item row="6" column="4">
+         <widget class="QPushButton" name="pushButton_15">
+          <property name="text">
+           <string>Go To X0 Y0 Z0</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>mdi</string>
+          </property>
+          <property name="command" stdset="0">
+           <string>G0 X0 Y0 Z0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QPushButton" name="unhome_pb_1">
+          <property name="text">
+           <string>UnHome J1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QPushButton" name="pushButton_14">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
          <widget class="QPushButton" name="power_pb">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -931,7 +944,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>65</height>
+            <height>0</height>
            </size>
           </property>
           <property name="text">
@@ -945,14 +958,30 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QPushButton" name="unhome_pb_0">
+        <item row="6" column="3">
+         <widget class="QPushButton" name="unhome_pb_2">
           <property name="text">
-           <string>UnHome J0</string>
+           <string>UnHome J2</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
+        <item row="1" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox_17">
+          <property name="title">
+           <string>Active M codes</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_36">
+           <item row="0" column="0">
+            <widget class="QLabel" name="mcodes_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="3">
          <widget class="QPushButton" name="pushButton_11">
           <property name="text">
            <string>Limit Error</string>
@@ -968,7 +997,82 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="4">
+         <widget class="QPushButton" name="pushButton_13">
+          <property name="text">
+           <string>load square.ngc</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>load_file</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string>square.ngc</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QGroupBox" name="groupBox_16">
+          <property name="title">
+           <string>Active G codes</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_35">
+           <item row="0" column="0">
+            <widget class="QLabel" name="gcodes_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="home_pb_1">
+          <property name="text">
+           <string>Home J1</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="2">
+         <widget class="QPushButton" name="estop_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="off_text" stdset="0">
+           <string>E Stop Open</string>
+          </property>
+          <property name="on_text" stdset="0">
+           <string>Danger</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QPushButton" name="unhome_pb_0">
+          <property name="text">
+           <string>UnHome J0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QPushButton" name="home_pb_0">
+          <property name="text">
+           <string>Home J0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
          <widget class="QPushButton" name="pushButton_6">
           <property name="text">
            <string>Help</string>
@@ -996,114 +1100,10 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QPushButton" name="unhome_all_pb">
-          <property name="text">
-           <string>UnHome All</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="3">
-         <widget class="QPushButton" name="home_pb_2">
-          <property name="text">
-           <string>Home J2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QPushButton" name="estop_pb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>65</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="off_text" stdset="0">
-           <string>E Stop Open</string>
-          </property>
-          <property name="on_text" stdset="0">
-           <string>Danger</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QPushButton" name="pushButton_14">
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QPushButton" name="pushButton_13">
-          <property name="text">
-           <string>load square.ngc</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>load_file</string>
-          </property>
-          <property name="filename" stdset="0">
-           <string>square.ngc</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QGroupBox" name="groupBox_17">
-          <property name="title">
-           <string>Active M codes</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_36">
-           <item row="0" column="0">
-            <widget class="QLabel" name="mcodes_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QGroupBox" name="groupBox_16">
-          <property name="title">
-           <string>Active G codes</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_35">
-           <item row="0" column="0">
-            <widget class="QLabel" name="gcodes_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="2" column="4">
          <widget class="QPushButton" name="print_paths_pb">
           <property name="text">
            <string>Print Paths</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="4">
-         <widget class="QPushButton" name="pushButton_15">
-          <property name="text">
-           <string>Go To X0 Y0 Z0</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>mdi</string>
-          </property>
-          <property name="command" stdset="0">
-           <string>G0 X0 Y0 Z0</string>
           </property>
          </widget>
         </item>
