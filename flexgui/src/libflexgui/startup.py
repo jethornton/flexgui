@@ -2792,14 +2792,11 @@ def setup_hal(parent):
 	if len(hal_spinboxes) > 0:
 		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
 		valid_types = list(set(possible_types) & set(hal_types))
-		print(f'valid_types {valid_types}')
 
-		#valid_types = ['HAL_S32', 'HAL_U32']
 		for spinbox in hal_spinboxes:
 			obj_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 			hal_type = spinbox.property('hal_type')
-			print(f'hal_type {hal_type}')
 
 			if pin_name in [None, '']:
 				title = 'Configuration Error'
@@ -2822,7 +2819,7 @@ def setup_hal(parent):
 			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL type "{hal_type}" is not valid for a HAL spinbox, '
-				'only HAL_S32 or HAL_U32 are valid for a HAL Spinbox')
+				f'only {", ".join(valid_types)} are valid for a HAL Spinbox')
 				info = f'The "{obj_name}" spinbox will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				spinbox.setEnabled(False)
