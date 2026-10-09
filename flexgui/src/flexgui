@@ -318,7 +318,7 @@ class flexgui(QMainWindow):
 		loadUi(gui_path, self)
 		if self.window_title:
 			self.setWindowTitle(self.window_title)
-		elif parent.machine_name:
+		elif self.machine_name:
 			self.setWindowTitle(f'{parent.machine_name} Flex GUI V{self.flex_version} LinuxCNC V{self.emc_version}')
 		else:
 			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
