@@ -2799,6 +2799,7 @@ def setup_hal(parent):
 			obj_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
 			hal_type = spinbox.property('hal_type')
+			print(f'hal_type {hal_type}')
 
 			if pin_name in [None, '']:
 				title = 'Configuration Error'
