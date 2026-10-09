@@ -3020,7 +3020,7 @@ def setup_hal(parent):
 				continue
 
 			##### HAL S32/U32 Label #####
-			if hal_type in ['HAL_S32', 'HAL_U32']:
+			if hal_type in ['HAL_S32', 'HAL_U32', 'HAL_S64', 'HAL_U64']:
 				if label.property('integer_digits'):
 					title = 'Configuration Error'
 					msg = ('The Dynamic Property "integer_digits" has been replaced with '
