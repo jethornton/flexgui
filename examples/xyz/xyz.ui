@@ -3219,6 +3219,37 @@
           </layout>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_28">
+          <property name="title">
+           <string>HAL Sliders</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_44">
+           <item row="0" column="0">
+            <widget class="QSlider" name="horizontalSlider">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-slider</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S64</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3">

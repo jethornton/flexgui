@@ -2869,7 +2869,9 @@ def setup_hal(parent):
 
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32']
+		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		valid_types = list(set(possible_types) & set(hal_types))
+
 		for slider in hal_sliders:
 			obj_name = slider.objectName()
 			pin_name = slider.property('pin_name')
@@ -2896,7 +2898,7 @@ def setup_hal(parent):
 			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL slider, only '
-				'HAL_S32 or HAL_U32 are valid HAL Types for a slider')
+				f'only {", ".join(valid_types)} are valid for a HAL Spinbox')
 				info = f'The slider "{obj_name}" will be disabled.\n'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				slider.setEnabled(False)
