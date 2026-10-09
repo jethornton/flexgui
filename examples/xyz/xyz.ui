@@ -2744,7 +2744,7 @@
               <string>hal_pin</string>
              </property>
              <property name="pin_name" stdset="0">
-              <string>test-reader-s32</string>
+              <string>test-reader-s64</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>HAL_S64</string>
@@ -3249,7 +3249,7 @@
               <string>hal_pin</string>
              </property>
              <property name="pin_name" stdset="0">
-              <string>hal-lcd</string>
+              <string>test-reader-s64</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>HAL_S32</string>
