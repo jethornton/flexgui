@@ -2612,7 +2612,7 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, button)
 
-	##### HAL_IO #####
+	##### HAL_IO ##### FIXME add 64 bit
 	io_errors = {}
 	for child in parent.findChildren(QWidget):
 		if not isdeleted(child):  
@@ -2738,11 +2738,14 @@ def setup_hal(parent):
 			'unhome_all_pb', 'manual_mode_pb', 'flood_pb', 'mist_pb',
 			'clear_errors_pb', 'copy_errors_pb', 'clear_info_pb', 'show_hal_pb',
 			'hal_meter_pb', 'hal_scope_pb', 'about_pb', 'quick_reference_pb']
+
 			for i in range(9):
 				controls.append(f'home_pb_{i}')
 				controls.append(f'unhome_pb_{i}')
+
 			for axis in AXES:
 				controls.append(f'clear_{axis}_pb')
+
 			if obj_name in controls:
 				title = 'Configuration Error'
 				msg = (f'The control "{obj_name}" can not be a HAL pin.')
@@ -2963,7 +2966,9 @@ def setup_hal(parent):
 
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
-		valid_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_S32', 'HAL_U32']
+		possible_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		valid_types = list(set(possible_types) & set(hal_types))
+
 		for label in hal_labels:
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
@@ -2996,7 +3001,7 @@ def setup_hal(parent):
 			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label. '
-				'Valid types are HAL_BIT, HAL_FLOAT, HAL_S32 or HAL_U32.')
+				f'only {", ".join(valid_types)} are valid for a HAL Label')
 				info = f'The "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)
