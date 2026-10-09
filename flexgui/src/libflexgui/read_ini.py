@@ -12,10 +12,10 @@ def read(parent):
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
 	# ***** [EMC] Section *****
-	machine_name = parent.inifile.find('EMC', 'MACHINE') or False
+	parent.machine_name = parent.inifile.find('EMC', 'MACHINE') or False
 
 	# 1. Determine the machine name
-	name = machine_name if machine_name else 'unknown'
+	name = parent.machine_name if parent.machine_name else 'unknown'
 
 	# 2. Initialize settings (automatically becomes an INI/conf file on Linux)
 	parent.settings = QSettings('Flex', name)
@@ -201,6 +201,9 @@ def read(parent):
 			'depreciated. Check the INI section of the Documents for correct INI entries.')
 			info = 'The Jog Setting will not be used!'
 			dialogs.error_msg_ok(parent, title, msg, info)
+
+	# check for WINDOW_TITLE
+	parent.window_title = parent.inifile.find('FLEXGUI', 'WINDOW_TITLE') or False
 
 	# check for CYCLE_TIME
 	parent.cycle_time = parent.inifile.find('FLEXGUI', 'CYCLE_TIME') or 100

@@ -133,6 +133,16 @@ extensions must be in the format `*.ext` with the asterisk and dot
 [FLEXGUI]
 =========
 
+Window Title
+------------
+
+You can have a custom window title by adding WINDOW_TITLE to the [FLEXGUI]
+section.
+
+.. code-block:: text
+
+	WINDOW_TITLE = Mill #3
+
 Cycle Time
 ----------
 

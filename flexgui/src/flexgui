@@ -100,7 +100,6 @@ class KeyboardJog(QObject):
 
 		return jog_map
 
-
 	def eventFilter(self, source, event):
 		event_type = event.type()
 
@@ -160,20 +159,21 @@ class KeyboardJog(QObject):
 				if event.key() in self.KEY_JOG_MAP:
 					if event.isAutoRepeat():
 						return True
+
 					axis, direction = self.KEY_JOG_MAP[event.key()]
 
 					if self.shift_max_val and shift_pressed:
 						commands.keyboard_jog(self.window, True, axis, direction, velocity=self.shift_max_val)
 					else:
 						commands.keyboard_jog(self.window, True, axis, direction)
-
-					#commands.keyboard_jog(self.window, True, axis, direction)
 					return True
+
 		return False
 
 	def _handle_key_release(self, event):
 		if not (self.window.kb_jog_cb_enabled or self.window.kb_jog_ctrl_enabled):
 			return False
+
 		if self.window.status.task_state != emc.STATE_ON or event.isAutoRepeat():
 			return False
 
@@ -188,9 +188,6 @@ class KeyboardJog(QObject):
 		if released_key == Qt.Key.Key_Control or (self.shift_max_val and released_key == Qt.Key.Key_Shift):
 			commands.keyboard_jog(self.window, False)
 			return True
-
-		#if released_key == Qt.Key.Key_Control:
-		#	commands.keyboard_jog(self.window, False)
 
 		return False
 
@@ -219,6 +216,7 @@ class flexgui(QMainWindow):
 		super().__init__()
 
 		self.flex_version = '2.1.0'
+		self.emc_version = emc.version.partition('~')[0]
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		# set the library path
@@ -314,10 +312,14 @@ class flexgui(QMainWindow):
 			gui_path = os.path.join(self.lib_path, 'flex_default.ui')
 			gui_file = 'flex_default.ui'
 
+		# get ini values if any before trying to use them
+		read_ini.read(self)
+
 		loadUi(gui_path, self)
-		machine = self.inifile.find('EMC', 'MACHINE') or False
-		if machine:
-			self.setWindowTitle(f'{machine} Flex GUI V{self.flex_version}')
+		if self.window_title:
+			self.setWindowTitle(self.window_title)
+		elif parent.machine_name:
+			self.setWindowTitle(f'{parent.machine_name} Flex GUI V{self.flex_version} LinuxCNC V{self.emc_version}')
 		else:
 			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
 
@@ -331,9 +333,6 @@ class flexgui(QMainWindow):
 
 		# get the number of axes and joints
 		self.axis_count = self.status.axis_mask.bit_count()
-
-		# get ini values if any before trying to use them
-		read_ini.read(self)
 
 		# check for a resources.py file with images for the stylesheet
 		if self.resources_file: # import the resources file
