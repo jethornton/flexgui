@@ -2539,7 +2539,6 @@ def setup_hal(parent):
 	# LinuxCNC all imports are handled above, is there any way to improve this code?
 	# this creates all the HAL pins for HAL widgets
 	hal_types = [t for t in dir(hal) if 'HAL_' in t]
-	print(f'hal_types {hal_types}')
 
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
