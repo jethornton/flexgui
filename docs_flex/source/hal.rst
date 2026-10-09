@@ -3,6 +3,12 @@ HAL Pins
 ========
 `HAL Tutorial <https://youtu.be/LU4914GyGXI>`_
 
+.. admonition:: IMPORTANT HAL 64 Bit for LinxuCNC 2.10 Information
+
+	| HAL 64 bit pins is a work in progress. Each widget type that has 64 bit will
+	  `just work` when complete. Until then you will get an error message.
+	| HAL Spinbox is complete.
+
 Creating widgets that connect to HAL (Hardware Abstract Layer) is as simple as
 adding a few Dynamic Properties. See :doc:`property` for step by step
 instructions to add a Dynamic Property.
