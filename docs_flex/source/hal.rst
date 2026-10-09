@@ -29,6 +29,33 @@ The property `pin_name` defines the HAL pin name that is prefixed with
    a dash to not conflict with program variables of the same name which use an
    underscore.
 
+HAL Types
+---------
+
+Starting with version 2.10 Linuxcnc added two 64 bit HAL types. You must be
+using LinuxCNC 2.10 or newer to use `HAL_S64` or `HAL_U64`.
+
+HAL Pin Types
+
+.. code-block:: text
+
+	HAL_BIT
+	HAL_FLOAT
+	HAL_S32
+	HAL_U32
+	HAL_S64
+	HAL_U64
+
+HAL Pin Directions
+
+.. code-block:: text
+
+	HAL_IN
+	HAL_OUT
+	HAL_IO
+
+
+
 Options
 =======
 
@@ -148,6 +175,8 @@ The HAL direction is OUT for a HAL Spinbox.
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
+	LinuxCNC 2.10 or greater
+	String, hal_type, HAL_S64 or HAL_U64
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -196,6 +225,8 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
+	LinuxCNC 2.10 or greater
+	String, hal_type, HAL_S64 or HAL_U64
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -232,6 +263,8 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 	String, pin_name, any unique name
 	For a QSpinBox or QSlider
 	String, hal_type, HAL_S32 or HAL_U32
+	LinuxCNC 2.10 or greater
+	String, hal_type, HAL_S64 or HAL_U64
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -259,6 +292,8 @@ The HAL direction is IN for a HAL Label.
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	LinuxCNC 2.10 or greater
+	String, hal_type, HAL_S64 or HAL_U64
 	Optional
 	String, precision, Number of decimal digits for HAL_FLOAT type
 	String, zero_padding, Left padded zeros for HAL_S32 or HAL_U32
@@ -328,7 +363,7 @@ The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
 HAL Average Integer Label
 -------------------------
 
-A QLabel can be used to monitor HAL_S32 or HAL_U32 pins and display an average
+A QLabel can be used to monitor HAL integer pins and display an average
 of the number of samples. The sample stack is LIFO so a new value pushes the
 oldest value out of the stack. This could be useful to display RPM from a
 spindle encoder or any numeric value that changes.
@@ -351,6 +386,8 @@ The HAL direction is IN.
 	String, function, hal_avr_i
 	String, pin_name, any unique name
 	String, hal_type, HAL_S32 or HAL_U32
+	LinuxCNC 2.10 or greater
+	String, hal_type, HAL_S64 or HAL_U64
 	Optional
 	Int, samples, The number of samples to use default is 10
 
@@ -361,7 +398,7 @@ A QLabel can have multiple text by adding as many Dynamic Properties as needed
 for each text. The `text_n` property the `n` is the integer value for that
 text. Setting the pin name value will change the label text
 
-The HAL direction is IN and the hal_type is u32 for a HAL Multi-State Label.
+The HAL direction is IN and the hal_type is U32 for a HAL Multi-State Label.
 
 .. csv-table:: **HAL Multi-State Label**
    :width: 100%
@@ -511,7 +548,7 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 minimum value is 0 and the maximum value is 100. If the HAL value exceeds the
 maximum value 0 is displayed.
 
-The HAL direction is IN and the hal_type is u32 for a HAL Progress Bar.
+The HAL direction is IN and the hal_type is U32 for a HAL Progress Bar.
 
 .. csv-table:: **HAL Progressbar**
    :width: 100%
@@ -673,22 +710,5 @@ object is a QSpinBox which uses integer values.
 
 After installing Flex GUI, from the CNC menu, you can copy the Flex GUI examples
 and look at the hal-btn example.
-
-HAL Pin Types
-
-.. code-block:: text
-
-	HAL_BIT
-	HAL_FLOAT
-	HAL_S32
-	HAL_U32
-
-HAL Pin Directions
-
-.. code-block:: text
-
-	HAL_IN
-	HAL_OUT
-	HAL_IO
 
 

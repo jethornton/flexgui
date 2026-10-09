@@ -862,7 +862,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -2649,7 +2649,7 @@
               <string>hal-io-spinbox</string>
              </property>
              <property name="hal_type" stdset="0">
-              <string>HAL_U32</string>
+              <string>HAL_U64</string>
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IO</string>

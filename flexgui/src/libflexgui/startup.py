@@ -2538,6 +2538,9 @@ def setup_watch_var(parent):
 def setup_hal(parent):
 	# LinuxCNC all imports are handled above, is there any way to improve this code?
 	# this creates all the HAL pins for HAL widgets
+	hal_types = [t for t in dir(hal) if 'HAL_' in t]
+	print(f'hal_types {hal_types}')
+
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
 	hal_avr_i_labels = [] # average int labels
@@ -2787,7 +2790,11 @@ def setup_hal(parent):
 
 	##### HAL SPINBOX #####
 	if len(hal_spinboxes) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32']
+		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		valid_types = list(set(possible_types) & set(hal_types))
+		print(f'valid_types {valid_types}')
+
+		#valid_types = ['HAL_S32', 'HAL_U32']
 		for spinbox in hal_spinboxes:
 			obj_name = spinbox.objectName()
 			pin_name = spinbox.property('pin_name')
