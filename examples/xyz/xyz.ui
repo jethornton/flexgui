@@ -876,19 +876,6 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLCDNumber" name="lcdNumber">
-          <property name="function" stdset="0">
-           <string>hal_pin</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>hal-lcd</string>
-          </property>
-          <property name="hal_type" stdset="0">
-           <string>HAL_S32</string>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="3">
          <widget class="QPushButton" name="home_pb_2">
           <property name="text">
@@ -2634,139 +2621,7 @@
         <string>Misc.</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_28">
-        <item row="0" column="3">
-         <widget class="QGroupBox" name="groupBox_22">
-          <property name="title">
-           <string>HAL I/O Spinbox</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_39">
-           <item row="0" column="0">
-            <widget class="QSpinBox" name="spinBox_2">
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-spinbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_U32</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-dbl-spinbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_FLOAT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QGroupBox" name="groupBox_20">
-          <property name="title">
-           <string>HAL Spinbox</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_33">
-           <item row="0" column="0">
-            <widget class="QSpinBox" name="spinBox">
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-spinbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_U64</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_OUT</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-dbl-spinbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_FLOAT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_OUT</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QGroupBox" name="groupBox_23">
-          <property name="title">
-           <string>HAL I/O</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_41">
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_12">
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-button</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-checkbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="1" rowspan="4">
+        <item row="0" column="1" rowspan="5">
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
            <string>HAL Buttons</string>
@@ -2921,64 +2776,7 @@
           </layout>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QGroupBox" name="groupBox_11">
-          <property name="title">
-           <string>Coolant</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_25">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="flood_pb">
-             <property name="text">
-              <string>Flood</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="mist_pb">
-             <property name="text">
-              <string>Mist</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QPushButton" name="pushButton_8">
-          <property name="text">
-           <string>Help</string>
-          </property>
-          <property name="function" stdset="0">
-           <string>help</string>
-          </property>
-          <property name="file" stdset="0">
-           <string>broken_help.txt</string>
-          </property>
-          <property name="topic" stdset="0">
-           <string>Help On Homing</string>
-          </property>
-          <property name="horz_size" stdset="0">
-           <string>500</string>
-          </property>
-          <property name="vert_size" stdset="0">
-           <string>500</string>
-          </property>
-          <property name="x_pos" stdset="0">
-           <string>100</string>
-          </property>
-          <property name="y_pos" stdset="0">
-           <string>250</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="4">
+        <item row="4" column="4">
          <widget class="QGroupBox" name="groupBox_13">
           <property name="title">
            <string>Feed</string>
@@ -3008,7 +2806,7 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="3" rowspan="3">
+        <item row="1" column="3" rowspan="4">
          <widget class="QGroupBox" name="groupBox_12">
           <property name="title">
            <string>Program Options</string>
@@ -3052,78 +2850,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_21">
-          <property name="title">
-           <string>Set and Watch Param</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_40">
-           <item row="0" column="0">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox">
-             <property name="function" stdset="0">
-              <string>set_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1000</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_45">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>watch_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1000</string>
-             </property>
-             <property name="precision" stdset="0">
-              <string>2</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_47">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>watch_var</string>
-             </property>
-             <property name="variable" stdset="0">
-              <string>1001</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="4">
-         <widget class="QGroupBox" name="groupBox_26">
-          <property name="title">
-           <string>Touch Spinbox</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <widget class="QSpinBox" name="spinBox_3">
-             <property name="input" stdset="0">
-              <string>number</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
-             <property name="input" stdset="0">
-              <string>number</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="3" column="2">
+        <item row="4" column="2">
          <widget class="QGroupBox" name="groupBox_24">
           <property name="title">
            <string>HAL I/O</string>
@@ -3189,6 +2916,189 @@
           </layout>
          </widget>
         </item>
+        <item row="0" column="4">
+         <widget class="QGroupBox" name="groupBox_20">
+          <property name="title">
+           <string>HAL Spinbox</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_33">
+           <item row="0" column="0">
+            <widget class="QSpinBox" name="spinBox">
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-spinbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-dbl-spinbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_FLOAT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_OUT</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="text">
+           <string>Help</string>
+          </property>
+          <property name="function" stdset="0">
+           <string>help</string>
+          </property>
+          <property name="file" stdset="0">
+           <string>broken_help.txt</string>
+          </property>
+          <property name="topic" stdset="0">
+           <string>Help On Homing</string>
+          </property>
+          <property name="horz_size" stdset="0">
+           <string>500</string>
+          </property>
+          <property name="vert_size" stdset="0">
+           <string>500</string>
+          </property>
+          <property name="x_pos" stdset="0">
+           <string>100</string>
+          </property>
+          <property name="y_pos" stdset="0">
+           <string>250</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QGroupBox" name="groupBox_22">
+          <property name="title">
+           <string>HAL I/O Spinbox</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_39">
+           <item row="0" column="0">
+            <widget class="QSpinBox" name="spinBox_2">
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-spinbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-dbl-spinbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_FLOAT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QGroupBox" name="groupBox_23">
+          <property name="title">
+           <string>HAL I/O</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_41">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pushButton_12">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-button</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-checkbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QGroupBox" name="groupBox_26">
+          <property name="title">
+           <string>Touch Spinbox</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QSpinBox" name="spinBox_3">
+             <property name="input" stdset="0">
+              <string>number</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+             <property name="input" stdset="0">
+              <string>number</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="1" column="2" rowspan="2">
          <widget class="QGroupBox" name="groupBox_27">
           <property name="title">
@@ -3219,7 +3129,84 @@
           </layout>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_21">
+          <property name="title">
+           <string>Set and Watch Param</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_40">
+           <item row="0" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="function" stdset="0">
+              <string>set_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_45">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1000</string>
+             </property>
+             <property name="precision" stdset="0">
+              <string>2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>watch_var</string>
+             </property>
+             <property name="variable" stdset="0">
+              <string>1001</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Coolant</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_25">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="flood_pb">
+             <property name="text">
+              <string>Flood</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="mist_pb">
+             <property name="text">
+              <string>Mist</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_28">
           <property name="title">
            <string>HAL Sliders</string>
@@ -3243,7 +3230,29 @@
               <string>hal-slider</string>
              </property>
              <property name="hal_type" stdset="0">
-              <string>HAL_S64</string>
+              <string>HAL_S32</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_29">
+          <property name="title">
+           <string>HAL LCD</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_45">
+           <item row="0" column="0">
+            <widget class="QLCDNumber" name="lcdNumber">
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-lcd</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U64</string>
              </property>
             </widget>
            </item>

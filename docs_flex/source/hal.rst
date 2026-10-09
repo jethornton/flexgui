@@ -441,6 +441,8 @@ The HAL direction is IN for a HAL LCD
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
+	LinuxCNC 2.10 or greater
+	String, hal_type, HAL_S64 or HAL_U64
 	Optional
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
