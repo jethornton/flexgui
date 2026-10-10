@@ -215,7 +215,7 @@ class flexgui(QMainWindow):
 	def __init__(self):
 		super().__init__()
 
-		self.flex_version = '2.1.0'
+		self.flex_version = '2.1.1'
 		self.emc_version = emc.version.partition('~')[0]
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
