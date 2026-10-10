@@ -2663,8 +2663,11 @@ def setup_hal(parent):
 					parent.hal_io_check[obj_name] = pin_name
 
 				elif isinstance(child, QSpinBox) or isinstance(child, QSlider):
+					possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+					valid_types = list(set(possible_types) & set(hal_types))
 					hal_type = child.property('hal_type')
-					if hal_type in ['HAL_S32', 'HAL_U32']:
+
+					if hal_type in valid_types:
 						hal_type = getattr(hal, f'{hal_type}')
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal.HAL_IO))
 						child.valueChanged.connect(partial(utilities.update_hal_io, parent))
@@ -2676,8 +2679,9 @@ def setup_hal(parent):
 						else:
 							obj_type = 'QSlider'
 						title = 'Configuration Error'
-						msg = (f'The "{obj_type}" "{obj_name}" hal_type must be HAL_S32 or '
-						'HAL_U32.')
+						msg = (f'The HAL type "{hal_type}" is not valid for the '
+						f'"{obj_type}" "{obj_name}". Only {", ".join(valid_types)} are '
+						'valid')
 						info = f'The "{obj_type}" will be disabled'
 						dialogs.error_msg_ok(parent, title, msg, info)
 						continue
