@@ -3000,7 +3000,7 @@
               <string>hal-io-spinbox</string>
              </property>
              <property name="hal_type" stdset="0">
-              <string>HAL_U32</string>
+              <string>HAL_U64</string>
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IO</string>
