@@ -3049,9 +3049,7 @@ def setup_hal(parent):
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
 			s = label.property('samples') or 10
-			r = label.property('rounding') or 0
-			if r > 0:
-				r = -r
+			r = label.property('rounding') or parent.default_precision
 
 			if pin_name in [None, '']:
 				title = 'Configuration Error'
