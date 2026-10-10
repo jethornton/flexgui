@@ -2613,7 +2613,6 @@ def setup_hal(parent):
 			set_hal_enables(parent, button)
 
 	##### HAL_IO ##### FIXME add 64 bit
-	io_errors = {}
 	for child in parent.findChildren(QWidget):
 		if not isdeleted(child):  
 			if child.property('function') == 'hal_io':
@@ -2689,9 +2688,6 @@ def setup_hal(parent):
 					parent.hal_io_float[obj_name] = pin_name
 
 				set_hal_enables(parent, child)
-
-	for key, value in io_errors.items():
-		dialogs.error_msg_ok(parent, value, 'Error')
 
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_pin':
