@@ -2747,7 +2747,7 @@
               <string>test-reader-s32</string>
              </property>
              <property name="hal_type" stdset="0">
-              <string>HAL_S64</string>
+              <string>HAL_S32</string>
              </property>
              <property name="hal_dir" stdset="0">
               <string>HAL_IN</string>

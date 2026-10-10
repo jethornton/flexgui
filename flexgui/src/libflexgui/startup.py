@@ -2665,23 +2665,11 @@ def setup_hal(parent):
 
 				elif isinstance(child, QSpinBox) or isinstance(child, QSlider):
 					hal_type = child.property('hal_type')
-					possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
-					valid_types = list(set(possible_types) & set(hal_types))
-
-					if hal_type not in valid_types:
-						title = 'Configuration Error'
-						msg = (f'The HAL type "{hal_type}" is not a valid type. Only '
-						f'{", ".join(valid_types)} are valid for a HAL Spinbox or Slider')
-						info = f'The "{obj_name}" spinbox will be disabled.'
-						dialogs.error_msg_ok(parent, title, msg, info)
-						spinbox.setEnabled(False)
-						continue
-
-					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal.HAL_IO))
-					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
-					parent.hal_io_int[obj_name] = pin_name
-
-					'''
+					if hal_type in ['HAL_S32', 'HAL_U32']:
+						hal_type = getattr(hal, f'{hal_type}')
+						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal.HAL_IO))
+						child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+						parent.hal_io_int[obj_name] = pin_name
 					else:
 						child.setEnabled(False)
 						if isinstance(child, QSpinBox):
@@ -2694,7 +2682,6 @@ def setup_hal(parent):
 						info = f'The "{obj_type}" will be disabled'
 						dialogs.error_msg_ok(parent, title, msg, info)
 						continue
-					'''
 
 				elif isinstance(child, QDoubleSpinBox):
 					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_FLOAT, hal.HAL_IO))
@@ -2840,6 +2827,7 @@ def setup_hal(parent):
 				spinbox.setEnabled(False)
 				continue
 
+			hal_type = getattr(hal, f'{hal_type}')
 			hal_dir = getattr(hal, 'HAL_OUT')
 			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
 			# set the default value of the spin box to the hal pin
