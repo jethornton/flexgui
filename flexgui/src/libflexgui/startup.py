@@ -2680,8 +2680,8 @@ def setup_hal(parent):
 							obj_type = 'QSlider'
 						title = 'Configuration Error'
 						msg = (f'The HAL type "{hal_type}" is not valid for the '
-						f'"{obj_type}" "{obj_name}". Only {", ".join(valid_types)} are '
-						'valid')
+						f'"{obj_type}" named "{obj_name}". Only {", ".join(valid_types)} '
+						'are valid')
 						info = f'The "{obj_type}" will be disabled'
 						dialogs.error_msg_ok(parent, title, msg, info)
 						continue
@@ -3084,7 +3084,9 @@ def setup_hal(parent):
 
 	##### HAL AVERAGE INT LABEL #####
 	if len(hal_avr_i_labels) > 0:
-		valid_types = ['HAL_S32', 'HAL_U32']
+		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		valid_types = list(set(possible_types) & set(hal_types))
+
 		for label in hal_avr_i_labels:
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
@@ -3114,7 +3116,7 @@ def setup_hal(parent):
 			if hal_type not in valid_types:
 				title = 'Configuration Error'
 				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL Average '
-				'Integer Label, only HAL_S32 or HAL_U32 can be used.')
+				f'Integer Label, only {", ".join(valid_types)} are valid.')
 				info = f'The "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1004</width>
-    <height>846</height>
+    <height>801</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2882,163 +2882,6 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="4">
-         <widget class="QGroupBox" name="groupBox_23">
-          <property name="title">
-           <string>HAL I/O</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_41">
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_12">
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-button</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-checkbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QGroupBox" name="groupBox_24">
-          <property name="title">
-           <string>HAL I/O</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_42">
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="radioButton_1">
-             <property name="text">
-              <string>RadioButton</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-rb1</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QRadioButton" name="radioButton_2">
-             <property name="text">
-              <string>RadioButton</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-rb2</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QRadioButton" name="radioButton_3">
-             <property name="text">
-              <string>RadioButton</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-rb3</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QGroupBox" name="groupBox_22">
-          <property name="title">
-           <string>HAL I/O Spinbox</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_39">
-           <item row="0" column="0">
-            <widget class="QSpinBox" name="spinBox_2">
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-spinbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_U64</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
-             <property name="function" stdset="0">
-              <string>hal_io</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-io-dbl-spinbox</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_FLOAT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IO</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox_30">
           <property name="title">
@@ -3236,91 +3079,6 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>HAL Labels</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_34">
-           <item row="3" column="0">
-            <widget class="QLabel" name="test_lb_4">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-bit</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_BIT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="test_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-s32</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_S32</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="test_lb_2">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-u32</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_U32</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="test_lb_3">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>test-reader-float</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>HAL_FLOAT</string>
-             </property>
-             <property name="hal_dir" stdset="0">
-              <string>HAL_IN</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QGroupBox" name="groupBox_28">
           <property name="title">
@@ -3382,6 +3140,432 @@
              </property>
              <property name="hal_type" stdset="0">
               <string>HAL_U64</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QGroupBox" name="groupBox_23">
+          <property name="title">
+           <string>HAL I/O</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_41">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pushButton_12">
+             <property name="text">
+              <string>PushButton</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-button</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-checkbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QGroupBox" name="groupBox_24">
+          <property name="title">
+           <string>HAL I/O</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_42">
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="radioButton_1">
+             <property name="text">
+              <string>RadioButton</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-rb1</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="radioButton_2">
+             <property name="text">
+              <string>RadioButton</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-rb2</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QGroupBox" name="groupBox_22">
+          <property name="title">
+           <string>HAL I/O Spinbox</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_39">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_54">
+             <property name="text">
+              <string>32 Bit</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="spinBox_5">
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-spinbox-u64</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U64</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_55">
+             <property name="text">
+              <string>64 Bit</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="spinBox_2">
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-spinbox-u32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QGroupBox" name="groupBox_33">
+          <property name="title">
+           <string>HAL I/O Double Spinbox</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_50">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_56">
+             <property name="text">
+              <string>Float</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+             <property name="function" stdset="0">
+              <string>hal_io</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-io-dbl-spinbox</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_FLOAT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IO</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="5" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>HAL Labels</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_34">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_57">
+             <property name="text">
+              <string>Float</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="test_lb_4">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-label-bit</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_BIT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="test_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-label-s32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="test_lb_3">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-label-float</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_FLOAT</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="test_lb_2">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-label-u32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U32</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_58">
+             <property name="text">
+              <string>S32</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_59">
+             <property name="text">
+              <string>U32</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="test_lb_5">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-label-s64</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S64</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_60">
+             <property name="text">
+              <string>S64</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="test_lb_6">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_pin</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-label-u64</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_U64</string>
+             </property>
+             <property name="hal_dir" stdset="0">
+              <string>HAL_IN</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_61">
+             <property name="text">
+              <string>U64</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_62">
+             <property name="text">
+              <string>Bit</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_34">
+          <property name="title">
+           <string>HAL Average Float</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_51">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_63">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_avr_f</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-average-float</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QGroupBox" name="groupBox_35">
+          <property name="title">
+           <string>HAL Average Integer</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_52">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_65">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_avr_i</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-average-s64</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S64</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_64">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="function" stdset="0">
+              <string>hal_avr_i</string>
+             </property>
+             <property name="pin_name" stdset="0">
+              <string>hal-average-s32</string>
+             </property>
+             <property name="hal_type" stdset="0">
+              <string>HAL_S32</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_66">
+             <property name="text">
+              <string>32 Bit</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_67">
+             <property name="text">
+              <string>64 Bit</string>
              </property>
             </widget>
            </item>
