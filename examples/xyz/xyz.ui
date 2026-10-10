@@ -3066,7 +3066,7 @@
               <string>hal_pin</string>
              </property>
              <property name="pin_name" stdset="0">
-              <string>hal-dbl-spinbox</string>
+              <string>hal-spinbox-float</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>HAL_FLOAT</string>
