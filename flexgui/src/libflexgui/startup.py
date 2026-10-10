@@ -3019,7 +3019,7 @@ def setup_hal(parent):
 				setattr(parent, pin_name, parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				continue
 
-			##### HAL S32/U32 Label #####
+			##### HAL Integer Label #####
 			if hal_type in ['HAL_S32', 'HAL_U32', 'HAL_S64', 'HAL_U64']:
 				if label.property('integer_digits'):
 					title = 'Configuration Error'
@@ -3314,103 +3314,6 @@ def setup_hal_watch(parent):
 			if validate_pins(label, obj_name, pins):
 				parent.hal_watch_time_hms[obj_name] = pins
 
-
-	'''
-	for label in parent.findChildren(QLabel):
-		if label.property('function') == 'hal_watch_bit':
-			obj_name = label.objectName()
-			pin = label.property('pin_name')
-			try:
-				hal.get_value(pin)
-				parent.hal_watch_bit[obj_name] = pin
-			except Exception:
-				title = 'Configuration Error'
-				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
-				'found.')
-				info = 'The Label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setText('Error!')
-				label.setEnabled(False)
-
-		elif label.property('function') == 'hal_watch_int':
-			obj_name = label.objectName()
-			pin = label.property('pin_name')
-			try:
-				hal.get_value(pin)
-				parent.hal_watch_int[obj_name] = pin
-			except Exception:
-				title = 'Configuration Error'
-				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
-				'found.')
-				info = 'The Label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setText('Error!')
-				label.setEnabled(False)
-
-		elif label.property('function') == 'hal_watch_float':
-			obj_name = label.objectName()
-			pin = label.property('pin_name')
-			p = label.property('precision')
-			p = p if p is not None else parent.default_precision
-			try:
-				hal.get_value(pin)
-				parent.hal_watch_float[obj_name] = [pin, p]
-			except Exception:
-				title = 'Configuration Error'
-				msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was not '
-				'found.')
-				info = 'The Label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setText('Error!')
-				label.setEnabled(False)
-
-		elif label.property('function') == 'hal_watch_time_hm':
-			obj_name = label.objectName()
-			hr_pin = label.property('hours')
-			min_pin = label.property('minutes')
-			test = False
-			for pin in [hr_pin, min_pin]:
-				try:
-					hal.get_value(pin)
-					test = True
-				except Exception:
-					title = 'Configuration Error'
-					msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was '
-					'not found.')
-					info = 'The Label will be disabled!'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					test = False
-					label.setText('Error!')
-					label.setEnabled(False)
-					break
-
-			if test:
-				parent.hal_watch_time_hm[obj_name] = [hr_pin, min_pin]
-
-		elif label.property('function') == 'hal_watch_time_hms':
-			obj_name = label.objectName()
-			hr_pin = label.property('hours')
-			min_pin = label.property('minutes')
-			sec_pin = label.property('seconds')
-			test = False
-			for pin in [hr_pin, min_pin, sec_pin]:
-				try:
-					hal.get_value(pin)
-					test = True
-				except Exception:
-					title = 'Configuration Error'
-					msg = (f'The HAL Watch Label "{obj_name}" HAL pin "{pin}" was '
-					'not found.')
-					info = 'The Label will be disabled!'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					test = False
-					label.setText('Error!')
-					label.setEnabled(False)
-					break
-
-			if test:
-				parent.hal_watch_time_hms[obj_name] = [hr_pin, min_pin, sec_pin]
-	'''
 def setup_toolbar(parent):
 	if 'flex_E_Stop' in parent.child_names:
 		parent.flex_E_Stop.setStyleSheet(parent.selected_style)
