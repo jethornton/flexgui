@@ -1,3 +1,9 @@
+flexgui (2.1.1) unstable; urgency=medium
+
+  * Add support for HAL 64 bit integers
+
+ -- John Thornton <dev@gnipsel.com>  Sat, 10 Oct 2026 07:31:47 -0500
+
 flexgui (2.1.0) unstable; urgency=medium
 
   * Add OpenGL 3.3 support
