@@ -11,6 +11,7 @@ HAL Pins
 	| HAL Slider is complete.
 	| HAL Integer Label is complete.
 	| HAL I/O Slider and Spinbox is complete.
+	| HAL Average Integer Label is complete.
 
 Creating widgets that connect to HAL (Hardware Abstract Layer) is as simple as
 adding a few Dynamic Properties. See :doc:`property` for step by step
@@ -295,7 +296,7 @@ The HAL direction is IN for a HAL Label.
 .. csv-table:: **HAL Label**
    :width: 100%
    :align: center
-   :widths: 25 25 50
+   :widths: 30 25 45
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
@@ -304,8 +305,8 @@ The HAL direction is IN for a HAL Label.
 	LinuxCNC 2.10 or greater
 	String, hal_type, HAL_S64 or HAL_U64
 	Optional
-	String, precision, Number of decimal digits for HAL_FLOAT type
-	String, zero_padding, Left padded zeros for HAL_S32 or HAL_U32
+	String, precision, Number of digits for HAL_FLOAT
+	String, zero_padding, Left padded zeros for integer types
 
 HAL Bool Label
 --------------
