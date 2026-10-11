@@ -492,7 +492,8 @@ class flexgui(QMainWindow):
 		self.var_watch_timer.stop()
 		self.io_watch_timer.stop()
 		self.button_flash_timer.stop()
-		self.plotter.timer.stop()
+		if hasattr(self.plotter, 'timer'):
+			self.plotter.timer.stop()
 
 		# 2. Safely close any loose child dialogs
 		if self.help_dialog is not None:
