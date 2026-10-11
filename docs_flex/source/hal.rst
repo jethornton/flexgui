@@ -4,8 +4,8 @@ HAL Pins
 `HAL Tutorial <https://youtu.be/LU4914GyGXI>`_
 
 Creating widgets that connect to HAL (Hardware Abstract Layer) is as simple as
-adding a few Dynamic Properties. See :doc:`property` for step by step
-instructions to add a Dynamic Property.
+adding a few Dynamic Properties to a widget. See :doc:`property` for step by
+step instructions to add a Dynamic Property.
 
 Typically the Dynamic Properties are String type with some exceptions being Bool
 and Color. Connections from Flex HAL objects to other HAL objects must be done
@@ -65,6 +65,8 @@ Property to control when the HAL object is enabled. The `state_on` property will
 enable the control when the power is on. The `all_homed` property will enable
 the control when all joints are homed. They can be combined to make a HAL object
 only enabled when power is on and all joints are homed.
+
+HAL objects that are HAL_IN are always enabled.
 
 .. csv-table:: **HAL Options**
    :width: 100%
