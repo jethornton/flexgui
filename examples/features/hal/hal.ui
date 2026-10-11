@@ -34,7 +34,12 @@ Programs &gt; Show HAL to view the pins
 
 If you run this the HAL Component Name should be flexhal. If you have an Axis Sim and run flexgui in a terminal the name is random.
 
-(debug, #&lt;_hal[flexhal.probe_seek]&gt;)</string>
+(debug, #&lt;_hal[flexhal.probe_seek]&gt;)
+
+Run Programs Show HAL and add\n the HALpins to the watch window
+in the HAL command box you can use setp
+ to change a value and see the object
+change in the GUI</string>
          </property>
         </widget>
        </item>
@@ -158,7 +163,7 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
     <item row="2" column="2" rowspan="3" colspan="3">
      <widget class="QTabWidget" name="tabWidget_6">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page1">
        <attribute name="title">
@@ -180,28 +185,6 @@ If you run this the HAL Component Name should be flexhal. If you have an Axis Si
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_7">
-       <attribute name="title">
-        <string>Page</string>
-       </attribute>
-       <widget class="QLabel" name="label_9">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>30</y>
-          <width>334</width>
-          <height>85</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Run Programs Show HAL and add
- the HALpins to the watch window
-in the HAL command box you can use setp
- to change a value and see the object
-change in the GUI</string>
-        </property>
-       </widget>
-      </widget>
      </widget>
     </item>
     <item row="1" column="0" rowspan="2" colspan="2">
@@ -213,7 +196,7 @@ change in the GUI</string>
        </size>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>0</number>
       </property>
       <property name="function" stdset="0">
        <string>hal_watch_time_hm</string>
@@ -333,7 +316,7 @@ change in the GUI</string>
         <item row="7" column="0">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>flexhal.slideme</string>
+           <string>flexhal.hal-slider</string>
           </property>
          </widget>
         </item>
@@ -376,13 +359,10 @@ change in the GUI</string>
            <string>hal_pin</string>
           </property>
           <property name="pin_name" stdset="0">
-           <string>slideme</string>
+           <string>hal-slider</string>
           </property>
           <property name="hal_type" stdset="0">
            <string>HAL_S32</string>
-          </property>
-          <property name="hal_dir" stdset="0">
-           <string>HAL_OUT</string>
           </property>
          </widget>
         </item>
