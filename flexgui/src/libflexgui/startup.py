@@ -1715,6 +1715,7 @@ def setup_spindle(parent):
 		'spindle_direction', 'spindle_speed', 'spindle_override',
 		'spindle_cmd_speed']
 
+	parent.status.poll()
 	max_spindle = parent.status.spindles - 1
 
 	parent.spindle_int = {}
