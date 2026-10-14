@@ -91,6 +91,35 @@ This is how the above looks in the GUI
 
 .. _led_buttons:
 
+External E Stop
+---------------
+
+To add an external E Stop you need to change the HAL code. First you need to
+find and remove the following code
+
+.. code-block:: text
+
+	net estop-out <= iocontrol.0.user-enable-out
+	net estop-out => iocontrol.0.emc-enable-in
+
+Next you need to add the estop_latch component and make the connections to
+iocontrol.
+
+.. code-block:: text
+
+	loadrt estop_latch
+	addf estop-latch.0 servo-thread
+	net estop-loopout iocontrol.0.emc-enable-in <= estop-latch.0.ok-out
+	net estop-loopin iocontrol.0.user-enable-out => estop-latch.0.ok-in
+	net estop-reset iocontrol.0.user-request-enable => estop-latch.0.reset
+	net remote-estop estop-latch.0.fault-in <= your.physical.input.pin.name
+
+When the physical E Stop is on the estop-latch.0.fault-in is True that prevents
+the iocontrol from changing from ESTOP state to ESTOP_RESET state. If you have
+an E Stop button on the GUI the checked state is kept in sync with the state. If
+your physical E Stop is normally closed you need to reverse the logic with a not
+HAL component or change it to normally open.
+
 LED Buttons
 -----------
 
