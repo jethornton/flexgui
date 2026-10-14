@@ -61,10 +61,11 @@ Options
 
 The default behavior for HAL objects that are a HAL_OUT or HAL_IO is to be
 enabled when the E Stop is released. To change this behaviour add a Dynamic
-Property to control when the HAL object is enabled. The `state_on` property will
-enable the control when the power is on. The `all_homed` property will enable
-the control when all joints are homed. They can be combined to make a HAL object
-only enabled when power is on and all joints are homed.
+Property to control when the HAL object is enabled. The `always_on` will not
+disable the control for any state. The `state_on` property will enable the
+control when the power is on. The `all_homed` property will enable the control
+when all joints are homed. They can be combined to make a HAL object only
+enabled when power is on and all joints are homed.
 
 HAL objects that are HAL_IN are always enabled.
 
@@ -74,6 +75,7 @@ HAL objects that are HAL_IN are always enabled.
    :widths: 33 33 33
 
 	**Property Type**, **Property Name**, **Pin Value**
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 
