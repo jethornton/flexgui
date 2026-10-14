@@ -212,14 +212,12 @@ class bc_gen(QWidget):
 		gcode_text = self.get_calculated_gcode()
 
 		self.command_channel.mode(linuxcnc.MODE_MDI)
-		print('Changing Mode to MDI')
 		self.command_channel.wait_complete()
 
 		for line in gcode_text.split('\n'):
 			line = line.strip()
 			if line and not line.startswith(';'):
 				self.command_channel.mdi(line)
-				print(f'Executing {line}')
 				self.command_channel.wait_complete()
 
 		self.command_channel.mode(linuxcnc.MODE_MANUAL)

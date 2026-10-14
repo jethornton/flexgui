@@ -124,17 +124,12 @@ class tpc_calc(QWidget):
 	def move_to_center(self, parent): 
 		# FIXED: Referencing instance variables instead of local variables
 		if self.x_center is not None and self.y_center is not None:
-			print(f'move_to_center X {self.x_center:.4f} Y {self.y_center:.4f}')
 			# Example MDI command execution if libflexgui supports it:
 			commands.run_mdi(parent, f'G0 X{self.x_center:.4f} Y{self.y_center:.4f}')
-		else:
-			print('Error: Calculate a center point first')
 
 	def set_to_x0y0(self): 
 		if self.x_center is not None and self.y_center is not None:
 			print(f'Setting current center to X0 Y0')
 			# Example MDI offset command (G10 L2 P0 X... Y...) to shift coordinate origin
 			commands.run_mdi(parent, f'G10 L20 P0 X0 Y0')
-		else:
-			print('Error: No center point calculated to set as origin')
 
