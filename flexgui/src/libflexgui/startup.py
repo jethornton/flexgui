@@ -1696,6 +1696,15 @@ def setup_spindle(parent):
 	# create spindle tuple
 	parent.status_spindle = ()
 
+	# create dictionaries
+	parent.spindle_int = {}
+	parent.spindle_bool = {}
+	parent.spindle_dir = {}
+	parent.spindle_speed = {}
+	parent.status_spindle_lcd = {}
+	parent.spindle_override = {}
+	parent.spindle_cmd_speed = {}
+
 	##### Check for old object names
 	if 'spindle_actual_speed_lb' in parent.child_names:
 		title = 'Configuration Error'
@@ -1708,287 +1717,282 @@ def setup_spindle(parent):
 		parent.spindle_actual_speed_lb.setText('Error!')
 
 	##### Start of Multiple Spindle #####
+	if parent.status.spindles > 1:
+		# check for number of spindles matches the number of status labels
+		multi_spindle_labels = ['spindle_brake', 'spindle_enabled',
+			'spindle_orient_state', 'spindle_orient_fault', 'spindle_override_enabled',
+			'spindle_direction', 'spindle_speed', 'spindle_override',
+			'spindle_cmd_speed']
 
-	# check for number of spindles matches the number of status labels
-	multi_spindle_labels = ['spindle_brake', 'spindle_enabled',
-		'spindle_orient_state', 'spindle_orient_fault', 'spindle_override_enabled',
-		'spindle_direction', 'spindle_speed', 'spindle_override',
-		'spindle_cmd_speed']
+		parent.status.poll()
+		max_spindle = parent.status.spindles - 1
+		print(f'max_spindle {max_spindle}')
+		print(f'parent.status.spindles {parent.status.spindles}')
 
-	parent.status.poll()
-	max_spindle = parent.status.spindles - 1
+		spindle_int = {
+		'spindle_brake': 'brake',
+		'spindle_enabled': 'enabled',
+		'spindle_orient_state': 'orient_state',
+		'spindle_orient_fault': 'orient_fault'
+		}
 
-	parent.spindle_int = {}
-	spindle_int = {
-	'spindle_brake': 'brake',
-	'spindle_enabled': 'enabled',
-	'spindle_orient_state': 'orient_state',
-	'spindle_orient_fault': 'orient_fault'
-	}
+		for key, value in spindle_int.items():
+			for i in range(8):
+				if f'{key}_{i}_lb' in parent.child_names:
+					if i <= max_spindle:
+						parent.spindle_int[f'{key}_{i}_lb'] = [i, value]
+					else:
+						title = 'Configuration Error'
+						msg = (f'The spindle status label "{key}_{i}_lb" is more than the '
+						f'number of spindles')
+						info = 'The label will be disabled!'
+						dialogs.error_msg_ok(parent, title, msg, info)
+						getattr(parent, f'{key}_{i}_lb').setText('Error!')
+						getattr(parent, f'{key}_{i}_lb').setEnabled(False)
 
-	for key, value in spindle_int.items():
 		for i in range(8):
-			if f'{key}_{i}_lb' in parent.child_names:
+			if f'spindle_override_enabled_{i}_lb' in parent.child_names:
 				if i <= max_spindle:
-					parent.spindle_int[f'{key}_{i}_lb'] = [i, value]
+					parent.spindle_bool[f'spindle_override_enabled_{i}_lb'] = [i, 'override_enabled']
 				else:
 					title = 'Configuration Error'
-					msg = (f'The spindle status label "{key}_{i}_lb" is more than the '
-					f'number of spindles')
+					msg = (f'The spindle status label "spindle_override_enabled_{i}_lb" is '
+					'more than the number of spindles')
 					info = 'The label will be disabled!'
 					dialogs.error_msg_ok(parent, title, msg, info)
-					getattr(parent, f'{key}_{i}_lb').setText('Error!')
-					getattr(parent, f'{key}_{i}_lb').setEnabled(False)
+					getattr(parent, f'spindle_override_enabled_{i}_lb').setText('Error!')
+					getattr(parent, f'spindle_override_enabled_{i}_lb').setEnabled(False)
 
-	parent.spindle_bool = {}
-	for i in range(8):
-		if f'spindle_override_enabled_{i}_lb' in parent.child_names:
-			if i <= max_spindle:
-				parent.spindle_bool[f'spindle_override_enabled_{i}_lb'] = [i, 'override_enabled']
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_override_enabled_{i}_lb" is '
-				'more than the number of spindles')
-				info = 'The label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_override_enabled_{i}_lb').setText('Error!')
-				getattr(parent, f'spindle_override_enabled_{i}_lb').setEnabled(False)
-
-	parent.spindle_dir = {}
-	for i in range(8):
-		if f'spindle_direction_{i}_lb' in parent.child_names:
-			if i <= max_spindle:
-				parent.spindle_dir[f'spindle_direction_{i}_lb'] = [i, 'direction']
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_direction_{i}_lb" is '
-				'more than the number of spindles')
-				info = 'The label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_direction_{i}_lb').setText('Error!')
-				getattr(parent, f'spindle_direction_{i}_lb').setEnabled(False)
-
-	parent.spindle_speed = {}
-	for i in range(8):
-		if f'spindle_speed_{i}_lb' in parent.child_names:
-			if i <= max_spindle:
-				parent.spindle_speed[f'spindle_speed_{i}_lb'] = [i, 'speed']
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_speed_{i}_lb" is '
-				'more than the number of spindles')
-				info = 'The label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_speed_{i}_lb').setText('Error!')
-				getattr(parent, f'spindle_speed_{i}_lb').setEnabled(False)
-
-	parent.status_spindle_lcd = {}
-	for i in range(8):
-		if f'spindle_speed_{i}_lcd' in parent.child_names:
-			if i <= max_spindle:
-				parent.status_spindle_lcd[f'spindle_speed_{i}_lcd'] = [i, 'speed']
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_speed_{i}_lcd" is '
-				'more than the number of spindles')
-				info = 'The label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_speed_{i}_lcd').setEnabled(False)
-
-	parent.spindle_override = {}
-	for i in range(8):
-		if f'spindle_override_{i}_lb' in parent.child_names:
-			if i <= max_spindle:
-				parent.spindle_override[f'spindle_override_{i}_lb'] = [i, 'override']
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_override_{i}_lb" is '
-				'more than the number of spindles')
-				info = 'The label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_override_{i}_lb').setText('Error!')
-				getattr(parent, f'spindle_override_{i}_lb').setEnabled(False)
-
-	parent.spindle_cmd_speed = {}
-	for i in range(8):
-		if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
-			if i <= max_spindle:
-				parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle status label "spindle_cmd_speed_{i}_lb" is '
-				'more than the number of spindles')
-				info = 'The label will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_cmd_speed_{i}_lb').setText('Error!')
-				getattr(parent, f'spindle_cmd_speed_{i}_lb').setEnabled(False)
-
-	# check for number of spindles matches the number of controls
-	multi_spindle_controls = ['spindle_fwd', 'spindle_rev', 'spindle_stop',
-	'spindle_plus', 'spindle_minus', 'spindle_speed']
-
-	# set up multiple spindle controls
-	for i in range(8):
-		for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop', 'spindle_plus', 'spindle_minus']:
-			if f'{item}_{i}_pb' in parent.child_names:
+		for i in range(8):
+			if f'spindle_direction_{i}_lb' in parent.child_names:
 				if i <= max_spindle:
-						action = item.split('_')[-1]
-						getattr(parent, f'{item}_{i}_pb').clicked.connect(
-						partial(commands.spindle_control, parent, i, action))
-						parent.spindle_controls.append(f'{item}_{i}_pb')
+					parent.spindle_dir[f'spindle_direction_{i}_lb'] = [i, 'direction']
 				else:
 					title = 'Configuration Error'
-					msg = (f'The spindle control "{item}_{i}_pb" is  more than the '
+					msg = (f'The spindle status label "spindle_direction_{i}_lb" is '
+					'more than the number of spindles')
+					info = 'The label will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_direction_{i}_lb').setText('Error!')
+					getattr(parent, f'spindle_direction_{i}_lb').setEnabled(False)
+
+		for i in range(8):
+			if f'spindle_speed_{i}_lb' in parent.child_names:
+				if i <= max_spindle:
+					parent.spindle_speed[f'spindle_speed_{i}_lb'] = [i, 'speed']
+				else:
+					title = 'Configuration Error'
+					msg = (f'The spindle status label "spindle_speed_{i}_lb" is '
+					'more than the number of spindles')
+					info = 'The label will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_speed_{i}_lb').setText('Error!')
+					getattr(parent, f'spindle_speed_{i}_lb').setEnabled(False)
+
+		for i in range(8):
+			if f'spindle_speed_{i}_lcd' in parent.child_names:
+				if i <= max_spindle:
+					parent.status_spindle_lcd[f'spindle_speed_{i}_lcd'] = [i, 'speed']
+				else:
+					title = 'Configuration Error'
+					msg = (f'The spindle status label "spindle_speed_{i}_lcd" is '
+					'more than the number of spindles')
+					info = 'The label will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_speed_{i}_lcd').setEnabled(False)
+
+		for i in range(8):
+			if f'spindle_override_{i}_lb' in parent.child_names:
+				if i <= max_spindle:
+					parent.spindle_override[f'spindle_override_{i}_lb'] = [i, 'override']
+				else:
+					title = 'Configuration Error'
+					msg = (f'The spindle status label "spindle_override_{i}_lb" is '
+					'more than the number of spindles')
+					info = 'The label will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_override_{i}_lb').setText('Error!')
+					getattr(parent, f'spindle_override_{i}_lb').setEnabled(False)
+
+		for i in range(8):
+			if f'spindle_cmd_speed_{i}_lb' in parent.child_names:
+				if i <= max_spindle:
+					parent.spindle_cmd_speed[f'spindle_cmd_speed_{i}_lb'] = [i, 'override']
+				else:
+					title = 'Configuration Error'
+					msg = (f'The spindle status label "spindle_cmd_speed_{i}_lb" is '
+					'more than the number of spindles')
+					info = 'The label will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_cmd_speed_{i}_lb').setText('Error!')
+					getattr(parent, f'spindle_cmd_speed_{i}_lb').setEnabled(False)
+
+		# check for number of spindles matches the number of controls
+		multi_spindle_controls = ['spindle_fwd', 'spindle_rev', 'spindle_stop',
+		'spindle_plus', 'spindle_minus', 'spindle_speed']
+
+		# set up multiple spindle controls
+		for i in range(8):
+			for item in ['spindle_fwd', 'spindle_rev', 'spindle_stop', 'spindle_plus', 'spindle_minus']:
+				if f'{item}_{i}_pb' in parent.child_names:
+					if i <= max_spindle:
+							action = item.split('_')[-1]
+							getattr(parent, f'{item}_{i}_pb').clicked.connect(
+							partial(commands.spindle_control, parent, i, action))
+							parent.spindle_controls.append(f'{item}_{i}_pb')
+					else:
+						title = 'Configuration Error'
+						msg = (f'The spindle control "{item}_{i}_pb" is  more than the '
+						'number of spindles.')
+						info = 'The control will be disabled!'
+						dialogs.error_msg_ok(parent, title, msg, info)
+						getattr(parent, f'{item}_{i}_pb').setText('Error!')
+						getattr(parent, f'{item}_{i}_pb').setEnabled(False)
+
+		# set spindle S word
+		for i in range(8):
+			if f'set_speed_{i}_pb' in parent.child_names:
+				if i <= max_spindle:
+					action = 'set_s_word'
+					getattr(parent, f'set_speed_{i}_pb').clicked.connect(
+					partial(commands.spindle_control, parent, i, action))
+					parent.mdi_controls.append(f'set_speed_{i}_pb')
+				else:
+					title = 'Configuration Error'
+					msg = (f'The spindle control "set_speed_{i}_pb" is  more than the '
 					'number of spindles.')
 					info = 'The control will be disabled!'
 					dialogs.error_msg_ok(parent, title, msg, info)
-					getattr(parent, f'{item}_{i}_pb').setText('Error!')
-					getattr(parent, f'{item}_{i}_pb').setEnabled(False)
+					getattr(parent, f'set_speed_{i}_pb').setText('Error!')
+					getattr(parent, f'set_speed_{i}_pb').setEnabled(False)
 
-	# set spindle S word
-	for i in range(8):
-		if f'set_speed_{i}_pb' in parent.child_names:
-			if i <= max_spindle:
-				action = 'set_s_word'
-				getattr(parent, f'set_speed_{i}_pb').clicked.connect(
-				partial(commands.spindle_control, parent, i, action))
-				parent.mdi_controls.append(f'set_speed_{i}_pb')
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle control "set_speed_{i}_pb" is  more than the '
-				'number of spindles.')
-				info = 'The control will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'set_speed_{i}_pb').setText('Error!')
-				getattr(parent, f'set_speed_{i}_pb').setEnabled(False)
+		for i in range(8):
+			if f'spindle_override_{i}_sl' in parent.child_names:
+				if i <= max_spindle:
+					min_override = getattr(parent, f'spindle_{i}_min_override')
+					max_override = getattr(parent, f'spindle_{i}_max_override')
+					getattr(parent, f'spindle_override_{i}_sl').blockSignals(True)
+					getattr(parent, f'spindle_override_{i}_sl').setMinimum(min_override)
+					getattr(parent, f'spindle_override_{i}_sl').setMaximum(max_override)
+					if max_override >= 100:
+						getattr(parent, f'spindle_override_{i}_sl').setValue(100)
+					else:
+						getattr(parent, f'spindle_override_{i}_sl').setValue(max_override)
+					getattr(parent, f'spindle_override_{i}_sl').blockSignals(False)
 
-	for i in range(8):
-		if f'spindle_override_{i}_sl' in parent.child_names:
-			if i <= max_spindle:
-				min_override = getattr(parent, f'spindle_{i}_min_override')
-				max_override = getattr(parent, f'spindle_{i}_max_override')
-				getattr(parent, f'spindle_override_{i}_sl').blockSignals(True)
-				getattr(parent, f'spindle_override_{i}_sl').setMinimum(min_override)
-				getattr(parent, f'spindle_override_{i}_sl').setMaximum(max_override)
-				if max_override >= 100:
-					getattr(parent, f'spindle_override_{i}_sl').setValue(100)
+					getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
+					partial(commands.spindle_override, parent, i))
 				else:
-					getattr(parent, f'spindle_override_{i}_sl').setValue(max_override)
-				getattr(parent, f'spindle_override_{i}_sl').blockSignals(False)
+					title = 'Configuration Error'
+					msg = (f'The spindle control spindle_override_{i}_sl is '
+					'more than the number of spindles')
+					info = 'The slider will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_override_{i}_sl').setEnabled(False)
 
-				getattr(parent, f'spindle_override_{i}_sl').valueChanged.connect(
-				partial(commands.spindle_override, parent, i))
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle control spindle_override_{i}_sl is '
-				'more than the number of spindles')
-				info = 'The slider will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_override_{i}_sl').setEnabled(False)
+		# Spindle Speed Spin Boxes
+		for i in range(8):
+			if f'spindle_speed_{i}_sb' in parent.child_names:
+				if i <= max_spindle:
+					min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+					max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+					increment = getattr(parent, f'spindle_{i}_rpm_increment')
+					getattr(parent, f'spindle_speed_{i}_sb').blockSignals(True)
+					getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
+					getattr(parent, f'spindle_speed_{i}_sb').setMinimum(min_rpm)
+					getattr(parent, f'spindle_speed_{i}_sb').setSingleStep(increment)
+					def_rpm  = getattr(parent, f'spindle_rpm_{i}')
+					getattr(parent, f'spindle_speed_{i}_sb').setValue(def_rpm)
+					getattr(parent, f'spindle_speed_{i}_sb').blockSignals(False)
 
-	# Spindle Speed Spin Boxes
-	for i in range(8):
-		if f'spindle_speed_{i}_sb' in parent.child_names:
-			if i <= max_spindle:
-				min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-				max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-				increment = getattr(parent, f'spindle_{i}_rpm_increment')
-				getattr(parent, f'spindle_speed_{i}_sb').blockSignals(True)
-				getattr(parent, f'spindle_speed_{i}_sb').setMaximum(max_rpm)
-				getattr(parent, f'spindle_speed_{i}_sb').setMinimum(min_rpm)
-				getattr(parent, f'spindle_speed_{i}_sb').setSingleStep(increment)
-				def_rpm  = getattr(parent, f'spindle_rpm_{i}')
-				getattr(parent, f'spindle_speed_{i}_sb').setValue(def_rpm)
-				getattr(parent, f'spindle_speed_{i}_sb').blockSignals(False)
+					getattr(parent, f'spindle_speed_{i}_sb').valueChanged.connect(
+					partial(commands.spindle_control, parent, i, 'speed'))
+					parent.spindle_controls.append(f'spindle_speed_{i}_sb')
+				else:
+					title = 'Configuration Error'
+					msg = (f'The spindle control spindle_speed_{i}_sb is '
+					'more than the number of spindles')
+					info = 'The spinbox will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, f'spindle_speed_{i}_sb').setEnabled(False)
 
-				getattr(parent, f'spindle_speed_{i}_sb').valueChanged.connect(
-				partial(commands.spindle_control, parent, i, 'speed'))
-				parent.spindle_controls.append(f'spindle_speed_{i}_sb')
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle control spindle_speed_{i}_sb is '
-				'more than the number of spindles')
-				info = 'The spinbox will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_speed_{i}_sb').setEnabled(False)
-
-	# Spindle Speed Sliders spindle_speed_0_sl
-	for i in range(8):
-		if f'spindle_speed_{i}_sl' in parent.child_names:
-			if i <= max_spindle:
-				min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
-				max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-				default_rpm = getattr(parent, f'spindle_rpm_{i}')
-				getattr(parent, f'spindle_speed_{i}_sl').blockSignals(True)
-				getattr(parent, f'spindle_speed_{i}_sl').setRange(min_rpm, max_rpm)
-				getattr(parent, f'spindle_speed_{i}_sl').setValue(default_rpm)
-				getattr(parent, f'spindle_speed_{i}_sl').blockSignals(False)
-				getattr(parent, f'spindle_speed_{i}_sl').valueChanged.connect(partial(
-				commands.spindle_control, parent, i, 'speed'))
-			else:
-				title = 'Configuration Error'
-				msg = (f'The spindle control spindle_speed_{i}_sl is '
-				'more than the number of spindles')
-				info = 'The slider will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				getattr(parent, f'spindle_speed_{i}_sl').setEnabled(False)
-
-	# Spindle Speed Presets
-	for i in range(8):
-		for item in parent.child_names:
-			if item.startswith(f'spindle_set_{i}'):
+		# Spindle Speed Sliders spindle_speed_0_sl
+		for i in range(8):
+			if f'spindle_speed_{i}_sl' in parent.child_names:
 				if i <= max_spindle:
 					min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
 					max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
-					button = getattr(parent, item)
-					value = item.split('_')[-1]
-					if utilities.is_int(value):
-						rpm = int(value)
-						if min_rpm <= rpm <= max_rpm:
-							button.clicked.connect(partial(commands.spindle_control, parent, i, 'preset', rpm))
-						else:
-							title = 'Configuration Error'
-							msg = (f'The RPM "{rpm}" of "{button.objectName()}" exceeds either '
-							f'the spindle "{i}" Minimum Limit "{min_rpm}" RPM or the Maximum '
-							f'Limit "{max_rpm}" RPM.')
-							info = f'The Button "{button.objectName()}" will be disabled.'
-							dialogs.error_msg_ok(parent, title, msg, info)
-							button.setEnabled(False)
-							button.setText('Error!')
+					default_rpm = getattr(parent, f'spindle_rpm_{i}')
+					getattr(parent, f'spindle_speed_{i}_sl').blockSignals(True)
+					getattr(parent, f'spindle_speed_{i}_sl').setRange(min_rpm, max_rpm)
+					getattr(parent, f'spindle_speed_{i}_sl').setValue(default_rpm)
+					getattr(parent, f'spindle_speed_{i}_sl').blockSignals(False)
+					getattr(parent, f'spindle_speed_{i}_sl').valueChanged.connect(partial(
+					commands.spindle_control, parent, i, 'speed'))
 				else:
 					title = 'Configuration Error'
-					msg = (f'The spindle preset "{item}" is '
+					msg = (f'The spindle control spindle_speed_{i}_sl is '
 					'more than the number of spindles')
-					info = 'The pushbutton will be disabled!'
+					info = 'The slider will be disabled!'
 					dialogs.error_msg_ok(parent, title, msg, info)
-					button.setEnabled(False)
-					button.setText('Error!')
+					getattr(parent, f'spindle_speed_{i}_sl').setEnabled(False)
 
-	# Spindle Override Presets spindle_percent_0_100
-	for i in range(8):
-		for item in parent.child_names:
-			if item.startswith(f'spindle_percent_{i}') and len(item.split('_')) == 4:
-				if i <= max_spindle:
-					button = getattr(parent, item)
-					value = item.split('_')[-1]
-					if utilities.is_int(value):
-						button.clicked.connect(partial(commands.spindle_override_preset, parent, i, int(value)))
+		# Spindle Speed Presets
+		for i in range(8):
+			for item in parent.child_names:
+				if item.startswith(f'spindle_set_{i}'):
+					if i <= max_spindle:
+						min_rpm = getattr(parent, f'spindle_{i}_min_fwd_rpm')
+						max_rpm  = getattr(parent, f'spindle_{i}_max_fwd_rpm')
+						button = getattr(parent, item)
+						value = item.split('_')[-1]
+						if utilities.is_int(value):
+							rpm = int(value)
+							if min_rpm <= rpm <= max_rpm:
+								button.clicked.connect(partial(commands.spindle_control, parent, i, 'preset', rpm))
+							else:
+								title = 'Configuration Error'
+								msg = (f'The RPM "{rpm}" of "{button.objectName()}" exceeds either '
+								f'the spindle "{i}" Minimum Limit "{min_rpm}" RPM or the Maximum '
+								f'Limit "{max_rpm}" RPM.')
+								info = f'The Button "{button.objectName()}" will be disabled.'
+								dialogs.error_msg_ok(parent, title, msg, info)
+								button.setEnabled(False)
+								button.setText('Error!')
 					else:
 						title = 'Configuration Error'
-						msg = (f'The spindle override preset button named "{item}" with the '
-						f'button text of "{button.text()}" "{value}" did not evaluate to an '
-						'integer.')
-						info = 'The button will be disabled.'
+						msg = (f'The spindle preset "{item}" is '
+						'more than the number of spindles')
+						info = 'The pushbutton will be disabled!'
 						dialogs.error_msg_ok(parent, title, msg, info)
+						button.setEnabled(False)
 						button.setText('Error!')
+
+		# Spindle Override Presets spindle_percent_0_100
+		for i in range(8):
+			for item in parent.child_names:
+				if item.startswith(f'spindle_percent_{i}') and len(item.split('_')) == 4:
+					if i <= max_spindle:
+						button = getattr(parent, item)
+						value = item.split('_')[-1]
+						if utilities.is_int(value):
+							button.clicked.connect(partial(commands.spindle_override_preset, parent, i, int(value)))
+						else:
+							title = 'Configuration Error'
+							msg = (f'The spindle override preset button named "{item}" with the '
+							f'button text of "{button.text()}" "{value}" did not evaluate to an '
+							'integer.')
+							info = 'The button will be disabled.'
+							dialogs.error_msg_ok(parent, title, msg, info)
+							button.setText('Error!')
+							getattr(parent, item).setEnabled(False)
+					else:
+						title = 'Configuration Error'
+						msg = (f'The spindle override preset "{item}" is '
+						'more than the number of spindles')
+						info = 'The pushbutton will be disabled!'
+						dialogs.error_msg_ok(parent, title, msg, info)
 						getattr(parent, item).setEnabled(False)
-				else:
-					title = 'Configuration Error'
-					msg = (f'The spindle override preset "{item}" is '
-					'more than the number of spindles')
-					info = 'The pushbutton will be disabled!'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					getattr(parent, item).setEnabled(False)
 
 	##### End of Multi Spindles #####
 
