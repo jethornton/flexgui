@@ -185,8 +185,11 @@ def update(parent):
 			for key, value in parent.state_estop_names.items():
 				getattr(parent, key).setText(value)
 
-			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
-				parent.estop_pb.state = False
+			# update estop and power if state changes for any reason.
+			if 'estop_pb' in parent.child_names:
+				parent.estop_pb.setChecked(False)
+				if hasattr(parent.estop_pb, 'state'):
+					parent.estop_pb.state = False
 
 			if 'power_pb' in parent.child_names:
 				parent.power_pb.setChecked(False)
