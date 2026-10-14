@@ -4,6 +4,7 @@ from functools import partial
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMenu
 
 import linuxcnc as emc
+import hal
 
 from libflexgui import dialogs
 from libflexgui import utilities
@@ -276,12 +277,19 @@ def action_quit(parent): # actionQuit
 	parent.close()
 
 def action_estop(parent): # actionEstop
+	parent.status.poll() # Refresh current machine status
+	# If the machine is currently in E-STOP, reset it
 	if parent.status.task_state == emc.STATE_ESTOP:
 		parent.command.state(emc.STATE_ESTOP_RESET)
 		parent.command.wait_complete()
+		parent.status.poll() # Refresh current machine status
+		if parent.status.task_state == emc.STATE_ESTOP: # E-Stop sill active
+			if 'estop_pb' in parent.child_names:
+				if parent.estop_pb.isChecked():
+					parent.estop_pb.setChecked(False)
 	else:
+	# Otherwise, force it into E-STOP
 		parent.command.state(emc.STATE_ESTOP)
-		parent.command.wait_complete()
 
 def action_power(parent): # actionPower
 	if parent.status.task_state == emc.STATE_ESTOP_RESET:

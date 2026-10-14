@@ -559,9 +559,6 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP:
-		if 'estop_pb' in parent.child_names:
-			if parent.estop_pb.isChecked():
-				parent.estop_pb.setChecked(False)
 		for item in parent.power_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.run_controls:
