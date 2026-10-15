@@ -2615,7 +2615,7 @@ def setup_hal(parent):
 
 			set_hal_enables(parent, button)
 
-	##### HAL_IO ##### FIXME add 64 bit
+	##### HAL_IO #####
 	for child in parent.findChildren(QWidget):
 		if not isdeleted(child):  
 			if child.property('function') == 'hal_io':
