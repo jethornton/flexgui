@@ -559,6 +559,39 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(False)
 
 	if task_state == emc.STATE_ESTOP:
+		# update led states
+		if 'estop_pb' in parent.child_names:
+			if parent.estop_pb.isChecked():
+				parent.estop_pb.blockSignals(True)
+				parent.estop_pb.setChecked(False)
+				parent.estop_pb.blockSignals(False)
+			if hasattr(parent.estop_pb, 'state'):
+				parent.estop_pb.state = False
+		if 'power_pb' in parent.child_names:
+			if parent.power_pb.isChecked():
+				parent.power_pb.blockSignals(True)
+				parent.power_pb.setChecked(False)
+				parent.power_pb.blockSignals(False)
+			if hasattr(parent.power_pb, 'state'):
+				parent.power_pb.state = False
+
+
+		# update estop and power if state changes for any reason.
+		'''
+		print('task state ESTOP')
+		if 'estop_pb' in parent.child_names:
+			parent.estop_pb.setChecked(False)
+			if hasattr(parent.estop_pb, 'state'):
+				parent.estop_pb.state = False
+
+		if 'power_pb' in parent.child_names:
+			parent.power_pb.setChecked(False)
+			if hasattr(parent.power_pb, 'state'):
+				parent.power_pb.state = False
+		'''
+
+		for key, value in parent.state_estop_names.items():
+			getattr(parent, key).setText(value)
 		for item in parent.power_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.run_controls:
@@ -599,6 +632,12 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ESTOP_RESET:
+		# update led states
+		if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
+			parent.estop_pb.state = True
+		if 'power_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
+			parent.power_pb.state = False
+
 		for item in parent.power_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.run_controls:
@@ -639,6 +678,12 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(True)
 
 	if task_state == emc.STATE_ON:
+		# update led states
+		if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
+			parent.estop_pb.state = True
+		if 'power_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
+			parent.power_pb.state = True
+
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.on_controls:

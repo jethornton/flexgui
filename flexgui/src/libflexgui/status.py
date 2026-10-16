@@ -179,46 +179,6 @@ def update(parent):
 		if 'task_state_lb' in parent.child_names: # update the label
 			parent.task_state_lb.setText(TASK_STATES[parent.status.task_state])
 
-		# estop open
-		if parent.status.task_state == emc.STATE_ESTOP:
-			#print('status update STATE_ESTOP')
-			for key, value in parent.state_estop_names.items():
-				getattr(parent, key).setText(value)
-
-			# update estop and power if state changes for any reason.
-			if 'estop_pb' in parent.child_names:
-				parent.estop_pb.setChecked(False)
-				if hasattr(parent.estop_pb, 'state'):
-					parent.estop_pb.state = False
-
-			if 'power_pb' in parent.child_names:
-				parent.power_pb.setChecked(False)
-				if hasattr(parent.power_pb, 'state'):
-					parent.power_pb.state = False
-
-		# estop closed power off
-		if parent.status.task_state == emc.STATE_ESTOP_RESET:
-			#print('status update STATE_ESTOP_RESET')
-			if 'estop_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
-				parent.estop_pb.state = True
-
-			if 'power_pb' in parent.child_names:
-				parent.power_pb.setChecked(False)
-				if hasattr(parent.power_pb, 'state'):
-					parent.power_pb.state = False
-			if 'probing_enable_pb' in parent.child_names:
-				parent.probing_enable_pb.setChecked(False)
-			for key, value in parent.state_estop_reset_names.items():
-				getattr(parent, key).setText(value)
-
-		# estop closed power on
-		if parent.status.task_state == emc.STATE_ON:
-			#print('status update STATE_ON')
-			for key, value in parent.state_on_names.items():
-				getattr(parent, key).setText(value)
-			if 'power_pb' in parent.child_names and hasattr(parent.power_pb, 'state'):
-				parent.power_pb.state = True
-
 		utilities.update_home_controls(parent)
 		utilities.update_controls(parent)
 
