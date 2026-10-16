@@ -312,10 +312,12 @@ class flexgui(QMainWindow):
 			gui_path = os.path.join(self.lib_path, 'flex_default.ui')
 			gui_file = 'flex_default.ui'
 
+		# this must be before any function that looks for objects
+		loadUi(gui_path, self)
+
 		# get ini values if any before trying to use them
 		read_ini.read(self)
 
-		loadUi(gui_path, self)
 		if self.window_title:
 			self.setWindowTitle(self.window_title)
 		elif self.machine_name:
