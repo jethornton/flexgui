@@ -144,6 +144,8 @@ The live plot can be cleared from the menu with this menu item.
 Grids
 -----
 
+.. NOTE:: Grids are not visible in any perspective view.
+
 The plotter can optionally display a grid when in orthogonal views. To add the
 option of grids add a menu item named `Grids`. The grid size selection will be
 added to the `Grids` menu item. The default grid sizes are based on the machine
