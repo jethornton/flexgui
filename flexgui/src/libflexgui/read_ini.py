@@ -8,6 +8,8 @@ from libflexgui import dialogs
 from libflexgui import utilities
 
 def read(parent):
+	parent.status.poll()
+
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
 
@@ -554,7 +556,6 @@ def read(parent):
 	parent.joints = int(parent.inifile.find('KINS', 'JOINTS'))
 
 	# ***** [SPINDLE_n] Sections *****
-	parent.status.poll()
 	for i in range(parent.status.spindles):
 
 		#### MIN_RPM ####
@@ -615,7 +616,6 @@ def read(parent):
 		increment = parent.inifile.find(f'SPINDLE_{i}', 'INCREMENT')
 		if increment is None: # no ini entry
 			setattr(parent, f'spindle_{i}_rpm_increment', 100)
-			print('increment None')
 		elif not utilities.is_int(increment): # ini entry not a valid int
 			title = 'Configuration Error'
 			msg = (f'The INI entry SPINDLE_{i} INCREMENT "{increment}" did not '
@@ -623,13 +623,11 @@ def read(parent):
 			info = 'The "INCREMENT" will be set to 100.'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			setattr(parent, f'spindle_{i}_rpm_increment', 100)
-			print('increment Bad')
 		else: # valid ini entry
 			increment = utilities.to_int(increment, 100)
 			max_rpm = getattr(parent, f'spindle_{i}_max_fwd_rpm')
 			if 0 < increment <= max_rpm:
 				setattr(parent, f'spindle_{i}_rpm_increment', utilities.to_int(increment, 100))
-				print('increment Good')
 			else:
 				title = 'Configuration Error'
 				msg = (f'The INI entry SPINDLE_{i} INCREMENT "{increment}" is not '
@@ -637,7 +635,6 @@ def read(parent):
 				info = 'The "INCREMENT" will be set to 100.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				setattr(parent, f'spindle_{i}_rpm_increment', 100)
-				print('increment out of range')
 
 		#### DEFAULT_RPM ####
 		default_rpm = parent.inifile.find(f'SPINDLE_{i}', 'DEFAULT_RPM')
