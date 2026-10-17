@@ -354,6 +354,15 @@ The first item in the list will be considered the default and set when FlexGUI
 starts. If you wish disable grid by default, add a `0` item to the beginning of
 the list.
 
+To toggle the plotter grid on and off with a checkbox add the following to the
+ini file in the [FLEXGUI] section. Units are [TRAJ] LINEAR_UNITS from the ini
+file. The value must be either an integer or a float.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	DEFAULT_GRID = 0.5
+
 DRO
 ---
 

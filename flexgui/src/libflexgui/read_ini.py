@@ -479,6 +479,18 @@ def read(parent):
 
 		parent.grids = parent.inifile.find('FLEXGUI', 'PLOT_GRID') or False
 
+		default_grid = parent.inifile.find('FLEXGUI', 'DEFAULT_GRID') or False
+		print(f'default_grid {default_grid}')
+		if default_grid: # test that its valid and convert to float
+			result = utilities.to_float(default_grid)
+			#result = utilities.fraction_to_float(default_grid)
+			print(f'result {result}')
+			if result:
+				parent.default_grid = result
+			else:
+				print('woops')
+				parent.default_grid = False
+
 		auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or 'false'
 		parent.auto_plot_units = auto_plot_units.strip().lower() == 'true'
 	else:

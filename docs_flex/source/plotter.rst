@@ -160,6 +160,21 @@ units. The `Grids` menu can be part of the main menu bar, or added to a submenu.
 To configure the size options of the grid see the 
 :ref:`Plotter Section <plotter>` of the INI configuration documents.
 
+The grid can be toggled on and off using a default grid size from the ini file.
+
+.. code-block:: text
+
+	[FLEXGUI]
+	DEFAULT_GRID = 0.5
+
+.. csv-table:: **Plot Grid Toggle**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Function**, **Widget**, **Object Name**
+	Toggle Grid, QCheckBox, view_grid_cb
+
 DRO
 ---
 

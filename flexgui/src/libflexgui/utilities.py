@@ -18,6 +18,13 @@ def to_int(string, default=0):
 	except ValueError:
 		return default
 
+def to_float(string):
+	try:
+		number = float(string)
+		return number
+	except ValueError:
+		return False
+
 def is_float(string):
 	try:
 		float(string)
@@ -42,6 +49,13 @@ def is_number(string):
 			return True
 		except ValueError:
 			return False
+
+def fraction_to_float(string):
+	try:
+		return float(sum(Fraction(s) for s in string.split()))
+	except (ValueError, ZeroDivisionError):
+		# Return a fallback value or None if parsing fails
+		return False 
 
 def convert_fraction(item):
 	# strip trailing non digits
@@ -916,6 +930,18 @@ def flash_buttons(parent):
 			# and trigger a refresh of the style sheet.
 			getattr(parent, name).setProperty('flashing', None)
 			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
+
+def toggle_grid(parent):
+	current_grid = parent.plotter.grid_size
+	if current_grid == 0.0:
+		parent.plotter.grid_size = parent.default_grid
+	else:
+		parent.plotter.grid_size = 0.0
+	parent.plotter.update()
+
+	print(f'parent.default_grid {parent.default_grid}')
+	print(f'parent.plotter.grid_size {parent.plotter.grid_size}')
+
 
 def update_grid_size(parent, grid_size):
 	parent.settings.setValue('PLOT/grid_size', grid_size)

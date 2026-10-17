@@ -3384,6 +3384,13 @@ def setup_plotter(parent):
 				setattr(parent.plotter, value[1], state)
 
 		# FIXME add view_grid_cb
+		if 'view_grid_cb' in parent.child_names:
+			if parent.default_grid:
+				parent.view_grid_cb.toggled.connect(partial(utilities.toggle_grid, parent))
+			else:
+				print('missing ini entry or bad')
+				parent.view_grid_cb.setEnabled(False)
+
 		view_checkboxes = {
 			'view_dro_cb': ['action_toggle_dro', 'enable_dro'],
 			'view_limits_cb': ['action_toggle_limits', 'show_limits'],
@@ -3559,16 +3566,19 @@ def setup_plotter(parent):
 		default_grids = "0.5 in, 1 in, 2 in, 3 in, 4 in"\
 			if parent.units == "IN" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
 
+		grid_settings = (parent.grids or default_grids).split(',')
+
 		# Handle both a QMenu and QAction submenus
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-		if parent.grids and not menu:
+		# FIXME test for a single grid size and skip the menu if only one
+		if len(grid_settings) > 1 and not menu: # a grid list is found but no menu
 			# If an INI setting and no GRIDS menu, show an error
 			title = 'Configuration Error'
 			msg = (f'The Plottter GRIDS configuration was found in the INI file. '
 			'Plotter grids requires a menu selector for grids. '
 			'No Grids menu was found to configure.')
 			dialogs.error_msg_ok(parent, title, msg)
-		elif menu:
+		elif len(grid_settings) > 1 and menu: # a grid list and menu
 			if not isinstance(menu, QMenu):
 				# If this action is in a submenu, for example inside "View"
 				if menu.menu():
@@ -3579,7 +3589,6 @@ def setup_plotter(parent):
 					menu.setMenu(new_menu)
 					menu = new_menu
 
-			grid_settings = (parent.grids or default_grids).split(',')
 			for index, item in enumerate(grid_settings):
 				item = item.strip()
 				text, data, suffix = utilities.is_valid_increment(parent, item)
