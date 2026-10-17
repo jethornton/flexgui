@@ -575,20 +575,7 @@ def update_controls(parent):
 			if hasattr(parent.power_pb, 'state'):
 				parent.power_pb.state = False
 
-
 		# update estop and power if state changes for any reason.
-		'''
-		print('task state ESTOP')
-		if 'estop_pb' in parent.child_names:
-			parent.estop_pb.setChecked(False)
-			if hasattr(parent.estop_pb, 'state'):
-				parent.estop_pb.state = False
-
-		if 'power_pb' in parent.child_names:
-			parent.power_pb.setChecked(False)
-			if hasattr(parent.power_pb, 'state'):
-				parent.power_pb.state = False
-		'''
 
 		for key, value in parent.state_estop_names.items():
 			getattr(parent, key).setText(value)
