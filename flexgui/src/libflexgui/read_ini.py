@@ -313,7 +313,7 @@ def read(parent):
 		parent.qss_file = False
 
 	# check for screen size, a non valid entry will just use self.show()
-	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or False
+	parent.screen_size = parent.inifile.find('FLEXGUI', 'SIZE') or 'normal'
 
 	# check for touch screen defaults, anything other than true is false
 	touch_spinbox = parent.inifile.find('FLEXGUI', 'TOUCH_SPINBOX') or 'false'

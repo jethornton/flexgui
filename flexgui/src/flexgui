@@ -463,14 +463,17 @@ class flexgui(QMainWindow):
 		self.keyboard_jog = KeyboardJog(self, self.axis_count)
 		app.installEventFilter(self.keyboard_jog)
 
-		# set the inital screen size
+		# set the inital screen size if the SIZE key is found in the ini
 		match self.screen_size:
 			case 'minimized':
 				self.showMinimized()
+
 			case 'normal':
 				self.showNormal()
+
 			case 'maximized':
 				self.showMaximized()
+
 			case 'full':
 				# Removes the minimize/maximize buttons and forces the window to stay on top
 				self.setWindowFlags( Qt.WindowType.Window
@@ -478,10 +481,26 @@ class flexgui(QMainWindow):
 				| Qt.WindowType.WindowStaysOnTopHint )
 				self.showFullScreen()
 
-			case 'rpi_full':
-				self.show()
-				self.windowHandle().setWindowState(Qt.WindowState.WindowFullScreen)
-			case _:
+			case "rpi_full":
+				session = os.environ.get("XDG_SESSION_TYPE", "").lower()
+
+				if session == "wayland":
+					# Wayland rule (Pi 5 & newer Pi 4 OS):
+					# Map first, then force the state handle
+					self.show()
+					if self.windowHandle():
+						self.windowHandle().setWindowState(
+						Qt.WindowState.WindowFullScreen
+					)
+				else:
+					# X11 rule (Older Pi 4 OS configurations):
+					# Traditional flags + direct fullscreen call
+					self.setWindowFlags( Qt.WindowType.Window
+					| Qt.WindowType.CustomizeWindowHint
+					| Qt.WindowType.WindowStaysOnTopHint )
+					self.showFullScreen()
+
+			case _: # no SIZE key is found
 				self.show()
 
 	def closeEvent(self, event): # Flex GUI close event
