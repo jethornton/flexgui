@@ -3388,7 +3388,10 @@ def setup_plotter(parent):
 			if parent.default_grid:
 				parent.view_grid_cb.toggled.connect(partial(utilities.toggle_grid, parent))
 			else:
-				print('missing ini entry or bad')
+				title = 'Configuration Error'
+				msg = ('The DEFAULT_GRID key is either missing or not a valid value.')
+				info = 'The view_grid_cb checkbox will be disabled'
+				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.view_grid_cb.setEnabled(False)
 
 		view_checkboxes = {
