@@ -472,7 +472,12 @@ class flexgui(QMainWindow):
 			case 'maximized':
 				self.showMaximized()
 			case 'full':
+				# Removes the minimize/maximize buttons and forces the window to stay on top
+				self.setWindowFlags( Qt.WindowType.Window
+				| Qt.WindowType.CustomizeWindowHint
+				| Qt.WindowType.WindowStaysOnTopHint )
 				self.showFullScreen()
+
 			case 'rpi_full':
 				self.show()
 				self.windowHandle().setWindowState(Qt.WindowState.WindowFullScreen)
