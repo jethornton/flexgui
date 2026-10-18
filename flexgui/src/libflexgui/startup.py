@@ -3564,65 +3564,66 @@ def setup_plotter(parent):
 				))
 
 		# Setup GRIDS submenu
-		# Set defaults if no INI
-		default_grid_size = 0.0
-		default_grids = "0.5 in, 1 in, 2 in, 3 in, 4 in"\
-			if parent.units == "IN" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
+		if parent.grids:
+		# Set defaults if no INI FIXME if not in the ini file don't load it
+			default_grid_size = 0.0
+			default_grids = "0.5 in, 1 in, 2 in, 3 in, 4 in"\
+				if parent.units == "IN" else "10 mm, 20 mm, 50 mm, 100 mm, 250 mm"
 
-		grid_settings = (parent.grids or default_grids).split(',')
+			grid_settings = (parent.grids or default_grids).split(',')
 
-		# Handle both a QMenu and QAction submenus
-		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-		# FIXME test for a single grid size and skip the menu if only one
-		if len(grid_settings) > 1 and not menu: # a grid list is found but no menu
-			# If an INI setting and no GRIDS menu, show an error
-			title = 'Configuration Error'
-			msg = (f'The Plottter GRIDS configuration was found in the INI file. '
-			'Plotter grids requires a menu selector for grids. '
-			'No Grids menu was found to configure.')
-			dialogs.error_msg_ok(parent, title, msg)
-		elif len(grid_settings) > 1 and menu: # a grid list and menu
-			if not isinstance(menu, QMenu):
-				# If this action is in a submenu, for example inside "View"
-				if menu.menu():
-					menu = menu.menu()
-				else:
-					# Create and attach menu
-					new_menu = QMenu(menu.parent())
-					menu.setMenu(new_menu)
-					menu = new_menu
+			# Handle both a QMenu and QAction submenus
+			menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
+			# FIXME test for a single grid size and skip the menu if only one
+			if len(grid_settings) > 1 and not menu: # a grid list is found but no menu
+				# If an INI setting and no GRIDS menu, show an error
+				title = 'Configuration Error'
+				msg = (f'The Plottter GRIDS configuration was found in the INI file. '
+				'Plotter grids requires a menu selector for grids. '
+				'No Grids menu was found to configure.')
+				dialogs.error_msg_ok(parent, title, msg)
+			elif len(grid_settings) > 1 and menu: # a grid list and menu
+				if not isinstance(menu, QMenu):
+					# If this action is in a submenu, for example inside "View"
+					if menu.menu():
+						menu = menu.menu()
+					else:
+						# Create and attach menu
+						new_menu = QMenu(menu.parent())
+						menu.setMenu(new_menu)
+						menu = new_menu
 
-			for index, item in enumerate(grid_settings):
-				item = item.strip()
-				text, data, suffix = utilities.is_valid_increment(parent, item)
-				if data:
-					grid_size = conv_units(data, suffix.lower(), parent.units)
-				else:
-					title = 'Configuration Error'
-					msg = (f'The FLEXGUI PLOT_GRID entry "{item}" is not a '
-					'valid unit and will not be used.')
-					dialogs.error_msg_ok(parent, title, msg)
-					continue
+				for index, item in enumerate(grid_settings):
+					item = item.strip()
+					text, data, suffix = utilities.is_valid_increment(parent, item)
+					if data:
+						grid_size = conv_units(data, suffix.lower(), parent.units)
+					else:
+						title = 'Configuration Error'
+						msg = (f'The FLEXGUI PLOT_GRID entry "{item}" is not a '
+						'valid unit and will not be used.')
+						dialogs.error_msg_ok(parent, title, msg)
+						continue
 
-				if grid_size: # If we have a valid grid_size and it is not 0.0
-					new_action = QAction(text, parent)
-					new_action.setData(grid_size)
+					if grid_size: # If we have a valid grid_size and it is not 0.0
+						new_action = QAction(text, parent)
+						new_action.setData(grid_size)
+						new_action.setCheckable(True)
+						new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
+						menu.addAction(new_action)
+						if index == 0:
+							default_grid_size = grid_size
+
+				current_actions = menu.actions()
+				if len(current_actions) > 0:
+					new_action = QAction("None", parent)
+					new_action.setData(0.0)
 					new_action.setCheckable(True)
-					new_action.triggered.connect(partial(utilities.update_grid_size, parent, grid_size))
-					menu.addAction(new_action)
-					if index == 0:
-						default_grid_size = grid_size
+					new_action.triggered.connect(partial(utilities.update_grid_size, parent, 0.0))
+					menu.insertAction(current_actions[0], new_action)
 
-			current_actions = menu.actions()
-			if len(current_actions) > 0:
-				new_action = QAction("None", parent)
-				new_action.setData(0.0)
-				new_action.setCheckable(True)
-				new_action.triggered.connect(partial(utilities.update_grid_size, parent, 0.0))
-				menu.insertAction(current_actions[0], new_action)
-
-		set_grid_size = parent.settings.value('PLOT/grid_size', default_grid_size, type=float)
-		utilities.update_grid_size(parent, set_grid_size)
+			set_grid_size = parent.settings.value('PLOT/grid_size', default_grid_size, type=float)
+			utilities.update_grid_size(parent, set_grid_size)
 
 	else: # no plot widget
 		parent.plotter = False
