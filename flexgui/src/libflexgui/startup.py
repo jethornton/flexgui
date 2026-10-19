@@ -3382,7 +3382,6 @@ def setup_plotter(parent):
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
-		# FIXME add view_grid_cb
 		if 'view_grid_cb' in parent.child_names:
 			if parent.default_grid:
 				parent.view_grid_cb.toggled.connect(partial(utilities.toggle_grid, parent))
