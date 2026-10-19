@@ -862,38 +862,60 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>11</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
         <string>Home</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="6" column="0">
-         <widget class="QPushButton" name="unhome_all_pb">
+        <item row="2" column="4">
+         <widget class="QPushButton" name="print_paths_pb">
           <property name="text">
-           <string>UnHome All</string>
+           <string>Print Paths</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="3">
-         <widget class="QPushButton" name="home_pb_2">
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_17">
+          <property name="title">
+           <string>Active M codes</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_36">
+           <item row="0" column="0">
+            <widget class="QLabel" name="mcodes_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="9" column="3">
+         <widget class="QPushButton" name="unhome_pb_2">
           <property name="text">
-           <string>Home J2</string>
+           <string>UnHome J2</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QPushButton" name="home_all_pb">
-          <property name="text">
-           <string>Home All</string>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_16">
+          <property name="title">
+           <string>Active G codes</string>
           </property>
-          <property name="led_indicator" stdset="0">
-           <bool>true</bool>
-          </property>
+          <layout class="QGridLayout" name="gridLayout_35">
+           <item row="0" column="0">
+            <widget class="QLabel" name="gcodes_lb">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
-        <item row="6" column="4">
+        <item row="4" column="4">
          <widget class="QPushButton" name="pushButton_15">
           <property name="text">
            <string>Go To X0 Y0 Z0</string>
@@ -906,17 +928,17 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
-         <widget class="QPushButton" name="unhome_pb_1">
+        <item row="9" column="1">
+         <widget class="QPushButton" name="unhome_pb_0">
           <property name="text">
-           <string>UnHome J1</string>
+           <string>UnHome J0</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
-         <widget class="QPushButton" name="pushButton_14">
+        <item row="9" column="0">
+         <widget class="QPushButton" name="unhome_all_pb">
           <property name="text">
-           <string>PushButton</string>
+           <string>UnHome All</string>
           </property>
          </widget>
         </item>
@@ -945,45 +967,6 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="3">
-         <widget class="QPushButton" name="unhome_pb_2">
-          <property name="text">
-           <string>UnHome J2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QGroupBox" name="groupBox_17">
-          <property name="title">
-           <string>Active M codes</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_36">
-           <item row="0" column="0">
-            <widget class="QLabel" name="mcodes_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="4" column="3">
-         <widget class="QPushButton" name="pushButton_11">
-          <property name="text">
-           <string>Limit Error</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="function" stdset="0">
-           <string>hal_pin</string>
-          </property>
-          <property name="pin_name" stdset="0">
-           <string>trip</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="4">
          <widget class="QPushButton" name="pushButton_13">
           <property name="text">
@@ -994,29 +977,6 @@
           </property>
           <property name="filename" stdset="0">
            <string>square.ngc</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QGroupBox" name="groupBox_16">
-          <property name="title">
-           <string>Active G codes</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_35">
-           <item row="0" column="0">
-            <widget class="QLabel" name="gcodes_lb">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QPushButton" name="home_pb_1">
-          <property name="text">
-           <string>Home J1</string>
           </property>
          </widget>
         </item>
@@ -1045,17 +1005,26 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QPushButton" name="unhome_pb_0">
+        <item row="9" column="2">
+         <widget class="QPushButton" name="unhome_pb_1">
           <property name="text">
-           <string>UnHome J0</string>
+           <string>UnHome J1</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QPushButton" name="home_pb_0">
+        <item row="4" column="3">
+         <widget class="QPushButton" name="pushButton_11">
           <property name="text">
-           <string>Home J0</string>
+           <string>Limit Error</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="function" stdset="0">
+           <string>hal_pin</string>
+          </property>
+          <property name="pin_name" stdset="0">
+           <string>trip</string>
           </property>
          </widget>
         </item>
@@ -1087,10 +1056,54 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="4">
-         <widget class="QPushButton" name="print_paths_pb">
+        <item row="1" column="4">
+         <widget class="QPushButton" name="pushButton_14">
           <property name="text">
-           <string>Print Paths</string>
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="4" rowspan="2">
+         <widget class="QPushButton" name="quit_pb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Quit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="3">
+         <widget class="QPushButton" name="home_pb_2">
+          <property name="text">
+           <string>Home J2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QPushButton" name="home_pb_1">
+          <property name="text">
+           <string>Home J1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="home_pb_0">
+          <property name="text">
+           <string>Home J0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QPushButton" name="home_all_pb">
+          <property name="text">
+           <string>Home All</string>
+          </property>
+          <property name="led_indicator" stdset="0">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -3024,7 +3037,7 @@
            <item row="3" column="1">
             <widget class="QSpinBox" name="spinBox_4">
              <property name="function" stdset="0">
-              <string>hal_pin</string>
+              <string>none</string>
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-spinbox-u64</string>
@@ -3133,7 +3146,7 @@
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="function" stdset="0">
-              <string>hal_pin</string>
+              <string>none</string>
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-slider-u64</string>
@@ -3259,7 +3272,7 @@
            <item row="1" column="1">
             <widget class="QSpinBox" name="spinBox_5">
              <property name="function" stdset="0">
-              <string>hal_io</string>
+              <string>none</string>
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-io-spinbox-u64</string>
@@ -3439,7 +3452,7 @@
               <string>TextLabel</string>
              </property>
              <property name="function" stdset="0">
-              <string>hal_pin</string>
+              <string>none</string>
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-label-s64</string>
@@ -3465,7 +3478,7 @@
               <string>TextLabel</string>
              </property>
              <property name="function" stdset="0">
-              <string>hal_pin</string>
+              <string>none</string>
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-label-u64</string>
@@ -3529,7 +3542,7 @@
               <string>TextLabel</string>
              </property>
              <property name="function" stdset="0">
-              <string>hal_avr_i</string>
+              <string>none</string>
              </property>
              <property name="pin_name" stdset="0">
               <string>hal-average-s64</string>
@@ -3570,6 +3583,19 @@
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_68">
+          <property name="text">
+           <string>The 64 bit HAL objects
+have been disabled.
+To enable them change
+the function to hal_pin.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
