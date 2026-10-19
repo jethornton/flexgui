@@ -31,3 +31,4 @@ Flex GUI
    tips
    style
    resources
+   diagnostics
