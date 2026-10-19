@@ -544,7 +544,7 @@ def update_home_controls(parent):
 def update_controls(parent):
 	parent.status.poll()
 	all_homed = all(v == 1 for v in parent.status.homed[:parent.joints]) # all joints homed
-	file_loaded = len(parent.status.file) > 0 # currently loaded g code file FIXME this does not trigger when g code is added
+	file_loaded = len(parent.status.file) > 0 # currently loaded g code file
 	tool_loaded = parent.status.tool_in_spindle
 	interp_state = parent.status.interp_state
 	# INTERP_IDLE INTERP_READING INTERP_PAUSED INTERP_WAITING
@@ -566,7 +566,7 @@ def update_controls(parent):
 			getattr(parent, item).setEnabled(True)
 		for item in parent.file_edit_controls:
 			getattr(parent, item).setEnabled(True)
-	elif not parent.file_changed or state == emc.RCS_EXEC: # FIXME this doesn't work
+	elif not parent.file_changed:
 		for item in parent.file_save_controls:
 			getattr(parent, item).setEnabled(False)
 		for item in parent.file_edit_controls:
