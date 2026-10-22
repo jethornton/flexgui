@@ -17,19 +17,21 @@ def startup(parent):
 	pseudo_states = ['normal', 'hover', 'disabled']
 
 	for state in pseudo_states: # color dialog connections
+		# setup variables
+		setattr(parent, f'lb_{state}', False)
+		setattr(parent, f'lb_fg_color_sel_{state}', False)
+		setattr(parent, f'lb_bg_color_sel_{state}', False)
+		setattr(parent, f'lb_border_color_sel_{state}', False)
+		# populate border states
+		getattr(parent, f'lb_border_type_{state}').blockSignals(True)
+		getattr(parent, f'lb_border_type_{state}').addItems(border_types)
+		getattr(parent, f'lb_border_type_{state}').blockSignals(False)
+		# connect border states
+		getattr(parent, f'lb_border_type_{state}').currentIndexChanged.connect(parent.border)
+		# connect color states
 		getattr(parent, f'lb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'lb_bg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'lb_border_color_{state}').clicked.connect(parent.color_dialog)
-
-	for item in pseudo_states: # populate border combo boxes
-		getattr(parent, f'lb_border_type_{item}').addItems(border_types)
-
-	# setup enable variables
-	for item in pseudo_states:
-		setattr(parent, f'lb_{item}', False)
-		setattr(parent, f'lb_fg_color_sel_{item}', False)
-		setattr(parent, f'lb_bg_color_sel_{item}', False)
-		setattr(parent, f'lb_border_color_sel_{item}', False)
 
 	parent.lb_font_family = False
 	parent.lb_font_size = False

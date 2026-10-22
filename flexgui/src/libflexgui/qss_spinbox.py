@@ -15,12 +15,22 @@ def startup(parent):
 	pseudo_states = ['normal', 'hover', 'pressed', 'disabled']
 
 	for state in pseudo_states: # color dialog connections
+		# setup  variables
+		setattr(parent, f'sb_{state}', False)
+		setattr(parent, f'sb_fg_color_sel_{state}', False)
+		setattr(parent, f'sb_bg_color_sel_{state}', False)
+		setattr(parent, f'sb_border_color_sel_{state}', False)
+		# populate border states
+		getattr(parent, f'sb_border_type_{state}').blockSignals(True)
+		getattr(parent, f'sb_border_type_{state}').addItems(border_types)
+		getattr(parent, f'sb_border_type_{state}').blockSignals(False)
+		# connect border states
+		getattr(parent, f'sb_border_type_{state}').currentIndexChanged.connect(parent.border)
+		# connect color states
 		getattr(parent, f'sb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'sb_bg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'sb_border_color_{state}').clicked.connect(parent.color_dialog)
 
-	for item in pseudo_states: # populate border combo boxes
-		getattr(parent, f'sb_border_type_{item}').addItems(border_types)
 
 	origins = ['none', 'content', 'padding', 'border', 'margin']
 	parent.sb_up_origin.addItems(origins)
@@ -31,12 +41,6 @@ def startup(parent):
 	parent.sb_up_position.addItems(positions)
 	parent.sb_down_position.addItems(positions)
 
-	# setup enable variables
-	for item in pseudo_states:
-		setattr(parent, f'sb_{item}', False)
-		setattr(parent, f'sb_fg_color_sel_{item}', False)
-		setattr(parent, f'sb_bg_color_sel_{item}', False)
-		setattr(parent, f'sb_border_color_sel_{item}', False)
 
 	parent.sb_font_family = False
 	parent.sb_font_size = False

@@ -19,7 +19,7 @@ def startup(parent):
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
-	for item in pseudo_states:
+	for item in pseudo_states: # FIXME
 		# populate border combo boxes
 		getattr(parent, f'tb_border_type_{item}').addItems(border_types)
 		# setup variables

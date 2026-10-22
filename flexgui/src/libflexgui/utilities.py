@@ -939,10 +939,6 @@ def toggle_grid(parent):
 		parent.plotter.grid_size = 0.0
 	parent.plotter.update()
 
-	print(f'parent.default_grid {parent.default_grid}')
-	print(f'parent.plotter.grid_size {parent.plotter.grid_size}')
-
-
 def update_grid_size(parent, grid_size):
 	parent.settings.setValue('PLOT/grid_size', grid_size)
 	parent.plotter.grid_size = grid_size

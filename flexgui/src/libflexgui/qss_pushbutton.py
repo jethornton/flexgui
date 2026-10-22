@@ -22,16 +22,19 @@ def startup(parent):
 		'ridge', 'inset', 'outset']
 	pseudo_states = ['normal', 'hover', 'pressed', 'checked', 'disabled']
 
-	for item in pseudo_states:
-		# populate border combo boxes
-		getattr(parent, f'pb_border_type_{item}').addItems(border_types)
+	for state in pseudo_states:
 		# setup variables
-		setattr(parent, f'pb_{item}', False) # build section flag
-		setattr(parent, f'pb_fg_color_sel_{item}', False)
-		setattr(parent, f'pb_bg_color_sel_{item}', False)
-		setattr(parent, f'pb_border_color_sel_{item}', False)
-
-	for state in pseudo_states: # color dialog connections
+		setattr(parent, f'pb_{state}', False) # build section flag
+		setattr(parent, f'pb_fg_color_sel_{state}', False)
+		setattr(parent, f'pb_bg_color_sel_{state}', False)
+		setattr(parent, f'pb_border_color_sel_{state}', False)
+		# populate border states
+		getattr(parent, f'pb_border_type_{state}').blockSignals(True)
+		getattr(parent, f'pb_border_type_{state}').addItems(border_types)
+		getattr(parent, f'pb_border_type_{state}').blockSignals(False)
+		# connect border states
+		getattr(parent, f'pb_border_type_{state}').currentIndexChanged.connect(parent.border)
+		# connect color states
 		getattr(parent, f'pb_fg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'pb_bg_color_{state}').clicked.connect(parent.color_dialog)
 		getattr(parent, f'pb_border_color_{state}').clicked.connect(parent.color_dialog)

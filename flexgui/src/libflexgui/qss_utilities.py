@@ -55,28 +55,28 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if max_height > 0:
 			style += f'\tmax-height: {max_height}px;\n'
 
-		# border width must be bigger than 0
+		# border
 		border_type = getattr(parent, f'{prefix}_border_type_normal').currentText()
 		if border_type != 'Select':
 			style += f'\tborder-style: {border_type};\n'
 
-			border_width = getattr(parent, f'{prefix}_border_width_normal').value()
-			if border_width > 0:
-				style += f'\tborder-width: {border_width}px;\n'
-			else:
-				getattr(parent, f'{prefix}_border_width_normal').setValue(1)
-				style += '\tborder-width: 1px;\n'
+			if border_type != 'none':
+				border_width = getattr(parent, f'{prefix}_border_width_normal').value()
+				if border_width > 0:
+					style += f'\tborder-width: {border_width}px;\n'
+				else:
+					getattr(parent, f'{prefix}_border_width_normal').setValue(1)
+					style += '\tborder-width: 1px;\n'
 
-			border_radius = getattr(parent, f'{prefix}_border_radius_normal').value()
-			style += f'\tborder-radius: {border_radius}px;\n'
+				border_radius = getattr(parent, f'{prefix}_border_radius_normal').value()
+				style += f'\tborder-radius: {border_radius}px;\n'
 
-			border_color = getattr(parent, f'{prefix}_border_color_sel_normal')
-			if border_color:
-				style += f'\tborder-color: {border_color};\n'
-			else:
-				#cb_border_color_normal_lb
-				getattr(parent, f'{prefix}_border_color_normal_lb').setStyleSheet(f'background-color: black;')
-				style += '\tborder-color: black;\n'
+				border_color = getattr(parent, f'{prefix}_border_color_sel_normal')
+				if border_color:
+					style += f'\tborder-color: {border_color};\n'
+				else:
+					getattr(parent, f'{prefix}_border_color_normal_lb').setStyleSheet('background-color: black;')
+					style += '\tborder-color: black;\n'
 
 		# padding
 		padding = getattr(parent, f'{prefix}_padding_normal').value()
@@ -135,22 +135,28 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_checked:
 			style += f'\tbackground-color: {bg_color_checked};\n'
 
-		# border FIXME like normal
+		# border
 		border_type_checked = getattr(parent, f'{prefix}_border_type_checked').currentText()
 		if border_type_checked != 'Select':
 			style += f'\tborder-style: {border_type_checked};\n'
 
-		border_width_checked = getattr(parent, f'{prefix}_border_width_checked').value()
-		if border_width_checked > 0:
-			style += f'\tborder-width: {border_width_checked}px;\n'
+			if border_type != 'none':
+				border_width_checked = getattr(parent, f'{prefix}_border_width_checked').value()
+				if border_width_checked > 0:
+					style += f'\tborder-width: {border_width_checked}px;\n'
+				else:
+					getattr(parent, f'{prefix}_border_width_checked').setValue(1)
+					style += '\tborder-width: 1px;\n'
 
-		border_radius_checked = getattr(parent, f'{prefix}_border_radius_checked').value()
-		if border_radius_checked > 0:
-			style += f'\tborder-radius: {border_radius_checked}px;\n'
+				border_radius_checked = getattr(parent, f'{prefix}_border_radius_checked').value()
+				style += f'\tborder-radius: {border_radius_checked}px;\n'
 
-		border_color_checked = getattr(parent, f'{prefix}_border_color_sel_checked')
-		if border_color_checked:
-			style += f'\tborder-color: {border_color_checked};\n'
+				border_color_checked = getattr(parent, f'{prefix}_border_color_sel_checked')
+				if border_color_checked:
+					style += f'\tborder-color: {border_color_checked};\n'
+				else:
+					getattr(parent, f'{prefix}_border_color_checked_lb').setStyleSheet('background-color: black;')
+					style += '\tborder-color: black;\n'
 
 		style += '}' # End of QCheckBox checked pseudo-state
 
@@ -167,22 +173,27 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_pressed:
 			style += f'\tbackground-color: {bg_color_pressed};\n'
 
-		# border FIXME like normal
+		# border
 		border_type_pressed = getattr(parent, f'{prefix}_border_type_pressed').currentText()
 		if border_type_pressed != 'Select':
 			style += f'\tborder-style: {border_type_pressed};\n'
 
-		border_width_pressed = getattr(parent, f'{prefix}_border_width_pressed').value()
-		if border_width_pressed > 0:
-			style += f'\tborder-width: {border_width_pressed}px;\n'
+			border_width_pressed = getattr(parent, f'{prefix}_border_width_pressed').value()
+			if border_width_pressed > 0:
+				style += f'\tborder-width: {border_width_pressed}px;\n'
+			else:
+				getattr(parent, f'{prefix}_border_width_pressed').setValue(1)
+				style += '\tborder-width: 1px;\n'
 
-		border_radius_pressed = getattr(parent, f'{prefix}_border_radius_pressed').value()
-		if border_radius_pressed > 0:
+			border_radius_pressed = getattr(parent, f'{prefix}_border_radius_pressed').value()
 			style += f'\tborder-radius: {border_radius_pressed}px;\n'
 
-		border_color_pressed = getattr(parent, f'{prefix}_border_color_sel_pressed')
-		if border_color_pressed:
-			style += f'\tborder-color: {border_color_pressed};\n'
+			border_color_pressed = getattr(parent, f'{prefix}_border_color_sel_pressed')
+			if border_color_pressed:
+				style += f'\tborder-color: {border_color_pressed};\n'
+			else:
+				getattr(parent, f'{prefix}_border_color_pressed_lb').setStyleSheet('background-color: black;')
+				style += '\tborder-color: black;\n'
 
 		style += '}' # End of QCheckBox pressed pseudo-state
 
@@ -199,22 +210,28 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_hover:
 			style += f'\tbackground-color: {bg_color_hover};\n'
 
-		# border FIXME like normal
+		# border
 		border_type_hover = getattr(parent, f'{prefix}_border_type_hover').currentText()
 		if border_type_hover != 'Select':
 			style += f'\tborder-style: {border_type_hover};\n'
 
-		border_width_hover = getattr(parent, f'{prefix}_border_width_hover').value()
-		if border_width_hover > 0:
-			style += f'\tborder-width: {border_width_hover}px;\n'
+			if border_type != 'none':
+				border_width_hover = getattr(parent, f'{prefix}_border_width_hover').value()
+				if border_width_hover > 0:
+					style += f'\tborder-width: {border_width_hover}px;\n'
+				else:
+					getattr(parent, f'{prefix}_border_width_hover').setValue(1)
+					style += '\tborder-width: 1px;\n'
 
-		border_radius_hover = getattr(parent, f'{prefix}_border_radius_hover').value()
-		if border_radius_hover > 0:
-			style += f'\tborder-radius: {border_radius_hover}px;\n'
+				border_radius_hover = getattr(parent, f'{prefix}_border_radius_hover').value()
+				style += f'\tborder-radius: {border_radius_hover}px;\n'
 
-		border_color_hover = getattr(parent, f'{prefix}_border_color_sel_hover')
-		if border_color_hover:
-			style += f'\tborder-color: {border_color_hover};\n'
+				border_color_hover = getattr(parent, f'{prefix}_border_color_sel_hover')
+				if border_color_hover:
+					style += f'\tborder-color: {border_color_hover};\n'
+				else:
+					getattr(parent, f'{prefix}_border_color_hover_lb').setStyleSheet('background-color: black;')
+					style += '\tborder-color: black;\n'
 
 		style += '}' # End of hover pseudo-state
 
@@ -231,22 +248,28 @@ def create_stylesheet(parent, widget_type, widget_name, prefix):
 		if bg_color_disabled:
 			style += f'\tbackground-color: {bg_color_disabled};\n'
 
-		# border FIXME like normal
+		# border
 		border_type_disabled = getattr(parent, f'{prefix}_border_type_disabled').currentText()
 		if border_type_disabled != 'Select':
 			style += f'\tborder-style: {border_type_disabled};\n'
 
-		border_width_disabled = getattr(parent, f'{prefix}_border_width_disabled').value()
-		if border_width_disabled > 0:
-			style += f'\tborder-width: {border_width_disabled}px;\n'
+			if border_type != 'none':
+				border_width_disabled = getattr(parent, f'{prefix}_border_width_disabled').value()
+				if border_width_disabled > 0:
+					style += f'\tborder-width: {border_width_disabled}px;\n'
+				else:
+					getattr(parent, f'{prefix}_border_width_disabled').setValue(1)
+					style += '\tborder-width: 1px;\n'
 
-		border_radius_disabled = getattr(parent, f'{prefix}_border_radius_disabled').value()
-		if border_radius_disabled > 0:
-			style += f'\tborder-radius: {border_radius_disabled}px;\n'
+				border_radius_disabled = getattr(parent, f'{prefix}_border_radius_disabled').value()
+				style += f'\tborder-radius: {border_radius_disabled}px;\n'
 
-		border_color_disabled = getattr(parent, f'{prefix}_border_color_sel_disabled')
-		if border_color_disabled:
-			style += f'\tborder-color: {border_color_disabled};\n'
+				border_color_disabled = getattr(parent, f'{prefix}_border_color_sel_disabled')
+				if border_color_disabled:
+					style += f'\tborder-color: {border_color_disabled};\n'
+				else:
+					getattr(parent, f'{prefix}_border_color_disabled_lb').setStyleSheet('background-color: black;')
+					style += '\tborder-color: black;\n'
 
 		style += '\n}' # End of disabled pseudo-state
 
