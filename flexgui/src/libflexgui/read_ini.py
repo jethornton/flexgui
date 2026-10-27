@@ -491,6 +491,8 @@ def read(parent):
 				info = 'The DEFAULT_GRID will be False'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.default_grid = False
+		else:
+			parent.default_grid = False
 
 		auto_plot_units = parent.inifile.find('FLEXGUI', 'PLOT_UNITS') or 'false'
 		parent.auto_plot_units = auto_plot_units.strip().lower() == 'true'

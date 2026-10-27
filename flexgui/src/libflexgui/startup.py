@@ -3382,16 +3382,6 @@ def setup_plotter(parent):
 				getattr(parent, key).setChecked(state)
 				setattr(parent.plotter, value[1], state)
 
-		if 'view_grid_cb' in parent.child_names:
-			if parent.default_grid:
-				parent.view_grid_cb.toggled.connect(partial(utilities.toggle_grid, parent))
-			else:
-				title = 'Configuration Error'
-				msg = ('The DEFAULT_GRID key is either missing or not a valid value.')
-				info = 'The view_grid_cb checkbox will be disabled'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				parent.view_grid_cb.setEnabled(False)
-
 		view_checkboxes = {
 			'view_dro_cb': ['action_toggle_dro', 'enable_dro'],
 			'view_limits_cb': ['action_toggle_limits', 'show_limits'],
@@ -3561,11 +3551,27 @@ def setup_plotter(parent):
 					utilities.sync_toolbuttons(parent, v)
 				))
 
-		# Setup GRIDS submenu
+		# Setup Plotter Grid Toggle
+		default_grid_size = 0.0
 		menu = parent.findChild(QAction, 'actionGrids') or parent.findChild(QMenu, 'actionGrids')
-		if menu:
+		if 'view_grid_cb' in parent.child_names:
+			if parent.default_grid:
+				parent.view_grid_cb.toggled.connect(partial(utilities.toggle_grid, parent))
+				if parent.settings.contains(f'PLOT/view_grid_cb'):
+					state = True if parent.settings.value(f'PLOT/view_grid_cb') == 'true' else False
+					parent.view_grid_cb.setChecked(state)
+			else:
+				title = 'Configuration Error'
+				msg = ('The DEFAULT_GRID key is either missing in the INI file or not '
+				'a valid value.')
+				info = 'The view_grid_cb checkbox will be disabled'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				parent.view_grid_cb.setEnabled(False)
+				parent.view_grid_cb.setText('Error')
+
+		# Setup Plotter Grid Menu
+		elif menu:
 			if not parent.grids: # use default grids
-				default_grid_size = 0.0
 				inch_grids = '0.5 in, 1 in, 2 in, 3 in, 4 in'
 				metric_grids = '10 mm, 20 mm, 50 mm, 100 mm, 250 mm'
 				default_grids = inch_grids if parent.units == "IN" else metric_grids
@@ -3610,8 +3616,8 @@ def setup_plotter(parent):
 				new_action.triggered.connect(partial(utilities.update_grid_size, parent, 0.0))
 				menu.insertAction(current_actions[0], new_action)
 
-		set_grid_size = parent.settings.value('PLOT/grid_size', default_grid_size, type=float)
-		utilities.update_grid_size(parent, set_grid_size)
+			set_grid_size = parent.settings.value('PLOT/grid_size', default_grid_size, type=float)
+			utilities.update_grid_size(parent, set_grid_size)
 
 	else: # no plot widget
 		parent.plotter = False

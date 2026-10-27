@@ -932,11 +932,13 @@ def flash_buttons(parent):
 			getattr(parent, name).setStyleSheet( getattr(parent, name).styleSheet())
 
 def toggle_grid(parent):
-	current_grid = parent.plotter.grid_size
-	if current_grid == 0.0:
+	state = parent.sender().isChecked()
+	if state:
 		parent.plotter.grid_size = parent.default_grid
+		parent.settings.setValue('PLOT/view_grid_cb', True)
 	else:
 		parent.plotter.grid_size = 0.0
+		parent.settings.setValue('PLOT/view_grid_cb', False)
 	parent.plotter.update()
 
 def update_grid_size(parent, grid_size):
