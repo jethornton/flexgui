@@ -862,7 +862,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1218,7 +1218,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_18">
            <attribute name="title">
@@ -1320,6 +1320,13 @@
              <widget class="QCheckBox" name="view_tool_cb">
               <property name="text">
                <string>View Tool</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="view_grid_cb">
+              <property name="text">
+               <string>View Grid</string>
               </property>
              </widget>
             </item>
@@ -3803,7 +3810,6 @@ the function to hal_pin.</string>
     <addaction name="actionDTG"/>
     <addaction name="actionOffsets"/>
     <addaction name="actionOverlay"/>
-    <addaction name="actionGrids"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuMachine"/>
@@ -4020,11 +4026,6 @@ the function to hal_pin.</string>
   <action name="actionClear_Offsets">
    <property name="text">
     <string>Clear Offsets</string>
-   </property>
-  </action>
-  <action name="actionGrids">
-   <property name="text">
-    <string>Grids</string>
    </property>
   </action>
  </widget>
