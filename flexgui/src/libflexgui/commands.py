@@ -76,6 +76,40 @@ def jog(parent): # only do jog check if button is down
 	increment = parent.jog_modes_cb.currentData()
 	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 	velocity = parent.jog_vel_sl.value() / 60
+
+	if not joint_jog_mode:
+		try:
+			# Get the axis letter corresponding to this joint index (e.g., 'Z')
+			axis_letter = parent.axis_letters[joint]
+			axis_map = {'X': 0, 'Y': 1, 'Z': 2, 'A': 3, 'B': 4, 'C': 5, 'U': 6, 'V': 7, 'W': 8}
+			axis_index = axis_map.get(axis_letter.upper(), joint)
+		except (IndexError, AttributeError): # FIXME fire off a warning to the user
+			# Fallback to a 1:1 mill mapping if the array isn't accessible
+			axis_index = joint
+	else:
+		# In Joint mode (unhomed), pass the raw joint motor index directly
+		axis_index = joint
+
+	if 'minus' in jog_command:
+		velocity = -velocity
+	if parent.sender().isDown():
+		if jog_check(parent, velocity):
+			if increment:
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis_index, velocity, increment)
+			else:
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, axis_index, velocity)
+	else:
+		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis_index)
+		set_jog_override(parent)
+
+'''
+def jog(parent): # only do jog check if button is down
+	# jog buttons are disabled when jogging is not allowed
+	jog_command = parent.sender().objectName().split('_')
+	joint = int(jog_command[-1])
+	increment = parent.jog_modes_cb.currentData()
+	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
+	velocity = parent.jog_vel_sl.value() / 60
 	if 'minus' in jog_command:
 		velocity = -velocity
 	if parent.sender().isDown():
@@ -87,6 +121,7 @@ def jog(parent): # only do jog check if button is down
 	else:
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
+'''
 
 def jog_selected(parent):
 	joint = int(parent.axes_group.checkedButton().objectName().split('_')[-1])
