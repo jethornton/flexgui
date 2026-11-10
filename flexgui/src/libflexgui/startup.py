@@ -730,7 +730,7 @@ def setup_enables(parent):
 		if item in parent.child_names:
 			parent.jog_controls.append(item)
 
-	for i in range(parent.joints):
+	for i in range(9):
 		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.jog_controls.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.child_names:
@@ -1559,7 +1559,7 @@ def setup_jog(parent):
 
 	required_jog_items = ['jog_vel_sl', 'jog_modes_cb']
 	parent.jog_buttons = []
-	for i in range(parent.joints):
+	for i in range(9):
 		if f'jog_plus_pb_{i}' in parent.child_names:
 			parent.jog_buttons.append(f'jog_plus_pb_{i}')
 		if f'jog_minus_pb_{i}' in parent.child_names:
