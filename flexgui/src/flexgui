@@ -60,42 +60,72 @@ class KeyboardJog(QObject):
 		self.KEY_JOG_MAP = self.generate_jog_map(axes)
 
 	def generate_jog_map(self, num_axes: int) -> dict:
-		#Generates a strict KEY_JOG_MAP based on exact axis count (1 to 5)
+		joint_jog_mode = True if self.window.motion_mode == emc.TRAJ_MODE_FREE else False
+		'''
+		new_jog_map = {}
+		if not joint_jog_mode: # axes are homed so mapping is different
+			axis_map = {'X': 0, 'Y': 1, 'Z': 2, 'A': 3, 'B': 4, 'C': 5, 'U': 6, 'V': 7, 'W': 8}
+			for axis in self.window.axis_letters:
+				print(f'axis_map[axis] {axis} {axis_map[axis]}')
+		'''
+
+
+		# FIXME this does not work when an axis is skipped like a lathe configuration
+		# page up/down should be joint 1 when not homed and joint 2 when homed
+		''' this code is used for jogging from buttons
+				
+				axis_index = axis_map.get(axis_letter.upper(), joint)
+			except (IndexError, AttributeError): # FIXME fire off a warning to the user
+				# Fallback to a 1:1 mill mapping if the array isn't accessible
+				axis_index = joint
+		else:
+			# In Joint mode (unhomed), pass the raw joint motor index directly
+			axis_index = joint
+		'''
+
+		#Generates a KEY_JOG_MAP based on exact axis count (1 to 5) FIXME this is not correct for a lathe
 		jog_map = {}
 
-		# Axis 0 (X)
-		if num_axes >= 1:
+		# Axis X
+		if 'X' in self.window.axis_letters:
 			jog_map.update({
 				Qt.Key.Key_Left: (0, 'neg'),
 				Qt.Key.Key_Right: (0, 'pos'),
 			})
 
-		# Axis 1 (Y)
-		if num_axes >= 2:
+		# Axis Y
+		if 'Y' in self.window.axis_letters:
 			jog_map.update({
 				Qt.Key.Key_Up: (1, 'pos'),
 				Qt.Key.Key_Down: (1, 'neg'),
 			})
 
-		# Axis 2 (Z)
-		if num_axes >= 3:
+		# Axis Z
+		if 'Z' in self.window.axis_letters:
 			jog_map.update({
 				Qt.Key.Key_PageUp: (2, 'pos'),
 				Qt.Key.Key_PageDown: (2, 'neg'),
 			})
 
-		# Axis 3 (A)
-		if num_axes >= 4:
+		# Axis A
+		if 'A' in self.window.axis_letters:
 			jog_map.update({
 				Qt.Key.Key_Insert: (3, 'pos'),
 				Qt.Key.Key_Delete: (3, 'neg'),
 			})
 
-		# Axis 4 (B)
-		if num_axes >= 5:
+		# Axis B
+		if 'B' in self.window.axis_letters:
 			jog_map.update({
 				Qt.Key.Key_Home: (4, 'pos'),
 				Qt.Key.Key_End: (4, 'neg'),
+			})
+
+		# Axis C
+		if 'C' in self.window.axis_letters:
+			jog_map.update({
+				Qt.Key.Key_Less: (5, 'pos'),
+				Qt.Key.Key_Greater: (5, 'neg'),
 			})
 
 		return jog_map
@@ -160,12 +190,13 @@ class KeyboardJog(QObject):
 					if event.isAutoRepeat():
 						return True
 
-					axis, direction = self.KEY_JOG_MAP[event.key()]
+					# FIXME this is where keyboard jogging fails for a lathe
+					joint, direction = self.KEY_JOG_MAP[event.key()]
 
 					if self.shift_max_val and shift_pressed:
-						commands.keyboard_jog(self.window, True, axis, direction, velocity=self.shift_max_val)
+						commands.keyboard_jogging(self.window, True, joint, direction, velocity=self.shift_max_val)
 					else:
-						commands.keyboard_jog(self.window, True, axis, direction)
+						commands.keyboard_jogging(self.window, True, joint, direction)
 					return True
 
 		return False
@@ -181,12 +212,12 @@ class KeyboardJog(QObject):
 
 		# Dynamic Multi-axis key release handling
 		if released_key in self.KEY_JOG_MAP:
-			axis, _ = self.KEY_JOG_MAP[released_key]
-			commands.keyboard_jog(self.window, False, axis)
+			joint, _ = self.KEY_JOG_MAP[released_key]
+			commands.keyboard_jogging(self.window, False, joint)
 			return True
 
 		if released_key == Qt.Key.Key_Control or (self.shift_max_val and released_key == Qt.Key.Key_Shift):
-			commands.keyboard_jog(self.window, False)
+			commands.keyboard_jogging(self.window, False)
 			return True
 
 		return False
@@ -325,16 +356,27 @@ class flexgui(QMainWindow):
 		else:
 			self.setWindowTitle(f'Flex GUI - Version: {self.flex_version} - Using {gui_file}')
 
+		self.axis_joint_map = {'X': 0, 'Y': 1, 'Z': 2, 'A': 3, 'B': 4, 'C': 5, 'U': 6, 'V': 7, 'W': 8}
+		self.joint_axis_map = {0: 'X', 1: 'Y', 2: 'Z', 3: 'A', 4: 'B', 5: 'C', 6: 'U', 7: 'V', 8: 'W'}
+
 		# get a list of axis letters in the configuration
 		axis_list = ['X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V', 'W']
-		axis_map = f'{self.status.axis_mask:09b}'
+		configured_axis_map = f'{self.status.axis_mask:09b}'
 		self.axis_letters = []
-		for i, a in enumerate(reversed(axis_map)):
+		for i, a in enumerate(reversed(configured_axis_map)):
 			if a == '1':
 				self.axis_letters.append(axis_list[i])
+		#print(f'self.axis_letters {self.axis_letters}')
+
+		self.axis_joints = {}
+		for joint, axis in enumerate(self.axis_letters):
+			self.axis_joints[axis] = joint
+		#for key, value in self.axis_joints.items():
+		#	print(f'axis_joints key value {key} {value}')
 
 		# get the number of axes and joints
 		self.axis_count = self.status.axis_mask.bit_count()
+		#print(f'self.axis_count {self.axis_count}')
 
 		# check for a resources.py file with images for the stylesheet
 		if self.resources_file: # import the resources file

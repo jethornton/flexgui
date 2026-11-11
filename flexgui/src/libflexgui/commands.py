@@ -73,43 +73,14 @@ def jog(parent): # only do jog check if button is down
 	# jog buttons are disabled when jogging is not allowed
 	jog_command = parent.sender().objectName().split('_')
 	joint = int(jog_command[-1])
+	axis_letter = parent.joint_axis_map[joint]
 	increment = parent.jog_modes_cb.currentData()
 	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 	velocity = parent.jog_vel_sl.value() / 60
 
-	if not joint_jog_mode:
-		try:
-			# Get the axis letter corresponding to this joint index (e.g., 'Z')
-			axis_letter = parent.axis_letters[joint]
-			axis_map = {'X': 0, 'Y': 1, 'Z': 2, 'A': 3, 'B': 4, 'C': 5, 'U': 6, 'V': 7, 'W': 8}
-			axis_index = axis_map.get(axis_letter.upper(), joint)
-		except (IndexError, AttributeError): # FIXME fire off a warning to the user
-			# Fallback to a 1:1 mill mapping if the array isn't accessible
-			axis_index = joint
-	else:
-		# In Joint mode (unhomed), pass the raw joint motor index directly
-		axis_index = joint
+	if joint_jog_mode: # not homed use axis_joints
+		joint = parent.axis_joints[axis_letter]
 
-	if 'minus' in jog_command:
-		velocity = -velocity
-	if parent.sender().isDown():
-		if jog_check(parent, velocity):
-			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis_index, velocity, increment)
-			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, axis_index, velocity)
-	else:
-		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis_index)
-		set_jog_override(parent)
-
-'''
-def jog(parent): # only do jog check if button is down
-	# jog buttons are disabled when jogging is not allowed
-	jog_command = parent.sender().objectName().split('_')
-	joint = int(jog_command[-1])
-	increment = parent.jog_modes_cb.currentData()
-	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
-	velocity = parent.jog_vel_sl.value() / 60
 	if 'minus' in jog_command:
 		velocity = -velocity
 	if parent.sender().isDown():
@@ -121,7 +92,6 @@ def jog(parent): # only do jog check if button is down
 	else:
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
-'''
 
 def jog_selected(parent):
 	joint = int(parent.axes_group.checkedButton().objectName().split('_')[-1])
@@ -142,26 +112,33 @@ def jog_selected(parent):
 		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
 
-def keyboard_jog(parent, action, axis=None, direction=None, velocity=None):
-	# called by KeyboardJog class
+def keyboard_jogging(parent, action, joint=None, direction=None, velocity=None):
+	# called by KeyboardJog class, the joint is figured out in KeyboardJog class
+	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
+
+	if joint is not None:
+		axis_letter = parent.joint_axis_map[joint]
+
+		if joint_jog_mode: # not homed use axis_joints
+			joint = parent.axis_joints[axis_letter]
+
 	if velocity is None:
 		velocity = parent.jog_vel_sl.value() / 60
 	increment = parent.jog_modes_cb.currentData()
 	if direction == 'neg':
 		velocity = -velocity
-	joint_jog_mode = True if parent.motion_mode == emc.TRAJ_MODE_FREE else False
 
 	if parent.status.task_mode == emc.MODE_MANUAL and action:
 		if jog_check(parent, velocity):
 			if increment:
-				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, axis, velocity, increment)
+				parent.command.jog(emc.JOG_INCREMENT, joint_jog_mode, joint, velocity, increment)
 			else:
-				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, axis, velocity)
-	elif axis == None: # stop all jogging
+				parent.command.jog(emc.JOG_CONTINUOUS, joint_jog_mode, joint, velocity)
+	elif joint == None: # stop all jogging
 		for i in range(parent.status.joints):
 			parent.command.jog(emc.JOG_STOP, joint_jog_mode, i)
 	else:
-		parent.command.jog(emc.JOG_STOP, joint_jog_mode, axis)
+		parent.command.jog(emc.JOG_STOP, joint_jog_mode, joint)
 		set_jog_override(parent)
 
 def change_cs(parent):
@@ -363,7 +340,7 @@ def spindle_control(parent, spindle, action, value=None):
 			if rpm_override < min_rpm or rpm_override > max_rpm:
 				#rpm = int(max_rpm / override)
 				rpm = max(min_rpm, min(rpm, max_rpm))
-				print(f'corrected rpm {rpm}')
+				#print(f'corrected rpm {rpm}')
 				#sender.setValue(rpm)
 				msg = (f'RPM {rpm_override:.0f} Exceeds Spindle {spindle} Limits '
 				f'{min_rpm}-{max_rpm}')
