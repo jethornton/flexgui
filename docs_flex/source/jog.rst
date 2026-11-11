@@ -33,7 +33,7 @@ Velocity Slider
 Keyboard Jogging
 ----------------
 
-Keyboard jogging uses the following keys to jog the X, Y, Z, A and B or C axes.
+Keyboard jogging uses the following keys to jog the X, Y, Z, A, B and C axes.
 
 * Right Arrow jogs the X axis in the positive direction
 * Left Arrow jogs the X axis in the negative direction
@@ -43,8 +43,10 @@ Keyboard jogging uses the following keys to jog the X, Y, Z, A and B or C axes.
 * Page Down jogs the Z axis in the negative direction
 * Insert jogs the A axis in the positive direction
 * Delete jogs the A axis in the negative direction
-* Home jogs the B or C axis in the positive direction
-* End jogs the B or C axis in the negative direction
+* Home jogs the B axis in the positive direction
+* End jogs the B axis in the negative direction
+* < jogs the C axis in the positive direction
+* > jogs the C axis in the negative direction
 
 Keyboard jogging can jog more than one axis at the same time.
 

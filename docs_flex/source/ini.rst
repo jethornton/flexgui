@@ -229,8 +229,14 @@ To use a built in theme with coloring add one of the following to the
 
 .. note:: THEME is checked first then QSS so the first entry found is used.
 
-Jog velocity settings are in [TRAJ] LINEAR_UNITS per second. These settings will
-setup the jog velocity slider minimum, maximum and setting at startup.
+Jog velocity settings are in [TRAJ] LINEAR_UNITS per second which will be either
+millimeters or inches.
+
+These settings will setup the jog velocity slider minimum, maximum and setting
+at startup.
+
+To set the minimum, default and maximum jog velocities add these to the
+[FLEXGUI] section of the ini file.
 
 .. code-block:: text
 
