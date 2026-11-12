@@ -862,7 +862,7 @@
     <item row="3" column="0" colspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1051,7 +1051,7 @@
            <string>load_file</string>
           </property>
           <property name="filename" stdset="0">
-           <string>square.ngc</string>
+           <string>./square.ngc</string>
           </property>
          </widget>
         </item>
@@ -1145,7 +1145,7 @@
            <string>load_file</string>
           </property>
           <property name="filename" stdset="0">
-           <string>/home/john/linuxcnc/nc_files/square.ngc</string>
+           <string>./square.ngc</string>
           </property>
          </widget>
         </item>
