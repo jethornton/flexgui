@@ -1694,6 +1694,155 @@ def setup_spindle(parent):
 	#### emc reports at least 1 spindle no matter what
 	# spindles are numbered 0-7 but parent.status.spindles reports 1-8
 
+	##### Single Spindle Controls #####
+	# test if single and multiple controls exist
+
+	if 'spindle_speed_sl' in parent.child_names:
+		if 'spindle_speed_0_sl' in parent.child_names:
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_speed_sl" was found and the new style '
+			'"spindle_speed_0_sl" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.spindle_speed_sl.setEnabled(False)
+		else: # only the old style is present
+			min_rpm = parent.spindle_0_min_fwd_rpm
+			max_rpm = parent.spindle_0_max_fwd_rpm
+			parent.spindle_speed_sl.blockSignals(True)
+			parent.spindle_speed_sl.setRange(min_rpm, max_rpm)
+			parent.spindle_speed_sl.setValue(parent.spindle_rpm_0)
+			parent.spindle_speed_sl.blockSignals(False)
+			parent.spindle_speed_sl.valueChanged.connect(partial(
+			commands.spindle_control, parent, 0, 'speed'))
+
+	if 'spindle_fwd_pb' in parent.child_names:
+		if 'spindle_fwd_0_pb' in parent.child_names:
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_fwd_pb" was found and the new style '
+			'"spindle_fwd_0_pb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.spindle_fwd_pb.setEnabled(False)
+		else: # only the old style is present
+			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
+			parent.spindle_controls.append('spindle_fwd_pb')
+
+	if 'spindle_rev_pb' in parent.child_names:
+		if 'spindle_rev_0_pb' in parent.child_names:
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_rev_pb" was found and the new style '
+			'"spindle_rev_0_pb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.spindle_rev_pb.setEnabled(False)
+		else: # only the old style is present
+			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
+			parent.spindle_controls.append('spindle_rev_pb')
+
+	if 'spindle_stop_pb' in parent.child_names:
+		if 'spindle_stop_0_pb' in parent.child_names:
+			parent.spindle_stop_pb.setEnabled(False)
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_stop_pb" was found and the new style '
+			'"spindle_stop_0_pb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+		else: # only the old style is present
+			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'stop'))
+			parent.spindle_controls.append('spindle_stop_pb')
+
+	if 'spindle_plus_pb' in parent.child_names:
+		if 'spindle_plus_0_pb' in parent.child_names:
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_plus_pb" was found and the new style '
+			'"spindle_plus_0_pb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.spindle_plus_pb.setEnabled(False)
+		else: # only the old style is present
+			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'plus'))
+			parent.spindle_controls.append('spindle_plus_pb')
+
+	if 'spindle_minus_pb' in parent.child_names:
+		if 'spindle_minus_0_pb' in parent.child_names:
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_minus_pb" was found and the new style '
+			'"spindle_minus_0_pb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+			parent.spindle_minus_pb.setEnabled(False)
+		else: # only the old style is present
+			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'minus'))
+			parent.spindle_controls.append('spindle_minus_pb')
+
+	if 'spindle_override_sl' in parent.child_names:
+		if 'spindle_override_0_sl' in parent.child_names:
+			parent.spindle_override_sl.setEnabled(False)
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_override_sl" was foundand the new style '
+			'"spindle_override_0_sl" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+		else: # only the old style is present
+			parent.spindle_override_sl.valueChanged.connect(partial(
+				commands.spindle_override, parent, 0))
+			parent.spindle_override_sl.blockSignals(True)
+			parent.spindle_override_sl.setMinimum(parent.spindle_0_min_override)
+			parent.spindle_override_sl.setMaximum(parent.spindle_0_max_override)
+			parent.spindle_override_sl.setValue(100)
+			parent.spindle_override_sl.blockSignals(False)
+
+	if 'spindle_speed_sb' in parent.child_names:
+		if 'spindle_speed_0_sb' in parent.child_names:
+			parent.spindle_speed_sb.setEnabled(False)
+			title = 'Configuration Error'
+			msg = ('The old style "spindle_speed_sb" was found and the new style '
+			'"spindle_speed_0_sb" was found.')
+			info = 'The old style will be disabled.'
+			dialogs.error_msg_ok(parent, title, msg, info)
+		else: # only the old style is present
+			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle_control, parent, 0, 'speed'))
+			parent.spindle_speed_sb.blockSignals(True)
+			parent.spindle_speed_sb.setSingleStep(parent.spindle_0_rpm_increment)
+			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
+			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
+			parent.spindle_speed_sb.setValue(parent.spindle_rpm_0)
+			parent.spindle_speed_sb.blockSignals(False)
+
+	# override preset buttons for single spindle spindle_percent_100
+	for item in parent.child_names:
+		if item.startswith('spindle_percent_') and len(item.split('_')) == 3:
+			button = getattr(parent, item)
+			value = item.split('_')[-1]
+			if utilities.is_int(value):
+				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
+			else:
+				title = 'Configuration Error'
+				msg = (f'The button named "{item}" with the button text of '
+				f'{button.text()}" "{value}" did not evaluate to an integer.')
+				info = 'The button will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				button.setText('Error!')
+				getattr(parent, item).setEnabled(False)
+
+	# Single Spindle Status Labels
+	
+	spindle_status_labels = 
+
+	'''
+	Spindle Brake, QLabel, spindle_brake_lb
+	Spindle Direction, QLabel, spindle_direction_lb
+	Spindle Enabled, QLabel, spindle_enabled_lb
+	Spindle Override Enabled, QLabel, spindle_override_enabled_lb
+	Spindle Speed, QLabel, spindle_speed_lb
+	Spindle Speed LCD, QLCDNumber, spindle_speed_lcd
+	Spindle Commanded Speed, QLabel, spindle_cmd_speed_lb
+	Spindle Override Percent, QLabel, spindle_override_lb
+	Spindle Orient State, QLabel, spindle_orient_state_lb
+	Spindle Orient Fault, QLabel, spindle_orient_fault_lb
+	'''
+
+
 	# create spindle tuple
 	parent.status_spindle = ()
 
@@ -1999,137 +2148,6 @@ def setup_spindle(parent):
 
 	##### End of Multi Spindles #####
 
-	##### Old Style Spindle Controls #####
-	# test if new style and old style exist
-
-	if 'spindle_speed_sl' in parent.child_names:
-		if 'spindle_speed_0_sl' in parent.child_names:
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_speed_sl" was found and the new style '
-			'"spindle_speed_0_sl" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.spindle_speed_sl.setEnabled(False)
-		else: # only the old style is present
-			min_rpm = parent.spindle_0_min_fwd_rpm
-			max_rpm = parent.spindle_0_max_fwd_rpm
-			parent.spindle_speed_sl.blockSignals(True)
-			parent.spindle_speed_sl.setRange(min_rpm, max_rpm)
-			parent.spindle_speed_sl.setValue(parent.spindle_rpm_0)
-			parent.spindle_speed_sl.blockSignals(False)
-			parent.spindle_speed_sl.valueChanged.connect(partial(
-			commands.spindle_control, parent, 0, 'speed'))
-
-	if 'spindle_fwd_pb' in parent.child_names:
-		if 'spindle_fwd_0_pb' in parent.child_names:
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_fwd_pb" was found and the new style '
-			'"spindle_fwd_0_pb" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.spindle_fwd_pb.setEnabled(False)
-		else: # only the old style is present
-			parent.spindle_fwd_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'fwd'))
-			parent.spindle_controls.append('spindle_fwd_pb')
-
-	if 'spindle_rev_pb' in parent.child_names:
-		if 'spindle_rev_0_pb' in parent.child_names:
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_rev_pb" was found and the new style '
-			'"spindle_rev_0_pb" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.spindle_rev_pb.setEnabled(False)
-		else: # only the old style is present
-			parent.spindle_rev_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'rev'))
-			parent.spindle_controls.append('spindle_rev_pb')
-
-	if 'spindle_stop_pb' in parent.child_names:
-		if 'spindle_stop_0_pb' in parent.child_names:
-			parent.spindle_stop_pb.setEnabled(False)
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_stop_pb" was found and the new style '
-			'"spindle_stop_0_pb" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-		else: # only the old style is present
-			parent.spindle_stop_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'stop'))
-			parent.spindle_controls.append('spindle_stop_pb')
-
-	if 'spindle_plus_pb' in parent.child_names:
-		if 'spindle_plus_0_pb' in parent.child_names:
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_plus_pb" was found and the new style '
-			'"spindle_plus_0_pb" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.spindle_plus_pb.setEnabled(False)
-		else: # only the old style is present
-			parent.spindle_plus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'plus'))
-			parent.spindle_controls.append('spindle_plus_pb')
-
-	if 'spindle_minus_pb' in parent.child_names:
-		if 'spindle_minus_0_pb' in parent.child_names:
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_minus_pb" was found and the new style '
-			'"spindle_minus_0_pb" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-			parent.spindle_minus_pb.setEnabled(False)
-		else: # only the old style is present
-			parent.spindle_minus_pb.clicked.connect(partial(commands.spindle_control, parent, 0, 'minus'))
-			parent.spindle_controls.append('spindle_minus_pb')
-
-	if 'spindle_override_sl' in parent.child_names:
-		if 'spindle_override_0_sl' in parent.child_names:
-			parent.spindle_override_sl.setEnabled(False)
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_override_sl" was foundand the new style '
-			'"spindle_override_0_sl" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-		else: # only the old style is present
-			parent.spindle_override_sl.valueChanged.connect(partial(
-				commands.spindle_override, parent, 0))
-			parent.spindle_override_sl.blockSignals(True)
-			parent.spindle_override_sl.setMinimum(parent.spindle_0_min_override)
-			parent.spindle_override_sl.setMaximum(parent.spindle_0_max_override)
-			parent.spindle_override_sl.setValue(100)
-			parent.spindle_override_sl.blockSignals(False)
-
-	if 'spindle_speed_sb' in parent.child_names:
-		if 'spindle_speed_0_sb' in parent.child_names:
-			parent.spindle_speed_sb.setEnabled(False)
-			title = 'Configuration Error'
-			msg = ('The old style "spindle_speed_sb" was found and the new style '
-			'"spindle_speed_0_sb" was found.')
-			info = 'The old style will be disabled.'
-			dialogs.error_msg_ok(parent, title, msg, info)
-		else: # only the old style is present
-			parent.spindle_speed_sb.valueChanged.connect(partial(commands.spindle_control, parent, 0, 'speed'))
-			parent.spindle_speed_sb.blockSignals(True)
-			parent.spindle_speed_sb.setSingleStep(parent.spindle_0_rpm_increment)
-			parent.spindle_speed_sb.setMinimum(parent.spindle_0_min_fwd_rpm)
-			parent.spindle_speed_sb.setMaximum(parent.spindle_0_max_fwd_rpm)
-			parent.spindle_speed_sb.setValue(parent.spindle_rpm_0)
-			parent.spindle_speed_sb.blockSignals(False)
-
-	# override preset buttons for Spindle 0 spindle_percent_100
-	for item in parent.child_names:
-		if item.startswith('spindle_percent_') and len(item.split('_')) == 3:
-			button = getattr(parent, item)
-			value = item.split('_')[-1]
-			if utilities.is_int(value):
-				button.clicked.connect(partial(commands.spindle_override_preset, parent, 0, int(value)))
-			else:
-				title = 'Configuration Error'
-				msg = (f'The button named "{item}" with the button text of '
-				f'{button.text()}" "{value}" did not evaluate to an integer.')
-				info = 'The button will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setText('Error!')
-				getattr(parent, item).setEnabled(False)
-
 def setup_jog_selected(parent):
 	parent.axes_group = QButtonGroup()
 	for i in range(9):
@@ -2324,7 +2342,7 @@ def setup_manual_tool_change(parent):
 				parent.manual_tool_change = False
 				return
 
-		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
+		parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN) # FIXME this will break in master
 		parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
 		parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
 		parent.toolcomp.ready()
@@ -2334,11 +2352,11 @@ def setup_manual_tool_change(parent):
 		hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
 		hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
 
-		hal.new_sig('tool-number',hal.HAL_S32)
+		hal.new_sig('tool-number',hal.HAL_S32) # FIXME this will break in master
 		hal.connect('iocontrol.0.tool-prep-number','tool-number')
 		hal.connect('tool-change.number','tool-number')
 
-		hal.new_sig('tool-change',hal.HAL_BIT)
+		hal.new_sig('tool-change',hal.HAL_BIT) # FIXME this will break in master
 		hal.connect('iocontrol.0.tool-change','tool-change')
 		hal.connect('tool-change.change','tool-change')
 
@@ -2546,6 +2564,10 @@ def setup_watch_var(parent):
 def setup_hal(parent):
 	# LinuxCNC all imports are handled above, is there any way to improve this code?
 	# this creates all the HAL pins for HAL widgets
+	'''
+	master now has ['HAL_BOOL', 'HAL_IN', 'HAL_IO', 'HAL_OUT', 'HAL_PORT',
+	'HAL_REAL', 'HAL_RO', 'HAL_RW', 'HAL_SINT', 'HAL_UINT']
+	'''
 	hal_types = [t for t in dir(hal) if 'HAL_' in t]
 
 	hal_labels = []
@@ -2671,7 +2693,7 @@ def setup_hal(parent):
 					parent.hal_io_check[obj_name] = pin_name
 
 				elif isinstance(child, QSpinBox) or isinstance(child, QSlider):
-					possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+					possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
 					valid_types = list(set(possible_types) & set(hal_types))
 					hal_type = child.property('hal_type')
 
@@ -2800,7 +2822,7 @@ def setup_hal(parent):
 
 	##### HAL SPINBOX #####
 	if len(hal_spinboxes) > 0:
-		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
 		valid_types = list(set(possible_types) & set(hal_types))
 
 		for spinbox in hal_spinboxes:
@@ -2879,7 +2901,7 @@ def setup_hal(parent):
 
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
-		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_UINT']
 		valid_types = list(set(possible_types) & set(hal_types))
 
 		for slider in hal_sliders:
@@ -2925,7 +2947,7 @@ def setup_hal(parent):
 
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
-		possible_types = ['HAL_FLOAT', 'HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		possible_types = ['HAL_FLOAT', 'HAL_REAL', 'HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
 		valid_types = list(set(possible_types) & set(hal_types))
 
 		for lcd in hal_lcds:
@@ -2974,7 +2996,7 @@ def setup_hal(parent):
 
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
-		possible_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		possible_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_REAL', 'HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
 		valid_types = list(set(possible_types) & set(hal_types))
 
 		for label in hal_labels:
@@ -3029,7 +3051,7 @@ def setup_hal(parent):
 				continue
 
 			##### HAL Integer Label #####
-			if hal_type in ['HAL_S32', 'HAL_U32', 'HAL_S64', 'HAL_U64']:
+			if hal_type in ['HAL_S32', 'HAL_U32', 'HAL_SINT', 'HAL_UINT']:
 				if label.property('integer_digits'):
 					title = 'Configuration Error'
 					msg = ('The Dynamic Property "integer_digits" has been replaced with '
@@ -3091,7 +3113,7 @@ def setup_hal(parent):
 
 	##### HAL AVERAGE INT LABEL #####
 	if len(hal_avr_i_labels) > 0:
-		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_U64']
+		possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
 		valid_types = list(set(possible_types) & set(hal_types))
 
 		for label in hal_avr_i_labels:

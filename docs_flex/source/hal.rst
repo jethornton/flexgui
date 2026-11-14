@@ -35,7 +35,21 @@ HAL Types
 Starting with version 2.10 Linuxcnc added two 64 bit HAL types. You must be
 using LinuxCNC 2.10 or newer to use `HAL_S64` or `HAL_U64`.
 
-HAL Pin Types
+Seems the developers can't make up their mind on what to name the HAL types in
+LinuxCNC versoin 2.10. So HAL_S64 is now HAL_SINT, HAL_U64 is now HAL_UINT,
+HAL_FLOAT is now HAL_REAL and last but not least HAL_BIT is now HAL_BOOL. That's
+why you don't want to use master because they keep breaking it.
+
+HAL Pin Types for LinucCNC version 2.10 after September 27 2026
+
+.. code-block:: text
+
+	HAL_BOOL
+	HAL_REAL
+	HAL_SINT
+	HAL_UINT
+
+HAL Pin Types for LinuxCNC version 2.9 and before
 
 .. code-block:: text
 
@@ -43,8 +57,6 @@ HAL Pin Types
 	HAL_FLOAT
 	HAL_S32
 	HAL_U32
-	HAL_S64
-	HAL_U64
 
 HAL Pin Directions
 
@@ -53,8 +65,6 @@ HAL Pin Directions
 	HAL_IN
 	HAL_OUT
 	HAL_IO
-
-
 
 Options
 =======
