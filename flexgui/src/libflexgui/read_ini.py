@@ -8,7 +8,6 @@ from libflexgui import dialogs
 from libflexgui import utilities
 
 def read(parent):
-	parent.status.poll()
 
 	# check for theme must be done before using any dialogs
 	parent.theme = parent.inifile.find('FLEXGUI', 'THEME') or False
@@ -571,6 +570,11 @@ def read(parent):
 	parent.joints = int(parent.inifile.find('KINS', 'JOINTS'))
 
 	# ***** [SPINDLE_n] Sections *****
+	parent.status.poll()
+	# set defaults if status.spindles comes back 0
+	parent.spindle_0_min_fwd_rpm = 0
+	parent.spindle_0_max_fwd_rpm = 1000
+	parent.spindle_0_rpm_increment =100
 	for i in range(parent.status.spindles):
 
 		#### MIN_RPM ####
