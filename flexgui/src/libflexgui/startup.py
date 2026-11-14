@@ -672,7 +672,6 @@ def setup_actions(parent): # setup menu actions
 
 	for key, value in save_actions.items():
 		if key in parent.child_names:
-			print(f'{getattr(parent, key).text()}')
 			if 'gcode_pte' in parent.child_names:
 				getattr(parent, key).triggered.connect(partial(getattr(actions, value), parent))
 			else:
@@ -1953,7 +1952,6 @@ def setup_spindle(parent):
 				getattr(parent, f'spindle_speed_{i}_lcd').setEnabled(False)
 
 	for i in range(8): # spindle_override_0_lb
-		print(f'spindle_override_{i}_lb')
 		if f'spindle_override_{i}_lb' in parent.child_names:
 			if i <= max_spindle:
 				parent.spindle_override[f'spindle_override_{i}_lb'] = [i, 'override']
