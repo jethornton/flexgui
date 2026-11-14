@@ -238,7 +238,7 @@ def tool_touchoff(parent):
 		return
 
 	if cur_tool > 0:
-		#cmd = f'G10 L10 P{cur_tool} {axis}{offset} G43'
+		cmd = f'G10 L10 P{cur_tool} {axis}{offset} G43'
 		#run_mdi(parent, cmd)
 		parent.command.mode(emc.MODE_MDI)
 		parent.command.wait_complete()
