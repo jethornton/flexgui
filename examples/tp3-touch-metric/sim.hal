@@ -6,7 +6,7 @@ loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EM
 loadrt sim_parport names=parport.0
 
 #  load for Cycle Timer 
-loadrt time count=1
+loadrt time count=2
 
 
 setp parport.0.reset-time 5000
@@ -15,6 +15,7 @@ loadrt pwmgen output_type=1
 
 #  Cycle Timer
 addf time.0 servo-thread
+addf time.1 servo-thread
 
 addf parport.0.read base-thread
 source sim_hardware.hal
@@ -31,7 +32,11 @@ addf stepgen.update-freq servo-thread
 addf pwmgen.update servo-thread
 
 #  Cycle Timer
-net run-status	<= halui.program.is-running
+#net run-status	<= halui.program.is-running
+net run-status-in <= halui.mode.is-auto
+net run-status-in => time.1.start time.0.start
+net prog-paused <= halui.program.is-paused
+net prog-paused => time.0.pause
 
 net spindle-cmd-rpm => pwmgen.0.value
 net spindle-on <= spindle.0.on => pwmgen.0.enable
