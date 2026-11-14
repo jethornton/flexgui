@@ -4,6 +4,53 @@ Spindle
 
 `Video Tutorial <https://youtu.be/37Sh-lieq9Y>`_
 
+Single Spindle
+--------------
+
+The following items control the spindle on/off direction and speed for a single
+spindle configuration. There are two ways to control the spindle speed, using a
+QSpinBox or a QSlider. You can have both the QSpinBox and the QSlider and
+changing one will update the other. The QSpinBox up/down arrow keys will change
+the value by the `INCREMENT` setting in the [SPINDLE_0] section down to the
+`MIN_RPM` and up to the `MAX_RPM`.
+
+.. csv-table:: **Single Spindle Controls**
+   :width: 100%
+   :align: center
+   :widths: 30 30 40
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Forward, QPushButton, spindle_fwd_pb
+	Spindle Reverse, QPushButton, spindle_rev_pb
+	Spindle Stop, QPushButton, spindle_stop_pb
+	Spindle Faster, QPushButton, spindle_plus_pb
+	Spindle Slower, QPushButton, spindle_minus_pb
+	Spindle Speed, QSpinBox, spindle_speed_sb
+	Spindle Speed, QSlider, spindle_speed_sl
+
+.. note:: The spindle can not be started with a spindle speed of zero.
+
+Configuration of controls and status labels for a single spindle configuration
+use the following Object Names.
+
+.. csv-table:: **Single Spindle Status Labels**
+   :width: 100%
+   :align: center
+   :widths: 35 30 35
+
+	**Control Function**, **Object Type**, **Object Name**
+	Spindle Brake, QLabel, spindle_brake_lb
+	Spindle Direction, QLabel, spindle_direction_lb
+	Spindle Enabled, QLabel, spindle_enabled_lb
+	Spindle Override Enabled, QLabel, spindle_override_enabled_lb
+	Spindle Speed, QLabel, spindle_speed_lb
+	Spindle Speed LCD, QLCDNumber, spindle_speed_lcd
+	Spindle Commanded Speed, QLabel, spindle_cmd_speed_lb
+	Spindle Override Percent, QLabel, spindle_override_lb
+	Spindle Orient State, QLabel, spindle_orient_state_lb
+	Spindle Orient Fault, QLabel, spindle_orient_fault_lb
+
+
 Multiple Spindles
 -----------------
 
@@ -30,7 +77,7 @@ to 8 spindles. The spindles are numbered 0 through 7. If you have a single
 spindle it is spindle 0. Replace the `s` in the Object Name with the spindle
 number you want to monitor.
 
-.. csv-table:: **Spindle Status Labels**
+.. csv-table:: **Multiple Spindle Status Labels**
    :width: 100%
    :align: center
    :widths: 35 30 35
@@ -59,31 +106,6 @@ number you want to monitor.
    an encoder component and use the encoder.n.velocity-rpm float out connected
    to a HAL float label.
 
-Spindle Controls
-----------------
-
-The following items control the spindle on/off direction and speed for a single
-spindle configuration. There are two ways to control the spindle speed, using a
-QSpinBox or a QSlider. You can have both the QSpinBox and the QSlider and
-changing one will update the other. The QSpinBox up/down arrow keys will change
-the value by the `INCREMENT` setting in the [SPINDLE_0] section down to the
-`MIN_RPM` and up to the `MAX_RPM`.
-
-.. csv-table:: **Single Spindle Controls**
-   :width: 100%
-   :align: center
-   :widths: 30 30 40
-
-	**Control Function**, **Object Type**, **Object Name**
-	Spindle Forward, QPushButton, spindle_fwd_pb
-	Spindle Reverse, QPushButton, spindle_rev_pb
-	Spindle Stop, QPushButton, spindle_stop_pb
-	Spindle Faster, QPushButton, spindle_plus_pb
-	Spindle Slower, QPushButton, spindle_minus_pb
-	Spindle Speed, QSpinBox, spindle_speed_sb
-	Spindle Speed, QSlider, spindle_speed_sl
-
-.. note:: The spindle can not be started with a spindle speed of zero.
 
 The following items are manual spindle control each spindle up to 8 spindles.
 The spindles are numbered 0-7 with the default spindle being 0. Replace the `s`
