@@ -672,13 +672,15 @@ def setup_actions(parent): # setup menu actions
 
 	for key, value in save_actions.items():
 		if key in parent.child_names:
+			print(f'{getattr(parent, key).text()}')
 			if 'gcode_pte' in parent.child_names:
 				getattr(parent, key).triggered.connect(partial(getattr(actions, value), parent))
 			else:
 				getattr(parent, key).setEnabled(False)
 				title = 'Configuration Error'
-				msg = ('File Save controls require the "gcode_pte" Plain Text Edit.')
-				info = f'The File Save control {key} will be disabled!'
+				msg = (f'The {getattr(parent, key).text()} requires the "gcode_pte" '
+				'Plain Text Edit.')
+				info = f'The {getattr(parent, key).text()} {key} will be disabled!'
 				dialogs.error_msg_ok(parent, title, msg, info)
 
 	# special check for MDI
@@ -842,9 +844,9 @@ def setup_buttons(parent): # connect buttons to functions
 		if off_text is not None:
 			parent.state_estop_names['power_pb'] = off_text
 
-		off_text = parent.power_pb.property('off_text')
-		if off_text is not None:
-			parent.state_estop_reset_names['power_pb'] = off_text
+		on_text = parent.power_pb.property('on_text')
+		if on_text is not None:
+			parent.state_on_names['power_pb'] = on_text
 
 	if 'manual_mode_pb' in parent.child_names:
 		title = 'Depreciated Control'
@@ -3002,8 +3004,9 @@ def setup_hal(parent):
 
 			if hal_type not in valid_types:
 				title = 'Configuration Error'
-				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label. '
-				f'only {", ".join(valid_types)} are valid for a HAL Label')
+				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label '
+				f'in LinuxCNC version {parent.emc_version}. '
+				f'valid types are "{", ".join(valid_types)}".')
 				info = f'The "{obj_name}" label will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				label.setEnabled(False)

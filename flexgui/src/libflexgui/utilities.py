@@ -639,6 +639,10 @@ def update_controls(parent):
 		if 'power_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
 			parent.power_pb.state = False
 
+		# update estop and power text
+		for key, value in parent.state_estop_reset_names.items():
+			getattr(parent, key).setText(value)
+
 		for item in parent.power_controls:
 			getattr(parent, item).setEnabled(True)
 		for item in parent.run_controls:
@@ -684,6 +688,10 @@ def update_controls(parent):
 			parent.estop_pb.state = True
 		if 'power_pb' in parent.child_names and hasattr(parent.estop_pb, 'state'):
 			parent.power_pb.state = True
+
+		# update power text
+		for key, value in parent.state_on_names.items():
+			getattr(parent, key).setText(value)
 
 		for item in parent.coolant_controls:
 			getattr(parent, item).setEnabled(True)
