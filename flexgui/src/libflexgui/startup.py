@@ -1826,17 +1826,37 @@ def setup_spindle(parent):
 
 	# Single Spindle Status Labels
 
-	spindle_status_labels = {'spindle_brake_lb': 'brake'}
+	parent.single_spindle_int = {}
+	spindle_status_labels = {'spindle_brake_lb': ['brake', {0: 'Off', 1: 'On'}],
+		'spindle_enabled_lb': ['enabled', {0: 'False', 1: 'True'}],
+		'spindle_direction_lb': ['direction', {-1: 'Rev', 0: 'Off', 1: 'Fwd'}],
+		'spindle_override_enabled_lb': ['override_enabled', {False: 'Off', True: 'On'}]}
+	for key, value in spindle_status_labels.items():
+		if key in parent.child_names:
+			parent.single_spindle_int[key] = value
+
+	parent.single_spindle_float = {}
+	if 'spindle_speed_lb' in parent.child_names:
+		parent.single_spindle_float['spindle_speed_lb'] = 'speed'
+
+	parent.single_spindle_percent = {}
+	if 'spindle_override_lb' in parent.child_names:
+		parent.single_spindle_percent['spindle_override_lb'] = 'override'
+
+	parent.single_spindle_cmd_speed = {}
+	if 'spindle_cmd_speed_lb' in parent.child_names:
+		parent.single_spindle_cmd_speed['spindle_cmd_speed_lb'] = 'speed'
+
 
 	'''
-	Spindle Brake, QLabel, spindle_brake_lb
-	Spindle Direction, QLabel, spindle_direction_lb
-	Spindle Enabled, QLabel, spindle_enabled_lb
-	Spindle Override Enabled, QLabel, spindle_override_enabled_lb
-	Spindle Speed, QLabel, spindle_speed_lb
+	Spindle Brake, QLabel, spindle_brake_lb, integer 0, 1
+	Spindle Direction, QLabel, spindle_direction_lb, integer -1, 0, 1
+	Spindle Enabled, QLabel, spindle_enabled_lb, integer 0, 1
+	Spindle Override Enabled, QLabel, spindle_override_enabled_lb, boolean
+	Spindle Speed, QLabel, spindle_speed_lb, float
 	Spindle Speed LCD, QLCDNumber, spindle_speed_lcd
 	Spindle Commanded Speed, QLabel, spindle_cmd_speed_lb
-	Spindle Override Percent, QLabel, spindle_override_lb
+	Spindle Override Percent, QLabel, spindle_override_lb, float
 	Spindle Orient State, QLabel, spindle_orient_state_lb
 	Spindle Orient Fault, QLabel, spindle_orient_fault_lb
 	'''

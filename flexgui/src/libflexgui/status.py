@@ -304,6 +304,26 @@ def update(parent):
 	# spindle status
 	if parent.status_spindle != parent.status.spindle:
 
+		# Single Spindle
+		# Single Spindle Int
+		for key, value in parent.single_spindle_int.items():
+			getattr(parent, key).setText(f'{value[1][parent.status.spindle[0][value[0]]]}')
+
+		# Single Spindle Float
+		for key, value in parent.single_spindle_float.items():
+			getattr(parent, key).setText(f'{parent.status.spindle[0][value]:.0f}')
+
+		# Single Spindle Percent
+		for key, value in parent.single_spindle_percent.items():
+			getattr(parent, key).setText(f'{parent.status.spindle[0][value]:.0%}')
+
+		# Single Spindle commanded speed key is label value is spindle and commanded speed
+		for key, value in parent.single_spindle_cmd_speed.items():
+			override = parent.status.spindle[0]['override']
+			speed = parent.status.spindle[0]['speed']
+			getattr(parent, key).setText(f'{speed * override:.0f}')
+
+		# Multiple Spindle
 		# spindle speed key is label value is spindle and speed
 		for key, value in parent.spindle_speed.items():
 			getattr(parent, key).setText(f'{abs(parent.status.spindle[value[0]][value[1]]):.0f}')
