@@ -58,7 +58,7 @@ following to the ini file.
 	[FLEXGUI]
 	KEYBOARD_JOG = True
 
-When keyboard jogging is enabled in this manner either Ctrl key must be pressed
+When keyboard jogging is enabled in this manner the Ctrl key must be pressed
 before pressing one of the jog keys. If you release the Ctrl key all axes will
 stop jogging.
 
