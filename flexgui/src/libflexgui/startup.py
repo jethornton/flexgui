@@ -101,20 +101,6 @@ def setup_vars(parent):
 	parent.home_controls = [] # disable when power is off
 	parent.unhome_controls = [] # disable when power is off
 
-'''
-def find_widget_index(layout, target_widget):
-	for i in range(layout.count()):
-		item = layout.itemAt(i)
-		if item.widget() == target_widget:
-			return i
-		elif item.layout() is not None:
-			# Recursively search in nested layouts
-			nested_index = find_widget_index(item.layout(), target_widget)
-			if nested_index is not None:
-				return f"{layout} layout at index {i}, widget at index {nested_index}"
-	return None
-'''
-
 def find_widget_layout(layout, target_widget):
 	for i in range(layout.count()):
 		item = layout.itemAt(i)
@@ -1847,18 +1833,6 @@ def setup_spindle(parent):
 	parent.single_spindle_cmd_speed = {}
 	if 'spindle_cmd_speed_lb' in parent.child_names:
 		parent.single_spindle_cmd_speed['spindle_cmd_speed_lb'] = 'speed'
-
-	'''
-	Spindle Brake, QLabel, spindle_brake_lb, integer 0, 1
-	Spindle Direction, QLabel, spindle_direction_lb, integer -1, 0, 1
-	Spindle Enabled, QLabel, spindle_enabled_lb, integer 0, 1
-	Spindle Override Enabled, QLabel, spindle_override_enabled_lb, boolean
-	Spindle Speed, QLabel, spindle_speed_lb, float
-	Spindle Speed LCD, QLCDNumber, spindle_speed_lcd
-	Spindle Commanded Speed, QLabel, spindle_cmd_speed_lb
-	Spindle Override Percent, QLabel, spindle_override_lb, float
-	Spindle Orient State, QLabel, spindle_orient_state_lb
-	'''
 
 	# create spindle tuple
 	parent.status_spindle = ()
