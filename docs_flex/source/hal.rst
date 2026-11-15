@@ -188,9 +188,10 @@ The HAL direction is OUT for a HAL Spinbox.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
+	LinuxCNC 2.9 or older use:
 	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10 or greater
-	String, hal_type, HAL_S64 or HAL_U64
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_SINT or HAL_UINT
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -238,9 +239,10 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
+	LinuxCNC 2.9 or older use:
 	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10 or greater
-	String, hal_type, HAL_S64 or HAL_U64
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_SINT or HAL_UINT
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -276,9 +278,10 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 	String, function, hal_io
 	String, pin_name, any unique name
 	For a QSpinBox or QSlider
+	LinuxCNC 2.9 or older use:
 	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10 or greater
-	String, hal_type, HAL_S64 or HAL_U64
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_SINT or HAL_UINT
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -305,9 +308,10 @@ The HAL direction is IN for a HAL Label.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
+	LinuxCNC 2.9 or older use:
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	LinuxCNC 2.10 or greater
-	String, hal_type, HAL_S64 or HAL_U64
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_REAL or HAL_SINT or HAL_UINT
 	Optional
 	String, precision, Number of digits for HAL_FLOAT
 	String, zero_padding, Left padded zeros for integer types
@@ -399,9 +403,10 @@ The HAL direction is IN.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_avr_i
 	String, pin_name, any unique name
+	LinuxCNC 2.9 or older use:
 	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10 or greater
-	String, hal_type, HAL_S64 or HAL_U64
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_SINT or HAL_UINT
 	Optional
 	Int, samples, The number of samples to use default is 10
 
@@ -447,9 +452,10 @@ The HAL direction is IN for a HAL LCD
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
+	LinuxCNC 2.9 or older use:
 	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	LinuxCNC 2.10 or greater
-	String, hal_type, HAL_S64 or HAL_U64
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_REAL or HAL_SINT or HAL_UINT
 	Optional
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
