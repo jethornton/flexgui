@@ -1830,7 +1830,8 @@ def setup_spindle(parent):
 	spindle_status_labels = {'spindle_brake_lb': ['brake', {0: 'Off', 1: 'On'}],
 		'spindle_enabled_lb': ['enabled', {0: 'False', 1: 'True'}],
 		'spindle_direction_lb': ['direction', {-1: 'Rev', 0: 'Off', 1: 'Fwd'}],
-		'spindle_override_enabled_lb': ['override_enabled', {False: 'Off', True: 'On'}]}
+		'spindle_override_enabled_lb': ['override_enabled', {False: 'Off', True: 'On'}],
+		'spindle_orient_state_lb': ['orient_state', {0: 'Off', 1: 'Done', 2: 'Moving', 3: 'Error'}],}
 	for key, value in spindle_status_labels.items():
 		if key in parent.child_names:
 			parent.single_spindle_int[key] = value
@@ -1847,7 +1848,6 @@ def setup_spindle(parent):
 	if 'spindle_cmd_speed_lb' in parent.child_names:
 		parent.single_spindle_cmd_speed['spindle_cmd_speed_lb'] = 'speed'
 
-
 	'''
 	Spindle Brake, QLabel, spindle_brake_lb, integer 0, 1
 	Spindle Direction, QLabel, spindle_direction_lb, integer -1, 0, 1
@@ -1858,9 +1858,7 @@ def setup_spindle(parent):
 	Spindle Commanded Speed, QLabel, spindle_cmd_speed_lb
 	Spindle Override Percent, QLabel, spindle_override_lb, float
 	Spindle Orient State, QLabel, spindle_orient_state_lb
-	Spindle Orient Fault, QLabel, spindle_orient_fault_lb
 	'''
-
 
 	# create spindle tuple
 	parent.status_spindle = ()
@@ -1885,16 +1883,7 @@ def setup_spindle(parent):
 		parent.spindle_actual_speed_lb.setEnabled(False)
 		parent.spindle_actual_speed_lb.setText('Error!')
 
-	##### Start of Multiple Spindle ##### spindle_override_0_lb
-	'''
-	if parent.status.spindles > 1: # FIXME this only works if more than one spindle
-		# check for number of spindles matches the number of status labels
-		# FIXME this is not used
-		multi_spindle_labels = ['spindle_brake', 'spindle_enabled',
-			'spindle_orient_state', 'spindle_orient_fault', 'spindle_override_enabled',
-			'spindle_direction', 'spindle_speed', 'spindle_override',
-			'spindle_cmd_speed']
-	'''
+	##### Start of Multiple Spindle #####
 
 	parent.status.poll()
 	max_spindle = parent.status.spindles - 1
@@ -1903,7 +1892,6 @@ def setup_spindle(parent):
 	'spindle_brake': 'brake',
 	'spindle_enabled': 'enabled',
 	'spindle_orient_state': 'orient_state',
-	'spindle_orient_fault': 'orient_fault'
 	}
 
 	for key, value in spindle_int.items():

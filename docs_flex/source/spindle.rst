@@ -48,8 +48,6 @@ use the following Object Names.
 	Spindle Commanded Speed, QLabel, spindle_cmd_speed_lb
 	Spindle Override Percent, QLabel, spindle_override_lb
 	Spindle Orient State, QLabel, spindle_orient_state_lb
-	Spindle Orient Fault, QLabel, spindle_orient_fault_lb
-
 
 Multiple Spindles
 -----------------
@@ -92,7 +90,6 @@ number you want to monitor.
 	Spindle Commanded Speed, QLabel, spindle_cmd_speed_s_lb
 	Spindle Override Percent, QLabel, spindle_override_s_lb
 	Spindle Orient State, QLabel, spindle_orient_state_s_lb
-	Spindle Orient Fault, QLabel, spindle_orient_fault_s_lb
 
 .. NOTE:: Replace the `n` with 0 - 7 to indicate which spindle to monitor
 
