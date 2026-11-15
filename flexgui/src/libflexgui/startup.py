@@ -1860,7 +1860,7 @@ def setup_spindle(parent):
 	##### Start of Multiple Spindle #####
 
 	parent.status.poll()
-	max_spindle = parent.status.spindles - 1
+	max_spindle = parent.spindles - 1
 
 	spindle_int = {
 	'spindle_brake': 'brake',
@@ -2548,7 +2548,6 @@ def setup_hal(parent):
 	master now has ['HAL_BOOL', 'HAL_IN', 'HAL_IO', 'HAL_OUT', 'HAL_PORT',
 	'HAL_REAL', 'HAL_RO', 'HAL_RW', 'HAL_SINT', 'HAL_UINT']
 	'''
-	hal_types = [t for t in dir(hal) if 'HAL_' in t]
 
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
@@ -2674,7 +2673,7 @@ def setup_hal(parent):
 
 				elif isinstance(child, QSpinBox) or isinstance(child, QSlider):
 					possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-					valid_types = list(set(possible_types) & set(hal_types))
+					valid_types = list(set(possible_types) & set(parent.hal_types))
 					hal_type = child.property('hal_type')
 
 					if hal_type in valid_types:
@@ -2803,7 +2802,7 @@ def setup_hal(parent):
 	##### HAL SPINBOX #####
 	if len(hal_spinboxes) > 0:
 		possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(hal_types))
+		valid_types = list(set(possible_types) & set(parent.hal_types))
 
 		for spinbox in hal_spinboxes:
 			obj_name = spinbox.objectName()
@@ -2882,7 +2881,7 @@ def setup_hal(parent):
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
 		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(hal_types))
+		valid_types = list(set(possible_types) & set(parent.hal_types))
 
 		for slider in hal_sliders:
 			obj_name = slider.objectName()
@@ -2928,7 +2927,7 @@ def setup_hal(parent):
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
 		possible_types = ['HAL_FLOAT', 'HAL_REAL', 'HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(hal_types))
+		valid_types = list(set(possible_types) & set(parent.hal_types))
 
 		for lcd in hal_lcds:
 			obj_name = lcd.objectName()
@@ -2977,7 +2976,7 @@ def setup_hal(parent):
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
 		possible_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_REAL', 'HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(hal_types))
+		valid_types = list(set(possible_types) & set(parent.hal_types))
 
 		for label in hal_labels:
 			obj_name = label.objectName()
@@ -3094,7 +3093,7 @@ def setup_hal(parent):
 	##### HAL AVERAGE INT LABEL #####
 	if len(hal_avr_i_labels) > 0:
 		possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(hal_types))
+		valid_types = list(set(possible_types) & set(parent.hal_types))
 
 		for label in hal_avr_i_labels:
 			obj_name = label.objectName()

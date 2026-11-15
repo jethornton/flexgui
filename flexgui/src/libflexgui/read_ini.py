@@ -572,9 +572,11 @@ def read(parent):
 	# ***** [SPINDLE_n] Sections *****
 	parent.status.poll()
 	# set defaults if status.spindles comes back 0
-	parent.spindle_0_min_fwd_rpm = 0
-	parent.spindle_0_max_fwd_rpm = 1000
-	parent.spindle_0_rpm_increment =100
+	#parent.spindle_0_min_fwd_rpm = 0
+	#parent.spindle_0_max_fwd_rpm = 1000
+	#parent.spindle_0_rpm_increment =100
+	#parent.spindle_0_min_override = 0
+	#parent.spindle_0_max_override = 100
 	for i in range(parent.status.spindles):
 
 		#### MIN_RPM ####

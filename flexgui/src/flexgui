@@ -166,7 +166,6 @@ class KeyboardJog(QObject):
 					if event.isAutoRepeat():
 						return True
 
-					# FIXME this is where keyboard jogging fails for a lathe
 					joint, direction = self.KEY_JOG_MAP[event.key()]
 
 					if self.shift_max_val and shift_pressed:
@@ -258,6 +257,9 @@ class flexgui(QMainWindow):
 		self.status.poll() # poll for startup
 		self.command = emc.command()
 		self.error = emc.error_channel()
+		self.hal_types = [t for t in dir(hal) if 'HAL_' in t]
+		self.spindles = self.status.spindles
+		if self.spindles == 0: self.spindles = 1
 
 		self.tool_in_spindle = self.status.tool_in_spindle
 		self.help_dialog = None
