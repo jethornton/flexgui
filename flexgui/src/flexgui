@@ -44,15 +44,13 @@ class KeyboardJog(QObject):
 		shift_max_val = self.window.inifile.find("FLEXGUI", "KEYBOARD_SHIFT_VEL")
 		match shift_max_val:
 			case None:
-				#print("Handling None value...")
 				self.shift_max_val = False
 				self.shift_max_vel_enabled = False
 			case str():
-				#print(f"Handling string value: {shift_max_val}")
 				self.shift_max_val = float(shift_max_val)
 				self.shift_max_vel_enabled = True
 			case _:
-				#print("Variable is something else")
+
 				self.shift_max_val = False
 				self.shift_max_vel_enabled = False
 
@@ -61,29 +59,7 @@ class KeyboardJog(QObject):
 
 	def generate_jog_map(self, num_axes: int) -> dict:
 		joint_jog_mode = True if self.window.motion_mode == emc.TRAJ_MODE_FREE else False
-		'''
-		new_jog_map = {}
-		if not joint_jog_mode: # axes are homed so mapping is different
-			axis_map = {'X': 0, 'Y': 1, 'Z': 2, 'A': 3, 'B': 4, 'C': 5, 'U': 6, 'V': 7, 'W': 8}
-			for axis in self.window.axis_letters:
-				print(f'axis_map[axis] {axis} {axis_map[axis]}')
-		'''
 
-
-		# FIXME this does not work when an axis is skipped like a lathe configuration
-		# page up/down should be joint 1 when not homed and joint 2 when homed
-		''' this code is used for jogging from buttons
-				
-				axis_index = axis_map.get(axis_letter.upper(), joint)
-			except (IndexError, AttributeError): # FIXME fire off a warning to the user
-				# Fallback to a 1:1 mill mapping if the array isn't accessible
-				axis_index = joint
-		else:
-			# In Joint mode (unhomed), pass the raw joint motor index directly
-			axis_index = joint
-		'''
-
-		#Generates a KEY_JOG_MAP based on exact axis count (1 to 5) FIXME this is not correct for a lathe
 		jog_map = {}
 
 		# Axis X
@@ -366,17 +342,13 @@ class flexgui(QMainWindow):
 		for i, a in enumerate(reversed(configured_axis_map)):
 			if a == '1':
 				self.axis_letters.append(axis_list[i])
-		#print(f'self.axis_letters {self.axis_letters}')
 
 		self.axis_joints = {}
 		for joint, axis in enumerate(self.axis_letters):
 			self.axis_joints[axis] = joint
-		#for key, value in self.axis_joints.items():
-		#	print(f'axis_joints key value {key} {value}')
 
 		# get the number of axes and joints
 		self.axis_count = self.status.axis_mask.bit_count()
-		#print(f'self.axis_count {self.axis_count}')
 
 		# check for a resources.py file with images for the stylesheet
 		if self.resources_file: # import the resources file

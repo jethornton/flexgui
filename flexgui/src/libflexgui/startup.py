@@ -1825,8 +1825,8 @@ def setup_spindle(parent):
 				getattr(parent, item).setEnabled(False)
 
 	# Single Spindle Status Labels
-	
-	#spindle_status_labels = 
+
+	spindle_status_labels = {'spindle_brake_lb': 'brake'}
 
 	'''
 	Spindle Brake, QLabel, spindle_brake_lb
@@ -2567,7 +2567,6 @@ def setup_hal(parent):
 	'HAL_REAL', 'HAL_RO', 'HAL_RW', 'HAL_SINT', 'HAL_UINT']
 	'''
 	hal_types = [t for t in dir(hal) if 'HAL_' in t]
-	print(f'hal_types {hal_types}')
 
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
