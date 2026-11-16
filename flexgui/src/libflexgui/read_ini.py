@@ -577,7 +577,7 @@ def read(parent):
 	#parent.spindle_0_rpm_increment =100
 	#parent.spindle_0_min_override = 0
 	#parent.spindle_0_max_override = 100
-	for i in range(parent.status.spindles):
+	for i in range(parent.spindles):
 
 		#### MIN_RPM ####
 		min_rpm = parent.inifile.find(f'SPINDLE_{i}', 'MIN_RPM')
