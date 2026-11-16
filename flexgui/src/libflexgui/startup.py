@@ -1054,6 +1054,7 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
+	# FIXME lube, lube_level are in 2.9 but not 2.10 status
 	status_items = ['active_queue', 'actual_position', 'ain', 'aout', 'axis',
 	'adaptive_feed_enabled', 'axis_mask', 'block_delete', 'call_level', 'command',
 	'current_line', 'debug', 'din', 'echo_serial_number', 'enabled', 'estop',
@@ -1071,8 +1072,23 @@ def setup_status_labels(parent):
 	parent.status_labels = {} # create an empty dictionary
 	for item in status_items: # iterate the status items list
 		if f'{item}_lb' in parent.child_names: # if the label is found
-			parent.status_labels[f'{item}_lb'] = item # add the status and label
+			if hasattr(parent.status, item):
+				parent.status_labels[f'{item}_lb'] = item # add the status and label
+			else:
+				getattr(parent, f'{item}_lb').setText('Error')
+				title = 'Deprecated Status Label'
+				msg = (f'The status label "{item}_lb" is no longer supported '
+					f'in LinuxCNC {parent.emc_version}.')
+				info = f'Please remove "{item}_lb" from your UI file.'
+				dialogs.error_msg_ok(parent, title, msg, info)
 
+	'''
+	# check for status labels in the ui key is label and value is status item
+	parent.status_labels = {} # create an empty dictionary
+	for item in status_items: # iterate the status items list
+		if f'{item}_lb' in parent.child_names: # if the label is found
+			parent.status_labels[f'{item}_lb'] = item # add the status and label
+	'''
 	# status exponent labels
 	parent.status_exponent_labels = {}
 	status_exponent_items = ['acceleration', 'max_acceleration', 'max_velocity']
@@ -1861,7 +1877,6 @@ def setup_spindle(parent):
 
 	parent.status.poll()
 	max_spindle = parent.spindles - 1
-	print(f'highest spindle number is {max_spindle}')
 
 	spindle_int = {
 	'spindle_brake': 'brake',
