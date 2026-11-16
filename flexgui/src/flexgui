@@ -223,7 +223,6 @@ class flexgui(QMainWindow):
 
 		self.flex_version = '2.1.1'
 		self.emc_version = emc.version.partition('~')[0]
-		print(f'self.emc_version {self.emc_version}')
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		# set the library path
@@ -261,19 +260,16 @@ class flexgui(QMainWindow):
 		self.hal_types = [t for t in dir(hal) if 'HAL_' in t]
 
 		# Wait for milltask and motmod to populate NML status
-		print(f'self.status.spindles before race check{self.status.spindles}')
 		timeout = time.time() + 5.0
 		while time.time() < timeout:
 			self.status.poll()
 			if self.status.task_state > 0 and self.status.axis_mask > 0:
 				break
 			time.sleep(0.05)
-		print(f'self.status.spindles after race check{self.status.spindles}')
 
 		self.spindles = self.status.spindles
 		if self.spindles == 0:
 			self.spindles = int(self.inifile.find('TRAJ', 'SPINDLES') or 1)
-		print(f'final number of spindles in self.spindles {self.spindles}')
 
 		self.tool_in_spindle = self.status.tool_in_spindle
 		self.help_dialog = None
