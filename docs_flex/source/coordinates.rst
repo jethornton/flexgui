@@ -34,6 +34,37 @@ As you can see you can have a QLineEdit for each axis.
 .. image:: /images/coordinate-02.png
    :align: center
 
+Zero Axis Buttons
+-----------------
+
+Zero axis buttons set the active work coordinate offset (`G54–G59.3`) for
+the specified axis to `0.0` at the current tool position. Unlike the standard
+touch-off buttons, these do not require a `touchoff_le` line edit widget.
+
+To add a zero axis button, add a `QPushButton` and set the `objectName` to one
+of the following:
+
+.. csv-table:: **Zero Axis Buttons**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Control Function**, **Object Type**, **Object Name**
+	Zero All Configured Axes, QPushButton, zero_pb_all
+	Zero X Axis, QPushButton, zero_pb_x
+	Zero Y Axis, QPushButton, zero_pb_y
+	Zero Z Axis, QPushButton, zero_pb_z
+	Zero A Axis, QPushButton, zero_pb_a
+	Zero B Axis, QPushButton, zero_pb_b
+	Zero C Axis, QPushButton, zero_pb_c
+	Zero U Axis, QPushButton, zero_pb_u
+	Zero V Axis, QPushButton, zero_pb_v
+	Zero W Axis, QPushButton, zero_pb_w
+
+.. note:: Zero axis buttons execute `G10 L20 P0 <Axis>0` in MDI mode and are
+   automatically disabled when the machine is off, unhomed, or running a program.
+
+
 Change Coordinate System
 ------------------------
 
