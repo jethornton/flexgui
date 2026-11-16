@@ -325,6 +325,9 @@ status items.
 	spindle_lb - returns tuple of dicts
 	returns the current spindle status
 
+.. note:: The status items lube and lube_level were removed in LinuxCNC version
+   2.10
+
 See the :doc:`spindle` section for individual spindle status items
 
 .. code-block:: text
