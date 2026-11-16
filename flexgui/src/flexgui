@@ -223,6 +223,7 @@ class flexgui(QMainWindow):
 
 		self.flex_version = '2.1.1'
 		self.emc_version = emc.version.partition('~')[0]
+		print(f'self.emc_version {self.emc_version}')
 
 		self.path = os.path.dirname(os.path.realpath(sys.argv[0]))
 		# set the library path
