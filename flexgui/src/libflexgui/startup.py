@@ -2657,9 +2657,9 @@ def setup_hal(parent):
 		if label.property('function') == 'hal_led':
 			pin_name = label.property('pin_name')
 			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+				hal_type = getattr(hal, 'HAL_BIT')
 			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+				hal_type = getattr(hal, 'HAL_BOOL')
 			else:
 				print('HAL Error') # FIXME add a popup here
 				return
@@ -2673,9 +2673,9 @@ def setup_hal(parent):
 		if label.property('function') == 'hal_led_text':
 			pin_name = label.property('pin_name')
 			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+				hal_type = getattr(hal, 'HAL_BIT')
 			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+				hal_type = getattr(hal, 'HAL_BOOL')
 			else:
 				print('HAL Error') # FIXME add a popup here
 				return
@@ -2689,9 +2689,9 @@ def setup_hal(parent):
 		if label.property('function') == 'hal_led_label':
 			pin_name = label.property('pin_name')
 			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+				hal_type = getattr(hal, 'HAL_BIT')
 			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+				hal_type = getattr(hal, 'HAL_BOOL')
 			else:
 				print('HAL Error') # FIXME add a popup here
 				return
@@ -2706,9 +2706,9 @@ def setup_hal(parent):
 		if button.property('function') == 'hal_led_button':
 			pin_name = button.property('pin_name')
 			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+				hal_type = getattr(hal, 'HAL_BIT')
 			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+				hal_type = getattr(hal, 'HAL_BOOL')
 			else:
 				print('HAL Error') # FIXME add a popup here
 				return
