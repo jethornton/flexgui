@@ -2565,6 +2565,8 @@ def setup_hal(parent):
 	'''
 	master now has ['HAL_BOOL', 'HAL_IN', 'HAL_IO', 'HAL_OUT', 'HAL_PORT',
 	'HAL_REAL', 'HAL_RO', 'HAL_RW', 'HAL_SINT', 'HAL_UINT']
+	2.9 has ['HAL_BIT', 'HAL_FLOAT', 'HAL_IN', 'HAL_IO', 'HAL_OUT', 'HAL_RO',
+	'HAL_RW', 'HAL_S32', 'HAL_U32']
 	'''
 
 	hal_labels = []
@@ -2600,7 +2602,13 @@ def setup_hal(parent):
 	for label in parent.findChildren(Indicator):
 		if label.property('function') == 'hal_led':
 			pin_name = label.property('pin_name')
-			hal_type = getattr(hal, 'HAL_BIT')
+			if 'HAL_BIT' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+			elif 'HAL_BOOL' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+			else:
+				print('HAL Error') # FIXME add a popup here
+				return
 			hal_dir = getattr(hal, f'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
@@ -2610,7 +2618,13 @@ def setup_hal(parent):
 	for label in parent.findChildren(LEDTextLabel):
 		if label.property('function') == 'hal_led_text':
 			pin_name = label.property('pin_name')
-			hal_type = getattr(hal, 'HAL_BIT')
+			if 'HAL_BIT' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+			elif 'HAL_BOOL' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+			else:
+				print('HAL Error') # FIXME add a popup here
+				return
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
@@ -2620,7 +2634,13 @@ def setup_hal(parent):
 	for label in parent.findChildren(IndicatorLabel):
 		if label.property('function') == 'hal_led_label':
 			pin_name = label.property('pin_name')
-			hal_type = getattr(hal, 'HAL_BIT')
+			if 'HAL_BIT' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+			elif 'HAL_BOOL' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+			else:
+				print('HAL Error') # FIXME add a popup here
+				return
 			hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
@@ -2631,7 +2651,13 @@ def setup_hal(parent):
 
 		if button.property('function') == 'hal_led_button':
 			pin_name = button.property('pin_name')
-			hal_type = getattr(hal, 'HAL_BIT')
+			if 'HAL_BIT' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BIT') # FIXME
+			elif 'HAL_BOOL' in parent.hal_types:
+				hal_type = getattr(hal, 'HAL_BOOL') # FIXME
+			else:
+				print('HAL Error') # FIXME add a popup here
+				return
 			hal_dir = getattr(hal, 'HAL_OUT')
 
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
