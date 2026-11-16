@@ -1,0 +1,4 @@
+This example has the minimum ini and hal entries needed to run LinuxCNC.
+
+It's a three axis simulator with 8 spindles.
+
