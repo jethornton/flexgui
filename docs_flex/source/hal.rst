@@ -335,6 +335,8 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	String, function, hal_pin
 	String, pin_name, any unique name
 	String, hal_type, HAL_BIT
+	LinuxCNC 2.10, after 9/27/2026, or greater use:
+	String, hal_type, HAL_BOOL
 	Optional
 	String, true_text, text to display when True
 	String, false_text, text to display when False
