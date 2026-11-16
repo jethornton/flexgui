@@ -1861,7 +1861,7 @@ def setup_spindle(parent):
 
 	parent.status.poll()
 	max_spindle = parent.spindles - 1
-	print(f'max_spindle {max_spindle}')
+	print(f'highest spindle number is {max_spindle}')
 
 	spindle_int = {
 	'spindle_brake': 'brake',
