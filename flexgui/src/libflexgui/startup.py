@@ -1861,6 +1861,7 @@ def setup_spindle(parent):
 
 	parent.status.poll()
 	max_spindle = parent.spindles - 1
+	print(f'max_spindle {max_spindle}')
 
 	spindle_int = {
 	'spindle_brake': 'brake',
@@ -2142,48 +2143,6 @@ def setup_jog_selected(parent):
 			parent.jog_selected_minus.pressed.connect(partial(commands.jog_selected, parent))
 			parent.jog_selected_minus.released.connect(partial(commands.jog_selected, parent))
 
-def setup_touchoff(parent): # touchoff an axis
-	# check for required items touchoff_le touchoff_pb_{axis} touchoff_system_cb
-	if 'touchoff_le' in parent.child_names:
-		parent.touchoff_le.setText('0')
-		if parent.touchoff_le.property('input') == 'number': # enable the number pad
-			parent.touchoff_le.installEventFilter(parent)
-			parent.number_le.append('touchoff_le')
-
-	# setup touch off buttons, source is a QLineEdit for that button
-	# source just needs to verify that the QLineEdit exists
-	# also need to check to see if the axis is in the configuration
-	for axis in AXES:
-		item = f'touchoff_pb_{axis}'
-		if item in parent.child_names:
-			source = getattr(parent, item).property('source')
-			if source is None:
-				if 'touchoff_le' in parent.child_names: # check for touchoff_le
-					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-					parent.axis_touchoff_controls.append(item)
-				else:
-					title = 'Configuration Error'
-					msg = ('The Touchoff Axis button requires a QLineEdit named '
-					'touchoff_le or a Dynamic Property named source that '
-					'has the name of the QLineEdit to be used.')
-					info = f'The "{item}" button will be disabled!'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					getattr(parent, item).setEnabled(False)
-					getattr(parent, item).setText('Error!')
-			else: # property source is found
-				if source in parent.child_names:
-					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
-					parent.axis_touchoff_controls.append(item)
-					getattr(parent, source).setText('0')
-				else:
-					title = 'Configuration Error'
-					msg = (f'The Tool Touchoff button source object name "{source}" for '
-					f'button "{item}" was not found.')
-					info = f'The QPushButton "{item}" will be disabled.'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					getattr(parent, item).setEnabled(False)
-					getattr(parent, item).setText('Error!')
-
 def setup_tool_change(parent):
 	tool_change_required = ['tool_change_pb', 'tool_change_cb']
 
@@ -2382,6 +2341,86 @@ def setup_tool_touchoff_selected(parent):
 			info = 'The "tool_touchoff_selected_pb" will be disabled!'
 			dialogs.error_msg_ok(parent, title, msg, info)
 			parent.tool_touchoff_selected_pb.setEnabled(False)
+
+def setup_touchoff(parent): # touchoff an axis
+	# check for required items touchoff_le touchoff_pb_{axis} touchoff_system_cb
+	if 'touchoff_le' in parent.child_names:
+		parent.touchoff_le.setText('0')
+		if parent.touchoff_le.property('input') == 'number': # enable the number pad
+			parent.touchoff_le.installEventFilter(parent)
+			parent.number_le.append('touchoff_le')
+
+	# setup touch off buttons, source is a QLineEdit for that button
+	# source just needs to verify that the QLineEdit exists
+	# also need to check to see if the axis is in the configuration
+	for axis in AXES:
+		item = f'touchoff_pb_{axis}'
+		if item in parent.child_names:
+			source = getattr(parent, item).property('source')
+			if source is None:
+				if 'touchoff_le' in parent.child_names: # check for touchoff_le
+					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
+					parent.axis_touchoff_controls.append(item)
+				else:
+					title = 'Configuration Error'
+					msg = ('The Touchoff Axis button requires a QLineEdit named '
+					'touchoff_le or a Dynamic Property named source that '
+					'has the name of the QLineEdit to be used.')
+					info = f'The "{item}" button will be disabled!'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, item).setEnabled(False)
+					getattr(parent, item).setText('Error!')
+			else: # property source is found
+				if source in parent.child_names:
+					getattr(parent, item).clicked.connect(partial(getattr(commands, 'touchoff'), parent))
+					parent.axis_touchoff_controls.append(item)
+					getattr(parent, source).setText('0')
+				else:
+					title = 'Configuration Error'
+					msg = (f'The Tool Touchoff button source object name "{source}" for '
+					f'button "{item}" was not found.')
+					info = f'The QPushButton "{item}" will be disabled.'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					getattr(parent, item).setEnabled(False)
+					getattr(parent, item).setText('Error!')
+
+'''
+def setup_touchoff_current(parent):
+	for axis in AXES:
+		if f'zero_pb_{axis}' in parent.child_names:
+			print(f'zero_pb_{axis}')
+			getattr(parent, f'zero_pb_{axis}').clicked.connect(partial(commands.touchoff_current, parent))
+def setup_touchoff_current(parent):
+	for axis in AXES:
+		name = f'zero_pb_{axis}'
+		if name in parent.child_names:
+			getattr(parent, name).clicked.connect(
+				lambda clicked, a=axis: commands.touchoff_current(parent, a)
+			)
+			# parent.home_required.append(name)
+
+	if 'zero_pb_all' in parent.child_names:
+		parent.zero_pb_all.clicked.connect(
+			lambda clicked: commands.touchoff_current(parent, 'all')
+		)
+		# parent.home_required.append('zero_pb_all')
+'''
+
+def setup_touchoff_current(parent):
+	for axis in AXES:
+		name = f'zero_pb_{axis}'
+		if name in parent.child_names:
+			getattr(parent, name).clicked.connect(
+				lambda clicked, a=axis: commands.touchoff_current(parent, a)
+			)
+			parent.mdi_controls.append(name)
+
+	if 'zero_pb_all' in parent.child_names:
+		parent.zero_pb_all.clicked.connect(
+			lambda clicked: commands.touchoff_current(parent, 'all')
+		)
+		parent.mdi_controls.append('zero_pb_all')
+
 
 def setup_touchoff_selected(parent):
 	# setup Axis style touch off buttons
