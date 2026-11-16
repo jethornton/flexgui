@@ -258,8 +258,18 @@ class flexgui(QMainWindow):
 		self.command = emc.command()
 		self.error = emc.error_channel()
 		self.hal_types = [t for t in dir(hal) if 'HAL_' in t]
+
+		# Wait for milltask and motmod to populate NML status
+		timeout = time.time() + 5.0
+		while time.time() < timeout:
+			self.status.poll()
+			if self.status.task_state > 0 and self.status.axis_mask > 0:
+				break
+			time.sleep(0.05)
+
 		self.spindles = self.status.spindles
-		if self.spindles == 0: self.spindles = 1
+		if self.spindles == 0:
+			self.spindles = int(self.inifile.find('TRAJ', 'SPINDLES') or 1)
 
 		self.tool_in_spindle = self.status.tool_in_spindle
 		self.help_dialog = None
@@ -431,6 +441,7 @@ class flexgui(QMainWindow):
 		startup.setup_hal_io_state(self)
 		startup.setup_hal_watch(self)
 		startup.setup_touchoff(self)
+		startup.setup_touchoff_current(self)
 		startup.setup_touchoff_selected(self)
 		startup.setup_sliders(self)
 		startup.setup_overrides(self)

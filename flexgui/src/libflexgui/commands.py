@@ -219,6 +219,15 @@ def touchoff(parent):
 	cmd = f'G10 L20 P{coordinate_system} {axis}{offset}'
 	run_mdi(parent, cmd)
 
+def touchoff_current(parent, axis):
+	if axis == 'all':
+		coords = ' '.join(f'{letter}0' for letter in parent.axis_letters)
+		cmd = f'G10 L20 P0 {coords}'
+	else:
+		cmd = f'G10 L20 P0 {axis.upper()}0'
+
+	run_mdi(parent, cmd)
+
 def tool_touchoff(parent):
 	parent.status.poll()
 	axis = parent.sender().objectName()[-1].upper()
