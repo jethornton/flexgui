@@ -1054,7 +1054,6 @@ def setup_status_labels(parent):
 	'task_state': {1: 'STATE_ESTOP', 2: 'STATE_ESTOP_RESET', 4: 'STATE_ON', },
 	}
 
-	# FIXME lube, lube_level are in 2.9 but not 2.10 status
 	status_items = ['active_queue', 'actual_position', 'ain', 'aout', 'axis',
 	'adaptive_feed_enabled', 'axis_mask', 'block_delete', 'call_level', 'command',
 	'current_line', 'debug', 'din', 'echo_serial_number', 'enabled', 'estop',
@@ -2661,8 +2660,16 @@ def setup_hal(parent):
 			elif 'HAL_BOOL' in parent.hal_types:
 				hal_type = getattr(hal, 'HAL_BOOL')
 			else:
-				print('HAL Error') # FIXME add a popup here
-				return
+				name = label.objectName()
+				title = 'HAL Error'
+				msg = ('The required HAL_BIT or HAL_BOOL type was not found '
+				f'for {name}.')
+				info = 'The HAL pin will not be created'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				label.setEnabled(False)
+				if name in parent.hal_leds:
+					del parent.hal_leds[name]
+				continue
 			hal_dir = getattr(hal, f'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
@@ -2880,7 +2887,7 @@ def setup_hal(parent):
 				button.setText('Error !')
 				continue
 
-			hal_type = getattr(hal, 'HAL_BIT')
+			hal_type = getattr(hal, 'HAL_BIT') # FIXME
 			hal_dir = getattr(hal, 'HAL_OUT')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 			pin = getattr(parent, f'{pin_name}')
@@ -3117,13 +3124,13 @@ def setup_hal(parent):
 				continue
 
 			##### HAL BIT Label #####
-			if hal_type == 'HAL_BIT':
+			if hal_type == 'HAL_BIT': # FIXME
 				if true_text is None or true_text.strip() == '':
 					true_text = 'True'
 				if false_text is None or false_text.strip() == '':
 					false_text = 'False'
 				parent.hal_bool_labels[obj_name] = [pin_name, true_text, false_text]
-				hal_type = getattr(hal, 'HAL_BIT')
+				hal_type = getattr(hal, 'HAL_BIT') # FIXME
 				setattr(parent, pin_name, parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				continue
 
@@ -3333,7 +3340,7 @@ def setup_hal(parent):
 			parent.hal_progressbars[obj_name] = pin_name
 
 	##### HAL TOOL CHANGE #####
-	setattr(parent, 'tc_ok', parent.halcomp.newpin('tc-ok', hal.HAL_BIT, hal.HAL_IN))
+	setattr(parent, 'tc_ok', parent.halcomp.newpin('tc-ok', hal.HAL_BIT, hal.HAL_IN)) # FIXME
 
 	# Wrap the pin with hal_glib to enable signals
 	parent.pin_watcher = hal_glib.GPin(parent.tc_ok)
