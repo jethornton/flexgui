@@ -32,6 +32,35 @@ from libflexgui import probe
 
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
+# 1. Resolve the active hal constants for the installed LinuxCNC version
+ACTIVE_TYPES = {
+	'BOOL': getattr(hal, 'HAL_BOOL', getattr(hal, 'HAL_BIT', None)),
+	'REAL': getattr(hal, 'HAL_REAL', getattr(hal, 'HAL_FLOAT', None)),
+	'SINT': getattr(hal, 'HAL_SINT', getattr(hal, 'HAL_S32', None)),
+	'UINT': getattr(hal, 'HAL_UINT', getattr(hal, 'HAL_U32', None)),
+}
+
+# 2. Map any string (2.9, 2.10, or shorthand) to the active hal constant
+TYPE_ALIASES = {
+	'HAL_BIT': ACTIVE_TYPES['BOOL'],
+	'BIT': ACTIVE_TYPES['BOOL'],
+	'HAL_BOOL': ACTIVE_TYPES['BOOL'],
+	'BOOL': ACTIVE_TYPES['BOOL'],
+	'HAL_FLOAT': ACTIVE_TYPES['REAL'],
+	'FLOAT': ACTIVE_TYPES['REAL'],
+	'HAL_REAL': ACTIVE_TYPES['REAL'],
+	'REAL': ACTIVE_TYPES['REAL'],
+	'HAL_S32': ACTIVE_TYPES['SINT'],
+	'S32': ACTIVE_TYPES['SINT'],
+	'HAL_SINT': ACTIVE_TYPES['SINT'],
+	'SINT': ACTIVE_TYPES['SINT'],
+	'HAL_U32': ACTIVE_TYPES['UINT'],
+	'U32': ACTIVE_TYPES['UINT'],
+	'HAL_UINT': ACTIVE_TYPES['UINT'],
+	'UINT': ACTIVE_TYPES['UINT'],
+}
+
+
 def set_screen(parent):
 	# Restores window size, position, and maximization state.
 	geometry = parent.settings.value('gui/geometry')
@@ -131,6 +160,26 @@ def set_hal_enables(parent, obj):
 	elif obj_name not in special_buttons: # enable/disable with estop
 			parent.hal_controls.append(obj_name)
 
+def resolve_hal_type(raw_type):
+	if raw_type is None:
+		return None
+		print(f'TYPE_ALIASES.get(str(raw_type).strip().upper()) {TYPE_ALIASES.get(str(raw_type).strip().upper())}')
+	return TYPE_ALIASES.get(str(raw_type).strip().upper())
+
+def validate_pin_name(parent, child, pin_name, obj_name, widget):
+	if pin_name is None or str(pin_name).strip() == '':
+		msg = (f'The {widget} "{obj_name}" pin name is blank or missing. '
+		'The HAL pin can not be created.')
+	elif pin_name in dir(parent):
+		msg = (f'The {widget} "{obj_name}" pin name "{pin_name}" is already used '
+		'in Flex GUI. The HAL pin can not be created.')
+	else:
+		return True
+	info = f'The {widget} "{obj_name}" will be disabled.'
+	dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
+	child.setEnabled(False)
+	return False
+
 def setup_hal_leds(parent):
 	# Label LED as background no text, String function=hal_led, Indicator
 	# shape can be either round centered in the label or square filling the label
@@ -141,29 +190,9 @@ def setup_hal_leds(parent):
 		if child.property('function') == 'hal_led':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
+			widget = 'QLabel'
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL LED "{obj_name}" is missing the Dynamic '
-				'Property "pin_name" or it is blank.')
-				info = 'The LED will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setText('Error!')
-				child.setEnabled(False)
-				# set the function to an empty string to not create a HAL pin
-				child.setProperty('function', '')
-				continue
-
-			if pin_name in dir(parent) or pin_name in parent.led_pin_names:
-				title = 'Configuration Error'
-				msg = (f'HAL LED "{obj_name}" pin name "{pin_name}" is already used in '
-				'Flex GUI. The HAL pin can not be created.')
-				info = f'The LED "{obj_name}" label will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				child.setEnabled(False)
-				child.setText('Error!')
-				# set the function to an empty string to not create a HAL pin
-				child.setProperty('function', '')
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
 			led_dict = {}
@@ -2294,7 +2323,7 @@ def setup_manual_tool_change(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.manual_tool_change = False
 				return
-		if 'HAL_S32' in parent.hal_types:
+		if 'HAL_S32' in parent.hal_types: # FIXME
 			parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
 			parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
 			parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
@@ -2312,7 +2341,7 @@ def setup_manual_tool_change(parent):
 			hal.new_sig('tool-change',hal.HAL_BIT)
 			hal.connect('iocontrol.0.tool-change','tool-change')
 			hal.connect('tool-change.change','tool-change')
-		elif 'HAL_SINT' in parent.hal_types:
+		elif 'HAL_SINT' in parent.hal_types: # FIXMe
 			parent.toolcomp.newpin('number', hal.HAL_SINT, hal.HAL_IN)
 			parent.toolcomp.newpin('change', hal.HAL_BOOL, hal.HAL_IN)
 			parent.toolcomp.newpin('changed', hal.HAL_BOOL, hal.HAL_OUT)
@@ -2626,7 +2655,9 @@ def setup_hal(parent):
 	hal_avr_f_labels = [] # average float labels
 	hal_avr_i_labels = [] # average int labels
 	hal_ms_labels = [] # multi state labels
-	hal_buttons = []
+	hal_pushbuttons = []
+	hal_checkboxes = []
+	hal_radiobuttons = []
 	hal_spinboxes = []
 	hal_dbl_spinboxes = []
 	hal_sliders = []
@@ -2655,23 +2686,8 @@ def setup_hal(parent):
 	for label in parent.findChildren(Indicator):
 		if label.property('function') == 'hal_led':
 			pin_name = label.property('pin_name')
-			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT')
-			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL')
-			else:
-				name = label.objectName()
-				title = 'HAL Error'
-				msg = ('The required HAL_BIT or HAL_BOOL type was not found '
-				f'for {name}.')
-				info = 'The HAL pin will not be created'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				if name in parent.hal_leds:
-					del parent.hal_leds[name]
-				continue
 			hal_dir = getattr(hal, f'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
 
 	##### HAL_LED_TEXT_LABELS #####
 	# These are not QLabel but LEDTextLabel
@@ -2679,15 +2695,8 @@ def setup_hal(parent):
 	for label in parent.findChildren(LEDTextLabel):
 		if label.property('function') == 'hal_led_text':
 			pin_name = label.property('pin_name')
-			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT')
-			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL')
-			else:
-				print('HAL Error') # FIXME add a popup here
-				return
 			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
 
 	##### HAL_LED_LABELS #####
 	# These are not QLabel but IndicatorLabel
@@ -2695,15 +2704,8 @@ def setup_hal(parent):
 	for label in parent.findChildren(IndicatorLabel):
 		if label.property('function') == 'hal_led_label':
 			pin_name = label.property('pin_name')
-			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT')
-			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL')
-			else:
-				print('HAL Error') # FIXME add a popup here
-				return
 			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
 
 	##### HAL_LED_BUTTONS ##### 
 	# these are not QPushButtons but LEDButton
@@ -2712,18 +2714,9 @@ def setup_hal(parent):
 
 		if button.property('function') == 'hal_led_button':
 			pin_name = button.property('pin_name')
-			if 'HAL_BIT' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BIT')
-			elif 'HAL_BOOL' in parent.hal_types:
-				hal_type = getattr(hal, 'HAL_BOOL')
-			else:
-				print('HAL Error') # FIXME add a popup here
-				return
 			hal_dir = getattr(hal, 'HAL_OUT')
-
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
 			pin = getattr(parent, f'{pin_name}')
-
 			set_hal_enables(parent, button)
 
 	##### HAL_IO #####
@@ -2733,32 +2726,22 @@ def setup_hal(parent):
 				obj_name = child.objectName()
 				pin_name = child.property('pin_name')
 
-				if pin_name in [None, '']:
-					title = 'Configuration Error'
-					msg = (f'The HAL I/O "{obj_name}" pin name is blank or missing '
-					'The HAL pin can not be created.')
-					info = f'The HAL I/O "{obj_name}" will be disabled.'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					child.setEnabled(False)
-					continue
-
-				if pin_name in dir(parent):
-					title = 'Configuration Error'
-					msg = (f'HAL I/O "{obj_name}" pin name "{pin_name}" is already used '
-					'in Flex GUI. The HAL pin can not be created.')
-					info = f'The HAL I/O "{obj_name}" will be disabled.'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					child.setEnabled(False)
-					continue
-
 				if isinstance(child, QCheckBox):
-					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
+					widget = 'QCheckBox'
+					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+						continue
+
+					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal.HAL_IO))
 					child.stateChanged.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_check[obj_name] = pin_name
 
 				elif isinstance(child, QPushButton):
+					widget = 'QPushButton'
+					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+						continue
+
 					if child.isCheckable():
-						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
+						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal.HAL_IO))
 						child.toggled.connect(partial(utilities.update_hal_io, parent))
 						parent.hal_io_check[obj_name] = pin_name
 					else:
@@ -2772,36 +2755,39 @@ def setup_hal(parent):
 						continue
 
 				elif isinstance(child, QRadioButton):
-					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_BIT, hal.HAL_IO))
+					widget = 'QRadioButton'
+					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+						continue
+					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal.HAL_IO))
 					child.toggled.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_check[obj_name] = pin_name
 
-				elif isinstance(child, QSpinBox) or isinstance(child, QSlider):
-					possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-					valid_types = list(set(possible_types) & set(parent.hal_types))
-					hal_type = child.property('hal_type')
+				elif isinstance(child, QSpinBox):
+					widget = 'QSpinBox'
+					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+						continue
 
-					if hal_type in valid_types:
-						hal_type = getattr(hal, f'{hal_type}')
+					hal_type = resolve_hal_type(child.property('hal_type'))
+					valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
+					if hal_type is not None and hal_type in valid_types:
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal.HAL_IO))
 						child.valueChanged.connect(partial(utilities.update_hal_io, parent))
 						parent.hal_io_int[obj_name] = pin_name
-					else:
-						child.setEnabled(False)
-						if isinstance(child, QSpinBox):
-							obj_type = 'QSpinBox'
-						else:
-							obj_type = 'QSlider'
-						title = 'Configuration Error'
-						msg = (f'The HAL type "{hal_type}" is not valid for the '
-						f'"{obj_type}" named "{obj_name}". Only {", ".join(valid_types)} '
-						'are valid')
-						info = f'The "{obj_type}" will be disabled'
-						dialogs.error_msg_ok(parent, title, msg, info)
+
+				elif isinstance(child, QSlider):
+					widget = 'QSlider'
+					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 						continue
+					if hal_type is not None and hal_type in valid_types:
+						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal.HAL_IO))
+						child.valueChanged.connect(partial(utilities.update_hal_io, parent))
+						parent.hal_io_int[obj_name] = pin_name
 
 				elif isinstance(child, QDoubleSpinBox):
-					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal.HAL_FLOAT, hal.HAL_IO))
+					widget = 'QDoubleSpinBox'
+					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+						continue
+					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['FLOAT'], hal.HAL_IO))
 					child.valueChanged.connect(partial(utilities.update_hal_io, parent))
 					parent.hal_io_float[obj_name] = pin_name
 
@@ -2809,8 +2795,12 @@ def setup_hal(parent):
 
 	for child in parent.findChildren(QWidget):
 		if child.property('function') == 'hal_pin':
-			if isinstance(child, QAbstractButton): # QCheckBox, QPushButton, QRadioButton, and QToolButton
-				hal_buttons.append(child)
+			if isinstance(child, QPushButton):
+				hal_pushbuttons.append(child)
+			elif isinstance(child, QCheckBox):
+				hal_checkboxes.append(child)
+			elif isinstance(child, QRadioButton):
+				hal_radiobuttons.append(child)
 			elif isinstance(child, QSpinBox):
 				hal_spinboxes.append(child)
 			elif isinstance(child, QDoubleSpinBox):
@@ -2833,17 +2823,18 @@ def setup_hal(parent):
 			if isinstance(child, QLabel):
 				hal_ms_labels.append(child)
 
-	##### HAL BUTTON & CHECKBOX & RADIO BUTTON #####
-	if len(hal_buttons) > 0:
-		for button in hal_buttons:
-			obj_name = button.objectName()
-			pin_name = button.property('pin_name')
-			state_off = button.property('state_off')
-			home_required = button.property('required')
-			if isinstance(button, QPushButton) or isinstance(button, QCheckBox):
-				confirm = button.property('confirm')
-			else:
-				confirm = False
+	##### HAL PUSHBUTTON #####
+	if len(hal_pushbuttons) > 0:
+		for child in hal_pushbuttons:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			state_off = child.property('state_off')
+			home_required = child.property('required')
+			confirm = button.property('confirm')
+			widget = 'QPushButton'
+
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+				continue
 
 			controls = ['open_pb', 'edit_pb', 'reload_pb', 'edit_tool_table_pb',
 			'edit_ladder_pb', 'reload_tool_table_pb', 'save_pb', 'save_as_pb',
@@ -2867,328 +2858,223 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL Button "{obj_name}" with the text "{button.text()}" '
-				f'pin name is blank or missing The HAL pin can not be created.')
-				info = f'The button "{obj_name}" will be disabled!'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				button.setText('Error !')
-				continue
-
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'The HAL button "{obj_name}" with the pin name "{pin_name}" '
-				'is already used in Flex GUI. The HAL pin can not be created.')
-				info = f'The button "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				button.setEnabled(False)
-				button.setText('Error !')
-				continue
-
-			hal_type = getattr(hal, 'HAL_BIT') # FIXME
 			hal_dir = getattr(hal, 'HAL_OUT')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
 			pin = getattr(parent, f'{pin_name}')
 
-			if button.isCheckable() and not confirm:
-				button.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+			if child.isCheckable() and not confirm:
+				child.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
 				# set the hal pin default
 				setattr(parent.halcomp, pin_name, button.isChecked())
-			elif button.isCheckable() and confirm:
-				button.toggled.connect(partial(utilities.hal_confirm, parent))
+			elif child.isCheckable() and confirm:
+				child.toggled.connect(partial(utilities.hal_confirm, parent))
 			else:
-				button.pressed.connect(lambda pin=pin: (pin.set(True)))
-				button.released.connect(lambda pin=pin: (pin.set(False)))
+				child.pressed.connect(lambda pin=pin: (pin.set(True)))
+				child.released.connect(lambda pin=pin: (pin.set(False)))
 
-			set_hal_enables(parent, button)
+			set_hal_enables(parent, child)
+
+	##### HAL CHECKBOX #####
+	elif len(hal_checkboxes) > 0:
+		for child in hal_checkboxes:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QCheckBox'
+
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+				continue
+			hal_dir = getattr(hal, 'HAL_OUT')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
+			pin = getattr(parent, f'{pin_name}')
+
+
+	##### HAL RADIOBUTTON #####
+	elif len(hal_radiobuttons) > 0:
+		for child in hal_checkboxes:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QCheckBox'
+
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+				continue
+
+			hal_dir = getattr(hal, 'HAL_OUT')
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['BOOL'], hal_dir))
+			pin = getattr(parent, f'{pin_name}')
+
 
 	##### HAL SPINBOX #####
-	if len(hal_spinboxes) > 0:
-		possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(parent.hal_types))
+	if len(hal_spinboxes) > 0: # QSpinBox can be either signed or unsigned int
+		for child in hal_spinboxes:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QSpinBox'
 
-		for spinbox in hal_spinboxes:
-			obj_name = spinbox.objectName()
-			pin_name = spinbox.property('pin_name')
-			hal_type = spinbox.property('hal_type')
-
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'HAL Spinbox "{obj_name}" pin name is blank or missing '
-				'The HAL pin can not be created.')
-				info = f'The spinbox "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				spinbox.setEnabled(False)
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL Spinbox "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI The HAL pin can not be created.')
-				info = f'The spinbox "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				spinbox.setEnabled(False)
-				continue
+			hal_type = resolve_hal_type(child.property('hal_type'))
+			valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 
-			if hal_type not in valid_types:
+			if hal_type is not None and hal_type in valid_types:
+				hal_dir = getattr(hal, 'HAL_OUT')
+				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				# set the default value of the spin box to the hal pin
+				setattr(parent.halcomp, pin_name, child.value())
+				child.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
+				set_hal_enables(parent, child)
+			else:
 				title = 'Configuration Error'
-				msg = (f'The HAL type "{hal_type}" is not valid for a HAL spinbox, '
-				f'only {", ".join(valid_types)} are valid for a HAL Spinbox')
+				msg = (f'The HAL type "{hal_type_name}" is not valid for a HAL spinbox. ')
 				info = f'The "{obj_name}" spinbox will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				spinbox.setEnabled(False)
 				continue
 
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, 'HAL_OUT')
-			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
-			# set the default value of the spin box to the hal pin
-			setattr(parent.halcomp, pin_name, spinbox.value())
-			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
-
-			set_hal_enables(parent, spinbox)
-
 	##### HAL Double Spinboxes #####
 	if len(hal_dbl_spinboxes) > 0:
-		for spinbox in hal_dbl_spinboxes:
-			obj_name = spinbox.objectName()
-			pin_name = spinbox.property('pin_name')
+		for child in hal_dbl_spinboxes:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QDoubleSpinBox'
 
-			if pin_name in [None, '']:
-				spinbox.setEnabled(False)
-				title = 'Configuration Error'
-				msg = (f'The HAL Double Spinbox "{obj_name}" pin name is blank or '
-				'missing. The HAL pin can not be created.')
-				info = f'The spinbox "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				spinbox.setEnabled(False)
-				title = 'Configuration Error'
-				msg = (f'The HAL Double Spinbox "{obj_name}" pin name "{pin_name}" is '
-				'already  used in Flex GUI. The HAL pin can not be created.')
-				info = f'The spinbox "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				continue
-
-			hal_type = getattr(hal, 'HAL_FLOAT')
 			hal_dir = getattr(hal, 'HAL_OUT')
-			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+			parent.halcomp.newpin(pin_name, TYPE_ALIASES['FLOAT'], hal_dir)
 			# set the default value of the spin box to the hal pin
-			setattr(parent.halcomp, pin_name, spinbox.value())
-			spinbox.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
+			setattr(parent.halcomp, pin_name, child.value())
+			child.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 
-			set_hal_enables(parent, spinbox)
+			set_hal_enables(parent, child)
 
 	##### HAL SLIDERS #####
 	if len(hal_sliders) > 0:
-		possible_types = ['HAL_S32', 'HAL_S64', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(parent.hal_types))
+		valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 
-		for slider in hal_sliders:
-			obj_name = slider.objectName()
-			pin_name = slider.property('pin_name')
-			hal_type = slider.property('hal_type')
+		for child in hal_sliders:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QSlider'
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'HAL SLIDER "{obj_name}" pin name is blank or missing.'
-				'The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				slider.setEnabled(False)
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL Slider "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI. The HAL pin can not be created.')
-				info = f'The slider "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				slider.setEnabled(False)
-				continue
+			hal_type = resolve_hal_type(child.property('hal_type'))
 
-			if hal_type not in valid_types:
+			if hal_type is not None and hal_type in valid_types:
+				hal_dir = getattr(hal, 'HAL_OUT')
+				parent.halcomp.newpin(pin_name, hal_type, hal_dir)
+				# set the default value of the spin box to the hal pin
+				setattr(parent.halcomp, pin_name, child.value())
+				child.valueChanged.connect(partial(utilities.update_hal_slider, parent))
+				set_hal_enables(parent, child)
+			else:
 				title = 'Configuration Error'
-				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL slider, only '
-				f'only {", ".join(valid_types)} are valid for a HAL Slider')
+				msg = (f'The HAL Type "{hal_type_name}" is not valid for a HAL slider. ')
 				info = f'The slider "{obj_name}" will be disabled.\n'
 				dialogs.error_msg_ok(parent, title, msg, info)
 				slider.setEnabled(False)
 				continue
 
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, 'HAL_OUT')
-			parent.halcomp.newpin(pin_name, hal_type, hal_dir)
-			# set the default value of the spin box to the hal pin
-			setattr(parent.halcomp, pin_name, slider.value())
-			slider.valueChanged.connect(partial(utilities.update_hal_slider, parent))
-
-			set_hal_enables(parent, slider)
-
 	##### HAL LCD #####
 	if len(hal_lcds) > 0:
-		possible_types = ['HAL_FLOAT', 'HAL_REAL', 'HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(parent.hal_types))
+		valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'],
+			ACTIVE_TYPES['REAL'])
 
-		for lcd in hal_lcds:
-			obj_name = lcd.objectName()
-			pin_name = lcd.property('pin_name')
-			hal_type = lcd.property('hal_type')
+		for child in hal_lcds:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QSlider'
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL LCD "{obj_name}" pin name is blank or missing.'
-				'The HAL pin can not be created.')
-				info = f'The HAL LCD "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				lcd.setEnabled(False)
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL LCD "{obj_name}" pin name "{pin_name}" is already used '
-				'in Flex GUI. The HAL pin can not be created.')
-				info = f'The HAL LCD "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				lcd.setEnabled(False)
-				continue
+			hal_type = resolve_hal_type(child.property('hal_type'))
 
-			if hal_type not in valid_types:
-				title = 'Configuration Error'
-				msg = (f'The HAL Type "{hal_type}" is not a valid type for a HAL LCD, '
-				f'only {", ".join(valid_types)} are valid for a HAL LCD')
-				info = f'The HAL LCD "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				lcd.setEnabled(False)
-				continue
-
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			# if hal type is float add it to hal_float with precision
-			if hal_type == 2: # HAL_FLOAT
-				p = lcd.property('precision')
-				p = p if p is not None else parent.default_precision
-				parent.hal_float_lcds[f'{obj_name}'] = [pin_name, p] # lcd ,status item, precision
+			if hal_type is not None and hal_type in valid_types:
+				hal_dir = getattr(hal, 'HAL_IN')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				# if hal type is float add it to hal_float with precision
+				if hal_type == 2: # HAL_FLOAT
+					p = child.property('precision')
+					p = p if p is not None else parent.default_precision
+					parent.hal_float_lcds[f'{obj_name}'] = [pin_name, p] # lcd ,status item, precision
+				else:
+					integer_digits = child.property('integer_digits')
+					parent.hal_readers[obj_name] = [pin_name, integer_digits]
 			else:
-				integer_digits = lcd.property('integer_digits')
-				parent.hal_readers[obj_name] = [pin_name, integer_digits]
+				title = 'Configuration Error'
+				msg = (f'The HAL Type "{hal_type_name}" is not a valid type for a HAL LCD. ')
+				info = f'The HAL LCD "{obj_name}" will be disabled.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				lcd.setEnabled(False)
+				continue
 
 	##### HAL LABEL #####
 	if len(hal_labels) > 0:
-		possible_types = ['HAL_BIT', 'HAL_FLOAT', 'HAL_REAL', 'HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(parent.hal_types))
 
-		for label in hal_labels:
-			obj_name = label.objectName()
-			pin_name = label.property('pin_name')
-			hal_type = label.property('hal_type')
-			true_text = label.property('true_text')
-			false_text = label.property('false_text')
+		for child in hal_labels:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QLabel'
+
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+				continue
+
+			hal_type = resolve_hal_type(label.property('hal_type'))
+			true_text = child.property('true_text')
+			false_text = child.property('false_text')
 			hal_dir = getattr(hal, 'HAL_IN')
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'The HAL LABEL "{obj_name}" pin name is blank or missing '
-				'The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
-			# the pin_name can not be the same as a built in variable or object name
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL Label "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
-			if hal_type not in valid_types:
-				title = 'Configuration Error'
-				msg = (f'The HAL Type "{hal_type}" is not valid type for a HAL Label '
-				f'in LinuxCNC version {parent.emc_version}. '
-				f'valid types are "{", ".join(valid_types)}".')
-				info = f'The "{obj_name}" label will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
-			##### HAL BIT Label #####
-			if hal_type == 'HAL_BIT': # FIXME
+			##### HAL BIT LABEL #####
+			if hal_type == ACTIVE_TYPES['BOOL']:
 				if true_text is None or true_text.strip() == '':
 					true_text = 'True'
 				if false_text is None or false_text.strip() == '':
 					false_text = 'False'
 				parent.hal_bool_labels[obj_name] = [pin_name, true_text, false_text]
-				hal_type = getattr(hal, 'HAL_BIT') # FIXME
 				setattr(parent, pin_name, parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				continue
 
-			##### HAL Integer Label #####
-			if hal_type in ['HAL_S32', 'HAL_U32', 'HAL_SINT', 'HAL_UINT']:
-				if label.property('integer_digits'):
+			##### HAL INTEGER LABEL #####
+			if hal_type in (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT']):
+				if child.property('integer_digits'):
 					title = 'Configuration Error'
 					msg = ('The Dynamic Property "integer_digits" has been replaced with '
 					'"zero_padding" which better describes what the property is for.')
 					info = 'The "integer_digits" is no longer used.'
 					dialogs.error_msg_ok(parent, title, msg, info)
-				zero_padding = label.property('zero_padding')
+				zero_padding = child.property('zero_padding')
 				if zero_padding in [None, '']:
 					zero_padding = 00
 				parent.hal_integer_labels[obj_name] = [pin_name, zero_padding]
-				hal_type = getattr(hal, hal_type)
 				setattr(parent, pin_name, parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 				continue
 
-			##### HAL FLOAT Label #####
-			if hal_type == 'HAL_FLOAT':
-				p = label.property('precision')
+			##### HAL FLOAT LABEL #####
+			if hal_type == ACTIVE_TYPES['REAL']:
+				p = child.property('precision')
 				p = p if p is not None else parent.default_precision
 				parent.hal_float_labels[obj_name] = [pin_name, p] # label ,status item, precision
-				hal_type = getattr(hal, 'HAL_FLOAT')
 				setattr(parent, pin_name, parent.halcomp.newpin(pin_name, hal_type, hal_dir))
 
 	##### HAL AVERAGE FLOAT LABEL #####
 	if len(hal_avr_f_labels) > 0:
-		for label in hal_avr_f_labels:
-			obj_name = label.objectName()
-			pin_name = label.property('pin_name')
-			s = label.property('samples') or 10
-			r = label.property('rounding') or parent.default_precision
+		for child in hal_avr_f_labels:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QLabel'
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'HAL Average Float Label "{obj_name}" pin name is blank or '
-				'missing. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL Average Float Label "{obj_name}" pin name "{pin_name}" '
-				'is already used in Flex GUI. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
+			s = child.property('samples') or 10
+			r = child.property('rounding') or parent.default_precision
 
-			hal_type = getattr(hal, 'HAL_FLOAT')
 			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['FLOAT'], hal_dir))
 
 			p = label.property('precision')
 			p = p if p is not None else parent.default_precision
@@ -3197,79 +3083,45 @@ def setup_hal(parent):
 
 	##### HAL AVERAGE INT LABEL #####
 	if len(hal_avr_i_labels) > 0:
-		possible_types = ['HAL_S32', 'HAL_SINT', 'HAL_U32', 'HAL_UINT']
-		valid_types = list(set(possible_types) & set(parent.hal_types))
 
-		for label in hal_avr_i_labels:
-			obj_name = label.objectName()
-			pin_name = label.property('pin_name')
+		for child in hal_avr_i_labels:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
+			widget = 'QLabel'
+			hal_type = resolve_hal_type(child.property('hal_type'))
+
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+				continue
+
 			s = label.property('samples') or 10
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'HAL Average Integer Label "{obj_name}" pin name is blank or '
-				'missing The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL Average Integer Label "{obj_name}" pin name "{pin_name}" '
-				'is already used in Flex GUI. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
-			hal_type = label.property('hal_type')
-			if hal_type not in valid_types:
-				title = 'Configuration Error'
-				msg = (f'The HAL Type "{hal_type}" is not valid for a HAL Average '
-				f'Integer Label, only {", ".join(valid_types)} are valid.')
-				info = f'The "{obj_name}" label will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
-			hal_type = getattr(hal, f'{hal_type}')
-			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
-			parent.hal_avr_int[obj_name] = [pin_name, deque([0], maxlen=s)]
+			if hal_type in (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT']):
+				hal_dir = getattr(hal, 'HAL_IN')
+				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+				parent.hal_avr_int[obj_name] = [pin_name, deque([0], maxlen=s)]
+			else:
+					title = 'Configuration Error'
+					msg = (f'The HAL Type "{child.property("hal_type")}" is not valid for '
+					'a HAL Average Integer Label.')
+					info = f'The "{obj_name}" label will be disabled.'
+					dialogs.error_msg_ok(parent, title, msg, info)
+					label.setEnabled(False)
+					label.setText('Error!')
+					continue
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
 		for label in hal_ms_labels:
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
+			widget = 'QLabel'
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'HAL Multi State Label "{obj_name}" pin name is blank or '
-				'missing. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL Multi-State Label "{obj_name}" pin name "{pin_name}" '
-				'is already used in Flex GUI. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
-				continue
-
-			hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}"', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}"', parent.halcomp.newpin(pin_name, TYPE_ALIASES['UINT'], hal_dir))
 			# 1. Get the list of all dynamic property names (as QByteArray)
 			prop_names = label.dynamicPropertyNames()
 			# 2. Iterate through them, decode, and fetch values
@@ -3315,32 +3167,18 @@ def setup_hal(parent):
 		for progressbar in hal_progressbar:
 			obj_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
+			widget = 'QProgressBar'
 
-			if pin_name in [None, '']:
-				title = 'Configuration Error'
-				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name is blank or missing. '
-				'The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				progressbar.setEnabled(False)
+			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			if pin_name in dir(parent):
-				title = 'Configuration Error'
-				msg = (f'HAL PROGRESSBAR "{obj_name}" pin name "{pin_name}" is already '
-				'used in Flex GUI. The HAL pin can not be created.')
-				info = f'The "{obj_name}" will be disabled.'
-				dialogs.error_msg_ok(parent, title, msg, info)
-				progressbar.setEnabled(False)
-				continue
-
-			hal_type = getattr(hal, 'HAL_U32')
+			#hal_type = getattr(hal, 'HAL_U32')
 			hal_dir = getattr(hal, 'HAL_IN')
-			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, hal_dir))
+			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['UINT'], hal_dir))
 			parent.hal_progressbars[obj_name] = pin_name
 
 	##### HAL TOOL CHANGE #####
-	setattr(parent, 'tc_ok', parent.halcomp.newpin('tc-ok', hal.HAL_BIT, hal.HAL_IN)) # FIXME
+	setattr(parent, 'tc_ok', parent.halcomp.newpin('tc-ok', TYPE_ALIASES['BOOL'], hal.HAL_IN))
 
 	# Wrap the pin with hal_glib to enable signals
 	parent.pin_watcher = hal_glib.GPin(parent.tc_ok)

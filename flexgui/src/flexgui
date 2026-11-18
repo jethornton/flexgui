@@ -257,7 +257,7 @@ class flexgui(QMainWindow):
 		self.status.poll() # poll for startup
 		self.command = emc.command()
 		self.error = emc.error_channel()
-		self.hal_types = [t for t in dir(hal) if 'HAL_' in t]
+		#self.hal_types = [t for t in dir(hal) if 'HAL_' in t]
 
 		# Wait for milltask and motmod to populate NML status
 		timeout = time.time() + 5.0
