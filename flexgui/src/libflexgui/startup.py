@@ -2333,7 +2333,7 @@ def setup_manual_tool_change(parent):
 		hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
 		hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
 
-		hal.new_sig('tool-number',ACTIVE_TYPES['SINT']
+		hal.new_sig('tool-number',ACTIVE_TYPES['SINT'])
 		hal.connect('iocontrol.0.tool-prep-number','tool-number')
 		hal.connect('tool-change.number','tool-number')
 
