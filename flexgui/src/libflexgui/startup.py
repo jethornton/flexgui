@@ -2846,7 +2846,7 @@ def setup_hal(parent):
 			if child.isCheckable() and not confirm:
 				child.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
 				# set the hal pin default
-				setattr(parent.halcomp, pin_name, button.isChecked())
+				setattr(parent.halcomp, pin_name, child.isChecked())
 			elif child.isCheckable() and confirm:
 				child.toggled.connect(partial(utilities.hal_confirm, parent))
 			else:
