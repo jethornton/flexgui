@@ -477,7 +477,7 @@ you can also force that home is required</string>
            <string>hal-io-slider</string>
           </property>
           <property name="hal_type" stdset="0">
-           <string>HAL_U32</string>
+           <string>HAL_UINT</string>
           </property>
          </widget>
         </item>
