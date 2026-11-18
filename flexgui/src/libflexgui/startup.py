@@ -2811,7 +2811,7 @@ def setup_hal(parent):
 			pin_name = child.property('pin_name')
 			state_off = child.property('state_off')
 			home_required = child.property('required')
-			confirm = button.property('confirm')
+			confirm = child.property('confirm')
 			widget = 'QPushButton'
 
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
