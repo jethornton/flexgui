@@ -2323,42 +2323,23 @@ def setup_manual_tool_change(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				parent.manual_tool_change = False
 				return
-		if 'HAL_S32' in parent.hal_types: # FIXME
-			parent.toolcomp.newpin('number', hal.HAL_S32, hal.HAL_IN)
-			parent.toolcomp.newpin('change', hal.HAL_BIT, hal.HAL_IN)
-			parent.toolcomp.newpin('changed', hal.HAL_BIT, hal.HAL_OUT)
-			parent.toolcomp.ready()
-			parent.tool_change = hal.get_value('tool-change.change')
+		parent.toolcomp.newpin('number', ACTIVE_TYPES['SINT'], hal.HAL_IN)
+		parent.toolcomp.newpin('change', ACTIVE_TYPES['BOOL'], hal.HAL_IN)
+		parent.toolcomp.newpin('changed', ACTIVE_TYPES['BOOL'], hal.HAL_OUT)
+		parent.toolcomp.ready()
+		parent.tool_change = hal.get_value('tool-change.change')
 
-			hal.new_sig('tool-prepare-loopback',hal.HAL_BIT)
-			hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
-			hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
+		hal.new_sig('tool-prepare-loopback',ACTIVE_TYPES['BOOL'])
+		hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
+		hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
 
-			hal.new_sig('tool-number',hal.HAL_S32)
-			hal.connect('iocontrol.0.tool-prep-number','tool-number')
-			hal.connect('tool-change.number','tool-number')
+		hal.new_sig('tool-number',ACTIVE_TYPES['SINT']
+		hal.connect('iocontrol.0.tool-prep-number','tool-number')
+		hal.connect('tool-change.number','tool-number')
 
-			hal.new_sig('tool-change',hal.HAL_BIT)
-			hal.connect('iocontrol.0.tool-change','tool-change')
-			hal.connect('tool-change.change','tool-change')
-		elif 'HAL_SINT' in parent.hal_types: # FIXMe
-			parent.toolcomp.newpin('number', hal.HAL_SINT, hal.HAL_IN)
-			parent.toolcomp.newpin('change', hal.HAL_BOOL, hal.HAL_IN)
-			parent.toolcomp.newpin('changed', hal.HAL_BOOL, hal.HAL_OUT)
-			parent.toolcomp.ready()
-			parent.tool_change = hal.get_value('tool-change.change')
-
-			hal.new_sig('tool-prepare-loopback',hal.HAL_BOOL)
-			hal.connect('iocontrol.0.tool-prepare','tool-prepare-loopback')
-			hal.connect('iocontrol.0.tool-prepared','tool-prepare-loopback')
-
-			hal.new_sig('tool-number',hal.HAL_SINT)
-			hal.connect('iocontrol.0.tool-prep-number','tool-number')
-			hal.connect('tool-change.number','tool-number')
-
-			hal.new_sig('tool-change',hal.HAL_BOOL)
-			hal.connect('iocontrol.0.tool-change','tool-change')
-			hal.connect('tool-change.change','tool-change')
+		hal.new_sig('tool-change',ACTIVE_TYPES['BOOL'])
+		hal.connect('iocontrol.0.tool-change','tool-change')
+		hal.connect('tool-change.change','tool-change')
 
 def setup_tool_touchoff(parent):
 	if 'tool_touchoff_le' in parent.child_names:
