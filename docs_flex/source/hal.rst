@@ -31,14 +31,16 @@ section.
    a dash to not conflict with program variables of the same name which use an
    underscore.
 
+.. _data-types:
+
 Data Types
 ----------
 
 Starting with LinuxCNC 2.10.0 the HAL data types were changed. To be more
-flexible Flex GUI version 2.1.2 allows you to use the old types or the new
-types and they will be mapped to the correct type for the version of LinuxCNC
-you are running. This means that a configuration made for 2.9 will work in 2.10
-with no changes.
+flexible, Flex GUI version 2.1.2 allows you to use the old types or the new
+types or shortcuts to specify the data type. Flex GUI will be map the data type
+to the correct type for the version of LinuxCNC you are running. This means that
+a configuration made for 2.9 will work in 2.10 with no changes.
 
 In addition to this flexibility Flex GUI now allows you to use shortened
 versions of data types when creating a HAL pin that has an option for data
@@ -52,7 +54,7 @@ and Flex GUI will take care of the conversion to the correct type.
 
 	**Data Type**, **Name**, **Name**, **Name**, **Name**
 	Boolean, HAL_BIT, BIT, HAL_BOOL, BOOL
-	Floating-Point, HAL_FLOAT, FLOAT, HAL_REAL, REAL
+	Floating Point, HAL_FLOAT, FLOAT, HAL_REAL, REAL
 	Signed Integer, HAL_S32, S32, HAL_SINT, SINT
 	Unsigned Integer, HAL_U32, U32, HAL_UINT, UINT
 
@@ -100,8 +102,8 @@ A QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
 adding two string type Dynamic Properties. A pin_name of my-button would be
 `flexhal.my-button` in HAL. HAL pins must be connected in the postgui.hal file.
 
-The HAL direction is OUT and the HAL type is bit for a QPushButton, QCheckBox or
-QRadioButton.
+The HAL direction is OUT and the HAL type is Boolean for a QPushButton,
+QCheckBox or QRadioButton.
 
 The option always_on will not disable the HAL Button for any state.
 
@@ -144,7 +146,7 @@ in the postgui.hal file. The button can be momentary or checkable. The default
 colors are Red when Off and Green when On. The round LED will be in the upper
 right corner.
 
-The HAL direction is OUT and the HAL type is bit for a HAL LED QPushButton.
+The HAL direction is OUT and the HAL type is Boolean for a HAL LED QPushButton.
 
 The option always_on will not disable the HAL LED Button for any state.
 
@@ -181,15 +183,12 @@ The HAL direction is OUT for a HAL Spinbox.
 .. csv-table:: **HAL Spin Box**
    :width: 100%
    :align: center
-   :widths: 33 33 33
+   :widths: 30 30 40
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	LinuxCNC 2.9 or older use:
-	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_SINT or HAL_UINT
+	String, hal_type, Signed or Unsigned Integer
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -203,7 +202,8 @@ type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
 spinbox is an Out type that will set the value of the HAL pin to match the
 value of the spinbox.
 
-The HAL direction is OUT and the HAL type is float for a HAL Double Spinbox.
+The HAL direction is OUT and the HAL type is Floating Point for a HAL Double
+Spinbox.
 
 .. csv-table:: **HAL Spin Box**
    :width: 100%
@@ -263,6 +263,7 @@ The I/O QSpinBox uses either a signed or unsigned integer HAL type.
 
 The I/O QDoubleSpinBox uses a floating point HAL type.
 
+See :ref:`data-types` for more details on HAL Data Types.
 
 .. NOTE:: The hal_type for QSpinBox and QSlider must be specified.
 
