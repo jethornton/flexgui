@@ -1,7 +1,7 @@
-========
-HAL Pins
-========
-`HAL Tutorial <https://youtu.be/LU4914GyGXI>`_
+===========
+HAL Objects
+===========
+`HAL Video Tutorial <https://youtu.be/LU4914GyGXI>`_
 
 Creating widgets that connect to HAL (Hardware Abstract Layer) is as simple as
 adding a few Dynamic Properties to a widget. See :doc:`property` for step by
@@ -19,46 +19,47 @@ typically named `postgui.hal`.
 	POSTGUI_HALFILE = postgui.hal
 
 The property `pin_name` defines the HAL pin name that is prefixed with
-`flexhal`. A pin_name of my-button would be `flexhal.my-button` in HAL.
+`flexhal`. A pin_name of my-button would be `flexhal.my-button` in HAL. Using
+the Show HAL program you can see the pins that Flex GUI makes in the flexhal
+section.
 
 .. note:: Dynamic Property names are case sensitive and must be all lower case.
    Hal types and directions are case sensitive and must be all caps. The
-   function value must be lower case.
+   function value must be lower case. This is being changed to be more flexible.
 
 .. note:: Hal pin names can containe a-z, A-Z, 0-9, underscore _, or dash -. Use
    a dash to not conflict with program variables of the same name which use an
    underscore.
 
-HAL Types
----------
+Data Types
+----------
 
-Starting with version 2.10 Linuxcnc added two 64 bit HAL types. You must be
-using LinuxCNC 2.10 or newer to use `HAL_S64` or `HAL_U64`.
+Starting with LinuxCNC 2.10.0 the HAL data types were changed. To be more
+flexible Flex GUI version 2.1.2 allows you to use the old types or the new
+types and they will be mapped to the correct type for the version of LinuxCNC
+you are running. This means that a configuration made for 2.9 will work in 2.10
+with no changes.
 
-Seems the developers can't make up their mind on what to name the HAL types in
-LinuxCNC versoin 2.10. So HAL_S64 is now HAL_SINT, HAL_U64 is now HAL_UINT,
-HAL_FLOAT is now HAL_REAL and last but not least HAL_BIT is now HAL_BOOL. That's
-why you don't want to use master because they keep breaking it.
+In addition to this flexibility Flex GUI now allows you to use shortened
+versions of data types when creating a HAL pin that has an option for data
+types. All caps is not required, you can just type in `bit` for the hal_type
+and Flex GUI will take care of the conversion to the correct type.
 
-HAL Pin Types for LinucCNC version 2.10 after September 27 2026
+.. csv-table:: **HAL Data Types**
+   :width: 100%
+   :align: center
+   :widths: 24 19 19 19 19
 
-.. code-block:: text
+	**Data Type**, **Name**, **Name**, **Name**, **Name**
+	Boolean, HAL_BIT, BIT, HAL_BOOL, BOOL
+	Floating-Point, HAL_FLOAT, FLOAT, HAL_REAL, REAL
+	Signed Integer, HAL_S32, S32, HAL_SINT, SINT
+	Unsigned Integer, HAL_U32, U32, HAL_UINT, UINT
 
-	HAL_BOOL
-	HAL_REAL
-	HAL_SINT
-	HAL_UINT
+Pin Directions
+--------------
 
-HAL Pin Types for LinuxCNC version 2.9 and before
-
-.. code-block:: text
-
-	HAL_BIT
-	HAL_FLOAT
-	HAL_S32
-	HAL_U32
-
-HAL Pin Directions
+Pin directions supported in Flex GUI are depenant on the type of hal pin.
 
 .. code-block:: text
 
@@ -67,7 +68,7 @@ HAL Pin Directions
 	HAL_IO
 
 Options
-=======
+-------
 
 The default behavior for HAL objects that are a HAL_OUT or HAL_IO is to be
 enabled when the E Stop is released. To change this behaviour add a Dynamic
@@ -89,11 +90,11 @@ HAL objects that are HAL_IN are always enabled.
 	Bool, state_on, True
 	Bool, all_homed, True
 
-HAL Buttons
-===========
+HAL Controls
+------------
 
-HAL Button
-----------
+Push Button
+~~~~~~~~~~~
 
 A QPushButton, QCheckBox or QRadioButton can be assigned to a HAL `bit` pin by
 adding two string type Dynamic Properties. A pin_name of my-button would be
@@ -134,8 +135,8 @@ pin will not change.
    in the Designer. Starting up with none checked could be a problem if you
    expect one to be selected at startup.
 
-HAL LED Button
---------------
+LED Button
+~~~~~~~~~~
 
 A QPushButton can be a HAL LED button by adding two dynamic properties. The
 `pin_name` property will be the HAL pin name you use to connect the button state
@@ -166,11 +167,8 @@ The option all_homed will disable the HAL LED Button until all joints are homed.
 
 .. _hal_spin_box:
 
-HAL Spinboxs
-============
-
-HAL Spinbox
------------
+Spinbox
+~~~~~~~
 
 A QSpinBox can be a HAL `number` pin by adding three string
 type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
@@ -196,8 +194,8 @@ The HAL direction is OUT for a HAL Spinbox.
 	Bool, state_on, True
 	Bool, all_homed, True
 
-HAL Double Spinbox
-------------------
+Double Spinbox
+~~~~~~~~~~~~~~
 
 A QDoubleSpinBox can be a HAL `number` pin by adding two string
 type Dynamic Properties. The pin_name used will create a HAL pin prefixed with
@@ -219,8 +217,8 @@ The HAL direction is OUT and the HAL type is float for a HAL Double Spinbox.
 	Bool, state_on, True
 	Bool, all_homed, True
 
-HAL Slider
-----------
+Slider
+~~~~~~
 
 A QSlider can be a HAL pin by adding these three string type Dynamic Properties.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
@@ -257,14 +255,13 @@ output pin. The HAL I/O will stay synchronized with the pin it's connected to.
 .. NOTE:: The connected pins must be of the same HAL type.
 
 A QPushButton (set to checkable), QCheckBox, QRadioButton, QSpinBox,
-QDoubleSpinBox or a QSlider can be a HAL I/O object.
+QDoubleSpinBox or a QSlider can be a HAL I/O object. The HAL direction is I/O.
 
-The HAL direction is I/O and the HAL type is bit for QPushButton, QCheckBox or
-QRadioButton.
+The I/O QPushButton, QCheckBox or QRadioButton use a boolean HAL type.
 
-The HAL direction is I/O for a HAL I/O QSpinBox.
+The I/O QSpinBox uses either a signed or unsigned integer HAL type.
 
-The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
+The I/O QDoubleSpinBox uses a floating point HAL type.
 
 
 .. NOTE:: The hal_type for QSpinBox and QSlider must be specified.
@@ -277,11 +274,8 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_io
 	String, pin_name, any unique name
-	For a QSpinBox or QSlider
-	LinuxCNC 2.9 or older use:
-	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_SINT or HAL_UINT
+	QSpinBox or QSlider
+	String, hal_type, Signed or Unsigned Integer
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -289,10 +283,7 @@ The HAL direction is I/O and the HAL type is float for a HAL I/O QDoubleSpinBox.
 .. NOTE:: The hal_type is required for QSpinBox, QSlider or QDoubleSpinBox
 
 HAL Labels
-==========
-
-HAL Label
----------
+----------
 
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
@@ -316,8 +307,8 @@ The HAL direction is IN for a HAL Label.
 	String, precision, Number of digits for HAL_FLOAT
 	String, zero_padding, Left padded zeros for integer types
 
-HAL Bool Label
---------------
+Bool Label
+~~~~~~~~~~
 
 A QLabel can have optional True and False text by adding two additional Dynamic
 Properties. Default is `True` and `False`.
@@ -344,8 +335,8 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 .. image:: /images/hal-bool-label-01.png
    :align: center
 
-HAL Average Float Label
------------------------
+Average Float Label
+~~~~~~~~~~~~~~~~~~~
 
 A QLabel can be used to monitor HAL float number pins and display an average of
 the number of samples. The sample stack is LIFO so a new value pushes the oldest
@@ -380,8 +371,8 @@ The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
 	Int, rounding, number of digits to the left of the decimal to round
 	Int, precision, Number of decimal digits
 
-HAL Average Integer Label
--------------------------
+Average Integer Label
+~~~~~~~~~~~~~~~~~~~~~
 
 A QLabel can be used to monitor HAL integer pins and display an average
 of the number of samples. The sample stack is LIFO so a new value pushes the
@@ -412,8 +403,8 @@ The HAL direction is IN.
 	Optional
 	Int, samples, The number of samples to use default is 10
 
-HAL Multi-State Label
----------------------
+Multi-State Label
+~~~~~~~~~~~~~~~~~
 
 A QLabel can have multiple text by adding as many Dynamic Properties as needed
 for each text. The `text_n` property the `n` is the integer value for that
@@ -464,11 +455,8 @@ The HAL direction is IN for a HAL LCD
 .. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
    `precision` with a value of the number of decimal digits.
 
-HAL LED's
-=========
-
-HAL LED
--------
+HAL LED Labels
+--------------
 
 A QLabel can be used as a HAL LED indicator by adding the following properties
 to a blank label. The default colors are Red when Off and Green when On. The
@@ -501,8 +489,8 @@ Choosing 'square' for LED shape will fill the entire label.
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
 
-HAL LED Text Label
-------------------
+LED Text Label
+~~~~~~~~~~~~~~
 
 Similar to the HAL LED except it has a border and the on and off text can be set
 as well as other options. In Qt Designer it's recommended to set the Horizontal
@@ -538,8 +526,8 @@ Default values for the options are:
 * font_bold, False
 
 
-HAL LED Label
--------------
+LED Label
+~~~~~~~~~
 
 Similar to the HAL LED except the LED is in the upper right corner so the label
 can have text. The default colors are Red when Off and Green when On. The
@@ -564,7 +552,7 @@ The HAL direction is IN and the hal_type is bit for a HAL LED Label.
 	String, led_shape, square
 
 HAL Progress Bar
-================
+----------------
 
 A QProgressBar can be used to monitor HAL pins. HAL connections must be made in
 the post gui HAL file. The pin_name used will create a HAL pin prefixed with
@@ -584,14 +572,14 @@ The HAL direction is IN and the hal_type is U32 for a HAL Progress Bar.
 	String, pin_name, any unique name
 
 HAL Watch Labels
-================
+----------------
 
 You can watch the status of a HAL pin in your GUI by adding a QLabel with the
 following Dynamic Properties. You can watch Bit (True/False) pins, S32/U32
 integer pins, Float pins.
 
-HAL Watch Bool
---------------
+Watch Bool
+~~~~~~~~~~
 
 .. csv-table:: **HAL Watch Bit**
    :width: 100%
@@ -605,8 +593,8 @@ HAL Watch Bool
 .. image:: /images/hal-watch-bit.png
    :align: center
 
-HAL Watch Integer
------------------
+Watch Integer
+~~~~~~~~~~~~~
 
 .. csv-table:: **HAL Watch Integer**
    :width: 100%
@@ -620,8 +608,8 @@ HAL Watch Integer
 .. image:: /images/hal-watch-int.png
    :align: center
 
-HAL Watch Float
----------------
+Watch Float
+~~~~~~~~~~~
 
 .. csv-table:: **HAL Watch Float**
    :width: 100%
@@ -635,8 +623,8 @@ HAL Watch Float
 .. image:: /images/hal-watch-float.png
    :align: center
 
-HAL Watch Time
---------------
+Watch Time
+~~~~~~~~~~
 
 To have a label monitor the HAL time component add the following Dynamic
 Properties to a QLabel. You can have as many Time Watch labels as you want.
@@ -673,7 +661,7 @@ and minutes. You need to load the `time` component on your hal file and use the
    :align: center
 
 Step by Step
-============
+------------
 
 .. note:: This example is for a QPushButton
 
