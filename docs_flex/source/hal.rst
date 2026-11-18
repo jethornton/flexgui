@@ -223,7 +223,8 @@ Slider
 A QSlider can be a HAL pin by adding these three string type Dynamic Properties.
 The pin_name used will create a HAL pin prefixed with `flexhal.` A pin_name of
 my-slider would be in HAL `flexhal.my-slider`. A QSlider supports only integers
-so to connect it to a float HAL pin use conv_s32_float or conv_u32_float.
+so to connect it to a float HAL pin use conv_s32_float or conv_u32_float HAL
+functions.
 
 The HAL direction is OUT for a HAL Slider.
 
@@ -237,10 +238,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	LinuxCNC 2.9 or older use:
-	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_SINT or HAL_UINT
+	String, hal_type, Signed or Unsigned Integer
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -295,15 +293,12 @@ The HAL direction is IN for a HAL Label.
 .. csv-table:: **HAL Label**
    :width: 100%
    :align: center
-   :widths: 30 25 45
+   :widths: 25 25 50
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	LinuxCNC 2.9 or older use:
-	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_REAL or HAL_SINT or HAL_UINT
+	String, hal_type, Floating Point or Signed/Unsigned Integer
 	Optional
 	String, precision, Number of digits for HAL_FLOAT
 	String, zero_padding, Left padded zeros for integer types
@@ -326,9 +321,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, HAL_BIT
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_BOOL
+	String, hal_type, Boolean
 	Optional
 	String, true_text, text to display when True
 	String, false_text, text to display when False
@@ -397,10 +390,7 @@ The HAL direction is IN.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_avr_i
 	String, pin_name, any unique name
-	LinuxCNC 2.9 or older use:
-	String, hal_type, HAL_S32 or HAL_U32
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_SINT or HAL_UINT
+	String, hal_type, Signed or Unsigned Integer
 	Optional
 	Int, samples, The number of samples to use default is 10
 
@@ -411,7 +401,8 @@ A QLabel can have multiple text by adding as many Dynamic Properties as needed
 for each text. The `text_n` property the `n` is the integer value for that
 text. Setting the pin name value will change the label text
 
-The HAL direction is IN and the hal_type is U32 for a HAL Multi-State Label.
+The HAL direction is IN and the hal_type is Unsigned Integer for a HAL
+Multi-State Label.
 
 .. csv-table:: **HAL Multi-State Label**
    :width: 100%
@@ -446,10 +437,7 @@ The HAL direction is IN for a HAL LCD
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	LinuxCNC 2.9 or older use:
-	String, hal_type, HAL_FLOAT or HAL_S32 or HAL_U32
-	LinuxCNC 2.10, after 9/27/2026, or greater use:
-	String, hal_type, HAL_REAL or HAL_SINT or HAL_UINT
+	String, hal_type, Floating Point or Signed/Unsigned Integer
 	Optional
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
@@ -469,7 +457,7 @@ is connected to a HAL pin of type bit with a HAL direction of OUT. Only one OUT
 direction can be connected to a signal while multiple IN directions can be
 connected to a signal.
 
-The HAL direction is IN and the hal_type is bit for a HAL LED
+The HAL direction is IN and the hal_type is Boolean for a HAL LED
 
 .. csv-table:: **HAL LED**
    :width: 100%
@@ -534,7 +522,7 @@ Similar to the HAL LED except the LED is in the upper right corner so the label
 can have text. The default colors are Red when Off and Green when On. The
 default shape is round.
 
-The HAL direction is IN and the hal_type is bit for a HAL LED Label.
+The HAL direction is IN and the hal_type is Boolean for a HAL LED Label.
 
 .. csv-table:: **HAL LED Label**
    :width: 100%
@@ -561,7 +549,8 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 minimum value is 0 and the maximum value is 100. If the HAL value exceeds the
 maximum value 0 is displayed.
 
-The HAL direction is IN and the hal_type is U32 for a HAL Progress Bar.
+The HAL direction is IN and the hal_type is Unsigned Integer for a HAL Progress
+Bar.
 
 .. csv-table:: **HAL Progressbar**
    :width: 100%
@@ -576,8 +565,8 @@ HAL Watch Labels
 ----------------
 
 You can watch the status of a HAL pin in your GUI by adding a QLabel with the
-following Dynamic Properties. You can watch Bit (True/False) pins, S32/U32
-integer pins, Float pins.
+following Dynamic Properties. You can watch Boolean (True/False) pins, Signed or
+Unsigned Integer pins and Floating Point pins.
 
 Watch Bool
 ~~~~~~~~~~
@@ -589,7 +578,7 @@ Watch Bool
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_watch_bit
-	String, pin_name, any HAL pin that is a bool
+	String, pin_name, Boolean
 
 .. image:: /images/hal-watch-bit.png
    :align: center
@@ -604,7 +593,7 @@ Watch Integer
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_watch_int
-	String, pin_name, any HAL pin that is a integer
+	String, pin_name, Signed/Unsigned Integer
 
 .. image:: /images/hal-watch-int.png
    :align: center
@@ -619,7 +608,7 @@ Watch Float
 
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_watch_float
-	String, pin_name, any HAL pin that is a float
+	String, pin_name, Floating Point
 
 .. image:: /images/hal-watch-float.png
    :align: center
