@@ -2742,7 +2742,8 @@ def setup_hal(parent):
 					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 						continue
 
-					hal_type = resolve_hal_type(child.property('hal_type'))
+					hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+					#hal_type = resolve_hal_type(child.property('hal_type'))
 					valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 					if hal_type is not None and hal_type in valid_types:
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, ACTIVE_DIRS['IO']))
@@ -2881,7 +2882,8 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			hal_type = resolve_hal_type(child.property('hal_type'))
+			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			#hal_type = resolve_hal_type(child.property('hal_type'))
 			valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 
 			if hal_type is not None:
@@ -2930,7 +2932,8 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			hal_type = resolve_hal_type(child.property('hal_type'))
+			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			#hal_type = resolve_hal_type(child.property('hal_type'))
 			if hal_type is not None:
 
 				#hal_dir = getattr(hal, 'HAL_OUT')
@@ -2953,7 +2956,8 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			hal_type = resolve_hal_type(child.property('hal_type'))
+			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			#hal_type = resolve_hal_type(child.property('hal_type'))
 
 			if hal_type is not None:
 				#hal_dir = getattr(hal, 'HAL_IN')
@@ -2985,7 +2989,8 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
 
-			hal_type = resolve_hal_type(label.property('hal_type'))
+			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			#hal_type = resolve_hal_type(label.property('hal_type'))
 			if hal_type is not None:
 				true_text = child.property('true_text')
 				false_text = child.property('false_text')
@@ -3051,7 +3056,8 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			widget = 'QLabel'
-			hal_type = resolve_hal_type(child.property('hal_type'))
+			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			#hal_type = resolve_hal_type(child.property('hal_type'))
 
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
 				continue
