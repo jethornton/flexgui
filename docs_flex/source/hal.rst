@@ -45,14 +45,15 @@ a configuration made for 2.9 will work in 2.10 with no changes.
 In addition to this flexibility Flex GUI now allows you to use shortened
 versions of data types when creating a HAL pin that has an option for data
 types. All caps is not required, you can just type in `bit` for the hal_type
-and Flex GUI will take care of the conversion to the correct type.
+and Flex GUI will take care of the conversion to the correct type. It is best
+to use the 2.10 Alias for all configurations.
 
 .. csv-table:: **HAL Data Types**
    :width: 100%
    :align: center
    :widths: 24 19 19 19 19
 
-	**Data Type**, **Name**, **Name**, **Name**, **Name**
+	**Data Type**, **2.9 Name**, **2.9 Alias**, **2.10 Name**, **2.10 Alias**
 	Boolean, HAL_BIT, BIT, HAL_BOOL, BOOL
 	Floating Point, HAL_FLOAT, FLOAT, HAL_REAL, REAL
 	Signed Integer, HAL_S32, S32, HAL_SINT, SINT
@@ -188,7 +189,7 @@ The HAL direction is OUT for a HAL Spinbox.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, Signed or Unsigned Integer
+	String, hal_type, sint or uint
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -238,7 +239,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, Signed or Unsigned Integer
+	String, hal_type, sint or uint
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
@@ -274,12 +275,12 @@ See :ref:`data-types` for more details on HAL Data Types.
 	String, function, hal_io
 	String, pin_name, any unique name
 	QSpinBox or QSlider
-	String, hal_type, Signed or Unsigned Integer
+	String, hal_type, sint or uint
 	Optional
 	Bool, state_on, True
 	Bool, all_homed, True
 
-.. NOTE:: The hal_type is required for QSpinBox, QSlider or QDoubleSpinBox
+.. NOTE:: The hal_type is required for QSpinBox and QSlider
 
 HAL Labels
 ----------
@@ -298,7 +299,7 @@ The HAL direction is IN for a HAL Label.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, Floating Point or Signed/Unsigned Integer
+	String, hal_type, real, sint or uint
 	Optional
 	String, precision, Number of digits for HAL_FLOAT
 	String, zero_padding, Left padded zeros for integer types
@@ -321,7 +322,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, Boolean
+	String, hal_type, bool
 	Optional
 	String, true_text, text to display when True
 	String, false_text, text to display when False
@@ -350,7 +351,7 @@ HAL connections must be made in the post gui HAL file. The pin_name used will
 create a HAL pin prefixed with `flexhal.` A pin_name of my-reader would be
 `flexhal.my-reader` in HAL.
 
-The HAL direction is IN and the hal_type is float for a HAL Average Float Label.
+The HAL direction is IN and the hal_type is REAL for a HAL Average Float Label.
 
 .. csv-table:: **HAL Average Float Label**
    :width: 100%
@@ -390,7 +391,7 @@ The HAL direction is IN.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_avr_i
 	String, pin_name, any unique name
-	String, hal_type, Signed or Unsigned Integer
+	String, hal_type, sint or uint
 	Optional
 	Int, samples, The number of samples to use default is 10
 
@@ -401,8 +402,7 @@ A QLabel can have multiple text by adding as many Dynamic Properties as needed
 for each text. The `text_n` property the `n` is the integer value for that
 text. Setting the pin name value will change the label text
 
-The HAL direction is IN and the hal_type is Unsigned Integer for a HAL
-Multi-State Label.
+The HAL direction is IN and the hal_type is SINT for a HAL Multi-State Label.
 
 .. csv-table:: **HAL Multi-State Label**
    :width: 100%
@@ -437,7 +437,7 @@ The HAL direction is IN for a HAL LCD
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, Floating Point or Signed/Unsigned Integer
+	String, hal_type, real or sint or uint
 	Optional
 	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
 
@@ -457,7 +457,7 @@ is connected to a HAL pin of type bit with a HAL direction of OUT. Only one OUT
 direction can be connected to a signal while multiple IN directions can be
 connected to a signal.
 
-The HAL direction is IN and the hal_type is Boolean for a HAL LED
+The HAL direction is IN and the hal_type is BOOL for a HAL LED
 
 .. csv-table:: **HAL LED**
    :width: 100%
@@ -522,7 +522,7 @@ Similar to the HAL LED except the LED is in the upper right corner so the label
 can have text. The default colors are Red when Off and Green when On. The
 default shape is round.
 
-The HAL direction is IN and the hal_type is Boolean for a HAL LED Label.
+The HAL direction is IN and the hal_type is BOOL for a HAL LED Label.
 
 .. csv-table:: **HAL LED Label**
    :width: 100%
@@ -549,7 +549,7 @@ the post gui HAL file. The pin_name used will create a HAL pin prefixed with
 minimum value is 0 and the maximum value is 100. If the HAL value exceeds the
 maximum value 0 is displayed.
 
-The HAL direction is IN and the hal_type is Unsigned Integer for a HAL Progress
+The HAL direction is IN and the hal_type is UINT for a HAL Progress
 Bar.
 
 .. csv-table:: **HAL Progressbar**
