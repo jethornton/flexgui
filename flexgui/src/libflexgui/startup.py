@@ -2877,6 +2877,7 @@ def setup_hal(parent):
 		for child in hal_spinboxes:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
+			hal_type_name = child.property('hal_type')
 			widget = 'QSpinBox'
 
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
@@ -2951,6 +2952,7 @@ def setup_hal(parent):
 		for child in hal_lcds:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
+			hal_type_name = child.property('hal_type')
 			widget = 'QSlider'
 
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
@@ -2984,6 +2986,7 @@ def setup_hal(parent):
 		for child in hal_labels:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
+			hal_type_name = child.property('hal_type')
 			widget = 'QLabel'
 
 			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
@@ -3055,6 +3058,7 @@ def setup_hal(parent):
 		for child in hal_avr_i_labels:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
+			hal_type_name = child.property('hal_type')
 			widget = 'QLabel'
 			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
 			#hal_type = resolve_hal_type(child.property('hal_type'))
