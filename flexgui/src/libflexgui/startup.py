@@ -33,15 +33,6 @@ from libflexgui import probe
 AXES = ['x', 'y', 'z', 'a', 'b', 'c', 'u', 'v', 'w']
 
 # 1. Resolve the active hal constants for the installed LinuxCNC version
-'''
-ACTIVE_TYPES = {
-	'BOOL': getattr(hal, 'HAL_BOOL', getattr(hal, 'HAL_BIT', None)),
-	'REAL': getattr(hal, 'HAL_REAL', getattr(hal, 'HAL_FLOAT', None)),
-	'SINT': getattr(hal, 'HAL_SINT', getattr(hal, 'HAL_S32', None)),
-	'UINT': getattr(hal, 'HAL_UINT', getattr(hal, 'HAL_U32', None)),
-}
-'''
-
 if hasattr(hal, 'Type'):
 	# LinuxCNC 2.10+ (avoids touching deprecated HAL_* attributes)
 	ACTIVE_TYPES = {
@@ -2615,12 +2606,6 @@ def setup_watch_var(parent):
 def setup_hal(parent):
 	# LinuxCNC all imports are handled above, is there any way to improve this code?
 	# this creates all the HAL pins for HAL widgets
-	'''
-	master now has ['HAL_BOOL', 'HAL_IN', 'HAL_IO', 'HAL_OUT', 'HAL_PORT',
-	'HAL_REAL', 'HAL_RO', 'HAL_RW', 'HAL_SINT', 'HAL_UINT']
-	2.9 has ['HAL_BIT', 'HAL_FLOAT', 'HAL_IN', 'HAL_IO', 'HAL_OUT', 'HAL_RO',
-	'HAL_RW', 'HAL_S32', 'HAL_U32']
-	'''
 
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
