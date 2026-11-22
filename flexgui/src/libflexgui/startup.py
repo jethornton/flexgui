@@ -3047,7 +3047,7 @@ def setup_hal(parent):
 			#hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, TYPE_ALIASES['FLOAT'], ACTIVE_DIRS['IN']))
 
-			p = label.property('precision')
+			p = child.property('precision')
 			p = p if p is not None else parent.default_precision
 
 			parent.hal_avr_float[obj_name] = [pin_name, deque([0], maxlen=s), p, r]
