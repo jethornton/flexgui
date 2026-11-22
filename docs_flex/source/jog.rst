@@ -17,6 +17,9 @@ See :ref:`Jog Settings <jog-settings>` for more information.
 	Jog Velocity Slider, QSlider, jog_vel_sl
 	Jog Mode Selector, QComboBox, jog_modes_cb
 
+.. note:: `Jog Mode Selector` reads the ini entry [FLEXGUI] JOG_INCREMENTS and
+   if not found, only `Continuous` will be an option.
+
 The Jog Velocity Label shows the current jog velocity setting from the Jog
 Velocity Slider
 
@@ -131,7 +134,6 @@ Jog Button Controls
 -------------------
 `Jog Controls Tutorial <https://youtu.be/ReVeEB5tEYM>`_
 
-
 This type of jog controls provides a button for each axis and jog direction.
 
 .. csv-table:: **Jog Button Widgets**
@@ -143,11 +145,21 @@ This type of jog controls provides a button for each axis and jog direction.
 	Jog Plus Axis (0-8), QPushButton, jog_plus_pb_(0-8)
 	Jog Minus Axis (0-8), QPushButton, jog_minus_pb_(0-8)
 
-.. note:: Jog Plus/Minus buttons use the `Axis Index`_. So `Jog Y Plus` is
-   `jog_plus_pb_1`.
+.. csv-table:: **Jog Button Object Names**
+   :width: 100%
+   :align: left
+   :widths: 33 33 33
 
-.. note:: `Jog Mode Selector` reads the ini entry [FLEXGUI] JOG_INCREMENTS and
-   if not found, only `Continuous` will be an option.
+	**Axis**, **Jog Plus**, **Jog Minus**
+	X, jog_plus_pb_0, jog_minus_pb_0
+	Y, jog_plus_pb_1, jog_minus_pb_1
+	Z, jog_plus_pb_2, jog_minus_pb_2
+	A, jog_plus_pb_3, jog_minus_pb_3
+	B, jog_plus_pb_4, jog_minus_pb_4
+	C, jog_plus_pb_5, jog_minus_pb_5
+	U, jog_plus_pb_6, jog_minus_pb_6
+	V, jog_plus_pb_7, jog_minus_pb_7
+	W, jog_plus_pb_8, jog_minus_pb_8
 
 Jog Selected Axis Controls
 --------------------------
