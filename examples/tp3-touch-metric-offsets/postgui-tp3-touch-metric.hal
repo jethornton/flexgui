@@ -1,0 +1,32 @@
+# ##################################################
+# MDI-Commands
+# ##################################################
+
+net touch-probe flexhal.probe_trigger_pin => motion.probe-input
+
+# Cycle Timer
+#net run-status => 	time.0.start
+#net cycle-seconds 	flexhal.timer0_sec <= time.0.seconds
+#net cycle-minutes 	flexhal.timer0_min <= time.0.minutes
+#net cycle-hours 	flexhal.timer0_hrs <= time.0.hours
+
+#net cycle-seconds 	flexhal.timer0_sec_lcd <= time.0.seconds
+#net cycle-minutes 	flexhal.timer0_min_lcd <= time.0.minutes
+#net cycle-hours 	flexhal.timer0_hrs_lcd <= time.0.hours
+
+net spindle-cmd-rpm-abs => flexhal.spindle_rpm
+#net spindle-cmd-rpm-abs => flexhal.spindle_rpm_lcd
+
+net flood_pin iocontrol.0.coolant-flood => flexhal.flood
+#net flood_pin => flexhal.flood-label
+
+net mist_pin iocontrol.0.coolant-mist => flexhal.mist
+#net mist_pin => flexhal.mist-label
+
+#net probe_enable_pin flexhal.probe-btn => flexhal.probe-enable-label 
+#net probe_enable_pin flexhal.probe-btn
+net probe_enable_pin flexhal.probe-btn => flexhal.probe-enable-led 
+#net probe_enable_pin => flexhal.probe-enable-led2
+#net probe_enable_pin => flexhal.probe-enable-led3 
+
+
