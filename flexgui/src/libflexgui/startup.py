@@ -270,19 +270,24 @@ def validate_pin_name(parent, child):
 
 	return True
 
-def validate_hal_type(parent, child, hal_type, obj_name, widget):
+def validate_hal_type(parent, child): # FIXME check for spaces after
+	pin_name = child.property('pin_name')
+	hal_type = child.property('hal_type')
+	widget_type = type(child).__name__
+	obj_name = child.objectName()
+
 	if hal_type is None:
-		msg = (f'The {widget} "{obj_name}" hal_type is missing. '
+		msg = (f'The {widget_type} "{obj_name}" hal_type is missing. '
 		'The HAL pin can not be created.')
 	elif hal_type.strip() == '':
-		msg = (f'The {widget} "{obj_name}" hal_type is blank '
+		msg = (f'The {widget_type} "{obj_name}" hal_type is blank '
 		'The HAL pin can not be created.')
 	elif TYPE_ALIASES.get(str(hal_type).strip().upper()) is None:
-		msg = (f'The {widget} "{obj_name}" hal_type {hal_type} is not a valid '
+		msg = (f'The {widget_type} "{obj_name}" hal_type {hal_type} is not a valid '
 		'hal_type. The HAL pin can not be created.')
 	elif TYPE_ALIASES.get(str(hal_type).strip().upper()) is not None:
 		return TYPE_ALIASES.get(str(hal_type).strip().upper())
-	info = f'The {widget} "{obj_name}" will be disabled.'
+	info = f'The {widget_type} "{obj_name}" will be disabled.'
 	dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
 	child.setEnabled(False)
 	return None
@@ -2807,8 +2812,7 @@ def setup_hal(parent):
 					if not validate_pin_name(parent, child):
 						continue
 
-					hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
-					#hal_type = resolve_hal_type(child.property('hal_type'))
+					hal_type = validate_hal_type(parent, child)
 					valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 					if hal_type is not None and hal_type in valid_types:
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, ACTIVE_DIRS['IO']))
@@ -2820,8 +2824,7 @@ def setup_hal(parent):
 					if not validate_pin_name(parent, child):
 						continue
 
-					hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
-					#hal_type = resolve_hal_type(child.property('hal_type'))
+					hal_type = validate_hal_type(parent, child)
 					valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 					if hal_type is not None and hal_type in valid_types:
 						setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, ACTIVE_DIRS['IO']))
@@ -2966,8 +2969,7 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child):
 				continue
 
-			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
-			#hal_type = resolve_hal_type(child.property('hal_type'))
+			hal_type = validate_hal_type(parent, child)
 			valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 
 			if hal_type is not None:
@@ -2982,7 +2984,7 @@ def setup_hal(parent):
 				msg = (f'The HAL type "{hal_type_name}" is not valid for a HAL spinbox. ')
 				info = f'The "{obj_name}" spinbox will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
-				spinbox.setEnabled(False)
+				child.setEnabled(False)
 				continue
 
 	##### HAL Double Spinboxes #####
@@ -2994,7 +2996,6 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child):
 				continue
 
-			#hal_dir = getattr(hal, 'HAL_OUT')
 			parent.halcomp.newpin(pin_name, ACTIVE_TYPES['REAL'], ACTIVE_DIRS['OUT'])
 			# set the default value of the spin box to the hal pin
 			setattr(parent.halcomp, pin_name, child.value())
@@ -3014,8 +3015,7 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child):
 				continue
 
-			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
-			#hal_type = resolve_hal_type(child.property('hal_type'))
+			hal_type = validate_hal_type(parent, child)
 			if hal_type is not None:
 
 				#hal_dir = getattr(hal, 'HAL_OUT')
@@ -3038,7 +3038,7 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child):
 				continue
 
-			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			hal_type = validate_hal_type(parent, child)
 			#hal_type = resolve_hal_type(child.property('hal_type'))
 
 			if hal_type is not None:
@@ -3071,7 +3071,7 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child):
 				continue
 
-			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			hal_type = validate_hal_type(parent, child)
 			#hal_type = resolve_hal_type(label.property('hal_type'))
 			if hal_type is not None:
 				true_text = child.property('true_text')
@@ -3137,7 +3137,7 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type_name = child.property('hal_type')
-			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
+			hal_type = validate_hal_type(parent, child)
 			#hal_type = resolve_hal_type(child.property('hal_type'))
 
 			if not validate_pin_name(parent, child):
