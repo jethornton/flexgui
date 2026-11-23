@@ -1,0 +1,36 @@
+To thread mill a hole use Thread Mill for all setting.
+
+Load a single point threadmill in the spindle and set the Z tool length offset ahead of time.
+
+INT/EXT selects internal(0) or external(1) threading.
+
+RH/LH selects right hand (0) threading or left hand (1) threading.
+
+PITCH MM enter the thread pitch (threads per mm).
+
+MAJ DIAM set the major pitch diameter from your favorite thread chart for either internal or external threading.
+Major diameter is generally the same for internal or external threads.
+
+MIN DIAM set the minor pitch diameter from your favorite thread chart for either internal or external threading.
+Minor diameter will differ for internal or external threads.
+
+No of PASSES set the number of incremental passes for threading.
+
+Threadmill DIAM Enter the threadmill diameter here and is usually given when purchasing the cutter.
+
+FULL THREADS enter the number of full threads here (see note under Z-START).
+
+X CENTER is the X center location for the threads. Best left at X0.
+
+Y CENTER is the Y center location for the threads. Best left at Y0.
+
+Z-CLEAR is a safe distance above the Z-START plane.
+
+Z-START is the start plane for both internal and external thread ops. For INTERNAL threads this will be the BOTTOM of the threads and for EXTERNAL threads this will be the TOP of the threads.
+Give Z-START a couple extra threads above the actual start of thread for external threading.
+
+Set the FEED & SPEED for the threadmill accordingly.
+
+Internal threads will start at the center and arc ramp in/out of the threads back to center.
+
+External threads will start at the center and move left of the center and arc ramp in/out of the threads.  
