@@ -304,7 +304,7 @@ The HAL direction is IN for a HAL Label.
 	**Property Type**, **Property Name**, **Pin Value**
 	String, function, hal_pin
 	String, pin_name, any unique name
-	String, hal_type, real, sint or uint
+	String, hal_type, real or sint or uint
 	Optional
 	String, precision, Number of digits for HAL_FLOAT
 	String, zero_padding, Left padded zeros for integer types
