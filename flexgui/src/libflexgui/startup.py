@@ -1,4 +1,4 @@
-import os, sys, importlib, gc
+import os, sys, importlib, gc, re
 from functools import partial
 from collections import deque
 
@@ -82,6 +82,15 @@ TYPE_ALIASES = {
 	'HAL_UINT': ACTIVE_TYPES['UINT'],
 	'UINT': ACTIVE_TYPES['UINT'],
 }
+
+MAX_PIN_LEN = 33 # 41 max HAL_NAME_LEN minus 8 chars for 'flexhal.'
+#VALID_HAL_PIN_RE = re.compile(r'^[!-~]+$')
+# Matches any character outside printable ASCII (! to ~) OR #, ', ", \
+#INVALID_HAL_CHAR_RE = re.compile(r'[^!-~]|[#\'"\\]')
+#INVALID_HAL_CHARS_RE = re.compile(r'[#\'"\\]')
+#INVALID_HAL_CHAR_RE = re.compile(r'[^a-zA-Z0-9\-_.:/]')
+INVALID_HAL_CHAR_RE = re.compile(r'[^a-zA-Z0-9\-_.]')
+
 
 def set_screen(parent):
 	# Restores window size, position, and maximization state.
@@ -187,22 +196,79 @@ def resolve_hal_type(raw_type):
 		return None
 	return TYPE_ALIASES.get(str(raw_type).strip().upper())
 
-def validate_pin_name(parent, child, pin_name, obj_name, widget):
-	if pin_name is None:
-		msg = (f'The {widget} "{obj_name}" pin name is missing. '
-		'The HAL pin can not be created.')
-	if str(pin_name).strip() == '':
-		msg = (f'The {widget} "{obj_name}" pin name is blank. '
-		'The HAL pin can not be created.')
-	elif pin_name in dir(parent):
-		msg = (f'The {widget} "{obj_name}" pin name "{pin_name}" is already used '
-		'in Flex GUI. The HAL pin can not be created.')
-	else:
+def _format_invalid_chars(pin_name):
+	bad_chars = []
+	for ch in INVALID_HAL_CHAR_RE.findall(pin_name):
+		label = 'space' if ch == ' ' else repr(ch)
+		if label not in bad_chars:
+			bad_chars.append(label)
+	return ', '.join(bad_chars)
+
+def _pin_exists(halcomp, pin_name):
+	try:
+		_ = halcomp[pin_name]
 		return True
-	info = f'The {widget} "{obj_name}" will be disabled.'
-	dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
-	child.setEnabled(False)
-	return False
+	except AttributeError:
+		return False
+
+def validate_pin_name(parent, child):
+	pin_name = child.property('pin_name')
+	widget_type = type(child).__name__
+	obj_name = child.objectName()
+
+	msg = None
+
+	# Step 1: Check for missing pin_name
+	if pin_name is None:
+		msg = (
+			f'The {widget_type} "{obj_name}" pin_name property is missing. '
+			'The HAL pin can not be created.'
+		)
+	# Step 2: Check for non-string property
+	elif not isinstance(pin_name, str):
+		msg = (
+			f'The {widget_type} "{obj_name}" pin_name property must be a String '
+			f'(got {type(pin_name).__name__}). The HAL pin can not be created.'
+		)
+	# Step 3: Check for blank or whitespace-only string
+	elif pin_name.strip() == '':
+		msg = (
+			f'The {widget_type} "{obj_name}" pin_name property is blank. '
+			'The HAL pin can not be created.'
+		)
+	# Step 4: Check max HAL pin length (41 total - 8 for 'flexhal.' = 33)
+	elif len(pin_name) > MAX_PIN_LEN:
+		msg = (
+			f'The {widget_type} "{obj_name}" pin_name "{pin_name}" is '
+			f'{len(pin_name)} characters long (max {MAX_PIN_LEN}). '
+			'The HAL pin can not be created.'
+		)
+	# Step 5: Check for invalid HAL characters and report exact matches
+	elif INVALID_HAL_CHAR_RE.search(pin_name): # not catching my#/bad^na:me<> no debug prints
+		print('bad')
+		bad_chars = _format_invalid_chars(pin_name)
+		print(f'bad_chars {bad_chars}')
+		msg = (
+			f'The {widget_type} "{obj_name}" pin_name "{pin_name}" contains invalid '
+			f'character(s): {bad_chars}. The HAL pin can not be created.'
+		)
+	# Step 6: Check if pin_name is already used on parent or in halcomp
+	elif hasattr(parent, pin_name) or _pin_exists(parent.halcomp, pin_name):
+		msg = (
+			f'The {widget_type} "{obj_name}" pin_name "{pin_name}" is already used '
+			'in Flex GUI. The HAL pin can not be created.'
+		)
+
+	if msg is not None:
+		info = f'The {widget_type} "{obj_name}" will be disabled.'
+		dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
+		child.setEnabled(False)
+		text_widgets = ['QPushButton', 'QLabel']
+		if widget_type in text_widgets:
+			child.setText('Error!')
+		return False
+
+	return True
 
 def validate_hal_type(parent, child, hal_type, obj_name, widget):
 	if hal_type is None:
@@ -231,9 +297,8 @@ def setup_hal_leds(parent):
 		if child.property('function') == 'hal_led':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QLabel'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			led_dict = {}
@@ -303,9 +368,8 @@ def setup_hal_led_text_labels(parent):
 		if child.property('function') == 'hal_led_text':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QLabel'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			led_dict = {}
@@ -355,9 +419,8 @@ def setup_hal_led_labels(parent):
 		if child.property('function') == 'hal_led_label':
 			pin_name = child.property('pin_name')
 			obj_name = child.objectName()
-			widget = 'QLabel'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			led_dict = {}
@@ -411,9 +474,18 @@ def setup_hal_led_buttons(parent):
 		if child.property('function') == 'hal_led_button':
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QPushButton'
+			confirm = child.property('confirm')
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if confirm and not child.isCheckable():
+				title = 'Configuration Error'
+				msg = ('Confirm only works with a QPushButton set to checkable. '
+				f'The {obj_name} QPushButton with the text of {child.text()} '
+				'will not use the confirm option.')
+				info = 'Set the QPushButton to checkable.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				continue
+
+			if not validate_pin_name(parent, child):
 				continue
 
 			led_dict = {}
@@ -2663,17 +2735,28 @@ def setup_hal(parent):
 			#hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['IN']))
 
-	##### HAL_LED_BUTTONS ##### 
+	##### HAL_LED_BUTTONS #####
 	# these are not QPushButtons but LEDButton
 	# All validity checks are done when the LEDButton is created
-	for button in parent.findChildren(LEDButton):
+	for child in parent.findChildren(LEDButton):
 
-		if button.property('function') == 'hal_led_button':
-			pin_name = button.property('pin_name')
+		if child.property('function') == 'hal_led_button':
+			pin_name = child.property('pin_name')
 			#hal_dir = getattr(hal, 'HAL_OUT')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['OUT']))
 			pin = getattr(parent, f'{pin_name}')
-			set_hal_enables(parent, button)
+			set_hal_enables(parent, child)
+			confirm = child.property('confirm')
+
+			if child.isCheckable() and not confirm:
+				child.toggled.connect(lambda checked, pin=pin: (pin.set(checked)))
+				# set the hal pin default
+				setattr(parent.halcomp, pin_name, child.isChecked())
+			elif child.isCheckable() and confirm:
+				child.toggled.connect(partial(utilities.hal_confirm, parent))
+			else:
+				child.pressed.connect(lambda pin=pin: (pin.set(True)))
+				child.released.connect(lambda pin=pin: (pin.set(False)))
 
 	##### HAL_IO #####
 	for child in parent.findChildren(QWidget):
@@ -2684,8 +2767,7 @@ def setup_hal(parent):
 				hal_type_name = child.property('hal_type')
 
 				if isinstance(child, QCheckBox):
-					widget = 'QCheckBox'
-					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+					if not validate_pin_name(parent, child):
 						continue
 
 					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['IO']))
@@ -2694,8 +2776,7 @@ def setup_hal(parent):
 					set_hal_enables(parent, child)
 
 				elif isinstance(child, QPushButton):
-					widget = 'QPushButton'
-					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+					if not validate_pin_name(parent, child):
 						continue
 
 					if child.isCheckable():
@@ -2714,8 +2795,7 @@ def setup_hal(parent):
 						continue
 
 				elif isinstance(child, QRadioButton):
-					widget = 'QRadioButton'
-					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+					if not validate_pin_name(parent, child):
 						continue
 
 					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['IO']))
@@ -2724,8 +2804,7 @@ def setup_hal(parent):
 					set_hal_enables(parent, child)
 
 				elif isinstance(child, QSpinBox):
-					widget = 'QSpinBox'
-					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+					if not validate_pin_name(parent, child):
 						continue
 
 					hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
@@ -2738,8 +2817,7 @@ def setup_hal(parent):
 						set_hal_enables(parent, child)
 
 				elif isinstance(child, QSlider):
-					widget = 'QSlider'
-					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+					if not validate_pin_name(parent, child):
 						continue
 
 					hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
@@ -2754,8 +2832,7 @@ def setup_hal(parent):
 						print('opps')
 
 				elif isinstance(child, QDoubleSpinBox):
-					widget = 'QDoubleSpinBox'
-					if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+					if not validate_pin_name(parent, child):
 						continue
 
 					setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['REAL'], ACTIVE_DIRS['IO']))
@@ -2801,9 +2878,17 @@ def setup_hal(parent):
 			state_off = child.property('state_off')
 			home_required = child.property('required')
 			confirm = child.property('confirm')
-			widget = 'QPushButton'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if confirm and not child.isCheckable():
+				title = 'Configuration Error'
+				msg = ('Confirm only works with a QPushButton set to checkable. '
+				f'The {obj_name} QPushButton with the text of {child.text()} '
+				'will not use the confirm option.')
+				info = 'Set the QPushButton to checkable.'
+				dialogs.error_msg_ok(parent, title, msg, info)
+				continue
+
+			if not validate_pin_name(parent, child):
 				continue
 
 			controls = ['open_pb', 'edit_pb', 'reload_pb', 'edit_tool_table_pb',
@@ -2849,10 +2934,10 @@ def setup_hal(parent):
 		for child in hal_checkboxes:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QCheckBox'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
+
 			#hal_dir = getattr(hal, 'HAL_OUT')
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['OUT']))
 			pin = getattr(parent, f'{pin_name}')
@@ -2863,9 +2948,8 @@ def setup_hal(parent):
 		for child in hal_checkboxes:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QCheckBox'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			#hal_dir = getattr(hal, 'HAL_OUT')
@@ -2878,9 +2962,8 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type_name = child.property('hal_type')
-			widget = 'QSpinBox'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
@@ -2907,9 +2990,8 @@ def setup_hal(parent):
 		for child in hal_dbl_spinboxes:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QDoubleSpinBox'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			#hal_dir = getattr(hal, 'HAL_OUT')
@@ -2928,9 +3010,8 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type_name = child.property('hal_type')
-			widget = 'QSlider'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
@@ -2953,9 +3034,8 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type_name = child.property('hal_type')
-			widget = 'QSlider'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
@@ -2987,9 +3067,8 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type_name = child.property('hal_type')
-			widget = 'QLabel'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
@@ -3036,9 +3115,8 @@ def setup_hal(parent):
 		for child in hal_avr_f_labels:
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
-			widget = 'QLabel'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			s = child.property('samples') or 10
@@ -3059,11 +3137,10 @@ def setup_hal(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 			hal_type_name = child.property('hal_type')
-			widget = 'QLabel'
 			hal_type = validate_hal_type(parent, child, hal_type_name, obj_name, widget)
 			#hal_type = resolve_hal_type(child.property('hal_type'))
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			s = label.property('samples') or 10
@@ -3087,9 +3164,8 @@ def setup_hal(parent):
 		for label in hal_ms_labels:
 			obj_name = label.objectName()
 			pin_name = label.property('pin_name')
-			widget = 'QLabel'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			#hal_dir = getattr(hal, 'HAL_IN')
@@ -3139,9 +3215,8 @@ def setup_hal(parent):
 		for progressbar in hal_progressbar:
 			obj_name = progressbar.objectName()
 			pin_name = progressbar.property('pin_name')
-			widget = 'QProgressBar'
 
-			if not validate_pin_name(parent, child, pin_name, obj_name, widget):
+			if not validate_pin_name(parent, child):
 				continue
 
 			#hal_type = getattr(hal, 'HAL_U32')

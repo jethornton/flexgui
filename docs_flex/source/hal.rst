@@ -155,6 +155,10 @@ The option state_on will disable the HAL LED Button until the Power is on.
 
 The option all_homed will disable the HAL LED Button until all joints are homed.
 
+The option confirm can be used with a checkable LED QPushButton. When toggled a
+popup will ask for confirmation of the action. If Cancel is selected the checked
+state will be set back to the previous state and the HAL pin will not change.
+
 .. csv-table:: **HAL LED Button Dynamic Properties**
    :width: 100%
    :align: center
@@ -167,6 +171,7 @@ The option all_homed will disable the HAL LED Button until all joints are homed.
 	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
+	Bool, confirm, True
 
 .. _hal_spin_box:
 
