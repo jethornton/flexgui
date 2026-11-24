@@ -196,6 +196,7 @@ The HAL direction is OUT for a HAL Spinbox.
 	String, pin_name, any unique name
 	String, hal_type, sint or uint
 	Optional
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 
@@ -220,6 +221,7 @@ Spinbox.
 	String, function, hal_pin
 	String, pin_name, any unique name
 	Optional
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 
@@ -246,6 +248,7 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 	String, pin_name, any unique name
 	String, hal_type, sint or uint
 	Optional
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 
@@ -282,6 +285,7 @@ See :ref:`data-types` for more details on HAL Data Types.
 	QSpinBox or QSlider
 	String, hal_type, sint or uint
 	Optional
+	Bool, always_on, True
 	Bool, state_on, True
 	Bool, all_homed, True
 
