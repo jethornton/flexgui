@@ -265,7 +265,7 @@ def validate_pin_name(parent, child):
 		info = f'The {widget_type} "{obj_name}" will be disabled.'
 		dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
 		child.setEnabled(False)
-		text_widgets = ['QPushButton', 'QLabel']
+		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel']
 		if widget_type in text_widgets:
 			child.setText('Error!')
 		return False
@@ -2975,12 +2975,11 @@ def setup_hal(parent):
 			valid_types = (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT'])
 
 			if hal_type is not None:
-				#hal_dir = getattr(hal, 'HAL_OUT')
 				parent.halcomp.newpin(pin_name, hal_type, ACTIVE_DIRS['OUT'])
-				# set the default value of the spin box to the hal pin
 				setattr(parent.halcomp, pin_name, child.value())
 				child.valueChanged.connect(partial(utilities.update_hal_spinbox, parent))
 				set_hal_enables(parent, child)
+			'''
 			else:
 				title = 'Configuration Error'
 				msg = (f'The HAL type "{hal_type_name}" is not valid for a HAL spinbox. ')
@@ -2988,6 +2987,7 @@ def setup_hal(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				child.setEnabled(False)
 				continue
+			'''
 
 	##### HAL Double Spinboxes #####
 	if len(hal_dbl_spinboxes) > 0:
