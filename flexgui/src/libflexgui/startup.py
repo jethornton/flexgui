@@ -271,11 +271,11 @@ def validate_pin_name(parent, child):
 		info = f'The {widget_type} "{obj_name}" will be disabled.'
 		dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
 		child.setEnabled(False)
-		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel']
+		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel',
+		'LEDButton', 'IndicatorButton', 'IndicatorLabel']
 		if widget_type in text_widgets:
 			child.setText('Error!')
 		return False
-
 	return True
 
 def validate_hal_type(parent, child):
@@ -298,7 +298,8 @@ def validate_hal_type(parent, child):
 		return TYPE_ALIASES.get(str(hal_type).strip().upper())
 
 	if msg is not None:
-		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel']
+		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel',
+		'LEDButton', 'IndicatorButton', 'IndicatorLabel']
 		info = f'The {widget_type} "{obj_name}" will be disabled.'
 		dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
 		child.setEnabled(False)
@@ -388,7 +389,7 @@ def setup_hal_led_text_labels(parent):
 			obj_name = child.objectName()
 			pin_name = child.property('pin_name')
 
-			if not validate_pin_name(parent, child):
+			if not validate_pin_name(parent, child): # FIXME this needs to be later
 				continue
 
 			led_dict = {}
@@ -439,7 +440,7 @@ def setup_hal_led_labels(parent):
 			pin_name = child.property('pin_name')
 			obj_name = child.objectName()
 
-			if not validate_pin_name(parent, child):
+			if not validate_pin_name(parent, child): # FIXME this needs to be later
 				continue
 
 			led_dict = {}
@@ -504,7 +505,7 @@ def setup_hal_led_buttons(parent):
 				dialogs.error_msg_ok(parent, title, msg, info)
 				continue
 
-			if not validate_pin_name(parent, child):
+			if not validate_pin_name(parent, child): # FIXME this needs to be later
 				continue
 
 			led_dict = {}
@@ -2728,34 +2729,40 @@ def setup_hal(parent):
 	with open(var_file, 'r') as f:
 		var_list = f.readlines()
 
-	##### HAL LED #####
+	##### HAL LED ##### FIXME check pin_name again here
 	# These are not QLabel but Indicator
 	# All validity checks are done when the Indicator is created
-	for label in parent.findChildren(Indicator):
-		if label.property('function') == 'hal_led':
-			pin_name = label.property('pin_name')
+	for child in parent.findChildren(Indicator):
+		if child.property('function') == 'hal_led':
+			pin_name = child.property('pin_name')
 			#hal_dir = getattr(hal, f'HAL_IN')
+			if not validate_pin_name(parent, child):
+				continue
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['IN']))
 
-	##### HAL_LED_TEXT_LABELS #####
+	##### HAL_LED_TEXT_LABELS ##### FIXME check pin_name again here
 	# These are not QLabel but LEDTextLabel
 	# All validity checks are done when the LEDTextLabel is created
-	for label in parent.findChildren(LEDTextLabel):
-		if label.property('function') == 'hal_led_text':
-			pin_name = label.property('pin_name')
+	for child in parent.findChildren(LEDTextLabel):
+		if child.property('function') == 'hal_led_text':
+			pin_name = child.property('pin_name')
 			#hal_dir = getattr(hal, 'HAL_IN')
+			if not validate_pin_name(parent, child):
+				continue
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['IN']))
 
-	##### HAL_LED_LABELS #####
+	##### HAL_LED_LABELS ##### FIXME check pin_name again here
 	# These are not QLabel but IndicatorLabel
 	# All validity checks are done when the IndicatorLabel is created
-	for label in parent.findChildren(IndicatorLabel):
-		if label.property('function') == 'hal_led_label':
-			pin_name = label.property('pin_name')
+	for child in parent.findChildren(IndicatorLabel):
+		if child.property('function') == 'hal_led_label':
+			pin_name = child.property('pin_name')
 			#hal_dir = getattr(hal, 'HAL_IN')
+			if not validate_pin_name(parent, child):
+				continue
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['IN']))
 
-	##### HAL_LED_BUTTONS #####
+	##### HAL_LED_BUTTONS ##### FIXME check pin_name again here
 	# these are not QPushButtons but LEDButton
 	# All validity checks are done when the LEDButton is created
 	for child in parent.findChildren(LEDButton):
@@ -2763,6 +2770,8 @@ def setup_hal(parent):
 		if child.property('function') == 'hal_led_button':
 			pin_name = child.property('pin_name')
 			#hal_dir = getattr(hal, 'HAL_OUT')
+			if not validate_pin_name(parent, child):
+				continue
 			setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, ACTIVE_TYPES['BOOL'], ACTIVE_DIRS['OUT']))
 			pin = getattr(parent, f'{pin_name}')
 			set_hal_enables(parent, child)
