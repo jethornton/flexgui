@@ -220,32 +220,38 @@ def validate_pin_name(parent, child):
 
 	msg = None
 
-	# Step 1: Check for missing pin_name
+	# Step 1: Check for missing Dynamic Property pin_name
 	if pin_name is None:
 		msg = (
-			f'The {widget_type} "{obj_name}" pin_name property is missing. '
+			f'The {widget_type} "{obj_name}" Dynamic Property "pin_name" is missing. '
 			'The HAL pin can not be created.'
 		)
 	# Step 2: Check for non-string property
 	elif not isinstance(pin_name, str):
 		msg = (
-			f'The {widget_type} "{obj_name}" pin_name property must be a String '
-			f'(got {type(pin_name).__name__}). The HAL pin can not be created.'
+			f'The {widget_type} "{obj_name}" Dynamic Property pin_name must be a '
+			f'String (got {type(pin_name).__name__}). The HAL pin can not be created.'
 		)
 	# Step 3: Check for blank or whitespace-only string
 	elif pin_name.strip() == '':
 		msg = (
-			f'The {widget_type} "{obj_name}" pin_name property is blank. '
+			f'The {widget_type} "{obj_name}" Dynamic Property pin_name is blank. '
 			'The HAL pin can not be created.'
 		)
-	# Step 4: Check max HAL pin length (41 total - 8 for 'flexhal.' = 33)
+	# Step 4: Check for any white space character in pin_name
+	elif any(c.isspace() for c in pin_name):
+		msg = (
+			f'The {widget_type} "{obj_name}" pin name "{pin_name}" contains an '
+			'invalid whitespace character. The HAL pin can not be created.'
+		)
+	# Step 5: Check max HAL pin length (41 total - 8 for 'flexhal.' = 33)
 	elif len(pin_name) > MAX_PIN_LEN:
 		msg = (
 			f'The {widget_type} "{obj_name}" pin_name "{pin_name}" is '
 			f'{len(pin_name)} characters long (max {MAX_PIN_LEN}). '
 			'The HAL pin can not be created.'
 		)
-	# Step 5: Check for invalid HAL characters and report exact matches
+	# Step 6: Check for invalid HAL characters and report exact matches
 	elif INVALID_HAL_CHAR_RE.search(pin_name): # not catching my#/bad^na:me<> no debug prints
 		print('bad')
 		bad_chars = _format_invalid_chars(pin_name)
@@ -254,7 +260,7 @@ def validate_pin_name(parent, child):
 			f'The {widget_type} "{obj_name}" pin_name "{pin_name}" contains invalid '
 			f'character(s): {bad_chars}. The HAL pin can not be created.'
 		)
-	# Step 6: Check if pin_name is already used on parent or in halcomp
+	# Step 7: Check if pin_name is already used on parent or in halcomp
 	elif hasattr(parent, pin_name) or _pin_exists(parent.halcomp, pin_name):
 		msg = (
 			f'The {widget_type} "{obj_name}" pin_name "{pin_name}" is already used '
@@ -272,27 +278,33 @@ def validate_pin_name(parent, child):
 
 	return True
 
-def validate_hal_type(parent, child): # FIXME check for spaces after
+def validate_hal_type(parent, child):
 	pin_name = child.property('pin_name')
 	hal_type = child.property('hal_type')
 	widget_type = type(child).__name__
 	obj_name = child.objectName()
+	msg = None
 
 	if hal_type is None:
-		msg = (f'The {widget_type} "{obj_name}" hal_type is missing. '
-		'The HAL pin can not be created.')
+		msg = (f'The {widget_type} "{obj_name}" Dynamic Property hal_type is '
+		'missing. The HAL pin can not be created.')
 	elif hal_type.strip() == '':
-		msg = (f'The {widget_type} "{obj_name}" hal_type is blank '
+		msg = (f'The {widget_type} "{obj_name}" Dynamic Property hal_type is blank '
 		'The HAL pin can not be created.')
 	elif TYPE_ALIASES.get(str(hal_type).strip().upper()) is None:
-		msg = (f'The {widget_type} "{obj_name}" hal_type {hal_type} is not a valid '
-		'hal_type. The HAL pin can not be created.')
+		msg = (f'The {widget_type} "{obj_name}" hal_type "{hal_type}" is not a '
+		'valid hal_type. The HAL pin can not be created.')
 	elif TYPE_ALIASES.get(str(hal_type).strip().upper()) is not None:
 		return TYPE_ALIASES.get(str(hal_type).strip().upper())
-	info = f'The {widget_type} "{obj_name}" will be disabled.'
-	dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
-	child.setEnabled(False)
-	return None
+
+	if msg is not None:
+		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel']
+		info = f'The {widget_type} "{obj_name}" will be disabled.'
+		dialogs.error_msg_ok(parent, 'Configuration Error', msg, info)
+		child.setEnabled(False)
+		if widget_type in text_widgets:
+			child.setText('Error!')
+		return None
 
 def setup_hal_leds(parent):
 	# Label LED as background no text, String function=hal_led, Indicator
@@ -2685,6 +2697,7 @@ def setup_watch_var(parent):
 def setup_hal(parent):
 	# LinuxCNC all imports are handled above, is there any way to improve this code?
 	# this creates all the HAL pins for HAL widgets
+	# FIXME check for always_on and either state_on or all_homed
 
 	hal_labels = []
 	hal_avr_f_labels = [] # average float labels
@@ -3145,27 +3158,18 @@ def setup_hal(parent):
 			if not validate_pin_name(parent, child):
 				continue
 
-			s = label.property('samples') or 10
+			s = child.property('samples') or 10
 
 			if hal_type in (ACTIVE_TYPES['SINT'], ACTIVE_TYPES['UINT']): # FIXME need to standardize this
 				#hal_dir = getattr(hal, 'HAL_IN')
 				setattr(parent, f'{pin_name}', parent.halcomp.newpin(pin_name, hal_type, ACTIVE_DIRS['IN']))
 				parent.hal_avr_int[obj_name] = [pin_name, deque([0], maxlen=s)]
-			else:
-					title = 'Configuration Error'
-					msg = (f'The HAL Type "{child.property("hal_type")}" is not valid for '
-					'a HAL Average Integer Label.')
-					info = f'The "{obj_name}" label will be disabled.'
-					dialogs.error_msg_ok(parent, title, msg, info)
-					label.setEnabled(False)
-					label.setText('Error!')
-					continue
 
 	##### HAL MULTI STATE LABEL #####
 	if len(hal_ms_labels) > 0:
-		for label in hal_ms_labels:
-			obj_name = label.objectName()
-			pin_name = label.property('pin_name')
+		for child in hal_ms_labels:
+			obj_name = child.objectName()
+			pin_name = child.property('pin_name')
 
 			if not validate_pin_name(parent, child):
 				continue
@@ -3173,12 +3177,12 @@ def setup_hal(parent):
 			#hal_dir = getattr(hal, 'HAL_IN')
 			setattr(parent, f'{pin_name}"', parent.halcomp.newpin(pin_name, TYPE_ALIASES['UINT'], ACTIVE_DIRS['IN']))
 			# 1. Get the list of all dynamic property names (as QByteArray)
-			prop_names = label.dynamicPropertyNames()
+			prop_names = child.dynamicPropertyNames()
 			# 2. Iterate through them, decode, and fetch values
 			dynamic_props = {}
 			for name in prop_names:
 				prop_name = name.data().decode("utf-8")
-				prop_value = label.property(prop_name)
+				prop_value = child.property(prop_name)
 				# Store in a dictionary
 				dynamic_props[prop_name] = prop_value
 			text_dict = {}
@@ -3190,8 +3194,8 @@ def setup_hal(parent):
 				'Property that starts with "text_".')
 				info = f'The "{obj_name}" will be disabled.'
 				dialogs.error_msg_ok(parent, title, msg, info)
-				label.setEnabled(False)
-				label.setText('Error!')
+				child.setEnabled(False)
+				child.setText('Error!')
 				continue
 
 			for key, value in dynamic_props.items():
@@ -3206,8 +3210,8 @@ def setup_hal(parent):
 						'pin can not be created.')
 						info = f'The "{obj_name}" will be disabled.'
 						dialogs.error_msg_ok(parent, title, msg, info)
-						label.setEnabled(False)
-						label.setText('Error!')
+						child.setEnabled(False)
+						child.setText('Error!')
 						continue
 
 			parent.hal_ms_labels[obj_name] = [pin_name, text_dict]
@@ -3263,7 +3267,7 @@ def setup_hal_watch(parent):
 	parent.hal_watch_time_hm = {}
 	parent.hal_watch_time_hms = {}
 
-	def report_error(label, obj_name, pin_name):
+	def report_error(label, obj_name, pin_name): # FIXME use validate_pin_name
 		"""Displays error dialog and disables the faulty label."""
 		title = 'Configuration Error'
 		msg = f'The HAL Watch Label "{obj_name}" HAL pin "{pin_name}" was not found.'
@@ -3272,7 +3276,7 @@ def setup_hal_watch(parent):
 		label.setText('Error!')
 		label.setEnabled(False)
 
-	def validate_pins(label, obj_name, pins):
+	def validate_pins(label, obj_name, pins): # FIXME use validate_pin_name
 		"""Returns True if all pins exist, False otherwise."""
 		for pin in pins:
 			try:
@@ -3290,14 +3294,14 @@ def setup_hal_watch(parent):
 		obj_name = label.objectName()
 
 		# Handle Bit and Integer types
-		if func in ['hal_watch_bit', 'hal_watch_int']:
+		if func in ['hal_watch_bit', 'hal_watch_int']: # FIXME use validate_pin_name
 			pin = label.property('pin_name')
 			if validate_pins(label, obj_name, [pin]):
 				target_dict = parent.hal_watch_bit if func == 'hal_watch_bit' else parent.hal_watch_int
 				target_dict[obj_name] = pin
 
 		# Handle Float type
-		elif func == 'hal_watch_float':
+		elif func == 'hal_watch_float': # FIXME use validate_pin_name
 			pin = label.property('pin_name')
 			if validate_pins(label, obj_name, [pin]):
 				p = label.property('precision')
@@ -3305,13 +3309,13 @@ def setup_hal_watch(parent):
 				parent.hal_watch_float[obj_name] = [pin, precision]
 
 		# Handle Hours/Minutes type
-		elif func == 'hal_watch_time_hm':
+		elif func == 'hal_watch_time_hm': # FIXME use validate_pin_name
 			pins = [label.property('hours'), label.property('minutes')]
 			if validate_pins(label, obj_name, pins):
 				parent.hal_watch_time_hm[obj_name] = pins
 
 		# Handle Hours/Minutes/Seconds type
-		elif func == 'hal_watch_time_hms':
+		elif func == 'hal_watch_time_hms': # FIXME use validate_pin_name
 			pins = [label.property('hours'), label.property('minutes'), label.property('seconds')]
 			if validate_pins(label, obj_name, pins):
 				parent.hal_watch_time_hms[obj_name] = pins
