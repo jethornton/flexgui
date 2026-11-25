@@ -294,6 +294,9 @@ See :ref:`data-types` for more details on HAL Data Types.
 HAL Labels
 ----------
 
+Numeric
+~~~~~~~
+
 A QLabel can be used to monitor HAL pins. HAL connections must be made in the
 post gui HAL file. The pin_name used will create a HAL pin prefixed with
 `flexhal.` A pin_name of my-reader would be `flexhal.my-reader` in HAL.
@@ -313,8 +316,8 @@ The HAL direction is IN for a HAL Label.
 	String, precision, Number of digits for HAL_FLOAT
 	String, zero_padding, Left padded zeros for integer types
 
-Bool Label
-~~~~~~~~~~
+Boolean
+~~~~~~~
 
 A QLabel can have optional True and False text by adding two additional Dynamic
 Properties. Default is `True` and `False`.
@@ -339,8 +342,8 @@ See :doc:`property` for step by step instructions to add a Dynamic Property
 .. image:: /images/hal-bool-label-01.png
    :align: center
 
-Average Float Label
-~~~~~~~~~~~~~~~~~~~
+Average Float
+~~~~~~~~~~~~~
 
 A QLabel can be used to monitor HAL float number pins and display an average of
 the number of samples. The sample stack is LIFO so a new value pushes the oldest
@@ -375,8 +378,8 @@ The HAL direction is IN and the hal_type is REAL for a HAL Average Float Label.
 	Int, rounding, number of digits to the left of the decimal to round
 	Int, precision, Number of decimal digits
 
-Average Integer Label
-~~~~~~~~~~~~~~~~~~~~~
+Average Integer
+~~~~~~~~~~~~~~~
 
 A QLabel can be used to monitor HAL integer pins and display an average
 of the number of samples. The sample stack is LIFO so a new value pushes the
@@ -404,8 +407,8 @@ The HAL direction is IN.
 	Optional
 	Int, samples, The number of samples to use default is 10
 
-Multi-State Label
-~~~~~~~~~~~~~~~~~
+Multi-State
+~~~~~~~~~~~
 
 A QLabel can have multiple text by adding as many Dynamic Properties as needed
 for each text. The `text_n` property the `n` is the integer value for that
@@ -428,30 +431,6 @@ The HAL direction is IN and the hal_type is SINT for a HAL Multi-State Label.
 
 .. image:: /images/hal-msl.png
    :align: center
-
-HAL LCD
--------
-
-A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in
-the post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
-
-The HAL direction is IN for a HAL LCD
-
-.. csv-table:: **HAL LCD**
-   :width: 100%
-   :align: center
-   :widths: 20 20 60
-
-	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_pin
-	String, pin_name, any unique name
-	String, hal_type, real or sint or uint
-	Optional
-	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
-
-.. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
-   `precision` with a value of the number of decimal digits.
 
 HAL LED Labels
 --------------
@@ -487,8 +466,8 @@ Choosing 'square' for LED shape will fill the entire label.
 .. NOTE:: Select Other to get the list and select Color. You can copy and paste
    the hex color value into the color picker.
 
-LED Text Label
-~~~~~~~~~~~~~~
+LED Text
+~~~~~~~~
 
 Similar to the HAL LED except it has a border and the on and off text can be set
 as well as other options. In Qt Designer it's recommended to set the Horizontal
@@ -524,8 +503,8 @@ Default values for the options are:
 * font_bold, False
 
 
-LED Label
-~~~~~~~~~
+LED
+~~~
 
 Similar to the HAL LED except the LED is in the upper right corner so the label
 can have text. The default colors are Red when Off and Green when On. The
@@ -549,27 +528,6 @@ The HAL direction is IN and the hal_type is BOOL for a HAL LED Label.
 	Int, led_top_offset, offset from top edge
 	String, led_shape, square
 
-HAL Progress Bar
-----------------
-
-A QProgressBar can be used to monitor HAL pins. HAL connections must be made in
-the post gui HAL file. The pin_name used will create a HAL pin prefixed with
-`flexhal.` A pin_name of my-bar would be in HAL `flexhal.my-bar`. Typically the
-minimum value is 0 and the maximum value is 100. If the HAL value exceeds the
-maximum value 0 is displayed.
-
-The HAL direction is IN and the hal_type is UINT for a HAL Progress
-Bar.
-
-.. csv-table:: **HAL Progressbar**
-   :width: 100%
-   :align: center
-   :widths: 33 33 33
-
-	**Property Type**, **Property Name**, **Pin Value**
-	String, function, hal_pin
-	String, pin_name, any unique name
-
 HAL Watch Labels
 ----------------
 
@@ -577,8 +535,8 @@ You can watch the status of a HAL pin in your GUI by adding a QLabel with the
 following Dynamic Properties. You can watch Boolean (True/False) pins, Signed or
 Unsigned Integer pins and Floating Point pins.
 
-Watch Bool
-~~~~~~~~~~
+Boolean
+~~~~~~~
 
 .. csv-table:: **HAL Watch Bit**
    :width: 100%
@@ -592,8 +550,8 @@ Watch Bool
 .. image:: /images/hal-watch-bit.png
    :align: center
 
-Watch Integer
-~~~~~~~~~~~~~
+Integer
+~~~~~~~
 
 .. csv-table:: **HAL Watch Integer**
    :width: 100%
@@ -607,8 +565,8 @@ Watch Integer
 .. image:: /images/hal-watch-int.png
    :align: center
 
-Watch Float
-~~~~~~~~~~~
+Float
+~~~~~
 
 .. csv-table:: **HAL Watch Float**
    :width: 100%
@@ -622,8 +580,8 @@ Watch Float
 .. image:: /images/hal-watch-float.png
    :align: center
 
-Watch Time
-~~~~~~~~~~
+Time
+~~~~
 
 To have a label monitor the HAL time component add the following Dynamic
 Properties to a QLabel. You can have as many Time Watch labels as you want.
@@ -658,6 +616,51 @@ and minutes. You need to load the `time` component on your hal file and use the
 
 .. image:: /images/hal-watch-time-02.png
    :align: center
+
+HAL LCD
+-------
+
+A QLCDNumber can be used to monitor HAL pins. HAL connections must be made in
+the post gui HAL file. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-reader would be in HAL `flexhal.my-reader`.
+
+The HAL direction is IN for a HAL LCD
+
+.. csv-table:: **HAL LCD**
+   :width: 100%
+   :align: center
+   :widths: 20 20 60
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
+	String, hal_type, real or sint or uint
+	Optional
+	String, integer_digits, Number of left pad zeros for HAL_S32 or HAL_U32
+
+.. note:: A HAL_FLOAT QLCDNumber can have a string Dynamic Property called
+   `precision` with a value of the number of decimal digits.
+
+HAL Progress Bar
+----------------
+
+A QProgressBar can be used to monitor HAL pins. HAL connections must be made in
+the post gui HAL file. The pin_name used will create a HAL pin prefixed with
+`flexhal.` A pin_name of my-bar would be in HAL `flexhal.my-bar`. Typically the
+minimum value is 0 and the maximum value is 100. If the HAL value exceeds the
+maximum value 0 is displayed.
+
+The HAL direction is IN and the hal_type is UINT for a HAL Progress
+Bar.
+
+.. csv-table:: **HAL Progressbar**
+   :width: 100%
+   :align: center
+   :widths: 33 33 33
+
+	**Property Type**, **Property Name**, **Pin Value**
+	String, function, hal_pin
+	String, pin_name, any unique name
 
 Step by Step
 ------------
