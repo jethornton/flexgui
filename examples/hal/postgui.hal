@@ -1,9 +1,7 @@
 net start-hms-timer time.0.start <= flexhal.hal-hms-timer
 net start-hm-timer time.1.start <= flexhal.hal-hm-timer
 
-# u32   OUT    0x00000000  time.0.hours
-# u32   OUT    0x00000000  time.0.minutes
-# bit   IN          FALSE  time.0.pause
-# u32   OUT    0x00000000  time.0.seconds
-# bit   IN          FALSE  time.0.start
-# s32   OUT           126  time.0.time
+setp flexhal.hal-io-sl-normal 25
+setp flexhal.hal-io-sl-always-on 25
+setp flexhal.hal-io-sl-state-on 25
+setp flexhal.hal-io-sl-all-homed 25
