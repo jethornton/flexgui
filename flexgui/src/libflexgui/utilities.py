@@ -700,6 +700,10 @@ def update_controls(parent):
 		if all_homed:
 			for item in parent.homed_controls:
 				getattr(parent, item).setEnabled(True)
+		if not all_homed:
+			for item in parent.homed_controls:
+				getattr(parent, item).setEnabled(False)
+
 
 		if task_mode == emc.MODE_AUTO: # program running
 			for item in parent.file_open_controls:
@@ -775,6 +779,9 @@ def update_controls(parent):
 			if all_homed:
 				for item in parent.probe_enable:
 					getattr(parent, item).setEnabled(True)
+			if not all_homed:
+				for item in parent.probe_enable:
+					getattr(parent, item).setEnabled(False)
 
 			if parent.probing:
 				for item in parent.probe_controls:
