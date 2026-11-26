@@ -175,11 +175,29 @@ def find_widget_layout(layout, target_widget):
 				return item.layout()
 	return None
 
-def set_hal_enables(parent, obj):
-	obj_name = obj.objectName()
-	always_on = obj.property('always_on')
-	state_on = obj.property('state_on')
-	all_homed = obj.property('all_homed')
+def set_hal_enables(parent, child):
+	obj_name = child.objectName()
+	always_on = child.property('always_on')
+	state_on = child.property('state_on')
+	all_homed = child.property('all_homed')
+
+	always_on = bool(child.property('always_on'))
+	state_on = bool(child.property('state_on'))
+	all_homed = bool(child.property('all_homed'))
+
+	if sum([always_on, state_on, all_homed]) > 1:
+		title = 'Configuration Error'
+		msg = (f'The HAL Object "{obj_name}" has multiple conflicting state '
+		'enables set.')
+		info = 'The control will be disabled'
+		dialogs.error_msg_ok(parent, title, msg, info)
+		child.setEnabled(False)
+		text_widgets = ['QPushButton', 'QCheckBox', 'QRadioButton', 'QLabel',
+		'LEDButton', 'IndicatorButton', 'IndicatorLabel']
+		widget_type = type(child).__name__
+		if widget_type in text_widgets:
+			child.setText('Error!')
+		return
 
 	if always_on:
 		return
