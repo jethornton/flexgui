@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>655</height>
+    <height>658</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -475,6 +475,9 @@
         </item>
         <item row="0" column="0" colspan="2">
          <widget class="QLabel" name="label_85">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
           <property name="text">
            <string>To watch a HAL pin change open Programs &gt; Show HAL
 Open the Watch Tab and add the pins from the
@@ -858,8 +861,15 @@ Filter Tree &gt; Pins &gt; flexhal</string>
         </item>
         <item row="0" column="0" colspan="2">
          <widget class="QLabel" name="label_99">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string>To watch a HAL pin change open Programs &gt; Show HAL
+Open the Watch Tab and add the pins from the
+Filter Tree &gt; Pins &gt; flexhal
+Notice the HAL type for S32 and S64 will be the correct type
+ for the version of LinuxCNC</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -873,21 +883,75 @@ Filter Tree &gt; Pins &gt; flexhal</string>
         <string>Sliders</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
+        <item row="1" column="0" colspan="2">
+         <widget class="QLabel" name="label_107">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string>To watch a HAL pin change open Programs &gt; Show HAL
+Open the Watch Tab and add the pins from the
+Filter Tree &gt; Pins &gt; flexhal</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
          <widget class="QGroupBox" name="groupBox_5">
           <property name="title">
-           <string>Horzontal Sliders</string>
+           <string>Sliders</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="0" colspan="2">
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_106">
+             <property name="text">
+              <string>Enable Condition</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Slider</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_102">
+             <property name="text">
+              <string>HAL Pin Name</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
             <widget class="QLabel" name="label_15">
              <property name="text">
               <string>Always On</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="1" column="0" colspan="2">
+           <item row="1" column="1">
             <widget class="QSlider" name="horizontalSlider_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="maximum">
               <number>100</number>
              </property>
@@ -911,15 +975,34 @@ Filter Tree &gt; Pins &gt; flexhal</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0" colspan="2">
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_100">
+             <property name="text">
+              <string>flexhal.hal-hsl-always-on</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
             <widget class="QLabel" name="label_10">
              <property name="text">
               <string>E Stop On Uint</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="3" column="0" colspan="2">
+           <item row="2" column="1">
             <widget class="QSlider" name="horizontalSlider">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimum">
               <number>0</number>
              </property>
@@ -936,22 +1019,41 @@ Filter Tree &gt; Pins &gt; flexhal</string>
               <string>hal_pin</string>
              </property>
              <property name="pin_name" stdset="0">
-              <string>hal-hsl-normal-uint</string>
+              <string>hal-hsl-estop-uint</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>uint</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="0" colspan="2">
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_101">
+             <property name="text">
+              <string>flexhal.hal-hsl-estop-uint</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
             <widget class="QLabel" name="label_14">
              <property name="text">
               <string>E Stop On Sint</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="5" column="0" colspan="2">
+           <item row="3" column="1">
             <widget class="QSlider" name="horizontalSlider_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimum">
               <number>-100</number>
              </property>
@@ -965,22 +1067,41 @@ Filter Tree &gt; Pins &gt; flexhal</string>
               <string>hal_pin</string>
              </property>
              <property name="pin_name" stdset="0">
-              <string>hal-hsl-normal-sint</string>
+              <string>hal-hsl-estop-sint</string>
              </property>
              <property name="hal_type" stdset="0">
               <string>sint</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="0" colspan="2">
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_103">
+             <property name="text">
+              <string>flexhal.hal-hsl-estop-sint</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
             <widget class="QLabel" name="label_16">
              <property name="text">
               <string>State On</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="9" column="0" colspan="2">
+           <item row="4" column="1">
             <widget class="QSlider" name="horizontalSlider_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="maximum">
               <number>100</number>
              </property>
@@ -1004,15 +1125,34 @@ Filter Tree &gt; Pins &gt; flexhal</string>
              </property>
             </widget>
            </item>
-           <item row="10" column="0" colspan="2">
+           <item row="4" column="2">
+            <widget class="QLabel" name="label_104">
+             <property name="text">
+              <string>flexhal.hal-hsl-state-on</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
             <widget class="QLabel" name="label_17">
              <property name="text">
               <string>All Homed</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="11" column="0" colspan="2">
+           <item row="5" column="1">
             <widget class="QSlider" name="horizontalSlider_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="maximum">
               <number>100</number>
              </property>
@@ -1036,171 +1176,31 @@ Filter Tree &gt; Pins &gt; flexhal</string>
              </property>
             </widget>
            </item>
+           <item row="5" column="2">
+            <widget class="QLabel" name="label_105">
+             <property name="text">
+              <string>flexhal.hal-hsl-all-homed</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_6">
-          <property name="title">
-           <string>Vertical Sliders</string>
+        <item row="0" column="0">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="4">
-            <widget class="QSlider" name="verticalSlider_4">
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="value">
-              <number>25</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-vsl-state-on</string>
-             </property>
-             <property name="state_on" stdset="0">
-              <bool>true</bool>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>uint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Sint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSlider" name="verticalSlider">
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="value">
-              <number>25</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-vsl-uint</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>uint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Uint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QLabel" name="label_18">
-             <property name="text">
-              <string>S On</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QSlider" name="verticalSlider_2">
-             <property name="minimum">
-              <number>-100</number>
-             </property>
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-vsl-sint</string>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>sint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="5">
-            <widget class="QSlider" name="verticalSlider_5">
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="value">
-              <number>25</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-vsl-all-homed</string>
-             </property>
-             <property name="all_homed" stdset="0">
-              <bool>true</bool>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>uint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="5">
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Hom</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QSlider" name="verticalSlider_3">
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="value">
-              <number>25</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="function" stdset="0">
-              <string>hal_pin</string>
-             </property>
-             <property name="pin_name" stdset="0">
-              <string>hal-vsl-always-on</string>
-             </property>
-             <property name="always_on" stdset="0">
-              <bool>true</bool>
-             </property>
-             <property name="hal_type" stdset="0">
-              <string>uint</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="text">
-              <string>A On</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
