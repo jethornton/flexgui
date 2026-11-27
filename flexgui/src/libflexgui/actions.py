@@ -308,7 +308,8 @@ def action_run(parent, start=0): # actionRun
 			parent.command.mode(emc.MODE_AUTO)
 			parent.command.wait_complete()
 		parent.command.auto(emc.AUTO_RUN, start)
-		utilities.update_qcode_pte(parent)
+		if 'qcode_pte' in parent.child_names:
+			utilities.update_qcode_pte(parent)
 
 def action_run_from_line(parent): # actionRun_from_Line
 	if 'gcode_pte' in parent.child_names:
