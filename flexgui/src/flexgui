@@ -530,6 +530,45 @@ class flexgui(QMainWindow):
 			case _: # no SIZE key is found
 				self.show()
 
+		# Defer reading geometry until the event loop finishes showing the window
+		QTimer.singleShot(0, lambda: print_window_size(self))
+
+def print_window_size(self):
+	# Get the screen object the window is currently on
+	current_screen = self.screen()
+	# Full monitor resolution (e.g., 1920x1080)
+	screen_rect = current_screen.geometry()
+	#print(f'screen_rect {screen_rect}')
+	width = screen_rect.width()
+	#print(f'width {width}')
+	height = screen_rect.height()
+	#print(f'height {height}')
+
+	# Usable screen space (excludes desktop panels/taskbars)
+	avail_rect = current_screen.availableGeometry()
+	#print(f'avail_rect {avail_rect}')
+
+	avail_width = avail_rect.width()
+	#print(f'avail_width {avail_width}')
+
+	avail_height = avail_rect.height()
+	#print(f'avail_height {avail_height}')
+
+	# Inner window size (excluding title bar/borders)
+	#print("Window size:", window.width(), window.height())
+
+	# Outer window size (including window manager frame/title bar)
+	frame = window.frameGeometry()
+	#print("Frame size:", frame.width(), frame.height())
+
+	if 'screen_info_pte' in self.child_names:
+		self.screen_info_pte.clear()
+		msg = (f'screen width {width} height {height}\n'
+		f'avail width {avail_width} height {avail_height}\n'
+		f'Window width {window.width()} height {window.height()}'
+		f'Frame width {frame.width()} height {frame.height()}')
+		self.screen_info_pte.setPlainText(msg)
+
 	def closeEvent(self, event): # Flex GUI close event
 		"""Automatically saves window state right before closing."""
 		shutdown.save_settings(self)
