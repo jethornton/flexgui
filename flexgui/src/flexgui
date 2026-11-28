@@ -565,7 +565,7 @@ def print_window_size(self):
 		self.screen_info_pte.clear()
 		msg = (f'screen width {width} height {height}\n'
 		f'avail width {avail_width} height {avail_height}\n'
-		f'Window width {window.width()} height {window.height()}'
+		f'Window width {window.width()} height {window.height()}\n'
 		f'Frame width {frame.width()} height {frame.height()}')
 		self.screen_info_pte.setPlainText(msg)
 
