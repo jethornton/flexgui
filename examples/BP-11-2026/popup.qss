@@ -1,0 +1,23 @@
+QWidget {
+	color: white;
+	background-color: #000099;
+	font-family: Courier;
+	font-size: 14pt;
+	font-weight: 700;
+	padding: 5px;
+}
+
+QLineEdit {
+	font-size: 24pt;
+}
+
+QPushButton {
+	padding: 10px;
+}
+
+QPushButton[objectName*="key"] {
+	font-family: Courier;
+	font-size: 24pt;
+	font-weight: 700;
+	color: white;
+}

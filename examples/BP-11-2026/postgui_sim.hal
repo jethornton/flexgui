@@ -1,0 +1,17 @@
+
+#loadrt or2
+#addf or2.0 servo-thread
+
+# estop
+#loadrt estop_latch
+#addf estop-latch.0 servo-thread
+
+#net estop-loopout iocontrol.0.emc-enable-in <= estop-latch.0.ok-out
+#net estop-loopin iocontrol.0.user-enable-out => estop-latch.0.ok-in
+#net estop-reset iocontrol.0.user-request-enable => estop-latch.0.reset
+
+#net external-no-button or2.0.in0 <= flexhal.ext-estop-no
+#net external-nc-button or2.0.in1 <= flexhal.ext-estop-nc
+
+#net external-fault estop-latch.0.fault-in <= or2.0.out
+
